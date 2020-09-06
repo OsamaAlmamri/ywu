@@ -13,10 +13,10 @@ class CreateTrainingTitlesTable extends Migration
      */
     public function up()
     {
+        // مواضيع الكورس
         Schema::create('training_titles', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->boolean('isCompleted')->default(false);
             $table->foreignId('training_id')->constrained('trainings')->onUpdate('cascade')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();

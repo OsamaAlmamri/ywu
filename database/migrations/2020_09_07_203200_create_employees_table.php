@@ -15,14 +15,10 @@ class CreateEmployeesTable extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->foreignId('category_id')->constrained('employee_categories')
-                ->onUpdate('cascade')->onDelete('cascade');
-            $table->string('status')->default('مفعل');
-            $table->softDeletes();
-            $table->timestamps();
+            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('department_id')->constrained('departments')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('branch_id')->constrained('branches')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('job_id')->constrained('jobs')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

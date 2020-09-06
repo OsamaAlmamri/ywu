@@ -17,8 +17,10 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('phone')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('password');
-            $table->string('status')->default('مفعل');
+            $table->enum('type',['share_users','employees','visitor']);
+            $table->boolean('status')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -21,8 +21,8 @@ class CreateQuestionsTable extends Migration
             $table->string('option2');
             $table->string('option3');
             $table->string('option4');
-            $table->string('answer');
-            $table->foreignId('exam_id')->constrained('exams')->onUpdate('cascade')->onDelete('cascade');
+            $table->enum('answer',['option1','option2' . 'option3','option4']);
+            $table->foreignId('training_id')->constrained('trainings')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

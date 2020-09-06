@@ -15,13 +15,10 @@ class CreateShareUsersTable extends Migration
     {
         Schema::create('share_users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('type');
-            $table->string('status')->default('غير مفعل');
-            $table->softDeletes();
-            $table->timestamps();
+            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->enum('type',['sub_cluster','copartner'])->default('sub_cluster');
+            $table->string('destination')->nullable();
+
         });
     }
 

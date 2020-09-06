@@ -417,6 +417,23 @@
         }.nav_title ,.sidebar-footer{
             background: #000000;
         }
+       .nav-md .container.body .col-md-3.left_col {
+           min-height: auto;
+           width: 230px;
+           position: fixed;
+
+       }
+       .nav-md .container.body .col-md-3.left_col {
+           min-height: auto;
+           width: 230px;
+           /*position: fixed;*/
+
+       }
+       .nav-sm .container.body .col-md-3.left_col {
+           min-height: auto;
+           /*position: fixed;*/
+
+       }
     </style>
 
 </head>

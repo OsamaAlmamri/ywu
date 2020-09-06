@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoriesTable extends Migration
+class CreateUserTrainingTiltlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        //  فئات   الاستشارات //اسرية و نفسية وقانونية - شكاوى
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('user_training_titles', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('title_id')->constrained('title_contents')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('user_training_tiltles');
     }
 }

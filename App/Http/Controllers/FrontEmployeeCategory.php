@@ -6,6 +6,7 @@ use App\Admin;
 use App\Category_Training;
 use App\Employee;
 use App\EmployeeCategory;
+use App\Job;
 use App\Models\TrainingContents\Training;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
@@ -20,7 +21,7 @@ class FrontEmployeeCategory extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $post = EmployeeCategory::latest()->get();
+            $post = Job::latest()->get();
             return datatables()->of($post)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" name="show" id="' . $data->id . '" class="show btn btn-info btn-sm "style="float: right">إضافة دورات تدريبية</span></button>';

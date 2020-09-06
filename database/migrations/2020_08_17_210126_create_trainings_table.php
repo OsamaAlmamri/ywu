@@ -13,6 +13,7 @@ class CreateTrainingsTable extends Migration
      */
     public function up()
     {
+        // كورسات الماجدة التدريبية
         Schema::create('trainings', function (Blueprint $table) {
             $table->id();
             $table->string('name');

@@ -13,6 +13,7 @@ class CreateWomenPostsTable extends Migration
      */
     public function up()
     {
+        // شئون المراة
         Schema::create('women_posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
@@ -21,7 +22,6 @@ class CreateWomenPostsTable extends Migration
             $table->text('book')->nullable();
             $table->text('sound')->nullable();
             $table->text('video_url')->nullable();
-            $table->foreignId('category_id')->constrained('women_categories')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCategoryTrainingsTable extends Migration
+class CreateResultsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateCategoryTrainingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('category__trainings', function (Blueprint $table) {
+        Schema::create('results', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained('employee_categories')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('training_id')->constrained('trainings')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('grade');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateCategoryTrainingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category__trainings');
+        Schema::dropIfExists('results');
     }
 }
