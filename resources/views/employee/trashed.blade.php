@@ -95,23 +95,28 @@
                 },
                 columns:[
                     {
+                        title: 'الاسم ',
+
                         data: 'name',
                         name: 'name'
                     },
                     {
+                        title: 'الايميل ',
                         data: 'email',
                         name: 'email'
                     },
                     {
-                        data: 'category',
-                        name: 'category'
-                    },
-                    {
-                        data: 'status',
-                        name: 'status'
-                    },
-                    {
-                        data: 'published',
+                        title: 'القسم ',
+                        data: 'department',
+                        name: 'department'
+                    },{
+                        title: ' الوظيفة',
+                        data: 'job',
+                        name: 'job'
+                    },{
+                        title: ' الفرع',
+                        data: 'branch',
+                        name: 'branch'
                     },
                     {
                         data: 'action',

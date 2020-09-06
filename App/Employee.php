@@ -23,7 +23,8 @@ class Employee extends Authenticatable implements JWTSubject
      *
      * @var array
      */
-
+public $timestamps=false;
+    protected $fillable=['department_id','branch_id','job_id','user_id'] ;
 
     public function department()
     {

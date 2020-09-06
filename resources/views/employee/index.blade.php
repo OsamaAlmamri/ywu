@@ -30,6 +30,12 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="control-label col-md-4">رقم الهاتف : </label>
+                            <div class="col-md-8">
+                                <input type="number" name="phone" id="phone" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label col-md-4">كلمة المرور : </label>
                             <div class="col-md-8">
                                 <input type="text" name="password" id="password" class="form-control"/>
@@ -38,8 +44,30 @@
                         <div class="form-group">
                             <label class="control-label col-md-4">الوظيفة : </label>
                             <div class="col-md-8">
-                                <select class="form-control" id="category" name="category">
-                                    @foreach($category as $cat)
+                                <select class="form-control" id="job_id" name="job_id">
+                                    @foreach($jobs as $cat)
+                                        <option value="{{$cat->id}}">{{$cat->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">القسم : </label>
+                            <div class="col-md-8">
+                                <select class="form-control" id="department_id" name="department_id">
+                                    @foreach($departments as $cat)
+                                        <option value="{{$cat->id}}">{{$cat->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">الفرع : </label>
+                            <div class="col-md-8">
+                                <select class="form-control" id="branch_id" name="branch_id">
+                                    @foreach($branchs as $cat)
                                         <option value="{{$cat->id}}">{{$cat->name}}</option>
                                     @endforeach
                                 </select>
@@ -140,6 +168,11 @@
                         name: 'name'
                     },
                     {
+                        title: ' الهاتف',
+                        data: 'phone',
+                        name: 'phone'
+                    },
+                    {
                         title: 'الايميل',
                         data: 'email',
                         name: 'email'
@@ -148,11 +181,11 @@
                         title: 'القسم ',
                         data: 'department',
                         name: 'department'
-                    },{
+                    }, {
                         title: ' الوظيفة',
                         data: 'job',
                         name: 'job'
-                    },{
+                    }, {
                         title: ' الفرع',
                         data: 'branch',
                         name: 'branch'
@@ -176,7 +209,7 @@
                 ]
             });
 
-            $('#create_record').click(function () {
+            $('.create_record').click(function () {
                 $('.modal-title').text("إضافة حساب موظف جديد");
                 $('#sample_form')[0].reset();
                 $('#store_image').html('');
@@ -226,6 +259,7 @@
                         dataType: "json",
                         success: function (data) {
                             var html = '';
+
                             if (data.errors) {
                                 html = '<div class="alert alert-danger">';
                                 for (var count = 0; count < data.errors.length; count++) {
@@ -234,6 +268,8 @@
                                 html += '</div>';
                             }
                             if (data.success) {
+                                $('#formModal').modal('hide');
+
                                 html = '<div class="alert alert-success">' + data.success + '</div>';
                                 $('#sample_form')[0].reset();
                                 $('#store_image').html('');
@@ -256,7 +292,11 @@
                     success: function (html) {
                         $('#name').val(html.data.name);
                         $('#email').val(html.data.email);
-                        $('#password').hide();
+                        // $('#password').hide();
+                        $('#job_id').val(html.data.employee.job_id);
+                        $('#branch_id').val(html.data.employee.branch_id);
+                        $('#phone').val(html.data.phone);
+                        $('#department_id').val(html.data.employee.department_id);
                         $('#status').val(html.data.status);
                         $('#hidden_id').val(html.data.id);
                         $('.modal-title').text("تعديل بيانات الحساب");
