@@ -1,0 +1,143 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Admin;
+use App\Models\TrainingContents\Training;
+use App\Models\TrainingContents\TrainingTitle;
+use App\Traits\JsonTrait;
+use App\Traits\PostTrait;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+class FrontTitleController extends Controller
+{
+    use JsonTrait;
+    use PostTrait;
+
+    public function index()
+    {
+        if (request()->ajax()) {
+            if (!empty(request()->filter_country)) {
+                $post = TrainingTitle::with('training')->where('training_id', request()->filter_country)->latest()->get();
+                return datatables()->of($post)
+                    ->addColumn('action', function ($data) {
+                        $button = '<button type="button" name="edit" id="' . $data->id . '" class="edit btn btn-warning btn-sm" style="float: right"><span class=\'glyphicon glyphicon-pencil\'></span></button>';
+                        $button .= '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"style="float: right"><span class=\'glyphicon glyphicon-trash\'></button>';
+                        return $button;
+                    })->editColumn('training', function ($post) {
+                        return $post->training->name;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+            } else {
+                $post = TrainingTitle::with('training')->latest()->get();
+                return datatables()->of($post)
+                    ->addColumn('action', function ($data) {
+                        $button = '<button type="button" name="edit" id="' . $data->id . '" class="edit btn btn-warning btn-sm" style="float: right"><span class=\'glyphicon glyphicon-pencil\'></span></button>';
+                        $button .= '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"style="float: right"><span class=\'glyphicon glyphicon-trash\'></button>';
+                        return $button;
+                    })->editColumn('training', function ($post) {
+                        return $post->training->name;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+            }
+        }
+        $categories = Training::all();
+        $admin=Admin::where('id',1)->first();
+        return view('title.index', compact(['categories','admin']));
+    }
+
+    public function index_edit($id)
+    {
+        if (request()->ajax()) {
+            $post = TrainingTitle::with('training')->where('training_id', $id)->get();
+            if ($post) {
+                return datatables()->of($post)
+                    ->addColumn('action', function ($data) {
+                        $button = '<button type="button" name="show" id="' . $data->id . '" class="show btn btn-primary btn-sm" style="float: right"><span class=\'glyphicon glyphicon-eye-open\'></span></button>';
+                        $button .= '<button type="button" name="edit" id="' . $data->id . '" class="edit btn btn-warning btn-sm" style="float: right"><span class=\'glyphicon glyphicon-pencil\'></span></button>';
+                        $button .= '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"style="float: right"><span class=\'glyphicon glyphicon-trash\'></button>';
+                        return $button;
+                    })->editColumn('training', function ($post) {
+                        return $post->training->name;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+            }
+        }
+
+        $category = Training::where('id', $id)->first();
+        $admin=Admin::where('id',1)->first();
+        return view('title.show', compact(['category', 'id','admin']));
+    }
+
+    public function store(Request $request)
+    {
+        $rules=[
+            "name"=>"required"
+        ];
+        $messages=[
+            "name.required"=>"يرجى كتابة العنوان"
+        ];
+        $error = Validator::make($request->all(), $rules,$messages);
+        if ($error->fails()) {
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+        $post = new TrainingTitle();
+        $post->name = $request->name;
+        $post->training_id = $request->training;
+        $post->save();
+        if ($post->save())
+            return response()->json(['success' => 'تم النشر بنجاح']);
+    }
+
+    public function show($id)
+    {
+        if (request()->ajax()) {
+            $data = TrainingTitle::whereId($id)->first();
+            return response()->json(['data' => $data]);
+        }
+    }
+
+    public function edit($id)
+    {
+        if (request()->ajax()) {
+            $data = TrainingTitle::whereId($id)->first();
+            return response()->json(['data' => $data]);
+        }
+    }
+
+    public function update(Request $request)
+    {
+        $rules=[
+            "name"=>"required"
+        ];
+        $messages=[
+            "name.required"=>"يرجى كتابة العنوان"
+        ];
+        $error = Validator::make($request->all(), $rules,$messages);
+        if ($error->fails()) {
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+
+        $post = TrainingTitle::whereId($request->hidden_id)->first();
+        if ($post) {
+            $post->name = $request->name;
+            $post->training_id = $request->training;
+            $post->update();
+            if ($post) {
+                return response()->json(['success' => 'تم التعديل بنجاح']);
+            } else {
+                return response()->json(['success' => 'فشل التعديل']);
+            }
+        }
+    }
+
+    public function destroy($id)
+    {
+        $data = TrainingTitle::findOrFail($id);
+        $data->delete();
+    }
+}

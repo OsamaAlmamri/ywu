@@ -1,0 +1,2200 @@
+{
+	"info": {
+		"_postman_id": "28d25db1-512a-435a-b1fe-4133bbd3fcc9",
+		"name": "App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "UserContents",
+			"item": [
+				{
+					"name": "RegisterNewUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "صالح مروح",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "774785533",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Adnan0000%",
+									"type": "text"
+								},
+								{
+									"key": "password_confirm",
+									"value": "Adnan0000%",
+									"type": "text"
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/App/public/api/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserLogin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phone",
+									"value": "774785566",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123123123",
+									"type": "text"
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/App/public/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"login"
+							],
+							"query": [
+								{
+									"key": null,
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "UserLogin"
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllUsersPosts",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/App/public/api/AllPosts?category=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"AllPosts"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMyPosts",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/App/public/api/MyPosts?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MTM4NjI1LCJuYmYiOjE1OTgxMzg2MjUsImp0aSI6InhoQXlpeVcyTnBwSWZkcUoiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.92y7rTumCIOJRVV4ovs1377VUhoeaiS-XXZm4JiWsXE",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"MyPosts"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MTM4NjI1LCJuYmYiOjE1OTgxMzg2MjUsImp0aSI6InhoQXlpeVcyTnBwSWZkcUoiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.92y7rTumCIOJRVV4ovs1377VUhoeaiS-XXZm4JiWsXE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUserPostById",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/App/public/api/ShPost/14?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk2NzU1OTEyLCJleHAiOjE1OTY3NjU1MTIsIm5iZiI6MTU5Njc1NTkxMiwianRpIjoiQUM1NXplTGQ4ekIyd2pIdSIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.6zqtMakEPo6MSkfjDjfFXOolVaoqvskbW02Xvtvb2o0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"ShPost",
+								"14"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk2NzU1OTEyLCJleHAiOjE1OTY3NjU1MTIsIm5iZiI6MTU5Njc1NTkxMiwianRpIjoiQUM1NXplTGQ4ekIyd2pIdSIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.6zqtMakEPo6MSkfjDjfFXOolVaoqvskbW02Xvtvb2o0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddNewUserPost",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "العلاقات الاسرية وما ادراك ما العلاقات الاسرية",
+									"type": "text"
+								},
+								{
+									"key": "body",
+									"value": "عنوان الاستشارة غريب نوعا ما ولكن الاهم من ذالك لماذا العلاقات الاسرية نجدها في اغلب الاسر هشة او بمعنى اصح لا يوجد ترابط بين افراد الاسرة ؟",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "1",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/App/public/api/StPost?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4OTEzMjY2LCJuYmYiOjE1OTg5MTMyNjYsImp0aSI6IlRPRE1LTjZoa2JTd3pVSmgiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.AmsIPTWt98WbuUiLGKH5K6-0C5rXAi99NgMdZW5BW6k",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"StPost"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4OTEzMjY2LCJuYmYiOjE1OTg5MTMyNjYsImp0aSI6IlRPRE1LTjZoa2JTd3pVSmgiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.AmsIPTWt98WbuUiLGKH5K6-0C5rXAi99NgMdZW5BW6k"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUserPost",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"علي عنبة\",\r\n    \"body\":\"قد انت ياقلب بتحبه ادي لي الصدق لاتكذب\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/App/public/api/UpPost/21?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MTM4NjI1LCJuYmYiOjE1OTgxMzg2MjUsImp0aSI6InhoQXlpeVcyTnBwSWZkcUoiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.92y7rTumCIOJRVV4ovs1377VUhoeaiS-XXZm4JiWsXE",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"UpPost",
+								"21"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MTM4NjI1LCJuYmYiOjE1OTgxMzg2MjUsImp0aSI6InhoQXlpeVcyTnBwSWZkcUoiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.92y7rTumCIOJRVV4ovs1377VUhoeaiS-XXZm4JiWsXE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUserPost",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/App/public/api/DePost/31?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MDQwMzA0LCJleHAiOjE1OTgwNDk5MDQsIm5iZiI6MTU5ODA0MDMwNCwianRpIjoic1U1T3ZKM1VXMGhiaHZsUiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.JepsWrgRQ8-8E99cA7xD0URUz_bGIXy__f-k3peNbks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"DePost",
+								"31"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MDQwMzA0LCJleHAiOjE1OTgwNDk5MDQsIm5iZiI6MTU5ODA0MDMwNCwianRpIjoic1U1T3ZKM1VXMGhiaHZsUiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.JepsWrgRQ8-8E99cA7xD0URUz_bGIXy__f-k3peNbks"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUserDetails",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/App/public/api/user?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MjIwNjI0LCJuYmYiOjE1OTgyMjA2MjQsImp0aSI6InM2dVNvaDhBVlpFQ2tjZGkiLCJzdWIiOjMsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.PQ5vp701t89dNDy4_Uko3d5t2004eMJ04StZfKYxeZ4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"user"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MjIwNjI0LCJuYmYiOjE1OTgyMjA2MjQsImp0aSI6InM2dVNvaDhBVlpFQ2tjZGkiLCJzdWIiOjMsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.PQ5vp701t89dNDy4_Uko3d5t2004eMJ04StZfKYxeZ4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LogoutUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/App/public/api/logout?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MjIwNjI0LCJuYmYiOjE1OTgyMjA2MjQsImp0aSI6InM2dVNvaDhBVlpFQ2tjZGkiLCJzdWIiOjMsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.PQ5vp701t89dNDy4_Uko3d5t2004eMJ04StZfKYxeZ4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"logout"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MjIwNjI0LCJuYmYiOjE1OTgyMjA2MjQsImp0aSI6InM2dVNvaDhBVlpFQ2tjZGkiLCJzdWIiOjMsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.PQ5vp701t89dNDy4_Uko3d5t2004eMJ04StZfKYxeZ4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SaveNewUserComment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "body",
+									"value": "طيب استاذي العزيز طالما والاب هو المسؤول الوحيد عن هذا الشي اذا ايش دور الام في الاسرة",
+									"type": "text"
+								},
+								{
+									"key": "post_id",
+									"value": "30",
+									"type": "text"
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/App/public/api/StComment?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4OTEzNzg4LCJuYmYiOjE1OTg5MTM3ODgsImp0aSI6IjBDbjFCZVdld3lYTU1PSHEiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.pVKL46eJyirlOMHQF066BW7rPyBd4_UlCBv_Kc2cahI",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"StComment"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4OTEzNzg4LCJuYmYiOjE1OTg5MTM3ODgsImp0aSI6IjBDbjFCZVdld3lYTU1PSHEiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.pVKL46eJyirlOMHQF066BW7rPyBd4_UlCBv_Kc2cahI"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUserComment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "body",
+									"value": "على الله",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/App/public/api/UpComment/ 2?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MDQwMzA0LCJleHAiOjE1OTgwNDk5MDQsIm5iZiI6MTU5ODA0MDMwNCwianRpIjoic1U1T3ZKM1VXMGhiaHZsUiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.JepsWrgRQ8-8E99cA7xD0URUz_bGIXy__f-k3peNbks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"UpComment",
+								" 2"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MDQwMzA0LCJleHAiOjE1OTgwNDk5MDQsIm5iZiI6MTU5ODA0MDMwNCwianRpIjoic1U1T3ZKM1VXMGhiaHZsUiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.JepsWrgRQ8-8E99cA7xD0URUz_bGIXy__f-k3peNbks"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUserComment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/App/public/api/DeComment/2?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MDQwMzA0LCJleHAiOjE1OTgwNDk5MDQsIm5iZiI6MTU5ODA0MDMwNCwianRpIjoic1U1T3ZKM1VXMGhiaHZsUiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.JepsWrgRQ8-8E99cA7xD0URUz_bGIXy__f-k3peNbks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"DeComment",
+								"2"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MDQwMzA0LCJleHAiOjE1OTgwNDk5MDQsIm5iZiI6MTU5ODA0MDMwNCwianRpIjoic1U1T3ZKM1VXMGhiaHZsUiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.JepsWrgRQ8-8E99cA7xD0URUz_bGIXy__f-k3peNbks"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllCategories",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/App/public/api/AllCategories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"AllCategories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ResetUserPassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "734455687",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Adnan0000%",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/App/public/api/reset_user?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4Nzk2NTc5LCJuYmYiOjE1OTg3OTY1NzksImp0aSI6IjN3SUZKc24xQjJmNGRsMWgiLCJzdWIiOjMsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.Jq7wi-ujqo3Hh2TwSyPwr-CNlfCURWtThr636Lypzgs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"reset_user"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4Nzk2NTc5LCJuYmYiOjE1OTg3OTY1NzksImp0aSI6IjN3SUZKc24xQjJmNGRsMWgiLCJzdWIiOjMsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.Jq7wi-ujqo3Hh2TwSyPwr-CNlfCURWtThr636Lypzgs"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUserDetails",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "صدام حسين",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/App/public/api/update_user?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4Nzk2ODA2LCJuYmYiOjE1OTg3OTY4MDYsImp0aSI6ImxpVUR5MUgwZ2xLOUtPU0giLCJzdWIiOjMsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.96u7cIEnW523FI52TMj3ib88n4nr0kZaTtYWlhAW05I",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"update_user"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4Nzk2ODA2LCJuYmYiOjE1OTg3OTY4MDYsImp0aSI6ImxpVUR5MUgwZ2xLOUtPU0giLCJzdWIiOjMsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.96u7cIEnW523FI52TMj3ib88n4nr0kZaTtYWlhAW05I"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "EmployeeContents",
+			"item": [
+				{
+					"name": "Category",
+					"item": [
+						{
+							"name": "GetCategoryTrainings",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/App/public/api/ShowTrainingsCategory",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"ShowTrainingsCategory"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "LogoutEmployee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/App/public/api/emp-logout?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5Njc0ODA3MiwiZXhwIjoxNTk2NzU3NjcyLCJuYmYiOjE1OTY3NDgwNzIsImp0aSI6IlRoYTQ0V3pjVWw0VlY3TTkiLCJzdWIiOjEsInBydiI6ImI5NGNkZjg5YWYxODQ3NThmOTY1OWEzOTBiNmU4MTZkYTEzOGEyOGYifQ.ih0JCwJGVMkwa_rFWNmJpEwVfCWM8U1bLI4219mtq4o",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"emp-logout"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5Njc0ODA3MiwiZXhwIjoxNTk2NzU3NjcyLCJuYmYiOjE1OTY3NDgwNzIsImp0aSI6IlRoYTQ0V3pjVWw0VlY3TTkiLCJzdWIiOjEsInBydiI6ImI5NGNkZjg5YWYxODQ3NThmOTY1OWEzOTBiNmU4MTZkYTEzOGEyOGYifQ.ih0JCwJGVMkwa_rFWNmJpEwVfCWM8U1bLI4219mtq4o"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EmployeeDetails",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/App/public/api/emp-user?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5OTA4MzM4OCwibmJmIjoxNTk5MDgzMzg4LCJqdGkiOiJHbGFiVUpJd29vd2RvZXNUIiwic3ViIjo1LCJwcnYiOiJiOTRjZGY4OWFmMTg0NzU4Zjk2NTlhMzkwYjZlODE2ZGExMzhhMjhmIn0.R7ta3T4hFsyBa3tGkojLvxlctlQwrDu1lNM0qEO8izM&id=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"emp-user"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5OTA4MzM4OCwibmJmIjoxNTk5MDgzMzg4LCJqdGkiOiJHbGFiVUpJd29vd2RvZXNUIiwic3ViIjo1LCJwcnYiOiJiOTRjZGY4OWFmMTg0NzU4Zjk2NTlhMzkwYjZlODE2ZGExMzhhMjhmIn0.R7ta3T4hFsyBa3tGkojLvxlctlQwrDu1lNM0qEO8izM"
+								},
+								{
+									"key": "id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EmployeeLogin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "mohammed@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123123123",
+									"type": "text"
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/App/public/api/emp-login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"emp-login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EmployeeRegister",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/App/public/api/emp-register?name=علي المزعطي&email=adffno@gmail.com&password=123123123&category_id=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"emp-register"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "علي المزعطي"
+								},
+								{
+									"key": "email",
+									"value": "adffno@gmail.com"
+								},
+								{
+									"key": "password",
+									"value": "123123123"
+								},
+								{
+									"key": "category_id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SaveEmployeeComments",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "body",
+									"value": "نعم اخي العزيز كذالك الام لها دور كبير في الاسرة ",
+									"type": "text"
+								},
+								{
+									"key": "post_id",
+									"value": "30",
+									"type": "text"
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/App/public/api/Replay",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"Replay"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5ODkxMzU2MywibmJmIjoxNTk4OTEzNTYzLCJqdGkiOiJGczU2RzJVSTNvd3ZZdDhrIiwic3ViIjoxLCJwcnYiOiJiOTRjZGY4OWFmMTg0NzU4Zjk2NTlhMzkwYjZlODE2ZGExMzhhMjhmIn0.iE6UmUxnaIRJo9jHBvtV914v19NZFS5j8vuKA0PVRUk",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateEmployeeComment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "body",
+									"value": "نجرب تعديل",
+									"type": "text"
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/App/public/api/UpReplay/3?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5ODA0MjQwMSwiZXhwIjoxNTk4MDUyMDAxLCJuYmYiOjE1OTgwNDI0MDEsImp0aSI6Ikx1SXVIbUNMVXYyc0dYbUYiLCJzdWIiOjEsInBydiI6ImI5NGNkZjg5YWYxODQ3NThmOTY1OWEzOTBiNmU4MTZkYTEzOGEyOGYifQ.ud94zg2pU8KQDMpL3ovvMTxIGqicR16-jdX7atAUnAo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"UpReplay",
+								"3"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5ODA0MjQwMSwiZXhwIjoxNTk4MDUyMDAxLCJuYmYiOjE1OTgwNDI0MDEsImp0aSI6Ikx1SXVIbUNMVXYyc0dYbUYiLCJzdWIiOjEsInBydiI6ImI5NGNkZjg5YWYxODQ3NThmOTY1OWEzOTBiNmU4MTZkYTEzOGEyOGYifQ.ud94zg2pU8KQDMpL3ovvMTxIGqicR16-jdX7atAUnAo"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteEmployeeComment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/App/public/api/DeReplay/3?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5ODA0MjQwMSwiZXhwIjoxNTk4MDUyMDAxLCJuYmYiOjE1OTgwNDI0MDEsImp0aSI6Ikx1SXVIbUNMVXYyc0dYbUYiLCJzdWIiOjEsInBydiI6ImI5NGNkZjg5YWYxODQ3NThmOTY1OWEzOTBiNmU4MTZkYTEzOGEyOGYifQ.ud94zg2pU8KQDMpL3ovvMTxIGqicR16-jdX7atAUnAo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"DeReplay",
+								"3"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5ODA0MjQwMSwiZXhwIjoxNTk4MDUyMDAxLCJuYmYiOjE1OTgwNDI0MDEsImp0aSI6Ikx1SXVIbUNMVXYyc0dYbUYiLCJzdWIiOjEsInBydiI6ImI5NGNkZjg5YWYxODQ3NThmOTY1OWEzOTBiNmU4MTZkYTEzOGEyOGYifQ.ud94zg2pU8KQDMpL3ovvMTxIGqicR16-jdX7atAUnAo"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateEmployeeDetails",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "علي مقصع",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/App/public/api/update_emp?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5OTE3NDgzNSwibmJmIjoxNTk5MTc0ODM1LCJqdGkiOiJiYVlSR0JOY1NIeVd5U1BwIiwic3ViIjo0LCJwcnYiOiJiOTRjZGY4OWFmMTg0NzU4Zjk2NTlhMzkwYjZlODE2ZGExMzhhMjhmIn0.OIIvVChAlIbcxyYRIMZzqslvuszmXxUmHPdOHHUFt7A",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"update_emp"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5OTE3NDgzNSwibmJmIjoxNTk5MTc0ODM1LCJqdGkiOiJiYVlSR0JOY1NIeVd5U1BwIiwic3ViIjo0LCJwcnYiOiJiOTRjZGY4OWFmMTg0NzU4Zjk2NTlhMzkwYjZlODE2ZGExMzhhMjhmIn0.OIIvVChAlIbcxyYRIMZzqslvuszmXxUmHPdOHHUFt7A"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ResetEmployeePassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "adnan@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Adnan0000%",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/App/public/api/reset_emp?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5OTE3NDgzNSwibmJmIjoxNTk5MTc0ODM1LCJqdGkiOiJiYVlSR0JOY1NIeVd5U1BwIiwic3ViIjo0LCJwcnYiOiJiOTRjZGY4OWFmMTg0NzU4Zjk2NTlhMzkwYjZlODE2ZGExMzhhMjhmIn0.OIIvVChAlIbcxyYRIMZzqslvuszmXxUmHPdOHHUFt7A",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"reset_emp"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5OTE3NDgzNSwibmJmIjoxNTk5MTc0ODM1LCJqdGkiOiJiYVlSR0JOY1NIeVd5U1BwIiwic3ViIjo0LCJwcnYiOiJiOTRjZGY4OWFmMTg0NzU4Zjk2NTlhMzkwYjZlODE2ZGExMzhhMjhmIn0.OIIvVChAlIbcxyYRIMZzqslvuszmXxUmHPdOHHUFt7A"
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "WomenContents",
+			"item": [
+				{
+					"name": "ShowPostById",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/App/public/api/ShowPId/15",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"ShowPId",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ShowAllPosts",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/App/public/api/ShowP",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"ShowP"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SaveNewPost",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "تجربه جديده",
+									"type": "text"
+								},
+								{
+									"key": "body",
+									"value": "منشور جديد نجرب وعللى الله",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Adnan Almaqwali/Pictures/MEmu Photo/5.jpg"
+								},
+								{
+									"key": "book",
+									"type": "file",
+									"src": "/E:/informaiton technology ADNAN/الجوال pdf/10-مشاريع مهنية 1.pdf"
+								},
+								{
+									"key": "sound",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "video_url",
+									"value": "",
+									"type": "text"
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/App/public/api/StorePost",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"StorePost"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdatePost",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "ترا خير انذكر تسبيح",
+									"type": "text"
+								},
+								{
+									"key": "body",
+									"value": "باقي التحديث ان شاء الله يسبر",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "category_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "book",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "sound",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "video_url",
+									"value": "http://localhost/App/public/api/UpdatePost/15",
+									"type": "text"
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/App/public/api/UpdatePost/15",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"UpdatePost",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeletePost",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/App/public/api/DeletePost/15",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"DeletePost",
+								"15"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "SubjectsAndTrainings",
+			"item": [
+				{
+					"name": "Subject",
+					"item": [
+						{
+							"name": "GetAllSubjects",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/App/public/api/ShowSubjects",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"ShowSubjects"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetSubjectById",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/App/public/api/ShowSubjectId/30",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"ShowSubjectId",
+										"30"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SaveNewSubject",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "تجويد",
+											"type": "text"
+										},
+										{
+											"key": "category_id",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost/App/public/api/StoreSubject",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"StoreSubject"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateSubject",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "فقه",
+											"type": "text"
+										},
+										{
+											"key": "category_id",
+											"value": "2",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost/App/public/api/UpdateSubject/30",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"UpdateSubject",
+										"30"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteSubject",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/App/public/api/DeleteSubject/30",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"DeleteSubject",
+										"30"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Trainings",
+					"item": [
+						{
+							"name": "GetAllTrainings",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/App/public/api/ShowTrainings?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5OTI2NzczNywibmJmIjoxNTk5MjY3NzM3LCJqdGkiOiI4QldRVlhpTEp6UTJDM29MIiwic3ViIjozLCJwcnYiOiJiOTRjZGY4OWFmMTg0NzU4Zjk2NTlhMzkwYjZlODE2ZGExMzhhMjhmIn0.5dqmG4cZjI__ATs16ZBgptj-8x8rE_IZwdG_00HiDlI",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"ShowTrainings"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5OTI2NzczNywibmJmIjoxNTk5MjY3NzM3LCJqdGkiOiI4QldRVlhpTEp6UTJDM29MIiwic3ViIjozLCJwcnYiOiJiOTRjZGY4OWFmMTg0NzU4Zjk2NTlhMzkwYjZlODE2ZGExMzhhMjhmIn0.5dqmG4cZjI__ATs16ZBgptj-8x8rE_IZwdG_00HiDlI"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetTrainingById",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/App/public/api/ShowTrainingId/25",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"ShowTrainingId",
+										"25"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SaveNewTraining",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "احفظ القران في شهر",
+											"type": "text"
+										},
+										{
+											"key": "subject_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "length",
+											"value": "25 ساعة",
+											"type": "text"
+										},
+										{
+											"key": "start_at",
+											"value": "2020-08-20 01:28:28",
+											"type": "text"
+										},
+										{
+											"key": "end_at",
+											"value": "2020-09-20 01:28:28",
+											"type": "text"
+										},
+										{
+											"key": "thumbnail",
+											"value": "adnan.jpg",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost/App/public/api/StoreTraining",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"StoreTraining"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateNewTraining",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "تعلم الانجليزي في اسبوع",
+											"type": "text"
+										},
+										{
+											"key": "subject_id",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "length",
+											"value": "40 ساعة",
+											"type": "text"
+										},
+										{
+											"key": "start_at",
+											"value": "2020-08-01 01:28:28",
+											"type": "text"
+										},
+										{
+											"key": "end_at",
+											"value": "2020-08-27 01:28:28",
+											"type": "text"
+										},
+										{
+											"key": "thumbnail",
+											"value": "english.jpg",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost/App/public/api/UpdateTraining/26",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"UpdateTraining",
+										"26"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteTraining",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/App/public/api/DeleteTraining/30",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"DeleteTraining",
+										"30"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetPublicTrainings",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/App/public/api/ShowTrainings_public?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL3NoYXJlZC11c2VyLWxvZ2luIiwiaWF0IjoxNTk5MjY4MjI2LCJuYmYiOjE1OTkyNjgyMjYsImp0aSI6IlZicEZubGR5UDlYdEpQZlYiLCJzdWIiOjMsInBydiI6ImYyNjg4YWQzZTRlOGM3ZmJjODY3YWRlYTdjNTk3ZjIyZGNmM2E4ZDAifQ.wMwjEy-1VnJemTXMDOg2B1TphTVbMGfqLNtbfziaUxU",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"ShowTrainings_public"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL3NoYXJlZC11c2VyLWxvZ2luIiwiaWF0IjoxNTk5MjY4MjI2LCJuYmYiOjE1OTkyNjgyMjYsImp0aSI6IlZicEZubGR5UDlYdEpQZlYiLCJzdWIiOjMsInBydiI6ImYyNjg4YWQzZTRlOGM3ZmJjODY3YWRlYTdjNTk3ZjIyZGNmM2E4ZDAifQ.wMwjEy-1VnJemTXMDOg2B1TphTVbMGfqLNtbfziaUxU"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Titles",
+					"item": [
+						{
+							"name": "GetAllTitles",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/App/public/api/ShowTitles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"ShowTitles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetTitleById",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/App/public/api/ShowTitleId/30",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"ShowTitleId",
+										"30"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SaveNewTitle",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "عنوان 1",
+											"type": "text"
+										},
+										{
+											"key": "training_id",
+											"value": "2",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost/App/public/api/StoreTitle",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"StoreTitle"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateTitle",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "عنوان بعد التعديل",
+											"type": "text"
+										},
+										{
+											"key": "training_id",
+											"value": "3",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost/App/public/api/UpdateTitle/30",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"UpdateTitle",
+										"30"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteTitle",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/App/public/api/DeleteTitle/30",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"DeleteTitle",
+										"30"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Contents",
+					"item": [
+						{
+							"name": "GetAllContents",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/App/public/api/ShowContents",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"ShowContents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetContentById",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/App/public/api/ShowContentId/14",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"ShowContentId",
+										"14"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SaveNewContent",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "الدرس الاول",
+											"type": "text"
+										},
+										{
+											"key": "body",
+											"value": "كن قائدا",
+											"type": "text"
+										},
+										{
+											"key": "title_id",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/E:/informaiton technology ADNAN/الجوال pdf/2016-08-18_180127.jpg"
+										},
+										{
+											"key": "book",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "sound",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "video_url",
+											"value": "http://localhost/App/public/api/StoreContent",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost/App/public/api/StoreContent",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"StoreContent"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateContent",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/App/public/api/UpdateContent/15?title=الدرس الثاني&body=قع رجال&title_id=3&image&book&sound&video_url",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"UpdateContent",
+										"15"
+									],
+									"query": [
+										{
+											"key": "title",
+											"value": "الدرس الثاني"
+										},
+										{
+											"key": "body",
+											"value": "قع رجال"
+										},
+										{
+											"key": "title_id",
+											"value": "3"
+										},
+										{
+											"key": "image",
+											"value": null
+										},
+										{
+											"key": "book",
+											"value": null
+										},
+										{
+											"key": "sound",
+											"value": null
+										},
+										{
+											"key": "video_url",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteContent",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/App/public/api/DeleteContent/15",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"DeleteContent",
+										"15"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Exams",
+					"item": [
+						{
+							"name": "Questions",
+							"item": [
+								{
+									"name": "GetAllQuestions",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "http://localhost/App/public/api/ShowQuestions",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"path": [
+												"App",
+												"public",
+												"api",
+												"ShowQuestions"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "GetAllExams",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost/App/public/api/ShowExams",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"App",
+										"public",
+										"api",
+										"ShowExams"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "SharedUsersContent",
+			"item": [
+				{
+					"name": "LoginUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "mohammed@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123123123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/App/public/api/shared-user-login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"shared-user-login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RegisterUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "عدنان المقولي",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "Adnan2020@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "0000",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "شريك",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/App/public/api/shared-user-register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"shared-user-register"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LogoutUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/App/public/api/sharedUser-logout?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL3NoYXJlZC11c2VyLWxvZ2luIiwiaWF0IjoxNTk5MTc2NDYxLCJuYmYiOjE1OTkxNzY0NjEsImp0aSI6IjZBUHVvdFBCTjFnV1dYSlUiLCJzdWIiOjUsInBydiI6ImYyNjg4YWQzZTRlOGM3ZmJjODY3YWRlYTdjNTk3ZjIyZGNmM2E4ZDAifQ.wXPkqCliIlWtDLbX0kffTVv03EueyElgQpmJ4d4lI8k",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"sharedUser-logout"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL3NoYXJlZC11c2VyLWxvZ2luIiwiaWF0IjoxNTk5MTc2NDYxLCJuYmYiOjE1OTkxNzY0NjEsImp0aSI6IjZBUHVvdFBCTjFnV1dYSlUiLCJzdWIiOjUsInBydiI6ImYyNjg4YWQzZTRlOGM3ZmJjODY3YWRlYTdjNTk3ZjIyZGNmM2E4ZDAifQ.wXPkqCliIlWtDLbX0kffTVv03EueyElgQpmJ4d4lI8k"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserDetails",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/App/public/api/sharedUser-user?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL3NoYXJlZC11c2VyLWxvZ2luIiwiaWF0IjoxNTk5MTc2NzIwLCJuYmYiOjE1OTkxNzY3MjAsImp0aSI6ImRqZFRicjRuTE44TU1iWjIiLCJzdWIiOjMsInBydiI6ImYyNjg4YWQzZTRlOGM3ZmJjODY3YWRlYTdjNTk3ZjIyZGNmM2E4ZDAifQ.OyvR7-E4lBR8Pu1g6ngehB8Rfjkxkzo2X86QNLJwaSM",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"sharedUser-user"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL3NoYXJlZC11c2VyLWxvZ2luIiwiaWF0IjoxNTk5MTc2NzIwLCJuYmYiOjE1OTkxNzY3MjAsImp0aSI6ImRqZFRicjRuTE44TU1iWjIiLCJzdWIiOjMsInBydiI6ImYyNjg4YWQzZTRlOGM3ZmJjODY3YWRlYTdjNTk3ZjIyZGNmM2E4ZDAifQ.OyvR7-E4lBR8Pu1g6ngehB8Rfjkxkzo2X86QNLJwaSM"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "‘UpdateUserDetails",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "احمد علي الهمداني",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/App/public/api/update_sharedUser?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL3NoYXJlZC11c2VyLWxvZ2luIiwiaWF0IjoxNTk5MTc2Nzk1LCJuYmYiOjE1OTkxNzY3OTUsImp0aSI6IkM3ZmxjMWc5R1pUV21ZZ3UiLCJzdWIiOjMsInBydiI6ImYyNjg4YWQzZTRlOGM3ZmJjODY3YWRlYTdjNTk3ZjIyZGNmM2E4ZDAifQ.6wK3m1SQJ0FORQUSwyQupuZVWCCdhgID2pKK72VWVlA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"update_sharedUser"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL3NoYXJlZC11c2VyLWxvZ2luIiwiaWF0IjoxNTk5MTc2Nzk1LCJuYmYiOjE1OTkxNzY3OTUsImp0aSI6IkM3ZmxjMWc5R1pUV21ZZ3UiLCJzdWIiOjMsInBydiI6ImYyNjg4YWQzZTRlOGM3ZmJjODY3YWRlYTdjNTk3ZjIyZGNmM2E4ZDAifQ.6wK3m1SQJ0FORQUSwyQupuZVWCCdhgID2pKK72VWVlA"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ResetUserPassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "mohammed@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Adnan0000%",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/App/public/api/reset_sharedUser?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL3NoYXJlZC11c2VyLWxvZ2luIiwiaWF0IjoxNTk5MTc2Nzk1LCJuYmYiOjE1OTkxNzY3OTUsImp0aSI6IkM3ZmxjMWc5R1pUV21ZZ3UiLCJzdWIiOjMsInBydiI6ImYyNjg4YWQzZTRlOGM3ZmJjODY3YWRlYTdjNTk3ZjIyZGNmM2E4ZDAifQ.6wK3m1SQJ0FORQUSwyQupuZVWCCdhgID2pKK72VWVlA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"App",
+								"public",
+								"api",
+								"reset_sharedUser"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL3NoYXJlZC11c2VyLWxvZ2luIiwiaWF0IjoxNTk5MTc2Nzk1LCJuYmYiOjE1OTkxNzY3OTUsImp0aSI6IkM3ZmxjMWc5R1pUV21ZZ3UiLCJzdWIiOjMsInBydiI6ImYyNjg4YWQzZTRlOGM3ZmJjODY3YWRlYTdjNTk3ZjIyZGNmM2E4ZDAifQ.6wK3m1SQJ0FORQUSwyQupuZVWCCdhgID2pKK72VWVlA"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
