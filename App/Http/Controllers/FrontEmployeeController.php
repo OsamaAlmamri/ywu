@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
+use App\Department;
 use App\EmployeeCategory;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
 use App\Employee;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,21 +20,28 @@ class FrontEmployeeController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $post = Employee::with('category')->latest()->get();
+            $post = User::with('employee')->where('type', 'employees')->get();
             return datatables()->of($post)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" name="show" id="' . $data->id . '" class="show btn btn-info btn-sm "style="float: right"><span class=\'fa fa-eye\'></span></button>';
                     $button .= '<button type="button" name="edit" id="' . $data->id . '" class="edit btn btn-warning btn-sm" style="float: right"><span class=\'glyphicon glyphicon-pencil\'></span></button>';
                     $button .= '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"style="float: right">توقيف الحساب</button>';
                     return $button;
-                })->editColumn('category', function ($post) {
-                    return empty($post->category) ? 'تم حذف القسم' : $post->category->name;
+                })
+                ->editColumn('department', function ($post) {
+                    return empty($post->employee->department) ? 'تم حذف القسم' : $post->employee->department->name;
+                })
+                ->editColumn('job', function ($post) {
+                    return empty($post->employee->job) ? 'تم حذف الوظيفة' : $post->employee->job->name;
+                })
+                ->editColumn('branch', function ($post) {
+                    return empty($post->employee->branch) ? 'تم حذف الفرع' : $post->employee->branch->name;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
         $admin = Admin::where('id', 1)->first();
-        $category = EmployeeCategory::all();
+        $category = Department::all();
         return view('employee.index', compact(['admin', 'category']));
     }
 

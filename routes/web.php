@@ -125,6 +125,16 @@ Route::group(['middleware'=>('auth:admin')], function() {
     Route::post('Category/update', 'FrontEmployeeCategory@update')->name('Emp_Category.update');
     Route::get('Category/destroy/{id}', 'FrontEmployeeCategory@destroy');
     Route::get('CategoryShow', 'FrontEmployeeCategory@index')->name('Emp_Category');
+
+   #################################################### emp_jobs
+    Route::get('jobs/edit/{id}', 'JobsController@edit');
+    Route::post('jobs/store', 'JobsController@store')->name('jobs.store');
+    Route::post('jobs/update', 'JobsController@update')->name('jobs.update');
+    Route::get('jobs/destroy/{id}', 'JobsController@destroy');
+    Route::get('jobs', 'JobsController@index')->name('jobs');
+
+
+
     #### category_trainings
     Route::get('CategoryShowId/{id}', 'FrontEmployeeCategory@index_edit');
     Route::post('Category_training/store', 'FrontEmployeeCategory@store_training')->name('Emp_Category_Training.store');

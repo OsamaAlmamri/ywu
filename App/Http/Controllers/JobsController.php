@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Admin;
 use App\Category_Training;
 use App\Employee;
-use App\Department;
+use App\EmployeeCategory;
 use App\Job;
 use App\Models\TrainingContents\Training;
 use App\Traits\JsonTrait;
@@ -13,7 +13,7 @@ use App\Traits\PostTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class FrontEmployeeCategory extends Controller
+class JobsController extends Controller
 {
     use JsonTrait;
     use PostTrait;
@@ -21,11 +21,10 @@ class FrontEmployeeCategory extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $post = Department::latest()->get();
+            $post = Job::latest()->get();
             return datatables()->of($post)
                 ->addColumn('action', function ($data) {
-                    $button = '<button type="button" name="show" id="' . $data->id . '" class="show btn btn-info btn-sm "style="float: right">إضافة دورات تدريبية</span></button>';
-                    $button .= '<button type="button" name="edit" id="' . $data->id . '" class="edit btn btn-warning btn-sm" style="float: right"><span class=\'glyphicon glyphicon-pencil\'></span></button>';
+                    $button = '<button type="button" name="edit" id="' . $data->id . '" class="edit btn btn-warning btn-sm" style="float: right"><span class=\'glyphicon glyphicon-pencil\'></span></button>';
                     $button .= '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"style="float: right"><span class=\'glyphicon glyphicon-trash\'></button>';
                     return $button;
                 })
@@ -33,7 +32,7 @@ class FrontEmployeeCategory extends Controller
                 ->make(true);
         }
         $admin = Admin::where('id', 1)->first();
-        return view('employee.category', compact(['admin']));
+        return view('employee.jobs', compact(['admin']));
     }
 
     public function store(Request $request)
@@ -42,18 +41,18 @@ class FrontEmployeeCategory extends Controller
             "name" => "required",
         ];
         $messages = [
-            "name.required" => "يرجى كتابة اسم القسم",
+            "name.required" => "يرجى كتابة اسم الوظيفة",
         ];
         $error = Validator::make($request->all(), $rules, $messages);
         if ($error->fails()) {
             return response()->json(['errors' => $error->errors()->all()]);
         }
-        $post = new Department();
+        $post = new Job();
         $post->name = $request->name;
 
         $post->save();
         if ($post->save())
-            return response()->json(['success' => 'تم إنشاء القسم بنجاح']);
+            return response()->json(['success' => 'تم إنشاء الوظيفة بنجاح']);
     }
 
     public function update(Request $request)
@@ -62,7 +61,7 @@ class FrontEmployeeCategory extends Controller
             "name" => "required",
         ];
         $messages = [
-            "name.required" => "يرجى كتابة اسم القسم",
+            "name.required" => "يرجى كتابة اسم الموظف",
         ];
 
         $error = Validator::make($request->all(), $rules, $messages);
@@ -70,7 +69,7 @@ class FrontEmployeeCategory extends Controller
             return response()->json(['errors' => $error->errors()->all()]);
         }
 
-        $post = Department::whereId($request->hidden_id)->first();
+        $post = Job::whereId($request->hidden_id)->first();
         if ($post) {
             $post->name = $request->name;
             $post->update();
@@ -85,7 +84,7 @@ class FrontEmployeeCategory extends Controller
     public function show($id)
     {
         if (request()->ajax()) {
-            $data = Department::whereId($id)->first();
+            $data = Job::whereId($id)->first();
             return response()->json(['data' => $data]);
         }
     }
@@ -93,14 +92,14 @@ class FrontEmployeeCategory extends Controller
     public function edit($id)
     {
         if (request()->ajax()) {
-            $data = Department::whereId($id)->first();
+            $data = Job::whereId($id)->first();
             return response()->json(['data' => $data]);
         }
     }
 
     public function destroy($id)
     {
-        $data = Department::with('employees')->findOrFail($id);
+        $data = Job::with('employees')->findOrFail($id);
         if ($data) {
             $data->employees()->delete();
             $data->delete();
@@ -128,7 +127,7 @@ class FrontEmployeeCategory extends Controller
                     ->make(true);
             }
         }
-        $category = Department::where('id', $id)->first();
+        $category = EmployeeCategory::where('id', $id)->first();
         $trainings = Training::all();
         $admin = Admin::where('id', 1)->first();
         return view('employee.categoryShow', compact(['trainings', 'category', 'id', 'admin']));

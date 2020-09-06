@@ -19,6 +19,7 @@ class CreateEmployeesTable extends Migration
             $table->foreignId('department_id')->constrained('departments')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('branch_id')->constrained('branches')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('job_id')->constrained('jobs')->onUpdate('cascade')->onDelete('cascade');
+
         });
     }
 

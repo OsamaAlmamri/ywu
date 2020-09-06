@@ -10,39 +10,33 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Employee extends Authenticatable implements JWTSubject
 {
-    use SoftDeletes;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $guarded = [];
-    protected $appends = ['published'];
 
-    public function getPublishedAttribute()
-    {
-        return Carbon::createFromTimestamp(strtotime($this->attributes['created_at']))->diffForHumans();
-    }
+
 
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = [
-        'created_at', 'deleted_at'
-    ];
 
-    protected $casts = [
-        'created_at' => 'datetime:Y-m-d H:i:s',
-        'updated_at' => 'datetime:Y-m-d H:i:s',
-        'deleted_at' => 'datetime:Y-m-d H:i:s',
-    ];
 
-    public function category()
+    public function department()
     {
-        return $this->belongsTo(EmployeeCategory::class, 'category_id', 'id');
+        return $this->belongsTo(Department::class, 'department_id', 'id');
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class, 'branch_id', 'id');
+    }
+    public function job()
+    {
+        return $this->belongsTo(Job::class, 'job_id', 'id');
     }
 
     public function comments()

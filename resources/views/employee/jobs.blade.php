@@ -1,7 +1,7 @@
 @extends('adminpanel.dataTableLayout')
 @section('card_header')
     <div class="card-header">
-        <h3 align="right">حسابات الموظفين</h3>
+        <h3 align="right"> الوظائف</h3>
         <br/>
     </div>
 @endsection
@@ -11,38 +11,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"> إنشاء حساب موظف جديد</h4>
+                    <h4 class="modal-title"> إنشاء مسمى وظيفي جديد</h4>
                 </div>
                 <div class="modal-body">
                     <span id="form_result"></span>
                     <form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label class="control-label col-sm-4">اسم الموظف :</label>
+                            <label class="control-label col-sm-4">المسمى الوظيفي :</label>
                             <div class="col-md-8">
                                 <input type="text" name="name" id="name" class="form-control"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-4">الايميل : </label>
-                            <div class="col-md-8">
-                                <input type="text" name="email" id="email" class="form-control"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-4">كلمة المرور : </label>
-                            <div class="col-md-8">
-                                <input type="text" name="password" id="password" class="form-control"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-4">الوظيفة : </label>
-                            <div class="col-md-8">
-                                <select class="form-control" id="category" name="category">
-                                    @foreach($category as $cat)
-                                        <option value="{{$cat->id}}">{{$cat->name}}</option>
-                                    @endforeach
-                                </select>
                             </div>
                         </div>
                         <br/>
@@ -57,43 +35,15 @@
             </div>
         </div>
     </div>
-
-    <div id="formShow" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"> بيانات الدورة</h4>
-                </div>
-                <div class="modal-body">
-                    <span id="form_show"></span>
-                    <div id="show_name"></div>
-                    <br>
-                    <div id="show_email"></div>
-                    <br>
-                    <div id="show_type"></div>
-                    <br>
-                    <div id="show_status"></div>
-                    <br>
-                    <div>
-                        <a id="title" href="" class="btn btn-info btn-sm" style="float: right">
-                            عرض عناوين الدورة
-                        </a>
-                    </div>
-                    <br>
-                </div>
-            </div>
-        </div>
-    </div>
     <div id="confirmModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title">ايقاف حالة الحساب</h2>
+                    <h2 class="modal-title">حذف الوظيفة</h2>
                 </div>
                 <div class="modal-body">
-                    <h4 align="center" style="margin:0;">هل انت متاكد من ايقاف حالة هذا الحساب؟</h4>
+                    <h4 align="center" style="margin:0;">سيتم حذف الوظيفة بشكل كامل؟</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">نعم</button>
@@ -106,7 +56,6 @@
 @section('custom_js')
     <script>
         $(document).ready(function () {
-
             $('#user_table').DataTable({
                 processing: true,
                 serverSide: true,
@@ -122,65 +71,41 @@
                 searchDelay: 350,
                 language: lang,
                 dom: 'Brfltip',
-                lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
                 buttons: [
-
                     {
-                        text: '<i class="fa fa-plus" ></i>  إنشاء حساب موظف جديد  ',
+                        text: '<i class="fa fa-plus" ></i>  إنشاء قسم وظيفي جديد  ',
                         className: 'btn btn-info create_record',
                     },
                 ],
+                lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
                 ajax: {
-                    url: "{{ route('employee') }}",
+                    url: "{{ route('jobs') }}",
                 },
                 columns: [
                     {
-                        title: 'اسم المستخدم',
                         data: 'name',
-                        name: 'name'
+                        name: 'name',
+                        title: 'المسمى الوظيفي'
                     },
                     {
-                        title: 'الايميل',
-                        data: 'email',
-                        name: 'email'
-                    },
-                    {
-                        title: 'القسم ',
-                        data: 'department',
-                        name: 'department'
-                    },{
-                        title: ' الوظيفة',
-                        data: 'job',
-                        name: 'job'
-                    },{
-                        title: ' الفرع',
-                        data: 'branch',
-                        name: 'branch'
-                    },
-                    {
-                        title: 'حالة الحساب',
-                        data: 'status',
-                        name: 'status'
-                    },
-                    {
-                        title: 'تاريخ إنشاء الحساب',
                         data: 'published',
-                        data: 'published',
+                        name: 'published',
+                        title: ' تاريخ إنشاء الوظيفة'
                     },
                     {
-                        title: 'العمليات',
                         data: 'action',
                         name: 'action',
+                        title: 'العمليات ',
                         orderable: false
                     },
                 ]
             });
 
-            $('#create_record').click(function () {
-                $('.modal-title').text("إضافة حساب موظف جديد");
+            $('.create_record').click(function () {
+                $('.modal-title').text("إضافة وظيفة جديده");
                 $('#sample_form')[0].reset();
                 $('#store_image').html('');
-                $('#action_button').val("نشر");
+                $('#action_button').val("إنشاء");
                 $('#action').val("Add");
                 $('#formModal').modal('show');
             });
@@ -189,7 +114,7 @@
                 event.preventDefault();
                 if ($('#action').val() == 'Add') {
                     $.ajax({
-                        url: "{{ route('employee.store') }}",
+                        url: "{{ route('jobs.store') }}",
                         method: "POST",
                         data: new FormData(this),
                         contentType: false,
@@ -217,7 +142,7 @@
 
                 if ($('#action').val() == "Edit") {
                     $.ajax({
-                        url: "{{ route('employee.update') }}",
+                        url: "{{ route('jobs.update') }}",
                         method: "POST",
                         data: new FormData(this),
                         contentType: false,
@@ -250,43 +175,17 @@
                 $('#form_result').html('');
 
                 $.ajax({
-                    url: "Employee/edit/" + id + "",
+                    url: "jobs/edit/" + id + "",
+
                     type: "GET",
                     dataType: "json",
                     success: function (html) {
                         $('#name').val(html.data.name);
-                        $('#email').val(html.data.email);
-                        $('#password').hide();
-                        $('#status').val(html.data.status);
                         $('#hidden_id').val(html.data.id);
-                        $('.modal-title').text("تعديل بيانات الحساب");
+                        $('.modal-title').text("تعديل بيانات الوظيفة");
                         $('#action_button').val("تعديل");
                         $('#action').val("Edit");
                         $('#formModal').modal('show');
-                    }
-                })
-            });
-
-            $(document).on('click', '.show', function () {
-                var id = $(this).attr('id');
-                $('#form_show').html('');
-                $.ajax({
-                    url: "Employee/show/" + id + "",
-                    type: "GET",
-                    dataType: "json",
-                    success: function (html) {
-                        $('#show_name').html("<h4>اسم الموظف : <b>" + html.data.name + "</b></h4>");
-                        $('#show_email').html("الايميل : <b>" + html.data.email + "</b>");
-                        if (!html.data.category) {
-                            $('#show_type').html("<b>الوظيفة : تم حذف القسم</b>");
-                        } else {
-                            $('#show_type').html("الوظيفة : <b>" + html.data.category.name + "</b>");
-                        }
-                        $('#show_status').html("حالة الحساب : <b>" + html.data.status + "</b>");
-                        $('#title').attr("href", "/showID/" + id);
-                        $('#hidden_id').val(html.data.id);
-                        $('.modal-title').text("عرض تفاصيل الحساب");
-                        $('#formShow').modal('show');
                     }
                 })
             });
@@ -295,16 +194,16 @@
 
             $(document).on('click', '.delete', function () {
                 user_id = $(this).attr('id');
-                $('.modal-title').text("إيقاف حالة الحساب");
-                $('#ok_button').text('إيقاف');
+                $('.modal-title').text("حذف الوظيفة");
+                $('#ok_button').text('حذف');
                 $('#confirmModal').modal('show');
             });
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "Employee/destroy/" + user_id,
+                    url: "jobs/destroy/" + user_id,
                     beforeSend: function () {
-                        $('#ok_button').text('جاري إيقاف الحساب...');
+                        $('#ok_button').text('جاري حذف الوظيفة...');
                     },
                     success: function (data) {
                         setTimeout(function () {
@@ -316,6 +215,19 @@
             });
         });
     </script>
+
 @endsection
+
+
+
+
+
+
+
+
+
+
+
+
 
 

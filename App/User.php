@@ -49,6 +49,10 @@ class User extends Authenticatable implements JWTSubject
         'deleted_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    public function employee()
+    {
+        return $this->hasOne(Employee::class, 'user_id', 'id');
+    }
     public function posts()
     {
         return $this->hasMany(Post::class, 'user_id', 'id');

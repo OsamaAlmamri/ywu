@@ -1,50 +1,35 @@
-@extends('adminpanel.master')
-@section('content')
-    <div class="right_col" role="main">
-        <div class="container">
+@extends('adminpanel.dataTableLayout')
+@section('card_header')
+    <div class="card-header">
+        <br/>
+        <h3 align="right">الدورات التدريبية</h3>
+        <br/>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <select name="filter_country" id="filter_country" class="form-control" required>
+                        <option value="">اختر اسم المادة</option>
+                        @foreach($categories as $country)
 
-            <div class="card">
-                <div class="card-header">
-                    <br/>
-                    <h3 align="right">الدورات التدريبية</h3>
-                    <br/>
-                    <div class="row">
-                        <div class="col-md-4"></div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <select name="filter_country" id="filter_country" class="form-control" required>
-                                    <option value="">اختر اسم المادة</option>
-                                    @foreach($categories as $country)
+                            <option value="{{ $country->id }}">{{ $country->name }}</option>
 
-                                        <option value="{{ $country->id }}">{{ $country->name }}</option>
-
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="form-group" align="center">
-                                <button type="button" name="filter" id="filter" class="btn btn-info">عرض</button>
-
-                                <button type="button" name="reset" id="reset" class="btn btn-default">الغاء</button>
-                            </div>
-                        </div>
-                        <div class="col-md-4"></div>
-                    </div>
-
+                        @endforeach
+                    </select>
                 </div>
-                <div class="card-footer">
-                    <br>
-                    <table class="table table-striped table-hover table table-bordered" id="user_table">
-                    </table>
+
+                <div class="form-group" align="center">
+                    <button type="button" name="filter" id="filter" class="btn btn-info">عرض</button>
+
+                    <button type="button" name="reset" id="reset" class="btn btn-default">الغاء</button>
                 </div>
             </div>
-
-
-            <br/>
-            <br/>
+            <div class="col-md-4"></div>
         </div>
-    </div>
 
+    </div>
+@endsection
+@section('models')
     <div id="formModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -137,7 +122,6 @@
             </div>
         </div>
     </div>
-
     <div id="formShow" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -174,7 +158,6 @@
             </div>
         </div>
     </div>
-
     <div id="confirmModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -193,12 +176,11 @@
         </div>
     </div>
 @endsection
-@section('scripts')
+@section('custom_js')
     <script>
         $(document).ready(function () {
             fill_datatable();
-
-            function fill_datatable(filter_country = '') {
+            function fill_datatable(filter_country='') {
                 var dataTable = $('#user_table').DataTable({
                     processing: true,
                     serverSide: true,
@@ -212,75 +194,42 @@
                     ],
                     info: false,
                     searchDelay: 350,
-                   language : {
-                       lengthMenu: "Show _MENU_ Entries",
-                       sSearch: '{{trans('dataTable.sSearch')}}',
-                       info: "Showing _START_ to _END_ of _TOTAL_ Entries",
-                       sEmptyTable: '{{ trans('dataTable.sEmptyTable')}}',
-                       sInfo: '{{ trans('dataTable.sInfo')}}',
-                       sInfoEmpty: '{{ trans('dataTable.sInfoEmpty')}}',
-                       sInfoFiltered: '{{ trans('dataTable.sInfoFiltered')}}',
-                       sInfoPostFix: '{{ trans('dataTable.sInfoPostFix')}}',
-                       sLengthMenu: '{{ trans('dataTable.sLengthMenu')}}',
-                       sInfoThousands: '{{ trans('dataTable.sInfoThousands')}}',
-                       sLoadingRecords: '{{ trans('dataTable.sLoadingRecords')}}',
-                       sProcessing: '{{ trans('dataTable.sProcessing')}}',
-                       sZeroRecords: '{{ trans('dataTable.sZeroRecords')}}',
-                       sSearch: '{{ trans('dataTable.sSearch')}}',
-                       oPaginate: {
-                           sNext: '{{ trans('dataTable.sNext')}}',
-                           sPrevious: '{{ trans('dataTable.sPrevious')}}',
-                           sFirst: '{{ trans('dataTable.sFirst')}}',
-                           sLast: '{{ trans('dataTable.sLast')}}',
-                       },
-                       oAria: {
-                           sSortAscending: '{{ trans('dataTable.sSortAscending')}}',
-                           sSortDescending: '{{ trans('dataTable.sSortDescending')}}',
-                       },
-                   },
+                    language: lang,
                     dom: 'Brfltip',
                     lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
-                    buttons:
-                        [
+                    buttons: [
 
-                            {
-                                text: '<i class="fa fa-plus" ></i>  إنشاء دورة تدريبية جديده ',
-                                className: 'btn btn-info create_record',
-                            },
-                        ],
-
+                        {
+                            text: '<i class="fa fa-plus" ></i>  إنشاء دورة تدريبية جديده ',
+                            className: 'btn btn-info create_record',
+                        },
+                    ],
                     ajax: {
                         url: "{{ route('training') }}",
-                        data: {filter_country: filter_country}
+                        data: {filter_country: ''}
                     },
-
-
-                // <th width="10%">تاريخ إنتهاء الدورة</th>
-                // <th width="10%">تاريخ النشر</th>
-                // <th width="10%">العمليات</th>
-
                     columns: [
                         {
                             data: 'name',
                             name: 'name',
-                            title:'عنوان الدورة'
+                            title: 'عنوان الدورة'
                         },
                         {
                             data: 'subject',
                             name: 'subject',
-                            title:' اسم الماد'
+                            title: ' اسم الماد'
 
                         },
                         {
                             data: 'mark',
                             name: 'mark',
-                            title:'  علامة التمييز'
+                            title: '  علامة التمييز'
 
                         },
                         {
                             data: 'length',
                             name: 'length',
-                            title:'  مدة الدورة'
+                            title: '  مدة الدورة'
 
                         },
                         {
@@ -294,8 +243,8 @@
                             title: 'تاريخ إنتهاء الدورة'
                         },
                         {
-                            data: 'created_at',
-                            name: 'created_at',
+                            data: 'published',
+                            name: 'published',
                             title: 'تاريخ  النشر'
                         },
                         {
@@ -304,7 +253,7 @@
                             title: 'عمليات',
                             orderable: false,
                         },
-                    ]
+                    ],
                 });
             }
 
@@ -318,7 +267,6 @@
                     alert('قم باختيار اسم المادة ');
                 }
             });
-
             $('#reset').click(function () {
                 $('#filter_country').val('');
                 $('#user_table').DataTable().destroy();

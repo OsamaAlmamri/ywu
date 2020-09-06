@@ -33,14 +33,14 @@
                         </ul>
                     </li>
                     <li><a><i class="fa fa-book"></i> المواد التدريبية <span
-                        class="fa fa-chevron-down"></span></a>
+                                class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{route('subject')}}">عرض وادارة المواد التدريبية</a></li>
                             <li><a href="{{route('subject-trashed')}}">سلة المحذوفات</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-mortar-board"></i> الدورات التدريبية <span
-                        class="fa fa-chevron-down"></span></a>
+                                class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{route('training')}}">إدارة الدورات التدريبية</a></li>
                             <li><a href="{{route('training-trashed')}}">سلة المحذوفات</a></li>
@@ -54,7 +54,8 @@
                     </li>
                     <li><a><i class="fa fa-male"></i> حسابات الموظفين <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="{{route('Emp_Category')}}">إدارة الاقسام الوظيفية</a></li>
+                            <li><a href="{{route('Emp_Category')}}"> الاقسام </a></li>
+                            <li><a href="{{route('jobs')}}"> الوظائف</a></li>
                             <li><a href="{{route('employee')}}">إدارة حسابات الموظفين</a></li>
                             <li><a href="{{route('employee-trashed')}}">حسابات موقفة</a></li>
                         </ul>
@@ -105,12 +106,14 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="">
-                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                       aria-expanded="false">
                         <img src="{{asset('assets/images/'.$admin->image)}}" alt="">{{$admin->name}}
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
-                        <li><a href="{{route('Admin_Edit')}}"><i class="fa fa-user-circle-o pull-right"></i> تعديل البيانات الشخصية</a></li>
+                        <li><a href="{{route('Admin_Edit')}}"><i class="fa fa-user-circle-o pull-right"></i> تعديل
+                                البيانات الشخصية</a></li>
                         <li><a href="{{route('Admin_logout')}}"><i class="fa fa-sign-out pull-right"></i> خروج</a></li>
                     </ul>
                 </li>

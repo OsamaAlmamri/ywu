@@ -1,44 +1,24 @@
-@extends('adminpanel.master')
-@section('content')
-    <div class="right_col" role="main">
-        <div class="container">
-            <br/>
-            <h3 align="right">قسم الوظائف</h3>
-            <br/>
-            <div align="right">
-                <button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm">إنشاء قسم
-                    وظيفي جديد
-                </button>
-            </div>
-            <br/>
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped" id="user_table">
-                    <thead>
-                    <tr>
-                        <th width="20%">المسمى الوظيفي</th>
-                        <th width="10%">تاريخ إنشاء الوظيفة</th>
-                        <th width="15%">العمليات</th>
-                    </tr>
-                    </thead>
-                </table>
-            </div>
-            <br/>
-            <br/>
-        </div>
+@extends('adminpanel.dataTableLayout')
+@section('card_header')
+    <div class="card-header">
+        <h3 align="right">الاقسام </h3>
+        <br/>
     </div>
+@endsection
+@section('models')
     <div id="formModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"> إنشاء مسمى وظيفي جديد</h4>
+                    <h4 class="modal-title"> إنشاء قسم جديد</h4>
                 </div>
                 <div class="modal-body">
                     <span id="form_result"></span>
                     <form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label class="control-label col-sm-4">المسمى الوظيفي :</label>
+                            <label class="control-label col-sm-4"> اسم القسم :</label>
                             <div class="col-md-8">
                                 <input type="text" name="name" id="name" class="form-control"/>
                             </div>
@@ -60,10 +40,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title">حذف الوظيفة</h2>
+                    <h2 class="modal-title">حذف القسم</h2>
                 </div>
                 <div class="modal-body">
-                    <h4 align="center" style="margin:0;">سيتم حذف الوظيفة بشكل كامل؟</h4>
+                    <h4 align="center" style="margin:0;">سيتم حذف القسم بشكل كامل؟</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">نعم</button>
@@ -73,34 +53,56 @@
         </div>
     </div>
 @endsection
-@section('scripts')
+@section('custom_js')
     <script>
         $(document).ready(function () {
-
             $('#user_table').DataTable({
                 processing: true,
                 serverSide: true,
+                paging: true,
+                scrollX: true,
+                responsive: true,
+                autoWidth: false,
+                searching: true,
+                search: [
+                    regex => true,
+                ],
+                info: false,
+                searchDelay: 350,
+                language: lang,
+                dom: 'Brfltip',
+                buttons: [
+                    {
+                        text: '<i class="fa fa-plus" ></i>  إنشاء قسم  جديد  ',
+                        className: 'btn btn-info create_record',
+                    },
+                ],
+                lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
                 ajax: {
                     url: "{{ route('Emp_Category') }}",
                 },
                 columns: [
                     {
                         data: 'name',
-                        name: 'name'
+                        name: 'name',
+                        title: ' اسم القسم'
                     },
                     {
-                        data: 'created_at',
+                        data: 'published',
+                        name: 'published',
+                        title: ' تاريخ اضافة القسم'
                     },
                     {
                         data: 'action',
                         name: 'action',
+                        title: 'العمليات ',
                         orderable: false
                     },
                 ]
             });
 
-            $('#create_record').click(function () {
-                $('.modal-title').text("إضافة وظيفة جديده");
+            $('.create_record').click(function () {
+                $('.modal-title').text("إضافة قسم جديد");
                 $('#sample_form')[0].reset();
                 $('#store_image').html('');
                 $('#action_button').val("إنشاء");
@@ -179,7 +181,7 @@
                     success: function (html) {
                         $('#name').val(html.data.name);
                         $('#hidden_id').val(html.data.id);
-                        $('.modal-title').text("تعديل بيانات الوظيفة");
+                        $('.modal-title').text("تعديل بيانات القسم");
                         $('#action_button').val("تعديل");
                         $('#action').val("Edit");
                         $('#formModal').modal('show');
@@ -196,7 +198,7 @@
 
             $(document).on('click', '.delete', function () {
                 user_id = $(this).attr('id');
-                $('.modal-title').text("حذف الوظيفة");
+                $('.modal-title').text("حذف القسم");
                 $('#ok_button').text('حذف');
                 $('#confirmModal').modal('show');
             });
@@ -205,7 +207,7 @@
                 $.ajax({
                     url: "Category/destroy/" + user_id,
                     beforeSend: function () {
-                        $('#ok_button').text('جاري حذف الوظيفة...');
+                        $('#ok_button').text('جاري حذف القسم...');
                     },
                     success: function (data) {
                         setTimeout(function () {
@@ -217,4 +219,19 @@
             });
         });
     </script>
+
 @endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
