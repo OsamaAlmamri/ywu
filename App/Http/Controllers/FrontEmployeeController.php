@@ -50,24 +50,6 @@ class FrontEmployeeController extends Controller
         return view('employee.index', compact(['admin', 'branchs', 'departments', 'jobs']));
     }
 
-    public function index_id($id)
-    {
-        if (request()->ajax()) {
-            $post = Employee::where('id', $id)->get();
-            return datatables()->of($post)
-                ->addColumn('action', function ($data) {
-                    $button = '<button type="button" name="show" id="' . $data->id . '" class="show btn btn-info btn-sm "style="float: right"><span class=\'fa fa-eye\'></span></button>';
-                    $button .= '<button type="button" name="edit" id="' . $data->id . '" class="edit btn btn-warning btn-sm" style="float: right"><span class=\'glyphicon glyphicon-pencil\'></span></button>';
-                    $button .= '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"style="float: right">توقيف الحساب</button>';
-                    return $button;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-        $admin = Admin::where('id', 1)->first();
-        return view('employee.index_id', compact(['id', 'admin']));
-    }
-
     private function checkInputes($request, $type = 'create')
     {
         $rules = [
@@ -191,25 +173,6 @@ class FrontEmployeeController extends Controller
         }
         $admin = Admin::where('id', 1)->first();
         return view('employee.trashed', compact('admin'));
-    }
-
-    public
-    function index_trashed_id($id)
-    {
-        if (request()->ajax()) {
-            $post = User::onlyTrashed()->where('id', $id)->get();
-            return datatables()->of($post)
-                ->addColumn('action', function ($data) {
-                    $button = '<button type="button" name="show" id="' . $data->id . '" class="show btn btn-info btn-sm "style="float: right"><span class=\'fa fa-eye\'></span></button>';
-                    $button .= '<button type="button" name="edit" id="' . $data->id . '" class="restore btn btn-success btn-sm" style="float: right"><span class=\'glyphicon glyphicon-log-out\'></span></button>';
-                    $button .= '<button type="button" name="delete" id="' . $data->id . '" class="force_delete btn btn-danger btn-sm"style="float: right"><span class=\'glyphicon glyphicon-trash\'></button>';
-                    return $button;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-        $admin = Admin::where('id', 1)->first();
-        return view('employee.trashed_id', compact(['id', 'admin']));
     }
 
     public
