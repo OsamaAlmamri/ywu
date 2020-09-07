@@ -40,8 +40,8 @@ class TrainingController extends Controller
     public function getTrainingDetails(Request $request)
     {
         try {
-            $Training = Training::with(['titles' => function ($q) {
-                $q->with('contents');
+            $Training = Training::with(['result','titles' => function ($q) {
+                $q->with(['contents', 'is_complete:title_id,created_at']);
             }])
                 ->where('id', $request->id)->get()->first();
             if (!$Training) {
@@ -184,7 +184,6 @@ class TrainingController extends Controller
                 $type = 'posts';
             else
                 $type = 'women_posts';
-
             $likes = Like::where('user_id', auth()->id())->where('type', $type)->get();
             return $this->GetDateResponse('data', $likes);
         } catch (\Exception $ex) {

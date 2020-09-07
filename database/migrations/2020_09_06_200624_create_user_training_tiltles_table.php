@@ -16,7 +16,7 @@ class CreateUserTrainingTiltlesTable extends Migration
         Schema::create('user_training_titles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('title_id')->constrained('title_contents')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('title_id')->constrained('training_titles')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

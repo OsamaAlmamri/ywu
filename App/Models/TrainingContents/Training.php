@@ -5,6 +5,7 @@ namespace App\Models\TrainingContents;
 use App\Category_Training;
 use App\EmployeeCategory;
 use App\Exam;
+use App\Result;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,14 +17,15 @@ class Training extends Model
     protected $table = 'trainings';
     protected $guarded = [];
 
-    protected $appends=['published'];
+    protected $appends = ['published'];
 
-    public function getPublishedAttribute(){
+    public function getPublishedAttribute()
+    {
         return Carbon::createFromTimestamp(strtotime($this->attributes['created_at']))->diffForHumans();
     }
 
-    protected $hidden=[
-        'created_at','updated_at'
+    protected $hidden = [
+        'created_at', 'updated_at'
     ];
 
     protected $casts = [
@@ -48,8 +50,8 @@ class Training extends Model
         return $this->belongsToMany(EmployeeCategory::class, Category_Training::class, 'training_id', 'category_id', 'id', 'id');
     }
 
-    public function exam()
+    public function result()
     {
-        return $this->hasOne(Exam::class, 'training_id', 'id');
+        return $this->hasOne(Result::class, 'training_id', 'id')->where('user_id', auth()->id());
     }
 }

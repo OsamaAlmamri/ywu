@@ -2,6 +2,7 @@
 
 namespace App\Models\TrainingContents;
 
+use App\UserTrainingTiltle;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -37,5 +38,10 @@ class TrainingTitle extends Model
     public function contents()
     {
         return $this->hasMany(TitleContent::class, 'title_id', 'id');
+    }
+
+    public function is_complete()
+    {
+        return $this->hasOne(UserTrainingTiltle::class, 'title_id', 'id')->where('user_id', auth()->id());
     }
 }
