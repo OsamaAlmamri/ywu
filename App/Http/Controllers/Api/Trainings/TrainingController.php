@@ -176,6 +176,22 @@ class TrainingController extends Controller
         }
     }
 
+    public function my_likes(Request $request)
+    {
+        try {
+
+            if ($request->type == 'posts')
+                $type = 'posts';
+            else
+                $type = 'women_posts';
+
+            $likes = Like::where('user_id', auth()->id())->where('type', $type)->get();
+            return $this->GetDateResponse('data', $likes);
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
     public function update(Request $request, $id)
     {
 //        $rules=$this->Post_Rules();

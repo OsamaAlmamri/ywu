@@ -44,7 +44,6 @@ class WomenController extends Controller
         $rules = $this->Post_Rules();
         $messages = $this->Post_Messages();
         $error = Validator::make($request->all(), $rules, $messages);
-
         if ($error->fails()) {
             return response()->json(['errors' => $error->errors()->all()]);
         }
