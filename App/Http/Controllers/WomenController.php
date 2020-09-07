@@ -112,15 +112,13 @@ class WomenController extends Controller
     public function index_trashed()
     {
         if (request()->ajax()) {
-            $post=WomenPosts::onlyTrashed()->with('category')->latest()->get();
+            $post=WomenPosts::onlyTrashed()->latest()->get();
             return datatables()->of($post)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" name="show" id="' . $data->id . '" class="show btn btn-info btn-sm "style="float: right"><span class=\'fa fa-eye\'></span></button>';
                     $button .= '<button type="button" name="edit" id="' . $data->id . '" class="restore btn btn-success btn-sm" style="float: right"><span class=\'glyphicon glyphicon-log-out\'></span></button>';
                     $button .= '<button type="button" name="delete" id="' . $data->id . '" class="force_delete btn btn-danger btn-sm"style="float: right"><span class=\'glyphicon glyphicon-trash\'></button>';
                     return $button;
-                })->editColumn('category',function ($post){
-                    return $post->category->name;
                 })
                 ->rawColumns(['action'])
                 ->make(true);

@@ -1,33 +1,11 @@
-@extends('adminpanel.master')
-@section('content')
-    <div class="right_col" role="main">
-        <div class="container">
-            <br/>
-            <h3 align="right">منشورات حقوق المراءة</h3>
-            <br/>
-            <div align="right">
-                <button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm">إنشاء منشور
-                    جديد
-                </button>
-            </div>
-            <br/>
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped" id="user_table">
-                    <thead>
-                    <tr>
-                        <th width="20%">العنوان</th>
-                        <th width="30%">الوصف</th>
-                        <th width="10%">الصورة</th>
-                        <th width="10%">تاريخ النشر</th>
-                        <th width="15%">العمليات</th>
-                    </tr>
-                    </thead>
-                </table>
-            </div>
-            <br/>
-            <br/>
-        </div>
+@extends('adminpanel.dataTableLayout')
+@section('card_header')
+    <div class="card-header">
+        <h3 align="right">منشورات حقوق المراءة</h3>
+        <br/>
     </div>
+@endsection
+@section('models')
 
     <div id="formModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -124,35 +102,55 @@
             </div>
         </div>
     </div>
+
 @endsection
-@section('scripts')
+@section('custom_js')
     <script>
         $(document).ready(function () {
+
 
             $('#user_table').DataTable({
                 processing: true,
                 serverSide: true,
+                paging: true,
+                scrollX: true,
+                responsive: true,
+                autoWidth: false,
+                searching: true,
+                search: [
+                    regex => true,
+                ],
+                info: false,
+                searchDelay: 350,
+                language: lang,
+                dom: 'Brfltip',
+                lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
+                buttons: [
+
+                    {
+                        text: '<i class="fa fa-plus" ></i>  إنشاء  منشور جديد  ',
+                        className: 'btn btn-info create_record',
+                    },
+                ],
                 ajax: {
                     url: "{{ route('ajax-crud.index') }}",
                 },
-                columnDefs: [{
-                    targets: 1,
-                    render: function (data, type, row) {
-                        return type === 'display' && data.length > 50 ? data.substr(0, 50) + '…' : data;
-                    }
-                }],
                 columns: [
                     {
+                        title: 'العنوان',
                         data: 'title',
                         name: 'title'
                     },
                     {
                         data: 'body',
+                        title: 'الوصف',
                         name: 'body'
                     },
 
                     {
                         data: 'image',
+                        title: 'الصورة',
+
                         name: 'image',
                         render: function (data, type, full, meta) {
                             return "<img src={{ URL::to('/') }}/assets/images/" + data + " width='70' class='img-thumbnail' />";
@@ -161,16 +159,22 @@
                     },
                     {
                         data: 'published',
+                        name: 'published',
+                        title: 'تاريخ النشر',
+
+
                     },
                     {
                         data: 'action',
+                        title: 'عمليات',
+
                         name: 'action',
                         orderable: false
                     },
                 ]
             });
 
-            $('#create_record').click(function () {
+            $('.create_record').click(function () {
                 $('.modal-title').text("إضافة منشور جديد");
                 $('#sample_form')[0].reset();
                 $('#store_image').html('');
@@ -324,4 +328,5 @@
             });
         });
     </script>
+
 @endsection
