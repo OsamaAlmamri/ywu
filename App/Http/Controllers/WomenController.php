@@ -15,10 +15,11 @@ class WomenController extends Controller
 {
     use JsonTrait;
     use PostTrait;
+
     public function index()
     {
         if (request()->ajax()) {
-            $post=WomenPosts::latest()->get();
+            $post = WomenPosts::latest()->get();
             return datatables()->of($post)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" name="show_post" id="' . $data->id . '" class="show_post btn btn-info btn-sm "style="float: right"><span class=\'fa fa-eye\'></span></button>';
@@ -29,8 +30,8 @@ class WomenController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $admin=Admin::where('id',1)->first();
-        return view('women.index',compact(['admin']));
+        $admin = Admin::where('id', 1)->first();
+        return view('women.index', compact(['admin']));
     }
 
     public function create()
@@ -40,24 +41,29 @@ class WomenController extends Controller
 
     public function store(Request $request)
     {
-            $rules=$this->Post_Rules();
-            $messages=$this->Post_Messages();
-            $error = Validator::make($request->all(), $rules,$messages);
+        $rules = $this->Post_Rules();
+        $messages = $this->Post_Messages();
+        $error = Validator::make($request->all(), $rules, $messages);
 
-            if ($error->fails()) {
-                return response()->json(['errors' => $error->errors()->all()]);
-            }
-            $post = new WomenPosts();
-            $post->title=$request->title;
-            $post->body=$request->body;
-            $post->image= $this->Post_Save($request,'image',"IMG-",'assets/images');
-            $post->book=$this->Post_Save($request,'book',"BOK-",'assets/books');
-            if($request->video==null)
-                $post->video_url = null;
-            $post->video_url =$request->video;
-            $post->save();
-            if ($post->save())
-                return response()->json(['success' => 'تم النشر بنجاح']);
+        if ($error->fails()) {
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+        $post = new WomenPosts();
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->image = $this->Post_Save($request, 'image', "IMG-", 'assets/images');
+        if ($request->book_type == 'book_internal')
+            $post->book = $this->Post_Save($request, 'book', "BOK-", 'assets/books');
+
+        if ($request->book_type == 'book_external')
+            $post->book_external_link = $request->book_external_link;
+
+        if ($request->video == null)
+            $post->video_url = null;
+        $post->video_url = $request->video;
+        $post->save();
+        if ($post->save())
+            return response()->json(['success' => 'تم النشر بنجاح']);
     }
 
     public function show($id)
@@ -69,31 +75,33 @@ class WomenController extends Controller
     }
 
     public function edit($id)
-    {       if (request()->ajax()) {
-                $data = WomenPosts::whereId($id)->first();
-                return response()->json(['data' => $data]);
-    }
+    {
+        if (request()->ajax()) {
+            $data = WomenPosts::whereId($id)->first();
+            return response()->json(['data' => $data]);
+        }
     }
 
     public function update(Request $request)
     {
-        $rules=$this->Post_Rules();
-        $messages=$this->Post_Messages();
-        $error = Validator::make($request->all(), $rules,$messages);
+        $rules = $this->Post_Rules();
+        $messages = $this->Post_Messages();
+        $error = Validator::make($request->all(), $rules, $messages);
         if ($error->fails()) {
             return response()->json(['errors' => $error->errors()->all()]);
         }
 
-        $post=WomenPosts::whereId($request->hidden_id)->first();
-        if($post){
-            $post->title=$request->title;
-            $post->body=$request->body;
-            $post->image = $this->Post_update($request,'image',"IMG-",'assets/images',$post->image);
-            $post->book=$this->Post_update($request,'book',"BOK-",'assets/books',$post->book);
-            if($post->video_url!=null || $post->video_url==null && $request->video!=null){
-                $post->video_url=$request->video;
+        $post = WomenPosts::whereId($request->hidden_id)->first();
+        if ($post) {
+            $post->title = $request->title;
+            $post->body = $request->body;
+            $post->image = $this->Post_update($request, 'image', "IMG-", 'assets/images', $post->image);
+            $post->book = $this->Post_update($request, 'book', "BOK-", 'assets/books', $post->book);
+            if ($post->video_url != null || $post->video_url == null && $request->video != null) {
+                $post->video_url = $request->video;
+            } else {
+                $post->video_url = null;
             }
-            else{$post->video_url=null;}
             $post->update();
             if ($post) {
                 return response()->json(['success' => 'تم التعديل بنجاح']);
@@ -108,11 +116,12 @@ class WomenController extends Controller
         $data = WomenPosts::findOrFail($id);
         $data->delete();
     }
+
 ################################################################### deleted posts
     public function index_trashed()
     {
         if (request()->ajax()) {
-            $post=WomenPosts::onlyTrashed()->latest()->get();
+            $post = WomenPosts::onlyTrashed()->latest()->get();
             return datatables()->of($post)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" name="show" id="' . $data->id . '" class="show btn btn-info btn-sm "style="float: right"><span class=\'fa fa-eye\'></span></button>';
@@ -123,24 +132,29 @@ class WomenController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $admin=Admin::where('id',1)->first();
-        return view('women.trashed',compact('admin'));
-    }
-    public function edit_trashed($id)
-    {       if (request()->ajax()) {
-        $data = WomenPosts::onlyTrashed()->whereId($id)->first();
-        return response()->json(['data' => $data]);
-    }
+        $admin = Admin::where('id', 1)->first();
+        return view('women.trashed', compact('admin'));
     }
 
-    public function restore_post($id){
-        if ($id) {
-            WomenPosts::where('id',$id)->restore();
+    public function edit_trashed($id)
+    {
+        if (request()->ajax()) {
+            $data = WomenPosts::onlyTrashed()->whereId($id)->first();
+            return response()->json(['data' => $data]);
         }
     }
-    public function force($id){
+
+    public function restore_post($id)
+    {
         if ($id) {
-            WomenPosts::where('id',$id)->forceDelete($id);
+            WomenPosts::where('id', $id)->restore();
+        }
+    }
+
+    public function force($id)
+    {
+        if ($id) {
+            WomenPosts::where('id', $id)->forceDelete($id);
         }
     }
 }

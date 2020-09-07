@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Trainings;
 
 use App\Http\Controllers\Controller;
+use App\Like;
 use App\Models\TrainingContents\SubjectCategory;
 use App\Models\TrainingContents\Training;
 use App\Question;
@@ -150,6 +151,26 @@ class TrainingController extends Controller
         try {
             Result::create(['user_id' => auth()->id(), 'grade' => $request->grade, 'training_id' => $request->training_id]);
             return $this->GetDateResponse('data', "تم الحفظ");
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
+    public function like(Request $request)
+    {
+        try {
+            if ($request->type == 'posts')
+                $type = 'posts';
+            else
+                $type = 'women_posts';
+            $likes = Like::where('user_id', auth()->id())->where('liked_id', $request->liked_id)->where('type', $type)->get()->first();
+            if (!$likes) {
+                Like::create(['user_id' => auth()->id(), 'liked_id' => $request->liked_id, 'type' => $type]);
+                return $this->GetDateResponse('data', "تم الاضافة اللا المفضلة");
+            } else {
+                $likes->delete();
+                return $this->GetDateResponse('data', "تم اللغاء من المفضلة");
+            }
         } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
         }

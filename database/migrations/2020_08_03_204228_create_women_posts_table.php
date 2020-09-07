@@ -20,6 +20,7 @@ class CreateWomenPostsTable extends Migration
             $table->text('body');
             $table->text('image')->nullable();
             $table->text('book')->nullable();
+            $table->text('book_external_link')->nullable();
             $table->text('sound')->nullable();
             $table->text('video_url')->nullable();
             $table->softDeletes();

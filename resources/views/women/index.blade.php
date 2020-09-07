@@ -38,10 +38,28 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="control-label col-sm-4">نوع الكتاب :</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="book_type" name="book_type">
+                                    <option value="none">لا يوجد</option>
+                                    <option value="book_internal">مرفوع الى النظام</option>
+                                    <option value="book_external">رابط خارجي</option>
+                                </select>
+                                <div class="print-error-msg alert-danger" id="modal_error_training_id"></div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="book_internal" style="display: none">
                             <label class="control-label col-md-4">نشر كتاب : </label>
                             <div class="col-md-8">
                                 <input type="file" name="book" id="book"/>
                                 <span id="store_book"></span>
+                            </div>
+                        </div>
+                        <div class="form-group" id="book_external" style="display: none">
+                            <label class="control-label col-md-4">رابط الكتاب خارجي: </label>
+                            <div class="col-md-8">
+                                <input type="url" name="book_external_link" id="book_external_link"/>
+                                <span id="book_external_link"></span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -76,6 +94,8 @@
                     <div id="show_body"></div>
                     <br>
                     <div id="show_book"></div>
+                    <br>
+                    <div id="show_book_external_link"></div>
                     <br>
                     <div id="show_video"></div>
                     <br>
@@ -261,6 +281,16 @@
                         $('#store_image').append("<input type='hidden' name='hidden_image' value='" + html.data.image + "' />");
                         $('#store_book').html("<b>'" + html.data.book + "'</b>");
                         $('#store_book').append("<input type='hidden' name='hidden_book' value='" + html.data.book + "' />");
+                        if (html.data.book != null) {
+                            $('#book_type').val('book_internal').change();
+                        } else if (html.data.book_external_link != null) {
+                            $('#book_type').val('book_external').change();
+                        } else {
+                            $('#book_type').val('none').change();
+                        }
+
+
+                        // $('#book_type').trigger('change');
                         $('#hidden_id').val(html.data.id);
                         $('.modal-title').text("تعديل المنشور");
                         $('#action_button').val("تعديل");
@@ -272,7 +302,6 @@
             $(document).on('click', '.show_post', function () {
                 var id = $(this).attr('id');
                 $('#form_show').html('');
-
                 $.ajax({
                     url: "show/" + id + "",
                     type: "GET",
@@ -285,6 +314,11 @@
                             $('#show_book').html("<b>" + html.data.book + " <span class='fa fa-file-pdf-o'></span></b>");
                         } else {
                             $('#show_book').html("<b>لا يوجد كتاب</b>");
+                        }
+                        if (html.data.book_external_link != null) {
+                            $('#show_book_external_link').html("<a target='_blank' style='color: blue' href='" + html.data.book_external_link + "'> رابط الكتاب الخارجي <span class='fa fa-link'></span></a>");
+                        } else {
+                            $('#show_book_external_link').html("<b>لا يوجد رابط كتاب</b>");
                         }
                         if (html.data.video_url != null) {
                             $('#show_video').html("<b><a href='" + html.data.video_url + "'>" + html.data.video_url + " <span class='fa fa-file-video-o'></span></a></b>");
@@ -310,6 +344,23 @@
                 $('.modal-title').text("حذف المنشور");
                 $('#ok_button').text('حذف');
                 $('#confirmModal').modal('show');
+            });
+
+            $('#book_type').change(function () {
+                var type = $(this).val();
+                if (type == 'book_internal') {
+                    $('#book_internal').show();
+                    $('#book_external').hide();
+                } else if (type == 'book_external') {
+                    $('#book_external').show();
+                    $('#book_internal').hide();
+
+                } else {
+                    $('#book_external').hide();
+                    $('#book_internal').hide();
+
+                }
+
             });
 
             $('#ok_button').click(function () {

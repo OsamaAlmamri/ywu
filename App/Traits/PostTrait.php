@@ -18,7 +18,9 @@ trait PostTrait
             //"sound"=>"mimetypes:application/octet-stream,audio/mpeg",
             "image" => "nullable|image",
 //            "image" => "nullable|image|mimes:jpg,png,jpeg,gif,svg",
-            "book" => "nullable|file|mimes:pdf,doc",
+            "book_external_link" => "required_if:book_type,book_external",
+            "book" => "required_if:book_type,book_internal|file|mimes:pdf,doc",
+
             //"sound"=>"mimetypes:application/octet-stream,audio/mpeg",
             //"sound"=>"nullable|mp3_ogg_extension",
         ];
@@ -34,6 +36,8 @@ trait PostTrait
             "image.mimes" => "يجب ان يكون امتداد الصورة: jpg,png,jpeg,gif,svg",
             //"image.max"=>"لايمكن رفع صورة حجمها اكبر من 2 ميغا بايت",
             "book.mimes" => "يرجى اختيار ملف من نوع: pdf,doc",
+            "book_external_link.required_if" => "يرجى وضع رابط الكتاب  ",
+            "book.required_if" => "يرجى اختيار كتاب ",
             //"book.max"=>"لايمكن رفع ملف حجمه اكبر من 2 ميغا بايت",
             //"sound.mp3_ogg_extension"=>"يجب ان يكون امتداد الملف الصوتي  mp3",
             //"sound.max"=>"لايمكن ان يكون حجم الملف الصوتي اكبر من 6 ميغا بايت",
@@ -68,7 +72,7 @@ trait PostTrait
                 }
                 return null;
             }
-            return $column ;
+            return $column;
         }
     }
 
