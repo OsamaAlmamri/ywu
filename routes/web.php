@@ -26,7 +26,7 @@ Route::post('/admin_forget_check', 'AdminLoginController@Admin_forget_check')->n
 
 Route::post('/check_admin_login', 'AdminLoginController@adminLoginCheck')->name('login_admin');
 
-Route::group(['middleware'=>('auth:admin')], function() {
+Route::group(['middleware' => ('auth:admin')], function () {
     Route::get('/admin', 'AdminLoginController@Admin')->name('Admin');
     Route::get('/admin_edit', 'AdminLoginController@Update_Admin_Details')->name('Admin_Edit');
     Route::post('/admin_update', 'AdminLoginController@Admin_update')->name('Admin_Update');
@@ -99,12 +99,19 @@ Route::group(['middleware'=>('auth:admin')], function() {
     Route::post('title/update', 'FrontTitleController@update')->name('title.update');
     Route::get('title/destroy/{id}', 'FrontTitleController@destroy');
     Route::get('titleShow', 'FrontTitleController@index')->name('title');
-    Route::get('/showID/{id}', 'FrontTitleController@index_edit');
+    Route::get('/showID/{id}', 'FrontTitleController@index')->name('showTitles');
     Route::get('Show_title/{id}', 'FrontTitleController@Show_title');
     Route::get('title-trashed', 'FrontTitleController@index_trashed')->name('title-trashed');
     Route::get('title/show-trashed/{id}', 'FrontTitleController@show_trashed');
     Route::get('restore-title/{id}', 'FrontTitleController@restore_post');
     Route::get('force-title/{id}', 'FrontTitleController@force');
+
+#################################################### questions
+    Route::post('questions/update', 'QuestionsController@update')->name('questions.update');
+    Route::get('questions/destroy/{id}', 'QuestionsController@destroy');
+    Route::get('questions/edit/{id}', 'QuestionsController@edit');
+    Route::get('questions/index/{id}', 'QuestionsController@index')->name('questions.index');
+    Route::resource('questions', 'QuestionsController')->except('index','update');
 
 #################################################### Contents
     Route::get('content/show/{id}', 'FrontContentController@show');
@@ -126,13 +133,12 @@ Route::group(['middleware'=>('auth:admin')], function() {
     Route::get('Category/destroy/{id}', 'FrontEmployeeCategory@destroy');
     Route::get('CategoryShow', 'FrontEmployeeCategory@index')->name('Emp_Category');
 
-   #################################################### emp_jobs
+    #################################################### emp_jobs
     Route::get('jobs/edit/{id}', 'JobsController@edit');
     Route::post('jobs/store', 'JobsController@store')->name('jobs.store');
     Route::post('jobs/update', 'JobsController@update')->name('jobs.update');
     Route::get('jobs/destroy/{id}', 'JobsController@destroy');
     Route::get('jobs', 'JobsController@index')->name('jobs');
-
 
 
     #### category_trainings

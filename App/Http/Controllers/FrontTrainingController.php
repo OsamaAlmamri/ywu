@@ -18,45 +18,34 @@ class FrontTrainingController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            if (!empty(request()->filter_country)) {
-                $training = Training::with('subject')->where('subject_id', request()->filter_country)->latest()->get();
-                return datatables()->of($training)
-                    ->addColumn('action', function ($data) {
-                        $button = '<button type="button" name="show_training" id="' . $data->id . '" class="show_training btn btn-info btn-sm "style="float: right"><span class=\'fa fa-eye\'></span></button>';
-                        $button .= '<button type="button" name="edit_training" id="' . $data->id . '" class="edit_training btn btn-warning btn-sm" style="float: right"><span class=\'glyphicon glyphicon-pencil\'></span></button>';
-                        $button .= '<button type="button" name="delete_training" id="' . $data->id . '" class="delete_training btn btn-danger btn-sm"style="float: right"><span class=\'glyphicon glyphicon-trash\'></button>';
-                        return $button;
-                    })->editColumn('subject', function ($training) {
-                        return empty($training->subject) ? 'No producent' : $training->subject->name;
-                    })
-                    ->rawColumns(['action'])
-                    ->make(true);
-            } else {
+            if (!empty(request()->filter_country))
+                $training = Training::with('subject')
+                    ->where('subject_id', request()->filter_country)->latest()->get();
+            else
                 $training = Training::with('subject')->latest()->get();
-                return datatables()->of($training)
-                    ->addColumn('action', function ($data) {
-                        $button = '<button type="button" name="show_training" id="' . $data->id . '" class="show_training btn btn-info btn-sm "style="float: right"><span class=\'fa fa-eye\'></span></button>';
-                        $button .= '<button type="button" name="edit_training" id="' . $data->id . '" class="edit_training btn btn-warning btn-sm" style="float: right"><span class=\'glyphicon glyphicon-pencil\'></span></button>';
-                        $button .= '<button type="button" name="delete_training" id="' . $data->id . '" class="delete_training btn btn-danger btn-sm"style="float: right"><span class=\'glyphicon glyphicon-trash\'></button>';
-                        return $button;
-                    })->editColumn('subject', function ($training) {
-                        return empty($training->subject) ? 'No producent' : $training->subject->name;
-                    })
-                    ->rawColumns(['action'])
-                    ->make(true);
-            }
+            return datatables()->of($training)
+                ->addColumn('content', 'training.btn.content')
+                ->addColumn('action', 'training.btn.action')
+                ->addColumn('btn_image', 'training.btn.image')
+                ->editColumn('subject', function ($training) {
+                    return empty($training->subject) ? 'No producent' : $training->subject->name;
+                })
+                ->rawColumns(['action', 'btn_image','content'])
+                ->make(true);
         }
         $categories = Subject::all();
         $admin = Admin::where('id', 1)->first();
         return view('training.index', compact(['categories', 'admin']));
     }
 
-    public function create()
+    public
+    function create()
     {
         //
     }
 
-    public function store(Request $request)
+    public
+    function store(Request $request)
     {
         $rules = [
             "name" => "required",
@@ -89,7 +78,8 @@ class FrontTrainingController extends Controller
             return response()->json(['success' => 'تم النشر بنجاح']);
     }
 
-    public function show($id)
+    public
+    function show($id)
     {
         if (request()->ajax()) {
             $data = Training::with(['subject', 'titles'])->whereId($id)->first();
@@ -97,7 +87,8 @@ class FrontTrainingController extends Controller
         }
     }
 
-    public function edit($id)
+    public
+    function edit($id)
     {
         if (request()->ajax()) {
             $data = Training::whereId($id)->first();
@@ -105,7 +96,8 @@ class FrontTrainingController extends Controller
         }
     }
 
-    public function update(Request $request)
+    public
+    function update(Request $request)
     {
         $rules = [
             "name" => "required",
@@ -145,14 +137,16 @@ class FrontTrainingController extends Controller
         }
     }
 
-    public function destroy($id)
+    public
+    function destroy($id)
     {
         $data = Training::findOrFail($id);
         $data->delete();
     }
 
 ################################################################### deleted posts
-    public function index_trashed()
+    public
+    function index_trashed()
     {
         if (request()->ajax()) {
             $training = Training::onlyTrashed()->with('subject')->latest()->get();
@@ -172,7 +166,8 @@ class FrontTrainingController extends Controller
         return view('training.trashed', compact('admin'));
     }
 
-    public function show_trashed($id)
+    public
+    function show_trashed($id)
     {
         if (request()->ajax()) {
             $data = Training::onlyTrashed()->with('subject')->whereId($id)->first();
@@ -180,14 +175,16 @@ class FrontTrainingController extends Controller
         }
     }
 
-    public function restore_post($id)
+    public
+    function restore_post($id)
     {
         if ($id) {
             Training::where('id', $id)->restore();
         }
     }
 
-    public function force($id)
+    public
+    function force($id)
     {
         if ($id) {
             Training::where('id', $id)->forceDelete($id);

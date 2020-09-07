@@ -15,41 +15,7 @@ class FrontTitleController extends Controller
     use JsonTrait;
     use PostTrait;
 
-    public function index()
-    {
-        if (request()->ajax()) {
-            if (!empty(request()->filter_country)) {
-                $post = TrainingTitle::with('training')->where('training_id', request()->filter_country)->latest()->get();
-                return datatables()->of($post)
-                    ->addColumn('action', function ($data) {
-                        $button = '<button type="button" name="edit" id="' . $data->id . '" class="edit btn btn-warning btn-sm" style="float: right"><span class=\'glyphicon glyphicon-pencil\'></span></button>';
-                        $button .= '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"style="float: right"><span class=\'glyphicon glyphicon-trash\'></button>';
-                        return $button;
-                    })->editColumn('training', function ($post) {
-                        return $post->training->name;
-                    })
-                    ->rawColumns(['action'])
-                    ->make(true);
-            } else {
-                $post = TrainingTitle::with('training')->latest()->get();
-                return datatables()->of($post)
-                    ->addColumn('action', function ($data) {
-                        $button = '<button type="button" name="edit" id="' . $data->id . '" class="edit btn btn-warning btn-sm" style="float: right"><span class=\'glyphicon glyphicon-pencil\'></span></button>';
-                        $button .= '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"style="float: right"><span class=\'glyphicon glyphicon-trash\'></button>';
-                        return $button;
-                    })->editColumn('training', function ($post) {
-                        return $post->training->name;
-                    })
-                    ->rawColumns(['action'])
-                    ->make(true);
-            }
-        }
-        $categories = Training::all();
-        $admin=Admin::where('id',1)->first();
-        return view('title.index', compact(['categories','admin']));
-    }
-
-    public function index_edit($id)
+    public function index($id)
     {
         if (request()->ajax()) {
             $post = TrainingTitle::with('training')->where('training_id', $id)->get();
@@ -69,19 +35,19 @@ class FrontTitleController extends Controller
         }
 
         $category = Training::where('id', $id)->first();
-        $admin=Admin::where('id',1)->first();
-        return view('title.show', compact(['category', 'id','admin']));
+        $admin = Admin::where('id', 1)->first();
+        return view('title.show', compact(['category', 'id', 'admin']));
     }
 
     public function store(Request $request)
     {
-        $rules=[
-            "name"=>"required"
+        $rules = [
+            "name" => "required"
         ];
-        $messages=[
-            "name.required"=>"يرجى كتابة العنوان"
+        $messages = [
+            "name.required" => "يرجى كتابة العنوان"
         ];
-        $error = Validator::make($request->all(), $rules,$messages);
+        $error = Validator::make($request->all(), $rules, $messages);
         if ($error->fails()) {
             return response()->json(['errors' => $error->errors()->all()]);
         }
@@ -111,13 +77,13 @@ class FrontTitleController extends Controller
 
     public function update(Request $request)
     {
-        $rules=[
-            "name"=>"required"
+        $rules = [
+            "name" => "required"
         ];
-        $messages=[
-            "name.required"=>"يرجى كتابة العنوان"
+        $messages = [
+            "name.required" => "يرجى كتابة العنوان"
         ];
-        $error = Validator::make($request->all(), $rules,$messages);
+        $error = Validator::make($request->all(), $rules, $messages);
         if ($error->fails()) {
             return response()->json(['errors' => $error->errors()->all()]);
         }

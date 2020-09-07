@@ -1,31 +1,11 @@
-@extends('adminpanel.master')
-@section('content')
-    <div class="right_col" role="main">
-        <div class="container">
-            <br />
-            <h3 align="right">عناوين الدورة التدريبية</h3>
-            <br />
-            <div align="right">
-                <button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm">إنشاء عنوان فرعي جديده</button>
-            </div>
-            <br />
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped" id="user_table">
-                    <thead>
-                    <tr>
-                        <th width="20%">العنوان</th>
-                        <th width="30%">عنوان الدورة</th>
-                        <th width="10%">تاريخ النشر</th>
-                        <th width="15%">العمليات</th>
-                    </tr>
-                    </thead>
-                </table>
-            </div>
-            <br />
-            <br />
-        </div>
+@extends('adminpanel.dataTableLayout')
+@section('card_header')
+    <div class="card-header">
+        <h3 align="right">عناوين الدورة التدريبية</h3>
+        <br/>
     </div>
-
+@endsection
+@section('models')
     <div id="formModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -38,33 +18,33 @@
                     <form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label class="control-label col-sm-4" >عنوان الدورة :</label>
+                            <label class="control-label col-sm-4">عنوان الدورة :</label>
                             <div class="col-sm-8">
                                 <select class="form-control" id="training" name="training">
                                     @if($category->count())
-                                            <option id="C_name"  value="{{$category->id}}">{{$category->name}}</option>
+                                        <option id="C_name" value="{{$category->id}}">{{$category->name}}</option>
                                     @endif
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-4" >العنوان : </label>
+                            <label class="control-label col-md-4">العنوان : </label>
                             <div class="col-md-8">
-                                <input type="text" name="name" id="name" class="form-control" />
+                                <input type="text" name="name" id="name" class="form-control"/>
                             </div>
                         </div>
-                        <br />
+                        <br/>
                         <div class="form-group" align="center">
-                            <input type="hidden" name="action" id="action" />
-                            <input type="hidden" name="hidden_id" id="hidden_id" />
-                            <input type="submit" name="action_button" id="action_button" class="btn btn-warning" value="نشر" />
+                            <input type="hidden" name="action" id="action"/>
+                            <input type="hidden" name="hidden_id" id="hidden_id"/>
+                            <input type="submit" name="action_button" id="action_button" class="btn btn-warning"
+                                   value="نشر"/>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
     <div id="formShow" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -85,7 +65,6 @@
             </div>
         </div>
     </div>
-
     <div id="confirmModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -104,33 +83,58 @@
         </div>
     </div>
 @endsection
-@section('scripts')
+@section('custom_js')
+
+
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
 
             fill_datatable();
-
-            function fill_datatable()
-            {
+            function fill_datatable() {
                 var dataTable = $('#user_table').DataTable({
                     processing: true,
                     serverSide: true,
-                    ajax:{
+                    paging: true,
+                    scrollX: true,
+                    responsive: true,
+                    autoWidth: false,
+                    searching: true,
+                    search: [
+                        regex => true,
+                    ],
+                    info: false,
+                    searchDelay: 350,
+                    language: lang,
+                    dom: 'Brfltip',
+                    lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
+                    buttons: [
+
+                        {
+                            text: '<i class="fa fa-plus" ></i>  إنشاء عنوان فرعي جديده  ',
+                            className: 'btn btn-info create_record',
+                        },
+                    ],
+                    ajax: {
                         url: "/showID/{{ $id }}",
                     },
                     columns: [
                         {
-                            data:'name',
-                            name:'name'
+                            title: 'العنوان',
+                            data: 'name',
+                            name: 'name'
                         },
                         {
-                            data:'training',
-                            name:'training'
+                            title: 'عنوان الدورة',
+                            data: 'training',
+                            name: 'training'
                         },
                         {
-                            data:'published',
+                            title: 'تاريخ النشر',
+                            name: 'العنوان',
+                            data: 'published',
                         },
                         {
+                            title: 'عمليات',
                             data: 'action',
                             name: 'action',
                             orderable: false
@@ -139,7 +143,7 @@
                 });
             }
 
-            $('#create_record').click(function(){
+            $('.create_record').click(function () {
                 $('.modal-title').text("إضافة عنوان فرعي جديد");
                 $('#sample_form')[0].reset();
                 $('#action_button').val("نشر");
@@ -147,32 +151,27 @@
                 $('#formModal').modal('show');
             });
 
-            $('#sample_form').on('submit', function(event){
+            $('#sample_form').on('submit', function (event) {
                 event.preventDefault();
-                if($('#action').val() == 'Add')
-                {
+                if ($('#action').val() == 'Add') {
                     $.ajax({
-                        url:"{{ route('title.store') }}",
-                        method:"POST",
+                        url: "{{ route('title.store') }}",
+                        method: "POST",
                         data: new FormData(this),
                         contentType: false,
-                        cache:false,
+                        cache: false,
                         processData: false,
-                        dataType:"json",
-                        success:function(data)
-                        {
+                        dataType: "json",
+                        success: function (data) {
                             var html = '';
-                            if(data.errors)
-                            {
+                            if (data.errors) {
                                 html = '<div class="alert alert-danger">';
-                                for(var count = 0; count < data.errors.length; count++)
-                                {
+                                for (var count = 0; count < data.errors.length; count++) {
                                     html += '<p>' + data.errors[count] + '</p>';
                                 }
                                 html += '</div>';
                             }
-                            if(data.success)
-                            {
+                            if (data.success) {
                                 html = '<div class="alert alert-success">' + data.success + '</div>';
                                 $('#sample_form')[0].reset();
                                 $('#user_table').DataTable().ajax.reload();
@@ -182,30 +181,25 @@
                     })
                 }
 
-                if($('#action').val() == "Edit")
-                {
+                if ($('#action').val() == "Edit") {
                     $.ajax({
-                        url:"{{ route('title.update') }}",
-                        method:"POST",
-                        data:new FormData(this),
+                        url: "{{ route('title.update') }}",
+                        method: "POST",
+                        data: new FormData(this),
                         contentType: false,
                         cache: false,
                         processData: false,
-                        dataType:"json",
-                        success:function(data)
-                        {
+                        dataType: "json",
+                        success: function (data) {
                             var html = '';
-                            if(data.errors)
-                            {
+                            if (data.errors) {
                                 html = '<div class="alert alert-danger">';
-                                for(var count = 0; count < data.errors.length; count++)
-                                {
+                                for (var count = 0; count < data.errors.length; count++) {
                                     html += '<p>' + data.errors[count] + '</p>';
                                 }
                                 html += '</div>';
                             }
-                            if(data.success)
-                            {
+                            if (data.success) {
                                 html = '<div class="alert alert-success">' + data.success + '</div>';
                                 $('#sample_form')[0].reset();
                                 $('#user_table').DataTable().ajax.reload();
@@ -216,15 +210,15 @@
                 }
             });
 
-            $(document).on('click', '.edit', function(){
+            $(document).on('click', '.edit', function () {
                 var id = $(this).attr('id');
                 $('#form_result').html('');
 
                 $.ajax({
-                    url:"/title/edit/"+id+"",
+                    url: "/title/edit/" + id + "",
                     type: "GET",
-                    dataType:"json",
-                    success:function(html){
+                    dataType: "json",
+                    success: function (html) {
                         $('#name').val(html.data.name);
                         $('#hidden_id').val(html.data.id);
                         $('.modal-title').text("تعديل العنوان");
@@ -235,29 +229,28 @@
                 })
             });
 
-            $(document).on('click', '.show', function(){
+            $(document).on('click', '.show', function () {
                 var id = $(this).attr('id');
-                window.location.href="/showContentID/" + id;
+                window.location.href = "/showContentID/" + id;
             });
 
             var user_id;
 
-            $(document).on('click', '.delete', function(){
+            $(document).on('click', '.delete', function () {
                 user_id = $(this).attr('id');
                 $('.modal-title').text("حذف العنوان");
                 $('#ok_button').text('حذف');
                 $('#confirmModal').modal('show');
             });
 
-            $('#ok_button').click(function(){
+            $('#ok_button').click(function () {
                 $.ajax({
-                    url:"/title/destroy/"+user_id,
-                    beforeSend:function(){
+                    url: "/title/destroy/" + user_id,
+                    beforeSend: function () {
                         $('#ok_button').text('جاري الحذف...');
                     },
-                    success:function(data)
-                    {
-                        setTimeout(function(){
+                    success: function (data) {
+                        setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#user_table').DataTable().ajax.reload();
                         }, 2000);
@@ -267,3 +260,7 @@
         });
     </script>
 @endsection
+
+
+
+

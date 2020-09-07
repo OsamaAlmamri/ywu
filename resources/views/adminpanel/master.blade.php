@@ -40,6 +40,9 @@
           media="all" rel="stylesheet" type="text/css"/>
     <link href="{!! asset('newLibs/data-table/extensions/responsive/css/responsive.dataTables.css') !!}"
           media="all" rel="stylesheet" type="text/css"/>
+
+    <link href="{!! asset('newLibs\lightbox2\css\lightbox.min.css') !!}" media="all" rel="stylesheet"
+          type="text/css"/>
     <style>
         .panel-shadow {
             box-shadow: rgba(0, 0, 0, 0.3) 7px 7px 7px;
@@ -393,17 +396,50 @@
     </style>
 
     <style>
-       .nav.navbar-nav>li>a
+        .thumbnail {
+            margin-bottom: 20px
+        }
+
+        .thumbnail .thumb {
+            position: relative;
+            display: block
+        }
+        .thumbnail {
+            height: auto;
+            overflow: hidden;
+        }
+        .thumb-img {
+            position: relative;
+            display: block
+        }
+
+        .thumb-img:hover .caption-hover {
+            background-color: rgba(0, 0, 0, 0.7);
+            visibility: visible;
+            opacity: 1;
+            filter: alpha(opacity=100);
+            position: absolute;
+            width: 100%;
+            height: 100%
+        }
+        a[data-lightbox="example-set"] .img-fluid, a[data-lightbox="roadtrip"] .img-fluid, a[data-toggle="lightbox"] .img-fluid {
+            margin: 10px 0
+        }
+        .nav.navbar-nav>li>a
        {
             color: #ffffff;
         }
+
+       .nav.navbar-nav>li>a {
+            color: #ffffff!important;
+       }
         .nav_menu {
             background: black;
         }
         body
         {
             color: #000000;
-            background: #f6f7fb;
+            background: #000000;
         }
         a
         {
@@ -434,6 +470,9 @@
            /*position: fixed;*/
 
        }
+        .form-horizontal .checkbox, .form-horizontal .checkbox-inline, .form-horizontal .radio, .form-horizontal .radio-inline {
+            padding-top: 0;
+        }
     </style>
 
 </head>
@@ -500,6 +539,7 @@
 <script src="{!! asset('newLibs/datatables.net-buttons/js/buttons.print.min.js') !!}"></script>
 <script src="{!! asset('newLibs/datatables.net-buttons/js\buttons.html5.min.js') !!}"></script>
 <script src="{!! asset('newLibs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') !!}"></script>
+<script src="{!! asset('newLibs\lightbox2\js\lightbox.min.js') !!}"></script>
 @yield('scripts')
 </body>
 

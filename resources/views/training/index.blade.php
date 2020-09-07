@@ -219,6 +219,17 @@
                             name: 'subject',
                             title: ' اسم الماد'
 
+                        },{
+                            data: 'btn_image',
+                            name: 'btn_image',
+                            title: ' الصورة '
+
+                        },
+                        {
+                            data: 'type',
+                            name: 'type',
+                            title: ' النوع '
+
                         },
                         {
                             data: 'mark',
@@ -246,6 +257,12 @@
                             data: 'published',
                             name: 'published',
                             title: 'تاريخ  النشر'
+                        },
+                        {
+                            data: 'content',
+                            name: 'content',
+                            title: 'عرض المحتويات',
+                            orderable: false,
                         },
                         {
                             data: 'action',
