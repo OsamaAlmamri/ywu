@@ -18,22 +18,19 @@ class WomenController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $post=WomenPosts::with('category')->latest()->get();
+            $post=WomenPosts::latest()->get();
             return datatables()->of($post)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" name="show_post" id="' . $data->id . '" class="show_post btn btn-info btn-sm "style="float: right"><span class=\'fa fa-eye\'></span></button>';
                     $button .= '<button type="button" name="edit_post" id="' . $data->id . '" class="edit_post btn btn-warning btn-sm" style="float: right"><span class=\'glyphicon glyphicon-pencil\'></span></button>';
                     $button .= '<button type="button" name="delete_post" id="' . $data->id . '" class="delete_post btn btn-danger btn-sm"style="float: right"><span class=\'glyphicon glyphicon-trash\'></button>';
                     return $button;
-                })->editColumn('category',function ($post){
-                    return $post->category->name;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $categories=WomenCategory::all();
         $admin=Admin::where('id',1)->first();
-        return view('women.index',compact(['categories','admin']));
+        return view('women.index',compact(['admin']));
     }
 
     public function create()
@@ -53,7 +50,6 @@ class WomenController extends Controller
             $post = new WomenPosts();
             $post->title=$request->title;
             $post->body=$request->body;
-            $post->category_id = $request->category;
             $post->image= $this->Post_Save($request,'image',"IMG-",'assets/images');
             $post->book=$this->Post_Save($request,'book',"BOK-",'assets/books');
             if($request->video==null)
@@ -92,7 +88,6 @@ class WomenController extends Controller
         if($post){
             $post->title=$request->title;
             $post->body=$request->body;
-            $post->category_id = $request->category;
             $post->image = $this->Post_update($request,'image',"IMG-",'assets/images',$post->image);
             $post->book=$this->Post_update($request,'book',"BOK-",'assets/books',$post->book);
             if($post->video_url!=null || $post->video_url==null && $request->video!=null){

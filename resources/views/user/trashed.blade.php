@@ -1,29 +1,11 @@
-@extends('adminpanel.master')
-@section('content')
-    <div class="right_col" role="main">
-        <div class="container">
-            <br />
-            <h3 align="right">حسابات تم ايقافها</h3>
-            <br />
-            <br />
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped" id="user_table">
-                    <thead>
-                    <tr>
-                        <th width="20%">اسم المستخدم</th>
-                        <th width="30%">رقم الهاتف</th>
-                        <th width="10%">حالة الحساب</th>
-                        <th width="10%">تاريخ إنشاء الحساب</th>
-                        <th width="15%">العمليات</th>
-                    </tr>
-                    </thead>
-                </table>
-            </div>
-            <br />
-            <br />
-        </div>
+@extends('adminpanel.dataTableLayout')
+@section('card_header')
+    <div class="card-header">
+        <h3 align="right">حسابات تم ايقافها</h3>
+        <br/>
     </div>
-
+@endsection
+@section('models')
     <div id="restoreModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -59,38 +41,65 @@
         </div>
     </div>
 @endsection
-@section('scripts')
+@section('custom_js')
     <script>
         $(document).ready(function(){
 
             $('#user_table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax:{
+                paging: true,
+                scrollX: true,
+                responsive: true,
+                autoWidth: false,
+                searching: true,
+                search: [
+                    regex => true,
+                ],
+                info: false,
+                searchDelay: 350,
+                language: lang,
+                dom: 'Brfltip',
+                lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
+                buttons: [
+                ],
+                ajax: {
                     url: "{{ route('user-trashed') }}",
                 },
-                columns:[
+                columns: [
                     {
+                        title: 'اسم المستخدم',
                         data: 'name',
                         name: 'name'
                     },
                     {
+                        title: ' الهاتف',
                         data: 'phone',
                         name: 'phone'
                     },
                     {
+                        title: 'الايميل',
+                        data: 'email',
+                        name: 'email'
+                    },
+                    {
+                        title: 'حالة الحساب',
                         data: 'status',
                         name: 'status'
                     },
                     {
+                        title: 'تاريخ إنشاء الحساب',
+                        data: 'published',
                         data: 'published',
                     },
                     {
+                        title: 'العمليات',
                         data: 'action',
                         name: 'action',
                         orderable: false
-                    },
+                    }
                 ]
+
             });
 
             var user_id;
@@ -114,7 +123,7 @@
                         }, 2000);
                     }
                 })
-           });
+            });
             $(document).on('click', '.force_delete', function(){
                 user_id = $(this).attr('id');
                 $('#confirmModal').modal('show');
@@ -138,3 +147,8 @@
         });
     </script>
 @endsection
+
+
+
+
+

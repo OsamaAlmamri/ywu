@@ -67,6 +67,7 @@ trait PostTrait
                 }
                 return null;
             }
+            return $column ;
         }
     }
 
