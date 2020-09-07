@@ -1,112 +1,120 @@
-@extends('adminpanel.master')
-@section('content')
-<div class="right_col" role="main">
-<div class="container">
-    <br />
-    <h3 align="right">حسابات الشركاء</h3>
-    <br />
-    <br />
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped" id="user_table">
-            <thead>
-            <tr>
-                <th width="20%">اسم المستخدم</th>
-                <th width="30%">الايميل</th>
-                <th width="10%">نوع المستخدم</th>
-                <th width="10%">حالة الحساب</th>
-                <th width="10%">تاريخ إنشاء الحساب</th>
-                <th width="15%">العمليات</th>
-            </tr>
-            </thead>
-        </table>
+@extends('adminpanel.dataTableLayout')
+@section('card_header')
+    <div class="card-header">
+        <h3 align="right">حسابات الشركاء</h3>
+        <br/>
     </div>
-    <br />
-    <br />
-</div>
-</div>
-
-<div id="confirmModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h2 class="modal-title">ايقاف حالة الحساب</h2>
-            </div>
-            <div class="modal-body">
-                <h4 align="center" style="margin:0;">هل انت متاكد من ايقاف حالة هذا الحساب؟</h4>
-            </div>
-            <div class="modal-footer">
-                <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">نعم</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">الغاء</button>
+@endsection
+@section('models')
+    <div id="confirmModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title">ايقاف حالة الحساب</h2>
+                </div>
+                <div class="modal-body">
+                    <h4 align="center" style="margin:0;">هل انت متاكد من ايقاف حالة هذا الحساب؟</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">نعم</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">الغاء</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
 @endsection
-@section('scripts')
-<script>
-    $(document).ready(function(){
+@section('custom_js')
+    <script>
+        $(document).ready(function(){
 
-        $('#user_table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax:{
-                url: "{{ route('SharedUserAgree') }}",
-            },
-            columns:[
-                {
-                    data: 'name',
-                    name: 'name'
+            $('#user_table').DataTable({
+                processing: true,
+                serverSide: true,
+                paging: true,
+                scrollX: true,
+                responsive: true,
+                autoWidth: false,
+                searching: true,
+                search: [
+                    regex => true,
+                ],
+                info: false,
+                searchDelay: 350,
+                language: lang,
+                dom: 'Brfltip',
+                lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
+                buttons: [],
+                ajax:{
+                    url: "{{ route('SharedUserAgree') }}",
                 },
-                {
-                    data: 'email',
-                    name: 'email'
-                },
-                {
-                    data: 'type',
-                    name: 'type'
-                },
-                {
-                    data: 'status',
-                    name: 'status'
-                },
-                {
-                    data: 'published',
-                },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false
-                },
-            ]
+                columns:[
+                    {
+                        title: 'اسم المستخدم',
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        title: ' الهاتف',
+                        data: 'phone',
+                        name: 'phone'
+                    },
+                    {
+                        title: 'الايميل',
+                        data: 'email',
+                        name: 'email'
+                    },
+                    {
+                        title: 'نوع المستخدم ',
+                        data: 'share_user.type',
+                        name: 'share_user.type'
+                    },
+
+                    {
+                        title: 'الجهة  ',
+                        data: 'share_user.destination',
+                        data: 'share_user.destination',
+                    },
+                    {
+                        title: 'تاريخ إنشاء الحساب',
+                        data: 'published',
+                        data: 'published',
+                    },
+                    {
+                        title: 'العمليات',
+                        data: 'action',
+                        name: 'action',
+                        orderable: false
+                    },
+                ]
+            });
+
+            var user_id;
+
+
+            $(document).on('click', '.delete', function(){
+                user_id = $(this).attr('id');
+                $('.modal-title').text("إيقاف حالة الحساب");
+                $('#ok_button').text('إيقاف');
+                $('#confirmModal').modal('show');
+            });
+
+            $('#ok_button').click(function(){
+                $.ajax({
+                    url:"SharedUser/destroy/"+user_id,
+                    beforeSend:function(){
+                        $('#ok_button').text('جاري إيقاف الحساب...');
+                    },
+                    success:function(data)
+                    {
+                        setTimeout(function(){
+                            $('#confirmModal').modal('hide');
+                            $('#user_table').DataTable().ajax.reload();
+                        }, 2000);
+                    }
+                })
+            });
         });
-
-        var user_id;
-
-
-        $(document).on('click', '.delete', function(){
-            user_id = $(this).attr('id');
-            $('.modal-title').text("إيقاف حالة الحساب");
-            $('#ok_button').text('إيقاف');
-            $('#confirmModal').modal('show');
-        });
-
-        $('#ok_button').click(function(){
-            $.ajax({
-                url:"SharedUser/destroy/"+user_id,
-                beforeSend:function(){
-                    $('#ok_button').text('جاري إيقاف الحساب...');
-                },
-                success:function(data)
-                {
-                    setTimeout(function(){
-                        $('#confirmModal').modal('hide');
-                        $('#user_table').DataTable().ajax.reload();
-                    }, 2000);
-                }
-            })
-        });
-    });
-</script>
+    </script>
 @endsection
+

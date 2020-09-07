@@ -1,30 +1,11 @@
-@extends('adminpanel.master')
-@section('content')
-    <div class="right_col" role="main">
-        <div class="container">
-            <br />
-            <h3 align="right"> حسابات تم رفضها</h3>
-            <br />
-            <br />
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped" id="user_table">
-                    <thead>
-                    <tr>
-                        <th width="20%">اسم المستخدم</th>
-                        <th width="30%">الايميل</th>
-                        <th width="10%">نوع المستخدم</th>
-                        <th width="10%">حالة الحساب</th>
-                        <th width="10%">تاريخ إنشاء الحساب</th>
-                        <th width="15%">العمليات</th>
-                    </tr>
-                    </thead>
-                </table>
-            </div>
-            <br />
-            <br />
-        </div>
+@extends('adminpanel.dataTableLayout')
+@section('card_header')
+    <div class="card-header">
+        <h3 align="right"> حسابات تم رفضها</h3>
+        <br/>
     </div>
-
+@endsection
+@section('models')
     <div id="restoreModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -60,39 +41,64 @@
             </div>
         </div>
     </div>
-
 @endsection
-@section('scripts')
+@section('custom_js')
     <script>
-        $(document).ready(function(){
-
+        $(document).ready(function () {
             $('#user_table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax:{
+                paging: true,
+                scrollX: true,
+                responsive: true,
+                autoWidth: false,
+                searching: true,
+                search: [
+                    regex => true,
+                ],
+                info: false,
+                searchDelay: 350,
+                language: lang,
+                dom: 'Brfltip',
+                lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
+                buttons: [],
+                ajax: {
                     url: "{{ route('SharedUserTrashed') }}",
                 },
-                columns:[
+                columns: [
                     {
+                        title: 'اسم المستخدم',
                         data: 'name',
                         name: 'name'
                     },
                     {
+                        title: ' الهاتف',
+                        data: 'phone',
+                        name: 'phone'
+                    },
+                    {
+                        title: 'الايميل',
                         data: 'email',
                         name: 'email'
                     },
                     {
-                        data: 'type',
-                        name: 'type'
+                        title: 'نوع المستخدم ',
+                        data: 'share_user.type',
+                        name: 'share_user.type'
+                    },
+
+                    {
+                        title: 'الجهة  ',
+                        data: 'share_user.destination',
+                        data: 'share_user.destination',
                     },
                     {
-                        data: 'status',
-                        name: 'status'
-                    },
-                    {
+                        title: 'تاريخ إنشاء الحساب',
+                        data: 'published',
                         data: 'published',
                     },
                     {
+                        title: 'العمليات',
                         data: 'action',
                         name: 'action',
                         orderable: false
@@ -102,22 +108,21 @@
 
             var user_id;
 
-            $(document).on('click', '.show', function(){
+            $(document).on('click', '.show', function () {
                 user_id = $(this).attr('id');
                 $('.modal-title').text("استعادة الحساب");
                 $('#restore_button').text('إستعادة');
                 $('#restoreModal').modal('show');
             });
 
-            $('#restore_button').click(function(){
+            $('#restore_button').click(function () {
                 $.ajax({
-                    url:"SharedUserRestore/"+user_id,
-                    beforeSend:function(){
+                    url: "SharedUserRestore/" + user_id,
+                    beforeSend: function () {
                         $('#restore_button').text('جاري الاستعادة...');
                     },
-                    success:function(data)
-                    {
-                        setTimeout(function(){
+                    success: function (data) {
+                        setTimeout(function () {
                             $('#restoreModal').modal('hide');
                             $('#user_table').DataTable().ajax.reload();
                         }, 2000);
@@ -125,22 +130,21 @@
                 })
             });
 
-            $(document).on('click', '.delete', function(){
+            $(document).on('click', '.delete', function () {
                 user_id = $(this).attr('id');
                 $('.modal-title').text("حذف الحساب بشكل نهائي");
                 $('#ok_button').text('حذف');
                 $('#confirmModal').modal('show');
             });
 
-            $('#ok_button').click(function(){
+            $('#ok_button').click(function () {
                 $.ajax({
-                    url:"SharedUserForce/"+user_id,
-                    beforeSend:function(){
+                    url: "SharedUserForce/" + user_id,
+                    beforeSend: function () {
                         $('#ok_button').text('جاري الحذف...');
                     },
-                    success:function(data)
-                    {
-                        setTimeout(function(){
+                    success: function (data) {
+                        setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#user_table').DataTable().ajax.reload();
                         }, 2000);
@@ -150,3 +154,5 @@
         });
     </script>
 @endsection
+
+

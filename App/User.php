@@ -54,6 +54,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(Employee::class, 'user_id', 'id');
     }
+    public function share_user()
+    {
+        return $this->hasOne(ShareUser::class, 'user_id', 'id');
+    }
     public function posts()
     {
         return $this->hasMany(Post::class, 'user_id', 'id');

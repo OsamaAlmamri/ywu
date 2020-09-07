@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Admin;
 use App\ShareUser;
+use App\User;
 
 class FrontSharedUserController extends Controller
 {
     public function index()
     {
         if (request()->ajax()) {
-            $post=ShareUser::where('status','غير مفعل')->latest()->get();
+            $post = User::with('share_user')->where('status', 0)->where('type', 'share_users')->get();
             return datatables()->of($post)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" name="show" id="' . $data->id . '" class="show btn btn-info btn-sm "style="float: right">موافقة</button>';
@@ -20,39 +21,46 @@ class FrontSharedUserController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $admin=Admin::where('id',1)->first();
-        return view('shareduser.index',compact(['admin']));
+        $admin = Admin::where('id', 1)->first();
+        return view('shareduser.index', compact(['admin']));
     }
+
     public function agree($id)
     {
-        $data = ShareUser::findOrFail($id);
-        $data->status="مفعل";
+        $data = User::findOrFail($id);
+        $data->status = 1;
         $data->update();
     }
+
     public function destroy($id)
     {
-        $data = ShareUser::findOrFail($id);
+        $data = User::findOrFail($id);
         $data->update();
-        if($data){
+        if ($data) {
             $data->delete();
         }
     }
 
-    public function restoreUser($id){
+    public function restoreUser($id)
+    {
         if ($id) {
-            ShareUser::where('id',$id)->restore();
+            User::where('id', $id)->restore();
         }
     }
-    public function forceUser($id){
+
+    public function forceUser($id)
+    {
         if ($id) {
-            ShareUser::where('id',$id)->forceDelete($id);
+            ShareUser::where('user_id', $id)->forceDelete($id);
+            User::where('id', $id)->forceDelete($id);
         }
     }
+
     ########################################## agree users
     public function agreeUsers()
     {
         if (request()->ajax()) {
-            $post=ShareUser::where('status','مفعل')->latest()->get();
+            $post = User::with('share_user')->where('status', 1)->where('type', 'share_users')->get();
             return datatables()->of($post)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"style="float: right">إيقاف الحساب</button>';
@@ -61,8 +69,8 @@ class FrontSharedUserController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $admin=Admin::where('id',1)->first();
-        return view('shareduser.agree',compact(['admin']));
+        $admin = Admin::where('id', 1)->first();
+        return view('shareduser.agree', compact(['admin']));
     }
 
     ########################################## trashed users
@@ -70,7 +78,7 @@ class FrontSharedUserController extends Controller
     public function trashedUsers()
     {
         if (request()->ajax()) {
-            $post=ShareUser::onlyTrashed()->latest()->get();
+            $post = User::onlyTrashed()->with('share_user')->where('type', 'share_users')->get();
             return datatables()->of($post)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" name="show" id="' . $data->id . '" class="show btn btn-info btn-sm "style="float: right">إستعادة</button>';
@@ -80,7 +88,7 @@ class FrontSharedUserController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $admin=Admin::where('id',1)->first();
-        return view('shareduser.trashed',compact(['admin']));
+        $admin = Admin::where('id', 1)->first();
+        return view('shareduser.trashed', compact(['admin']));
     }
 }
