@@ -30,11 +30,6 @@
                     dom: 'Brfltip',
                     lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
                     buttons: [
-
-                        {
-                            text: '<i class="fa fa-plus" ></i>  إنشاء  سؤال جديد  ',
-                            className: 'btn btn-info create_record',
-                        },
                     ],
                     ajax: {
                         url: "{{route('questions.results',$id)}}",
@@ -50,6 +45,10 @@
                             title: 'المختبر',
                             data: 'user.name',
                             name: 'user.name'
+                        }, {
+                            title: 'نوع المختبر',
+                            data: 'user_type',
+                            name: 'user_type'
                         },
                         {
                             data: 'grade',

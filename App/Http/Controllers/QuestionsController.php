@@ -48,6 +48,11 @@ class QuestionsController extends Controller
                     ->editColumn('training', function ($post) {
                         return $post->training->name;
                     })
+                    ->editColumn('user_type', function ($post) {
+                        $type2=   ($post->user->type=='share_users')? "  ". trans("dataTable.share_userType.".$post->user->share_user->type) :' ' ;
+                        return trans("dataTable.userType.".$post->user->type) . $type2;
+
+                    })
                     ->make(true);
             }
         }$admin = Admin::where('id', 1)->first();

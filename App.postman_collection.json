@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "28d25db1-512a-435a-b1fe-4133bbd3fcc9",
-		"name": "App",
+		"_postman_id": "28d25db1-512a-435a-b1fe-4133bbd3fcc900",
+		"name": "YWU3",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -42,7 +42,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/App/public/api/register",
+							"raw": "{{URL}}/api/register",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -81,7 +81,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/App/public/api/login",
+							"raw": "{{URL}}/api/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -119,7 +119,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/App/public/api/AllPosts?category=1",
+							"raw": "{{URL}}/api/AllPosts?category=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -151,7 +151,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/App/public/api/MyPosts?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MTM4NjI1LCJuYmYiOjE1OTgxMzg2MjUsImp0aSI6InhoQXlpeVcyTnBwSWZkcUoiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.92y7rTumCIOJRVV4ovs1377VUhoeaiS-XXZm4JiWsXE",
+							"raw": "{{URL}}/api/MyPosts?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MTM4NjI1LCJuYmYiOjE1OTgxMzg2MjUsImp0aSI6InhoQXlpeVcyTnBwSWZkcUoiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.92y7rTumCIOJRVV4ovs1377VUhoeaiS-XXZm4JiWsXE",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -178,7 +178,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/App/public/api/ShPost/14?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk2NzU1OTEyLCJleHAiOjE1OTY3NjU1MTIsIm5iZiI6MTU5Njc1NTkxMiwianRpIjoiQUM1NXplTGQ4ekIyd2pIdSIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.6zqtMakEPo6MSkfjDjfFXOolVaoqvskbW02Xvtvb2o0",
+							"raw": "{{URL}}/api/ShPost/14?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk2NzU1OTEyLCJleHAiOjE1OTY3NjU1MTIsIm5iZiI6MTU5Njc1NTkxMiwianRpIjoiQUM1NXplTGQ4ekIyd2pIdSIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.6zqtMakEPo6MSkfjDjfFXOolVaoqvskbW02Xvtvb2o0",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -231,7 +231,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/App/public/api/StPost?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4OTEzMjY2LCJuYmYiOjE1OTg5MTMyNjYsImp0aSI6IlRPRE1LTjZoa2JTd3pVSmgiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.AmsIPTWt98WbuUiLGKH5K6-0C5rXAi99NgMdZW5BW6k",
+							"raw": "{{URL}}/api/StPost?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4OTEzMjY2LCJuYmYiOjE1OTg5MTMyNjYsImp0aSI6IlRPRE1LTjZoa2JTd3pVSmgiLCJzdWIiOjIsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.AmsIPTWt98WbuUiLGKH5K6-0C5rXAi99NgMdZW5BW6k",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -267,7 +267,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/App/public/api/UpPost/21?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MTM4NjI1LCJuYmYiOjE1OTgxMzg2MjUsImp0aSI6InhoQXlpeVcyTnBwSWZkcUoiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.92y7rTumCIOJRVV4ovs1377VUhoeaiS-XXZm4JiWsXE",
+							"raw": "{{URL}}/api/UpPost/21?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MTM4NjI1LCJuYmYiOjE1OTgxMzg2MjUsImp0aSI6InhoQXlpeVcyTnBwSWZkcUoiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.92y7rTumCIOJRVV4ovs1377VUhoeaiS-XXZm4JiWsXE",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -295,7 +295,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/App/public/api/DePost/31?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MDQwMzA0LCJleHAiOjE1OTgwNDk5MDQsIm5iZiI6MTU5ODA0MDMwNCwianRpIjoic1U1T3ZKM1VXMGhiaHZsUiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.JepsWrgRQ8-8E99cA7xD0URUz_bGIXy__f-k3peNbks",
+							"raw": "{{URL}}/api/DePost/31?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MDQwMzA0LCJleHAiOjE1OTgwNDk5MDQsIm5iZiI6MTU5ODA0MDMwNCwianRpIjoic1U1T3ZKM1VXMGhiaHZsUiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.JepsWrgRQ8-8E99cA7xD0URUz_bGIXy__f-k3peNbks",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -323,7 +323,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/App/public/api/user?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MjIwNjI0LCJuYmYiOjE1OTgyMjA2MjQsImp0aSI6InM2dVNvaDhBVlpFQ2tjZGkiLCJzdWIiOjMsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.PQ5vp701t89dNDy4_Uko3d5t2004eMJ04StZfKYxeZ4",
+							"raw": "{{URL}}/api/user?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MjIwNjI0LCJuYmYiOjE1OTgyMjA2MjQsImp0aSI6InM2dVNvaDhBVlpFQ2tjZGkiLCJzdWIiOjMsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.PQ5vp701t89dNDy4_Uko3d5t2004eMJ04StZfKYxeZ4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -350,7 +350,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/App/public/api/logout?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MjIwNjI0LCJuYmYiOjE1OTgyMjA2MjQsImp0aSI6InM2dVNvaDhBVlpFQ2tjZGkiLCJzdWIiOjMsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.PQ5vp701t89dNDy4_Uko3d5t2004eMJ04StZfKYxeZ4",
+							"raw": "{{URL}}/api/logout?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MjIwNjI0LCJuYmYiOjE1OTgyMjA2MjQsImp0aSI6InM2dVNvaDhBVlpFQ2tjZGkiLCJzdWIiOjMsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.PQ5vp701t89dNDy4_Uko3d5t2004eMJ04StZfKYxeZ4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -395,7 +395,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/App/public/api/StComment?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4OTEzNzg4LCJuYmYiOjE1OTg5MTM3ODgsImp0aSI6IjBDbjFCZVdld3lYTU1PSHEiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.pVKL46eJyirlOMHQF066BW7rPyBd4_UlCBv_Kc2cahI",
+							"raw": "{{URL}}/api/StComment?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4OTEzNzg4LCJuYmYiOjE1OTg5MTM3ODgsImp0aSI6IjBDbjFCZVdld3lYTU1PSHEiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.pVKL46eJyirlOMHQF066BW7rPyBd4_UlCBv_Kc2cahI",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -441,7 +441,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/App/public/api/UpComment/ 2?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MDQwMzA0LCJleHAiOjE1OTgwNDk5MDQsIm5iZiI6MTU5ODA0MDMwNCwianRpIjoic1U1T3ZKM1VXMGhiaHZsUiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.JepsWrgRQ8-8E99cA7xD0URUz_bGIXy__f-k3peNbks",
+							"raw": "{{URL}}/api/UpComment/ 2?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MDQwMzA0LCJleHAiOjE1OTgwNDk5MDQsIm5iZiI6MTU5ODA0MDMwNCwianRpIjoic1U1T3ZKM1VXMGhiaHZsUiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.JepsWrgRQ8-8E99cA7xD0URUz_bGIXy__f-k3peNbks",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -469,7 +469,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/App/public/api/DeComment/2?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MDQwMzA0LCJleHAiOjE1OTgwNDk5MDQsIm5iZiI6MTU5ODA0MDMwNCwianRpIjoic1U1T3ZKM1VXMGhiaHZsUiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.JepsWrgRQ8-8E99cA7xD0URUz_bGIXy__f-k3peNbks",
+							"raw": "{{URL}}/api/DeComment/2?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4MDQwMzA0LCJleHAiOjE1OTgwNDk5MDQsIm5iZiI6MTU5ODA0MDMwNCwianRpIjoic1U1T3ZKM1VXMGhiaHZsUiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.JepsWrgRQ8-8E99cA7xD0URUz_bGIXy__f-k3peNbks",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -497,7 +497,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/App/public/api/AllCategories",
+							"raw": "{{URL}}/api/AllCategories",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -544,7 +544,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/App/public/api/reset_user?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4Nzk2NTc5LCJuYmYiOjE1OTg3OTY1NzksImp0aSI6IjN3SUZKc24xQjJmNGRsMWgiLCJzdWIiOjMsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.Jq7wi-ujqo3Hh2TwSyPwr-CNlfCURWtThr636Lypzgs",
+							"raw": "{{URL}}/api/reset_user?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4Nzk2NTc5LCJuYmYiOjE1OTg3OTY1NzksImp0aSI6IjN3SUZKc24xQjJmNGRsMWgiLCJzdWIiOjMsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.Jq7wi-ujqo3Hh2TwSyPwr-CNlfCURWtThr636Lypzgs",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -586,7 +586,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/App/public/api/update_user?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4Nzk2ODA2LCJuYmYiOjE1OTg3OTY4MDYsImp0aSI6ImxpVUR5MUgwZ2xLOUtPU0giLCJzdWIiOjMsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.96u7cIEnW523FI52TMj3ib88n4nr0kZaTtYWlhAW05I",
+							"raw": "{{URL}}/api/update_user?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2xvZ2luIiwiaWF0IjoxNTk4Nzk2ODA2LCJuYmYiOjE1OTg3OTY4MDYsImp0aSI6ImxpVUR5MUgwZ2xLOUtPU0giLCJzdWIiOjMsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.96u7cIEnW523FI52TMj3ib88n4nr0kZaTtYWlhAW05I",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -622,7 +622,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost/App/public/api/ShowTrainingsCategory",
+									"raw": "{{URL}}/api/ShowTrainingsCategory",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -647,7 +647,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/App/public/api/emp-logout?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5Njc0ODA3MiwiZXhwIjoxNTk2NzU3NjcyLCJuYmYiOjE1OTY3NDgwNzIsImp0aSI6IlRoYTQ0V3pjVWw0VlY3TTkiLCJzdWIiOjEsInBydiI6ImI5NGNkZjg5YWYxODQ3NThmOTY1OWEzOTBiNmU4MTZkYTEzOGEyOGYifQ.ih0JCwJGVMkwa_rFWNmJpEwVfCWM8U1bLI4219mtq4o",
+							"raw": "{{URL}}/api/emp-logout?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5Njc0ODA3MiwiZXhwIjoxNTk2NzU3NjcyLCJuYmYiOjE1OTY3NDgwNzIsImp0aSI6IlRoYTQ0V3pjVWw0VlY3TTkiLCJzdWIiOjEsInBydiI6ImI5NGNkZjg5YWYxODQ3NThmOTY1OWEzOTBiNmU4MTZkYTEzOGEyOGYifQ.ih0JCwJGVMkwa_rFWNmJpEwVfCWM8U1bLI4219mtq4o",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -674,7 +674,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/App/public/api/emp-user?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5OTA4MzM4OCwibmJmIjoxNTk5MDgzMzg4LCJqdGkiOiJHbGFiVUpJd29vd2RvZXNUIiwic3ViIjo1LCJwcnYiOiJiOTRjZGY4OWFmMTg0NzU4Zjk2NTlhMzkwYjZlODE2ZGExMzhhMjhmIn0.R7ta3T4hFsyBa3tGkojLvxlctlQwrDu1lNM0qEO8izM&id=5",
+							"raw": "{{URL}}/api/emp-user?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5OTA4MzM4OCwibmJmIjoxNTk5MDgzMzg4LCJqdGkiOiJHbGFiVUpJd29vd2RvZXNUIiwic3ViIjo1LCJwcnYiOiJiOTRjZGY4OWFmMTg0NzU4Zjk2NTlhMzkwYjZlODE2ZGExMzhhMjhmIn0.R7ta3T4hFsyBa3tGkojLvxlctlQwrDu1lNM0qEO8izM&id=5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -723,7 +723,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/App/public/api/emp-login",
+							"raw": "{{URL}}/api/emp-login",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -744,7 +744,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/App/public/api/emp-register?name=علي المزعطي&email=adffno@gmail.com&password=123123123&category_id=2",
+							"raw": "{{URL}}/api/emp-register?name=علي المزعطي&email=adffno@gmail.com&password=123123123&category_id=2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -801,7 +801,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/App/public/api/Replay",
+							"raw": "{{URL}}/api/Replay",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -842,7 +842,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/App/public/api/UpReplay/3?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5ODA0MjQwMSwiZXhwIjoxNTk4MDUyMDAxLCJuYmYiOjE1OTgwNDI0MDEsImp0aSI6Ikx1SXVIbUNMVXYyc0dYbUYiLCJzdWIiOjEsInBydiI6ImI5NGNkZjg5YWYxODQ3NThmOTY1OWEzOTBiNmU4MTZkYTEzOGEyOGYifQ.ud94zg2pU8KQDMpL3ovvMTxIGqicR16-jdX7atAUnAo",
+							"raw": "{{URL}}/api/UpReplay/3?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5ODA0MjQwMSwiZXhwIjoxNTk4MDUyMDAxLCJuYmYiOjE1OTgwNDI0MDEsImp0aSI6Ikx1SXVIbUNMVXYyc0dYbUYiLCJzdWIiOjEsInBydiI6ImI5NGNkZjg5YWYxODQ3NThmOTY1OWEzOTBiNmU4MTZkYTEzOGEyOGYifQ.ud94zg2pU8KQDMpL3ovvMTxIGqicR16-jdX7atAUnAo",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -870,7 +870,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/App/public/api/DeReplay/3?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5ODA0MjQwMSwiZXhwIjoxNTk4MDUyMDAxLCJuYmYiOjE1OTgwNDI0MDEsImp0aSI6Ikx1SXVIbUNMVXYyc0dYbUYiLCJzdWIiOjEsInBydiI6ImI5NGNkZjg5YWYxODQ3NThmOTY1OWEzOTBiNmU4MTZkYTEzOGEyOGYifQ.ud94zg2pU8KQDMpL3ovvMTxIGqicR16-jdX7atAUnAo",
+							"raw": "{{URL}}/api/DeReplay/3?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5ODA0MjQwMSwiZXhwIjoxNTk4MDUyMDAxLCJuYmYiOjE1OTgwNDI0MDEsImp0aSI6Ikx1SXVIbUNMVXYyc0dYbUYiLCJzdWIiOjEsInBydiI6ImI5NGNkZjg5YWYxODQ3NThmOTY1OWEzOTBiNmU4MTZkYTEzOGEyOGYifQ.ud94zg2pU8KQDMpL3ovvMTxIGqicR16-jdX7atAUnAo",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -913,7 +913,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/App/public/api/update_emp?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5OTE3NDgzNSwibmJmIjoxNTk5MTc0ODM1LCJqdGkiOiJiYVlSR0JOY1NIeVd5U1BwIiwic3ViIjo0LCJwcnYiOiJiOTRjZGY4OWFmMTg0NzU4Zjk2NTlhMzkwYjZlODE2ZGExMzhhMjhmIn0.OIIvVChAlIbcxyYRIMZzqslvuszmXxUmHPdOHHUFt7A",
+							"raw": "{{URL}}/api/update_emp?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5OTE3NDgzNSwibmJmIjoxNTk5MTc0ODM1LCJqdGkiOiJiYVlSR0JOY1NIeVd5U1BwIiwic3ViIjo0LCJwcnYiOiJiOTRjZGY4OWFmMTg0NzU4Zjk2NTlhMzkwYjZlODE2ZGExMzhhMjhmIn0.OIIvVChAlIbcxyYRIMZzqslvuszmXxUmHPdOHHUFt7A",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -960,7 +960,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/App/public/api/reset_emp?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5OTE3NDgzNSwibmJmIjoxNTk5MTc0ODM1LCJqdGkiOiJiYVlSR0JOY1NIeVd5U1BwIiwic3ViIjo0LCJwcnYiOiJiOTRjZGY4OWFmMTg0NzU4Zjk2NTlhMzkwYjZlODE2ZGExMzhhMjhmIn0.OIIvVChAlIbcxyYRIMZzqslvuszmXxUmHPdOHHUFt7A",
+							"raw": "{{URL}}/api/reset_emp?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5OTE3NDgzNSwibmJmIjoxNTk5MTc0ODM1LCJqdGkiOiJiYVlSR0JOY1NIeVd5U1BwIiwic3ViIjo0LCJwcnYiOiJiOTRjZGY4OWFmMTg0NzU4Zjk2NTlhMzkwYjZlODE2ZGExMzhhMjhmIn0.OIIvVChAlIbcxyYRIMZzqslvuszmXxUmHPdOHHUFt7A",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -998,7 +998,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/App/public/api/ShowPId/15",
+							"raw": "{{URL}}/api/ShowPId/15",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1020,7 +1020,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/App/public/api/ShowP",
+							"raw": "{{URL}}/api/ShowP",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1084,7 +1084,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/App/public/api/StorePost",
+							"raw": "{{URL}}/api/StorePost",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1145,7 +1145,7 @@
 								},
 								{
 									"key": "video_url",
-									"value": "http://localhost/App/public/api/UpdatePost/15",
+									"value": "{{URL}}/api/UpdatePost/15",
 									"type": "text"
 								}
 							],
@@ -1154,7 +1154,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost/App/public/api/UpdatePost/15",
+							"raw": "{{URL}}/api/UpdatePost/15",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1176,7 +1176,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/App/public/api/DeletePost/15",
+							"raw": "{{URL}}/api/DeletePost/15",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1207,7 +1207,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost/App/public/api/ShowSubjects",
+									"raw": "{{URL}}/api/ShowSubjects",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1235,7 +1235,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost/App/public/api/ShowSubjectId/30",
+									"raw": "{{URL}}/api/ShowSubjectId/30",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1272,7 +1272,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://localhost/App/public/api/StoreSubject",
+									"raw": "{{URL}}/api/StoreSubject",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1308,7 +1308,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://localhost/App/public/api/UpdateSubject/30",
+									"raw": "{{URL}}/api/UpdateSubject/30",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1330,7 +1330,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost/App/public/api/DeleteSubject/30",
+									"raw": "{{URL}}/api/DeleteSubject/30",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1359,7 +1359,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost/App/public/api/ShowTrainings?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5OTI2NzczNywibmJmIjoxNTk5MjY3NzM3LCJqdGkiOiI4QldRVlhpTEp6UTJDM29MIiwic3ViIjozLCJwcnYiOiJiOTRjZGY4OWFmMTg0NzU4Zjk2NTlhMzkwYjZlODE2ZGExMzhhMjhmIn0.5dqmG4cZjI__ATs16ZBgptj-8x8rE_IZwdG_00HiDlI",
+									"raw": "{{URL}}/api/ShowTrainings?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL2VtcC1sb2dpbiIsImlhdCI6MTU5OTI2NzczNywibmJmIjoxNTk5MjY3NzM3LCJqdGkiOiI4QldRVlhpTEp6UTJDM29MIiwic3ViIjozLCJwcnYiOiJiOTRjZGY4OWFmMTg0NzU4Zjk2NTlhMzkwYjZlODE2ZGExMzhhMjhmIn0.5dqmG4cZjI__ATs16ZBgptj-8x8rE_IZwdG_00HiDlI",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1386,7 +1386,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost/App/public/api/ShowTrainingId/25",
+									"raw": "{{URL}}/api/ShowTrainingId/25",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1443,7 +1443,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://localhost/App/public/api/StoreTraining",
+									"raw": "{{URL}}/api/StoreTraining",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1499,7 +1499,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://localhost/App/public/api/UpdateTraining/26",
+									"raw": "{{URL}}/api/UpdateTraining/26",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1521,7 +1521,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost/App/public/api/DeleteTraining/30",
+									"raw": "{{URL}}/api/DeleteTraining/30",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1543,7 +1543,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost/App/public/api/ShowTrainings_public?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL3NoYXJlZC11c2VyLWxvZ2luIiwiaWF0IjoxNTk5MjY4MjI2LCJuYmYiOjE1OTkyNjgyMjYsImp0aSI6IlZicEZubGR5UDlYdEpQZlYiLCJzdWIiOjMsInBydiI6ImYyNjg4YWQzZTRlOGM3ZmJjODY3YWRlYTdjNTk3ZjIyZGNmM2E4ZDAifQ.wMwjEy-1VnJemTXMDOg2B1TphTVbMGfqLNtbfziaUxU",
+									"raw": "{{URL}}/api/ShowTrainings_public?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL3NoYXJlZC11c2VyLWxvZ2luIiwiaWF0IjoxNTk5MjY4MjI2LCJuYmYiOjE1OTkyNjgyMjYsImp0aSI6IlZicEZubGR5UDlYdEpQZlYiLCJzdWIiOjMsInBydiI6ImYyNjg4YWQzZTRlOGM3ZmJjODY3YWRlYTdjNTk3ZjIyZGNmM2E4ZDAifQ.wMwjEy-1VnJemTXMDOg2B1TphTVbMGfqLNtbfziaUxU",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1577,7 +1577,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost/App/public/api/ShowTitles",
+									"raw": "{{URL}}/api/ShowTitles",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1598,7 +1598,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost/App/public/api/ShowTitleId/30",
+									"raw": "{{URL}}/api/ShowTitleId/30",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1635,7 +1635,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://localhost/App/public/api/StoreTitle",
+									"raw": "{{URL}}/api/StoreTitle",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1671,7 +1671,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://localhost/App/public/api/UpdateTitle/30",
+									"raw": "{{URL}}/api/UpdateTitle/30",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1693,7 +1693,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost/App/public/api/DeleteTitle/30",
+									"raw": "{{URL}}/api/DeleteTitle/30",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1722,7 +1722,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost/App/public/api/ShowContents",
+									"raw": "{{URL}}/api/ShowContents",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1743,7 +1743,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost/App/public/api/ShowContentId/14",
+									"raw": "{{URL}}/api/ShowContentId/14",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1799,13 +1799,13 @@
 										},
 										{
 											"key": "video_url",
-											"value": "http://localhost/App/public/api/StoreContent",
+											"value": "{{URL}}/api/StoreContent",
 											"type": "text"
 										}
 									]
 								},
 								"url": {
-									"raw": "http://localhost/App/public/api/StoreContent",
+									"raw": "{{URL}}/api/StoreContent",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1826,7 +1826,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost/App/public/api/UpdateContent/15?title=الدرس الثاني&body=قع رجال&title_id=3&image&book&sound&video_url",
+									"raw": "{{URL}}/api/UpdateContent/15?title=الدرس الثاني&body=قع رجال&title_id=3&image&book&sound&video_url",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1878,7 +1878,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost/App/public/api/DeleteContent/15",
+									"raw": "{{URL}}/api/DeleteContent/15",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1910,7 +1910,7 @@
 										"method": "POST",
 										"header": [],
 										"url": {
-											"raw": "http://localhost/App/public/api/ShowQuestions",
+											"raw": "{{URL}}/api/ShowQuestions",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -1935,7 +1935,7 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "http://localhost/App/public/api/ShowExams",
+									"raw": "{{URL}}/api/ShowExams",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -1981,7 +1981,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/App/public/api/shared-user-login",
+							"raw": "{{URL}}/api/shared-user-login",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2027,7 +2027,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/App/public/api/shared-user-register",
+							"raw": "{{URL}}/api/shared-user-register",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2055,7 +2055,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/App/public/api/sharedUser-logout?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL3NoYXJlZC11c2VyLWxvZ2luIiwiaWF0IjoxNTk5MTc2NDYxLCJuYmYiOjE1OTkxNzY0NjEsImp0aSI6IjZBUHVvdFBCTjFnV1dYSlUiLCJzdWIiOjUsInBydiI6ImYyNjg4YWQzZTRlOGM3ZmJjODY3YWRlYTdjNTk3ZjIyZGNmM2E4ZDAifQ.wXPkqCliIlWtDLbX0kffTVv03EueyElgQpmJ4d4lI8k",
+							"raw": "{{URL}}/api/sharedUser-logout?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL3NoYXJlZC11c2VyLWxvZ2luIiwiaWF0IjoxNTk5MTc2NDYxLCJuYmYiOjE1OTkxNzY0NjEsImp0aSI6IjZBUHVvdFBCTjFnV1dYSlUiLCJzdWIiOjUsInBydiI6ImYyNjg4YWQzZTRlOGM3ZmJjODY3YWRlYTdjNTk3ZjIyZGNmM2E4ZDAifQ.wXPkqCliIlWtDLbX0kffTVv03EueyElgQpmJ4d4lI8k",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2082,7 +2082,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost/App/public/api/sharedUser-user?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL3NoYXJlZC11c2VyLWxvZ2luIiwiaWF0IjoxNTk5MTc2NzIwLCJuYmYiOjE1OTkxNzY3MjAsImp0aSI6ImRqZFRicjRuTE44TU1iWjIiLCJzdWIiOjMsInBydiI6ImYyNjg4YWQzZTRlOGM3ZmJjODY3YWRlYTdjNTk3ZjIyZGNmM2E4ZDAifQ.OyvR7-E4lBR8Pu1g6ngehB8Rfjkxkzo2X86QNLJwaSM",
+							"raw": "{{URL}}/api/sharedUser-user?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL3NoYXJlZC11c2VyLWxvZ2luIiwiaWF0IjoxNTk5MTc2NzIwLCJuYmYiOjE1OTkxNzY3MjAsImp0aSI6ImRqZFRicjRuTE44TU1iWjIiLCJzdWIiOjMsInBydiI6ImYyNjg4YWQzZTRlOGM3ZmJjODY3YWRlYTdjNTk3ZjIyZGNmM2E4ZDAifQ.OyvR7-E4lBR8Pu1g6ngehB8Rfjkxkzo2X86QNLJwaSM",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2124,7 +2124,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/App/public/api/update_sharedUser?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL3NoYXJlZC11c2VyLWxvZ2luIiwiaWF0IjoxNTk5MTc2Nzk1LCJuYmYiOjE1OTkxNzY3OTUsImp0aSI6IkM3ZmxjMWc5R1pUV21ZZ3UiLCJzdWIiOjMsInBydiI6ImYyNjg4YWQzZTRlOGM3ZmJjODY3YWRlYTdjNTk3ZjIyZGNmM2E4ZDAifQ.6wK3m1SQJ0FORQUSwyQupuZVWCCdhgID2pKK72VWVlA",
+							"raw": "{{URL}}/api/update_sharedUser?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL3NoYXJlZC11c2VyLWxvZ2luIiwiaWF0IjoxNTk5MTc2Nzk1LCJuYmYiOjE1OTkxNzY3OTUsImp0aSI6IkM3ZmxjMWc5R1pUV21ZZ3UiLCJzdWIiOjMsInBydiI6ImYyNjg4YWQzZTRlOGM3ZmJjODY3YWRlYTdjNTk3ZjIyZGNmM2E4ZDAifQ.6wK3m1SQJ0FORQUSwyQupuZVWCCdhgID2pKK72VWVlA",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2171,7 +2171,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/App/public/api/reset_sharedUser?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL3NoYXJlZC11c2VyLWxvZ2luIiwiaWF0IjoxNTk5MTc2Nzk1LCJuYmYiOjE1OTkxNzY3OTUsImp0aSI6IkM3ZmxjMWc5R1pUV21ZZ3UiLCJzdWIiOjMsInBydiI6ImYyNjg4YWQzZTRlOGM3ZmJjODY3YWRlYTdjNTk3ZjIyZGNmM2E4ZDAifQ.6wK3m1SQJ0FORQUSwyQupuZVWCCdhgID2pKK72VWVlA",
+							"raw": "{{URL}}/api/reset_sharedUser?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL0FwcFwvcHVibGljXC9hcGlcL3NoYXJlZC11c2VyLWxvZ2luIiwiaWF0IjoxNTk5MTc2Nzk1LCJuYmYiOjE1OTkxNzY3OTUsImp0aSI6IkM3ZmxjMWc5R1pUV21ZZ3UiLCJzdWIiOjMsInBydiI6ImYyNjg4YWQzZTRlOGM3ZmJjODY3YWRlYTdjNTk3ZjIyZGNmM2E4ZDAifQ.6wK3m1SQJ0FORQUSwyQupuZVWCCdhgID2pKK72VWVlA",
 							"protocol": "http",
 							"host": [
 								"localhost"
