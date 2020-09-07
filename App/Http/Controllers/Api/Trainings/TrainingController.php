@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Api\Trainings;
 
 use App\Http\Controllers\Controller;
+use App\Models\TrainingContents\SubjectCategory;
 use App\Models\TrainingContents\Training;
+use App\Question;
+use App\Result;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
+use App\UserTrainingTiltle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,41 +24,88 @@ class TrainingController extends Controller
     public function index()
     {
         $this->emp = Auth::guard('employee-api')->user();
-        try{
-            $Training=Training::with(['subject','titles'])->where('type','خاص')->orwhere('type','عام')->orderByDesc('id')->paginate(5);
-            if(!$Training){
-                return $this->ReturnErorrRespons('0000','لايوجد منشورات');
+        try {
+            $Training = Training::with(['subject', 'titles'])->where('type', 'خاص')->orwhere('type', 'عام')->orderByDesc('id')->paginate(5);
+            if (!$Training) {
+                return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
+            } else {
+                return $this->GetDateResponse('Trainings', $Training);
             }
-            else{
-                return  $this->GetDateResponse('Trainings',$Training);
-            }
-        }catch (\Exception $ex){
+        } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
         }
     }
+
+    public function getTrainingDetails(Request $request)
+    {
+        try {
+            $Training = Training::with(['titles' => function ($q) {
+                $q->with('contents');
+            }])
+                ->where('id', $request->id)->get()->first();
+            if (!$Training) {
+                return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
+            } else {
+                return $this->GetDateResponse('Trainings', $Training);
+            }
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
+    public function getTrainingQuestions(Request $request)
+    {
+        try {
+            $Training = Question::orderByRaw("RAND()")->where('training_id', $request->id)->get();
+            if (!$Training) {
+                return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
+            } else {
+                return $this->GetDateResponse('Trainings', $Training);
+            }
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
+    public function showTrainingByCategory()
+    {
+        try {
+            $Training = SubjectCategory::with(['subjects' => function ($q) {
+                $q->with('trainings');
+            }])->get();
+            if (!$Training) {
+                return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
+            } else {
+                return $this->GetDateResponse('Trainings', $Training);
+            }
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
     public function index_others()
     {
         $this->other = Auth::guard('shared-user-api')->user();
-        try{
-            $Training=Training::with(['subject','titles'])->where('type','عام')->orderByDesc('id')->paginate(5);
-            if(!$Training){
-                return $this->ReturnErorrRespons('0000','لايوجد منشورات');
+        try {
+            $Training = Training::with(['subject', 'titles'])->where('type', 'عام')->orderByDesc('id')->paginate(5);
+            if (!$Training) {
+                return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
+            } else {
+                return $this->GetDateResponse('Trainings', $Training);
             }
-            else{
-                return  $this->GetDateResponse('Trainings',$Training);
-            }
-        }catch (\Exception $ex){
+        } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
         }
     }
+
+
     public function show($id)
     {
-        $Training = Training::with(['subject','titles'])->whereId($id)->first();
+        $Training = Training::with(['subject', 'titles'])->whereId($id)->first();
         if (!$Training) {
-            return $this->ReturnErorrRespons('0000','لايوجد مادة بهذا الاسم');
-        }
-        else{
-            return  $this->GetDateResponse('Training',$Training);
+            return $this->ReturnErorrRespons('0000', 'لايوجد مادة بهذا الاسم');
+        } else {
+            return $this->GetDateResponse('Training', $Training);
         }
     }
 
@@ -69,7 +120,7 @@ class TrainingController extends Controller
 //                return $this->returnValidationError($code, $validator);
 //            }
             $Training = new Training();
-            $Training->name=$request->name;
+            $Training->name = $request->name;
             $Training->subject_id = $request->subject_id;
             $Training->length = $request->length;
             $Training->start_at = $request->start_at;
@@ -78,8 +129,28 @@ class TrainingController extends Controller
 
             $Training->save();
             if ($Training->save())
-                return $this->GetDateResponse('Training',$Training,"تم نشر");
-        }catch (\Exception $ex){
+                return $this->GetDateResponse('Training', $Training, "تم نشر");
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
+    public function complete_title(Request $request)
+    {
+        try {
+            UserTrainingTiltle::create(['user_id' => auth()->id(), 'title_id' => $request->title_id]);
+            return $this->GetDateResponse('data', "تم الحفظ");
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
+    public function set_result(Request $request)
+    {
+        try {
+            Result::create(['user_id' => auth()->id(), 'grade' => $request->grade, 'training_id' => $request->training_id]);
+            return $this->GetDateResponse('data', "تم الحفظ");
+        } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
         }
     }
@@ -94,10 +165,10 @@ class TrainingController extends Controller
 //            return $this->returnValidationError($code, $validator);
 //        }
 
-        $Training=Training::whereId($id)->first();
-        if($Training){
+        $Training = Training::whereId($id)->first();
+        if ($Training) {
             $Training = new Training();
-            $Training->name=$request->name;
+            $Training->name = $request->name;
             $Training->subject_id = $request->subject_id;
             $Training->length = $request->length;
             $Training->start_at = $request->start_at;
@@ -105,20 +176,20 @@ class TrainingController extends Controller
             $Training->thumbnail = $request->thumbnail;
             $Training->update();
             if ($Training) {
-                return $this->GetDateResponse('Training',$Training,"تم التعديل");
+                return $this->GetDateResponse('Training', $Training, "تم التعديل");
             } else {
-                return $this->ReturnErorrRespons('0000','حدث خطاء غير متوقع');
+                return $this->ReturnErorrRespons('0000', 'حدث خطاء غير متوقع');
             }
         }
     }
 
     public function destroy($id)
     {
-        $Training=Training::whereId($id)->first();
+        $Training = Training::whereId($id)->first();
         if ($Training->delete()) {
-            return $this->ReturnSuccessRespons("200","تم الحذف بنجاح");
+            return $this->ReturnSuccessRespons("200", "تم الحذف بنجاح");
         } else {
-            return $this->ReturnErorrRespons('0000','لاتمتلك الصلاحية لحذف هذا المنشور');
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لحذف هذا المنشور');
         }
     }
 }

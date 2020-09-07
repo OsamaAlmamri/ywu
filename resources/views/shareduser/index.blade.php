@@ -68,7 +68,7 @@
                 buttons: [
                 ],
                 ajax:{
-                    url: "{{ route('SharedUser') }}",
+                    url: "{{ route('SharedUser',$id) }}",
                 },
                 columns:[ {
                     title: 'اسم المستخدم',

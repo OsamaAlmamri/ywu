@@ -48,7 +48,8 @@
                 buttons: [
                 ],
                 ajax: {
-                    url: "{{ route('user') }}",
+                    url: "{{ route('user',$id) }}",
+{{--                    url: "{{route('questions.index',$id)}}",--}}
                 },
                 columns: [
                     {

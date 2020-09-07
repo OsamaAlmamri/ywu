@@ -63,7 +63,7 @@
                 lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
                 buttons: [],
                 ajax: {
-                    url: "{{ route('SharedUserTrashed') }}",
+                    url: "{{ route('SharedUserTrashed',$id) }}",
                 },
                 columns: [
                     {
@@ -117,7 +117,7 @@
 
             $('#restore_button').click(function () {
                 $.ajax({
-                    url: "SharedUserRestore/" + user_id,
+                    url: "/SharedUserRestore/" + user_id,
                     beforeSend: function () {
                         $('#restore_button').text('جاري الاستعادة...');
                     },
@@ -139,7 +139,7 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "SharedUserForce/" + user_id,
+                    url: "/SharedUserForce/" + user_id,
                     beforeSend: function () {
                         $('#ok_button').text('جاري الحذف...');
                     },

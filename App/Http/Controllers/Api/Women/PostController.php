@@ -19,7 +19,7 @@ class PostController extends Controller
     }
     public function index()
     {
-        $post=WomenPosts::with('category')->orderByDesc('id')->paginate(5);
+        $post=WomenPosts::orderByDesc('id')->paginate(5);
         if(!$post){
             return $this->ReturnErorrRespons('0000','لايوجد منشورات');
         }
@@ -29,7 +29,7 @@ class PostController extends Controller
     }
     public function show($id)
     {
-        $post = WomenPosts::with('category')->whereId($id)->first();
+        $post = WomenPosts::whereId($id)->first();
         if (!$post) {
             return $this->ReturnErorrRespons('0000','لاتمتلك صلاحية لرؤية هذا المنشور');
         }

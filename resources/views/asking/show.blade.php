@@ -52,9 +52,9 @@
                                             <span class='fa fa-close' style="color: red;margin-right: 5px">
                                                     <b>تم إيقاف الحساب</b>
                                                     </span>
-                                            <a href="trashedShow/{{$post->user()->withTrashed()->first()->id}}"><b>{{$post->user()->withTrashed()->first()->name}}</b></a>
+                                            <a  class="post_user_name" href="trashedShow/{{$post->user()->withTrashed()->first()->id}}"><b>{{$post->user()->withTrashed()->first()->name}}</b></a>
                                         @else
-                                            <a href="userShowId/{{ $post->user->id }}"><b>{{ $post->user->name }}</b></a>
+                                            <a  class="post_user_name" href="userShowId/{{ $post->user->id }}"><b>{{ $post->user->name }}</b></a>
                                         @endif
                                     </div>
                                     <h6 class="pull-right time">{{ $post->published }}</h6>
@@ -106,10 +106,10 @@
                                                                               <b>تم إيقاف الحساب</b>
                                                                                      </span>
                                                                             <h5 class="time">{{ $comment->published}}</h5>
-                                                                            <a href="trashedShow/{{$comment->user()->withTrashed()->first()->id}}"><b>{{$comment->user()->withTrashed()->first()->name}}</b></a>
+                                                                            <a  class="post_user_name" href="trashedShow/{{$comment->user()->withTrashed()->first()->id}}"><b>{{$comment->user()->withTrashed()->first()->name}}</b></a>
                                                                         @else
                                                                             <h5 class="time">{{ $comment->published}}</h5>
-                                                                            <a href="userShowId/{{ $comment->user->id }}">
+                                                                            <a class="post_user_name" href="userShowId/{{ $comment->user->id }}">
                                                                                 <h4 class="user">{{$comment->user->name}}</h4>
                                                                             </a>
                                                                         @endif

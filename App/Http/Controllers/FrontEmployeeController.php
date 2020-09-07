@@ -21,10 +21,15 @@ class FrontEmployeeController extends Controller
     use JsonTrait;
     use PostTrait;
 
-    public function index()
+    public function index($id = 0)
     {
         if (request()->ajax()) {
-            $post = User::with('employee')->where('type', 'employees')->get();
+            if (request()->id == 0)
+                $post = User::with('employee')->where('type', 'employees')->get();
+            else {
+                $post = User::with('employee')->where('type', 'employees')->where('id', request()->id)->get();
+            }
+
             return datatables()->of($post)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" name="edit" id="' . $data->id . '" class="edit btn btn-warning btn-sm" style="float: right"><span class=\'glyphicon glyphicon-pencil\'></span></button>';
@@ -47,7 +52,7 @@ class FrontEmployeeController extends Controller
         $departments = Department::all();
         $jobs = Job::all();
         $branchs = Branch::all();
-        return view('employee.index', compact(['admin', 'branchs', 'departments', 'jobs']));
+        return view('employee.index', compact(['admin', 'branchs', 'departments', 'jobs','id']));
     }
 
     private function checkInputes($request, $type = 'create')
@@ -146,11 +151,16 @@ class FrontEmployeeController extends Controller
 
 ################################################################### deleted posts
     public
-    function index_trashed()
+    function index_trashed($id=0)
     {
         if (request()->ajax()) {
 //            $post = Employee::onlyTrashed()->with('category')->latest()->get();
-            $post = User::onlyTrashed()->with('employee')->where('type', 'employees')->get();
+            if (request()->id == 0)
+                $post = User::onlyTrashed()->with('employee')->where('type', 'employees')->get();
+            else {
+                $post = User::onlyTrashed()->with('employee')->where('type', 'employees')->where('id', request()->id)->get();
+
+            }
 
             return datatables()->of($post)
                 ->addColumn('action', function ($data) {
@@ -172,7 +182,7 @@ class FrontEmployeeController extends Controller
                 ->make(true);
         }
         $admin = Admin::where('id', 1)->first();
-        return view('employee.trashed', compact('admin'));
+        return view('employee.trashed', compact('admin','id'));
     }
 
     public

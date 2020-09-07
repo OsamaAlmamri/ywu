@@ -16,14 +16,15 @@ class CommentController extends Controller
     protected $user;
     protected $emp;
     use JsonTrait;
+
 //    public function __construct()
 //    {
 //    }
 
     public function index()
     {
-        $comment=Comment::with(['user','post'])->orderByDesc('id')->paginate(5);
-        return  $this->GetDateResponse('Comments',$comment);
+        $comment = Comment::with(['user', 'post'])->orderByDesc('id')->paginate(5);
+        return $this->GetDateResponse('Comments', $comment);
     }
 
     public function store(Request $request)
@@ -45,15 +46,20 @@ class CommentController extends Controller
             $comment = new Comment();
             $comment->body = $request->body;
             $comment->post_id = $request->post_id;
+
+            if ($this->user->type == 'employees' and $this->user->employee->job and $this->user->employee->job_id == 1)
+                $comment->is_consonant = 1;
+
             //$this->user->posts()->find($request->post_id) && $this->user->comments()->save($comment)
             if ($this->user->comments()->save($comment))
-                return $this->GetDateResponse('comment',$comment,"تم انشاء تعليق");
+                return $this->GetDateResponse('comment', $comment, "تم انشاء تعليق");
 
-            return $this->ReturnErorrRespons('0000','لاتمتلك الصلاحية للتعليق على هذا المنشور');
-        }catch (\Exception $ex){
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية للتعليق على هذا المنشور');
+        } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
         }
     }
+
     public function update(Request $request, $id)
     {
         $this->user = JWTAuth::parseToken()->authenticate();
@@ -71,15 +77,15 @@ class CommentController extends Controller
         $comment = $this->user->comments()->find($id);
 
         if (!$comment) {
-            return $this->ReturnErorrRespons('0000','لاتمتلك الصلاحية لتعديل هذا التعليق');
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لتعديل هذا التعليق');
         }
 
         $updated = $comment->fill($request->only('body'))->save();
 
         if ($updated) {
-            return $this->GetDateResponse('comment',$comment,"تم التعديل");
+            return $this->GetDateResponse('comment', $comment, "تم التعديل");
         } else {
-            return $this->ReturnErorrRespons('0000','لاتمتلك الصلاحية لتعديل هذا التعليق');
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لتعديل هذا التعليق');
         }
     }
 
@@ -89,15 +95,16 @@ class CommentController extends Controller
         $comment = $this->user->comments()->find($id);
 
         if (!$comment) {
-            return $this->ReturnErorrRespons('0000','لاتمتلك الصلاحية لحذف هذا التعليق');
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لحذف هذا التعليق');
         }
 
         if ($comment->delete()) {
-            return $this->ReturnSuccessRespons("200","تم الحذف بنجاح");
+            return $this->ReturnSuccessRespons("200", "تم الحذف بنجاح");
         } else {
-            return $this->ReturnErorrRespons('0000','لاتمتلك الصلاحية لحذف هذا التعليق');
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لحذف هذا التعليق');
         }
     }
+
     ################################################################### replay
     public function replay(Request $request)
     {
@@ -119,17 +126,18 @@ class CommentController extends Controller
             $comment->body = $request->body;
             $comment->post_id = $request->post_id;
 
-            if ($this->emp->type=='استشاري'){
-                if ($this->emp->comments()->save($comment)){
-                    return $this->GetDateResponse('comment',$comment,"تم انشاء تعليق");
+            if ($this->emp->type == 'استشاري') {
+                if ($this->emp->comments()->save($comment)) {
+                    return $this->GetDateResponse('comment', $comment, "تم انشاء تعليق");
                 }
             }
 
-            return $this->ReturnErorrRespons('0000','لاتمتلك الصلاحية للتعليق على هذا المنشور');
-        }catch (\Exception $ex){
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية للتعليق على هذا المنشور');
+        } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
         }
     }
+
     public function update_replay(Request $request, $id)
     {
         $this->emp = Auth::guard('employee-api')->user();
@@ -147,15 +155,15 @@ class CommentController extends Controller
         $comment = $this->emp->comments()->find($id);
 
         if (!$comment) {
-            return $this->ReturnErorrRespons('0000','لاتمتلك الصلاحية لتعديل هذا التعليق');
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لتعديل هذا التعليق');
         }
 
         $updated = $comment->fill($request->only('body'))->save();
 
         if ($updated) {
-            return $this->GetDateResponse('comment',$comment,"تم التعديل");
+            return $this->GetDateResponse('comment', $comment, "تم التعديل");
         } else {
-            return $this->ReturnErorrRespons('0000','لاتمتلك الصلاحية لتعديل هذا التعليق');
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لتعديل هذا التعليق');
         }
     }
 
@@ -165,13 +173,13 @@ class CommentController extends Controller
         $comment = $this->emp->comments()->find($id);
 
         if (!$comment) {
-            return $this->ReturnErorrRespons('0000','لاتمتلك الصلاحية لحذف هذا التعليق');
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لحذف هذا التعليق');
         }
 
         if ($comment->delete()) {
-            return $this->ReturnSuccessRespons("200","تم الحذف بنجاح");
+            return $this->ReturnSuccessRespons("200", "تم الحذف بنجاح");
         } else {
-            return $this->ReturnErorrRespons('0000','لاتمتلك الصلاحية لحذف هذا التعليق');
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لحذف هذا التعليق');
         }
     }
 }

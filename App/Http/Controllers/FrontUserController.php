@@ -14,10 +14,21 @@ class FrontUserController extends Controller
     use JsonTrait;
     use PostTrait;
 
-    public function index()
+    public function index($id = 0)
     {
+        $user = User::find($id);
+        if ($id > 0 and $user->type == 'employees')
+            return redirect(route('employee', $id));
+        elseif ($id > 0 and $user->type == 'share_users')
+            return redirect(route('SharedUser', $id));
+
         if (request()->ajax()) {
-            $post = User::where('type', 'visitor')->get();
+            if (request()->id == 0)
+                $post = User::where('type', 'visitor')->get();
+            else {
+                $post = User::where('type', 'visitor')->where('id', request()->id)->get();
+
+            }
 
             return datatables()->of($post)
                 ->addColumn('action', function ($data) {
@@ -28,8 +39,9 @@ class FrontUserController extends Controller
                 ->make(true);
         }
         $admin = Admin::where('id', 1)->first();
-        return view('user.index', compact('admin'));
+        return view('user.index', compact('admin', 'id'));
     }
+
 
     public function show($id)
     {
@@ -50,10 +62,23 @@ class FrontUserController extends Controller
     }
 
 ################################################################### deleted posts
-    public function index_trashed()
+    public function index_trashed($id=0)
     {
+        $user=User::onlyTrashed()->where('id', request()->id)->first();
+        if ($id > 0 and $user->type == 'employees')
+            return redirect(route('employee-trashed', $id));
+        elseif ($id > 0 and $user->type == 'share_users')
+            return redirect(route('SharedUserTrashed', $id));
+
         if (request()->ajax()) {
-            $post = User::onlyTrashed()->latest()->get();
+            $post = User::onlyTrashed()->get();
+            if (request()->id == 0)
+                $post = User::onlyTrashed()->where('type', 'visitor')->get();
+            else {
+                $post = User::onlyTrashed()->where('type', 'visitor')->where('id', request()->id)->get();
+
+            }
+
             return datatables()->of($post)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" name="edit" id="' . $data->id . '" class="restore btn btn-success btn-sm" style="float: right"><span class=\'glyphicon glyphicon-log-out\'></span></button>';
@@ -64,7 +89,7 @@ class FrontUserController extends Controller
                 ->make(true);
         }
         $admin = Admin::where('id', 1)->first();
-        return view('user.trashed', compact('admin'));
+        return view('user.trashed', compact('admin','id'));
     }
 
     public function edit_trashed($id)

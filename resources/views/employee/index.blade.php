@@ -159,7 +159,7 @@
                     },
                 ],
                 ajax: {
-                    url: "{{ route('employee') }}",
+                    url: "{{ route('employee',$id) }}",
                 },
                 columns: [
                     {
@@ -342,7 +342,7 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "Employee/destroy/" + user_id,
+                    url: "/Employee/destroy/" + user_id,
                     beforeSend: function () {
                         $('#ok_button').text('جاري إيقاف الحساب...');
                     },

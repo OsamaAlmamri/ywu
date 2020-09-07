@@ -8,10 +8,14 @@ use App\User;
 
 class FrontSharedUserController extends Controller
 {
-    public function index()
+    public function index($id = 0)
     {
         if (request()->ajax()) {
-            $post = User::with('share_user')->where('status', 0)->where('type', 'share_users')->get();
+            if (request()->id == 0)
+                $post = User::with('share_user')->where('type', 'share_users')->get();
+            else {
+                $post = User::with('share_user')->where('type', 'share_users')->where('id', request()->id)->get();
+            }
             return datatables()->of($post)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" name="show" id="' . $data->id . '" class="show btn btn-info btn-sm "style="float: right">موافقة</button>';
@@ -22,7 +26,7 @@ class FrontSharedUserController extends Controller
                 ->make(true);
         }
         $admin = Admin::where('id', 1)->first();
-        return view('shareduser.index', compact(['admin']));
+        return view('shareduser.index', compact(['admin','id']));
     }
 
     public function agree($id)
@@ -44,7 +48,7 @@ class FrontSharedUserController extends Controller
     public function restoreUser($id)
     {
         if ($id) {
-            User::where('id', $id)->restore();
+            User::onlyTrashed()->where('id', $id)->restore();
         }
     }
 
@@ -75,10 +79,17 @@ class FrontSharedUserController extends Controller
 
     ########################################## trashed users
 
-    public function trashedUsers()
+    public function trashedUsers($id=0)
     {
+
         if (request()->ajax()) {
-            $post = User::onlyTrashed()->with('share_user')->where('type', 'share_users')->get();
+            if (request()->id == 0)
+                $post = User::onlyTrashed()->with('share_user')->where('type', 'share_users')->get();
+            else {
+                $post = User::onlyTrashed()->with('share_user')->where('type', 'share_users')->where('id', request()->id)->get();
+
+            }
+
             return datatables()->of($post)
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" name="show" id="' . $data->id . '" class="show btn btn-info btn-sm "style="float: right">إستعادة</button>';
@@ -89,6 +100,6 @@ class FrontSharedUserController extends Controller
                 ->make(true);
         }
         $admin = Admin::where('id', 1)->first();
-        return view('shareduser.trashed', compact(['admin']));
+        return view('shareduser.trashed', compact(['admin','id']));
     }
 }

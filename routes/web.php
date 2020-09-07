@@ -33,10 +33,10 @@ Route::group(['middleware' => ('auth:admin')], function () {
     Route::get('/admin_logout', 'AdminLoginController@LogoutAdmin')->name('Admin_logout');
 #################################################### Users
     Route::get('user/destroy/{id}', 'FrontUserController@destroy');
-    Route::get('userShow', 'FrontUserController@index')->name('user');
-    Route::get('userShowId/{id}', 'FrontUserController@index_id');
+    Route::get('userShow/{id?}', 'FrontUserController@index')->name('user');
+    Route::get('userShowId/{id}', 'FrontUserController@index');
     Route::get('user-trashed', 'FrontUserController@index_trashed')->name('user-trashed');
-    Route::get('trashedShow/{id}', 'FrontUserController@index_trashed_id');
+    Route::get('trashedShow/{id}', 'FrontUserController@index_trashed');
     Route::get('user/edit-trashed/{id}', 'FrontUserController@edit_trashed');
     Route::get('restore-user/{id}', 'FrontUserController@restore_post');
     Route::get('force-user/{id}', 'FrontUserController@force');
@@ -156,8 +156,8 @@ Route::group(['middleware' => ('auth:admin')], function () {
     Route::post('Employee/store', 'FrontEmployeeController@store')->name('employee.store');
     Route::post('Employee/update', 'FrontEmployeeController@update')->name('employee.update');
     Route::get('Employee/destroy/{id}', 'FrontEmployeeController@destroy');
-    Route::get('EmployeeShow', 'FrontEmployeeController@index')->name('employee');
-    Route::get('Employee-trashed', 'FrontEmployeeController@index_trashed')->name('employee-trashed');
+    Route::get('EmployeeShow/{id?}', 'FrontEmployeeController@index')->name('employee');
+    Route::get('Employee-trashed/{id?}', 'FrontEmployeeController@index_trashed')->name('employee-trashed');
     Route::get('E_trashedShow/{id}', 'FrontEmployeeController@index_trashed_id');
     Route::get('Employee/edit-trashed/{id}', 'FrontEmployeeController@edit_trashed');
     Route::get('restore-Employee/{id}', 'FrontEmployeeController@restore_post');
@@ -165,9 +165,9 @@ Route::group(['middleware' => ('auth:admin')], function () {
     ##################################### SharedUser
     Route::get('SharedUser/agree/{id}', 'FrontSharedUserController@agree');
     Route::get('SharedUser/destroy/{id}', 'FrontSharedUserController@destroy');
-    Route::get('SharedUserShow', 'FrontSharedUserController@index')->name('SharedUser');
+    Route::get('SharedUserShow/{id?}', 'FrontSharedUserController@index')->name('SharedUser');
     Route::get('SharedUserAgree', 'FrontSharedUserController@agreeUsers')->name('SharedUserAgree');
-    Route::get('SharedUserTrashed', 'FrontSharedUserController@trashedUsers')->name('SharedUserTrashed');
+    Route::get('SharedUserTrashed/{id?}', 'FrontSharedUserController@trashedUsers')->name('SharedUserTrashed');
     Route::get('SharedUserRestore/{id}', 'FrontSharedUserController@restoreUser');
     Route::get('SharedUserForce/{id}', 'FrontSharedUserController@forceUser');
 });

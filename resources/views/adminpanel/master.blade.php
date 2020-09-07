@@ -473,6 +473,9 @@
         .form-horizontal .checkbox, .form-horizontal .checkbox-inline, .form-horizontal .radio, .form-horizontal .radio-inline {
             padding-top: 0;
         }
+        .post_user_name{
+            color: black;
+        }
     </style>
 
 </head>

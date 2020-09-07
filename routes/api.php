@@ -18,18 +18,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['middleware' => ['api','CheckPass']], function () {
-    Route::post('all','Users\UserController@getallEmployee');
-    Route::post('get_user_by_id','Users\UserController@getEmployeeById');
-    Route::post('updateUserName','Users\UserController@updateUserName');
+Route::group(['middleware' => ['api', 'CheckPass']], function () {
+    Route::post('all', 'Users\UserController@getallEmployee');
+    Route::post('get_user_by_id', 'Users\UserController@getEmployeeById');
+    Route::post('updateUserName', 'Users\UserController@updateUserName');
 
     Route::group(['prefix' => 'admin'], function () {
-        Route::post('login','AuthAdminController@login');
+        Route::post('login', 'AuthAdminController@login');
     });
 });
 
-Route::group(['middleware' => ['api','CheckPass','CheckAdminT:admin-api']], function () {
-    Route::post('employees','Users\UserController@getallEmployee');
+Route::group(['middleware' => ['api', 'CheckPass', 'CheckAdminT:admin-api']], function () {
+    Route::post('employees', 'Users\UserController@getallEmployee');
 });
 
 
@@ -44,53 +44,60 @@ Route::post('emp-register', 'Api\Employees\EmployeeController@register');
 Route::post('shared-user-login', 'SharedUserController@login');
 Route::post('shared-user-register', 'SharedUserController@register');
 Route::post('AllPosts', 'Api\Users\PostController@index');
+
 Route::post('AllCategories', 'Api\Users\PostController@all_category');
 
 
 Route::group(['middleware' => 'CheckAdminT:api'], function () {
 
 ######## user logout and details
-Route::post('logout', 'Api\Users\UserController@logout');
-Route::post('user', 'Api\Users\UserController@getAuthUser');
-Route::post('update_user', 'Api\Users\UserController@Update_User_Details');
-Route::post('reset_user', 'Api\Users\UserController@Reset_User_Password');
+    Route::post('logout', 'Api\Users\UserController@logout');
+    Route::post('user', 'Api\Users\UserController@getAuthUser');
+    Route::post('update_user', 'Api\Users\UserController@Update_User_Details');
+    Route::post('reset_user', 'Api\Users\UserController@Reset_User_Password');
 
 ######## employee logout and details
-Route::post('emp-logout', 'Api\Employees\EmployeeController@logout');
-Route::post('emp-user', 'Api\Employees\EmployeeController@getAuthUser');
-Route::post('update_emp', 'Api\Employees\EmployeeController@Update_Employee_Details');
-Route::post('reset_emp', 'Api\Employees\EmployeeController@Reset_Employee_Password');
+    Route::post('emp-logout', 'Api\Employees\EmployeeController@logout');
+    Route::post('emp-user', 'Api\Employees\EmployeeController@getAuthUser');
+    Route::post('update_emp', 'Api\Employees\EmployeeController@Update_Employee_Details');
+    Route::post('reset_emp', 'Api\Employees\EmployeeController@Reset_Employee_Password');
 
 ######## SharedUser logout and details
-Route::post('sharedUser-logout', 'SharedUserController@logout');
-Route::post('sharedUser-user', 'SharedUserController@getAuthUser');
-Route::post('update_sharedUser', 'SharedUserController@Update_SharedUser_Details');
-Route::post('reset_sharedUser', 'SharedUserController@Reset_SharedUser_Password');
+    Route::post('sharedUser-logout', 'SharedUserController@logout');
+    Route::post('sharedUser-user', 'SharedUserController@getAuthUser');
+    Route::post('update_sharedUser', 'SharedUserController@Update_SharedUser_Details');
+    Route::post('reset_sharedUser', 'SharedUserController@Reset_SharedUser_Password');
 
 ############## Posts Routes
-Route::post('MyPosts', 'Api\Users\PostController@myPosts');
-Route::post('ShPost/{id}', 'Api\Users\PostController@show');
-Route::post('StPost', 'Api\Users\PostController@store');
-Route::post('UpPost/{id}', 'Api\Users\PostController@update');
-Route::post('DePost/{id}', 'Api\Users\PostController@destroy');
+    Route::post('MyPosts', 'Api\Users\PostController@myPosts');
+    Route::post('ShPost/{id}', 'Api\Users\PostController@show');
+    Route::post('StPost', 'Api\Users\PostController@store');
+    Route::post('UpPost/{id}', 'Api\Users\PostController@update');
+    Route::post('DePost/{id}', 'Api\Users\PostController@destroy');
 
 ############## user Comments
-Route::post('StComment', 'Api\Users\CommentController@store');
-Route::post('UpComment/{id}', 'Api\Users\CommentController@update');
-Route::post('DeComment/{id}', 'Api\Users\CommentController@destroy');
+    Route::post('StComment', 'Api\Users\CommentController@store');
+    Route::post('UpComment/{id}', 'Api\Users\CommentController@update');
+    Route::post('DeComment/{id}', 'Api\Users\CommentController@destroy');
 
 ############## employee Comments
-Route::post('Replay', 'Api\Users\CommentController@replay');
-Route::post('UpReplay/{id}', 'Api\Users\CommentController@update_replay');
-Route::post('DeReplay/{id}', 'Api\Users\CommentController@destroy_replay');
+    Route::post('Replay', 'Api\Users\CommentController@replay');
+    Route::post('UpReplay/{id}', 'Api\Users\CommentController@update_replay');
+    Route::post('DeReplay/{id}', 'Api\Users\CommentController@destroy_replay');
 
 ######################################## trainings part
-Route::post('ShowTrainings', 'Api\Trainings\TrainingController@index');
-Route::post('ShowTrainings_public', 'Api\Trainings\TrainingController@index_others');
-Route::post('ShowTrainingId/{id}', 'Api\Trainings\TrainingController@show');
-Route::post('StoreTraining', 'Api\Trainings\TrainingController@store');
-Route::post('UpdateTraining/{id}', 'Api\Trainings\TrainingController@update');
-Route::post('DeleteTraining/{id}', 'Api\Trainings\TrainingController@destroy');
+    Route::post('ShowTrainings', 'Api\Trainings\TrainingController@index');
+    Route::post('getTrainingDetails', 'Api\Trainings\TrainingController@getTrainingDetails');
+    Route::post('getTrainingQuestions', 'Api\Trainings\TrainingController@getTrainingQuestions');
+    Route::post('showTrainingByCategory', 'Api\Trainings\TrainingController@showTrainingByCategory');
+    Route::post('complete_title', 'Api\Trainings\TrainingController@complete_title');
+    Route::post('set_result', 'Api\Trainings\TrainingController@set_result');
+
+    Route::post('ShowTrainings_public', 'Api\Trainings\TrainingController@index_others');
+    Route::post('ShowTrainingId/{id}', 'Api\Trainings\TrainingController@show');
+    Route::post('StoreTraining', 'Api\Trainings\TrainingController@store');
+    Route::post('UpdateTraining/{id}', 'Api\Trainings\TrainingController@update');
+    Route::post('DeleteTraining/{id}', 'Api\Trainings\TrainingController@destroy');
 });
 
 ######################################## women part
@@ -129,8 +136,8 @@ Route::post('ShowTrainingsCategory', 'EmpCateTrainingsController@index');
 //Route::post('DeleteContent/{id}', 'Api\Trainings\ContentController@destroy');
 
 ######################################## exam part
-Route::post('ShowExams', 'ExamController@index');
-Route::post('ShowQuestions', 'ExamController@index_1');
+//Route::post('ShowExams', 'ExamController@index');
+//Route::post('ShowQuestions', 'ExamController@index_1');
 //Route::post('ShowContentId/{id}', 'Api\Trainings\ContentController@show');
 //Route::post('StoreContent', 'Api\Trainings\ContentController@store');
 //Route::post('UpdateContent/{id}', 'Api\Trainings\ContentController@update');
