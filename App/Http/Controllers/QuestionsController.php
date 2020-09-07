@@ -6,6 +6,7 @@ use App\Admin;
 use App\Models\TrainingContents\Training;
 use App\Models\TrainingContents\TrainingTitle;
 use App\Question;
+use App\Result;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class QuestionsController extends Controller
     public function index($id)
     {
         if (request()->ajax()) {
-            $post = Question::with('training')->where('training_id', $id)->get();
+            $post = Question::with('training')->where('training_id', $id)->orderByDesc('id')->get();
             if ($post) {
                 return datatables()->of($post)
                     ->addColumn('action', 'questions.btn.action')
@@ -35,6 +36,22 @@ class QuestionsController extends Controller
         $category = Training::where('id', $id)->first();
         $admin = Admin::where('id', 1)->first();
         return view('questions.show', compact(['category', 'id', 'admin']));
+    }
+
+
+    public function results($id)
+    {
+        if (request()->ajax()) {
+            $post = Result::with(['training','user'])->where('training_id', $id)->orderByDesc('id')->get();
+            if ($post) {
+                return datatables()->of($post)
+                    ->editColumn('training', function ($post) {
+                        return $post->training->name;
+                    })
+                    ->make(true);
+            }
+        }$admin = Admin::where('id', 1)->first();
+        return view('questions.results', compact([ 'id', 'admin']));
     }
 
     private function check_inputes($request)

@@ -28,10 +28,7 @@ class Question extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
-    public function exam()
-    {
-        return $this->belongsTo(Exam::class, 'exam_id', 'id');
-    }
+
 
     public function training()
     {

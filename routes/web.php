@@ -107,11 +107,14 @@ Route::group(['middleware' => ('auth:admin')], function () {
     Route::get('force-title/{id}', 'FrontTitleController@force');
 
 #################################################### questions
+    Route::get('results/index/{id}', 'QuestionsController@results')->name('questions.results');
     Route::post('questions/update', 'QuestionsController@update')->name('questions.update');
     Route::get('questions/destroy/{id}', 'QuestionsController@destroy');
     Route::get('questions/edit/{id}', 'QuestionsController@edit');
     Route::get('questions/index/{id}', 'QuestionsController@index')->name('questions.index');
-    Route::resource('questions', 'QuestionsController')->except('index','update');
+    Route::resource('questions', 'QuestionsController')->except('index', 'update');
+
+#################################################### results
 
 #################################################### Contents
     Route::get('content/show/{id}', 'FrontContentController@show');
