@@ -88,7 +88,7 @@
                 dom: 'Brfltip',
                 lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
                 buttons: [
-                    
+
                 ],
                 ajax: {
                     url: "{{ route('women-trashed') }}",
