@@ -286,7 +286,7 @@
                 $('#form_result').html('');
 
                 $.ajax({
-                    url: "Employee/edit/" + id + "",
+                    url: "{{URL::to('')}}/Employee/edit/" + id + "",
                     type: "GET",
                     dataType: "json",
                     success: function (html) {
@@ -311,7 +311,7 @@
                 var id = $(this).attr('id');
                 $('#form_show').html('');
                 $.ajax({
-                    url: "Employee/show/" + id + "",
+                    url: "{{URL::to('')}}/Employee/show/" + id + "",
                     type: "GET",
                     dataType: "json",
                     success: function (html) {
@@ -342,7 +342,7 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "/Employee/destroy/" + user_id,
+                    url: "{{URL::to('')}}/Employee/destroy/" + user_id,
                     beforeSend: function () {
                         $('#ok_button').text('جاري إيقاف الحساب...');
                     },

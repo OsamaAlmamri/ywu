@@ -121,7 +121,7 @@
 
             $('#restore_button').click(function(){
                 $.ajax({
-                    url:"SharedUser/agree/"+user_id,
+                    url:"{{URL::to('')}}/SharedUser/agree/"+user_id,
                     beforeSend:function(){
                         $('#restore_button').text('جاري الموافقة...');
                     },
@@ -144,7 +144,7 @@
 
             $('#ok_button').click(function(){
                 $.ajax({
-                    url:"SharedUser/destroy/"+user_id,
+                    url:"{{URL::to('')}}/SharedUser/destroy/"+user_id,
                     beforeSend:function(){
                         $('#ok_button').text('جاري رفض الحساب...');
                     },

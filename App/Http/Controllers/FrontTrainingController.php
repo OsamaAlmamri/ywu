@@ -17,12 +17,14 @@ class FrontTrainingController extends Controller
 
     public function index()
     {
+//        $training = Training::orderByDesc('id')->get();
+//        return dd($training);
         if (request()->ajax()) {
             if (!empty(request()->filter_country))
                 $training = Training::with('subject')
-                    ->where('subject_id', request()->filter_country)->latest()->get();
+                    ->where('subject_id', request()->filter_country)->orderByDesc('id')->get();
             else
-                $training = Training::with('subject')->latest()->get();
+                $training = Training::with('subject')->orderByDesc('id')->get();
             return datatables()->of($training)
                 ->addColumn('content', 'training.btn.content')
                 ->addColumn('action', 'training.btn.action')

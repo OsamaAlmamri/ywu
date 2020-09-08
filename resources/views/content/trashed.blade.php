@@ -133,7 +133,7 @@
                 $('#form_show').html('');
 
                 $.ajax({
-                    url: "training/show-trashed/" + id + "",
+                    url: "{{URL::to('')}}/training/show-trashed/" + id + "",
                     type: "GET",
                     dataType: "json",
                     success: function (html) {
@@ -163,7 +163,7 @@
 
             $('#restore_button').click(function () {
                 $.ajax({
-                    url: "restore-training/" + user_id,
+                    url: "{{URL::to('')}}/restore-training/" + user_id,
                     beforeSend: function () {
                         $('#restore_button').text('جاري الاستعادة...');
                     },
@@ -182,7 +182,7 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "force-training/" + user_id,
+                    url: "{{URL::to('')}}/force-training/" + user_id,
                     beforeSend: function () {
                         $('#ok_button').text('جاري الحذف...');
                     },

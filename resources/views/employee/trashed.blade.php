@@ -144,7 +144,7 @@
                 var id = $(this).attr('id');
                 $('#form_show').html('');
                 $.ajax({
-                    url:"/Employee/edit-trashed/"+id+"",
+                    url:"{{URL::to('')}}/Employee/edit-trashed/"+id+"",
                     type: "GET",
                     dataType:"json",
                     success:function(html){
@@ -176,7 +176,7 @@
 
             $('#restore_button').click(function(){
                 $.ajax({
-                    url:"/restore-Employee/"+user_id,
+                    url:"{{URL::to('')}}/restore-Employee/"+user_id,
                     beforeSend:function(){
                         $('#restore_button').text('جاري الاستعادة...');
                     },
@@ -198,7 +198,7 @@
 
             $('#ok_button').click(function(){
                 $.ajax({
-                    url:"/force-Employee/"+user_id,
+                    url:"{{URL::to('')}}/force-Employee/"+user_id,
                     beforeSend:function(){
                         $('#ok_button').text('جاري الحذف...');
                     },

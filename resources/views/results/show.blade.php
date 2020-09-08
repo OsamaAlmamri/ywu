@@ -299,7 +299,7 @@
                 var id = $(this).attr('id');
                 $('#form_result').html('');
                 $.ajax({
-                    url: "/questions/edit/" + id + "",
+                    url: "{{URL::to('')}}/questions/edit/" + id + "",
                     type: "GET",
                     dataType: "json",
                     success: function (html) {
@@ -330,7 +330,7 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "/questions/destroy/" + user_id,
+                    url: "{{URL::to('')}}/questions/destroy/" + user_id,
                     beforeSend: function () {
                         $('#ok_button').text('جاري الحذف...');
                     },

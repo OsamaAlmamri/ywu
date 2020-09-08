@@ -97,7 +97,7 @@
 
             $('#restore_button').click(function(){
                 $.ajax({
-                    url:"restore-subject/"+user_id,
+                    url:"{{URL::to('')}}/restore-subject/"+user_id,
                     beforeSend:function(){
                         $('#restore_button').text('جاري الاستعادة...');
                     },
@@ -117,7 +117,7 @@
 
             $('#ok_button').click(function(){
                 $.ajax({
-                    url:"force-subject/"+user_id,
+                    url:"{{URL::to('')}}/force-subject/"+user_id,
                     beforeSend:function(){
                         $('#ok_button').text('جاري الحذف...');
                     },

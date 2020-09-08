@@ -101,7 +101,7 @@
 
             $('#ok_button').click(function(){
                 $.ajax({
-                    url:"SharedUser/destroy/"+user_id,
+                    url:"{{URL::to('')}}/SharedUser/destroy/"+user_id,
                     beforeSend:function(){
                         $('#ok_button').text('جاري إيقاف الحساب...');
                     },

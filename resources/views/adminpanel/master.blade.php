@@ -404,10 +404,12 @@
             position: relative;
             display: block
         }
+
         .thumbnail {
             height: auto;
             overflow: hidden;
         }
+
         .thumb-img {
             position: relative;
             display: block
@@ -422,59 +424,75 @@
             width: 100%;
             height: 100%
         }
+
         a[data-lightbox="example-set"] .img-fluid, a[data-lightbox="roadtrip"] .img-fluid, a[data-toggle="lightbox"] .img-fluid {
             margin: 10px 0
         }
-        .nav.navbar-nav>li>a
-       {
+
+        .nav.navbar-nav > li > a {
             color: #ffffff;
         }
 
-       .nav.navbar-nav>li>a {
-            color: #ffffff!important;
-       }
+        .nav.navbar-nav > li > a {
+            color: #ffffff !important;
+        }
+
         .nav_menu {
             background: black;
         }
-        body
-        {
+
+        body {
             color: #000000;
             background: #000000;
         }
-        a
-        {
+
+        a {
             color: #ffffff;
         }
+
         body .container.body .right_col {
             background: #f6f7fb;
         }
+
         .left_col {
             background: #000000;
-        }.nav_title ,.sidebar-footer{
+        }
+
+        .nav_title, .sidebar-footer {
             background: #000000;
         }
-       .nav-md .container.body .col-md-3.left_col {
-           min-height: auto;
-           width: 230px;
-           position: fixed;
 
-       }
-       .nav-md .container.body .col-md-3.left_col {
-           min-height: auto;
-           width: 230px;
-           /*position: fixed;*/
+        .nav-md .container.body .col-md-3.left_col {
+            min-height: auto;
+            width: 230px;
+            position: fixed;
 
-       }
-       .nav-sm .container.body .col-md-3.left_col {
-           min-height: auto;
-           /*position: fixed;*/
+        }
 
-       }
+        .nav-md .container.body .col-md-3.left_col {
+            min-height: auto;
+            width: 230px;
+            /*position: fixed;*/
+
+        }
+
+        .nav-sm .container.body .col-md-3.left_col {
+            min-height: auto;
+            /*position: fixed;*/
+
+        }
+
         .form-horizontal .checkbox, .form-horizontal .checkbox-inline, .form-horizontal .radio, .form-horizontal .radio-inline {
             padding-top: 0;
         }
-        .post_user_name{
+
+        .post_user_name {
             color: black;
+        }
+
+        div.dt-buttons {
+            position: relative;
+            float: right;
         }
     </style>
 
@@ -531,8 +549,6 @@
 <!--datatable -->
 {{--<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>--}}
 {{--<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>--}}
-
-
 
 
 /***************************/

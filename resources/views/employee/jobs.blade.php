@@ -175,7 +175,7 @@
                 $('#form_result').html('');
 
                 $.ajax({
-                    url: "jobs/edit/" + id + "",
+                    url: "{{URL::to('')}}/jobs/edit/" + id + "",
 
                     type: "GET",
                     dataType: "json",
@@ -201,7 +201,7 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "jobs/destroy/" + user_id,
+                    url: "{{URL::to('')}}/jobs/destroy/" + user_id,
                     beforeSend: function () {
                         $('#ok_button').text('جاري حذف الوظيفة...');
                     },

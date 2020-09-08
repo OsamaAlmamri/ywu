@@ -21,12 +21,8 @@ class FrontTitleController extends Controller
             $post = TrainingTitle::with('training')->where('training_id', $id)->get();
             if ($post) {
                 return datatables()->of($post)
-                    ->addColumn('action', function ($data) {
-                        $button = '<button type="button" name="show" id="' . $data->id . '" class="show btn btn-primary btn-sm" style="float: right"><span class=\'glyphicon glyphicon-eye-open\'></span></button>';
-                        $button .= '<button type="button" name="edit" id="' . $data->id . '" class="edit btn btn-warning btn-sm" style="float: right"><span class=\'glyphicon glyphicon-pencil\'></span></button>';
-                        $button .= '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"style="float: right"><span class=\'glyphicon glyphicon-trash\'></button>';
-                        return $button;
-                    })->editColumn('training', function ($post) {
+                    ->addColumn('action', 'content.btn.action')
+                    ->editColumn('training', function ($post) {
                         return $post->training->name;
                     })
                     ->rawColumns(['action'])

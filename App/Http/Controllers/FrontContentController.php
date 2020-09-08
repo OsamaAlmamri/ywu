@@ -24,12 +24,8 @@ class FrontContentController extends Controller
             $post = TitleContent::with('title_C')->where('title_id', $id)->get();
             if ($post) {
                 return datatables()->of($post)
-                    ->addColumn('action', function ($data) {
-                        $button = '<button type="button" name="show" id="' . $data->id . '" class="show btn btn-primary btn-sm" style="float: right"><span class=\'glyphicon glyphicon-eye-open\'></span></button>';
-                        $button .= '<button type="button" name="edit" id="' . $data->id . '" class="edit btn btn-warning btn-sm" style="float: right"><span class=\'glyphicon glyphicon-pencil\'></span></button>';
-                        $button .= '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"style="float: right"><span class=\'glyphicon glyphicon-trash\'></button>';
-                        return $button;
-                    })->editColumn('title_C', function ($post) {
+                    ->addColumn('action', 'content.btn.action')
+                    ->editColumn('title_C', function ($post) {
                         return empty($post->title_C) ? 'لايوجد عنوان' : $post->title_C->name;
                     })
                     ->rawColumns(['action'])

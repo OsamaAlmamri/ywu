@@ -155,7 +155,7 @@
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: "/showContentID/{{ $id }}",
+                        url: "{{URL::to('')}}/showContentID/{{ $id }}",
                     },
                     columnDefs: [{
                         targets: 1,
@@ -262,7 +262,7 @@
                 $('#form_show').html('');
 
                 $.ajax({
-                    url: "/content/show/" + id + "",
+                    url: "{{URL::to('')}}/content/show/" + id + "",
                     type: "GET",
                     dataType: "json",
                     success: function (html) {
@@ -301,7 +301,7 @@
                 $('#form_result').html('');
 
                 $.ajax({
-                    url: "/content/edit/" + id + "",
+                    url: "{{URL::to('')}}/content/edit/" + id + "",
                     type: "GET",
                     dataType: "json",
                     success: function (html) {
@@ -330,7 +330,7 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "/content/destroy/" + user_id,
+                    url: "{{URL::to('')}}/content/destroy/" + user_id,
                     beforeSend: function () {
                         $('#ok_button').text('جاري الحذف...');
                     },

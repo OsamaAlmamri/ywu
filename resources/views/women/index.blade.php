@@ -270,7 +270,7 @@
                 $('#form_result').html('');
 
                 $.ajax({
-                    url: "edit/" + id + "",
+                    url: "{{URL::to('')}}/edit/" + id + "",
                     type: "GET",
                     dataType: "json",
                     success: function (html) {
@@ -303,7 +303,7 @@
                 var id = $(this).attr('id');
                 $('#form_show').html('');
                 $.ajax({
-                    url: "show/" + id + "",
+                    url: "{{URL::to('')}}/show/" + id + "",
                     type: "GET",
                     dataType: "json",
                     success: function (html) {
@@ -365,7 +365,7 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "ajax-crud/destroy/" + user_id,
+                    url: "{{URL::to('')}}/ajax-crud/destroy/" + user_id,
                     beforeSend: function () {
                         $('#ok_button').text('جاري الحذف...');
                     },

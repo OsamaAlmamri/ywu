@@ -117,7 +117,7 @@
 
             $('#restore_button').click(function () {
                 $.ajax({
-                    url: "/SharedUserRestore/" + user_id,
+                    url: "{{URL::to('')}}/SharedUserRestore/" + user_id,
                     beforeSend: function () {
                         $('#restore_button').text('جاري الاستعادة...');
                     },
@@ -139,7 +139,7 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "/SharedUserForce/" + user_id,
+                    url: "{{URL::to('')}}/SharedUserForce/" + user_id,
                     beforeSend: function () {
                         $('#ok_button').text('جاري الحذف...');
                     },

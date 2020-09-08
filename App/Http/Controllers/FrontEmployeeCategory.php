@@ -20,12 +20,13 @@ class FrontEmployeeCategory extends Controller
 
     public function index()
     {
+//
         if (request()->ajax()) {
             $post = Department::latest()->get();
             return datatables()->of($post)
                 ->addColumn('action', function ($data) {
-                    $button = '<button type="button" name="show" id="' . $data->id . '" class="show btn btn-info btn-sm "style="float: right">إضافة دورات تدريبية</span></button>';
-                    $button .= '<button type="button" name="edit" id="' . $data->id . '" class="edit btn btn-warning btn-sm" style="float: right"><span class=\'glyphicon glyphicon-pencil\'></span></button>';
+//                    $button = '<button type="button" name="show" id="' . $data->id . '" class="show btn btn-info btn-sm "style="float: right">إضافة دورات تدريبية</span></button>';
+                    $button = '<button type="button" name="edit" id="' . $data->id . '" class="edit btn btn-warning btn-sm" style="float: right"><span class=\'glyphicon glyphicon-pencil\'></span></button>';
                     $button .= '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"style="float: right"><span class=\'glyphicon glyphicon-trash\'></button>';
                     return $button;
                 })
@@ -110,6 +111,7 @@ class FrontEmployeeCategory extends Controller
     ############################################### category with trainings
     public function index_edit($id)
     {
+
         if (request()->ajax()) {
             $post = Category_Training::where('category_id', $id)->orderByDesc('id')->get();
             if ($post) {

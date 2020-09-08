@@ -95,7 +95,7 @@
 
             $('#ok_button').click(function(){
                 $.ajax({
-                    url:"user/destroy/"+user_id,
+                    url:"{{URL::to('')}}/user/destroy/"+user_id,
                     beforeSend:function(){
                         $('#ok_button').text('جاري توقيف الحساب...');
                     },

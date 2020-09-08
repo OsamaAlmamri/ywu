@@ -127,7 +127,7 @@ Route::group(['middleware' => ('auth:admin')], function () {
     Route::get('content/show-trashed/{id}', 'FrontContentController@show_trashed');
     Route::get('restore-content/{id}', 'FrontContentController@restore_post');
     Route::get('force-content/{id}', 'FrontContentController@force');
-    Route::get('/showContentID/{id}', 'FrontContentController@index_edit');
+    Route::get('/showContentID/{id}', 'FrontContentController@index_edit')->name('showContentID');
 
 #################################################### Employees Categories
     Route::get('Category/edit/{id}', 'FrontEmployeeCategory@edit');
@@ -145,7 +145,7 @@ Route::group(['middleware' => ('auth:admin')], function () {
 
 
     #### category_trainings
-    Route::get('CategoryShowId/{id}', 'FrontEmployeeCategory@index_edit');
+    Route::get('CategoryShowId/{id}', 'FrontEmployeeCategory@index_edit')->name('CategoryShowId');
     Route::post('Category_training/store', 'FrontEmployeeCategory@store_training')->name('Emp_Category_Training.store');
     Route::get('Category_training/destroy/{id}', 'FrontEmployeeCategory@destroy_training');
 

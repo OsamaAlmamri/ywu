@@ -91,7 +91,7 @@
             processing: true,
             serverSide: true,
             ajax:{
-                url: "/CategoryShowId/{{$id}}",
+                url: "{{route('CategoryShowId',$id)}}",
             },
             columns:[
                 {
@@ -169,7 +169,7 @@
 
         $('#ok_button').click(function(){
             $.ajax({
-                url:"/Category_training/destroy/"+user_id,
+                url:"{{URL::to('')}}/Category_training/destroy/"+user_id,
                 beforeSend:function(){
                     $('#ok_button').text('جاري حذف الوظيفة...');
                 },

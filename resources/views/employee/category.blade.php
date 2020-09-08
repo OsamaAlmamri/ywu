@@ -175,7 +175,7 @@
                 $('#form_result').html('');
 
                 $.ajax({
-                    url: "Category/edit/" + id + "",
+                    url: "{{URL::to('')}}/Category/edit/" + id + "",
                     type: "GET",
                     dataType: "json",
                     success: function (html) {
@@ -205,7 +205,7 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "Category/destroy/" + user_id,
+                    url: "{{URL::to('')}}/Category/destroy/" + user_id,
                     beforeSend: function () {
                         $('#ok_button').text('جاري حذف القسم...');
                     },

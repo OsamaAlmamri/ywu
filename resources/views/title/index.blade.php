@@ -234,7 +234,7 @@
                 $('#form_result').html('');
 
                 $.ajax({
-                    url: "title/edit/" + id + "",
+                    url: "{{URL::to('')}}/title/edit/" + id + "",
                     type: "GET",
                     dataType: "json",
                     success: function (html) {
@@ -257,7 +257,7 @@
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "title/destroy/" + user_id,
+                    url: "{{URL::to('')}}/title/destroy/" + user_id,
                     beforeSend: function () {
                         $('#ok_button').text('جاري الحذف...');
                     },
