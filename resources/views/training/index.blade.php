@@ -97,6 +97,20 @@
                                 <input class="form-control" name="start_at" type="dateTime-local">
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-4">الوصف   : </label>
+                            <div class="col-md-8">
+                                <textarea name="description" id="description"> </textarea>
+                            </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-4">الشهادة   : </label>
+                            <div class="col-md-8">
+                                <textarea name="certificate" id="certificate"> </textarea>
+                            </div>
+
+
                         <div class="form-group">
                             <label class="control-label col-md-4">تاريخ انتهاء الدورة : </label>
                             <div class="col-md-8">
@@ -259,6 +273,15 @@
                             title: 'تاريخ  النشر'
                         },
                         {
+                            data: 'description',
+                            name: 'description',
+                            title: ' الوصف',
+                            orderable: false,
+                        },{
+                            data: 'certificate',
+                            name: 'certificate',
+                            title: 'الشهادة ',
+                        },{
                             data: 'content',
                             name: 'content',
                             title: 'عرض المحتويات',
@@ -416,6 +439,8 @@
                         $('#name').val(html.data.name);
                         $('#start_at').val(html.data.start_at);
                         $('#end_at').val(html.data.end_at);
+                        $('#certificate').val(html.data.certificate);
+                        $('#description').val(html.data.description);
                         $('#store_image').html("<img src={{ URL::to('/') }}/assets/images/" + html.data.thumbnail + " width='70' class='img-thumbnail' />");
                         $('#store_image').append("<input type='hidden' name='hidden_image' value='" + html.data.thumbnail + "' />");
                         $('#hidden_id').val(html.data.id);

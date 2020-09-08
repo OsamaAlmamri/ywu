@@ -32,7 +32,7 @@ class FrontTrainingController extends Controller
                 ->editColumn('subject', function ($training) {
                     return empty($training->subject) ? 'No producent' : $training->subject->name;
                 })
-                ->rawColumns(['action', 'btn_image','content'])
+                ->rawColumns(['action', 'btn_image', 'content'])
                 ->make(true);
         }
         $categories = Subject::all();
@@ -73,6 +73,8 @@ class FrontTrainingController extends Controller
         $post->length = $request->length;
         $post->start_at = $request->start_at;
         $post->end_at = $request->end_at;
+        $post->description = $request->description;
+        $post->certificate = $request->certificate;
         $post->thumbnail = $this->Post_Save($request, 'image', "IMG-", 'assets/images');
 
         $post->save();
@@ -107,7 +109,7 @@ class FrontTrainingController extends Controller
             "length" => "nullable",
             "start_at" => "nullable",
             "end_at" => "nullable",
-            "image" => "required|mimes:jpg,png,jpeg,gif,svg",
+//            "image" => "required|mimes:jpg,png,jpeg,gif,svg",
         ];
         $messages = [
             "name.required" => "يرجى كتابة عنوان الدورة",
@@ -124,12 +126,13 @@ class FrontTrainingController extends Controller
             $post->name = $request->name;
             $post->type = $request->type;
             $post->mark = $request->mark;
+            $post->description = $request->description;
+            $post->certificate = $request->certificate;
             $post->subject_id = $request->subject;
             $post->length = $request->length;
             $post->start_at = $request->start_at;
             $post->end_at = $request->end_at;
-            $post->thumbnail = $this->Post_update($request, 'image', "IMG-", 'assets/images', $post->image);
-
+            $post->thumbnail = $this->Post_update($request, 'image', "IMG-", 'assets/images', $post->thumbnail);
             $post->update();
             if ($post) {
                 return response()->json(['success' => 'تم التعديل بنجاح']);

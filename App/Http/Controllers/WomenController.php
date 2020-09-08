@@ -60,6 +60,7 @@ class WomenController extends Controller
         if ($request->video == null)
             $post->video_url = null;
         $post->video_url = $request->video;
+
         $post->save();
         if ($post->save())
             return response()->json(['success' => 'تم النشر بنجاح']);
@@ -94,6 +95,7 @@ class WomenController extends Controller
         if ($post) {
             $post->title = $request->title;
             $post->body = $request->body;
+
             $post->image = $this->Post_update($request, 'image', "IMG-", 'assets/images', $post->image);
             $post->book = $this->Post_update($request, 'book', "BOK-", 'assets/books', $post->book);
             if ($post->video_url != null || $post->video_url == null && $request->video != null) {

@@ -20,6 +20,8 @@ class CreateTrainingsTable extends Migration
             $table->foreignId('subject_id')->constrained('subjects')->onUpdate('cascade')->onDelete('cascade');
             $table->string('mark')->nullable();
             $table->string('type');
+            $table->text('certificate')->nullable();
+            $table->text('description')->nullable();
             $table->string('length')->nullable();
             $table->dateTime('start_at')->nullable();
             $table->dateTime('end_at')->nullable();
