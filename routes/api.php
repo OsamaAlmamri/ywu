@@ -55,6 +55,7 @@ Route::group(['middleware' => 'CheckAdminT:api'], function () {
     Route::post('user', 'Api\Users\UserController@getAuthUser');
     Route::post('update_user', 'Api\Users\UserController@Update_User_Details');
     Route::post('reset_user', 'Api\Users\UserController@Reset_User_Password');
+    Route::post('changePassword', 'Api\Users\UserController@changePassword');
 
 ######## employee logout and details
     Route::post('emp-logout', 'Api\Employees\EmployeeController@logout');

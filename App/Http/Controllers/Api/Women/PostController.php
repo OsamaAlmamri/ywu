@@ -8,6 +8,7 @@ use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class PostController extends Controller
 {
@@ -17,98 +18,111 @@ class PostController extends Controller
     public function __construct()
     {
     }
+
     public function index()
     {
-        $post=WomenPosts::orderByDesc('id')->paginate(5);
-        if(!$post){
-            return $this->ReturnErorrRespons('0000','لايوجد منشورات');
+//        if ()
+        if (isset(request()->token) and request()->token != null) {
+            $this->user = JWTAuth::parseToken()->authenticate();
+            $id = $this->user->id;
+        } else {
+            $this->user = null;
+            $id = 0;
         }
-        else{
-            return  $this->GetDateResponse('Posts',$post);
+
+
+        $post = WomenPosts::with(['user_like' => function ($q) use ($id) {
+            $q->where('user_id', $id);
+        }])->orderByDesc('id')->paginate(5);
+        if (!$post) {
+            return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
+        } else {
+            return $this->GetDateResponse('Posts', $post);
         }
     }
+
     public function show($id)
     {
         $post = WomenPosts::whereId($id)->first();
         if (!$post) {
-            return $this->ReturnErorrRespons('0000','لاتمتلك صلاحية لرؤية هذا المنشور');
-        }
-        else{
-            return  $this->GetDateResponse('Post',$post);
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك صلاحية لرؤية هذا المنشور');
+        } else {
+            return $this->GetDateResponse('Post', $post);
         }
     }
 
     public function store(Request $request)
     {
         try {
-            $rules=$this->Post_Rules();
-            $messages=$this->Post_Messages();
-            $validator = Validator::make($request->all(), $rules,$messages);
+            $rules = $this->Post_Rules();
+            $messages = $this->Post_Messages();
+            $validator = Validator::make($request->all(), $rules, $messages);
             if ($validator->fails()) {
                 $code = $this->returnCodeAccordingToInput($validator);
                 return $this->returnValidationError($code, $validator);
             }
             $post = new WomenPosts();
-            $post->title=$request->title;
-            $post->body=$request->body;
+            $post->title = $request->title;
+            $post->body = $request->body;
             $post->category_id = $request->category_id;
-            $post->image= $this->Post_Save($request,'image',"IMG-",'assets/images');
-            $post->book=$this->Post_Save($request,'book',"BOK-",'assets/books');
-            $post->sound= $this->Post_Save($request,'sound',"AUD-",'assets/sounds');
-            if($request->video_url==null)
+            $post->image = $this->Post_Save($request, 'image', "IMG-", 'assets/images');
+            $post->book = $this->Post_Save($request, 'book', "BOK-", 'assets/books');
+            $post->sound = $this->Post_Save($request, 'sound', "AUD-", 'assets/sounds');
+            if ($request->video_url == null)
                 $post->video_url = null;
-            $post->video_url =$request->video_url;
+            $post->video_url = $request->video_url;
             $post->save();
             if ($post->save())
-                return $this->GetDateResponse('post',$post,"تم نشر");
-          }catch (\Exception $ex){
+                return $this->GetDateResponse('post', $post, "تم نشر");
+        } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
         }
     }
 
     public function update(Request $request, $id)
     {
-        $rules=$this->Post_Rules();
-        $messages=$this->Post_Messages();
-        $validator = Validator::make($request->all(), $rules,$messages);
+        $rules = $this->Post_Rules();
+        $messages = $this->Post_Messages();
+        $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
             $code = $this->returnCodeAccordingToInput($validator);
             return $this->returnValidationError($code, $validator);
         }
 
-        $post=WomenPosts::whereId($id)->first();
-        if($post){
-            $post->title=$request->title;
-            $post->body=$request->body;
+        $post = WomenPosts::whereId($id)->first();
+        if ($post) {
+            $post->title = $request->title;
+            $post->body = $request->body;
             $post->category_id = $request->category_id;
-            $post->image = $this->Post_update($request,'image',"IMG-",'assets/images',$post->image);
-            $post->book=$this->Post_update($request,'book',"BOK-",'assets/books',$post->book);
-            $post->sound= $this->Post_update($request,'sound',"AUD-",'assets/sounds',$post->sound);
-                if($post->video_url!=null || $post->video_url==null && $request->video_url!=null){
-                    $post->video_url=$request->video_url;
-                }
-                else{$post->video_url=null;}
+            $post->image = $this->Post_update($request, 'image', "IMG-", 'assets/images', $post->image);
+            $post->book = $this->Post_update($request, 'book', "BOK-", 'assets/books', $post->book);
+            $post->sound = $this->Post_update($request, 'sound', "AUD-", 'assets/sounds', $post->sound);
+            if ($post->video_url != null || $post->video_url == null && $request->video_url != null) {
+                $post->video_url = $request->video_url;
+            } else {
+                $post->video_url = null;
+            }
             $post->update();
             if ($post) {
-                return $this->GetDateResponse('post',$post,"تم التعديل");
+                return $this->GetDateResponse('post', $post, "تم التعديل");
             } else {
-                return $this->ReturnErorrRespons('0000','حدث خطاء غير متوقع');
+                return $this->ReturnErorrRespons('0000', 'حدث خطاء غير متوقع');
             }
         }
     }
 
     public function destroy($id)
     {
-        $post=WomenPosts::whereId($id)->first();
-        if($post){
-            $this->Post_delete('assets/images/',$post->image);
-            $this->Post_delete('assets/books/',$post->book);
-            $this->Post_delete('assets/sounds/',$post->sound);
+        $post = WomenPosts::whereId($id)->first();
+        if ($post) {
+            $this->Post_delete('assets/images/', $post->image);
+            $this->Post_delete('assets/books/', $post->book);
+            $this->Post_delete('assets/sounds/', $post->sound);
         }
         if ($post->delete()) {
-            return $this->ReturnSuccessRespons("200","تم الحذف بنجاح");
+            return $this->ReturnSuccessRespons("200", "تم الحذف بنجاح");
         } else {
-            return $this->ReturnErorrRespons('0000','لاتمتلك الصلاحية لحذف هذا المنشور');
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لحذف هذا المنشور');
         }
     }
 }

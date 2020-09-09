@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 //    return view('asking.tryshow');
 //});
 
+Route::get('/', 'AdminLoginController@Admin_login')->name('Admin_login');
 Route::get('/admin_login', 'AdminLoginController@Admin_login')->name('Admin_login');
 Route::get('/admin_forget', 'AdminLoginController@Admin_forget')->name('Admin_Forget');
 Route::post('/admin_forget_check', 'AdminLoginController@Admin_forget_check')->name('Admin_Forget_check');

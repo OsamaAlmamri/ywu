@@ -20,54 +20,62 @@ class PostController extends Controller
 
     public function index()
     {
-        if(request()->category!=null){
-            $post= Post::with(['user','category','comments'])
-                ->where('status',true)
-                ->where('category_id',request()->category)
-                ->orderBy('id','desc')->paginate(20);
-            if(!$post){
-                return $this->ReturnErorrRespons('0000','لايوجد استشارات');
-            }
-            else{
-                return  $this->GetDateResponse('Posts',$post);
-            }
+        if (isset(request()->token) and request()->token != null) {
+            $this->user = JWTAuth::parseToken()->authenticate();
+            $id = $this->user->id;
+        } else {
+            $this->user = null;
+            $id = 0;
         }
-        else{
-            $post= Post::with(['user','category','comments'])
-                ->where('status',true)
-                ->orderBy('id','desc')->paginate(5);
-            if(!$post){
-                return $this->ReturnErorrRespons('0000','لايوجد استشارات');
+        if (request()->category != null) {
+            $post = Post::with(['user', 'category', 'comments', 'user_like' => function ($q) use ($id) {
+                $q->where('user_id', $id);
+            }])
+                ->where('status', true)
+                ->where('category_id', request()->category)
+                ->orderBy('id', 'desc')->paginate(20);
+            if (!$post) {
+                return $this->ReturnErorrRespons('0000', 'لايوجد استشارات');
+            } else {
+                return $this->GetDateResponse('Posts', $post);
             }
-            else{
-                return  $this->GetDateResponse('Posts',$post);
+        } else {
+            $post = Post::with(['user', 'category', 'comments', 'user_like' => function ($q) use ($id) {
+                $q->where('user_id', $id);
+            }])
+                ->where('status', true)
+                ->orderBy('id', 'desc')->paginate(5);
+            if (!$post) {
+                return $this->ReturnErorrRespons('0000', 'لايوجد استشارات');
+            } else {
+                return $this->GetDateResponse('Posts', $post);
             }
         }
     }
+
     public function myPosts()
     {
-        try{
+        try {
             $this->user = JWTAuth::parseToken()->authenticate();
-            $mPosts=$this->user->posts()->where('status',true)->with(['category','comments'])->get([ 'id','title','body','user_id','category_id','status','favorite','created_at','updated_at'])->toArray();
-            if(!$mPosts){
-                return $this->ReturnErorrRespons('0000','لايوجد استشارات');
+            $mPosts = $this->user->posts()->where('status', true)->with(['category', 'comments'])->get(['id', 'title', 'body', 'user_id', 'category_id', 'status', 'favorite', 'created_at', 'updated_at'])->toArray();
+            if (!$mPosts) {
+                return $this->ReturnErorrRespons('0000', 'لايوجد استشارات');
+            } else {
+                return $this->GetDateResponse('Posts', $mPosts);
             }
-            else{
-                return  $this->GetDateResponse('Posts',$mPosts);
-            }
-        }catch (\Exception $ex){
-            return $this->ReturnErorrRespons('0000','تم ايقاف حسابك مؤقتا');
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons('0000', 'تم ايقاف حسابك مؤقتا');
         }
 
     }
+
     public function show($id)
     {
         $post = $this->user->posts()->find($id);
         if (!$post) {
-            return $this->ReturnErorrRespons('0000','لاتمتلك صلاحية لرؤية هذا المنشور');
-        }
-        else{
-            return  $this->GetDateResponse('Post',$post);
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك صلاحية لرؤية هذا المنشور');
+        } else {
+            return $this->GetDateResponse('Post', $post);
         }
     }
 
@@ -92,12 +100,12 @@ class PostController extends Controller
             $post->title = $request->title;
             $post->body = $request->body;
             $post->category_id = $request->category_id;
-            $post->status=false;
+            $post->status = false;
 
             if ($this->user->posts()->save($post))
-                return $this->GetDateResponse('post',$post,"تم نشر استشارتك");
+                return $this->GetDateResponse('post', $post, "تم نشر استشارتك");
 
-        }catch (\Exception $ex){
+        } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
         }
     }
@@ -110,7 +118,7 @@ class PostController extends Controller
             "body" => "required",
         ];
 
-        $validator = Validator::make($request->only('body','title'), $rules);
+        $validator = Validator::make($request->only('body', 'title'), $rules);
 
         if ($validator->fails()) {
             $code = $this->returnCodeAccordingToInput($validator);
@@ -120,15 +128,15 @@ class PostController extends Controller
         $post = $this->user->posts()->find($id);
 
         if (!$post) {
-            return $this->ReturnErorrRespons('0000','لاتمتلك الصلاحية لتعديل هذا المنشور');
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لتعديل هذا المنشور');
         }
 
-        $updated = $post->fill($request->only('body','title'))->save();
+        $updated = $post->fill($request->only('body', 'title'))->save();
 
         if ($updated) {
-            return $this->GetDateResponse('post',$post,"تم التعديل");
+            return $this->GetDateResponse('post', $post, "تم التعديل");
         } else {
-            return $this->ReturnErorrRespons('0000','حدث خطاء غير متوقع');
+            return $this->ReturnErorrRespons('0000', 'حدث خطاء غير متوقع');
         }
     }
 
@@ -138,24 +146,28 @@ class PostController extends Controller
         $post = $this->user->posts()->find($id);
 
         if (!$post) {
-            return $this->ReturnErorrRespons('0000','لاتمتلك الصلاحية لحذف هذا المنشور');
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لحذف هذا المنشور');
         }
 
         if ($post->delete()) {
-            return $this->ReturnSuccessRespons("200","تم الحذف بنجاح");
+            return $this->ReturnSuccessRespons("200", "تم الحذف بنجاح");
         } else {
-            return $this->ReturnErorrRespons('0000','لاتمتلك الصلاحية لحذف هذا المنشور');
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لحذف هذا المنشور');
         }
     }
-    #################################### category
-    public function all_category(){
-        $categories=Category::all();
-        return  $this->GetDateResponse('categories',$categories);
-    }
-    public function search_category(){
 
-        $categories=Category::all();
-        return  $this->GetDateResponse('categories',$categories);
+    #################################### category
+    public function all_category()
+    {
+        $categories = Category::all();
+        return $this->GetDateResponse('categories', $categories);
+    }
+
+    public function search_category()
+    {
+
+        $categories = Category::all();
+        return $this->GetDateResponse('categories', $categories);
     }
 
 }

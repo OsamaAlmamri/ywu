@@ -10,9 +10,9 @@ trait AuthTrait
     {
         return [
             "name" => "required",
-            "phone" => "required|numeric|digits:9|starts_with:77,73,74,70,71|unique:users,phone",
+            "phone" => "required|unique:users,phone",
             "email" => "nullable|email|unique:users,email",
-            "password" => "required|string|min:10|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/",
+            "password" => "required|string|min:4",
             'userType' => 'required',
             'share_user_type' => 'required_if:userType,share_user',
             'destination' => 'required_if:userType,share_user',

@@ -2,6 +2,7 @@
 
 namespace App\Models\UserContents;
 
+use App\Like;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -45,4 +46,13 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class, 'post_id', 'id');
     }
+    public function user_like()
+    {
+        return $this->hasOne(Like::class, 'liked_id', 'id')
+            ->where('type','posts')
+            ->where('user_id',auth()->id())
+            ;
+    }
+
+
 }

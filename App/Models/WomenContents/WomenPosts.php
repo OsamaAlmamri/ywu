@@ -2,6 +2,7 @@
 
 namespace App\Models\WomenContents;
 
+use App\Like;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -28,6 +29,12 @@ class WomenPosts extends Model
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
+    public function user_like()
+    {
+        return $this->hasOne(Like::class, 'liked_id', 'id')
+            ->where('type','women_posts')
+            ;
+    }
 
     public function category()
     {

@@ -40,7 +40,7 @@ class TrainingController extends Controller
     public function getTrainingDetails(Request $request)
     {
         try {
-            $Training = Training::with(['result','titles' => function ($q) {
+            $Training = Training::with(['result', 'titles' => function ($q) {
                 $q->with(['contents', 'is_complete:title_id,created_at']);
             }])
                 ->where('id', $request->id)->get()->first();
@@ -166,10 +166,10 @@ class TrainingController extends Controller
             $likes = Like::where('user_id', auth()->id())->where('liked_id', $request->liked_id)->where('type', $type)->get()->first();
             if (!$likes) {
                 Like::create(['user_id' => auth()->id(), 'liked_id' => $request->liked_id, 'type' => $type]);
-                return $this->GetDateResponse('data', "تم الاضافة اللا المفضلة");
+                return $this->GetDateResponse('data', "1");
             } else {
                 $likes->delete();
-                return $this->GetDateResponse('data', "تم اللغاء من المفضلة");
+                return $this->GetDateResponse('data', "0");
             }
         } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
@@ -180,11 +180,16 @@ class TrainingController extends Controller
     {
         try {
 
-            if ($request->type == 'posts')
-                $type = 'posts';
-            else
+            if ($request->type == 'posts') {
+                $likes = Like::with(['post' => function ($q) {
+                    $q->with(['category', 'comments']);
+                }
+                ])->where('user_id', auth()->id())->where('type', 'posts')->get();
+            } else {
                 $type = 'women_posts';
-            $likes = Like::where('user_id', auth()->id())->where('type', $type)->get();
+                $likes = Like::with(['women_post'])->where('user_id', auth()->id())
+                    ->where('type', 'women_posts')->get();
+            }
             return $this->GetDateResponse('data', $likes);
         } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());

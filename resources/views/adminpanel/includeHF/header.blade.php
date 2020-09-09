@@ -26,9 +26,9 @@
                 <ul class="nav side-menu">
                     <li><a href="{{route('home')}}"><i class="fa fa-home"></i> الرئيسية</a>
                     </li>
-                    <li><a><i class="fa fa-female"></i> شؤون المراءة<span class="fa fa-chevron-down"></span></a>
+                    <li><a><i class="fa fa-female"></i> شؤون المرأة<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="{{route('women')}}">عرض محتويات شؤون المراءة</a></li>
+                            <li><a href="{{route('women')}}">عرض محتويات شؤون المرأة</a></li>
                             <li><a href="{{route('women-trashed')}}">سلة المحذوفات</a></li>
                         </ul>
                     </li>
