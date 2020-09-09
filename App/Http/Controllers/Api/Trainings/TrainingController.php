@@ -165,7 +165,12 @@ class TrainingController extends Controller
                 $type = 'women_posts';
             $likes = Like::where('user_id', auth()->id())->where('liked_id', $request->liked_id)->where('type', $type)->get()->first();
             if (!$likes) {
-                Like::create(['user_id' => auth()->id(), 'liked_id' => $request->liked_id, 'type' => $type]);
+                $l = new Like();
+                $l->user_id = auth()->id();
+                $l->liked_id = $request->liked_id;
+                $l->type = $type;
+                $l->save();
+//                Like::create(['user_id' => auth()->id(), 'liked_id' => $request->liked_id, 'type' => $type]);
                 return $this->GetDateResponse('data', "1");
             } else {
                 $likes->delete();

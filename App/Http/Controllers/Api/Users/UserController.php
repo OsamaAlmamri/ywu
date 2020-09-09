@@ -150,32 +150,13 @@ class UserController extends Controller
     public
     function Update_User_Details(Request $request)
     {
-        if (User::where('id', request()->id)->first()) {
-            $rules = ([
-                "id" => "required",
-                "name" => "required",
-            ]);
-            $messages = ([
-                "name.required" => "يرجى إدخال اسم المستخدم الجديد",
-            ]);
-            $validator = Validator::make($request->only('name', 'id'), $rules, $messages);
-
-            if ($validator->fails()) {
-                $code = $this->returnCodeAccordingToInput($validator);
-                return $this->returnValidationError($code, $validator);
-            }
-
-            $user = User::where('id', request()->id)->first();
-            if ($user) {
-                $user->name = request()->name;
-                $user->update();
-
-                return $this->GetDateResponse('user', $user);
-            } else {
-                return $this->ReturnSuccessRespons("200", "قم بتسجيل الدخول");
-            }
+        $user = JWTAuth::parseToken()->authenticate();
+        if ($user) {
+            $user->name = request()->name;
+            $user->update();
+            return $this->GetDateResponse('user', $user);
         } else {
-            return $this->ReturnSuccessRespons("200", "حدث خطاء ");
+            return $this->ReturnSuccessRespons("200", "قم بتسجيل الدخول");
         }
     }
 
