@@ -69,7 +69,6 @@ class QuestionsController extends Controller
             "option4" => "required",
             "answer" => "required",
             "image" => "nullable|mimes:jpg,png,jpeg,gif,svg",
-
         ];
         $messages = [
             "text.required" => "يرجى كتابة السؤال",

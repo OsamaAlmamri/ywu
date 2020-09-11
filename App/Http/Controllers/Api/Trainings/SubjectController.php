@@ -19,7 +19,7 @@ class SubjectController extends Controller
     }
     public function index()
     {
-        $Subject=Subject::with(['category','trainings'])->orderByDesc('id')->paginate(5);
+        $Subject=Subject::with(['category','trainings'])->orderByDesc('id')->get();
         if(!$Subject){
             return $this->ReturnErorrRespons('0000','لايوجد منشورات');
         }

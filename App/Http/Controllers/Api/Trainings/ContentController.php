@@ -20,7 +20,7 @@ class ContentController extends Controller
     }
     public function index()
     {
-        $post=TitleContent::with('title_C')->orderByDesc('id')->paginate(5);
+        $post=TitleContent::with('title_C')->orderByDesc('id')->get();
         if(!$post){
             return $this->ReturnErorrRespons('0000','لايوجد منشورات');
         }

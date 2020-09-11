@@ -26,7 +26,8 @@ class TrainingController extends Controller
     {
         $this->emp = Auth::guard('employee-api')->user();
         try {
-            $Training = Training::with(['subject', 'titles'])->where('type', 'خاص')->orwhere('type', 'عام')->orderByDesc('id')->paginate(5);
+            $Training = Training::with(['subject', 'titles'])->where('type', 'خاص')->orwhere('type', 'عام')
+                ->orderByDesc('id')->paginate(20);
             if (!$Training) {
                 return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
             } else {
@@ -88,7 +89,7 @@ class TrainingController extends Controller
     {
         $this->other = Auth::guard('shared-user-api')->user();
         try {
-            $Training = Training::with(['subject', 'titles'])->where('type', 'عام')->orderByDesc('id')->paginate(5);
+            $Training = Training::with(['subject', 'titles'])->where('type', 'عام')->orderByDesc('id')->paginate(20);
             if (!$Training) {
                 return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
             } else {

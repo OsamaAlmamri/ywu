@@ -19,7 +19,7 @@ class TitleController extends Controller
     }
     public function index()
     {
-        $Subject=TrainingTitle::with(['training','contents'])->orderByDesc('id')->paginate(5);
+        $Subject=TrainingTitle::with(['training','contents'])->orderByDesc('id')->get();
         if(!$Subject){
             return $this->ReturnErorrRespons('0000','لايوجد منشورات');
         }

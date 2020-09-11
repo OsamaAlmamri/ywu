@@ -9,6 +9,7 @@ use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 
 class WomenController extends Controller
@@ -38,12 +39,40 @@ class WomenController extends Controller
     {
         //
     }
+    private function checkInputes($request, $type = 'create')
+    {
+        $rules = [
+            "title" => "required",
+            "body" => "required",
+//            "category_id" => "required|integer",
+            //"sound"=>"mimetypes:application/octet-stream,audio/mpeg",
+            'image' => [($type == 'create') ? 'required' : 'nullable','image'],
+//            "image" => "nullable|image|mimes:jpg,png,jpeg,gif,svg",
+            "book_external_link" => "required_if:book_type,book_external",
+            "book" =>  [($type == 'create') ? 'required_if:book_type,book_internal' : 'file', ($type!='created' and $request->hidden_book==null)?'required_if:book_type,book_internal':'file','mimes:pdf,doc'],
+
+        ];
+        $messages = [
+            "title.required" => "يرجى كتابة عنوان المنشور",
+            "body.required" => "يرجى كتابة نص المحتوى",
+            //"category_id.required" => "يرجى اختيار احد الاقسام للنشر فيه",
+            "image.required" => "يرجى اختيار صورة للرفع",
+            "image.image" => "يرجى اختيار صورة للرفع",
+            "image.mimes" => "يجب ان يكون امتداد الصورة: jpg,png,jpeg,gif,svg",
+            //"image.max"=>"لايمكن رفع صورة حجمها اكبر من 2 ميغا بايت",
+            "book.mimes" => "يرجى اختيار ملف من نوع: pdf,doc",
+            "book_external_link.required_if" => "يرجى وضع رابط الكتاب  ",
+            "book.required_if" => "يرجى اختيار كتاب ",
+        ];
+        return Validator::make($request->all(), $rules, $messages);
+    }
+
 
     public function store(Request $request)
     {
         $rules = $this->Post_Rules();
         $messages = $this->Post_Messages();
-        $error = Validator::make($request->all(), $rules, $messages);
+        $error = $this->checkInputes($request,'create');
         if ($error->fails()) {
             return response()->json(['errors' => $error->errors()->all()]);
         }
@@ -84,13 +113,11 @@ class WomenController extends Controller
 
     public function update(Request $request)
     {
-        $rules = $this->Post_Rules();
-        $messages = $this->Post_Messages();
-        $error = Validator::make($request->all(), $rules, $messages);
+
+        $error = $this->checkInputes($request,'update');
         if ($error->fails()) {
             return response()->json(['errors' => $error->errors()->all()]);
         }
-
         $post = WomenPosts::whereId($request->hidden_id)->first();
         if ($post) {
             $post->title = $request->title;

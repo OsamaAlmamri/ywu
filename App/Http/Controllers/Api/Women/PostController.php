@@ -33,7 +33,7 @@ class PostController extends Controller
 
         $post = WomenPosts::with(['user_like' => function ($q) use ($id) {
             $q->where('user_id', $id);
-        }])->orderByDesc('id')->paginate(5);
+        }])->orderByDesc('id')->paginate(20);
         if (!$post) {
             return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
         } else {
