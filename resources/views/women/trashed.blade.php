@@ -1,7 +1,7 @@
 @extends('adminpanel.dataTableLayout')
 @section('card_header')
     <div class="card-header">
-        <h3 align="right">منشورات حقوق المراءة المحذوفة</h3>
+        <h3 align="right">منشورات حقوق المرأة المحذوفة</h3>
 
         <br/>
     </div>

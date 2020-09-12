@@ -80,7 +80,7 @@ class UserController extends Controller
                     return $this->GetDateResponse('data', ['token' => $jwt_token, 'userData' => $user]);
                 }
                 if ($fromRegister == 1)
-                    return $this->ReturnErorrRespons('0000', ' تم التسجيل بنجاح وسيتم تفعيل حسابك لاحقا ');
+                    return $this->GetDateResponse('data', 0, ' تم التسجيل بنجاح وسيتم تفعيل حسابك لاحقا ');
                 else
                     return $this->ReturnErorrRespons('0000', 'تم ايقاف حسابك مؤقتا');
             } else
