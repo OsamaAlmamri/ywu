@@ -25,14 +25,31 @@ class UserController extends Controller
     public function register(Request $request)
     {
         try {
-
-            $rules = $this->Register_Rules();
-            $messages = $this->Register_messages();
-            $validator = Validator::make($request->all(), $rules, $messages);
+            $request['email'] = trim($request->email);
+            $validator = Validator::make($request->all(), [
+                "name" => "required",
+                "phone" => "required|unique:users,phone",
+                "email" => "nullable|email|unique:users,email",
+                "password" => "required|string|min:4",
+                'userType' => 'required',
+                'share_user_type' => 'required_if:userType,share_user',
+                'destination' => 'required_if:userType,share_user',
+            ], [
+                "name.required" => "يرجى كتابة اسم المستخدم",
+                "phone.required" => "يرجى كتابة رقم الهاتف",
+                "phone.numeric" => "رقم الهاتف يجب ان يكون ارقام فقط ",
+                "phone.digits" => "يجب ان يكون رقم الهاتف 9 ارقام",
+                "phone.starts_with" => "قم بكتابة رقم هاتفك الشخصي",
+                "phone.unique" => "يوجد  مستخدم مسجل بهذا الرقم ",
+                "password.required" => "قم بكتابة الباسوورد",
+                "password.string" => "كلمة المرور يجب ان تكون قوية تحتوي على ارقام وحروف انجليزية كبتل واسمول ورموز",
+                "password.min" => "كلمة المرور يجب ان تكون 10 ارقام وحروف ورموز",
+            ]);
 
             if ($validator->fails()) {
                 $code = $this->returnCodeAccordingToInput($validator);
                 return $this->returnValidationError($code, $validator);
+                return $this->returnValidationError($code, $request->all());
             }
             $oldPass = $request['password'];
             $request['password'] = bcrypt($request->password);
@@ -55,15 +72,17 @@ class UserController extends Controller
 
     public function login(Request $request, $fromRegister = 0)
     {
-        $rules = $this->Login_Rules();
-        $messages = $this->Login_Messages();
-        $validator = Validator::make($request->only('phone', 'password'), $rules, $messages);
 
-        if ($validator->fails()) {
-            $code = $this->returnCodeAccordingToInput($validator);
-            return $this->returnValidationError($code, $validator);
-        }
         try {
+            $validator = Validator::make($request->all(), [
+                "phone" => "required",
+                "password" => "required",
+            ]);
+            if ($validator->fails()) {
+                $code = $this->returnCodeAccordingToInput($validator);
+                return $this->returnValidationError($code, $validator);
+            }
+
             $credential_email = ['email' => $request->phone, 'password' => $request->password];
             $credential_phone = ['phone' => $request->phone, 'password' => $request->password];
             $jwt_token = null;

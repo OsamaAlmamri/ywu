@@ -21,7 +21,15 @@ class FrontContentController extends Controller
     public function index_edit($id)
     {
         if (request()->ajax()) {
-            $post = TitleContent::with('title_C')->where('title_id', $id)->get();
+            $c = TrainingTitle::where('id', $id)->first();
+            $training_id = $c->training_id;
+            $post = TitleContent::with('title_C')
+                ->whereIn('title_id', function ($query) use ($training_id) {
+                    $query->select('id')
+                        ->from('training_titles')
+                        ->where('training_id', $training_id);
+                })
+                ->get();
             if ($post) {
                 return datatables()->of($post)
                     ->addColumn('action', 'content.btn.action')
@@ -33,7 +41,9 @@ class FrontContentController extends Controller
             }
         }
         $admin = Admin::where('id', 1)->first();
-        $category = TrainingTitle::where('id', $id)->first();
+        $c = TrainingTitle::where('id', $id)->first();
+        $category = TrainingTitle::all()->where('training_id', $c->training_id);
+//return dd($category);
         return view('content.index', compact(['category', 'id', 'admin']));
     }
 

@@ -44,9 +44,9 @@
                             <label class="control-label col-sm-4">العنوان :</label>
                             <div class="col-sm-8">
                                 <select class="form-control" id="title_id" name="title_id">
-                                    @if($category->count())
-                                        <option value="{{$category->id}}">{{$category->name}}</option>
-                                    @endif
+                                    @foreach($category as $c)
+                                        <option value="{{$c->id}}">{{$c->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
