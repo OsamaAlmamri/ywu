@@ -33,14 +33,14 @@ Route::group(['middleware' => ('auth:admin')], function () {
     Route::post('/admin_update', 'AdminLoginController@Admin_update')->name('Admin_Update');
     Route::get('/admin_logout', 'AdminLoginController@LogoutAdmin')->name('Admin_logout');
 #################################################### Users
-    Route::get('user/destroy/{id}', 'FrontUserController@destroy');
-    Route::get('userShow/{id?}', 'FrontUserController@index')->name('user');
-    Route::get('userShowId/{id}', 'FrontUserController@index');
-    Route::get('user-trashed', 'FrontUserController@index_trashed')->name('user-trashed');
-    Route::get('trashedShow/{id}', 'FrontUserController@index_trashed');
-    Route::get('user/edit-trashed/{id}', 'FrontUserController@edit_trashed');
-    Route::get('restore-user/{id}', 'FrontUserController@restore_post');
-    Route::get('force-user/{id}', 'FrontUserController@force');
+    Route::get('user/destroy/{id}', 'UserController@destroy');
+    Route::get('userShow/{id?}', 'UserController@index')->name('user');
+    Route::get('userShowId/{id}', 'UserController@index');
+    Route::get('user-trashed', 'UserController@index_trashed')->name('user-trashed');
+    Route::get('trashedShow/{id}', 'UserController@index_trashed');
+    Route::get('user/edit-trashed/{id}', 'UserController@edit_trashed');
+    Route::get('restore-user/{id}', 'UserController@restore_post');
+    Route::get('force-user/{id}', 'UserController@force');
 
 ####################### ajax الاستشارات
     Route::get('home_age', 'AdminController@index')->name('home');
@@ -71,41 +71,41 @@ Route::group(['middleware' => ('auth:admin')], function () {
     Route::get('force-delete/{id}', 'WomenController@force');
 
 #################################################### Subjects
-    Route::get('subject/edit/{id}', 'FrontSubjectController@edit');
-    Route::post('subject/store', 'FrontSubjectController@store')->name('subject.store');
-    Route::post('subject/update', 'FrontSubjectController@update')->name('subject.update');
-    Route::get('subject/destroy/{id}', 'FrontSubjectController@destroy');
-    Route::get('subjectShow', 'FrontSubjectController@index')->name('subject');
-    Route::get('subject-trashed', 'FrontSubjectController@index_trashed')->name('subject-trashed');
-    Route::get('subject/edit-trashed/{id}', 'FrontSubjectController@edit_trashed');
-    Route::get('restore-subject/{id}', 'FrontSubjectController@restore_post');
-    Route::get('force-subject/{id}', 'FrontSubjectController@force');
+    Route::get('subject/edit/{id}', 'SubjectController@edit');
+    Route::post('subject/store', 'SubjectController@store')->name('subject.store');
+    Route::post('subject/update', 'SubjectController@update')->name('subject.update');
+    Route::get('subject/destroy/{id}', 'SubjectController@destroy');
+    Route::get('subjectShow', 'SubjectController@index')->name('subject');
+    Route::get('subject-trashed', 'SubjectController@index_trashed')->name('subject-trashed');
+    Route::get('subject/edit-trashed/{id}', 'SubjectController@edit_trashed');
+    Route::get('restore-subject/{id}', 'SubjectController@restore_post');
+    Route::get('force-subject/{id}', 'SubjectController@force');
 
 #################################################### Trainings
-    Route::get('training/show/{id}', 'FrontTrainingController@show');
-    Route::get('training/edit/{id}', 'FrontTrainingController@edit');
-    Route::post('training/store', 'FrontTrainingController@store')->name('training.store');
-    Route::post('training/update', 'FrontTrainingController@update')->name('training.update');
-    Route::get('training/destroy/{id}', 'FrontTrainingController@destroy');
-    Route::get('trainingShow', 'FrontTrainingController@index')->name('training');
-    Route::get('training-trashed', 'FrontTrainingController@index_trashed')->name('training-trashed');
-    Route::get('training/show-trashed/{id}', 'FrontTrainingController@show_trashed');
-    Route::get('restore-training/{id}', 'FrontTrainingController@restore_post');
-    Route::get('force-training/{id}', 'FrontTrainingController@force');
+    Route::get('training/show/{id}', 'TrainingController@show');
+    Route::get('training/edit/{id}', 'TrainingController@edit');
+    Route::post('training/store', 'TrainingController@store')->name('training.store');
+    Route::post('training/update', 'TrainingController@update')->name('training.update');
+    Route::get('training/destroy/{id}', 'TrainingController@destroy');
+    Route::get('trainingShow', 'TrainingController@index')->name('training');
+    Route::get('training-trashed', 'TrainingController@index_trashed')->name('training-trashed');
+    Route::get('training/show-trashed/{id}', 'TrainingController@show_trashed');
+    Route::get('restore-training/{id}', 'TrainingController@restore_post');
+    Route::get('force-training/{id}', 'TrainingController@force');
 
 #################################################### Titles
-    Route::get('title/show/{id}', 'FrontTitleController@show');
-    Route::get('title/edit/{id}', 'FrontTitleController@edit');
-    Route::post('title/store', 'FrontTitleController@store')->name('title.store');
-    Route::post('title/update', 'FrontTitleController@update')->name('title.update');
-    Route::get('title/destroy/{id}', 'FrontTitleController@destroy');
-    Route::get('titleShow', 'FrontTitleController@index')->name('title');
-    Route::get('/showID/{id}', 'FrontTitleController@index')->name('showTitles');
-    Route::get('Show_title/{id}', 'FrontTitleController@Show_title');
-    Route::get('title-trashed', 'FrontTitleController@index_trashed')->name('title-trashed');
-    Route::get('title/show-trashed/{id}', 'FrontTitleController@show_trashed');
-    Route::get('restore-title/{id}', 'FrontTitleController@restore_post');
-    Route::get('force-title/{id}', 'FrontTitleController@force');
+    Route::get('title/show/{id}', 'TitleController@show');
+    Route::get('title/edit/{id}', 'TitleController@edit');
+    Route::post('title/store', 'TitleController@store')->name('title.store');
+    Route::post('title/update', 'TitleController@update')->name('title.update');
+    Route::get('title/destroy/{id}', 'TitleController@destroy');
+    Route::get('titleShow', 'TitleController@index')->name('title');
+    Route::get('/showID/{id}', 'TitleController@index')->name('showTitles');
+    Route::get('Show_title/{id}', 'TitleController@Show_title');
+    Route::get('title-trashed', 'TitleController@index_trashed')->name('title-trashed');
+    Route::get('title/show-trashed/{id}', 'TitleController@show_trashed');
+    Route::get('restore-title/{id}', 'TitleController@restore_post');
+    Route::get('force-title/{id}', 'TitleController@force');
 
 #################################################### questions
     Route::get('results/index/{id}', 'QuestionsController@results')->name('questions.results');
@@ -118,24 +118,24 @@ Route::group(['middleware' => ('auth:admin')], function () {
 #################################################### results
 
 #################################################### Contents
-    Route::get('content/show/{id}', 'FrontContentController@show');
-    Route::get('content/edit/{id}', 'FrontContentController@edit');
-    Route::post('content/store', 'FrontContentController@store')->name('content.store');
-    Route::post('content/update', 'FrontContentController@update')->name('content.update');
-    Route::get('content/destroy/{id}', 'FrontContentController@destroy');
-    Route::get('contentShow', 'FrontContentController@index')->name('content');
-    Route::get('content-trashed', 'FrontContentController@index_trashed')->name('content-trashed');
-    Route::get('content/show-trashed/{id}', 'FrontContentController@show_trashed');
-    Route::get('restore-content/{id}', 'FrontContentController@restore_post');
-    Route::get('force-content/{id}', 'FrontContentController@force');
-    Route::get('/showContentID/{id}', 'FrontContentController@index_edit')->name('showContentID');
+    Route::get('content/show/{id}', 'ContentController@show');
+    Route::get('content/edit/{id}', 'ContentController@edit');
+    Route::post('content/store', 'ContentController@store')->name('content.store');
+    Route::post('content/update', 'ContentController@update')->name('content.update');
+    Route::get('content/destroy/{id}', 'ContentController@destroy');
+    Route::get('contentShow', 'ContentController@index')->name('content');
+    Route::get('content-trashed', 'ContentController@index_trashed')->name('content-trashed');
+    Route::get('content/show-trashed/{id}', 'ContentController@show_trashed');
+    Route::get('restore-content/{id}', 'ContentController@restore_post');
+    Route::get('force-content/{id}', 'ContentController@force');
+    Route::get('/showContentID/{id}', 'ContentController@index_edit')->name('showContentID');
 
 #################################################### Employees Categories
-    Route::get('Category/edit/{id}', 'FrontEmployeeCategory@edit');
-    Route::post('Category/store', 'FrontEmployeeCategory@store')->name('Emp_Category.store');
-    Route::post('Category/update', 'FrontEmployeeCategory@update')->name('Emp_Category.update');
-    Route::get('Category/destroy/{id}', 'FrontEmployeeCategory@destroy');
-    Route::get('CategoryShow', 'FrontEmployeeCategory@index')->name('Emp_Category');
+    Route::get('Category/edit/{id}', 'EmployeeCategory@edit');
+    Route::post('Category/store', 'EmployeeCategory@store')->name('Emp_Category.store');
+    Route::post('Category/update', 'EmployeeCategory@update')->name('Emp_Category.update');
+    Route::get('Category/destroy/{id}', 'EmployeeCategory@destroy');
+    Route::get('CategoryShow', 'EmployeeCategory@index')->name('Emp_Category');
 
     #################################################### emp_jobs
     Route::get('jobs/edit/{id}', 'JobsController@edit');
@@ -146,23 +146,23 @@ Route::group(['middleware' => ('auth:admin')], function () {
 
 
     #### category_trainings
-    Route::get('CategoryShowId/{id}', 'FrontEmployeeCategory@index_edit')->name('CategoryShowId');
-    Route::post('Category_training/store', 'FrontEmployeeCategory@store_training')->name('Emp_Category_Training.store');
-    Route::get('Category_training/destroy/{id}', 'FrontEmployeeCategory@destroy_training');
+    Route::get('CategoryShowId/{id}', 'EmployeeCategory@index_edit')->name('CategoryShowId');
+    Route::post('Category_training/store', 'EmployeeCategory@store_training')->name('Emp_Category_Training.store');
+    Route::get('Category_training/destroy/{id}', 'EmployeeCategory@destroy_training');
 
     ##################################### Employees
-    Route::get('EmployeeShowId/{id}', 'FrontEmployeeController@index_id');
-    Route::get('Employee/show/{id}', 'FrontEmployeeController@show');
-    Route::get('Employee/edit/{id}', 'FrontEmployeeController@edit');
-    Route::post('Employee/store', 'FrontEmployeeController@store')->name('employee.store');
-    Route::post('Employee/update', 'FrontEmployeeController@update')->name('employee.update');
-    Route::get('Employee/destroy/{id}', 'FrontEmployeeController@destroy');
-    Route::get('EmployeeShow/{id?}', 'FrontEmployeeController@index')->name('employee');
-    Route::get('Employee-trashed/{id?}', 'FrontEmployeeController@index_trashed')->name('employee-trashed');
-    Route::get('E_trashedShow/{id}', 'FrontEmployeeController@index_trashed_id');
-    Route::get('Employee/edit-trashed/{id}', 'FrontEmployeeController@edit_trashed');
-    Route::get('restore-Employee/{id}', 'FrontEmployeeController@restore_post');
-    Route::get('force-Employee/{id}', 'FrontEmployeeController@force');
+    Route::get('EmployeeShowId/{id}', 'EmployeeController@index_id');
+    Route::get('Employee/show/{id}', 'EmployeeController@show');
+    Route::get('Employee/edit/{id}', 'EmployeeController@edit');
+    Route::post('Employee/store', 'EmployeeController@store')->name('employee.store');
+    Route::post('Employee/update', 'EmployeeController@update')->name('employee.update');
+    Route::get('Employee/destroy/{id}', 'EmployeeController@destroy');
+    Route::get('EmployeeShow/{id?}', 'EmployeeController@index')->name('employee');
+    Route::get('Employee-trashed/{id?}', 'EmployeeController@index_trashed')->name('employee-trashed');
+    Route::get('E_trashedShow/{id}', 'EmployeeController@index_trashed_id');
+    Route::get('Employee/edit-trashed/{id}', 'EmployeeController@edit_trashed');
+    Route::get('restore-Employee/{id}', 'EmployeeController@restore_post');
+    Route::get('force-Employee/{id}', 'EmployeeController@force');
     ##################################### SharedUser
     Route::get('SharedUser/agree/{id}', 'FrontSharedUserController@agree');
     Route::get('SharedUser/destroy/{id}', 'FrontSharedUserController@destroy');

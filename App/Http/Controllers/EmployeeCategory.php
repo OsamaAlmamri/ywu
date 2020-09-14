@@ -13,7 +13,7 @@ use App\Traits\PostTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class FrontEmployeeCategory extends Controller
+class EmployeeCategory extends Controller
 {
     use JsonTrait;
     use PostTrait;

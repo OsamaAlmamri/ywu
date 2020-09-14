@@ -9,7 +9,7 @@ use App\Traits\PostTrait;
 use App\User;
 
 
-class FrontUserController extends Controller
+class UserController extends Controller
 {
     use JsonTrait;
     use PostTrait;

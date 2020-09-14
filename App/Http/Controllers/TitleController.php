@@ -10,7 +10,7 @@ use App\Traits\PostTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class FrontTitleController extends Controller
+class TitleController extends Controller
 {
     use JsonTrait;
     use PostTrait;
