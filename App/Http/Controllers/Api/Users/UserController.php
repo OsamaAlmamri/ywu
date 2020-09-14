@@ -25,7 +25,9 @@ class UserController extends Controller
     public function register(Request $request)
     {
         try {
-            $request['email'] = trim($request->email);
+//            $request->email = trim($request->email);
+            if ($request->userType == 'visitor')
+                $request->email = null;
             $validator = Validator::make($request->all(), [
                 "name" => "required",
                 "phone" => "required|unique:users,phone",
@@ -57,7 +59,15 @@ class UserController extends Controller
                 $user = User::create(array_merge($request->all(), ['type' => 'share_users', 'status' => 0]));
                 ShareUser::create(['user_id' => $user->id, 'type' => $request->share_user_type, 'destination' => $request->destination]);
             } else
-                $user = User::create($request->all());
+            {
+                $user =new User();
+                $user->name=$request->name;
+                $user->phone=$request->phone;
+                $user->password=$request->password;
+                $user->type='visitor';
+                $user->save();
+
+            }
             $request['password'] = $oldPass;
 
             if ($this->loginAfterSignUp) {
