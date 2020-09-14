@@ -3,6 +3,7 @@
 namespace App\Models\TrainingContents;
 
 use App\Category_Training;
+use App\Department;
 use App\EmployeeCategory;
 use App\Exam;
 use App\Result;
@@ -48,6 +49,11 @@ class Training extends Model
     public function emp_categories()
     {
         return $this->belongsToMany(EmployeeCategory::class, Category_Training::class, 'training_id', 'category_id', 'id', 'id');
+    }
+
+    public function departments()
+    {
+        return $this->belongsToMany(Department::class, 'section_trainings', 'training_id', 'department_id');
     }
 
     public function result()

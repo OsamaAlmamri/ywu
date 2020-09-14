@@ -69,6 +69,20 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="control-label col col-md-4">الاقسام : </label>
+                            <div class="col col-md-8">
+                                <div class="row" id="checkboxes">
+                                    @foreach($departments as $department)
+                                        <div class="col col-sm-6">
+                                            <input type="checkbox" name="departments[]"
+                                                   id="department_{{$department->id}}" value="{{$department->id}}"/>
+                                            {{$department->name}}
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label col-md-4">وضع علامة تمييز : </label>
                             <div class="col-md-8">
                                 <select class="form-control" id="mark" name="mark">
@@ -99,38 +113,38 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-4">الوصف   : </label>
+                            <label class="control-label col-md-4">الوصف : </label>
                             <div class="col-md-8">
                                 <textarea name="description" id="description"> </textarea>
                             </div>
 
-                        <div class="form-group">
-                            <label class="control-label col-md-4">الشهادة   : </label>
-                            <div class="col-md-8">
-                                <textarea name="certificate" id="certificate"> </textarea>
-                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4">الشهادة : </label>
+                                <div class="col-md-8">
+                                    <textarea name="certificate" id="certificate"> </textarea>
+                                </div>
 
 
-                        <div class="form-group">
-                            <label class="control-label col-md-4">تاريخ انتهاء الدورة : </label>
-                            <div class="col-md-8">
-                                <input class="form-control" name="end_at" type="dateTime-local">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-4">صورة الغلاف : </label>
-                            <div class="col-md-8">
-                                <input type="file" name="image" id="image"/>
-                                <span id="store_image"></span>
-                            </div>
-                        </div>
-                        <br/>
-                        <div class="form-group" align="center">
-                            <input type="hidden" name="action" id="action"/>
-                            <input type="hidden" name="hidden_id" id="hidden_id"/>
-                            <input type="submit" name="action_button" id="action_button" class="btn btn-warning"
-                                   value="نشر"/>
-                        </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">تاريخ انتهاء الدورة : </label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" name="end_at" type="dateTime-local">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">صورة الغلاف : </label>
+                                    <div class="col-md-8">
+                                        <input type="file" name="image" id="image"/>
+                                        <span id="store_image"></span>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="form-group" align="center">
+                                    <input type="hidden" name="action" id="action"/>
+                                    <input type="hidden" name="hidden_id" id="hidden_id"/>
+                                    <input type="submit" name="action_button" id="action_button" class="btn btn-warning"
+                                           value="نشر"/>
+                                </div>
                     </form>
                 </div>
             </div>
@@ -194,7 +208,8 @@
     <script>
         $(document).ready(function () {
             fill_datatable();
-            function fill_datatable(filter_country='') {
+
+            function fill_datatable(filter_country = '') {
                 var dataTable = $('#user_table').DataTable({
                     processing: true,
                     serverSide: true,
@@ -233,7 +248,7 @@
                             name: 'subject',
                             title: ' اسم الماد'
 
-                        },{
+                        }, {
                             data: 'btn_image',
                             name: 'btn_image',
                             title: ' الصورة '
@@ -277,11 +292,11 @@
                             name: 'description',
                             title: ' الوصف',
                             orderable: false,
-                        },{
+                        }, {
                             data: 'certificate',
                             name: 'certificate',
                             title: 'الشهادة ',
-                        },{
+                        }, {
                             data: 'content',
                             name: 'content',
                             title: 'عرض المحتويات',
@@ -315,6 +330,7 @@
 
             $('.create_record').click(function () {
                 $('.modal-title').text("إضافة دورة تدريبية جديده");
+                $('#checkboxes').find('input:checkbox').attr('checked', false);
                 $('#sample_form')[0].reset();
                 $('#store_image').html('');
                 $('#action_button').val("نشر");
@@ -428,6 +444,9 @@
             });
 
             $(document).on('click', '.edit_training', function () {
+                // $('#sample_form')[0].reset();
+                $('#checkboxes').find('input:checkbox').attr('checked', false);
+
                 var id = $(this).attr('id');
                 $('#form_result').html('');
 
@@ -446,7 +465,16 @@
                         $('#hidden_id').val(html.data.id);
                         $('.modal-title').text("تعديل بيانات الدورة");
                         $('#action_button').val("تعديل");
+
                         $('#action').val("Edit");
+                        // $('input[name="departments[]"]').each(function() {
+                        //     this.checked = false;
+                        // });
+
+                        $.each(html.data.departments, function (key, department) {
+                            $("#department_"+department.id).prop('checked','checked');
+                        });
+
                         $('#formModal').modal('show');
                     }
                 })

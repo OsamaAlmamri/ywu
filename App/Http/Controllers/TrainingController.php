@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
+use App\Department;
 use App\Models\TrainingContents\Subject;
 use App\Models\TrainingContents\Training;
 use App\Traits\JsonTrait;
@@ -36,8 +37,9 @@ class TrainingController extends Controller
                 ->make(true);
         }
         $categories = Subject::all();
+        $departments = Department::all();
         $admin = Admin::where('id', 1)->first();
-        return view('training.index', compact(['categories', 'admin']));
+        return view('training.index', compact(['departments','categories', 'admin']));
     }
 
     public
@@ -78,6 +80,9 @@ class TrainingController extends Controller
         $post->thumbnail = $this->Post_Save($request, 'image', "IMG-", 'assets/images');
 
         $post->save();
+        $departments = Department::find($request->departments);
+        $post->departments()->sync($departments);
+
         if ($post->save())
             return response()->json(['success' => 'تم النشر بنجاح']);
     }
@@ -95,7 +100,7 @@ class TrainingController extends Controller
     function edit($id)
     {
         if (request()->ajax()) {
-            $data = Training::whereId($id)->first();
+            $data = Training::with('departments')->whereId($id)->first();
             return response()->json(['data' => $data]);
         }
     }
@@ -133,6 +138,8 @@ class TrainingController extends Controller
             $post->start_at = $request->start_at;
             $post->end_at = $request->end_at;
             $post->thumbnail = $this->Post_update($request, 'image', "IMG-", 'assets/images', $post->thumbnail);
+            $departments = Department::find($request->departments);
+            $post->departments()->sync($departments);
             $post->update();
             if ($post) {
                 return response()->json(['success' => 'تم التعديل بنجاح']);
