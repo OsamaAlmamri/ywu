@@ -44,6 +44,20 @@
     <link href="{!! asset('newLibs\lightbox2\css\lightbox.min.css') !!}" media="all" rel="stylesheet"
           type="text/css"/>
     <style>
+
+
+        td .fa-toggle-on {
+            color: #15e408;
+            font-size: 25px;
+        }
+
+        td .fa-toggle-off {
+            color: #fa1135;
+            font-size: 25px;
+        }
+
+
+
         .panel-shadow {
             box-shadow: rgba(0, 0, 0, 0.3) 7px 7px 7px;
         }

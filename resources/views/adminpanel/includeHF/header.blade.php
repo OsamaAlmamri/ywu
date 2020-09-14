@@ -52,6 +52,9 @@
                             <li><a href="{{route('deleted_Post')}}">الاستشارات المرفوضة</a></li>
                         </ul>
                     </li>
+                    <li><a href="{{route('slides.index')}}"><i class="fa fa-image"></i> السلايدات المتحركة </a> </li>
+                    <li><a href="{{route('activates.index')}}"><i class="fa fa-calendar-times-o"></i>  الانشطة </a> </li>
+
                     <li><a><i class="fa fa-male"></i> حسابات الموظفين <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{route('Emp_Category')}}"> الاقسام </a></li>

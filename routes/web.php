@@ -115,6 +115,22 @@ Route::group(['middleware' => ('auth:admin')], function () {
     Route::get('questions/index/{id}', 'QuestionsController@index')->name('questions.index');
     Route::resource('questions', 'QuestionsController')->except('index', 'update');
 
+#################################################### sliders
+    Route::post('slides/update', 'SlideController@update')->name('slides.update');
+    Route::get('slides/destroy/{id}', 'SlideController@destroy');
+    Route::get('slides/edit/{id}', 'SlideController@edit');
+    Route::post('slides/changeOrder', 'SlideController@changeOrder')->name('slides.changeOrder');
+    Route::post('slides/active', 'SlideController@active')->name('slides.active');
+    Route::resource('slides', 'SlideController')->except( 'update');
+
+#################################################### activates
+    Route::post('activates/update', 'ActivitiesController@update')->name('activates.update');
+    Route::get('activates/destroy/{id}', 'ActivitiesController@destroy');
+    Route::get('activates/edit/{id}', 'ActivitiesController@edit');
+    Route::post('activates/changeOrder', 'ActivitiesController@changeOrder')->name('activates.changeOrder');
+    Route::post('activates/active', 'ActivitiesController@active')->name('activates.active');
+    Route::resource('activates', 'ActivitiesController')->except( 'update');
+
 #################################################### results
 
 #################################################### Contents
