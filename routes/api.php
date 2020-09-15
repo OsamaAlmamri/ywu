@@ -44,7 +44,7 @@ Route::post('emp-register', 'Api\Employees\EmployeeController@register');
 Route::post('shared-user-login', 'SharedUserController@login');
 Route::post('shared-user-register', 'SharedUserController@register');
 Route::post('AllPosts', 'Api\Users\PostController@index');
-Route::post('activates', 'Api\Users\ActivatesController@index');
+Route::post('actives', 'Api\Users\ActivatesController@index');
 Route::post('slides', 'Api\Users\ActivatesController@slides');
 
 Route::post('AllCategories', 'Api\Users\PostController@all_category');
