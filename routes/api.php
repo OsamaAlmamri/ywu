@@ -48,6 +48,7 @@ Route::post('actives', 'Api\Users\ActivatesController@index');
 Route::post('slides', 'Api\Users\ActivatesController@slides');
 
 Route::post('AllCategories', 'Api\Users\PostController@all_category');
+Route::post('showTrainingByCategory', 'Api\Trainings\TrainingController@showTrainingByCategory');
 
 
 Route::group(['middleware' => 'CheckAdminT:api'], function () {
@@ -92,7 +93,7 @@ Route::group(['middleware' => 'CheckAdminT:api'], function () {
     Route::post('ShowTrainings', 'Api\Trainings\TrainingController@index');
     Route::post('getTrainingDetails', 'Api\Trainings\TrainingController@getTrainingDetails');
     Route::post('getTrainingQuestions', 'Api\Trainings\TrainingController@getTrainingQuestions');
-    Route::post('showTrainingByCategory', 'Api\Trainings\TrainingController@showTrainingByCategory');
+//    Route::post('showTrainingByCategory', 'Api\Trainings\TrainingController@showTrainingByCategory');
     Route::post('complete_title', 'Api\Trainings\TrainingController@complete_title');
     Route::post('set_result', 'Api\Trainings\TrainingController@set_result');
     Route::post('like', 'Api\Trainings\TrainingController@like');
