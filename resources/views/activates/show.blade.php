@@ -36,6 +36,36 @@
                         <br/>
 
                         <div class="form-group">
+                            <label class="control-label col-md-4"> نوع النشاط : </label>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <label class="control-label col-md-6 col-sm-6col-xs-6">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" checked="" value="1"
+                                                       name="type">
+                                                اخر الاخبار
+                                            </label>
+                                        </div>
+                                    </label>
+
+                                    <label class="control-label col-md-6 col-sm-6 col-xs-6">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" checked="" value="2"
+                                                       name="type">
+                                                المشاريع
+                                            </label>
+                                        </div>
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="print-error-msg alert-danger" id="modal_error_image"></div>
+                        </div>
+                        <br/>
+
+                        <div class="form-group">
                             <label class="control-label col-md-4">تفاصيل النشاط : </label>
                             <div class="col-md-8">
                                 <textarea name="description" id="description" class="form-control"></textarea>
@@ -126,6 +156,13 @@
                             title: 'عنوان  النشاط',
                             data: 'title',
                             name: 'title'
+                        }, {
+                            title: '  النوع',
+                            data: 'type',
+                            name: 'type',
+                            'render': function (data, type, row) {
+                                return (data == 1) ? ' اخر الاخبار' : 'المشاريع';
+                            }
                         },
 
                         {
@@ -200,6 +237,7 @@
             });
 
             $(document).on('click', '.edit', function () {
+                $('input:radio[name="type"]').attr('checked', false);
                 $('#sample_form')[0].reset();
                 var id = $(this).attr('id');
                 $('#form_result').html('');
@@ -216,6 +254,8 @@
                         $('#action_button').val("تعديل");
                         $('#action').val("Edit");
                         $('#formModal').modal('show');
+
+                        $('input:radio[name="type"]').filter('[value="'+html.data.type+'"]').attr('checked', true);
                     }
                 })
             });

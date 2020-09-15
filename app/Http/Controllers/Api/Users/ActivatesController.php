@@ -19,11 +19,12 @@ class ActivatesController extends Controller
     public function index()
     {
 
-        $post = Activaty::where('status','1')->orderBy('sort')->paginate(20);
-        if (!$post) {
+        $news = Activaty::where('status','1')->where('type',1)->orderBy('sort')->get();
+        $projects = Activaty::where('status','1')->where('type',2)->orderBy('sort')->get();
+        if (!$projects and !$news) {
             return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
         } else {
-            return $this->GetDateResponse('data', $post);
+            return $this->GetDateResponse('data', array('news'=>$news,'projects'=>$projects));
         }
     }
 

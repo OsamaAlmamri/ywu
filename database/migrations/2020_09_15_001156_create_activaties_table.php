@@ -17,6 +17,7 @@ class CreateActivatiesTable extends Migration
             $table->id();
             $table->string('image');
             $table->string('title');
+            $table->unsignedInteger('type')->default(1);
             $table->text('description')->nullable();
             $table->boolean('status')->default(1);
             $table->unsignedInteger('sort')->default(1);
