@@ -24,7 +24,8 @@ class ActivatesController extends Controller
         if (!$projects and !$news) {
             return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
         } else {
-            return $this->GetDateResponse('data', array('news'=>$news,'projects'=>$projects));
+
+            return $this->GetDateResponse('data',['news'=>$news,'projects'=>$projects]);
         }
     }
 
