@@ -28,8 +28,11 @@ class ContentController extends Controller
                     $query->select('id')
                         ->from('training_titles')
                         ->where('training_id', $training_id);
-                })
-                ->get();
+                });
+            if (\request()->filter_key > 0)
+                $post = $post->where('title_id', \request()->filter_key);
+
+            $post = $post->orderByDesc('id')->get();
             if ($post) {
                 return datatables()->of($post)
                     ->addColumn('action', 'content.btn.action')

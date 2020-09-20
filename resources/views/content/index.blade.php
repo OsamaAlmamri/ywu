@@ -1,34 +1,33 @@
-@extends('adminpanel.master')
-@section('content')
-    <div class="right_col" role="main">
-        <div class="container">
-            <br/>
-            <h3 align="right">محتوى عناوين الدورات التدريبية</h3>
-            <br/>
-            <div align="right">
-                <button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm">إنشاء محتوى
-                    جديد
-                </button>
-            </div>
-            <br/>
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped" id="user_table">
-                    <thead>
-                    <tr>
-                        <th width="20%">عنوان المحتوى</th>
-                        <th width="10%">محتوى النص</th>
-                        <th width="10%">العنوان</th>
-                        <th width="10%">تاريخ النشر</th>
-                        <th width="10%">العمليات</th>
-                    </tr>
-                    </thead>
-                </table>
-            </div>
-            <br/>
-            <br/>
-        </div>
-    </div>
+@extends('adminpanel.dataTableLayout')
+@section('card_header')
+    <div class="card-header">
+        <br/>
+        <h3 align="right"> محتوى عناوين الدورات التدريبية</h3>
+        <br/>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <select name="filter_country" id="filter_country" class="form-control" required>
+                        <option value="0">الكل</option>
+                        @foreach($category as $c)
+                            <option @if($id==$c->id ) selected @endif value="{{ $c->id }}">{{ $c->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
+                <div class="form-group" align="center">
+                    <button type="button" name="filter" id="filter" class="btn btn-info">عرض</button>
+
+                    <button type="button" name="reset" id="reset" class="btn btn-default">الغاء</button>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+    </div>
+@endsection
+@section('models')
     <div id="formModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -145,58 +144,77 @@
         </div>
     </div>
 @endsection
-@section('scripts')
+@section('custom_js')
     <script>
         $(document).ready(function () {
+            var   filter_key="{{$id}}";
             fill_datatable();
-
-            function fill_datatable() {
+            function fill_datatable( ) {
                 var dataTable = $('#user_table').DataTable({
                     processing: true,
                     serverSide: true,
+                    paging: true,
+                    scrollX: true,
+                    responsive: true,
+                    autoWidth: false,
+                    searching: true,
+                    search: [
+                        regex => true,
+                    ],
+                    info: false,
+                    searchDelay: 350,
+                    language: lang,
+                    dom: 'Brfltip',
+                    lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
+                    buttons: [
+
+                        {
+                            text: '<i class="fa fa-plus" ></i>  إنشاء دورة تدريبية جديده ',
+                            className: 'btn btn-info create_record',
+                        },
+                    ],
                     ajax: {
                         url: "{{URL::to('')}}/showContentID/{{ $id }}",
+                        data: {filter_key: filter_key}
                     },
-                    columnDefs: [{
-                        targets: 1,
-                        render: function (data, type, row) {
-                            return type === 'display' && data.length > 50 ? data.substr(0, 50) + '…' : data;
-                        }
-                    }],
                     columns: [
                         {
+                            title: 'عنوان المحتوى',
                             data: 'title',
                             name: 'title'
                         },
                         {
+                            title: 'محتوى النص ',
                             data: 'body',
                             name: 'body'
                         },
                         {
-                            data: 'title_C',
+                            title: 'العنوان ',
                             name: 'title_C',
+                            data: 'title_C',
                         },
                         {
+                            title: 'تاريخ النشر ',
                             data: 'published',
                         },
                         {
+                            title: 'عمليات',
                             data: 'action',
                             name: 'action',
                             orderable: false
                         },
-                    ]
+                    ],
+
                 });
             }
-
-            $('#create_record').click(function () {
-                $('.modal-title').text("إضافة دورة تدريبية جديده");
+            $(document).on('click', '.create_record', function (){
+                $('.modal-title').text("إ إنشاء محتوى جديد");
                 $('#action_button').val("نشر");
                 $('#action').val("Add");
                 $('#sample_form')[0].reset();
                 $('#store_image').html('');
                 $('#formModal').modal('show');
             });
-
             $('#sample_form').on('submit', function (event) {
                 event.preventDefault();
                 if ($('#action').val() == 'Add') {
@@ -296,6 +314,12 @@
                 })
             });
 
+            $(document).on('click', '#filter', function () {
+                filter_key=$("#filter_country").val();
+                $('#user_table').DataTable().destroy();
+                fill_datatable( );
+            });
+
             $(document).on('click', '.edit', function () {
                 var id = $(this).attr('id');
                 $('#form_result').html('');
@@ -311,7 +335,7 @@
                         $('#store_image').html("<img src={{ URL::to('/') }}/assets/images/" + html.data.image + " width='70' class='img-thumbnail' />");
                         $('#store_image').append("<input type='hidden' name='hidden_image' value='" + html.data.image + "' />");
                         $('#hidden_id').val(html.data.id);
-                        $('.modal-title').text("تعديل بيانات الدورة");
+                        $('.modal-title').text("تعديل بيانات المحتوى");
                         $('#action_button').val("تعديل");
                         $('#action').val("Edit");
                         $('#formModal').modal('show');
@@ -342,6 +366,10 @@
                     }
                 })
             });
+
+
         });
     </script>
 @endsection
+
+

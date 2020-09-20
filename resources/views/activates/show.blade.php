@@ -26,6 +26,14 @@
                         </div>
 
                         <div class="form-group">
+                            <label class="control-label col-md-4">الرابط الخارجي ان وجد : </label>
+                            <div class="col-md-8">
+                             <input type="url" name="url" id="url">
+                            </div>
+                            <div class="print-error-msg alert-danger" id="modal_error_title"></div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="control-label col-md-4"> الصورة : </label>
                             <div class="col-md-8">
                                 <input type="file" name="image" id="image"/>
@@ -48,13 +56,12 @@
                                             </label>
                                         </div>
                                     </label>
-
                                     <label class="control-label col-md-6 col-sm-6 col-xs-6">
                                         <div class="radio">
                                             <label>
                                                 <input type="radio" checked="" value="2"
                                                        name="type">
-                                                المشاريع
+                                                انشطة
                                             </label>
                                         </div>
                                     </label>
@@ -161,7 +168,7 @@
                             data: 'type',
                             name: 'type',
                             'render': function (data, type, row) {
-                                return (data == 1) ? ' اخر الاخبار' : 'المشاريع';
+                                return (data == 1) ? ' اخر الاخبار' : 'انشطة';
                             }
                         },
 
@@ -175,6 +182,10 @@
                             title: 'نص  النشاط',
                             data: 'description',
                             name: 'description'
+                        },   {
+                            title: '  الرابط الخارجي',
+                            data: 'url',
+                            name: 'url'
                         },
                         {
                             title: 'الحالة',
@@ -248,6 +259,7 @@
                     success: function (html) {
                         $('#title').val(html.data.title);
                         $('#description').val(html.data.description);
+                        $('#url').val(html.data.url);
                         $('#hidden_id').val(html.data.id);
                         $('#store_image').html("<img src={{ URL::to('/') }}/assets/images/" + html.data.image + " width='70' class='img-thumbnail' />");
                         $('.modal-title').text("تعديل النشاط ");
@@ -255,7 +267,7 @@
                         $('#action').val("Edit");
                         $('#formModal').modal('show');
 
-                        $('input:radio[name="type"]').filter('[value="'+html.data.type+'"]').attr('checked', true);
+                        $('input:radio[name="type"]').filter('[value="' + html.data.type + '"]').attr('checked', true);
                     }
                 })
             });
