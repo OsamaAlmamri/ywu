@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Activaty;
 use App\Admin;
+use App\Models\TrainingContents\TitleContent;
 use App\Models\TrainingContents\Training;
 use App\Models\TrainingContents\TrainingTitle;
 use App\Question;
@@ -51,6 +52,14 @@ class ActivitiesController extends Controller
         }
         return response('Update Successfully.', 200);
     }
+    public function show($id)
+    {
+        if (request()->ajax()) {
+            $data = Activaty::find($id);
+            return response()->json(['data' => $data]);
+        }
+    }
+
 
     public function active(Request $r)
     {

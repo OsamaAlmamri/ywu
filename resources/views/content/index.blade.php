@@ -29,11 +29,12 @@
 @endsection
 @section('models')
     <div id="formModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title"> إنشاء محتوى جديد</h4>
+
                 </div>
                 <div class="modal-body">
                     <span id="form_result"></span>
@@ -57,8 +58,10 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-4">محتوى النص : </label>
-                            <div class="col-md-8">
-                                <textarea class="form-control" id="body" name="body" type="text"></textarea>
+                            <div class="col-md-12">
+                                <textarea class="form-control description" id="body" name="body" type="text">
+                                    <div id="description_body"></div>
+                                </textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -145,11 +148,13 @@
     </div>
 @endsection
 @section('custom_js')
+    @include('adminpanel.wyswyg')
     <script>
         $(document).ready(function () {
-            var   filter_key="{{$id}}";
+            var filter_key = "{{$id}}";
             fill_datatable();
-            function fill_datatable( ) {
+
+            function fill_datatable() {
                 var dataTable = $('#user_table').DataTable({
                     processing: true,
                     serverSide: true,
@@ -183,11 +188,11 @@
                             data: 'title',
                             name: 'title'
                         },
-                        {
-                            title: 'محتوى النص ',
-                            data: 'body',
-                            name: 'body'
-                        },
+                        // {
+                        //     title: 'محتوى النص ',
+                        //     data: 'body',
+                        //     name: 'body'
+                        // },
                         {
                             title: 'العنوان ',
                             name: 'title_C',
@@ -207,7 +212,8 @@
 
                 });
             }
-            $(document).on('click', '.create_record', function (){
+
+            $(document).on('click', '.create_record', function () {
                 $('.modal-title').text("إ إنشاء محتوى جديد");
                 $('#action_button').val("نشر");
                 $('#action').val("Add");
@@ -315,9 +321,9 @@
             });
 
             $(document).on('click', '#filter', function () {
-                filter_key=$("#filter_country").val();
+                filter_key = $("#filter_country").val();
                 $('#user_table').DataTable().destroy();
-                fill_datatable( );
+                fill_datatable();
             });
 
             $(document).on('click', '.edit', function () {
@@ -330,7 +336,10 @@
                     dataType: "json",
                     success: function (html) {
                         $('#title').val(html.data.title);
-                        $('#body').val(html.data.body);
+                        console.log(html.data.body);
+                        $('#description_body').html(html.data.body);
+
+                        tinyMCE.activeEditor.setContent(html.data.body);
                         $('#video').val(html.data.video);
                         $('#store_image').html("<img src={{ URL::to('/') }}/assets/images/" + html.data.image + " width='70' class='img-thumbnail' />");
                         $('#store_image').append("<input type='hidden' name='hidden_image' value='" + html.data.image + "' />");

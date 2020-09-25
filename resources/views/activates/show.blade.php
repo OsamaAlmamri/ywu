@@ -4,10 +4,11 @@
         <h3 align="right">النشاطات </h3>
         <br/>
     </div>
+
 @endsection
 @section('models')
     <div id="formModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -73,9 +74,9 @@
                         <br/>
 
                         <div class="form-group">
-                            <label class="control-label col-md-4">تفاصيل النشاط : </label>
-                            <div class="col-md-8">
-                                <textarea name="description" id="description" class="form-control"></textarea>
+                            <label class="control-label col-md-4">تفاصيل النشاط : </label>7<br/>
+                            <div class="col-md-12">
+                                <textarea name="description"  id="description" class="form-control description"></textarea>
                             </div>
                             <div class="print-error-msg alert-danger" id="modal_error_description"></div>
                         </div>
@@ -109,11 +110,33 @@
             </div>
         </div>
     </div>
+
+    <div id="formShow" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"> عناصر المحتوى</h4>
+                </div>
+                <div class="modal-body">
+                    <span id="form_show"></span>
+                    <div id="show_title"></div>
+                    <br>
+                    <div id="show_body"></div>
+                    <br>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 @section('custom_js')
 
 
     @include('adminpanel.active')
+
+    @include('adminpanel.wyswyg')
     <script>
 
         Active('{{route('activates.active')}}');
@@ -178,11 +201,12 @@
                             title: ' الصورة '
 
                         },
+                        // {
+                        //     title: 'نص  النشاط',
+                        //     data: 'description',
+                        //     name: 'description'
+                        // },
                         {
-                            title: 'نص  النشاط',
-                            data: 'description',
-                            name: 'description'
-                        },   {
                             title: '  الرابط الخارجي',
                             data: 'url',
                             name: 'url'
@@ -257,8 +281,10 @@
                     type: "GET",
                     dataType: "json",
                     success: function (html) {
+                        console.log(html);
                         $('#title').val(html.data.title);
-                        $('#description').val(html.data.description);
+
+                        tinyMCE.activeEditor.setContent(html.data.description);
                         $('#url').val(html.data.url);
                         $('#hidden_id').val(html.data.id);
                         $('#store_image').html("<img src={{ URL::to('/') }}/assets/images/" + html.data.image + " width='70' class='img-thumbnail' />");
@@ -280,6 +306,24 @@
                 $('#ok_button').text('حذف');
                 $('#confirmModal').modal('show');
             });
+
+            $(document).on('click', '.show', function () {
+                var id = $(this).attr('id');
+                $('#form_show').html('');
+
+                $.ajax({
+                    url: "{{URL::to('')}}/activates/show/" + id + "",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (html) {
+                        $('#show_title').html("<h4><b>العنوان : " + html.data.title + "</b></h4>");
+                        $('#show_body').html("<b>محتوى النص : " +"<br>"+ html.data.description + "</br>");
+                        $('.modal-title').text("عرض بيانات المحتوى");
+                        $('#formShow').modal('show');
+                    }
+                })
+            });
+
 
             $('#ok_button').click(function () {
                 $.ajax({

@@ -124,6 +124,7 @@ Route::group(['middleware' => ('auth:admin')], function () {
     Route::resource('slides', 'SlideController')->except('update');
 
 #################################################### activates
+    Route::get('activates/show/{id}', 'ActivitiesController@show');
     Route::post('activates/update', 'ActivitiesController@update')->name('activates.update');
     Route::get('activates/destroy/{id}', 'ActivitiesController@destroy');
     Route::get('activates/edit/{id}', 'ActivitiesController@edit');
@@ -135,6 +136,8 @@ Route::group(['middleware' => ('auth:admin')], function () {
 
 #################################################### Contents
     Route::get('content/show/{id}', 'ContentController@show');
+    Route::post('upload_image', 'ContentController@upload_image')->name('upload_image');
+
     Route::get('content/edit/{id}', 'ContentController@edit');
     Route::post('content/store', 'ContentController@store')->name('content.store');
     Route::post('content/update', 'ContentController@update')->name('content.update');

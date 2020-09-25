@@ -51,6 +51,14 @@ class ContentController extends Controller
     }
 
 
+    public function upload_image(Request $request)
+    {
+
+        $imgpath =$this->Post_Save($request, 'file', "IMG-", 'assets/images');
+
+        return json_encode(['location' => ($imgpath)]);
+    }
+
     public function store(Request $request)
     {
         $rules = [
