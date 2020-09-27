@@ -7,6 +7,8 @@ use App\Department;
 use App\EmployeeCategory;
 use App\Exam;
 use App\Result;
+use App\UserTraining;
+use App\UserTrainingTiltle;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -59,5 +61,11 @@ class Training extends Model
     public function result()
     {
         return $this->hasOne(Result::class, 'training_id', 'id')->where('user_id', auth()->id());
+    }
+
+
+    public function is_register()
+    {
+        return $this->hasOne(UserTraining::class, 'training_id', 'id')->where('user_id', auth()->id());
     }
 }

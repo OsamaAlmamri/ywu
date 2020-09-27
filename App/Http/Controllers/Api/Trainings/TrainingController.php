@@ -10,6 +10,7 @@ use App\Question;
 use App\Result;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
+use App\UserTraining;
 use App\UserTrainingTiltle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,9 +25,30 @@ class TrainingController extends Controller
 
     public function index()
     {
-        $this->emp = Auth::guard('employee-api')->user();
+        $this->emp = Auth::user();
         try {
-            $Training = Training::with(['subject', 'titles'])->where('type', 'خاص')->orwhere('type', 'عام')
+            $Training = Training::with(['subject', 'titles', 'is_register'])
+                ->where('type', 'خاص')->orwhere('type', 'عام')
+                ->orderByDesc('id')->paginate(20);
+            if (!$Training) {
+                return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
+            } else {
+                return $this->GetDateResponse('Trainings', $Training);
+            }
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
+    public function myTraining()
+    {
+        $this->emp = Auth::user();
+        try {
+            $Training = Training::with(['subject', 'titles', 'is_register'])
+                ->whereIn('id', function ($query) {
+                    $query->select('training_id')->from('user_trainings')
+                        ->where('user_id', Auth::id());
+                })
                 ->orderByDesc('id')->paginate(20);
             if (!$Training) {
                 return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
@@ -41,7 +63,7 @@ class TrainingController extends Controller
     public function getTrainingDetails(Request $request)
     {
         try {
-            $Training = Training::with(['result', 'titles' => function ($q) {
+            $Training = Training::with(['result', 'is_register', 'titles' => function ($q) {
                 $q->with(['contents', 'is_complete:title_id,created_at']);
             }])
                 ->where('id', $request->id)->get()->first();
@@ -73,8 +95,8 @@ class TrainingController extends Controller
     {
         try {
             $Training = SubjectCategory::with(['subjects' => function ($q) {
-                $q->with(['trainings'=>function($sub){
-                    $sub->with('departments') ;
+                $q->with(['trainings' => function ($sub) {
+                    $sub->with(['is_register', 'departments']);
                 }]);
             }])->get();
             if (!$Training) {
@@ -91,7 +113,7 @@ class TrainingController extends Controller
     {
         $this->other = Auth::guard('shared-user-api')->user();
         try {
-            $Training = Training::with(['subject', 'titles'])->where('type', 'عام')->orderByDesc('id')->paginate(20);
+            $Training = Training::with(['is_register', 'subject', 'titles'])->where('type', 'عام')->orderByDesc('id')->paginate(20);
             if (!$Training) {
                 return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
             } else {
@@ -105,7 +127,7 @@ class TrainingController extends Controller
 
     public function show($id)
     {
-        $Training = Training::with(['subject', 'titles'])->whereId($id)->first();
+        $Training = Training::with(['subject', 'is_register', 'titles'])->whereId($id)->first();
         if (!$Training) {
             return $this->ReturnErorrRespons('0000', 'لايوجد مادة بهذا الاسم');
         } else {
@@ -174,6 +196,31 @@ class TrainingController extends Controller
                 $l->type = $type;
                 $l->save();
 //                Like::create(['user_id' => auth()->id(), 'liked_id' => $request->liked_id, 'type' => $type]);
+                return $this->GetDateResponse('data', "1");
+            } else {
+                $likes->delete();
+                return $this->GetDateResponse('data', "0");
+            }
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
+    public function register_to_training(Request $request)
+    {
+        try {
+            if ($request->type == 'posts')
+                $type = 'posts';
+            else
+                $type = 'women_posts';
+            $likes = UserTraining::where('user_id', auth()->id())
+                ->where('training_id', $request->training_id)
+                ->get()->first();
+            if (!$likes) {
+                $l = new UserTraining();
+                $l->user_id = auth()->id();
+                $l->training_id = $request->training_id;
+                $l->save();
                 return $this->GetDateResponse('data', "1");
             } else {
                 $likes->delete();

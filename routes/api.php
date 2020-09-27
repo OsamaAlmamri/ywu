@@ -98,6 +98,7 @@ Route::group(['middleware' => 'CheckAdminT:api'], function () {
     Route::post('set_result', 'Api\Trainings\TrainingController@set_result');
     Route::post('like', 'Api\Trainings\TrainingController@like');
     Route::post('my_likes', 'Api\Trainings\TrainingController@my_likes');
+    Route::post('myTraining', 'Api\Trainings\TrainingController@myTraining');
 
     Route::post('ShowTrainings_public', 'Api\Trainings\TrainingController@index_others');
     Route::post('ShowTrainingId/{id}', 'Api\Trainings\TrainingController@show');

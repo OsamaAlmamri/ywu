@@ -3,6 +3,7 @@
 namespace App;
 
 
+use App\Models\TrainingContents\Training;
 use App\Models\UserContents\Comment;
 use App\Models\UserContents\Post;
 use Carbon\Carbon;
@@ -66,6 +67,21 @@ class User extends Authenticatable implements JWTSubject
     public function comments()
     {
         return $this->hasMany(Comment::class, 'user_id', 'id');
+    }
+
+    public function accepted_training()
+    {
+        return $this->belongsToMany(Training::class,'user_trainings','user_id','training_id')->where('status',1);
+    }
+
+    public function training()
+    {
+        return $this->belongsToMany(Training::class,'user_trainings','user_id','training_id');
+    }
+
+    public function not_accepty_training()
+    {
+        return $this->belongsToMany(Training::class,'user_trainings','user_id','training_id')->where('status',1);
     }
 
     /**
