@@ -43,6 +43,7 @@
                                 class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{route('training')}}">إدارة الدورات التدريبية</a></li>
+                            <li><a href="{{route('user_trainings')}}">طلبات الانضمام  للدورة التدريبية</a></li>
                             <li><a href="{{route('training-trashed')}}">سلة المحذوفات</a></li>
                         </ul>
                     </li>

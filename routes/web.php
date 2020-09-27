@@ -107,6 +107,11 @@ Route::group(['middleware' => ('auth:admin')], function () {
     Route::get('restore-title/{id}', 'TitleController@restore_post');
     Route::get('force-title/{id}', 'TitleController@force');
 
+
+#################################################### questions
+    Route::get('/user_trainings/{id?}', 'UserTrainingController@index')->name('user_trainings');
+    Route::get('user_trainings/destroy/{id}/{action_type}', 'UserTrainingController@destroy');
+
 #################################################### questions
     Route::get('results/index/{id}', 'QuestionsController@results')->name('questions.results');
     Route::post('questions/update', 'QuestionsController@update')->name('questions.update');
