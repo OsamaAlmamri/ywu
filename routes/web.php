@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 //    return view('asking.tryshow');
 //});
 
-Route::get('/', 'AdminLoginController@Admin_login')->name('Admin_login');
+//Route::get('/', 'AdminLoginController@Admin_login')->name('Admin_login');
 Route::get('/admin_login', 'AdminLoginController@Admin_login')->name('Admin_login');
 Route::get('/admin_forget', 'AdminLoginController@Admin_forget')->name('Admin_Forget');
 Route::post('/admin_forget_check', 'AdminLoginController@Admin_forget_check')->name('Admin_Forget_check');
@@ -197,3 +197,15 @@ Route::group(['middleware' => ('auth:admin')], function () {
     Route::get('SharedUserForce/{id}', 'FrontSharedUserController@forceUser');
 });
 Auth::routes();
+///////////////////////////
+///
+Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index')->name('site.home');
+Route::get('/training', 'HomeController@index')->name('site.training');
+Route::get('/courses', 'HomeController@courses')->name('site.courses');
+Route::get('/consultant', 'HomeController@consultant')->name('site.consultant');
+Route::get('/women', 'HomeController@women')->name('site.women');
+Route::get('/privacy', 'HomeController@privacy')->name('site.privacy');
+Route::get('/concatUs', 'HomeController@concatUs')->name('site.concatUs');
+Route::get('/about', 'HomeController@about')->name('site.about');
+Route::get('/course_detail', 'HomeController@course_detail')->name('site.course_detail');
