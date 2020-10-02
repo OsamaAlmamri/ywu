@@ -2,27 +2,7 @@
 @section('content')
 
 
-    <!-- Page Title -->
-    <section class="page-title">
-        <div class="auto-container">
-            <h1>Contact Us</h1>
 
-            <!-- Search Boxed -->
-            <div class="search-boxed">
-                <div class="search-box">
-                    <form method="post" action="contact.html">
-                        <div class="form-group">
-                            <input type="search" name="search-field" value="" placeholder="What do you want to learn?"
-                                   required="">
-                            <button type="submit"><span class="icon fa fa-search"></span></button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-    </section>
-    <!--End Page Title-->
 
     <!-- Contact Page Section -->
     <section class="contact-page-section">
@@ -36,7 +16,7 @@
             <div class="inner-container">
                 <!-- Sec Title -->
                 <div class="sec-title centered">
-                    <h2><a href="http://idioms.in/in-touch/">Get in touch</a></h2>
+                    <h2><a href="http://idioms.in/in-touch/">راسلنا</a></h2>
                 </div>
 
                 <!-- Contact Form -->
@@ -47,28 +27,28 @@
                         <div class="row clearfix">
 
                             <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                <input type="text" name="username" placeholder="First Name*" required="">
+                                <input type="text" name="username" placeholder="الاسم *" required="">
                             </div>
 
                             <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                <input type="text" name="lastname" placeholder="Last Name*" required="">
+                                <input type="text" name="lastname" placeholder=" المنظمة *" required="">
                             </div>
 
                             <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                <input type="email" name="email" placeholder="Email Address*" required="">
+                                <input type="email" name="email" placeholder="الايميل *" required="">
                             </div>
 
                             <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                <input type="text" name="phone" placeholder="Phone Number*" required="">
+                                <input type="text" name="phone" placeholder="رقم الهاتف *" required="">
                             </div>
 
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                <textarea class="" name="message" placeholder="Send Message"></textarea>
+                                <textarea class="" name="message" placeholder="الرسالة"></textarea>
                             </div>
 
-                            <div class="col-lg-12 col-md-12 col-sm-12 form-group text-right">
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group text-left">
                                 <button class="theme-btn btn-style-three" type="submit" name="submit-form"><span
-                                        class="txt">Send Message <i class="fa fa-angle-right"></i></span></button>
+                                        class="txt">ارسال  <i class="fa fa-angle-left"></i></span></button>
                             </div>
 
                         </div>
@@ -81,8 +61,9 @@
             <!-- Contact Info Section -->
             <div class="contact-info-section">
                 <div class="title-box">
-                    <h2>Contact Information</h2>
-                    <div class="text">Lorem Ipsum is simply dummy text of the printing <br> and typesetting industry.
+                    <h2>معلومات التواصل</h2>
+                    <div class="text">
+{{--                        Lorem Ipsum is simply dummy text of the printing <br> and typesetting industry.--}}
                     </div>
                 </div>
 
@@ -92,10 +73,12 @@
                     <div class="info-column col-lg-4 col-md-6 col-sm-12">
                         <div class="info-inner">
                             <div class="icon fa fa-phone"></div>
-                            <strong>Phone</strong>
+                            <strong> معلومات التواصل</strong>
                             <ul>
-                                <li><a href="tel:+1-123-456-7890">+1 (123) 456-7890</a></li>
-                                <li><a href="tel:+1-123-456-7890">+1 (123) 456-7890</a></li>
+                                <li><a href="tel:+96701480489">+967 01 480489</a></li>
+{{--                                <li><a href="tel:+96701480489">+967 01 480489</a></li>--}}
+                                <li><a href="mailto:info@yourcompany.com">info@yourcompany.com</a></li>
+
                             </ul>
                         </div>
                     </div>
@@ -103,11 +86,12 @@
                     <!-- Info Column -->
                     <div class="info-column col-lg-4 col-md-6 col-sm-12">
                         <div class="info-inner">
-                            <div class="icon fa fa-envelope-o"></div>
-                            <strong>Email</strong>
+                            <div class="icon fa fa-clock-o"></div>
+                            <strong>ساعات الدوام</strong>
+
                             <ul>
-                                <li><a href="mailto:info@yourcompany.com">info@yourcompany.com</a></li>
-                                <li><a href="mailto:infobootcamp@gmail.com">infobootcamp@gmail.com</a></li>
+                                <li>السبت - الاربعاء
+                                    9:00 صباحاً - 2:00 ظهراً</li>
                             </ul>
                         </div>
                     </div>
@@ -116,9 +100,10 @@
                     <div class="info-column col-lg-4 col-md-6 col-sm-12">
                         <div class="info-inner">
                             <div class="icon fa fa-map-marker"></div>
-                            <strong>Address</strong>
+                            <strong>العنوان</strong>
                             <ul>
-                                <li>Portfolio Technology 07, Capetown 12 Road, Chicago, 2436, USA</li>
+                                <li>المكتب التنفيذي
+                                    صنعاء - التحرير خلف البنك المركزي</li>
                             </ul>
                         </div>
                     </div>
@@ -147,24 +132,5 @@
     </section>
     <!-- End Map Section -->
 
-    <!-- Call To Action Section Two -->
-    <section class="call-to-action-section-two"
-             style="background-image: url('{{asset("site/images/background/3.png")}}')">
-        <div class="auto-container">
-            <div class="content">
-                <h2>Ready to get started?</h2>
-                <div class="text">Replenish him third creature and meat blessed void a fruit gathered you’re, they’re
-                    two <br> waters own morning gathered greater shall had behold had seed.
-                </div>
-                <div class="buttons-box">
-                    <a href="course.html" class="theme-btn btn-style-one"><span class="txt">Get Stared <i
-                                class="fa fa-angle-right"></i></span></a>
-                    <a href="course.html" class="theme-btn btn-style-two"><span class="txt">All Courses <i
-                                class="fa fa-angle-right"></i></span></a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Call To Action Section Two -->
 
 @endsection

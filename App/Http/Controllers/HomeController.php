@@ -23,38 +23,65 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('site.home');
+        return view('site.home')->with('page_title', '  الرئيسية');
     }
+
     public function training()
     {
-        return view('site.courses');
+        return view('site.courses')->with('page_title', ' الدورات التدريبية');
     }
+
     public function consultant()
     {
-        return view('site.consultant');
+        return view('site.consultant')->with('page_title', ' الاستشارات');
     }
+
+    public function login()
+    {
+        return view('site.login')->with('page_title', ' تسجيل الدخول');
+    }
+    public function register()
+    {
+        return view('site.register')->with('page_title', ' انشاء حساب جديد');
+    }
+
     public function women()
     {
-        return view('site.woman');
+        return view('site.woman')->with('page_title', 'قضايا المراة');
     }
-    public function courses()
+
+    public function womwn_details($id=0)
     {
-        return view('site.courses');
+        return view('site.womwn_details')->with('page_title', 'قضايا المراة');
     }
+    public function myProfile($id=0)
+    {
+        return view('site.profile')->with('page_title', 'صفحتي الشخصية');
+    }
+
+    public function courses($type='grid')
+    {
+       $view= ($type=='grid')?'courses':'courses_list';
+        return view('site.'.$view)->with('page_title', ' الدورات التدريبية');
+    }
+
     public function privacy()
     {
-        return view('site.privacy');
+        return view('site.privacy')->with('page_title', 'سياسة  الخصوصية');;
     }
+
     public function concatUs()
     {
-        return view('site.concatUs');
+        return view('site.concatUs')->with('page_title', ' تواصل معنا');
     }
+
     public function about()
     {
-        return view('site.about');
+        return view('site.about')->with('page_title', 'عنا ');
     }
+
     public function course_detail()
     {
-        return view('site.course_detail');
+        return view('site.course_detail')->with('page_title', ' تفاصيل الدورة التدريبية');
     }
 }

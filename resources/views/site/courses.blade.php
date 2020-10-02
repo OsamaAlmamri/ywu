@@ -1,25 +1,5 @@
 @extends('site.layout')
 @section('content')
-    <!-- Page Title -->
-    <section class="page-title">
-        <div class="auto-container">
-            <h1>الدورات التدريبية</h1>
-
-            <!-- Search Boxed -->
-            <div class="search-boxed">
-                <div class="search-box">
-                    <form method="post" action="contact.html">
-                        <div class="form-group">
-                            <input type="search" name="search-field" value="" placeholder="What do you want to learn?" required="">
-                            <button type="submit"><span class="icon fa fa-search"></span></button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-    </section>
-    <!--End Page Title-->
 
     <!--Sidebar Page Container-->
     <div class="sidebar-page-container">
@@ -43,8 +23,8 @@
                                 <div class="pull-right clearfix">
                                     <!-- List View -->
                                     <ul class="list-view">
-                                        <li class="active"><a href="course.html"><span class="icon flaticon-grid"></span></a></li>
-                                        <li><a href="course-list.html"><span class="icon flaticon-list-1"></span></a></li>
+                                        <li class="active"><a href="#"><span class="icon flaticon-grid"></span></a></li>
+                                        <li><a href="{{route('site.courses',['type'=>'list'])}}"><span class="icon flaticon-list-1"></span></a></li>
                                     </ul>
 
                                     <!-- Type Form -->
@@ -377,7 +357,7 @@
                     <li class="active"><a href="#">3</a></li>
                     <li><a href="#">4</a></li>
                     <li><a href="#">5</a></li>
-                    <li class="next"><a href="#"><span class="fa fa-angle-right"></span> </a></li>
+                    <li class="next"><a href="#"><span class="fa fa-angle-left"></span> </a></li>
                 </ul>
             </div>
 
@@ -462,20 +442,5 @@
     </section>
     <!-- End Popular Courses -->
 
-    <!-- Call To Action Section Two -->
-    <section class="call-to-action-section-two" style="background-image: url('{{asset("site/images/background/3.png")}}')">
-        <div class="auto-container">
-            <div class="content">
-                <h2>Ready to get started?</h2>
-                <div class="text">Replenish him third creature and meat blessed void a fruit gathered you’re, they’re two <br> waters own morning gathered greater shall had behold had seed.</div>
-                <div class="buttons-box">
-                    <a href="course.html" class="theme-btn btn-style-one"><span class="txt">Get Stared <i class="fa fa-angle-right"></i></span></a>
-                    <a href="course.html" class="theme-btn btn-style-two"><span class="txt">All Courses <i class="fa fa-angle-right"></i></span></a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Call To Action Section Two -->
 
-    <!-- End Call To Action Section Two -->
 @endsection

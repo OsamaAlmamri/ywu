@@ -1,30 +1,11 @@
 @extends('site.layout')
 @section('content')
-    <!-- Page Title -->
-    <section class="page-title">
-        <div class="auto-container">
-            <h1>Courses</h1>
 
-            <!-- Search Boxed -->
-            <div class="search-boxed">
-                <div class="search-box">
-                    <form method="post" action="contact.html">
-                        <div class="form-group">
-                            <input type="search" name="search-field" value="" placeholder="What do you want to learn?" required="">
-                            <button type="submit"><span class="icon fa fa-search"></span></button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-    </section>
-    <!--End Page Title-->
 
     <!--Sidebar Page Container-->
     <div class="sidebar-page-container">
-        <div class="patern-layer-one paroller" data-paroller-factor="0.40" data-paroller-factor-lg="0.20" data-paroller-type="foreground" data-paroller-direction="vertical" style="background-image: url(images/icons/icon-1.png)"></div>
-        <div class="patern-layer-two paroller" data-paroller-factor="0.40" data-paroller-factor-lg="-0.20" data-paroller-type="foreground" data-paroller-direction="vertical" style="background-image: url(images/icons/icon-2.png)"></div>
+        <div class="patern-layer-one paroller" data-paroller-factor="0.40" data-paroller-factor-lg="0.20" data-paroller-type="foreground" data-paroller-direction="vertical" style="background-image:  url('{{asset("site/images/icons/icon-1.png")}}')"></div>
+        <div class="patern-layer-two paroller" data-paroller-factor="0.40" data-paroller-factor-lg="-0.20" data-paroller-type="foreground" data-paroller-direction="vertical" style="background-image:  url('{{asset("site/images/icons/icon-2.png")}}')"></div>
         <div class="circle-one"></div>
         <div class="circle-two"></div>
         <div class="auto-container">
@@ -38,13 +19,13 @@
                         <div class="options-view">
                             <div class="clearfix">
                                 <div class="pull-left">
-                                    <h3>Browse UI/ UX Courses</h3>
+                                    <h3>Featured Posts</h3>
                                 </div>
                                 <div class="pull-right clearfix">
                                     <!-- List View -->
                                     <ul class="list-view">
-                                        <li class="active"><a href="course.html"><span class="icon flaticon-grid"></span></a></li>
-                                        <li><a href="course-list.html"><span class="icon flaticon-list-1"></span></a></li>
+                                        <li class="active"><a href="#"><span class="icon flaticon-grid"></span></a></li>
+                                        <li><a href="#"><span class="icon flaticon-list-1"></span></a></li>
                                     </ul>
 
                                     <!-- Type Form -->
@@ -72,17 +53,17 @@
                             <div class="cource-block-two col-lg-4 col-md-6 col-sm-12">
                                 <div class="inner-box">
                                     <div class="image">
-                                        <a href="course-detail.html"><img src="images/resource/course-6.jpg" alt=""></a>
+                                        <a href="{{route('site.womwn_details')}}"><img src="{{asset('site/images/resource/course-6.jpg')}}" alt=""></a>
                                     </div>
                                     <div class="lower-content">
-                                        <h5><a href="course-detail.html">Interaction Design</a></h5>
-                                        <div class="text">Replenish of  third creature and meat blessed void a fruit gathered waters.</div>
+                                        <h5><a href="{{route('site.womwn_details')}}">10 amazing web of demos Developers</a></h5>
+                                        <div class="text">And meat blessed void a fruit gathered waters.</div>
                                         <div class="clearfix">
                                             <div class="pull-left">
-                                                <div class="students">12 Lecturer</div>
+                                                <div class="students">By David Smith</div>
                                             </div>
                                             <div class="pull-right">
-                                                <div class="hours">54 Hours</div>
+                                                <div class="hours">11 Jan 20</div>
                                             </div>
                                         </div>
                                     </div>
@@ -93,17 +74,17 @@
                             <div class="cource-block-two col-lg-4 col-md-6 col-sm-12">
                                 <div class="inner-box">
                                     <div class="image">
-                                        <a href="course-detail.html"><img src="images/resource/course-7.jpg" alt=""></a>
+                                        <a href="{{route('site.womwn_details')}}"><img src="{{asset('site/images/resource/course-7.jpg')}}" alt=""></a>
                                     </div>
                                     <div class="lower-content">
-                                        <h5><a href="course-detail.html">Visual Design</a></h5>
-                                        <div class="text">Replenish of  third creature and meat blessed void a fruit gathered waters.</div>
+                                        <h5><a href="{{route('site.womwn_details')}}">10 amazing web of demos Developers</a></h5>
+                                        <div class="text">And meat blessed void a fruit gathered waters.</div>
                                         <div class="clearfix">
                                             <div class="pull-left">
-                                                <div class="students">12 Lecturer</div>
+                                                <div class="students">By David Smith</div>
                                             </div>
                                             <div class="pull-right">
-                                                <div class="hours">54 Hours</div>
+                                                <div class="hours">11 Jan 20</div>
                                             </div>
                                         </div>
                                     </div>
@@ -114,17 +95,39 @@
                             <div class="cource-block-two col-lg-4 col-md-6 col-sm-12">
                                 <div class="inner-box">
                                     <div class="image">
-                                        <a href="course-detail.html"><img src="images/resource/course-8.jpg" alt=""></a>
+                                        <a href="{{route('site.womwn_details')}}"><img src="{{asset('site/images/resource/course-8.jpg')}}" alt=""></a>
                                     </div>
                                     <div class="lower-content">
-                                        <h5><a href="course-detail.html">Wireframe Protos</a></h5>
-                                        <div class="text">Replenish of  third creature and meat blessed void a fruit gathered waters.</div>
+                                        <h5><a href="{{route('site.womwn_details')}}">10 amazing web of demos Developers</a></h5>
+                                        <div class="text">And meat blessed void a fruit gathered waters.</div>
                                         <div class="clearfix">
                                             <div class="pull-left">
-                                                <div class="students">12 Lecturer</div>
+                                                <div class="students">By David Smith</div>
                                             </div>
                                             <div class="pull-right">
-                                                <div class="hours">54 Hours</div>
+                                                <div class="hours">11 Jan 20</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Cource Block Two -->
+                            <div class="cource-block-two col-lg-4 col-md-6 col-sm-12">
+                                <div class="inner-box">
+                                    <div class="image">
+                                        <a href="{{route('site.womwn_details')}}"><img src="{{asset('site/images/resource/course-6.jpg')}}" alt=""></a>
+                                    </div>
+                                    <div class="lower-content">
+                                        <h5><a href="{{route('site.womwn_details')}}">10 amazing web of demos Developers</a></h5>
+                                        <div class="text">And meat blessed void a fruit gathered waters.</div>
+                                        <div class="clearfix">
+                                            <div class="pull-left">
+                                                <div class="students">By David Smith</div>
+                                            </div>
+                                            <div class="pull-right">
+                                                <div class="hours">11 Jan 20</div>
                                             </div>
                                         </div>
                                     </div>
@@ -135,17 +138,17 @@
                             <div class="cource-block-two col-lg-4 col-md-6 col-sm-12">
                                 <div class="inner-box">
                                     <div class="image">
-                                        <a href="course-detail.html"><img src="images/resource/course-9.jpg" alt=""></a>
+                                        <a href="{{route('site.womwn_details')}}"><img src="{{asset('site/images/resource/course-7.jpg')}}" alt=""></a>
                                     </div>
                                     <div class="lower-content">
-                                        <h5><a href="course-detail.html">Color Theory</a></h5>
-                                        <div class="text">Replenish of  third creature and meat blessed void a fruit gathered waters.</div>
+                                        <h5><a href="{{route('site.womwn_details')}}">10 amazing web of demos Developers</a></h5>
+                                        <div class="text">And meat blessed void a fruit gathered waters.</div>
                                         <div class="clearfix">
                                             <div class="pull-left">
-                                                <div class="students">12 Lecturer</div>
+                                                <div class="students">By David Smith</div>
                                             </div>
                                             <div class="pull-right">
-                                                <div class="hours">54 Hours</div>
+                                                <div class="hours">11 Jan 20</div>
                                             </div>
                                         </div>
                                     </div>
@@ -156,17 +159,39 @@
                             <div class="cource-block-two col-lg-4 col-md-6 col-sm-12">
                                 <div class="inner-box">
                                     <div class="image">
-                                        <a href="course-detail.html"><img src="images/resource/course-10.jpg" alt=""></a>
+                                        <a href="{{route('site.womwn_details')}}"><img src="{{asset('site/images/resource/course-8.jpg')}}" alt=""></a>
                                     </div>
                                     <div class="lower-content">
-                                        <h5><a href="course-detail.html">Typography</a></h5>
-                                        <div class="text">Replenish of  third creature and meat blessed void a fruit gathered waters.</div>
+                                        <h5><a href="{{route('site.womwn_details')}}">10 amazing web of demos Developers</a></h5>
+                                        <div class="text">And meat blessed void a fruit gathered waters.</div>
                                         <div class="clearfix">
                                             <div class="pull-left">
-                                                <div class="students">12 Lecturer</div>
+                                                <div class="students">By David Smith</div>
                                             </div>
                                             <div class="pull-right">
-                                                <div class="hours">54 Hours</div>
+                                                <div class="hours">11 Jan 20</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Cource Block Two -->
+                            <div class="cource-block-two col-lg-4 col-md-6 col-sm-12">
+                                <div class="inner-box">
+                                    <div class="image">
+                                        <a href="{{route('site.womwn_details')}}"><img src="{{asset('site/images/resource/course-6.jpg')}}" alt=""></a>
+                                    </div>
+                                    <div class="lower-content">
+                                        <h5><a href="{{route('site.womwn_details')}}">10 amazing web of demos Developers</a></h5>
+                                        <div class="text">And meat blessed void a fruit gathered waters.</div>
+                                        <div class="clearfix">
+                                            <div class="pull-left">
+                                                <div class="students">By David Smith</div>
+                                            </div>
+                                            <div class="pull-right">
+                                                <div class="hours">11 Jan 20</div>
                                             </div>
                                         </div>
                                     </div>
@@ -177,17 +202,17 @@
                             <div class="cource-block-two col-lg-4 col-md-6 col-sm-12">
                                 <div class="inner-box">
                                     <div class="image">
-                                        <a href="course-detail.html"><img src="images/resource/course-11.jpg" alt=""></a>
+                                        <a href="{{route('site.womwn_details')}}"><img src="{{asset('site/images/resource/course-7.jpg')}}" alt=""></a>
                                     </div>
                                     <div class="lower-content">
-                                        <h5><a href="course-detail.html">Picture Selection</a></h5>
-                                        <div class="text">Replenish of  third creature and meat blessed void a fruit gathered waters.</div>
+                                        <h5><a href="{{route('site.womwn_details')}}">10 amazing web of demos Developers</a></h5>
+                                        <div class="text">And meat blessed void a fruit gathered waters.</div>
                                         <div class="clearfix">
                                             <div class="pull-left">
-                                                <div class="students">12 Lecturer</div>
+                                                <div class="students">By David Smith</div>
                                             </div>
                                             <div class="pull-right">
-                                                <div class="hours">54 Hours</div>
+                                                <div class="hours">11 Jan 20</div>
                                             </div>
                                         </div>
                                     </div>
@@ -198,65 +223,41 @@
                             <div class="cource-block-two col-lg-4 col-md-6 col-sm-12">
                                 <div class="inner-box">
                                     <div class="image">
-                                        <a href="course-detail.html"><img src="images/resource/course-12.jpg" alt=""></a>
+                                        <a href="{{route('site.womwn_details')}}"><img src="{{asset('site/images/resource/course-8.jpg')}}" alt=""></a>
                                     </div>
                                     <div class="lower-content">
-                                        <h5><a href="course-detail.html">Interaction Design</a></h5>
-                                        <div class="text">Replenish of  third creature and meat blessed void a fruit gathered waters.</div>
+                                        <h5><a href="{{route('site.womwn_details')}}">10 amazing web of demos Developers</a></h5>
+                                        <div class="text">And meat blessed void a fruit gathered waters.</div>
                                         <div class="clearfix">
                                             <div class="pull-left">
-                                                <div class="students">12 Lecturer</div>
+                                                <div class="students">By David Smith</div>
                                             </div>
                                             <div class="pull-right">
-                                                <div class="hours">54 Hours</div>
+                                                <div class="hours">11 Jan 20</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Cource Block Two -->
-                            <div class="cource-block-two col-lg-4 col-md-6 col-sm-12">
-                                <div class="inner-box">
-                                    <div class="image">
-                                        <a href="course-detail.html"><img src="images/resource/course-13.jpg" alt=""></a>
-                                    </div>
-                                    <div class="lower-content">
-                                        <h5><a href="course-detail.html">Visual Design</a></h5>
-                                        <div class="text">Replenish of  third creature and meat blessed void a fruit gathered waters.</div>
-                                        <div class="clearfix">
-                                            <div class="pull-left">
-                                                <div class="students">12 Lecturer</div>
-                                            </div>
-                                            <div class="pull-right">
-                                                <div class="hours">54 Hours</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <!-- Cource Block Two -->
-                            <div class="cource-block-two col-lg-4 col-md-6 col-sm-12">
-                                <div class="inner-box">
-                                    <div class="image">
-                                        <a href="course-detail.html"><img src="images/resource/course-14.jpg" alt=""></a>
-                                    </div>
-                                    <div class="lower-content">
-                                        <h5><a href="course-detail.html">Wireframe Protos</a></h5>
-                                        <div class="text">Replenish of  third creature and meat blessed void a fruit gathered waters.</div>
-                                        <div class="clearfix">
-                                            <div class="pull-left">
-                                                <div class="students">12 Lecturer</div>
-                                            </div>
-                                            <div class="pull-right">
-                                                <div class="hours">54 Hours</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
+                        </div>
+
+                        <!-- Post Share Options -->
+                        <div class="styled-pagination">
+                            <ul class="clearfix">
+                                <li class="prev"><a href="#"><span class="fa fa-angle-left"></span> </a></li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li class="active"><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">6</a></li>
+                                <li><a href="#">7</a></li>
+                                <li><a href="#">8</a></li>
+                                <li class="next"><a href="#"><span class="fa fa-angle-right"></span> </a></li>
+                            </ul>
                         </div>
 
                     </div>
@@ -264,117 +265,70 @@
                 </div>
 
                 <!-- Sidebar Side -->
-                <div class="sidebar-side col-lg-3 col-md-12 col-sm-12">
-                    <div class="sidebar-inner">
-                        <aside class="sidebar">
+                <div class="sidebar-side style-two col-lg-3 col-md-12 col-sm-12">
+                    <div class="sidebar-inner sticky-top">
+                        <aside class="sidebar ">
 
-                            <!-- Filter Widget -->
-                            <div class="filter-widget">
-                                <h5>Filter By</h5>
+                            <!-- Popular Posts -->
+                            <div class="sidebar-widget popular-posts">
 
-                                <div class="skills-box">
-
-                                    <!-- Skills Form -->
-                                    <div class="skills-form">
-                                        <form method="post" action="index.html">
-                                            <span>Skill Level</span>
-
-                                            <!-- Radio Box -->
-                                            <div class="radio-box">
-                                                <input type="radio" name="remember-password" checked="" id="type-1">
-                                                <label for="type-1">Beginner</label>
-                                            </div>
-
-                                            <!-- Radio Box -->
-                                            <div class="radio-box">
-                                                <input type="radio" name="remember-password" id="type-2">
-                                                <label for="type-2">Intermediate</label>
-                                            </div>
-
-                                            <!-- Radio Box -->
-                                            <div class="radio-box">
-                                                <input type="radio" name="remember-password" id="type-3">
-                                                <label for="type-3">Expert</label>
-                                            </div>
-
-                                        </form>
-                                    </div>
-
+                                <!-- Sidebar Title -->
+                                <div class="sidebar-title">
+                                    <h5>Recent Posts</h5>
                                 </div>
 
-                                <div class="skills-box-two">
+                                <div class="widget-content">
+                                    <article class="post">
+                                        <div class="post-inner">
+                                            <figure class="post-thumb"><a href="{{route('site.womwn_details')}}"><img src="{{asset('site/images/resource/post-thumb-1.jpg')}}" alt=""></a></figure>
+                                            <div class="text"><a href="{{route('site.womwn_details')}}">Writing a Simple App</a></div>
+                                            <div class="post-info">By Steve Krug</div>
+                                        </div>
+                                    </article>
 
-                                    <!-- Skills Form -->
-                                    <div class="skills-form-two">
-                                        <form method="post" action="index.html">
-                                            <span>Skill Level</span>
+                                    <article class="post">
+                                        <div class="post-inner">
+                                            <figure class="post-thumb"><a href="{{route('site.womwn_details')}}"><img src="{{asset('site/images/resource/post-thumb-2.jpg')}}" alt=""></a></figure>
+                                            <div class="text"><a href="{{route('site.womwn_details')}}">Writing a Simple App</a></div>
+                                            <div class="post-info">By Steve Krug</div>
+                                        </div>
+                                    </article>
 
-                                            <!-- Radio Box -->
-                                            <div class="radio-box">
-                                                <input type="radio" name="remember-password" checked="" id="type-4">
-                                                <label for="type-4">Free (14)</label>
-                                            </div>
+                                    <article class="post">
+                                        <div class="post-inner">
+                                            <figure class="post-thumb"><a href="{{route('site.womwn_details')}}">
+                                                    <img src="{{asset('site/images/resource/post-thumb-3.jpg')}}" alt=""></a></figure>
+                                            <div class="text"><a href="{{route('site.womwn_details')}}">Writing a Simple App</a></div>
+                                            <div class="post-info">By Steve Krug</div>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
 
-                                            <!-- Radio Box -->
-                                            <div class="radio-box">
-                                                <input type="radio" name="remember-password" id="type-5">
-                                                <label for="type-5">Paid</label>
-                                            </div>
+                            <!-- Popular Tags -->
+                            <div class="sidebar-widget popular-tags">
 
-                                        </form>
-                                    </div>
-
+                                <!-- Sidebar Title -->
+                                <div class="sidebar-title">
+                                    <h5>Tags</h5>
                                 </div>
 
-                                <div class="skills-box-three">
-
-                                    <!-- Skills Form -->
-                                    <div class="skills-form-three">
-                                        <form method="post" action="index.html">
-                                            <span>Duration Time</span>
-
-                                            <!-- Radio Box -->
-                                            <div class="radio-box-three">
-                                                <input type="radio" name="remember-password" checked="" id="type-7">
-                                                <label for="type-7">5+ hours (30)</label>
-                                            </div>
-
-                                            <!-- Radio Box -->
-                                            <div class="radio-box-three">
-                                                <input type="radio" name="remember-password" id="type-8">
-                                                <label for="type-8">10+ hours (20)</label>
-                                            </div>
-
-                                            <!-- Radio Box -->
-                                            <div class="radio-box-three">
-                                                <input type="radio" name="remember-password" id="type-9">
-                                                <label for="type-9">15+ hours (5)</label>
-                                            </div>
-
-                                        </form>
-                                    </div>
-
+                                <div class="widget-content">
+                                    <a href="#">#Webdesign</a>
+                                    <a href="#">#Mobileapp</a>
+                                    <a href="#">#Design</a>
+                                    <a href="#">#Hack</a>
+                                    <a href="#">#Webdesign</a>
+                                    <a href="#">#Hack</a>
+                                    <a href="#">#Design</a>
+                                    <a href="#">#Hack</a>
                                 </div>
-
                             </div>
 
                         </aside>
                     </div>
                 </div>
 
-            </div>
-
-            <!-- Post Share Options -->
-            <div class="styled-pagination">
-                <ul class="clearfix">
-                    <li class="prev"><a href="#"><span class="fa fa-angle-left"></span> </a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li class="active"><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li class="next"><a href="#"><span class="fa fa-angle-right"></span> </a></li>
-                </ul>
             </div>
 
         </div>
@@ -384,7 +338,7 @@
     <section class="popular-courses-section">
         <div class="auto-container">
             <div class="sec-title">
-                <h2>Most Popular Courses</h2>
+                <h2>Most Popular Posts</h2>
             </div>
 
             <div class="row clearfix">
@@ -393,10 +347,10 @@
                 <div class="cource-block-two col-lg-4 col-md-6 col-sm-12">
                     <div class="inner-box wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
                         <div class="image">
-                            <a href="course-detail.html"><img src="images/resource/course-15.jpg" alt=""></a>
+                            <a href="{{route('site.womwn_details')}}"><img src="{{asset('site/images/resource/course-15.jpg')}}" alt=""></a>
                         </div>
                         <div class="lower-content">
-                            <h5><a href="course-detail.html">Color Theory</a></h5>
+                            <h5><a href="{{route('site.womwn_details')}}">How to Create and Use Bash Scripts</a></h5>
                             <div class="text">Replenish him third creature and meat blessed void a fruit gathered you’re, they’re two waters.</div>
                             <div class="clearfix">
                                 <div class="pull-left">
@@ -414,10 +368,10 @@
                 <div class="cource-block-two col-lg-4 col-md-6 col-sm-12">
                     <div class="inner-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
                         <div class="image">
-                            <a href="course-detail.html"><img src="images/resource/course-16.jpg" alt=""></a>
+                            <a href="{{route('site.womwn_details')}}"><img src="{{asset('site/images/resource/course-16.jpg')}}" alt=""></a>
                         </div>
                         <div class="lower-content">
-                            <h5><a href="course-detail.html">Typography</a></h5>
+                            <h5><a href="{{route('site.womwn_details')}}">How to Create and Use Bash Scripts</a></h5>
                             <div class="text">Replenish him third creature and meat blessed void a fruit gathered you’re, they’re two waters.</div>
                             <div class="clearfix">
                                 <div class="pull-left">
@@ -435,10 +389,10 @@
                 <div class="cource-block-two col-lg-4 col-md-6 col-sm-12">
                     <div class="inner-box wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
                         <div class="image">
-                            <a href="course-detail.html"><img src="images/resource/course-17.jpg" alt=""></a>
+                            <a href="{{route('site.womwn_details')}}"><img src="{{asset('site/images/resource/course-17.jpg')}}" alt=""></a>
                         </div>
                         <div class="lower-content">
-                            <h5><a href="course-detail.html">Wireframe & Prototyping</a></h5>
+                            <h5><a href="{{route('site.womwn_details')}}">How to Create and Use Bash Scripts</a></h5>
                             <div class="text">Replenish him third creature and meat blessed void a fruit gathered you’re, they’re two waters.</div>
                             <div class="clearfix">
                                 <div class="pull-left">
@@ -458,20 +412,6 @@
     </section>
     <!-- End Popular Courses -->
 
-    <!-- Call To Action Section Two -->
-    <section class="call-to-action-section-two" style="background-image: url(images/background/3.png)">
-        <div class="auto-container">
-            <div class="content">
-                <h2>Ready to get started?</h2>
-                <div class="text">Replenish him third creature and meat blessed void a fruit gathered you’re, they’re two <br> waters own morning gathered greater shall had behold had seed.</div>
-                <div class="buttons-box">
-                    <a href="course.html" class="theme-btn btn-style-one"><span class="txt">Get Stared <i class="fa fa-angle-right"></i></span></a>
-                    <a href="course.html" class="theme-btn btn-style-two"><span class="txt">All Courses <i class="fa fa-angle-right"></i></span></a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Call To Action Section Two -->
 
-    <!-- End Call To Action Section Two -->
+
 @endsection

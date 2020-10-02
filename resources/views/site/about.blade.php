@@ -11,9 +11,9 @@
                     <h1>Learn Math, Science, English and Test <br> Prep from our Experts</h1>
                     <div class="buttons-box">
                         <a href="course.html" class="theme-btn btn-style-one"><span class="txt">Get Stared <i
-                                    class="fa fa-angle-right"></i></span></a>
+                                    class="fa fa-angle-left"></i></span></a>
                         <a href="course.html" class="theme-btn btn-style-two"><span class="txt">All Courses <i
-                                    class="fa fa-angle-right"></i></span></a>
+                                    class="fa fa-angle-left"></i></span></a>
                     </div>
                 </div>
             </div>
@@ -70,7 +70,7 @@
                             they’re two waters own morning gathered greater shall had behold had seed.
                         </div>
                         <a href="course.html" class="theme-btn btn-style-two"><span class="txt">Learn More <i
-                                    class="fa fa-angle-right"></i></span></a>
+                                    class="fa fa-angle-left"></i></span></a>
                     </div>
                 </div>
 
@@ -95,7 +95,7 @@
                             </div>
                         </div>
                         <a href="course.html" class="theme-btn btn-style-three"><span class="txt">Get Stared <i
-                                    class="fa fa-angle-right"></i></span></a>
+                                    class="fa fa-angle-left"></i></span></a>
                     </div>
                 </div>
 
@@ -474,7 +474,7 @@
                             </div>
                         </div>
                         <a href="course.html" class="theme-btn btn-style-three"><span class="txt">All Blog Post <i
-                                    class="fa fa-angle-right"></i></span></a>
+                                    class="fa fa-angle-left"></i></span></a>
                     </div>
                 </div>
 
@@ -578,23 +578,5 @@
     </section>
     <!-- End Testimonial Section -->
 
-    <!-- Call To Action Section Two -->
-    <section class="call-to-action-section-two"
-             style="background-image: url('{{asset("site/images/background/3.png")}}')">
-        <div class="auto-container">
-            <div class="content">
-                <h2>Ready to get started?</h2>
-                <div class="text">Replenish him third creature and meat blessed void a fruit gathered you’re, they’re
-                    two <br> waters own morning gathered greater shall had behold had seed.
-                </div>
-                <div class="buttons-box">
-                    <a href="course.html" class="theme-btn btn-style-one"><span class="txt">Get Stared <i
-                                class="fa fa-angle-right"></i></span></a>
-                    <a href="course.html" class="theme-btn btn-style-two"><span class="txt">All Courses <i
-                                class="fa fa-angle-right"></i></span></a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Call To Action Section Two -->
+
 @endsection
