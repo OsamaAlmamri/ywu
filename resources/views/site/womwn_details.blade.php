@@ -161,13 +161,7 @@
                             <form method="post" action="blog.html">
                                 <div class="row clearfix">
 
-                                    <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                        <input type="text" name="username" placeholder="Full Name*" required="">
-                                    </div>
 
-                                    <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                        <input type="email" name="email" placeholder="Email Address*" required="">
-                                    </div>
 
                                     <div class="col-lg-12 col-md-12 col-sm-12 form-group">
                                         <textarea class="" name="message" placeholder="Write your comment..."></textarea>

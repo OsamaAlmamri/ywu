@@ -12,6 +12,11 @@
     <link href="{{asset('site/css/main.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/css/responsive.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/css/mcq.css')  }}" rel="stylesheet">
+    <meta name="theme-color" content="#00ab15">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#00ab15">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#00ab15">
 
     <link rel="shortcut icon" href="{{  asset('site/images/Logo250px.png')  }}" type="image/x-icon">
     <link rel="icon" href="{{  asset('site/images/Logo250px.png')  }}" type="image/x-icon">
@@ -294,7 +299,7 @@
 
                     <div class="pull-right logo-box">
                         <div class="logo"><a href="index.html">
-                                <img width="100" src="{{asset('site/images/Logo250px.png') }}" alt=""
+                                <img width="50" src="{{asset('site/images/Logo250px.png') }}" alt=""
                                      title="Bootcamp"></a></div>
                     </div>
                     <div class="nav-outer clearfix">
@@ -400,8 +405,8 @@
             <div class="menu-backdrop"></div>
             <div class="close-btn"><span class="icon flaticon-multiply"></span></div>
 
-            <nav class="menu-box">
-                <div class="nav-logo"><a href="index.html"><img src="{{asset('site/images/logo-5.png')}}" alt=""
+            <nav class="menu-box" >
+                <div class="nav-logo" style="text-align: center"><a href="{{route('site.home')}}" ><img style="width: 130px;    margin-bottom: -30px;" src="{{asset('site/images/Logo250px.png')}}" alt=""
                                                                 title=""></a></div>
                 <div class="menu-outer">
                     <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
