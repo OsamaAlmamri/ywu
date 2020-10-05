@@ -9,6 +9,9 @@
     <!--	<link rel="stylesheet" href="css/bootstrap-rtl.min.css">-->
     <link rel="stylesheet" href="{{  asset('site/css/rtl/bootstrap-rtl.css')  }}">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script>window.Laravel = {csrfToken: '{{ csrf_token() }}'}</script>
+
     <link href="{{asset('site/css/main.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/css/responsive.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/css/mcq.css')  }}" rel="stylesheet">
@@ -46,13 +49,23 @@
 
 {{--        color: #4CAF50;--}}
 {{--    }--}}
+.divClass {
+            background-repeat: no-repeat;
+            background-size: cover;
+            /*width: 402px;*/
+            width: 100%;
+            height: 223px;
+        }
 
+        .cource-block-two .inner-box .lower-content .hours {
+            font-size: 16px;
+        }
 
-.intro-section .video-column .intro-video .ripple, .intro-section .video-column .intro-video .ripple:before, .intro-section .video-column .intro-video .ripple:after {
+        .intro-section .video-column .intro-video .ripple, .intro-section .video-column .intro-video .ripple:before, .intro-section .video-column .intro-video .ripple:after {
             right: -100%;
         }
 
- .search-box .form-group button {
+        .search-box .form-group button {
             left: auto !important;
         }
 
@@ -323,6 +336,15 @@
                                         <a href="{{route('site.home')}}">الرئيسية</a></li>
                                     <li class=" @if(Request::segment(1)=='courses' ) current @endif"><a
                                             href="{{route('site.courses')}}">التدريب</a></li>
+                                    {{--                                    <li class="dropdown"><a href="#">Pages</a>--}}
+                                    {{--                                        <ul>--}}
+                                    {{--                                            <li><a href="price.html">Pricing</a></li>--}}
+                                    {{--                                            <li><a href="login.html">Login</a></li>--}}
+                                    {{--                                            <li><a href="register.html">Register</a></li>--}}
+                                    {{--                                            <li><a href="privacy.html">Privacy Policy</a></li>--}}
+                                    {{--                                            <li><a href="comming-soon.html">Coming Soon</a></li>--}}
+                                    {{--                                        </ul>--}}
+                                    {{--                                    </li>--}}
                                     <li class=" @if(Request::segment(1)=='consultant' ) current @endif"><a
                                             href="{{route('site.consultant')}}">الاستشارات</a></li>
                                     <li class=" @if(Request::segment(1)=='women') current @endif"><a
@@ -405,9 +427,11 @@
             <div class="menu-backdrop"></div>
             <div class="close-btn"><span class="icon flaticon-multiply"></span></div>
 
-            <nav class="menu-box" >
-                <div class="nav-logo" style="text-align: center"><a href="{{route('site.home')}}" ><img style="width: 130px;    margin-bottom: -30px;" src="{{asset('site/images/Logo250px.png')}}" alt=""
-                                                                title=""></a></div>
+            <nav class="menu-box">
+                <div class="nav-logo" style="text-align: center"><a href="{{route('site.home')}}"><img
+                            style="width: 130px;    margin-bottom: -30px;" src="{{asset('site/images/Logo250px.png')}}"
+                            alt=""
+                            title=""></a></div>
                 <div class="menu-outer">
                     <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
                 </div>
@@ -439,12 +463,14 @@
             </div>
         </section>
         <!--End Page Title-->
-@endif
-
-@yield('content')
+    @endif
 
 
-<!-- Call To Action Section Two -->
+    <div id="app">
+        @yield('content')
+    </div>
+
+    <!-- Call To Action Section Two -->
     <section class="call-to-action-section-two"
              style="background-image:url('{{asset("site/images/background/3.png")}}')">
         <div class="auto-container">
@@ -599,6 +625,8 @@
 
 <!--Scroll to top-->
 <div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-arrow-circle-up"></span></div>
+{{--//for vue JS--}}
+<script src="{{ asset('js/app.js') }}"></script>
 
 
 <script src="{!! asset('site/js/jquery.js') !!}"></script>

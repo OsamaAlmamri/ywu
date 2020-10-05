@@ -115,7 +115,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-4">الوصف : </label>
                             <div class="col-md-8">
-                                <textarea name="description" id="description"> </textarea>
+                                <textarea name="description" id="description" class="description"> </textarea>
                             </div>
 
                             <div class="form-group">
@@ -205,6 +205,8 @@
     </div>
 @endsection
 @section('custom_js')
+
+    @include('adminpanel.wyswyg')
     <script>
         $(document).ready(function () {
             fill_datatable();
@@ -287,12 +289,13 @@
                             name: 'published',
                             title: 'تاريخ  النشر'
                         },
+                        // {
+                        //     data: 'description',
+                        //     name: 'description',
+                        //     title: ' الوصف',
+                        //     orderable: false,
+                        // },
                         {
-                            data: 'description',
-                            name: 'description',
-                            title: ' الوصف',
-                            orderable: false,
-                        }, {
                             data: 'certificate',
                             name: 'certificate',
                             title: 'الشهادة ',
@@ -459,7 +462,9 @@
                         $('#start_at').val(html.data.start_at);
                         $('#end_at').val(html.data.end_at);
                         $('#certificate').val(html.data.certificate);
-                        $('#description').val(html.data.description);
+                        // $('#description').val(html.data.description);
+                        tinyMCE.activeEditor.setContent(html.data.description);
+
                         $('#store_image').html("<img src={{ URL::to('/') }}/assets/images/" + html.data.thumbnail + " width='70' class='img-thumbnail' />");
                         $('#store_image').append("<input type='hidden' name='hidden_image' value='" + html.data.thumbnail + "' />");
                         $('#hidden_id').val(html.data.id);

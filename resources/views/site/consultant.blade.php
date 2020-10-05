@@ -18,31 +18,8 @@
                         <!-- Options View -->
                         <div class="options-view">
                             <div class="clearfix">
-                                <div class="pull-left">
-                                    <h3>Featured Posts</h3>
-                                </div>
-                                <div class="pull-right clearfix">
-                                    <!-- List View -->
-                                    <ul class="list-view">
-                                        <li class="active"><a href="#"><span class="icon flaticon-grid"></span></a></li>
-                                        <li><a href="#"><span class="icon flaticon-list-1"></span></a></li>
-                                    </ul>
-
-                                    <!-- Type Form -->
-                                    <div class="type-form">
-                                        <form method="post" action="index.html">
-
-                                            <!-- Form Group -->
-                                            <div class="form-group">
-                                                <select class="custom-select-box">
-                                                    <option>Newest</option>
-                                                    <option>Old</option>
-                                                </select>
-                                            </div>
-
-                                        </form>
-                                    </div>
-
+                                <div class="pull-right">
+                                    <h3>  الاستشارات الحديثة</h3>
                                 </div>
                             </div>
                         </div>
@@ -274,7 +251,7 @@
 
                                 <!-- Sidebar Title -->
                                 <div class="sidebar-title">
-                                    <h5>Recent Posts</h5>
+                                    <h5>الاكثر تعليقا </h5>
                                 </div>
 
                                 <div class="widget-content">

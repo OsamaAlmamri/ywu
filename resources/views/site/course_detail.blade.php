@@ -1,25 +1,5 @@
 @extends('site.layout')
 @section('content')
-    <!-- Page Title -->
-    <section class="page-title">
-        <div class="auto-container">
-            <h1>Course Introduction</h1>
-
-            <!-- Search Boxed -->
-            <div class="search-boxed">
-                <div class="search-box">
-                    <form method="post" action="contact.html">
-                        <div class="form-group">
-                            <input type="search" name="search-field" value="" placeholder="What do you want to learn?" required="">
-                            <button type="submit"><span class="icon fa fa-search"></span></button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-    </section>
-    <!--End Page Title-->
 
     <!-- Intro Courses -->
     <section class="intro-section">
@@ -28,7 +8,7 @@
         <div class="circle-one"></div>
         <div class="auto-container">
             <div class="sec-title">
-                <h2>Learn  User Interface and <br> User Experience</h2>
+                <h2>{{$training->name}}</h2>
             </div>
 
             <div class="inner-container">
@@ -61,32 +41,8 @@
                                                 <!-- Cource Overview -->
                                                 <div class="course-overview">
                                                     <div class="inner-box">
-                                                        <h4>25 That Prevent Job Seekers From Overcoming Failure</h4>
-                                                        <p>Phasellus enim magna, varius et commodo ut, ultricies vitae velit. Ut nulla tellus, eleifend euismod pellentesque vel, sagittis vel justo. In libero urna, venenatis sit amet ornare non, suscipit nec risus. Sed consequat justo non mauris pretium at tempor justo sodales. Quisque tincidunt laoreet malesuada. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur.</p>
-                                                        <ul class="student-list">
-                                                            <li>23,564 Total Students</li>
-                                                            <li><span class="theme_color">4.5</span> <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span> (1254 Rating)</li>
-                                                            <li>256 Reviews</li>
-                                                        </ul>
-                                                        <h3>What you’ll learn?</h3>
-                                                        <ul class="review-list">
-                                                            <li>Phasellus enim magna, varius et commodo ut.</li>
-                                                            <li>Sed consequat justo non mauris pretium at tempor justo.</li>
-                                                            <li>Ut nulla tellus, eleifend euismod pellentesque vel, sagittis vel justo</li>
-                                                            <li>Phasellus enim magna, varius et commodo ut.</li>
-                                                            <li>Phasellus enim magna, varius et commodo ut.</li>
-                                                            <li>Sed consequat justo non mauris pretium at tempor justo.</li>
-                                                            <li>Ut nulla tellus, eleifend euismod pellentesque vel, sagittis vel justo</li>
-                                                            <li>Phasellus enim magna, varius et commodo ut.</li>
-                                                        </ul>
-                                                        <h3>Requirements</h3>
-                                                        <ul class="requirement-list">
-                                                            <li>Phasellus enim magna, varius et commodo ut, ultricies vitae velit. Ut nulla tellus, eleifend euismod pellentesque vel, sagittis vel justo</li>
-                                                            <li>Ultricies vitae velit. Ut nulla tellus, eleifend euismod pellentesque vel.</li>
-                                                            <li>Phasellus enim magna, varius et commodo ut.</li>
-                                                            <li>Varius et commodo ut, ultricies vitae velit. Ut nulla tellus.</li>
-                                                            <li>Phasellus enim magna, varius et commodo ut.</li>
-                                                        </ul>
+
+                                                        {!! $training->description !!}
                                                         <h3>Instructors</h3>
 
                                                         <div class="row clearfix">

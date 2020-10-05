@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TrainingContents\SubjectCategory;
+use App\Models\TrainingContents\Training;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -61,8 +63,17 @@ class HomeController extends Controller
 
     public function courses($type='grid')
     {
+        $Training = SubjectCategory::with(['subjects' => function ($q) {
+            $q->with(['trainings' => function ($sub) {
+                $sub->with(['is_register', 'departments']);
+            }]);
+        }])->get();
+
+//        return dd($Training);
        $view= ($type=='grid')?'courses':'courses_list';
-        return view('site.'.$view)->with('page_title', ' الدورات التدريبية');
+        return view('site.'.$view)
+            ->with('sections', $Training)
+            ->with('page_title', ' الدورات التدريبية');
     }
 
     public function privacy()
@@ -80,8 +91,11 @@ class HomeController extends Controller
         return view('site.about')->with('page_title', 'عنا ');
     }
 
-    public function course_detail()
+    public function course_detail($id=1)
     {
-        return view('site.course_detail')->with('page_title', ' تفاصيل الدورة التدريبية');
+        $training=Training::find($id);
+        return view('site.course_detail')
+            ->with('training',$training)
+            ->with('page_title', ' تفاصيل الدورة التدريبية');
     }
 }
