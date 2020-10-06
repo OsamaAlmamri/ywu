@@ -63,10 +63,9 @@ class HomeController extends Controller
 
     public function courses($type='grid')
     {
-        $Training = SubjectCategory::with(['subjects' => function ($q) {
-            $q->with(['trainings' => function ($sub) {
-                $sub->with(['is_register', 'departments']);
-            }]);
+
+        $Training = SubjectCategory::with(['trainings' => function ($sub) {
+            $sub->with(['is_register', 'departments']);
         }])->get();
 
 //        return dd($Training);

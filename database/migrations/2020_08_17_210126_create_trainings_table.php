@@ -17,7 +17,7 @@ class CreateTrainingsTable extends Migration
         Schema::create('trainings', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('subject_id')->constrained('subjects')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('subject_categories')->onUpdate('cascade')->onDelete('cascade');
             $table->string('mark')->nullable();
             $table->string('type');
             $table->text('certificate')->nullable();

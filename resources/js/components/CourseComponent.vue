@@ -1,30 +1,45 @@
 <template>
-    <div class="content-side col-lg-12 col-md-12 col-sm-12">
-        <div class="our-courses" v-for="section in sections">
-            <!-- Options View -->
-            <div class="options-view">
-                <div class="clearfix">
-                    <div class="pull-right">
-                        <h3>{{section.name}}</h3>
+    <div>
+        <div class="sidebar-page-container">
+            <div class="patern-layer-one paroller" data-paroller-factor="0.40" data-paroller-factor-lg="0.20"
+                 data-paroller-type="foreground" data-paroller-direction="vertical"
+                 style="background-image: url('/site/images/icons/icon-1.png')">
+            </div>
+            <div class="patern-layer-two paroller" data-paroller-factor="0.40" data-paroller-factor-lg="-0.20"
+                 data-paroller-type="foreground" data-paroller-direction="vertical"
+                 style="background-image: url('/site/images/icons/icon-2.png')">
+            </div>
+            <div class="circle-one"></div>
+            <div class="circle-two"></div>
+            <div class="auto-container">
+                <div class="row clearfix">
+                    <div class="content-side col-lg-12 col-md-12 col-sm-12">
+                        <div class="our-courses" v-for="section in sections">
+                            <!-- Options View -->
+                            <div class="options-view">
+                                <div class="clearfix">
+                                    <div class="pull-right">
+                                        <h3>{{section.name}}</h3>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="cource-block-two col-lg-3 col-md-4 col-sm-6 col-xs-12"
+                                     v-for="training in section.trainings">
+                                    <course-gide-item
+                                        :training="training"
+                                        @toggled="onToggle"
+                                    ></course-gide-item>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row clearfix">
-                <div  v-for="training in subject.trainings" class="cource-block-two col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                        <course-gide-item
-                            v-for="(training,index) in subject.trainings"
-                            :item="training"
-                            :key="index"
-                            :is-register="activeIndex == index"
-                            @toggled="onToggle"
-                        ></course-gide-item>
-                </div>
-
-            </div>
         </div>
     </div>
-
-
 </template>
 
 <script>
@@ -37,11 +52,6 @@
             return {
                 activeIndex: null,
                 sections: [],
-                course: {
-                    id: '',
-                    title: '',
-                    body: ''
-                },
                 course_id: '',
                 pagination: {},
                 edit: false

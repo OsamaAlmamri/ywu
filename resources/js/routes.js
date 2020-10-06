@@ -5,6 +5,7 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import NotFound from './components/NotFound';
 import Course from './components/CourseComponent';
+import concatUs from './components/ConcatUs';
 
 
 export default {
@@ -16,11 +17,22 @@ export default {
             component: NotFound
         },
         {
-            path: '/course',
+            path: '/courses',
             component: Course,
-            name: "Course"
-        }, {
+            name: "Courses"
+        },
+        {
             path: '/',
+            component: Home,
+            name: "Home"
+        },
+        {
+            path: '/concatUs',
+            component: concatUs,
+            name: "concatUs"
+        },
+        {
+            path: '/home',
             component: Home,
             name: "Home"
         },

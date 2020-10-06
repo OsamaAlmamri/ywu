@@ -38,9 +38,9 @@ class Training extends Model
         'end_at' => 'datetime:Y-m-d H:i:s',
     ];
 
-    public function subject()
+    public function category()
     {
-        return $this->belongsTo(Subject::class, 'subject_id', 'id');
+        return $this->belongsTo(SubjectCategory::class, 'category_id', 'id');
     }
 
     public function titles()

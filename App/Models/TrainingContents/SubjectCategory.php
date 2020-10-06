@@ -14,4 +14,9 @@ class SubjectCategory extends Model
     {
         return $this->hasMany(Subject::class, 'category_id', 'id');
     }
+
+    public function trainings()
+    {
+        return $this->hasMany(Training::class, 'category_id', 'id');
+    }
 }

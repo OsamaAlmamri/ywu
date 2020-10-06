@@ -36,6 +36,7 @@
 
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+    <!--[if lt IE 9]><!--<script src="js/respond.js"></script>--><![endif]-->
 
     <style>
         {{--    .main-footer {--}}
@@ -269,12 +270,12 @@
 
 <body>
 
-<div class="page-wrapper" id="app">
+<div class="page-wrapper" >
 
     <!-- Preloader -->
 {{--    <div class="preloader"></div>--}}
 
-<!-- Main Header-->
+    <!-- Main Header-->
     <header class="main-header header-style-one">
 
         <!-- Header Top -->
@@ -297,12 +298,13 @@
                     <div class="top-left pull-left clearfix">
                         <!-- Login Nav -->
                         <ul class="login-nav">
-                            <li>
-                                <router-link to="/login"> تسجيل الدخول</router-link>
+                            <li><a href="{{route('site.login')}}"> تسجيل الدخول</a></li>
+                            <li><a href="{{route('site.register')}}">انشاء حساب</a></li>
+                        <li>
+                            <router-link :to="/courses">
+                                <i class="fa fa-book"></i> hgcccokjop
+                            </router-link>
                             </li>
-                            <li>
-                                <router-link to="/register"> انشاء حساب</router-link>
-
                         </ul>
                     </div>
 
@@ -317,7 +319,7 @@
 
                     <div class="pull-right logo-box">
                         <div class="logo"><a href="index.html">
-                                <img width="50" src="site/images/Logo250px.png" alt=""
+                                <img width="50" src="{{asset('site/images/Logo250px.png') }}" alt=""
                                      title="Bootcamp"></a></div>
                     </div>
                     <div class="nav-outer clearfix">
@@ -337,26 +339,84 @@
 
                             <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
-                                    <li>
-                                        <router-link to="/home"> الرئيسية</router-link>
-                                    </li>
-                                    <li>
-                                        <router-link to="/courses"> التدريب</router-link>
-                                    </li>
-
-
-                                    <li>
-                                        <router-link to="/consultant"> الاستشارات</router-link>
-                                    </li>
-                                    <li>
-                                        <router-link to="/women"> شوؤن المرأة</router-link>
-                                    </li>
-                                    <li>
-                                        <router-link to="/privacy"> سياية الخصوصية</router-link>
-                                    </li>
-                                    <li>
-                                        <router-link to="/concatUs"> تواصل معنا</router-link>
-                                    </li>
+                                    <li class=" @if(Request::segment(1)=='home' or Request::segment(1)=='') current @endif">
+                                        <a href="{{route('site.home')}}">الرئيسية</a></li>
+                                    <li class=" @if(Request::segment(1)=='courses' ) current @endif"><a
+                                            href="{{route('site.courses')}}">التدريب</a></li>
+{{--                                                                        <li class="dropdown"><a href="#">Pages</a>--}}
+{{--                                                                            <ul>--}}
+{{--                                                                                <li><a href="price.html">Pricing</a></li>--}}
+{{--                                                                                <li><a href="login.html">Login</a></li>--}}
+{{--                                                                                <li><a href="register.html">Register</a></li>--}}
+{{--                                                                                <li><a href="privacy.html">Privacy Policy</a></li>--}}
+{{--                                                                                <li><a href="comming-soon.html">Coming Soon</a></li>--}}
+{{--                                                                            </ul>--}}
+{{--                                                                        </li>--}}
+                                    <li class=" @if(Request::segment(1)=='consultant' ) current @endif"><a
+                                            href="{{route('site.consultant')}}">الاستشارات</a></li>
+                                    <li class=" @if(Request::segment(1)=='women') current @endif"><a
+                                            href="{{route('site.women')}}">شوؤن المرأة</a></li>
+                                    <li class=" @if(Request::segment(1)=='privacy' ) current @endif"><a
+                                            href="{{route('site.privacy')}}""> سياية الخصوصية</a> </li>
+                                    {{--                                    <li class=" @if(Request::segment(1)=='about' ) current @endif"><a--}}
+                                    {{--                                            href="{{route('site.about')}}"> عنا</a></li>--}}
+                                    <li class=" @if(Request::segment(1)=='concatUs' ) current @endif"><a
+                                            href="{{route('site.concatUs')}}">تواصل معنا</a></li>
+                                    <li class=" @if(Request::segment(1)=='myProfile' ) current @endif"><a
+                                            href="{{route('site.myProfile')}}">الصفحة الشخصية </a></li>
+                                    <!--									<li class="current dropdown"><a href="#">الرئيسية</a>-->
+                                    <!--										<ul>-->
+                                    <!--											<li><a href="index.html">Home Page 01</a></li>-->
+                                    <!--											<li><a href="index-2.html">Home Page 02</a></li>-->
+                                    <!--											<li><a href="index-3.html">Home Page 03</a></li>-->
+                                    <!--										</ul>-->
+                                    <!--									</li>-->
+                                    <!--									<li class="dropdown"><a href="#">Pages</a>-->
+                                    <!--										<ul>-->
+                                    <!--											<li><a href="price.html">Pricing</a></li>-->
+                                    <!--											<li><a href="login.html">Login</a></li>-->
+                                    <!--											<li><a href="register.html">Register</a></li>-->
+                                    <!--											<li><a href="privacy.html">Privacy Policy</a></li>-->
+                                    <!--											<li><a href="comming-soon.html">Coming Soon</a></li>-->
+                                    <!--										</ul>-->
+                                    <!--									</li>-->
+                                    <!--									<li class="dropdown"><a href="#">Courses</a>-->
+                                    <!--                                        <ul>-->
+                                    <!--                                            <li><a href="course.html">Courses As Grid</a></li>-->
+                                    <!--											<li><a href="course-list.html">Courses As List</a></li>-->
+                                    <!--											<li><a href="course-path.html">Course Topics</a></li>-->
+                                    <!--											<li><a href="course-lesson.html">Course Lesson</a></li>-->
+                                    <!--											<li><a href="course-detail.html">Course Details</a></li>-->
+                                    <!--                                        </ul>-->
+                                    <!--                                    </li>-->
+                                    <!--									<li class="dropdown"><a href="#">Books</a>-->
+                                    <!--                                        <ul>-->
+                                    <!--                                            <li><a href="books.html">Books</a></li>-->
+                                    <!--                                            <li><a href="books-detail.html">Book Detail</a></li>-->
+                                    <!--                                        </ul>-->
+                                    <!--                                    </li>-->
+                                    <!--									<li class="dropdown"><a href="#">Profiles</a>-->
+                                    <!--                                        <ul>-->
+                                    <!--                                            <li><a href="intro-profile.html">Instructor Profile</a></li>-->
+                                    <!--											<li><a href="student-profile.html">Student Profile</a></li>-->
+                                    <!--											<li><a href="edit-profile.html">Edit Profile</a></li>-->
+                                    <!--                                        </ul>-->
+                                    <!--                                    </li>-->
+                                    <!--									<li class="dropdown"><a href="#">Blog</a>-->
+                                    <!--                                        <ul>-->
+                                    <!--                                            <li><a href="blog.html">Blog</a></li>-->
+                                    <!--											<li><a href="blog-detail.html">Blog Detail</a></li>-->
+                                    <!--											<li><a href="error.html">Not Found / 404</a></li>-->
+                                    <!--                                        </ul>-->
+                                    <!--                                    </li>-->
+                                    <!--									<li class="dropdown"><a href="#">Links</a>-->
+                                    <!--                                        <ul>-->
+                                    <!--                                            <li><a href="https://www.wikipedia.org">Wikipedia</a></li>-->
+                                    <!--											<li><a href="https://www.education.com">Education</a></li>-->
+                                    <!--											<li><a href="https://www.theidioms.com">The Idioms</a></li>-->
+                                    <!--                                        </ul>-->
+                                    <!--                                    </li>-->
+                                    <!--									<li><a href="contact.html">Contact Us</a></li>-->
                                 </ul>
                             </div>
 
@@ -375,12 +435,10 @@
             <div class="close-btn"><span class="icon flaticon-multiply"></span></div>
 
             <nav class="menu-box">
-                <div class="nav-logo" style="text-align: center">
-                    <router-link to="/home"></router-link>
-                    <img
-                        style="width: 130px;    margin-bottom: -30px;" src="/site/images/Logo250px.png"
-                        alt=""
-                        title=""></a></div>
+                <div class="nav-logo" style="text-align: center"><a href="{{route('site.home')}}"><img
+                            style="width: 130px;    margin-bottom: -30px;" src="{{asset('site/images/Logo250px.png')}}"
+                            alt=""
+                            title=""></a></div>
                 <div class="menu-outer">
                     <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
                 </div>
@@ -391,32 +449,40 @@
     </header>
     <!-- End Main Header -->
 
+@if (! (in_array(Request::segment(1), ['home','',''])))
+
     <!-- Page Title -->
-    <section class="page-title">
-        <div class="auto-container">
-            <h1> page_title</h1>
-            <!-- Search Boxed -->
-            <div class="search-boxed">
-                <div class="search-box">
-                    <form method="post" action="contact.html">
-                        <div class="form-group">
-                            <input type="search" name="search-field" value="" placeholder=" هل تبحث عن شيء ؟"
-                                   required="">
-                            <button type="submit"><span class="icon fa fa-search"></span></button>
-                        </div>
-                    </form>
+        <section class="page-title">
+            <div class="auto-container">
+                <h1> {{$page_title}}</h1>
+                <!-- Search Boxed -->
+                <div class="search-boxed">
+                    <div class="search-box">
+                        <form method="post" action="contact.html">
+                            <div class="form-group">
+                                <input type="search" name="search-field" value="" placeholder=" هل تبحث عن شيء ؟"
+                                       required="">
+                                <button type="submit"><span class="icon fa fa-search"></span></button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!--End Page Title-->
+        </section>
+        <!--End Page Title-->
+    @endif
 
-    <router-view></router-view>
 
+    <div id="app">
+        @yield('content')
+        <router-link to="/courses">Go to User</router-link>
+        <router-view></router-view>
+
+    </div>
 
     <!-- Call To Action Section Two -->
     <section class="call-to-action-section-two"
-             style="background-image:url('/site/images/background/3.png')">
+             style="background-image:url('{{asset("site/images/background/3.png")}}')">
         <div class="auto-container">
             <div class="content">
                 <h2>هل انت على استعداد للبدء؟</h2>
@@ -424,9 +490,9 @@
                     و <br>نشر و عرض الاستشارات .
                 </div>
                 <div class="buttons-box">
-                    <a href="/courses" class="theme-btn btn-style-one"><span class="txt">المواد التدريبة <i
+                    <a href="{{route('site.courses')}}" class="theme-btn btn-style-one"><span class="txt">المواد التدريبة <i
                                 class="fa fa-angle-left"></i></span></a>
-                    <a href="/consultant" class="theme-btn btn-style-two"><span class="txt">الاستشارات <i
+                    <a href="{{route('site.consultant')}}" class="theme-btn btn-style-two"><span class="txt">الاستشارات <i
                                 class="fa fa-angle-left"></i></span></a>
                 </div>
             </div>
@@ -458,9 +524,8 @@
                             <div class="footer-column col-lg-5 col-md-5 col-sm-12">
                                 <div class="footer-widget logo-widget">
                                     <div class="logo">
-                                        <a href="/">
-                                            <router-link to="/home"></router-link>
-                                            <img src="/site/images/Logo250px.png" alt=""></a>
+                                        <a href="{{route('site.home')}}"><img
+                                                src="{{asset('site/images/Logo250px.png')}}" alt=""></a>
                                     </div>
                                     <div class="social-box">
                                         <a href="https://www.facebook.com/yemenwu" class="fa fa-facebook"></a>
@@ -521,12 +586,12 @@
                                     <ul class="links-widget">
                                         <li>
                                             <a href="https://play.google.com/store/apps/" target="_blank"><img
-                                                    src="site/images/google-play-img.png" alt=""></a>
+                                                    src="{{asset('site/images/google-play-img.png')}}" alt=""></a>
                                             {{--                                            <a href="https://play.google.com/store/apps/details?id=com.sahltaxi.passenger" target="_blank"><img src="assets/img/google-play-img.png" alt=""></a>--}}
                                         </li>
                                         <li>
                                             <a href="https://itunes.apple.com" target="_blank"><img
-                                                    src="site/images/app-stor-img.png" alt=""></a>
+                                                    src="{{asset('site/images/app-stor-img.png')}}" alt=""></a>
                                             {{--                                            <a href="https://itunes.apple.com/qa/app/sahl-taxi/id1455325390?mt=8" target="_blank"><img src="assets/img/app-stor-img.png" alt=""></a>--}}
                                         </li>
                                     </ul>

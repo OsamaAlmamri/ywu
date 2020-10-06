@@ -3,8 +3,12 @@
 
     <!-- Intro Courses -->
     <section class="intro-section">
-        <div class="patern-layer-one paroller" data-paroller-factor="0.40" data-paroller-factor-lg="0.20" data-paroller-type="foreground" data-paroller-direction="vertical" style="background-image: url('{{asset("site/images/icons/icon-1.png")}}')"></div>
-        <div class="patern-layer-two paroller" data-paroller-factor="0.40" data-paroller-factor-lg="-0.20" data-paroller-type="foreground" data-paroller-direction="vertical" style="background-image: url('{{asset("site/images/icons/icon-2.png")}}')"></div>
+        <div class="patern-layer-one paroller" data-paroller-factor="0.40" data-paroller-factor-lg="0.20"
+             data-paroller-type="foreground" data-paroller-direction="vertical"
+             style="background-image: url('{{asset("site/images/icons/icon-1.png")}}')"></div>
+        <div class="patern-layer-two paroller" data-paroller-factor="0.40" data-paroller-factor-lg="-0.20"
+             data-paroller-type="foreground" data-paroller-direction="vertical"
+             style="background-image: url('{{asset("site/images/icons/icon-2.png")}}')"></div>
         <div class="circle-one"></div>
         <div class="auto-container">
             <div class="sec-title">
@@ -25,10 +29,10 @@
 
                                     <!--Tab Btns-->
                                     <ul class="tab-btns tab-buttons clearfix">
-                                        <li data-tab="#prod-overview" class="tab-btn active-btn">نظرة عامة </li>
+                                        <li data-tab="#prod-overview" class="tab-btn active-btn">نظرة عامة</li>
                                         <li data-tab="#prod-curriculum" class="tab-btn">العناوين</li>
                                         <li data-tab="#prod-reviews" class="tab-btn">المحتوى التدريبي</li>
-                                        <li data-tab="#mcq_tap" class="tab-btn">الاختبار</li>
+                                        <li data-tab="#mcq_tap" id="mcq_tap_open" class="tab-btn">الاختبار</li>
                                     </ul>
 
                                     <!--Tabs Container-->
@@ -43,47 +47,6 @@
                                                     <div class="inner-box">
 
                                                         {!! $training->description !!}
-                                                        <h3>Instructors</h3>
-
-                                                        <div class="row clearfix">
-
-                                                            <!-- Student Block -->
-                                                            <div class="student-block col-lg-6 col-md-6 col-sm-12">
-                                                                <div class="block-inner">
-                                                                    <div class="image">
-                                                                        <img src="{{asset('site/images/resource/student-1.jpg')}}" alt="">
-                                                                    </div>
-                                                                    <h2>Stephane Smith</h2>
-                                                                    <div class="text">Certified instructor Architecture& Developer</div>
-                                                                    <div class="social-box">
-                                                                        <a href="#" class="fa fa-facebook-square"></a>
-                                                                        <a href="#" class="fa fa-twitter-square"></a>
-                                                                        <a href="#" class="fa fa-linkedin-square"></a>
-                                                                        <a href="#" class="fa fa-github"></a>
-                                                                    </div>
-                                                                    <a href="#" class="more">Know More <span class="fa fa-angle-left"></span></a>
-                                                                </div>
-                                                            </div>
-
-                                                            <!-- Student Block -->
-                                                            <div class="student-block col-lg-6 col-md-6 col-sm-12">
-                                                                <div class="block-inner">
-                                                                    <div class="image">
-                                                                        <img src="{{asset('site/images/resource/student-2.jpg')}}" alt="">
-                                                                    </div>
-                                                                    <h2>Marvin Zona</h2>
-                                                                    <div class="text">Certified instructor Architecture& Developer</div>
-                                                                    <div class="social-box">
-                                                                        <a href="#" class="fa fa-facebook-square"></a>
-                                                                        <a href="#" class="fa fa-twitter-square"></a>
-                                                                        <a href="#" class="fa fa-linkedin-square"></a>
-                                                                        <a href="#" class="fa fa-github"></a>
-                                                                    </div>
-                                                                    <a href="#" class="more">Know More <span class="fa fa-angle-left"></span></a>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
 
                                                     </div>
                                                 </div>
@@ -97,154 +60,65 @@
 
                                                 <!-- Accordion Box -->
                                                 <ul class="accordion-box">
-
                                                     <!-- Block -->
-                                                    <li class="accordion block">
-                                                        <div class="acc-btn active"><div class="icon-outer"><span class="icon icon-plus flaticon-angle-arrow-down"></span></div> UI/ UX Introduction</div>
-                                                        <div class="acc-content current">
-                                                            <div class="content">
-                                                                <div class="clearfix">
-                                                                    <div class="pull-left">
-                                                                        <a href="https://www.youtube.com/watch?v=kxPCFljwJws" class="lightbox-image play-icon"><span class="fa fa-play"></span>What is UI/ UX Design?</a>
-                                                                    </div>
-                                                                    <div class="pull-right">
-                                                                        <div class="minutes">35 Minutes</div>
-                                                                    </div>
+                                                    @foreach($training->titles as $k=> $title)
+                                                        <li class="accordion block">
+                                                            <div class="acc-btn @if($k==0)active @endif">
+                                                                <div class="icon-outer"><span
+                                                                        class="icon icon-plus flaticon-angle-arrow-down"></span>
                                                                 </div>
+                                                                {{$title->name}}
                                                             </div>
-                                                            <div class="content">
-                                                                <div class="clearfix">
-                                                                    <div class="pull-left">
-                                                                        <a href="https://www.youtube.com/watch?v=kxPCFljwJws" class="lightbox-image play-icon"><span class="fa fa-play"><i class="ripple"></i></span>What is UI/ UX Design?</a>
-                                                                    </div>
-                                                                    <div class="pull-right">
-                                                                        <div class="minutes">35 Minutes</div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="content">
-                                                                <div class="clearfix">
-                                                                    <div class="pull-left">
-                                                                        <a href="https://www.youtube.com/watch?v=kxPCFljwJws" class="lightbox-image play-icon"><span class="fa fa-play"></span>What is UI/ UX Design?</a>
-                                                                    </div>
-                                                                    <div class="pull-right">
-                                                                        <div class="minutes">35 Minutes</div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
 
-                                                    <!-- Block -->
-                                                    <li class="accordion block">
-                                                        <div class="acc-btn"><div class="icon-outer"><span class="icon icon-plus flaticon-angle-arrow-down"></span></div> Color Theory</div>
-                                                        <div class="acc-content">
-                                                            <div class="content">
-                                                                <div class="clearfix">
-                                                                    <div class="pull-left">
-                                                                        <a href="https://www.youtube.com/watch?v=kxPCFljwJws" class="lightbox-image play-icon"><span class="fa fa-play"></span>What is UI/ UX Design?</a>
-                                                                    </div>
-                                                                    <div class="pull-right">
-                                                                        <div class="minutes">35 Minutes</div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="content">
-                                                                <div class="clearfix">
-                                                                    <div class="pull-left">
-                                                                        <a href="https://www.youtube.com/watch?v=kxPCFljwJws" class="lightbox-image play-icon"><span class="fa fa-play"><i class="ripple"></i></span>What is UI/ UX Design?</a>
-                                                                    </div>
-                                                                    <div class="pull-right">
-                                                                        <div class="minutes">35 Minutes</div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="content">
-                                                                <div class="clearfix">
-                                                                    <div class="pull-left">
-                                                                        <a href="https://www.youtube.com/watch?v=kxPCFljwJws" class="lightbox-image play-icon"><span class="fa fa-play"></span>What is UI/ UX Design?</a>
-                                                                    </div>
-                                                                    <div class="pull-right">
-                                                                        <div class="minutes">35 Minutes</div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
+                                                            <div class="acc-content @if($k==0)current @endif ">
+                                                                @forelse($title->contents as $content )
+                                                                    <div class="content">
+                                                                        <div class="clearfix">
+                                                                            <div class="pull-right">
+                                                                                <a href="void(0)"
+                                                                                   data-content="{{$content}}"
+                                                                                   class="showContent">
 
-                                                    <!-- Block -->
-                                                    <li class="accordion block">
-                                                        <div class="acc-btn"><div class="icon-outer"><span class="icon icon-plus flaticon-angle-arrow-down"></span></div> Basic Typography</div>
-                                                        <div class="acc-content">
-                                                            <div class="content">
-                                                                <div class="clearfix">
-                                                                    <div class="pull-left">
-                                                                        <a href="https://www.youtube.com/watch?v=kxPCFljwJws" class="lightbox-image play-icon"><span class="fa fa-play"></span>What is UI/ UX Design?</a>
-                                                                    </div>
-                                                                    <div class="pull-right">
-                                                                        <div class="minutes">35 Minutes</div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="content">
-                                                                <div class="clearfix">
-                                                                    <div class="pull-left">
-                                                                        <a href="https://www.youtube.com/watch?v=kxPCFljwJws" class="lightbox-image play-icon"><span class="fa fa-play"><i class="ripple"></i></span>What is UI/ UX Design?</a>
-                                                                    </div>
-                                                                    <div class="pull-right">
-                                                                        <div class="minutes">35 Minutes</div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="content">
-                                                                <div class="clearfix">
-                                                                    <div class="pull-left">
-                                                                        <a href="https://www.youtube.com/watch?v=kxPCFljwJws" class="lightbox-image play-icon"><span class="fa fa-play"></span>What is UI/ UX Design?</a>
-                                                                    </div>
-                                                                    <div class="pull-right">
-                                                                        <div class="minutes">35 Minutes</div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
 
-                                                    <!-- Block -->
-                                                    <li class="accordion block">
-                                                        <div class="acc-btn"><div class="icon-outer"><span class="icon icon-plus flaticon-angle-arrow-down"></span></div> Wireframing & Prototyping</div>
-                                                        <div class="acc-content">
-                                                            <div class="content">
-                                                                <div class="clearfix">
-                                                                    <div class="pull-left">
-                                                                        <a href="https://www.youtube.com/watch?v=kxPCFljwJws" class="lightbox-image play-icon"><span class="fa fa-play"></span>What is UI/ UX Design?</a>
+                                                                                    {{$content->title}}
+                                                                                </a>
+                                                                            </div>
+                                                                            <div class="pull-left">
+                                                                                @if($content->video_url!=null)
+                                                                                    <a href="{{$content->video_url}}"
+                                                                                       class="lightbox-image play-icon">
+                                                                                    <span class="fa fa-play"><i
+                                                                                            class="ripple"></i></span>
+                                                                                    </a>
+                                                                                @endif
+
+                                                                                @if($content->sound!=null)
+                                                                                    <a href="{{$content->sound}}"
+                                                                                       class="lightbox-image play-icon">
+                                                                                    <span class="fa fa-file-sound-o"><i
+                                                                                            class="ripple"></i></span>
+                                                                                    </a>
+                                                                                @endif
+                                                                                @if($content->book!=null)
+                                                                                    <a href="{{$content->book}}"
+                                                                                       class="lightbox-image play-icon">
+                                                                                    <span class="fa fa-file-pdf-o"><i
+                                                                                            class="ripple"></i></span>
+                                                                                    </a>
+                                                                                @endif
+
+
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="pull-right">
-                                                                        <div class="minutes">35 Minutes</div>
-                                                                    </div>
-                                                                </div>
+                                                                @empty
+                                                                    <p>لا يوجد محتوى </p>
+                                                                @endforelse
+
                                                             </div>
-                                                            <div class="content">
-                                                                <div class="clearfix">
-                                                                    <div class="pull-left">
-                                                                        <a href="https://www.youtube.com/watch?v=kxPCFljwJws" class="lightbox-image play-icon"><span class="fa fa-play"><i class="ripple"></i></span>What is UI/ UX Design?</a>
-                                                                    </div>
-                                                                    <div class="pull-right">
-                                                                        <div class="minutes">35 Minutes</div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="content">
-                                                                <div class="clearfix">
-                                                                    <div class="pull-left">
-                                                                        <a href="https://www.youtube.com/watch?v=kxPCFljwJws" class="lightbox-image play-icon"><span class="fa fa-play"></span>What is UI/ UX Design?</a>
-                                                                    </div>
-                                                                    <div class="pull-right">
-                                                                        <div class="minutes">35 Minutes</div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
+
+                                                        </li>
+                                                    @endforeach
 
                                                 </ul>
 
@@ -258,7 +132,7 @@
                                                 <div id="quiz">
                                                     <h1 id="quiz-name"></h1>
                                                     <button id="submit-button">انهاء وحفظ الاختبار</button>
-                                                    <button id="next-question-button">التالي </button>
+                                                    <button id="next-question-button">التالي</button>
                                                     <button id="prev-question-button">السابق</button>
 
                                                     <div id="quiz-results">
@@ -280,9 +154,18 @@
                                                 <div class="cource-review-box">
                                                     <h4>Stephane Smith</h4>
                                                     <div class="rating">
-                                                        <span class="total-rating">4.5</span> <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>&ensp; 256 Reviews
+                                                        <span class="total-rating">4.5</span> <span
+                                                            class="fa fa-star"></span><span
+                                                            class="fa fa-star"></span><span
+                                                            class="fa fa-star"></span><span
+                                                            class="fa fa-star"></span><span class="fa fa-star"></span>&ensp;
+                                                        256 Reviews
                                                     </div>
-                                                    <div class="text">Phasellus enim magna, varius et commodo ut, ultricies vitae velit. Ut nulla tellus, eleifend euismod pellentesque vel, sagittis vel justo. In libero urna, venenatis sit amet ornare non, suscipit nec risus.</div>
+                                                    <div class="text">Phasellus enim magna, varius et commodo ut,
+                                                        ultricies vitae velit. Ut nulla tellus, eleifend euismod
+                                                        pellentesque vel, sagittis vel justo. In libero urna, venenatis
+                                                        sit amet ornare non, suscipit nec risus.
+                                                    </div>
                                                     <div class="helpful">Was this review helpful?</div>
                                                     <ul class="like-option">
                                                         <li><span class="icon fa fa-thumbs-o-up"></span></li>
@@ -294,9 +177,18 @@
                                                 <div class="cource-review-box">
                                                     <h4>Anna Sthesia</h4>
                                                     <div class="rating">
-                                                        <span class="total-rating">4.5</span> <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>&ensp; 256 Reviews
+                                                        <span class="total-rating">4.5</span> <span
+                                                            class="fa fa-star"></span><span
+                                                            class="fa fa-star"></span><span
+                                                            class="fa fa-star"></span><span
+                                                            class="fa fa-star"></span><span class="fa fa-star"></span>&ensp;
+                                                        256 Reviews
                                                     </div>
-                                                    <div class="text">Phasellus enim magna, varius et commodo ut, ultricies vitae velit. Ut nulla tellus, eleifend euismod pellentesque vel, sagittis vel justo. In libero urna, venenatis sit amet ornare non, suscipit nec risus.</div>
+                                                    <div class="text">Phasellus enim magna, varius et commodo ut,
+                                                        ultricies vitae velit. Ut nulla tellus, eleifend euismod
+                                                        pellentesque vel, sagittis vel justo. In libero urna, venenatis
+                                                        sit amet ornare non, suscipit nec risus.
+                                                    </div>
                                                     <div class="helpful">Was this review helpful?</div>
                                                     <ul class="like-option">
                                                         <li><span class="icon fa fa-thumbs-o-up"></span></li>
@@ -308,9 +200,18 @@
                                                 <div class="cource-review-box">
                                                     <h4>Petey Cruiser</h4>
                                                     <div class="rating">
-                                                        <span class="total-rating">4.5</span> <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>&ensp; 256 Reviews
+                                                        <span class="total-rating">4.5</span> <span
+                                                            class="fa fa-star"></span><span
+                                                            class="fa fa-star"></span><span
+                                                            class="fa fa-star"></span><span
+                                                            class="fa fa-star"></span><span class="fa fa-star"></span>&ensp;
+                                                        256 Reviews
                                                     </div>
-                                                    <div class="text">Phasellus enim magna, varius et commodo ut, ultricies vitae velit. Ut nulla tellus, eleifend euismod pellentesque vel, sagittis vel justo. In libero urna, venenatis sit amet ornare non, suscipit nec risus.</div>
+                                                    <div class="text">Phasellus enim magna, varius et commodo ut,
+                                                        ultricies vitae velit. Ut nulla tellus, eleifend euismod
+                                                        pellentesque vel, sagittis vel justo. In libero urna, venenatis
+                                                        sit amet ornare non, suscipit nec risus.
+                                                    </div>
                                                     <div class="helpful">Was this review helpful?</div>
                                                     <ul class="like-option">
                                                         <li><span class="icon fa fa-thumbs-o-up"></span></li>
@@ -322,9 +223,18 @@
                                                 <div class="cource-review-box">
                                                     <h4>Rick O'Shea</h4>
                                                     <div class="rating">
-                                                        <span class="total-rating">4.5</span> <span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>&ensp; 256 Reviews
+                                                        <span class="total-rating">4.5</span> <span
+                                                            class="fa fa-star"></span><span
+                                                            class="fa fa-star"></span><span
+                                                            class="fa fa-star"></span><span
+                                                            class="fa fa-star"></span><span class="fa fa-star"></span>&ensp;
+                                                        256 Reviews
                                                     </div>
-                                                    <div class="text">Phasellus enim magna, varius et commodo ut, ultricies vitae velit. Ut nulla tellus, eleifend euismod pellentesque vel, sagittis vel justo. In libero urna, venenatis sit amet ornare non, suscipit nec risus.</div>
+                                                    <div class="text">Phasellus enim magna, varius et commodo ut,
+                                                        ultricies vitae velit. Ut nulla tellus, eleifend euismod
+                                                        pellentesque vel, sagittis vel justo. In libero urna, venenatis
+                                                        sit amet ornare non, suscipit nec risus.
+                                                    </div>
                                                     <div class="helpful">Was this review helpful?</div>
                                                     <ul class="like-option">
                                                         <li><span class="icon fa fa-thumbs-o-up"></span></li>
@@ -350,16 +260,21 @@
                         <div class="inner-column sticky-top">
 
                             <!-- Video Box -->
-                            <div class="intro-video" style="background-image:url('{{asset("site/images/resource/video-image-1.jpg")}}')">
-                                <a href="https://www.youtube.com/watch?v=kxPCFljwJws" class="lightbox-image intro-video-box"><span class="fa fa-play"><i class="ripple"></i></span></a>
+                            <div class="intro-video"
+                                 style="background-image:url('{{asset("site/images/resource/video-image-1.jpg")}}')">
+                                <a href="https://www.youtube.com/watch?v=kxPCFljwJws"
+                                   class="lightbox-image intro-video-box"><span class="fa fa-play"><i
+                                            class="ripple"></i></span></a>
                                 <h4>Preview this course</h4>
                             </div>
                             <!-- End Video Box -->
                             <div class="price">$11.99</div>
                             <div class="time-left">23 hours left at this price!</div>
 
-                            <a href="#" class="theme-btn btn-style-three"><span class="txt">Add To Cart <i class="fa fa-angle-left"></i></span></a>
-                            <a href="#" class="theme-btn btn-style-two"><span class="txt">Buy Now <i class="fa fa-angle-left"></i></span></a>
+                            <a href="#" class="theme-btn btn-style-three"><span class="txt">Add To Cart <i
+                                        class="fa fa-angle-left"></i></span></a>
+                            <a href="#" class="theme-btn btn-style-two"><span class="txt">Buy Now <i
+                                        class="fa fa-angle-left"></i></span></a>
                         </div>
                     </div>
 
@@ -369,41 +284,65 @@
         </div>
     </section>
     <!-- End intro Courses -->
+    <div id="formModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="modal-title"></h4>
+                </div>
+                <div class="modal-body" id="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 @endsection
 
 @section('js')
     <script>
+        $(document).on('click', '.showContent', function (event) {
+            //
+            event.preventDefault();
+            var content = $(this).data('content');
+
+            $('#modal-title').html(content.title);
+            $('#modal-body').html(content.body);
+            $('#formModal').modal('show');
+        });
+
+
         // Array of all the questions and choices to populate the questions. This might be saved in some JSON file or a database and we would have to read the data in.
-        var all_questions = [{
-            question_string: "What color is the sky?",
-            choices: {
-                correct: "Blue",
-                wrong: ["Pink", "Orange", "Green"]
-            }
-        }, {
-            question_string: "Which of the following elements aren’t introduced in HTML5?",
-            choices: {
-                correct: "<input>",
-                wrong: ["<article>", "<footer>", "<hgroup>"]
-            }
-        }, {
-            question_string: "How many wheels are there on a tricycle?",
-            choices: {
-                correct: "Three",
-                wrong: ["One", "Two", "Four"]
-            }
-        }, {
-            question_string: 'Who is the main character of Harry Potter?',
-            choices: {
-                correct: "Harry Potter",
-                wrong: ["Hermione Granger", "Ron Weasley", "Voldemort"]
-            }
-        }];
+        var all_questions = [
+            {
+                question_string: "What color is the sky?",
+                choices: {
+                    correct: "Blue",
+                    wrong: ["Pink", "Orange", "Green"]
+                }
+            }, {
+                question_string: "Which of the following elements aren’t introduced in HTML5?",
+                choices: {
+                    correct: "<input>",
+                    wrong: ["<article>", "<footer>", "<hgroup>"]
+                }
+            }, {
+                question_string: "How many wheels are there on a tricycle?",
+                choices: {
+                    correct: "Three",
+                    wrong: ["One", "Two", "Four"]
+                }
+            }, {
+                question_string: 'Who is the main character of Harry Potter?',
+                choices: {
+                    correct: "Harry Potter",
+                    wrong: ["Hermione Granger", "Ron Weasley", "Voldemort"]
+                }
+            }];
 
         // An object for a Quiz, which will contain Question objects.
-        var Quiz = function(quiz_name) {
+        var Quiz = function (quiz_name) {
             // Private fields for an instance of a Quiz object.
             this.quiz_name = quiz_name;
 
@@ -412,14 +351,14 @@
         }
 
         // A function that you can enact on an instance of a quiz object. This function is called add_question() and takes in a Question object which it will add to the questions field.
-        Quiz.prototype.add_question = function(question) {
+        Quiz.prototype.add_question = function (question) {
             // Randomly choose where to add question
             var index_to_add_question = Math.floor(Math.random() * this.questions.length);
             this.questions.splice(index_to_add_question, 0, question);
         }
 
         // A function that you can enact on an instance of a quiz object. This function is called render() and takes in a variable called the container, which is the <div> that I will render the quiz in.
-        Quiz.prototype.render = function(container) {
+        Quiz.prototype.render = function (container) {
             // For when we're out of scope
             var self = this;
 
@@ -455,7 +394,7 @@
             change_question();
 
             // Add listener for the previous question button
-            $('#prev-question-button').click(function() {
+            $('#prev-question-button').click(function () {
                 if (current_question_index > 0) {
                     current_question_index--;
                     change_question();
@@ -463,7 +402,7 @@
             });
 
             // Add listener for the next question button
-            $('#next-question-button').click(function() {
+            $('#next-question-button').click(function () {
                 if (current_question_index < self.questions.length - 1) {
                     current_question_index++;
                     change_question();
@@ -471,7 +410,7 @@
             });
 
             // Add listener for the submit answers button
-            $('#submit-button').click(function() {
+            $('#submit-button').click(function () {
                 // Determine how many questions the user got right
                 var score = 0;
                 for (var i = 0; i < self.questions.length; i++) {
@@ -479,12 +418,11 @@
                         score++;
                     }
 
-                    $('#quiz-retry-button').click(function(reset) {
+                    $('#quiz-retry-button').click(function (reset) {
                         quiz.render(quiz_container);
                     });
 
                 }
-
 
 
                 // Display the score with the appropriate message
@@ -511,7 +449,7 @@
             });
 
             // Add a listener on the questions container to listen for user select changes. This is for determining whether we can submit answers or not.
-            question_container.bind('user-select-change', function() {
+            question_container.bind('user-select-change', function () {
                 var all_questions_answered = true;
                 for (var i = 0; i < self.questions.length; i++) {
                     if (self.questions[i].user_choice_index === null) {
@@ -524,7 +462,7 @@
         }
 
         // An object for a Question, which contains the question, the correct choice, and wrong choices. This block is the constructor.
-        var Question = function(question_string, correct_choice, wrong_choices) {
+        var Question = function (question_string, correct_choice, wrong_choices) {
             // Private fields for an instance of a Question object.
             this.question_string = question_string;
             this.choices = [];
@@ -550,7 +488,7 @@
         }
 
         // A function that you can enact on an instance of a question object. This function is called render() and takes in a variable called the container, which is the <div> that I will render the question in. This question will "return" with the score when the question has been answered.
-        Question.prototype.render = function(container) {
+        Question.prototype.render = function (container) {
             // For when we're out of scope
             var self = this;
 
@@ -565,7 +503,7 @@
 
             // Clear any radio buttons and create new ones
             if (container.children('input[type=radio]').length > 0) {
-                container.children('input[type=radio]').each(function() {
+                container.children('input[type=radio]').each(function () {
                     var radio_button_id = $(this).attr('id');
                     $(this).remove();
                     container.children('label[for=' + radio_button_id + ']').remove();
@@ -589,7 +527,7 @@
             }
 
             // Add a listener for the radio button to change which one the user has clicked on
-            $('input[name=choices]').change(function(index) {
+            $('input[name=choices]').change(function (index) {
                 var selected_radio_button_value = $('input[name=choices]:checked').val();
 
                 // Change the user choice index
@@ -601,8 +539,13 @@
         }
 
         // "Main method" which will create all the objects and render the Quiz.
-        $(document).ready(function() {
+        $(document).ready(function () {
+
+        });
+
+        $(document).on('click', '#mcq_tap_open', function (event) {
             // Create an instance of the Quiz object
+
             var quiz = new Quiz('My Quiz');
 
             // Create Question objects from all_questions and add them to the Quiz object
