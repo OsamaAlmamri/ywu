@@ -10,6 +10,7 @@ Vue.use(VueRouter);
 Vue.use(VueClazyLoad) ;
 // ES6 (Babel and others)
 Vue.component('course-component', require('./components/CourseComponent.vue').default);
+Vue.component('search-filed', require('./components/SearchField.vue').default);
 
 const app = new Vue({
     el: '#app',

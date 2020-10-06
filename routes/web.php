@@ -208,7 +208,7 @@ Route::get('/women', 'HomeController@women')->name('site.women');
 Route::get('/privacy', 'HomeController@privacy')->name('site.privacy');
 Route::get('/concatUs', 'HomeController@concatUs')->name('site.concatUs');
 Route::get('/about', 'HomeController@about')->name('site.about');
-Route::get('/course_detail/{id?}', 'HomeController@course_detail')->name('site.course_detail');
+Route::get('/course_details/{id?}', 'HomeController@course_detail')->name('site.course_detail');
 Route::get('/womwn_details/{id?}', 'HomeController@womwn_details')->name('site.womwn_details');
 Route::get('/myProfile', 'HomeController@myProfile')->name('site.myProfile');
 Route::get('/site_login', 'HomeController@login')->name('site.login');

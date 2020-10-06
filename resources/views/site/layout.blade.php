@@ -391,25 +391,26 @@
     </header>
     <!-- End Main Header -->
 
-    <!-- Page Title -->
-    <section class="page-title">
-        <div class="auto-container">
-            <h1> page_title</h1>
-            <!-- Search Boxed -->
-            <div class="search-boxed">
-                <div class="search-box">
-                    <form method="post" action="contact.html">
-                        <div class="form-group">
-                            <input type="search" name="search-field" value="" placeholder=" هل تبحث عن شيء ؟"
-                                   required="">
-                            <button type="submit"><span class="icon fa fa-search"></span></button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--End Page Title-->
+{{--    <!-- Page Title -->--}}
+{{--    <section class="page-title">--}}
+{{--        <div class="auto-container">--}}
+{{--            <h1> page_title</h1>--}}
+{{--            <!-- Search Boxed -->--}}
+{{--            <div class="search-boxed">--}}
+{{--                <div class="search-box">--}}
+{{--                    <form method="post" action="contact.html">--}}
+{{--                        <div class="form-group">--}}
+{{--                            <input type="search" name="search-field" value="" placeholder=" هل تبحث عن شيء ؟"--}}
+{{--                                   required="">--}}
+{{--                            <button type="submit"><span class="icon fa fa-search"></span></button>--}}
+{{--                        </div>--}}
+{{--                    </form>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </section>--}}
+{{--    <!--End Page Title-->--}}
+    <search-filed title="courses"></search-filed>
 
     <router-view></router-view>
 

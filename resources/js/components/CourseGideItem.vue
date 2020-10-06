@@ -2,7 +2,7 @@
 
     <div class="inner-box">
         <div class="image">
-            <a :href="training.id">
+            <router-link  :to="{ name: 'course_details', params: { id: training.id}}">
                 <clazy-load class="wrapper"  :src="'assets/images/' + training.thumbnail" >
                     <transition name="fade">
                         <div class="divClass"
@@ -17,10 +17,14 @@
                         </div>
                     </transition>
                 </clazy-load>
-            </a>
+            </router-link>
         </div>
         <div class="lower-content">
-            <h5><a href="">{{training.name}}</a>
+            <h5>
+                <router-link  :to="{ name: 'course_details', params: { id: training.id}}">
+
+                {{training.name}}
+                </router-link>
             </h5>
 
             <div class="clearfix">

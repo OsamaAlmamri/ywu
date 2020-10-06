@@ -15,12 +15,12 @@
                     <form method="post" action="index.html">
                         <div class="form-group">
                             <label>الايميل او رقم الهاتف </label>
-                            <input type="text" name="username" value="" placeholder="الايميل او رقم الهاتف  " required="">
+                            <input type="text" name="username" v-bind="form.email" value="" placeholder="الايميل او رقم الهاتف  " required="">
                         </div>
                         <div class="form-group">
                             <label>كلمة السر</label>
                             <span class="eye-icon flaticon-eye"></span>
-                            <input type="password" name="password" value="" placeholder="كلمة السر" required="">
+                            <input type="password" name="password" value="" v-bind="form.password"  placeholder="كلمة السر" required="">
                         </div>
                         <div class="form-group">
                             <div class="clearfix">

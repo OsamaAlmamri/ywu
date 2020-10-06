@@ -1,7 +1,7 @@
 <template>
 <div>
     <section class="banner-section">
-        <div class="pattern-layer" style="background-image: url('site/images/background/1.png')"></div>
+        <div class="pattern-layer" style="background-image: url('/site/images/background/1.png')"></div>
         <div class="auto-container">
 
             <!-- Content Boxed -->
@@ -19,9 +19,9 @@
 
             <!-- Image Boxed -->
             <div class="image titlt" data-tilt="" data-tilt-max="4">
-                <a href="site/images/resource/banner.png')}}" data-fancybox="banner" data-caption=""
+                <a href="site/images/resource/banner.png" data-fancybox="banner" data-caption=""
                    class=""><img
-                    src="site/images/resource/banner.png')}}" alt=""></a>
+                    src="site/images/resource/banner.png" alt=""></a>
             </div>
 
             <!-- Search Boxed -->
@@ -53,7 +53,7 @@
                 <div class="image-column col-lg-6 col-md-12 col-sm-12">
                     <div class="inner-column parallax-scene-1">
                         <div class="image parallax-layer" data-depth="0.30">
-                            <img src="site/images/resource/education.png')}}" alt="">
+                            <img src="site/images/resource/education.png" alt="">
                         </div>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
                 <div class="cource-block col-lg-4 col-md-6 col-sm-12">
                     <div class="inner-box">
                         <div class="image">
-                            <a href="course-detail.html"><img src="site/images/resource/course-1.jpg')}}"
+                            <a href="course-detail.html"><img src="site/images/resource/course-1.jpg"
                                                               alt=""></a>
                         </div>
                         <div class="lower-content">
@@ -130,7 +130,7 @@
                 <div class="cource-block col-lg-4 col-md-6 col-sm-12">
                     <div class="inner-box">
                         <div class="image">
-                            <a href="course-detail.html"><img src="site/images/resource/course-2.jpg')}}"
+                            <a href="course-detail.html"><img src="site/images/resource/course-2.jpg"
                                                               alt=""></a>
                         </div>
                         <div class="lower-content">
@@ -161,7 +161,7 @@
                 <div class="cource-block col-lg-4 col-md-6 col-sm-12">
                     <div class="inner-box">
                         <div class="image">
-                            <a href="course-detail.html"><img src="site/images/resource/course-3.jpg')}}"
+                            <a href="course-detail.html"><img src="site/images/resource/course-3.jpg"
                                                               alt=""></a>
                         </div>
                         <div class="lower-content">
@@ -192,7 +192,7 @@
                 <div class="cource-block col-lg-4 col-md-6 col-sm-12">
                     <div class="inner-box">
                         <div class="image">
-                            <a href="course-detail.html"><img src="site/images/resource/course-4.jpg')}}"
+                            <a href="course-detail.html"><img src="site/images/resource/course-4.jpg"
                                                               alt=""></a>
                         </div>
                         <div class="lower-content">
@@ -223,7 +223,7 @@
                 <div class="cource-block col-lg-4 col-md-6 col-sm-12">
                     <div class="inner-box">
                         <div class="image">
-                            <a href="course-detail.html"><img src="site/images/resource/course-5.jpg')}}"
+                            <a href="course-detail.html"><img src="site/images/resource/course-5.jpg"
                                                               alt=""></a>
                         </div>
                         <div class="lower-content">
@@ -380,7 +380,7 @@
 
             <!-- Image Column -->
             <div class="image-column" style="background-image:url('site/images/resource/image-1.jpg')">
-            <figure class="image-box"><img src="site/images/resource/image-1.jpg')}}" alt=""></figure>
+            <figure class="image-box"><img src="site/images/resource/image-1.jpg" alt=""></figure>
         </div>
 
         <!-- Content Column -->
@@ -478,7 +478,7 @@
                 <div class="news-block col-lg-6 col-md-12 col-sm-12">
                     <div class="inner-box">
                         <div class="image">
-                            <a href="blog-detail.html"><img src="site/images/resource/news-1.jpg')}}"
+                            <a href="blog-detail.html"><img src="site/images/resource/news-1.jpg"
                                                             alt=""></a>
                         </div>
                         <div class="lower-content">

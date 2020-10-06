@@ -77,6 +77,23 @@ class TrainingController extends Controller
         }
     }
 
+    public function index2(Request $request)
+    {
+        try {
+            $Training = Training::with(['result','category', 'is_register', 'titles' => function ($q) {
+                $q->with(['contents', 'is_complete:title_id,created_at']);
+            }])
+                ->where('id', $request->id)->get()->first();
+            if (!$Training) {
+                return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
+            } else {
+                return $this->GetDateResponse('Trainings', $Training);
+            }
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
     public function getTrainingQuestions(Request $request)
     {
         try {

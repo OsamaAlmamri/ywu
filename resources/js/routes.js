@@ -6,6 +6,8 @@ import Dashboard from './components/Dashboard';
 import NotFound from './components/NotFound';
 import Course from './components/CourseComponent';
 import concatUs from './components/ConcatUs';
+import Privacy from './components/Privacy';
+import CourseDetails from './components/CourseDeatailsComponent';
 
 
 export default {
@@ -20,6 +22,15 @@ export default {
             path: '/courses',
             component: Course,
             name: "Courses"
+        }, {
+            path: '/course_details/:id',
+            component: CourseDetails,
+            name: "course_details",
+        },
+        {
+            path: '/privacy',
+            component: Privacy,
+            name: "Privacy"
         },
         {
             path: '/',

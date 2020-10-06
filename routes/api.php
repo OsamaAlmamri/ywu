@@ -137,6 +137,8 @@ Route::post('DeleteContent/{id}', 'Api\Trainings\ContentController@destroy');
 
 ######################################## employee categories and trainings part
 Route::post('ShowTrainingsCategory', 'EmpCateTrainingsController@index');
+Route::post('ShowTrainings2', 'Api\Trainings\TrainingController@index2');
+
 //Route::post('ShowContentId/{id}', 'Api\Trainings\ContentController@show');
 //Route::post('StoreContent', 'Api\Trainings\ContentController@store');
 //Route::post('UpdateContent/{id}', 'Api\Trainings\ContentController@update');
