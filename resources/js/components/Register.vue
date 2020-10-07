@@ -47,27 +47,27 @@
                             <!-- Form Group -->
                             <div class="form-group col-lg-6 col-md-12 col-sm-12">
                                 <label>الاسم </label>
-                                <input type="text" name="username" value="" placeholder=" الاسم" required="">
+                                <input type="text" v-model="name" placeholder=" الاسم" required="">
                             </div>
 
 
                             <!-- Form Group -->
                             <div class="form-group col-lg-6 col-md-12 col-sm-12">
                                 <label> رقم الهاتف</label>
-                                <input type="text" name="phone" value="" placeholder="777777777" required="">
+                                <input type="text" v-model="phone"  placeholder="777777777" required="">
                             </div>
 
 
                             <!-- Form Group -->
                             <div class="form-group col-lg-6 col-md-12 col-sm-12" style="display: none" id="dev_email">
                                 <label>الايميل </label>
-                                <input type="email" name="email" id="form_email" value="" placeholder="abcd@gmail.com">
+                                <input type="email" name="email" v-model="email" id="form_email" value="" placeholder="abcd@gmail.com">
                             </div>
 
                             <!-- Form Group -->
                             <div class="form-group col-lg-6 col-md-12 col-sm-12"  style="display: none" id="dev_destination">
                                 <label> الجهة</label>
-                                <input type="text" name="destination" id="form_destination" value=""
+                                <input type="text" name="destination" v-model="destination"  id="form_destination" value=""
                                        placeholder="الجهة">
                             </div>
 
@@ -76,14 +76,14 @@
                             <div class="form-group col-lg-6 col-md-12 col-sm-12">
                                 <label>كلمة السر</label>
                                 <span class="eye-icon flaticon-eye"></span>
-                                <input type="password" name="password" value="" placeholder="كلمة السر" required="">
+                                <input type="password" name="password" v-model="password" placeholder="كلمة السر" required="">
                             </div>
 
                             <!-- Form Group -->
                             <div class="form-group col-lg-6 col-md-12 col-sm-12">
                                 <label> تاكيد كلمة السر</label>
                                 <span class="eye-icon flaticon-eye"></span>
-                                <input type="password" name="password" value="" placeholder="تاكيد كلمة السر"
+                                <input type="password" name="password" v-model="password_confirmation"  placeholder="تاكيد كلمة السر"
                                        required="">
                             </div>
 
@@ -109,28 +109,45 @@
     <!-- End Login Section -->
 </template>
 <script>
-export default {
-    data(){
-        return{
-            form:{
+    export default {
+        data() {
+            return {
                 name: '',
                 email: '',
-                password:'',
-                password_confirmation:''
-            },
-            errors:[]
-        }
-    },
-    methods:{
-        saveForm(){
-            axios.post('/api/register', this.form).then(() =>{
-                console.log('saved');
-            }).catch((error) =>{
-                this.errors = error.response.data.errors;
-            })
+                password: '',
+                destination: '',
+                password_confirmation: '',
+                has_error: false,
+                error: '',
+                errors: {},
+                success: false
+            }
+        },
+        methods: {
+            register() {
+                var app = this
+                this.$auth.register({
+                    data: {
+                        email: app.email,
+                        password: app.password,
+                        password_confirmation: app.password_confirmation
+                    },
+                    success: function () {
+                        app.success = true
+                        this.$router.push({name: 'login', params: {successRegistrationRedirect: true}})
+                    },
+                    error: function (res) {
+                        console.log(res.response.data.errors)
+                        app.has_error = true
+                        app.error = res.response.data.error
+                        app.errors = res.response.data.errors || {}
+                    }
+                })
+            }
         }
     }
-}
+
+
 </script>
 
 

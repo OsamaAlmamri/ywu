@@ -213,3 +213,7 @@ Route::get('/womwn_details/{id?}', 'HomeController@womwn_details')->name('site.w
 Route::get('/myProfile', 'HomeController@myProfile')->name('site.myProfile');
 Route::get('/site_login', 'HomeController@login')->name('site.login');
 Route::get('/register', 'HomeController@register')->name('site.register');
+Route::get('/login', 'HomeController@register')->name('site.login');
+Route::get('/{any?}', function (){
+    return view('welcome');
+})->where('any', '^(?!api\/)[\/\w\.-]*');

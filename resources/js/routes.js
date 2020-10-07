@@ -12,6 +12,7 @@ import CourseDetails from './components/CourseDeatailsComponent';
 
 export default {
     mode: 'history',
+    history: true,
     linkActiveClass: 'font-semibold',
     routes: [
         {
@@ -21,58 +22,89 @@ export default {
         {
             path: '/courses',
             component: Course,
-            name: "Courses"
+            name: "Courses",
+            meta: {
+                auth: false
+            }
         }, {
             path: '/course_details/:id',
             component: CourseDetails,
             name: "course_details",
+            meta: {
+                auth: true
+            }
         },
         {
             path: '/privacy',
             component: Privacy,
-            name: "Privacy"
+            name: "Privacy",
+            meta: {
+                auth: false
+            }
         },
         {
             path: '/',
             component: Home,
-            name: "Home"
+            name: "Home",
+            meta: {
+                auth: false
+            }
         },
         {
             path: '/concatUs',
             component: concatUs,
-            name: "concatUs"
+            name: "concatUs",
+            meta: {
+                auth: false
+            }
         },
         {
             path: '/home',
             component: Home,
-            name: "Home"
+            name: "Home",
+            meta: {
+                auth: false
+            }
         },
         {
             path: '/about',
-            component: About
+            component: About,
+            meta: {
+                auth: false
+            }
         },
         {
             path: '/register',
-            component: Register
+            component: Register,
+            meta: {
+                auth: false
+            }
         },
         {
             path: '/login',
             component: Login,
-            name: 'Login'
+            name: 'Login',
+            meta: {
+                auth: false
+            }
         },
         {
             path: "/dashboard",
             name: "Dashboard",
-            component: Dashboard,
-            beforeEnter: (to, form, next) => {
-                axios.get('/api/athenticated').then(() => {
-                    next()
-                }).catch(() => {
-                    return next({name: 'Login'})
-                })
-            }
 
-        }
+            component: Dashboard,
+            meta: {
+                auth: {roles: 2, redirect: {name: 'login'}, forbiddenRedirect: '/403'}},
+
+                beforeEnter: (to, form, next) => {
+                    axios.get('/api/athenticated').then(() => {
+                        next()
+                    }).catch(() => {
+                        return next({name: 'Login'})
+                    })
+                }
+
+            }
 
     ]
 }

@@ -109,21 +109,8 @@
                                         <!-- Tab -->
                                         <div class="tab" id="mcq_tap">
                                             <div class="content">
+                                                <course-questions></course-questions>
 
-                                                <div id="quiz">
-                                                    <h1 id="quiz-name"></h1>
-                                                    <button id="submit-button">انهاء وحفظ الاختبار</button>
-                                                    <button id="next-question-button">التالي</button>
-                                                    <button id="prev-question-button">السابق</button>
-
-                                                    <div id="quiz-results">
-
-                                                        <p id="quiz-results-message"></p>
-                                                        <p id="quiz-results-score"></p>
-                                                        <button id="quiz-retry-button">اعادة الاختبار</button>
-
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
 
@@ -267,11 +254,10 @@
 </template>
 
 <script>
-    import question from './Question.vue';
-
+    // import question from './Question.vue';
     export default {
         props: ['items'],
-        components: {question},
+        // components: {question},
         data() {
             return {
                 training: null,

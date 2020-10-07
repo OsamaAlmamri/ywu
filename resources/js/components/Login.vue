@@ -12,15 +12,15 @@
 
                 <!-- Login Form -->
                 <div class="styled-form">
-                    <form method="post" action="index.html">
+                    <form method="post" autocomplete="off" @submit.prevent="loginUser" >
                         <div class="form-group">
                             <label>الايميل او رقم الهاتف </label>
-                            <input type="text" name="username" v-bind="form.email" value="" placeholder="الايميل او رقم الهاتف  " required="">
+                            <input type="text"  v-model="phone"  placeholder="الايميل او رقم الهاتف  " required="">
                         </div>
                         <div class="form-group">
                             <label>كلمة السر</label>
                             <span class="eye-icon flaticon-eye"></span>
-                            <input type="password" name="password" value="" v-bind="form.password"  placeholder="كلمة السر" required="">
+                            <input type="password"   v-model="password"  placeholder="كلمة السر" required="">
                         </div>
                         <div class="form-group">
                             <div class="clearfix">
@@ -36,7 +36,7 @@
                             </div>
                         </div>
                         <div class="form-group text-center">
-                            <button type="button" class="theme-btn btn-style-three"><span class="txt">تسجيل الدخول <i class="fa fa-angle-left"></i></span></button>
+                            <button type="button" @click="loginUser()" class="theme-btn btn-style-three"><span class="txt">تسجيل الدخول <i class="fa fa-angle-left"></i></span></button>
                         </div>
                         <div class="form-group">
                             <div class="users">ليس لديك حساب من قبل ؟ <router-link to="register">انشاء حساب جديد</router-link></div>
@@ -52,24 +52,39 @@
 
 </template>
 <script>
-export default {
-    data(){
-        return{
-            form:{
-                email: '',
-                password: ''
-            },
-            errors: []
+    export default {
+        data() {
+            return {
+                phone: null,
+                password: null,
+                has_error: false
+            }
+        },
+        mounted() {
+            //
+        },
+        methods: {
+            login() {
+                // get the redirect object
+                var redirect = this.$auth.redirect()
+                var app = this
+                this.$auth.login({
+                    params: {
+                        email: app.email,
+                        password: app.password
+                    },
+                    success: function() {
+                        // handle redirection
+                        const redirectTo =  'profile'
+                        this.$router.push({name: redirectTo})
+                    },
+                    error: function() {
+                        app.has_error = true
+                    },
+                    rememberMe: true,
+                    fetchUser: true
+                })
+            }
         }
-    },
-    methods:{
-         loginUser(){
-             axios.post('/api/login', this.form).then(() =>{
-                 this.$router.push({ name: "Dashboard"});
-             }).catch((error) =>{
-         this.errors = error.response.data.errors;
-            })
-         }
     }
-}
 </script>
