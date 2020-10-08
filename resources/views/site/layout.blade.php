@@ -36,245 +36,11 @@
 
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
-
-    <style>
-        {{--    .main-footer {--}}
-{{--        position: relative;--}}
-{{--        background-color: #000000;--}}
-{{--        color: #fafafa;--}}
-{{--    }--}}
-{{--    .main-footer .links-widget li a{--}}
-{{--        color: #fafafa;--}}
-{{--    }--}}
-{{--    .main-footer .footer-widget h4 {--}}
-
-{{--        color: #4CAF50;--}}
-{{--    }--}}
-.divClass {
-            background-repeat: no-repeat;
-            background-size: cover;
-            /*width: 402px;*/
-            width: 100%;
-            height: 223px;
-        }
-
-        .cource-block-two .inner-box .lower-content .hours {
-            font-size: 16px;
-        }
-
-        .intro-section .video-column .intro-video .ripple, .intro-section .video-column .intro-video .ripple:before, .intro-section .video-column .intro-video .ripple:after {
-            right: -100%;
-        }
-
-        .search-box .form-group button {
-            left: auto !important;
-        }
-
-        .search-box .form-group input[type="search"] {
-
-            padding: 10px 83px 10px 25px !important;
-        }
-
-        .sidebar-page-container .comments-area .comment-box .text,
-        .sidebar-page-container .comments-area .comment-box strong {
-
-            padding-right: 100px;
-        }
-
-        .main-footer .logo-widget .logo {
-
-            text-align: center;
-        }
-
-        .main-footer .logo-widget .logo img {
-
-            width: 100px;
-        }
-
-        .cource-block-three .inner-box {
-
-            padding: 35px 300px 30px 30px;
-        }
-
-        .cource-block-four .inner-box {
-
-            padding: 35px 400px 30px 30px;
-        }
-
-        .register-profile-section {
-            position: relative;
-            padding: 140px 0px 90px;
-            background-color: #f0f5fb;
-        }
-
-        .about-us, copy_right {
-            background: transparent;
-            border: 0;
-            margin: 0;
-            padding: 0;
-            vertical-align: baseline;
-            outline: none;
-        }
-
-        footer address, footer .social-icon {
-            padding: 0;
-            margin: 0;
-            font-style: normal;
-            margin-top: 10px;
-        }
-
-        .offset-top-20 {
-            margin-top: 20px;
-        }
-
-        .footer-info .contact-list {
-            margin-top: 10px;
-        }
-
-        .contact-list {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        .footer-info .contact-list li {
-            display: flex;
-            align-items: center;
-        }
-
-        .contact-list li {
-            padding: 0 0 12px 0;
-        }
-
-        .contact-list li i {
-            margin: 0 0 0 15px;
-            float: right;
-            font-size: 18px;
-        }
-
-        .contact-list li i {
-            color: #1b8c03;
-        }
-
-        .contact-list li a {
-            color: #fff;
-            font-size: 16px;
-        }
-
-        .footer_menu_copyright {
-            background: #fff;
-            font-size: 16px;
-            color: #fff;
-            padding: 25px 0;
-        }
-
-        .about-us, copy_right
-        .footer_menu_copyright p {
-            font-size: 16px;
-        }
-
-        margin-bottom:
-
-        0
-        ;
-        }
-        .footer_menu_copyright a {
-            color: #000;
-        }
-
-        @media (min-width: 768px) {
-            .last_footer .developer {
-                margin-top: 0;
-            }
-        }
-
-        .last_footer .developer {
-            margin-top: 10px;
-        }
-
-        .developer p {
-            color: #000;
-        }
-
-        .footer_menu_copyright p {
-            margin-bottom: 0;
-        }
-
-        .footer_menu_copyright {
-            background: #fff;
-            font-size: 16px;
-            color: #fff;
-            padding: 25px 0;
-        }
-
-        .footer_menu_copyright a {
-            color: #000;
-        }
-
-        .footer_menu_copyright a:hover {
-            text-decoration: none;
-            color: #1b8c03;
-        }
-
-        .footer_menu_copyright p {
-            margin-bottom: 0;
-        }
-
-        /** Footer Menu **/
-        .footer_menu {
-            float: right;
-            margin: 0;
-            padding: 0;
-            list-style: none;
-            font-size: 13px;
-        }
-
-        .footer_menu li {
-            float: left;
-            margin: 0 0 0 1px;
-            position: relative;
-        }
-
-        .footer_menu li:first-child {
-            margin: 0;
-        }
-
-        .footer_menu li a {
-            color: #1b8c03;
-            outline: none;
-            padding: 0 18px;
-            display: block
-        }
-
-        .footer_menu li a:hover {
-            text-decoration: none;
-            color: #1b8c03;
-        }
-
-        .last_footer .developer {
-            text-align: left;
-            padding-left: 42px;
-        }
-
-        .contact-info-section .info-column .icon,
-        .contact-info-section .info-column:nth-child(2) .icon {
-
-            color: #00ab15;
-            font-size: 30px;
-
-        }
-    </style>
-
+    <link href="{{asset('site/css/osama.css')  }}" rel="stylesheet">
 </head>
-
 <body>
-
 <div class="page-wrapper" id="app">
 
-    <!-- Preloader -->
-{{--    <div class="preloader"></div>--}}
-
-<!-- Main Header-->
     <header class="main-header header-style-one">
 
         <!-- Header Top -->
@@ -389,32 +155,8 @@
         <!-- End Mobile Menu -->
 
     </header>
-    <!-- End Main Header -->
-
-{{--    <!-- Page Title -->--}}
-{{--    <section class="page-title">--}}
-{{--        <div class="auto-container">--}}
-{{--            <h1> page_title</h1>--}}
-{{--            <!-- Search Boxed -->--}}
-{{--            <div class="search-boxed">--}}
-{{--                <div class="search-box">--}}
-{{--                    <form method="post" action="contact.html">--}}
-{{--                        <div class="form-group">--}}
-{{--                            <input type="search" name="search-field" value="" placeholder=" هل تبحث عن شيء ؟"--}}
-{{--                                   required="">--}}
-{{--                            <button type="submit"><span class="icon fa fa-search"></span></button>--}}
-{{--                        </div>--}}
-{{--                    </form>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </section>--}}
-{{--    <!--End Page Title-->--}}
     <search-filed title="courses"></search-filed>
-
     <router-view></router-view>
-
-
     <!-- Call To Action Section Two -->
     <section class="call-to-action-section-two"
              style="background-image:url('/site/images/background/3.png')">
@@ -433,10 +175,7 @@
             </div>
         </div>
     </section>
-    <!-- End Call To Action Section Two -->
 
-
-    <!--Main Footer-->
     <footer class="main-footer">
         <!-- Pattern Layer -->
         <div class="pattern-layer paroller" data-paroller-factor="0.60" data-paroller-factor-lg="0.20"
@@ -567,9 +306,7 @@
     </div>
 
 </div>
-<!--End pagewrapper-->
 
-<!--Scroll to top-->
 <div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-arrow-circle-up"></span></div>
 {{--//for vue JS--}}
 <script src="{{ asset('js/app.js') }}"></script>
@@ -597,8 +334,6 @@
 <script src="{!! asset('site/js/wow.js') !!}"></script>
 <script src="{!! asset('site/js/jquery-ui.js') !!}"></script>
 <script src="{!! asset('site/js/script.js') !!}"></script>
-
 @yield('js')
-
 </body>
 </html>

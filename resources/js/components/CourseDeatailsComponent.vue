@@ -260,7 +260,27 @@
         // components: {question},
         data() {
             return {
-                training: null,
+                training: {
+                    "id": 0,
+                    "category_id": 0,
+                    "name": "",
+                    "description": "",
+                    "certificate": "",
+                    "mark": "",
+                    "type": "",
+                    "length": "",
+                    "start_at": "",
+                    "end_at": "",
+                    "thumbnail": "",
+                    "published": "",
+                    "result": null,
+                    "category": {
+                        "id":0 ,
+                        "name": " "
+                    },
+                    "is_register": null,
+                    "titles": []
+                },
                 activeIndex: null,
                 sections: [],
                 course_id: '',

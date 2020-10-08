@@ -8,7 +8,7 @@
 @section('models')
 
     <div id="formModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -24,12 +24,7 @@
                                 <input type="text" name="title" id="title" class="form-control"/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-4">المحتوى : </label>
-                            <div class="col-md-8">
-                                <textarea type="text" name="body" id="body" class="form-control"></textarea>
-                            </div>
-                        </div>
+
                         <div class="form-group">
                             <label class="control-label col-md-4">نشر صورة : </label>
                             <div class="col-md-8">
@@ -66,6 +61,12 @@
                             <label class="control-label col-md-4">رابط فيديو : </label>
                             <div class="col-md-8">
                                 <input type="text" name="video" id="video" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">المحتوى : </label>
+                            <div class="col-md-8">
+                                <textarea type="text" name="body" id="body" class="form-control description"></textarea>
                             </div>
                         </div>
                         <br/>

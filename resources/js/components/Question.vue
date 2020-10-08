@@ -142,7 +142,7 @@
         data() {
             return {
                 user: "Dave",
-                questions: null,
+                questions: [],
                 questionIndex: 0,
                 course_id: '',
                 userResponses:0,

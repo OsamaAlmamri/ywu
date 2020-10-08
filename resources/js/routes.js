@@ -45,7 +45,6 @@ export default {
         {
             path: '/',
             component: Home,
-            name: "Home",
             meta: {
                 auth: false
             }
