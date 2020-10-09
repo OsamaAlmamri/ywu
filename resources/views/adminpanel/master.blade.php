@@ -45,7 +45,9 @@
           type="text/css"/>
     <style>
 
-
+        .form-horizontal .control-label {
+            text-align: right !important;
+        }
         td .fa-toggle-on {
             color: #15e408;
             font-size: 25px;

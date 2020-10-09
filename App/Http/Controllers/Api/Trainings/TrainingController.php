@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Trainings;
 
 use App\Http\Controllers\Controller;
 use App\Like;
+use App\Models\Rateable\Rating;
 use App\Models\TrainingContents\SubjectCategory;
 use App\Models\TrainingContents\Training;
 use App\Question;
@@ -14,6 +15,7 @@ use App\UserTraining;
 use App\UserTrainingTiltle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class TrainingController extends Controller
 {
@@ -27,7 +29,7 @@ class TrainingController extends Controller
     {
         $this->emp = Auth::user();
         try {
-            $Training = Training::with(['subject', 'titles', 'is_register'])
+            $Training = Training::with(['titles', 'is_register'])
                 ->where('type', 'خاص')->orwhere('type', 'عام')
                 ->orderByDesc('id')->paginate(20);
             if (!$Training) {
@@ -63,7 +65,7 @@ class TrainingController extends Controller
     public function getTrainingDetails(Request $request)
     {
         try {
-            $Training = Training::with(['result', 'is_register', 'titles' => function ($q) {
+            $Training = Training::with(['ratings', 'result', 'is_register', 'titles' => function ($q) {
                 $q->with(['contents', 'is_complete:title_id,created_at']);
             }])
                 ->where('id', $request->id)->get()->first();
@@ -80,7 +82,7 @@ class TrainingController extends Controller
     public function index2(Request $request)
     {
         try {
-            $Training = Training::with(['result','category', 'is_register', 'titles' => function ($q) {
+            $Training = Training::with(['result', 'category', 'is_register', 'titles' => function ($q) {
                 $q->with(['contents', 'is_complete:title_id,created_at']);
             }])
                 ->where('id', $request->id)->get()->first();
@@ -217,6 +219,8 @@ class TrainingController extends Controller
         try {
             if ($request->type == 'posts')
                 $type = 'posts';
+            elseif ($request->type == 'training')
+                $type = 'training';
             else
                 $type = 'women_posts';
             $likes = Like::where('user_id', auth()->id())->where('liked_id', $request->liked_id)->where('type', $type)->get()->first();
@@ -240,10 +244,7 @@ class TrainingController extends Controller
     public function register_to_training(Request $request)
     {
         try {
-            if ($request->type == 'posts')
-                $type = 'posts';
-            else
-                $type = 'women_posts';
+
             $likes = UserTraining::where('user_id', auth()->id())
                 ->where('training_id', $request->training_id)
                 ->get()->first();
@@ -271,15 +272,26 @@ class TrainingController extends Controller
                     $q->with(['category', 'comments']);
                 }
                 ])->where('user_id', auth()->id())->where('type', 'posts')->get();
-            } else {
-                $type = 'women_posts';
-                $likes = Like::with(['women_post'])->where('user_id', auth()->id())
-                    ->where('type', 'women_posts')->get();
             }
-            return $this->GetDateResponse('data', $likes);
-        } catch (\Exception $ex) {
-            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
-        }
+                elseif  ($request->type == 'trainings') {
+                    $likes = $Training = Training::with(['subject', 'titles', 'is_register'])
+                        ->whereIn('id', function ($query) {
+                            $query->select('liked_id')->from('likes')
+                                ->where('type', 'trainings')
+                                ->where('user_id', Auth::id());
+                        })
+                        ->orderByDesc('id')->get();
+                } else {
+                    $type = 'women_posts';
+                    $likes = Like::with(['women_post'])->where('user_id', auth()->id())
+                        ->where('type', 'women_posts')->get();
+                }
+                return $this->GetDateResponse('data', $likes);
+            }
+        catch
+            (\Exception $ex) {
+                return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+            }
     }
 
     public function update(Request $request, $id)
@@ -318,5 +330,45 @@ class TrainingController extends Controller
         } else {
             return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لحذف هذا المنشور');
         }
+    }
+
+    function rate(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(),
+                [
+                    'course_id' => 'required|numeric',
+                    'rating' => 'required|numeric|min:1|max:5',
+                    'message' => 'required',
+                ]);
+            if ($validator->fails()) {
+                return $this->ReturnErorrRespons('0000', $validator->errors());
+            }
+
+
+            $training = Training::find($request->course_id);
+            $rateable_type = 'App\Models\TrainingContents\Training';
+            $oldRating = Rating::all()
+                ->where('rateable_id', $request->course_id)
+                ->where('user_id', auth()->id())
+                ->where('rateable_type', $rateable_type)->count();
+            if ($oldRating > 0) {
+                return $this->ReturnErorrRespons('0000', 'لايمكن التقييم لاكثر من مرة');
+            } else {
+                $rating = new Rating();
+                $rating->rating = $request->rating;
+                $rating->message = $request->message;
+//                $rating->rateable_id = $request->course_id;
+                $rating->user_id = auth()->id();
+                $training->ratings()->save($rating);
+                return $this->ReturnSuccessRespons("200", "تم التقييم بنجاح  ");
+            }
+
+        } catch (Exception $ex) {
+            return $this->ReturnErorrRespons('0000', $ex->getMessage());
+
+        }
+
+
     }
 }

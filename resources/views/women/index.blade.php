@@ -65,7 +65,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-4">المحتوى : </label>
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <textarea type="text" name="body" id="body" class="form-control description"></textarea>
                             </div>
                         </div>
@@ -126,7 +126,10 @@
 
 @endsection
 @section('custom_js')
+    @include('adminpanel.wyswyg')
+
     <script>
+
         $(document).ready(function () {
 
 
@@ -162,11 +165,11 @@
                         data: 'title',
                         name: 'title'
                     },
-                    {
-                        data: 'body',
-                        title: 'الوصف',
-                        name: 'body'
-                    },
+                    // {
+                    //     data: 'body',
+                    //     title: 'الوصف',
+                    //     name: 'body'
+                    // },
 
                     {
                         data: 'image',
@@ -277,7 +280,9 @@
                     success: function (html) {
                         $('#title').val(html.data.title);
                         $('#video').val(html.data.video_url);
-                        $('#body').val(html.data.body);
+                        // $('#body').val(html.data.body);
+                        tinyMCE.get("body").setContent((html.data.body==null?'':html.data.body));
+
                         $('#store_image').html("<img src={{ URL::to('/') }}/assets/images/" + html.data.image + " width='70' class='img-thumbnail' />");
                         $('#store_image').append("<input type='hidden' name='hidden_image' value='" + html.data.image + "' />");
                         $('#store_book').html("<b>'" + html.data.book + "'</b>");

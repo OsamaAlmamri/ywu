@@ -61427,9 +61427,9 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_5__["default"]);
-Vue.use(vue_axios__WEBPACK_IMPORTED_MODULE_2___default.a, axios__WEBPACK_IMPORTED_MODULE_1___default.a);
-axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.baseURL = "".concat("http://localhost", "/api"); // Vue.use(VueAuth);
+Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_5__["default"]); // Vue.use(VueAxios,axios);
+// axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api` ;
+// Vue.use(VueAuth);
 // Vue.use(VueAuth, auth);
 
 Vue.use(vue_clazy_load__WEBPACK_IMPORTED_MODULE_7___default.a); // ES6 (Babel and others)
@@ -61464,15 +61464,38 @@ __webpack_require__.r(__webpack_exports__);
 var config = {
   auth: _websanova_vue_auth_drivers_auth_bearer__WEBPACK_IMPORTED_MODULE_0__["default"],
   http: _websanova_vue_auth_drivers_http_axios_1_x__WEBPACK_IMPORTED_MODULE_1__["default"],
-  router: _websanova_vue_auth_drivers_router_vue_router_2_x__WEBPACK_IMPORTED_MODULE_2__["default"] // tokenDefaultName: 'laravel-vue-spa',
-  // tokenStore: ['localStorage'],
-  // rolesVar: 'role',
-  // registerData: {url: 'auth/register', method: 'POST', redirect: '/login'},
-  // loginData: {url: 'auth/login', method: 'POST', redirect: '', fetchUser: true},
-  // logoutData: {url: 'auth/logout', method: 'POST', redirect: '/', makeRequest: true},
-  // fetchData: {url: 'auth/user', method: 'GET', enabled: true},
-  // refreshData: {url: 'auth/refresh', method: 'GET', enabled: true, interval: 30}
-
+  router: _websanova_vue_auth_drivers_router_vue_router_2_x__WEBPACK_IMPORTED_MODULE_2__["default"],
+  tokenDefaultName: 'laravel-vue-spa',
+  tokenStore: ['localStorage'],
+  rolesVar: 'role',
+  registerData: {
+    url: 'auth/register',
+    method: 'POST',
+    redirect: '/login'
+  },
+  loginData: {
+    url: 'auth/login',
+    method: 'POST',
+    redirect: '',
+    fetchUser: true
+  },
+  logoutData: {
+    url: 'auth/logout',
+    method: 'POST',
+    redirect: '/',
+    makeRequest: true
+  },
+  fetchData: {
+    url: 'auth/user',
+    method: 'GET',
+    enabled: true
+  },
+  refreshData: {
+    url: 'auth/refresh',
+    method: 'GET',
+    enabled: true,
+    interval: 30
+  }
 };
 /* harmony default export */ __webpack_exports__["default"] = (config);
 

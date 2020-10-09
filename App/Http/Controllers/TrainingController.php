@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Activaty;
 use App\Admin;
+use App\Category_Training;
 use App\Department;
 use App\Models\TrainingContents\Subject;
+use App\Models\TrainingContents\SubjectCategory;
 use App\Models\TrainingContents\Training;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
@@ -22,24 +25,25 @@ class TrainingController extends Controller
 //        return dd($training);
         if (request()->ajax()) {
             if (!empty(request()->filter_country))
-                $training = Training::with('subject')
-                    ->where('subject_id', request()->filter_country)->orderByDesc('id')->get();
+                $training = Training::with('category')
+                    ->where('category_id', request()->filter_country)->orderByDesc('id')->get();
             else
-                $training = Training::with('subject')->orderByDesc('id')->get();
+                $training = Training::with('category')->orderByDesc('id')->get();
             return datatables()->of($training)
                 ->addColumn('content', 'training.btn.content')
                 ->addColumn('action', 'training.btn.action')
                 ->addColumn('btn_image', 'training.btn.image')
+                ->addColumn('btn_mark', 'training.btn.btn_mark')
                 ->editColumn('subject', function ($training) {
-                    return empty($training->subject) ? 'No producent' : $training->subject->name;
+                    return empty($training->category) ? 'No producent' : $training->category->name;
                 })
-                ->rawColumns(['action', 'btn_image', 'content'])
+                ->rawColumns(['action', 'btn_mark', 'btn_image', 'content'])
                 ->make(true);
         }
-        $categories = Subject::all();
+        $categories = SubjectCategory::all();
         $departments = Department::all();
         $admin = Admin::where('id', 1)->first();
-        return view('training.index', compact(['departments','categories', 'admin']));
+        return view('training.index', compact(['departments', 'categories', 'admin']));
     }
 
     public
@@ -47,6 +51,22 @@ class TrainingController extends Controller
     {
         //
     }
+
+
+    public function active(Request $r)
+    {
+        $new_status = 1;
+        if ($r->status == 1)
+            $new_status = 0;
+        $user = Training::find($r->id);
+        if ($r->type == 'mark')
+            $user->mark = $new_status;
+        else
+            $user->mark = $new_status;
+        $user->save();
+        return $new_status;
+    }
+
 
     public
     function store(Request $request)
@@ -70,13 +90,14 @@ class TrainingController extends Controller
         $post = new Training();
         $post->name = $request->name;
         $post->type = $request->type;
-        $post->mark = $request->mark;
-        $post->subject_id = $request->subject;
+        $post->category_id = $request->category_id;
         $post->length = $request->length;
         $post->start_at = $request->start_at;
         $post->end_at = $request->end_at;
         $post->description = $request->description;
-        $post->certificate = $request->certificate;
+        $post->has_certificate = $request->has_certificate;
+        $post->learn = $request->learn;
+        $post->instructor = $request->instructor;
         $post->thumbnail = $this->Post_Save($request, 'image', "IMG-", 'assets/images');
 
         $post->save();
@@ -130,10 +151,11 @@ class TrainingController extends Controller
         if ($post) {
             $post->name = $request->name;
             $post->type = $request->type;
-            $post->mark = $request->mark;
             $post->description = $request->description;
-            $post->certificate = $request->certificate;
-            $post->subject_id = $request->subject;
+            $post->has_certificate = $request->has_certificate;
+            $post->learn = $request->learn;
+            $post->instructor = $request->instructor;
+            $post->category_id = $request->category_id;
             $post->length = $request->length;
             $post->start_at = $request->start_at;
             $post->end_at = $request->end_at;

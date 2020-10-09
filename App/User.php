@@ -17,6 +17,7 @@ class User extends Authenticatable implements JWTSubject
     use Notifiable;
     use SoftDeletes;
 
+
     /**
      * The attributes that are mass assignable.
      *

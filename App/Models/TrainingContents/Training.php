@@ -6,6 +6,7 @@ use App\Category_Training;
 use App\Department;
 use App\EmployeeCategory;
 use App\Exam;
+use App\Models\Rateable\Rateable;
 use App\Result;
 use App\UserTraining;
 use App\UserTrainingTiltle;
@@ -16,15 +17,29 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Training extends Model
 {
     use SoftDeletes;
+    use  Rateable;
 
     protected $table = 'trainings';
     protected $guarded = [];
 
-    protected $appends = ['published'];
+
+
+
+    protected $appends = ['published','average-rating','count-rating','percent-rating'];
 
     public function getPublishedAttribute()
     {
         return Carbon::createFromTimestamp(strtotime($this->attributes['created_at']))->diffForHumans();
+    }
+    function getAverageRatingAttribute(){
+        return round($this->averageRating(),1);
+    }
+
+    function getCountRatingAttribute(){
+        return $this->countRating();
+    }
+    function getPercentRatingAttribute(){
+        return $this->ratingPercent();
     }
 
     protected $hidden = [
@@ -47,6 +62,10 @@ class Training extends Model
     {
         return $this->hasMany(TrainingTitle::class, 'training_id', 'id');
     }
+    public function averageRating()
+    {
+        return $this->ratings->avg('rating');
+    }
 
     public function emp_categories()
     {
@@ -66,6 +85,8 @@ class Training extends Model
 
     public function is_register()
     {
-        return $this->hasOne(UserTraining::class, 'training_id', 'id')->where('user_id', auth()->id());
+        $user_id= (auth()->guard('api')->user())?auth()->guard('api')->user()->id:0;
+            return $this->hasOne(UserTraining::class, 'training_id', 'id')
+            ->where('user_id', $user_id);
     }
 }

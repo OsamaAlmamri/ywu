@@ -17,7 +17,7 @@ class CreateLikesTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedInteger('liked_id');
-            $table->enum('type', ['posts', 'women_posts'])->default('posts');
+            $table->enum('type', ['posts', 'women_posts','training'])->default('posts');
             $table->timestamps();
         });
     }

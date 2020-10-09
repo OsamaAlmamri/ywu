@@ -31,7 +31,7 @@
 @endsection
 @section('models')
     <div id="formModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -42,9 +42,9 @@
                     <form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label class="control-label col-sm-4">اسم المادة :</label>
+                            <label class="control-label col-sm-4"> التصنيف :</label>
                             <div class="col-sm-8">
-                                <select class="form-control" id="subject" name="subject">
+                                <select class="form-control" id="category_id" name="category_id">
                                     @if($categories->count())
                                         @foreach ($categories as $category)
                                             <option id="C_name" value="{{$category->id}}">{{$category->name}}</option>
@@ -69,6 +69,12 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="control-label col-md-4">المدرب : </label>
+                            <div class="col-md-8">
+                                <input type="text" name="instructor" id="instructor" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label col col-md-4">الاقسام : </label>
                             <div class="col col-md-8">
                                 <div class="row" id="checkboxes">
@@ -83,11 +89,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-4">وضع علامة تمييز : </label>
+                            <label class="control-label col-md-4">الشهادة : </label>
                             <div class="col-md-8">
-                                <select class="form-control" id="mark" name="mark">
-                                    <option></option>
-                                    <option value="مميزة">مميزة</option>
+                                <select class="form-control" id="has_certificate" name="has_certificate">
+                                    <option value="0">لا</option>
+                                    <option value="1">نعم</option>
                                 </select>
                             </div>
                         </div>
@@ -112,39 +118,41 @@
                             </div>
                         </div>
 
+
                         <div class="form-group">
-                            <label class="control-label col-md-4">الوصف : </label>
+                            <label class="control-label col-md-4">تاريخ انتهاء الدورة : </label>
                             <div class="col-md-8">
+                                <input class="form-control" name="end_at" type="dateTime-local">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">صورة الغلاف : </label>
+                            <div class="col-md-8">
+                                <input type="file" name="image" id="image"/>
+                                <span id="store_image"></span>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label class="control-label col-md-12">الوصف : </label>
+                            <div class="col-md-12">
                                 <textarea name="description" id="description" class="description"> </textarea>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label class="control-label col-md-4">الشهادة : </label>
-                                <div class="col-md-8">
-                                    <textarea name="certificate" id="certificate"> </textarea>
-                                </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-12">المتطابات : </label>
+                            <div class="col-md-12">
+                                <textarea name="learn" id="learn" class="description"> </textarea>
+                            </div>
 
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">تاريخ انتهاء الدورة : </label>
-                                    <div class="col-md-8">
-                                        <input class="form-control" name="end_at" type="dateTime-local">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-4">صورة الغلاف : </label>
-                                    <div class="col-md-8">
-                                        <input type="file" name="image" id="image"/>
-                                        <span id="store_image"></span>
-                                    </div>
-                                </div>
-                                <br/>
-                                <div class="form-group" align="center">
-                                    <input type="hidden" name="action" id="action"/>
-                                    <input type="hidden" name="hidden_id" id="hidden_id"/>
-                                    <input type="submit" name="action_button" id="action_button" class="btn btn-warning"
-                                           value="نشر"/>
-                                </div>
+                            <div class="form-group" align="center">
+                                <input type="hidden" name="action" id="action"/>
+                                <input type="hidden" name="hidden_id" id="hidden_id"/>
+                                <input type="submit" name="action_button" id="action_button" class="btn btn-warning"
+                                       value="نشر"/>
+                            </div>
                     </form>
                 </div>
             </div>
@@ -161,7 +169,7 @@
                     <span id="form_show"></span>
                     <div id="show_name"></div>
                     <br>
-                    <div id="show_subject"></div>
+                    <div id="show_category_id"></div>
                     <br>
                     <div id="show_type"></div>
                     <br>
@@ -207,7 +215,11 @@
 @section('custom_js')
 
     @include('adminpanel.wyswyg')
+
+    @include('adminpanel.active')
     <script>
+
+        Active('{{route('training.active')}}');
         $(document).ready(function () {
             fill_datatable();
 
@@ -248,7 +260,7 @@
                         {
                             data: 'subject',
                             name: 'subject',
-                            title: ' اسم الماد'
+                            title: '  التصنيف'
 
                         }, {
                             data: 'btn_image',
@@ -263,9 +275,9 @@
 
                         },
                         {
-                            data: 'mark',
-                            name: 'mark',
-                            title: '  علامة التمييز'
+                            data: 'btn_mark',
+                            name: 'btn_mark',
+                            title: '   مييز',
 
                         },
                         {
@@ -289,16 +301,19 @@
                             name: 'published',
                             title: 'تاريخ  النشر'
                         },
-                        // {
-                        //     data: 'description',
-                        //     name: 'description',
-                        //     title: ' الوصف',
-                        //     orderable: false,
-                        // },
                         {
-                            data: 'certificate',
-                            name: 'certificate',
+                            data: 'instructor',
+                            name: 'instructor',
+                            title: ' المدرب',
+                            orderable: false,
+                        },
+                        {
+                            data: 'has_certificate',
+                            name: 'has_certificate',
                             title: 'الشهادة ',
+                            render: function (data, row) {
+                                return (data == '1') ? "نعم" : "لا";
+                            }
                         }, {
                             data: 'content',
                             name: 'content',
@@ -365,6 +380,8 @@
                                 html = '<div class="alert alert-success">' + data.success + '</div>';
                                 $('#sample_form')[0].reset();
                                 $('#user_table').DataTable().ajax.reload();
+                                $('#formModal').modal('hide');
+
                             }
                             $('#form_result').html(html);
                         }
@@ -394,6 +411,8 @@
                                 $('#sample_form')[0].reset();
                                 $('#store_image').html('');
                                 $('#user_table').DataTable().ajax.reload();
+                                $('#formModal').modal('hide');
+
                             }
                             $('#form_result').html(html);
                         }
@@ -410,7 +429,7 @@
                     dataType: "json",
                     success: function (html) {
                         $('#show_name').html("<h4>عنوان الدورة: <b>" + html.data.name + "</b></h4>");
-                        $('#show_subject').html("اسم المادة: <b>" + html.data.subject.name + "</b>");
+                        $('#show_category_id').html("اسم المادة: <b>" + html.data.category.name + "</b>");
                         $('#show_type').html("نوع الدورة : <b>" + html.data.type + "</b>");
 
                         if (html.data.mark != null) {
@@ -459,11 +478,14 @@
                     dataType: "json",
                     success: function (html) {
                         $('#name').val(html.data.name);
+                        $('#category_id').val(html.data.category_id);
                         $('#start_at').val(html.data.start_at);
                         $('#end_at').val(html.data.end_at);
-                        $('#certificate').val(html.data.certificate);
+                        $('#has_certificate').val(html.data.has_certificate);
+                        $('#instructor').val(html.data.instructor);
                         // $('#description').val(html.data.description);
-                        tinyMCE.activeEditor.setContent(html.data.description);
+                        tinyMCE.get("description").setContent((html.data.description==null?'':html.data.description));
+                        tinyMCE.get("learn").setContent((html.data.learn==null?'':html.data.learn));
 
                         $('#store_image').html("<img src={{ URL::to('/') }}/assets/images/" + html.data.thumbnail + " width='70' class='img-thumbnail' />");
                         $('#store_image').append("<input type='hidden' name='hidden_image' value='" + html.data.thumbnail + "' />");
@@ -477,7 +499,7 @@
                         // });
 
                         $.each(html.data.departments, function (key, department) {
-                            $("#department_"+department.id).prop('checked','checked');
+                            $("#department_" + department.id).prop('checked', 'checked');
                         });
 
                         $('#formModal').modal('show');

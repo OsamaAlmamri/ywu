@@ -91,6 +91,8 @@ Route::group(['middleware' => ('auth:admin')], function () {
     Route::get('training-trashed', 'TrainingController@index_trashed')->name('training-trashed');
     Route::get('training/show-trashed/{id}', 'TrainingController@show_trashed');
     Route::get('restore-training/{id}', 'TrainingController@restore_post');
+    Route::post('training/active', 'TrainingController@active')->name('training.active');
+
     Route::get('force-training/{id}', 'TrainingController@force');
 
 #################################################### Titles
