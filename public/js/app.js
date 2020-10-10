@@ -86,1180 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/@websanova/vue-auth/dist/vue-auth.esm.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/@websanova/vue-auth/dist/vue-auth.esm.js ***!
-  \***************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/*!
- * @websanova/vue-auth v3.3.8
- * https://websanova.com/docs/vue-auth
- * Released under the MIT License.
- */
-
-function isObject(val) {
-  if (val !== null && typeof val === 'object' && val.constructor !== Array) {
-    return true;
-  }
-
-  return false;
-}
-
-function toArray(val) {
-  return typeof val === 'string' || typeof val === 'number' ? [val] : val;
-}
-
-function extend(mainObj, appendObj) {
-  var i,
-      ii,
-      key,
-      data = {};
-  appendObj = appendObj || {};
-
-  for (key in mainObj) {
-    if (isObject(mainObj[key]) && mainObj[key].constructor.name !== 'FormData') {
-      data[key] = extend(mainObj[key], {});
-    } else {
-      data[key] = mainObj[key];
-    }
-  }
-
-  if (appendObj.constructor !== Array) {
-    appendObj = [appendObj];
-  }
-
-  for (i = 0, ii = appendObj.length; i < ii; i++) {
-    for (key in appendObj[i]) {
-      if (isObject(appendObj[i][key]) && appendObj[i][key].constructor.name !== 'FormData') {
-        data[key] = extend(mainObj[key] || {}, [appendObj[i][key]]);
-      } else {
-        data[key] = appendObj[i][key];
-      }
-    }
-  }
-
-  return data;
-}
-
-function compare(one, two) {
-  var i, ii, key;
-
-  if (Object.prototype.toString.call(one) === '[object Object]' && Object.prototype.toString.call(two) === '[object Object]') {
-    for (key in one) {
-      if (compare(one[key], two[key])) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  one = toArray(one);
-  two = toArray(two);
-
-  if (!one || !two || one.constructor !== Array || two.constructor !== Array) {
-    return false;
-  }
-
-  for (i = 0, ii = one.length; i < ii; i++) {
-    if (two.indexOf(one[i]) >= 0) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-function isLocalStorage() {
-  try {
-    if (!window.localStorage) {
-      throw 'exception';
-    }
-
-    localStorage.setItem('storage_test', 1);
-    localStorage.removeItem('storage_test');
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
-
-function isSessionStorage() {
-  try {
-    if (!window.sessionStorage) {
-      throw 'exception';
-    }
-
-    sessionStorage.setItem('storage_test', 1);
-    sessionStorage.removeItem('storage_test');
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
-
-function isCookieStorage() {
-  return true;
-}
-
-function getProperty(obj, desc) {
-  var arr = desc.split('.');
-
-  while (arr.length && (obj = obj[arr.shift()]));
-
-  return obj;
-}
-
-function setCookie(key, value, params) {
-  var i,
-      cookie = key + '=' + value + ';';
-
-  for (i in params) {
-    // Just skip if unset or false.
-    if (params[i] === false || params[i] === undefined) {
-      continue;
-    } // If null and an option method exists such ex: "getCookieDomain".
-    else if (params[i] === null) {
-        if (this.options['getCookie' + i]) {
-          cookie += ' ' + i + '=' + this.options['getCookie' + i]() + ';';
-        }
-      } // If true just set the flag as in "Secure;".
-      else if (params[i] === true) {
-          cookie += ' ' + i + ';';
-        } // Default key/val.
-        else {
-            cookie += ' ' + i + '=' + params[i] + ';';
-          }
-  }
-
-  document.cookie = cookie;
-}
-
-function getDate(val) {
-  if (typeof val === 'string') {
-    return val;
-  } else if (val !== null && val !== undefined) {
-    return new Date(new Date().getTime() + val).toUTCString();
-  }
-
-  return val;
-}
-
-function set(key, value, expires) {
-  var params = this.options.cookie;
-  params.Expires = expires === true ? '' : getDate(params.Expires);
-  setCookie.call(this, key, value, params);
-}
-
-function get(key) {
-  var i,
-      ii,
-      cookie = document.cookie;
-  cookie = cookie.replace(/;\s+/g, ';').split(';').map(function (s) {
-    return s.replace(/\s+=\s+/g, '=').split('=');
-  });
-
-  for (i = 0, ii = cookie.length; i < ii; i++) {
-    if (cookie[i][0] && cookie[i][0] === key) {
-      return cookie[i][1];
-    }
-  }
-
-  return null;
-}
-
-function remove(key) {
-  var params = Object.assign({}, this.options.cookie);
-  params.Expires = getDate(-12096e5);
-  setCookie.call(this, key, '', params);
-}
-
-var __cookie = /*#__PURE__*/Object.freeze({
-    get: get,
-    set: set,
-    remove: remove
-});
-
-function set$1(key, value, expires) {
-  if (expires) {
-    sessionStorage.setItem(key, value);
-  } else {
-    localStorage.setItem(key, value);
-  }
-}
-
-function get$1(key) {
-  return sessionStorage.getItem(key) || localStorage.getItem(key);
-}
-
-function remove$1(key) {
-  localStorage.removeItem(key);
-  sessionStorage.removeItem(key);
-}
-
-var __storage = /*#__PURE__*/Object.freeze({
-    get: get$1,
-    set: set$1,
-    remove: remove$1
-});
-
-function getTokenKey(key) {
-  key = key || this.currentToken;
-
-  if (key) {
-    return key;
-  }
-
-  if (this.impersonating()) {
-    return this.options.tokenImpersonateKey;
-  }
-
-  return this.options.tokenDefaultKey;
-}
-
-function processToken(action, key, token, expires) {
-  var i = 0,
-      ts = this.options.stores,
-      ii = ts.length,
-      args = [getTokenKey.call(this, key)];
-
-  if (action === 'set') {
-    args.push(token);
-    args.push(expires === true ? true : false);
-  }
-
-  for (; i < ii; i++) {
-    if (ts[i] === 'storage' && isLocalStorage() && isSessionStorage()) {
-      return __storage[action].apply(this, args);
-    }
-
-    if (ts[i] === 'cookie' && isCookieStorage()) {
-      return __cookie[action].apply(this, args);
-    }
-  }
-}
-
-function get$2(key) {
-  return processToken.call(this, 'get', key);
-}
-
-function set$2(key, token, expires) {
-  return processToken.call(this, 'set', key, token, expires);
-}
-
-function remove$2(key) {
-  return processToken.call(this, 'remove', key);
-}
-
-var __auth = null;
-var __defaultOptions = {
-  // Variables
-  rolesKey: 'roles',
-  rememberKey: 'auth_remember',
-  staySignedInKey: 'auth_stay_signed_in',
-  tokenDefaultKey: 'auth_token_default',
-  tokenImpersonateKey: 'auth_token_impersonate',
-  stores: ['storage', 'cookie'],
-  cookie: {
-    Path: '/',
-    Domain: null,
-    Secure: true,
-    Expires: 12096e5,
-    SameSite: 'None'
-  },
-  // Redirects
-  authRedirect: {
-    path: '/login'
-  },
-  forbiddenRedirect: {
-    path: '/403'
-  },
-  notFoundRedirect: {
-    path: '/404'
-  },
-  // Http
-  registerData: {
-    url: 'auth/register',
-    method: 'POST',
-    redirect: '/login',
-    autoLogin: false
-  },
-  loginData: {
-    url: 'auth/login',
-    method: 'POST',
-    redirect: '/',
-    fetchUser: true,
-    staySignedIn: true
-  },
-  logoutData: {
-    url: 'auth/logout',
-    method: 'POST',
-    redirect: '/',
-    makeRequest: false
-  },
-  fetchData: {
-    url: 'auth/user',
-    method: 'GET',
-    enabled: true
-  },
-  refreshData: {
-    url: 'auth/refresh',
-    method: 'GET',
-    enabled: true,
-    interval: 30
-  },
-  impersonateData: {
-    url: 'auth/impersonate',
-    method: 'POST',
-    redirect: '/',
-    fetchUser: true
-  },
-  unimpersonateData: {
-    url: 'auth/unimpersonate',
-    method: 'POST',
-    redirect: '/admin',
-    fetchUser: true,
-    makeRequest: false
-  },
-  oauth2Data: {
-    url: 'auth/social',
-    method: 'POST',
-    redirect: '/',
-    fetchUser: true
-  },
-  // External
-  getUrl: _getUrl,
-  getCookieDomain: _getCookieDomain,
-  parseUserData: _parseUserData
-};
-
-function _isAccess(role, key) {
-  if (__auth.$vm.authenticated === true) {
-    if (role) {
-      return compare(role, getProperty(__auth.$vm.data || {}, key || __auth.options.rolesKey));
-    }
-
-    return true;
-  }
-
-  return false;
-}
-
-function _isTokenExpired() {
-  return !get$2.call(__auth);
-}
-
-function _getAuthMeta(transition) {
-  var auth, authRoutes;
-
-  if (transition.to) {
-    auth = transition.to.auth;
-  } else {
-    authRoutes = transition.matched.filter(function (route) {
-      return Object.prototype.hasOwnProperty.call(route.meta, 'auth');
-    }); // matches the nested route, the last one in the list
-
-    if (authRoutes.length) {
-      auth = authRoutes[authRoutes.length - 1].meta.auth;
-    }
-  }
-
-  return auth;
-}
-
-function _getCookieDomain() {
-  return window.location.hostname;
-}
-
-function _getUrl() {
-  var port = window.location.port;
-  return window.location.protocol + '//' + window.location.hostname + (port ? ':' + port : '');
-}
-
-function _getRemember() {
-  return get$2.call(__auth, __auth.options.rememberKey);
-}
-
-function _setUser(data) {
-  __auth.$vm.data = data;
-}
-
-function _setLoaded(loaded) {
-  __auth.$vm.loaded = loaded;
-}
-
-function _setAuthenticated(authenticated) {
-  __auth.$vm.loaded = true;
-  __auth.$vm.authenticated = authenticated;
-}
-
-function _setStaySignedIn(staySignedIn) {
-  if (staySignedIn === true) {
-    set$2.call(__auth, __auth.options.staySignedInKey, 'true', false);
-  } else {
-    remove$2.call(__auth, __auth.options.staySignedInKey);
-  }
-}
-
-function _setRemember(val) {
-  if (val) {
-    set$2.call(__auth, __auth.options.rememberKey, val, false);
-
-    __auth.$vm.remember = val;
-  } else {
-    remove$2.call(__auth, __auth.options.rememberKey);
-
-    __auth.$vm.remember = null;
-  }
-}
-
-function _setTransitions(transition) {
-  __auth.transitionPrev = __auth.transitionThis;
-  __auth.transitionThis = transition;
-}
-
-function _parseUserData(data) {
-  return data.data || {};
-}
-
-function _parseUserResponseData(res) {
-  return __auth.options.parseUserData(__auth.http.httpData(res));
-}
-
-function _parseRedirectUri(uri) {
-  uri = uri || '';
-
-  if (/^https?:\/\//.test(uri)) {
-    return uri;
-  }
-
-  return _getUrl() + '/' + uri.replace(/^\/|\/$/g, '');
-}
-
-function _parseRequestIntercept(req) {
-  var token, tokenName;
-
-  if (req && req.ignoreVueAuth) {
-    return req;
-  }
-
-  if (req.impersonating === false && __auth.impersonating()) {
-    tokenName = __auth.options.tokenDefaultKey;
-  }
-
-  token = get$2.call(__auth, tokenName);
-
-  if (token) {
-    __auth.auth.request.call(__auth, req, token);
-  }
-
-  return req;
-}
-
-function _parseResponseIntercept(res, req) {
-  var token;
-
-  if (req && req.ignoreVueAuth) {
-    return;
-  }
-
-  _processInvalidToken(res, __auth.transitionThis);
-
-  token = this.auth.response.call(this, res);
-
-  if (token) {
-    set$2.call(this, null, token, get$2.call(__auth, __auth.options.staySignedInKey) ? false : true);
-  }
-}
-
-function _processInvalidToken(res, transition) {
-  var i,
-      auth,
-      query = '',
-      redirect = transition && transition.path; // Make sure we also attach any existing
-  // query parameters on the path.
-
-  if (redirect && transition.query) {
-    for (i in transition.query) {
-      if (transition.query[i]) {
-        query += '&' + i + '=' + transition.query[i];
-      }
-    }
-
-    redirect += '?' + query.substring(1);
-  }
-
-  if (!__auth.http.invalidToken || !__auth.http.invalidToken.call(__auth, res)) {
-    return;
-  }
-
-  if (transition) {
-    auth = _getAuthMeta(transition);
-  }
-
-  if (auth) {
-    redirect = auth.redirect || __auth.options.authRedirect;
-  }
-
-  _processLogout({
-    redirect: redirect
-  });
-}
-
-function _processRouterBeforeEach(cb) {
-  var isTokenExpired = _isTokenExpired();
-
-  if (isTokenExpired && __auth.$vm.authenticated) {
-    _processLogout();
-  }
-
-  if (!isTokenExpired && !__auth.$vm.loaded && __auth.options.refreshData.enabled) {
-    __auth.refresh().then(function () {
-      _processAuthenticated(cb);
-    });
-
-    return;
-  }
-
-  _processAuthenticated(cb);
-}
-
-function _processAuthenticated(cb) {
-  if (__auth.$vm.authenticated === null && get$2.call(__auth)) {
-    if (__auth.options.fetchData.enabled) {
-      __auth.fetch().then(cb, cb);
-    } else {
-      _processFetch({});
-
-      return cb.call(__auth);
-    }
-  } else {
-    _setLoaded(true);
-
-    return cb.call(__auth);
-  }
-}
-
-function _processTransitionEach(transition, routeAuth, cb) {
-  var authRedirect = (routeAuth || '').redirect || __auth.options.authRedirect,
-      forbiddenRedirect = (routeAuth || '').forbiddenRedirect || (routeAuth || '').redirect || __auth.options.forbiddenRedirect,
-      notFoundRedirect = (routeAuth || '').notFoundRedirect || (routeAuth || '').redirect || __auth.options.notFoundRedirect;
-  routeAuth = toArray((routeAuth || '').roles !== undefined ? routeAuth.roles : routeAuth);
-
-  if (routeAuth && (routeAuth === true || routeAuth.constructor === Array || isObject(routeAuth))) {
-    if (!__auth.check()) {
-      __auth.transitionRedirectType = 401;
-
-      if (typeof authRedirect === 'function') {
-        authRedirect = authRedirect(transition);
-      }
-
-      cb.call(__auth, authRedirect);
-    } else if ((routeAuth.constructor === Array || isObject(routeAuth)) && !compare(routeAuth, __auth.$vm.data[__auth.options.rolesKey])) {
-      __auth.transitionRedirectType = 403;
-
-      if (typeof forbiddenRedirect === 'function') {
-        forbiddenRedirect = forbiddenRedirect(transition);
-      }
-
-      cb.call(__auth, forbiddenRedirect);
-    } else {
-      __auth.$vm.redirect = __auth.transitionRedirectType ? {
-        type: __auth.transitionRedirectType,
-        from: __auth.transitionPrev,
-        to: __auth.transitionThis
-      } : null;
-      __auth.transitionRedirectType = null;
-      return cb();
-    }
-  } else if (routeAuth === false && __auth.check()) {
-    __auth.transitionRedirectType = 404;
-
-    if (typeof notFoundRedirect === 'function') {
-      notFoundRedirect = notFoundRedirect(transition);
-    }
-
-    cb.call(__auth, notFoundRedirect);
-  } else {
-    __auth.$vm.redirect = __auth.transitionRedirectType ? {
-      type: __auth.transitionRedirectType,
-      from: __auth.transitionPrev,
-      to: __auth.transitionThis
-    } : null;
-    __auth.transitionRedirectType = null;
-    return cb();
-  }
-}
-
-function _processFetch(data, redirect) {
-  _setUser(data);
-
-  _setAuthenticated(true);
-
-  _processRedirect(redirect);
-}
-
-function _processLogout(redirect) {
-  remove.call(__auth, __auth.options.tokenImpersonateKey);
-
-  remove.call(__auth, __auth.options.tokenDefaultKey);
-
-  remove$2.call(__auth, __auth.options.tokenImpersonateKey);
-
-  remove$2.call(__auth, __auth.options.tokenDefaultKey);
-
-  remove$2.call(__auth, __auth.options.staySignedInKey);
-
-  __auth.$vm.loaded = true;
-  __auth.$vm.authenticated = false;
-  __auth.$vm.data = null;
-
-  _processRedirect(redirect);
-}
-
-function _processImpersonate(defaultToken, redirect) {
-  set$2.call(__auth, __auth.options.tokenImpersonateKey, __auth.token(), get$2.call(__auth, __auth.options.staySignedInKey) ? false : true);
-
-  set$2.call(__auth, __auth.options.tokenDefaultKey, defaultToken, get$2.call(__auth, __auth.options.staySignedInKey) ? false : true);
-
-  __auth.$vm.impersonating = true;
-
-  _processRedirect(redirect);
-}
-
-function _processUnimpersonate(redirect) {
-  remove$2.call(__auth, __auth.options.tokenImpersonateKey);
-
-  __auth.$vm.impersonating = false;
-
-  _processRedirect(redirect);
-}
-
-function _processRedirect(redirect) {
-  if (redirect) {
-    __auth.router.routerGo.call(__auth, redirect);
-  }
-}
-
-function _initVm() {
-  __auth.$vm = new __auth.Vue({
-    data: function () {
-      return {
-        data: null,
-        loaded: false,
-        redirect: null,
-        authenticated: null,
-        // TODO: false ?
-        impersonating: undefined,
-        remember: undefined
-      };
-    }
-  });
-}
-
-function _initDriverCheck() {
-  var i, ii;
-  var drivers = ['auth', 'http', 'router'];
-
-  for (i = 0, ii = drivers.length; i < ii; i++) {
-    if (!__auth.options[drivers[i]]) {
-      console.error('Error (@websanova/vue-auth): "' + drivers[i] + '" driver must be set.');
-      return false;
-    }
-
-    if (__auth.options[drivers[i]]._init) {
-      msg = __auth.options[drivers[i]]._init.call(__auth);
-
-      if (msg) {
-        console.error('Error (@websanova/vue-auth): ' + msg);
-        return false;
-      }
-    }
-  }
-}
-
-function _initRefreshInterval() {
-  if (__auth.options.refreshData.enabled && __auth.options.refreshData.interval > 0) {
-    setInterval(function () {
-      if (__auth.options.refreshData.enabled && !_isTokenExpired()) {
-        __auth.refresh();
-      }
-    }, __auth.options.refreshData.interval * 1000 * 60); // In minutes.
-  }
-}
-
-function _initInterceptors() {
-  __auth.http.interceptor.call(__auth, _parseRequestIntercept, _parseResponseIntercept);
-
-  __auth.router.beforeEach.call(__auth, _processRouterBeforeEach, _processTransitionEach, _setTransitions, _getAuthMeta);
-}
-
-function Auth(Vue, options) {
-  __auth = this;
-  options = options || {};
-  this.Vue = Vue;
-  this.auth = options.auth;
-  this.http = options.http;
-  this.router = options.router;
-  this.options = extend(__defaultOptions, options);
-  this.currentToken = null;
-  this.transitionPrev = null;
-  this.transitionThis = null;
-  this.transitionRedirectType = null;
-
-  _initDriverCheck();
-
-  _initVm();
-
-  _initRefreshInterval();
-
-  _initInterceptors();
-}
-
-Auth.prototype.ready = function () {
-  return __auth.$vm.loaded;
-};
-
-Auth.prototype.load = function () {
-  return new Promise(function (resolve) {
-    var timer = null;
-    timer = setInterval(function () {
-      if (__auth.$vm.loaded) {
-        clearInterval(timer);
-        resolve();
-      }
-    }, 50);
-  });
-};
-
-Auth.prototype.redirect = function () {
-  return __auth.$vm.redirect;
-};
-
-Auth.prototype.user = function (data) {
-  if (data !== undefined) {
-    _processFetch(data);
-  }
-
-  return __auth.$vm.data;
-};
-
-Auth.prototype.check = function (role, key) {
-  return _isAccess(role, key);
-};
-
-Auth.prototype.impersonating = function () {
-  var impersonating = get$2.call(__auth, __auth.options.tokenImpersonateKey) ? true : false;
-
-  if (__auth.$vm.impersonating === undefined) {
-    __auth.$vm.impersonating = impersonating;
-  }
-
-  return __auth.$vm.impersonating;
-};
-
-Auth.prototype.token = function (name, token, expires) {
-  if (token !== undefined) {
-    if (token === null) {
-      remove$2.call(__auth, name);
-    } else {
-      expires = expires === true || expires === false ? expires : get$2.call(__auth, __auth.options.staySignedInKey) ? false : true;
-
-      set$2.call(__auth, name, token, expires);
-    }
-  }
-
-  return get$2.call(__auth, name);
-};
-
-Auth.prototype.fetch = function (data) {
-  data = extend(__auth.options.fetchData, data);
-  return new Promise(function (resolve, reject) {
-    __auth.http.http.call(__auth, data).then(function (res) {
-      _processFetch(_parseUserResponseData(res), data.redirect);
-
-      resolve(res);
-    }, reject);
-  });
-};
-
-Auth.prototype.refresh = function (data) {
-  data = extend(__auth.options.refreshData, data);
-  return __auth.http.http.call(__auth, data);
-};
-
-Auth.prototype.register = function (data) {
-  var registerData = extend(__auth.options.registerData, data);
-
-  return new Promise(function (resolve, reject) {
-    __auth.http.http.call(__auth, registerData).then(function (res) {
-      var loginData;
-
-      if (registerData.autoLogin) {
-        loginData = extend(__auth.options.loginData, data);
-
-        __auth.login(loginData).then(resolve, reject);
-      } else {
-        resolve(res);
-
-        _processRedirect(registerData.redirect);
-      }
-    }, reject);
-  });
-};
-
-Auth.prototype.login = function (data) {
-  data = extend(__auth.options.loginData, data);
-
-  _setRemember(data.remember);
-
-  _setStaySignedIn(data.staySignedIn);
-
-  return new Promise(function (resolve, reject) {
-    __auth.http.http.call(__auth, data).then(function (res) {
-      if (data.fetchUser || data.fetchUser === undefined && __auth.options.fetchData.enabled) {
-        __auth.fetch({
-          redirect: data.redirect
-        }).then(resolve, reject);
-      } else {
-        _processFetch(_parseUserResponseData(res), data.redirect);
-
-        resolve(res);
-      }
-    }, function (res) {
-      _setAuthenticated(false);
-
-      reject(res);
-    });
-  });
-};
-
-Auth.prototype.remember = function (val) {
-  if (val) {
-    _setRemember(val);
-  }
-
-  var remember = _getRemember();
-
-  if (__auth.$vm.remember === undefined) {
-    __auth.$vm.remember = remember;
-  }
-
-  return __auth.$vm.remember;
-};
-
-Auth.prototype.unremember = function () {
-  _setRemember(null);
-};
-
-Auth.prototype.logout = function (data) {
-  data = extend(__auth.options.logoutData, data);
-  return new Promise(function (resolve, reject) {
-    if (data.makeRequest) {
-      __auth.http.http.call(__auth, data).then(function (res) {
-        _processLogout(data.redirect);
-
-        resolve(res);
-      }, reject);
-    } else {
-      _processLogout(data.redirect);
-
-      resolve();
-    }
-  });
-};
-
-Auth.prototype.impersonate = function (data) {
-  data = extend(__auth.options.impersonateData, data);
-  return new Promise(function (resolve, reject) {
-    var token = __auth.token();
-
-    __auth.http.http.call(__auth, data).then(function (res) {
-      _processImpersonate(token);
-
-      if (data.fetchUser || data.fetchUser === undefined && __auth.options.fetchData.enabled) {
-        __auth.fetch({
-          redirect: data.redirect
-        }).then(resolve, reject);
-      } else {
-        _processRedirect(data.redirect);
-
-        resolve(res);
-      }
-    }, reject);
-  });
-};
-
-Auth.prototype.unimpersonate = function (data) {
-  data = extend(__auth.options.unimpersonateData, data);
-  return new Promise(function (resolve, reject) {
-    if (data.makeRequest) {
-      __auth.http.http.call(__auth, data).then(resolve, reject);
-    } else {
-      resolve();
-    }
-  }).then(function () {
-    return new Promise(function (resolve, reject) {
-      _processUnimpersonate();
-
-      if (data.fetchUser || data.fetchUser === undefined && __auth.options.fetchData.enabled) {
-        __auth.fetch({
-          redirect: data.redirect
-        }).then(resolve, reject);
-      } else {
-        _processRedirect(data.redirect);
-
-        resolve();
-      }
-    });
-  });
-};
-
-Auth.prototype.oauth2 = function (type, data) {
-  var key,
-      params = '';
-
-  if (data.code) {
-    try {
-      if (data.state) {
-        data.state = JSON.parse(decodeURIComponent(data.state));
-      }
-    } catch (e) {
-      console.error('vue-auth:error There was an issue retrieving the state data.');
-      data.state = data.state || {};
-    }
-
-    data = extend(__auth.options.oauth2Data, [data.state, data]);
-    delete data.code;
-    delete data.state;
-    delete data.params;
-    return __auth.login(data);
-  }
-
-  data = extend(__auth.options.oauth2[type], data);
-  data.params.state = JSON.stringify(data.params.state || {});
-  data.params.redirect_uri = _parseRedirectUri(data.params.redirect_uri);
-
-  for (key in data.params) {
-    params += '&' + key + '=' + encodeURIComponent(data.params[key]);
-  }
-
-  window.location = data.url + '?' + params.substring();
-};
-
-Auth.prototype.enableImpersonate = function () {
-  if (__auth.impersonating()) {
-    __auth.currentToken = null;
-  }
-};
-
-Auth.prototype.disableImpersonate = function () {
-  if (__auth.impersonating()) {
-    __auth.currentToken = __auth.options.tokenDefaultKey;
-  }
-};
-
-function plugin(Vue, options) {
-  Vue.auth = new Auth(Vue, options);
-  Object.defineProperties(Vue.prototype, {
-    $auth: {
-      get: function () {
-        return Vue.auth;
-      }
-    }
-  });
-}
-
-if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(plugin);
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (plugin);
-
-
-/***/ }),
-
-/***/ "./node_modules/@websanova/vue-auth/drivers/auth/bearer.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/@websanova/vue-auth/drivers/auth/bearer.js ***!
-  \*****************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({
-
-    request: function (req, token) {
-        this.http.setHeaders.call(this, req, {
-            Authorization: 'Bearer ' + token
-        });
-    },
-
-    response: function (res) {
-        var headers = this.http.getHeaders.call(this, res),
-            token   = headers.Authorization || headers.authorization;
-
-        if (token) {
-            token = token.split(/Bearer:?\s?/i);
-
-            return token[token.length > 1 ? 1 : 0].trim();
-        }
-    }
-});
-
-/***/ }),
-
-/***/ "./node_modules/@websanova/vue-auth/drivers/http/axios.1.x.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/@websanova/vue-auth/drivers/http/axios.1.x.js ***!
-  \********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({
-
-    init: function () {
-        if ( ! this.Vue.axios) {
-            return 'axios.js : Vue.axios must be set.'
-        }
-    },
-
-    interceptor: function (req, res) {
-        var _this = this;
-
-        if (req) {
-            this.Vue.axios.interceptors.request.use(function (request) {
-                req.call(_this, request);
-                
-                return request;
-            }, function (error) {
-                req.call(_this, error.request);
-            
-                return Promise.reject(error);
-            });
-        }
-
-        if (res) {
-            this.Vue.axios.interceptors.response.use(function (response) {
-                res.call(_this, response);
-        
-                return response;
-            }, function (error) {
-                if (error && error.response) {
-                    res.call(_this, error.response);
-                }
-
-                return Promise.reject(error);
-            });
-        }
-    },
-
-    invalidToken: function (res) {
-        if (res.status === 401) {
-            return true;
-        }
-    },
-
-    httpData: function (res) {
-        return res.data || {};
-    },
-
-    http: function (data) {
-        return this.Vue.axios(data);
-    },
-
-    getHeaders: function (res) {
-        return res.headers;
-    },
-
-    setHeaders: function (req, headers) {
-        req.headers.common = Object.assign({}, req.headers.common, headers);
-    }
-});
-
-/***/ }),
-
-/***/ "./node_modules/@websanova/vue-auth/drivers/router/vue-router.2.x.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/@websanova/vue-auth/drivers/router/vue-router.2.x.js ***!
-  \***************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({
-
-    init: function () {
-        if ( ! this.Vue.router) {
-            return 'vue-router.2.x.js : Vue.router must be set.';
-        }
-    },
-
-    // bindData: function (data, ctx) {
-    //     var error, success;
-
-    //     data = data || {};
-
-    //     error = data.error;
-    //     success = data.success;
-
-    //     data.query = ctx.$route.query || {};
-
-    //     if (data.success) { data.success = function (res) { success.call(ctx, res); } }
-    //     if (data.error) { data.error = function (res) { error.call(ctx, res); } }
-
-    //     return data;
-    // },
-
-    beforeEach: function (routerBeforeEach, transitionEach, setTransitions, getAuthMeta) {
-        var _this = this;
-
-        this.Vue.router.beforeEach(function (transition, location, next) {
-            setTransitions(transition);
-            
-            routerBeforeEach.call(_this, function () {
-                var auth = getAuthMeta(transition);
-
-                transitionEach.call(_this, transition, auth, function (redirect) {
-                    if (!redirect) {
-                        (next || transition.next)();
-                        return;
-                    }
-
-                    // router v2.x
-                    if (next) {
-                        next(redirect);
-                    } else {
-                        this.router._routerReplace.call(this, redirect);
-                    }
-                });
-            });
-        })
-    },
-
-    routerReplace: function (data) {
-        var router = this.Vue.router;
-
-        router.replace.call(router, data);
-    },
-
-    routerGo: function (data) {
-        var router = this.Vue.router;
-
-        (router.push || router.go).call(router, data).catch(function (err){});
-    }
-});
-
-/***/ }),
-
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -3309,7 +2135,30 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.fetchArticles();
+    var _this = this;
+
+    if (localStorage.token) {
+      axios.post('/api/showTrainingByCategory', {
+        headers: {
+          'content-type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      }).then(function (response) {
+        var res = response.json();
+        _this.sections = res.Trainings;
+        store.commit('loginUser');
+      })["catch"](function (error) {
+        if (error.response.status === 401 || error.response.status === 403) {
+          store.commit('logoutUser');
+          localStorage.setItem('token', '');
+
+          _this.$router.push({
+            name: 'login'
+          });
+        }
+      });
+    } // this.fetchArticles();
+
   },
   methods: {
     onToggle: function onToggle(index) {
@@ -3320,7 +2169,7 @@ __webpack_require__.r(__webpack_exports__);
       this.activeIndex = index;
     },
     fetchArticles: function fetchArticles() {
-      var _this = this;
+      var _this2 = this;
 
       var vm = this;
       fetch('/api/showTrainingByCategory', {
@@ -3331,7 +2180,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         return res.json();
       }).then(function (res) {
-        _this.sections = res.Trainings;
+        _this2.sections = res.Trainings;
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -4319,6 +3168,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../storage */ "./resources/js/storage.js");
 //
 //
 //
@@ -4372,38 +3222,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      phone: null,
-      password: null,
-      has_error: false
+      form: {
+        phone: '',
+        password: ''
+      },
+      errors: []
     };
   },
   mounted: function mounted() {//
   },
   methods: {
-    login: function login() {
-      // get the redirect object
-      var redirect = this.$auth.redirect();
-      var app = this;
-      this.$auth.login({
-        params: {
-          email: app.email,
-          password: app.password
-        },
-        success: function success() {
-          // handle redirection
-          var redirectTo = 'profile';
-          this.$router.push({
-            name: redirectTo
-          });
-        },
-        error: function error() {
-          app.has_error = true;
-        },
-        rememberMe: true,
-        fetchUser: true
+    loginUser: function loginUser() {
+      var _this = this;
+
+      axios.post('/api/login', this.form).then(function () {
+        // login user, store the token and redirect to dashboard
+        _storage__WEBPACK_IMPORTED_MODULE_0__["default"].commit('loginUser');
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user_data', response.data.userData);
+
+        _this.$router.push({
+          name: "Dashboard"
+        });
+      })["catch"](function (error) {
+        _this.errors = error.response.data.errors;
       });
     }
   }
@@ -4745,6 +3591,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -9517,1207 +8371,6 @@ function toComment(sourceMap) {
 	return '/*# ' + data + ' */';
 }
 
-
-/***/ }),
-
-/***/ "./node_modules/es6-promise/auto.js":
-/*!******************************************!*\
-  !*** ./node_modules/es6-promise/auto.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-// This file can be required in Browserify and Node.js for automatic polyfill
-// To use it:  require('es6-promise/auto');
-
-module.exports = __webpack_require__(/*! ./ */ "./node_modules/es6-promise/dist/es6-promise.js").polyfill();
-
-
-/***/ }),
-
-/***/ "./node_modules/es6-promise/dist/es6-promise.js":
-/*!******************************************************!*\
-  !*** ./node_modules/es6-promise/dist/es6-promise.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process, global) {/*!
- * @overview es6-promise - a tiny implementation of Promises/A+.
- * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
- * @license   Licensed under MIT license
- *            See https://raw.githubusercontent.com/stefanpenner/es6-promise/master/LICENSE
- * @version   v4.2.8+1e68dce6
- */
-
-(function (global, factory) {
-	 true ? module.exports = factory() :
-	undefined;
-}(this, (function () { 'use strict';
-
-function objectOrFunction(x) {
-  var type = typeof x;
-  return x !== null && (type === 'object' || type === 'function');
-}
-
-function isFunction(x) {
-  return typeof x === 'function';
-}
-
-
-
-var _isArray = void 0;
-if (Array.isArray) {
-  _isArray = Array.isArray;
-} else {
-  _isArray = function (x) {
-    return Object.prototype.toString.call(x) === '[object Array]';
-  };
-}
-
-var isArray = _isArray;
-
-var len = 0;
-var vertxNext = void 0;
-var customSchedulerFn = void 0;
-
-var asap = function asap(callback, arg) {
-  queue[len] = callback;
-  queue[len + 1] = arg;
-  len += 2;
-  if (len === 2) {
-    // If len is 2, that means that we need to schedule an async flush.
-    // If additional callbacks are queued before the queue is flushed, they
-    // will be processed by this flush that we are scheduling.
-    if (customSchedulerFn) {
-      customSchedulerFn(flush);
-    } else {
-      scheduleFlush();
-    }
-  }
-};
-
-function setScheduler(scheduleFn) {
-  customSchedulerFn = scheduleFn;
-}
-
-function setAsap(asapFn) {
-  asap = asapFn;
-}
-
-var browserWindow = typeof window !== 'undefined' ? window : undefined;
-var browserGlobal = browserWindow || {};
-var BrowserMutationObserver = browserGlobal.MutationObserver || browserGlobal.WebKitMutationObserver;
-var isNode = typeof self === 'undefined' && typeof process !== 'undefined' && {}.toString.call(process) === '[object process]';
-
-// test for web worker but not in IE10
-var isWorker = typeof Uint8ClampedArray !== 'undefined' && typeof importScripts !== 'undefined' && typeof MessageChannel !== 'undefined';
-
-// node
-function useNextTick() {
-  // node version 0.10.x displays a deprecation warning when nextTick is used recursively
-  // see https://github.com/cujojs/when/issues/410 for details
-  return function () {
-    return process.nextTick(flush);
-  };
-}
-
-// vertx
-function useVertxTimer() {
-  if (typeof vertxNext !== 'undefined') {
-    return function () {
-      vertxNext(flush);
-    };
-  }
-
-  return useSetTimeout();
-}
-
-function useMutationObserver() {
-  var iterations = 0;
-  var observer = new BrowserMutationObserver(flush);
-  var node = document.createTextNode('');
-  observer.observe(node, { characterData: true });
-
-  return function () {
-    node.data = iterations = ++iterations % 2;
-  };
-}
-
-// web worker
-function useMessageChannel() {
-  var channel = new MessageChannel();
-  channel.port1.onmessage = flush;
-  return function () {
-    return channel.port2.postMessage(0);
-  };
-}
-
-function useSetTimeout() {
-  // Store setTimeout reference so es6-promise will be unaffected by
-  // other code modifying setTimeout (like sinon.useFakeTimers())
-  var globalSetTimeout = setTimeout;
-  return function () {
-    return globalSetTimeout(flush, 1);
-  };
-}
-
-var queue = new Array(1000);
-function flush() {
-  for (var i = 0; i < len; i += 2) {
-    var callback = queue[i];
-    var arg = queue[i + 1];
-
-    callback(arg);
-
-    queue[i] = undefined;
-    queue[i + 1] = undefined;
-  }
-
-  len = 0;
-}
-
-function attemptVertx() {
-  try {
-    var vertx = Function('return this')().require('vertx');
-    vertxNext = vertx.runOnLoop || vertx.runOnContext;
-    return useVertxTimer();
-  } catch (e) {
-    return useSetTimeout();
-  }
-}
-
-var scheduleFlush = void 0;
-// Decide what async method to use to triggering processing of queued callbacks:
-if (isNode) {
-  scheduleFlush = useNextTick();
-} else if (BrowserMutationObserver) {
-  scheduleFlush = useMutationObserver();
-} else if (isWorker) {
-  scheduleFlush = useMessageChannel();
-} else if (browserWindow === undefined && "function" === 'function') {
-  scheduleFlush = attemptVertx();
-} else {
-  scheduleFlush = useSetTimeout();
-}
-
-function then(onFulfillment, onRejection) {
-  var parent = this;
-
-  var child = new this.constructor(noop);
-
-  if (child[PROMISE_ID] === undefined) {
-    makePromise(child);
-  }
-
-  var _state = parent._state;
-
-
-  if (_state) {
-    var callback = arguments[_state - 1];
-    asap(function () {
-      return invokeCallback(_state, child, callback, parent._result);
-    });
-  } else {
-    subscribe(parent, child, onFulfillment, onRejection);
-  }
-
-  return child;
-}
-
-/**
-  `Promise.resolve` returns a promise that will become resolved with the
-  passed `value`. It is shorthand for the following:
-
-  ```javascript
-  let promise = new Promise(function(resolve, reject){
-    resolve(1);
-  });
-
-  promise.then(function(value){
-    // value === 1
-  });
-  ```
-
-  Instead of writing the above, your code now simply becomes the following:
-
-  ```javascript
-  let promise = Promise.resolve(1);
-
-  promise.then(function(value){
-    // value === 1
-  });
-  ```
-
-  @method resolve
-  @static
-  @param {Any} value value that the returned promise will be resolved with
-  Useful for tooling.
-  @return {Promise} a promise that will become fulfilled with the given
-  `value`
-*/
-function resolve$1(object) {
-  /*jshint validthis:true */
-  var Constructor = this;
-
-  if (object && typeof object === 'object' && object.constructor === Constructor) {
-    return object;
-  }
-
-  var promise = new Constructor(noop);
-  resolve(promise, object);
-  return promise;
-}
-
-var PROMISE_ID = Math.random().toString(36).substring(2);
-
-function noop() {}
-
-var PENDING = void 0;
-var FULFILLED = 1;
-var REJECTED = 2;
-
-function selfFulfillment() {
-  return new TypeError("You cannot resolve a promise with itself");
-}
-
-function cannotReturnOwn() {
-  return new TypeError('A promises callback cannot return that same promise.');
-}
-
-function tryThen(then$$1, value, fulfillmentHandler, rejectionHandler) {
-  try {
-    then$$1.call(value, fulfillmentHandler, rejectionHandler);
-  } catch (e) {
-    return e;
-  }
-}
-
-function handleForeignThenable(promise, thenable, then$$1) {
-  asap(function (promise) {
-    var sealed = false;
-    var error = tryThen(then$$1, thenable, function (value) {
-      if (sealed) {
-        return;
-      }
-      sealed = true;
-      if (thenable !== value) {
-        resolve(promise, value);
-      } else {
-        fulfill(promise, value);
-      }
-    }, function (reason) {
-      if (sealed) {
-        return;
-      }
-      sealed = true;
-
-      reject(promise, reason);
-    }, 'Settle: ' + (promise._label || ' unknown promise'));
-
-    if (!sealed && error) {
-      sealed = true;
-      reject(promise, error);
-    }
-  }, promise);
-}
-
-function handleOwnThenable(promise, thenable) {
-  if (thenable._state === FULFILLED) {
-    fulfill(promise, thenable._result);
-  } else if (thenable._state === REJECTED) {
-    reject(promise, thenable._result);
-  } else {
-    subscribe(thenable, undefined, function (value) {
-      return resolve(promise, value);
-    }, function (reason) {
-      return reject(promise, reason);
-    });
-  }
-}
-
-function handleMaybeThenable(promise, maybeThenable, then$$1) {
-  if (maybeThenable.constructor === promise.constructor && then$$1 === then && maybeThenable.constructor.resolve === resolve$1) {
-    handleOwnThenable(promise, maybeThenable);
-  } else {
-    if (then$$1 === undefined) {
-      fulfill(promise, maybeThenable);
-    } else if (isFunction(then$$1)) {
-      handleForeignThenable(promise, maybeThenable, then$$1);
-    } else {
-      fulfill(promise, maybeThenable);
-    }
-  }
-}
-
-function resolve(promise, value) {
-  if (promise === value) {
-    reject(promise, selfFulfillment());
-  } else if (objectOrFunction(value)) {
-    var then$$1 = void 0;
-    try {
-      then$$1 = value.then;
-    } catch (error) {
-      reject(promise, error);
-      return;
-    }
-    handleMaybeThenable(promise, value, then$$1);
-  } else {
-    fulfill(promise, value);
-  }
-}
-
-function publishRejection(promise) {
-  if (promise._onerror) {
-    promise._onerror(promise._result);
-  }
-
-  publish(promise);
-}
-
-function fulfill(promise, value) {
-  if (promise._state !== PENDING) {
-    return;
-  }
-
-  promise._result = value;
-  promise._state = FULFILLED;
-
-  if (promise._subscribers.length !== 0) {
-    asap(publish, promise);
-  }
-}
-
-function reject(promise, reason) {
-  if (promise._state !== PENDING) {
-    return;
-  }
-  promise._state = REJECTED;
-  promise._result = reason;
-
-  asap(publishRejection, promise);
-}
-
-function subscribe(parent, child, onFulfillment, onRejection) {
-  var _subscribers = parent._subscribers;
-  var length = _subscribers.length;
-
-
-  parent._onerror = null;
-
-  _subscribers[length] = child;
-  _subscribers[length + FULFILLED] = onFulfillment;
-  _subscribers[length + REJECTED] = onRejection;
-
-  if (length === 0 && parent._state) {
-    asap(publish, parent);
-  }
-}
-
-function publish(promise) {
-  var subscribers = promise._subscribers;
-  var settled = promise._state;
-
-  if (subscribers.length === 0) {
-    return;
-  }
-
-  var child = void 0,
-      callback = void 0,
-      detail = promise._result;
-
-  for (var i = 0; i < subscribers.length; i += 3) {
-    child = subscribers[i];
-    callback = subscribers[i + settled];
-
-    if (child) {
-      invokeCallback(settled, child, callback, detail);
-    } else {
-      callback(detail);
-    }
-  }
-
-  promise._subscribers.length = 0;
-}
-
-function invokeCallback(settled, promise, callback, detail) {
-  var hasCallback = isFunction(callback),
-      value = void 0,
-      error = void 0,
-      succeeded = true;
-
-  if (hasCallback) {
-    try {
-      value = callback(detail);
-    } catch (e) {
-      succeeded = false;
-      error = e;
-    }
-
-    if (promise === value) {
-      reject(promise, cannotReturnOwn());
-      return;
-    }
-  } else {
-    value = detail;
-  }
-
-  if (promise._state !== PENDING) {
-    // noop
-  } else if (hasCallback && succeeded) {
-    resolve(promise, value);
-  } else if (succeeded === false) {
-    reject(promise, error);
-  } else if (settled === FULFILLED) {
-    fulfill(promise, value);
-  } else if (settled === REJECTED) {
-    reject(promise, value);
-  }
-}
-
-function initializePromise(promise, resolver) {
-  try {
-    resolver(function resolvePromise(value) {
-      resolve(promise, value);
-    }, function rejectPromise(reason) {
-      reject(promise, reason);
-    });
-  } catch (e) {
-    reject(promise, e);
-  }
-}
-
-var id = 0;
-function nextId() {
-  return id++;
-}
-
-function makePromise(promise) {
-  promise[PROMISE_ID] = id++;
-  promise._state = undefined;
-  promise._result = undefined;
-  promise._subscribers = [];
-}
-
-function validationError() {
-  return new Error('Array Methods must be provided an Array');
-}
-
-var Enumerator = function () {
-  function Enumerator(Constructor, input) {
-    this._instanceConstructor = Constructor;
-    this.promise = new Constructor(noop);
-
-    if (!this.promise[PROMISE_ID]) {
-      makePromise(this.promise);
-    }
-
-    if (isArray(input)) {
-      this.length = input.length;
-      this._remaining = input.length;
-
-      this._result = new Array(this.length);
-
-      if (this.length === 0) {
-        fulfill(this.promise, this._result);
-      } else {
-        this.length = this.length || 0;
-        this._enumerate(input);
-        if (this._remaining === 0) {
-          fulfill(this.promise, this._result);
-        }
-      }
-    } else {
-      reject(this.promise, validationError());
-    }
-  }
-
-  Enumerator.prototype._enumerate = function _enumerate(input) {
-    for (var i = 0; this._state === PENDING && i < input.length; i++) {
-      this._eachEntry(input[i], i);
-    }
-  };
-
-  Enumerator.prototype._eachEntry = function _eachEntry(entry, i) {
-    var c = this._instanceConstructor;
-    var resolve$$1 = c.resolve;
-
-
-    if (resolve$$1 === resolve$1) {
-      var _then = void 0;
-      var error = void 0;
-      var didError = false;
-      try {
-        _then = entry.then;
-      } catch (e) {
-        didError = true;
-        error = e;
-      }
-
-      if (_then === then && entry._state !== PENDING) {
-        this._settledAt(entry._state, i, entry._result);
-      } else if (typeof _then !== 'function') {
-        this._remaining--;
-        this._result[i] = entry;
-      } else if (c === Promise$1) {
-        var promise = new c(noop);
-        if (didError) {
-          reject(promise, error);
-        } else {
-          handleMaybeThenable(promise, entry, _then);
-        }
-        this._willSettleAt(promise, i);
-      } else {
-        this._willSettleAt(new c(function (resolve$$1) {
-          return resolve$$1(entry);
-        }), i);
-      }
-    } else {
-      this._willSettleAt(resolve$$1(entry), i);
-    }
-  };
-
-  Enumerator.prototype._settledAt = function _settledAt(state, i, value) {
-    var promise = this.promise;
-
-
-    if (promise._state === PENDING) {
-      this._remaining--;
-
-      if (state === REJECTED) {
-        reject(promise, value);
-      } else {
-        this._result[i] = value;
-      }
-    }
-
-    if (this._remaining === 0) {
-      fulfill(promise, this._result);
-    }
-  };
-
-  Enumerator.prototype._willSettleAt = function _willSettleAt(promise, i) {
-    var enumerator = this;
-
-    subscribe(promise, undefined, function (value) {
-      return enumerator._settledAt(FULFILLED, i, value);
-    }, function (reason) {
-      return enumerator._settledAt(REJECTED, i, reason);
-    });
-  };
-
-  return Enumerator;
-}();
-
-/**
-  `Promise.all` accepts an array of promises, and returns a new promise which
-  is fulfilled with an array of fulfillment values for the passed promises, or
-  rejected with the reason of the first passed promise to be rejected. It casts all
-  elements of the passed iterable to promises as it runs this algorithm.
-
-  Example:
-
-  ```javascript
-  let promise1 = resolve(1);
-  let promise2 = resolve(2);
-  let promise3 = resolve(3);
-  let promises = [ promise1, promise2, promise3 ];
-
-  Promise.all(promises).then(function(array){
-    // The array here would be [ 1, 2, 3 ];
-  });
-  ```
-
-  If any of the `promises` given to `all` are rejected, the first promise
-  that is rejected will be given as an argument to the returned promises's
-  rejection handler. For example:
-
-  Example:
-
-  ```javascript
-  let promise1 = resolve(1);
-  let promise2 = reject(new Error("2"));
-  let promise3 = reject(new Error("3"));
-  let promises = [ promise1, promise2, promise3 ];
-
-  Promise.all(promises).then(function(array){
-    // Code here never runs because there are rejected promises!
-  }, function(error) {
-    // error.message === "2"
-  });
-  ```
-
-  @method all
-  @static
-  @param {Array} entries array of promises
-  @param {String} label optional string for labeling the promise.
-  Useful for tooling.
-  @return {Promise} promise that is fulfilled when all `promises` have been
-  fulfilled, or rejected if any of them become rejected.
-  @static
-*/
-function all(entries) {
-  return new Enumerator(this, entries).promise;
-}
-
-/**
-  `Promise.race` returns a new promise which is settled in the same way as the
-  first passed promise to settle.
-
-  Example:
-
-  ```javascript
-  let promise1 = new Promise(function(resolve, reject){
-    setTimeout(function(){
-      resolve('promise 1');
-    }, 200);
-  });
-
-  let promise2 = new Promise(function(resolve, reject){
-    setTimeout(function(){
-      resolve('promise 2');
-    }, 100);
-  });
-
-  Promise.race([promise1, promise2]).then(function(result){
-    // result === 'promise 2' because it was resolved before promise1
-    // was resolved.
-  });
-  ```
-
-  `Promise.race` is deterministic in that only the state of the first
-  settled promise matters. For example, even if other promises given to the
-  `promises` array argument are resolved, but the first settled promise has
-  become rejected before the other promises became fulfilled, the returned
-  promise will become rejected:
-
-  ```javascript
-  let promise1 = new Promise(function(resolve, reject){
-    setTimeout(function(){
-      resolve('promise 1');
-    }, 200);
-  });
-
-  let promise2 = new Promise(function(resolve, reject){
-    setTimeout(function(){
-      reject(new Error('promise 2'));
-    }, 100);
-  });
-
-  Promise.race([promise1, promise2]).then(function(result){
-    // Code here never runs
-  }, function(reason){
-    // reason.message === 'promise 2' because promise 2 became rejected before
-    // promise 1 became fulfilled
-  });
-  ```
-
-  An example real-world use case is implementing timeouts:
-
-  ```javascript
-  Promise.race([ajax('foo.json'), timeout(5000)])
-  ```
-
-  @method race
-  @static
-  @param {Array} promises array of promises to observe
-  Useful for tooling.
-  @return {Promise} a promise which settles in the same way as the first passed
-  promise to settle.
-*/
-function race(entries) {
-  /*jshint validthis:true */
-  var Constructor = this;
-
-  if (!isArray(entries)) {
-    return new Constructor(function (_, reject) {
-      return reject(new TypeError('You must pass an array to race.'));
-    });
-  } else {
-    return new Constructor(function (resolve, reject) {
-      var length = entries.length;
-      for (var i = 0; i < length; i++) {
-        Constructor.resolve(entries[i]).then(resolve, reject);
-      }
-    });
-  }
-}
-
-/**
-  `Promise.reject` returns a promise rejected with the passed `reason`.
-  It is shorthand for the following:
-
-  ```javascript
-  let promise = new Promise(function(resolve, reject){
-    reject(new Error('WHOOPS'));
-  });
-
-  promise.then(function(value){
-    // Code here doesn't run because the promise is rejected!
-  }, function(reason){
-    // reason.message === 'WHOOPS'
-  });
-  ```
-
-  Instead of writing the above, your code now simply becomes the following:
-
-  ```javascript
-  let promise = Promise.reject(new Error('WHOOPS'));
-
-  promise.then(function(value){
-    // Code here doesn't run because the promise is rejected!
-  }, function(reason){
-    // reason.message === 'WHOOPS'
-  });
-  ```
-
-  @method reject
-  @static
-  @param {Any} reason value that the returned promise will be rejected with.
-  Useful for tooling.
-  @return {Promise} a promise rejected with the given `reason`.
-*/
-function reject$1(reason) {
-  /*jshint validthis:true */
-  var Constructor = this;
-  var promise = new Constructor(noop);
-  reject(promise, reason);
-  return promise;
-}
-
-function needsResolver() {
-  throw new TypeError('You must pass a resolver function as the first argument to the promise constructor');
-}
-
-function needsNew() {
-  throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.");
-}
-
-/**
-  Promise objects represent the eventual result of an asynchronous operation. The
-  primary way of interacting with a promise is through its `then` method, which
-  registers callbacks to receive either a promise's eventual value or the reason
-  why the promise cannot be fulfilled.
-
-  Terminology
-  -----------
-
-  - `promise` is an object or function with a `then` method whose behavior conforms to this specification.
-  - `thenable` is an object or function that defines a `then` method.
-  - `value` is any legal JavaScript value (including undefined, a thenable, or a promise).
-  - `exception` is a value that is thrown using the throw statement.
-  - `reason` is a value that indicates why a promise was rejected.
-  - `settled` the final resting state of a promise, fulfilled or rejected.
-
-  A promise can be in one of three states: pending, fulfilled, or rejected.
-
-  Promises that are fulfilled have a fulfillment value and are in the fulfilled
-  state.  Promises that are rejected have a rejection reason and are in the
-  rejected state.  A fulfillment value is never a thenable.
-
-  Promises can also be said to *resolve* a value.  If this value is also a
-  promise, then the original promise's settled state will match the value's
-  settled state.  So a promise that *resolves* a promise that rejects will
-  itself reject, and a promise that *resolves* a promise that fulfills will
-  itself fulfill.
-
-
-  Basic Usage:
-  ------------
-
-  ```js
-  let promise = new Promise(function(resolve, reject) {
-    // on success
-    resolve(value);
-
-    // on failure
-    reject(reason);
-  });
-
-  promise.then(function(value) {
-    // on fulfillment
-  }, function(reason) {
-    // on rejection
-  });
-  ```
-
-  Advanced Usage:
-  ---------------
-
-  Promises shine when abstracting away asynchronous interactions such as
-  `XMLHttpRequest`s.
-
-  ```js
-  function getJSON(url) {
-    return new Promise(function(resolve, reject){
-      let xhr = new XMLHttpRequest();
-
-      xhr.open('GET', url);
-      xhr.onreadystatechange = handler;
-      xhr.responseType = 'json';
-      xhr.setRequestHeader('Accept', 'application/json');
-      xhr.send();
-
-      function handler() {
-        if (this.readyState === this.DONE) {
-          if (this.status === 200) {
-            resolve(this.response);
-          } else {
-            reject(new Error('getJSON: `' + url + '` failed with status: [' + this.status + ']'));
-          }
-        }
-      };
-    });
-  }
-
-  getJSON('/posts.json').then(function(json) {
-    // on fulfillment
-  }, function(reason) {
-    // on rejection
-  });
-  ```
-
-  Unlike callbacks, promises are great composable primitives.
-
-  ```js
-  Promise.all([
-    getJSON('/posts'),
-    getJSON('/comments')
-  ]).then(function(values){
-    values[0] // => postsJSON
-    values[1] // => commentsJSON
-
-    return values;
-  });
-  ```
-
-  @class Promise
-  @param {Function} resolver
-  Useful for tooling.
-  @constructor
-*/
-
-var Promise$1 = function () {
-  function Promise(resolver) {
-    this[PROMISE_ID] = nextId();
-    this._result = this._state = undefined;
-    this._subscribers = [];
-
-    if (noop !== resolver) {
-      typeof resolver !== 'function' && needsResolver();
-      this instanceof Promise ? initializePromise(this, resolver) : needsNew();
-    }
-  }
-
-  /**
-  The primary way of interacting with a promise is through its `then` method,
-  which registers callbacks to receive either a promise's eventual value or the
-  reason why the promise cannot be fulfilled.
-   ```js
-  findUser().then(function(user){
-    // user is available
-  }, function(reason){
-    // user is unavailable, and you are given the reason why
-  });
-  ```
-   Chaining
-  --------
-   The return value of `then` is itself a promise.  This second, 'downstream'
-  promise is resolved with the return value of the first promise's fulfillment
-  or rejection handler, or rejected if the handler throws an exception.
-   ```js
-  findUser().then(function (user) {
-    return user.name;
-  }, function (reason) {
-    return 'default name';
-  }).then(function (userName) {
-    // If `findUser` fulfilled, `userName` will be the user's name, otherwise it
-    // will be `'default name'`
-  });
-   findUser().then(function (user) {
-    throw new Error('Found user, but still unhappy');
-  }, function (reason) {
-    throw new Error('`findUser` rejected and we're unhappy');
-  }).then(function (value) {
-    // never reached
-  }, function (reason) {
-    // if `findUser` fulfilled, `reason` will be 'Found user, but still unhappy'.
-    // If `findUser` rejected, `reason` will be '`findUser` rejected and we're unhappy'.
-  });
-  ```
-  If the downstream promise does not specify a rejection handler, rejection reasons will be propagated further downstream.
-   ```js
-  findUser().then(function (user) {
-    throw new PedagogicalException('Upstream error');
-  }).then(function (value) {
-    // never reached
-  }).then(function (value) {
-    // never reached
-  }, function (reason) {
-    // The `PedgagocialException` is propagated all the way down to here
-  });
-  ```
-   Assimilation
-  ------------
-   Sometimes the value you want to propagate to a downstream promise can only be
-  retrieved asynchronously. This can be achieved by returning a promise in the
-  fulfillment or rejection handler. The downstream promise will then be pending
-  until the returned promise is settled. This is called *assimilation*.
-   ```js
-  findUser().then(function (user) {
-    return findCommentsByAuthor(user);
-  }).then(function (comments) {
-    // The user's comments are now available
-  });
-  ```
-   If the assimliated promise rejects, then the downstream promise will also reject.
-   ```js
-  findUser().then(function (user) {
-    return findCommentsByAuthor(user);
-  }).then(function (comments) {
-    // If `findCommentsByAuthor` fulfills, we'll have the value here
-  }, function (reason) {
-    // If `findCommentsByAuthor` rejects, we'll have the reason here
-  });
-  ```
-   Simple Example
-  --------------
-   Synchronous Example
-   ```javascript
-  let result;
-   try {
-    result = findResult();
-    // success
-  } catch(reason) {
-    // failure
-  }
-  ```
-   Errback Example
-   ```js
-  findResult(function(result, err){
-    if (err) {
-      // failure
-    } else {
-      // success
-    }
-  });
-  ```
-   Promise Example;
-   ```javascript
-  findResult().then(function(result){
-    // success
-  }, function(reason){
-    // failure
-  });
-  ```
-   Advanced Example
-  --------------
-   Synchronous Example
-   ```javascript
-  let author, books;
-   try {
-    author = findAuthor();
-    books  = findBooksByAuthor(author);
-    // success
-  } catch(reason) {
-    // failure
-  }
-  ```
-   Errback Example
-   ```js
-   function foundBooks(books) {
-   }
-   function failure(reason) {
-   }
-   findAuthor(function(author, err){
-    if (err) {
-      failure(err);
-      // failure
-    } else {
-      try {
-        findBoooksByAuthor(author, function(books, err) {
-          if (err) {
-            failure(err);
-          } else {
-            try {
-              foundBooks(books);
-            } catch(reason) {
-              failure(reason);
-            }
-          }
-        });
-      } catch(error) {
-        failure(err);
-      }
-      // success
-    }
-  });
-  ```
-   Promise Example;
-   ```javascript
-  findAuthor().
-    then(findBooksByAuthor).
-    then(function(books){
-      // found books
-  }).catch(function(reason){
-    // something went wrong
-  });
-  ```
-   @method then
-  @param {Function} onFulfilled
-  @param {Function} onRejected
-  Useful for tooling.
-  @return {Promise}
-  */
-
-  /**
-  `catch` is simply sugar for `then(undefined, onRejection)` which makes it the same
-  as the catch block of a try/catch statement.
-  ```js
-  function findAuthor(){
-  throw new Error('couldn't find that author');
-  }
-  // synchronous
-  try {
-  findAuthor();
-  } catch(reason) {
-  // something went wrong
-  }
-  // async with promises
-  findAuthor().catch(function(reason){
-  // something went wrong
-  });
-  ```
-  @method catch
-  @param {Function} onRejection
-  Useful for tooling.
-  @return {Promise}
-  */
-
-
-  Promise.prototype.catch = function _catch(onRejection) {
-    return this.then(null, onRejection);
-  };
-
-  /**
-    `finally` will be invoked regardless of the promise's fate just as native
-    try/catch/finally behaves
-  
-    Synchronous example:
-  
-    ```js
-    findAuthor() {
-      if (Math.random() > 0.5) {
-        throw new Error();
-      }
-      return new Author();
-    }
-  
-    try {
-      return findAuthor(); // succeed or fail
-    } catch(error) {
-      return findOtherAuther();
-    } finally {
-      // always runs
-      // doesn't affect the return value
-    }
-    ```
-  
-    Asynchronous example:
-  
-    ```js
-    findAuthor().catch(function(reason){
-      return findOtherAuther();
-    }).finally(function(){
-      // author was either found, or not
-    });
-    ```
-  
-    @method finally
-    @param {Function} callback
-    @return {Promise}
-  */
-
-
-  Promise.prototype.finally = function _finally(callback) {
-    var promise = this;
-    var constructor = promise.constructor;
-
-    if (isFunction(callback)) {
-      return promise.then(function (value) {
-        return constructor.resolve(callback()).then(function () {
-          return value;
-        });
-      }, function (reason) {
-        return constructor.resolve(callback()).then(function () {
-          throw reason;
-        });
-      });
-    }
-
-    return promise.then(callback, callback);
-  };
-
-  return Promise;
-}();
-
-Promise$1.prototype.then = then;
-Promise$1.all = all;
-Promise$1.race = race;
-Promise$1.resolve = resolve$1;
-Promise$1.reject = reject$1;
-Promise$1._setScheduler = setScheduler;
-Promise$1._setAsap = setAsap;
-Promise$1._asap = asap;
-
-/*global self*/
-function polyfill() {
-  var local = void 0;
-
-  if (typeof global !== 'undefined') {
-    local = global;
-  } else if (typeof self !== 'undefined') {
-    local = self;
-  } else {
-    try {
-      local = Function('return this')();
-    } catch (e) {
-      throw new Error('polyfill failed because global object is unavailable in this environment');
-    }
-  }
-
-  var P = local.Promise;
-
-  if (P) {
-    var promiseToString = null;
-    try {
-      promiseToString = Object.prototype.toString.call(P.resolve());
-    } catch (e) {
-      // silently ignored
-    }
-
-    if (promiseToString === '[object Promise]' && !P.cast) {
-      return;
-    }
-  }
-
-  local.Promise = Promise$1;
-}
-
-// Strange compat..
-Promise$1.polyfill = polyfill;
-Promise$1.Promise = Promise$1;
-
-return Promise$1;
-
-})));
-
-
-
-//# sourceMappingURL=es6-promise.map
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../process/browser.js */ "./node_modules/process/browser.js"), __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
 /***/ }),
 
@@ -42437,19 +40090,6 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
-/***/ "./node_modules/vue-axios/dist/vue-axios.min.js":
-/*!******************************************************!*\
-  !*** ./node_modules/vue-axios/dist/vue-axios.min.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof(o){"@babel/helpers - typeof";return(_typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(o){return typeof o}:function(o){return o&&"function"==typeof Symbol&&o.constructor===Symbol&&o!==Symbol.prototype?"symbol":typeof o})(o)}!function(){function o(e,t){if(!o.installed){if(!t)return void console.error("You have to install axios");o.installed=!0,e.axios=t,e.config.globalProperties.axios=t,e.config.globalProperties.$http=t}}"object"==( false?undefined:_typeof(exports))?module.exports=o: true?!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function(){return o}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)):undefined}();
-
-/***/ }),
-
 /***/ "./node_modules/vue-clazy-load/dist/vue-clazy-load.js":
 /*!************************************************************!*\
   !*** ./node_modules/vue-clazy-load/dist/vue-clazy-load.js ***!
@@ -44953,8 +42593,8 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.phone,
-                      expression: "phone"
+                      value: _vm.form.phone,
+                      expression: "form.phone"
                     }
                   ],
                   attrs: {
@@ -44962,13 +42602,13 @@ var render = function() {
                     placeholder: "الايميل او رقم الهاتف  ",
                     required: ""
                   },
-                  domProps: { value: _vm.phone },
+                  domProps: { value: _vm.form.phone },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.phone = $event.target.value
+                      _vm.$set(_vm.form, "phone", $event.target.value)
                     }
                   }
                 })
@@ -44984,8 +42624,8 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.password,
-                      expression: "password"
+                      value: _vm.form.password,
+                      expression: "form.password"
                     }
                   ],
                   attrs: {
@@ -44993,13 +42633,13 @@ var render = function() {
                     placeholder: "كلمة السر",
                     required: ""
                   },
-                  domProps: { value: _vm.password },
+                  domProps: { value: _vm.form.password },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.password = $event.target.value
+                      _vm.$set(_vm.form, "password", $event.target.value)
                     }
                   }
                 })
@@ -45996,9 +43636,13 @@ var render = function() {
                     "div",
                     { staticClass: "users" },
                     [
-                      _vm._v("هل لديك حساب من قبل ؟ "),
+                      _vm._v(
+                        "هل لديك حساب من قبل ؟\n                                "
+                      ),
                       _c("router-link", { attrs: { to: "/login" } }, [
-                        _vm._v(" تسجيل\n                                الدخول")
+                        _vm._v(
+                          " تسجيل\n                                    الدخول\n                                "
+                        )
                       ])
                     ],
                     1
@@ -61331,6 +58975,1267 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/vuex/dist/vuex.esm.js":
+/*!********************************************!*\
+  !*** ./node_modules/vuex/dist/vuex.esm.js ***!
+  \********************************************/
+/*! exports provided: default, Store, createLogger, createNamespacedHelpers, install, mapActions, mapGetters, mapMutations, mapState */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Store", function() { return Store; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createLogger", function() { return createLogger; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNamespacedHelpers", function() { return createNamespacedHelpers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "install", function() { return install; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapActions", function() { return mapActions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapGetters", function() { return mapGetters; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapMutations", function() { return mapMutations; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapState", function() { return mapState; });
+/*!
+ * vuex v3.5.1
+ * (c) 2020 Evan You
+ * @license MIT
+ */
+function applyMixin (Vue) {
+  var version = Number(Vue.version.split('.')[0]);
+
+  if (version >= 2) {
+    Vue.mixin({ beforeCreate: vuexInit });
+  } else {
+    // override init and inject vuex init procedure
+    // for 1.x backwards compatibility.
+    var _init = Vue.prototype._init;
+    Vue.prototype._init = function (options) {
+      if ( options === void 0 ) options = {};
+
+      options.init = options.init
+        ? [vuexInit].concat(options.init)
+        : vuexInit;
+      _init.call(this, options);
+    };
+  }
+
+  /**
+   * Vuex init hook, injected into each instances init hooks list.
+   */
+
+  function vuexInit () {
+    var options = this.$options;
+    // store injection
+    if (options.store) {
+      this.$store = typeof options.store === 'function'
+        ? options.store()
+        : options.store;
+    } else if (options.parent && options.parent.$store) {
+      this.$store = options.parent.$store;
+    }
+  }
+}
+
+var target = typeof window !== 'undefined'
+  ? window
+  : typeof global !== 'undefined'
+    ? global
+    : {};
+var devtoolHook = target.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+
+function devtoolPlugin (store) {
+  if (!devtoolHook) { return }
+
+  store._devtoolHook = devtoolHook;
+
+  devtoolHook.emit('vuex:init', store);
+
+  devtoolHook.on('vuex:travel-to-state', function (targetState) {
+    store.replaceState(targetState);
+  });
+
+  store.subscribe(function (mutation, state) {
+    devtoolHook.emit('vuex:mutation', mutation, state);
+  }, { prepend: true });
+
+  store.subscribeAction(function (action, state) {
+    devtoolHook.emit('vuex:action', action, state);
+  }, { prepend: true });
+}
+
+/**
+ * Get the first item that pass the test
+ * by second argument function
+ *
+ * @param {Array} list
+ * @param {Function} f
+ * @return {*}
+ */
+function find (list, f) {
+  return list.filter(f)[0]
+}
+
+/**
+ * Deep copy the given object considering circular structure.
+ * This function caches all nested objects and its copies.
+ * If it detects circular structure, use cached copy to avoid infinite loop.
+ *
+ * @param {*} obj
+ * @param {Array<Object>} cache
+ * @return {*}
+ */
+function deepCopy (obj, cache) {
+  if ( cache === void 0 ) cache = [];
+
+  // just return if obj is immutable value
+  if (obj === null || typeof obj !== 'object') {
+    return obj
+  }
+
+  // if obj is hit, it is in circular structure
+  var hit = find(cache, function (c) { return c.original === obj; });
+  if (hit) {
+    return hit.copy
+  }
+
+  var copy = Array.isArray(obj) ? [] : {};
+  // put the copy into cache at first
+  // because we want to refer it in recursive deepCopy
+  cache.push({
+    original: obj,
+    copy: copy
+  });
+
+  Object.keys(obj).forEach(function (key) {
+    copy[key] = deepCopy(obj[key], cache);
+  });
+
+  return copy
+}
+
+/**
+ * forEach for object
+ */
+function forEachValue (obj, fn) {
+  Object.keys(obj).forEach(function (key) { return fn(obj[key], key); });
+}
+
+function isObject (obj) {
+  return obj !== null && typeof obj === 'object'
+}
+
+function isPromise (val) {
+  return val && typeof val.then === 'function'
+}
+
+function assert (condition, msg) {
+  if (!condition) { throw new Error(("[vuex] " + msg)) }
+}
+
+function partial (fn, arg) {
+  return function () {
+    return fn(arg)
+  }
+}
+
+// Base data struct for store's module, package with some attribute and method
+var Module = function Module (rawModule, runtime) {
+  this.runtime = runtime;
+  // Store some children item
+  this._children = Object.create(null);
+  // Store the origin module object which passed by programmer
+  this._rawModule = rawModule;
+  var rawState = rawModule.state;
+
+  // Store the origin module's state
+  this.state = (typeof rawState === 'function' ? rawState() : rawState) || {};
+};
+
+var prototypeAccessors = { namespaced: { configurable: true } };
+
+prototypeAccessors.namespaced.get = function () {
+  return !!this._rawModule.namespaced
+};
+
+Module.prototype.addChild = function addChild (key, module) {
+  this._children[key] = module;
+};
+
+Module.prototype.removeChild = function removeChild (key) {
+  delete this._children[key];
+};
+
+Module.prototype.getChild = function getChild (key) {
+  return this._children[key]
+};
+
+Module.prototype.hasChild = function hasChild (key) {
+  return key in this._children
+};
+
+Module.prototype.update = function update (rawModule) {
+  this._rawModule.namespaced = rawModule.namespaced;
+  if (rawModule.actions) {
+    this._rawModule.actions = rawModule.actions;
+  }
+  if (rawModule.mutations) {
+    this._rawModule.mutations = rawModule.mutations;
+  }
+  if (rawModule.getters) {
+    this._rawModule.getters = rawModule.getters;
+  }
+};
+
+Module.prototype.forEachChild = function forEachChild (fn) {
+  forEachValue(this._children, fn);
+};
+
+Module.prototype.forEachGetter = function forEachGetter (fn) {
+  if (this._rawModule.getters) {
+    forEachValue(this._rawModule.getters, fn);
+  }
+};
+
+Module.prototype.forEachAction = function forEachAction (fn) {
+  if (this._rawModule.actions) {
+    forEachValue(this._rawModule.actions, fn);
+  }
+};
+
+Module.prototype.forEachMutation = function forEachMutation (fn) {
+  if (this._rawModule.mutations) {
+    forEachValue(this._rawModule.mutations, fn);
+  }
+};
+
+Object.defineProperties( Module.prototype, prototypeAccessors );
+
+var ModuleCollection = function ModuleCollection (rawRootModule) {
+  // register root module (Vuex.Store options)
+  this.register([], rawRootModule, false);
+};
+
+ModuleCollection.prototype.get = function get (path) {
+  return path.reduce(function (module, key) {
+    return module.getChild(key)
+  }, this.root)
+};
+
+ModuleCollection.prototype.getNamespace = function getNamespace (path) {
+  var module = this.root;
+  return path.reduce(function (namespace, key) {
+    module = module.getChild(key);
+    return namespace + (module.namespaced ? key + '/' : '')
+  }, '')
+};
+
+ModuleCollection.prototype.update = function update$1 (rawRootModule) {
+  update([], this.root, rawRootModule);
+};
+
+ModuleCollection.prototype.register = function register (path, rawModule, runtime) {
+    var this$1 = this;
+    if ( runtime === void 0 ) runtime = true;
+
+  if ((true)) {
+    assertRawModule(path, rawModule);
+  }
+
+  var newModule = new Module(rawModule, runtime);
+  if (path.length === 0) {
+    this.root = newModule;
+  } else {
+    var parent = this.get(path.slice(0, -1));
+    parent.addChild(path[path.length - 1], newModule);
+  }
+
+  // register nested modules
+  if (rawModule.modules) {
+    forEachValue(rawModule.modules, function (rawChildModule, key) {
+      this$1.register(path.concat(key), rawChildModule, runtime);
+    });
+  }
+};
+
+ModuleCollection.prototype.unregister = function unregister (path) {
+  var parent = this.get(path.slice(0, -1));
+  var key = path[path.length - 1];
+  var child = parent.getChild(key);
+
+  if (!child) {
+    if ((true)) {
+      console.warn(
+        "[vuex] trying to unregister module '" + key + "', which is " +
+        "not registered"
+      );
+    }
+    return
+  }
+
+  if (!child.runtime) {
+    return
+  }
+
+  parent.removeChild(key);
+};
+
+ModuleCollection.prototype.isRegistered = function isRegistered (path) {
+  var parent = this.get(path.slice(0, -1));
+  var key = path[path.length - 1];
+
+  return parent.hasChild(key)
+};
+
+function update (path, targetModule, newModule) {
+  if ((true)) {
+    assertRawModule(path, newModule);
+  }
+
+  // update target module
+  targetModule.update(newModule);
+
+  // update nested modules
+  if (newModule.modules) {
+    for (var key in newModule.modules) {
+      if (!targetModule.getChild(key)) {
+        if ((true)) {
+          console.warn(
+            "[vuex] trying to add a new module '" + key + "' on hot reloading, " +
+            'manual reload is needed'
+          );
+        }
+        return
+      }
+      update(
+        path.concat(key),
+        targetModule.getChild(key),
+        newModule.modules[key]
+      );
+    }
+  }
+}
+
+var functionAssert = {
+  assert: function (value) { return typeof value === 'function'; },
+  expected: 'function'
+};
+
+var objectAssert = {
+  assert: function (value) { return typeof value === 'function' ||
+    (typeof value === 'object' && typeof value.handler === 'function'); },
+  expected: 'function or object with "handler" function'
+};
+
+var assertTypes = {
+  getters: functionAssert,
+  mutations: functionAssert,
+  actions: objectAssert
+};
+
+function assertRawModule (path, rawModule) {
+  Object.keys(assertTypes).forEach(function (key) {
+    if (!rawModule[key]) { return }
+
+    var assertOptions = assertTypes[key];
+
+    forEachValue(rawModule[key], function (value, type) {
+      assert(
+        assertOptions.assert(value),
+        makeAssertionMessage(path, key, type, value, assertOptions.expected)
+      );
+    });
+  });
+}
+
+function makeAssertionMessage (path, key, type, value, expected) {
+  var buf = key + " should be " + expected + " but \"" + key + "." + type + "\"";
+  if (path.length > 0) {
+    buf += " in module \"" + (path.join('.')) + "\"";
+  }
+  buf += " is " + (JSON.stringify(value)) + ".";
+  return buf
+}
+
+var Vue; // bind on install
+
+var Store = function Store (options) {
+  var this$1 = this;
+  if ( options === void 0 ) options = {};
+
+  // Auto install if it is not done yet and `window` has `Vue`.
+  // To allow users to avoid auto-installation in some cases,
+  // this code should be placed here. See #731
+  if (!Vue && typeof window !== 'undefined' && window.Vue) {
+    install(window.Vue);
+  }
+
+  if ((true)) {
+    assert(Vue, "must call Vue.use(Vuex) before creating a store instance.");
+    assert(typeof Promise !== 'undefined', "vuex requires a Promise polyfill in this browser.");
+    assert(this instanceof Store, "store must be called with the new operator.");
+  }
+
+  var plugins = options.plugins; if ( plugins === void 0 ) plugins = [];
+  var strict = options.strict; if ( strict === void 0 ) strict = false;
+
+  // store internal state
+  this._committing = false;
+  this._actions = Object.create(null);
+  this._actionSubscribers = [];
+  this._mutations = Object.create(null);
+  this._wrappedGetters = Object.create(null);
+  this._modules = new ModuleCollection(options);
+  this._modulesNamespaceMap = Object.create(null);
+  this._subscribers = [];
+  this._watcherVM = new Vue();
+  this._makeLocalGettersCache = Object.create(null);
+
+  // bind commit and dispatch to self
+  var store = this;
+  var ref = this;
+  var dispatch = ref.dispatch;
+  var commit = ref.commit;
+  this.dispatch = function boundDispatch (type, payload) {
+    return dispatch.call(store, type, payload)
+  };
+  this.commit = function boundCommit (type, payload, options) {
+    return commit.call(store, type, payload, options)
+  };
+
+  // strict mode
+  this.strict = strict;
+
+  var state = this._modules.root.state;
+
+  // init root module.
+  // this also recursively registers all sub-modules
+  // and collects all module getters inside this._wrappedGetters
+  installModule(this, state, [], this._modules.root);
+
+  // initialize the store vm, which is responsible for the reactivity
+  // (also registers _wrappedGetters as computed properties)
+  resetStoreVM(this, state);
+
+  // apply plugins
+  plugins.forEach(function (plugin) { return plugin(this$1); });
+
+  var useDevtools = options.devtools !== undefined ? options.devtools : Vue.config.devtools;
+  if (useDevtools) {
+    devtoolPlugin(this);
+  }
+};
+
+var prototypeAccessors$1 = { state: { configurable: true } };
+
+prototypeAccessors$1.state.get = function () {
+  return this._vm._data.$$state
+};
+
+prototypeAccessors$1.state.set = function (v) {
+  if ((true)) {
+    assert(false, "use store.replaceState() to explicit replace store state.");
+  }
+};
+
+Store.prototype.commit = function commit (_type, _payload, _options) {
+    var this$1 = this;
+
+  // check object-style commit
+  var ref = unifyObjectStyle(_type, _payload, _options);
+    var type = ref.type;
+    var payload = ref.payload;
+    var options = ref.options;
+
+  var mutation = { type: type, payload: payload };
+  var entry = this._mutations[type];
+  if (!entry) {
+    if ((true)) {
+      console.error(("[vuex] unknown mutation type: " + type));
+    }
+    return
+  }
+  this._withCommit(function () {
+    entry.forEach(function commitIterator (handler) {
+      handler(payload);
+    });
+  });
+
+  this._subscribers
+    .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+    .forEach(function (sub) { return sub(mutation, this$1.state); });
+
+  if (
+    ( true) &&
+    options && options.silent
+  ) {
+    console.warn(
+      "[vuex] mutation type: " + type + ". Silent option has been removed. " +
+      'Use the filter functionality in the vue-devtools'
+    );
+  }
+};
+
+Store.prototype.dispatch = function dispatch (_type, _payload) {
+    var this$1 = this;
+
+  // check object-style dispatch
+  var ref = unifyObjectStyle(_type, _payload);
+    var type = ref.type;
+    var payload = ref.payload;
+
+  var action = { type: type, payload: payload };
+  var entry = this._actions[type];
+  if (!entry) {
+    if ((true)) {
+      console.error(("[vuex] unknown action type: " + type));
+    }
+    return
+  }
+
+  try {
+    this._actionSubscribers
+      .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+      .filter(function (sub) { return sub.before; })
+      .forEach(function (sub) { return sub.before(action, this$1.state); });
+  } catch (e) {
+    if ((true)) {
+      console.warn("[vuex] error in before action subscribers: ");
+      console.error(e);
+    }
+  }
+
+  var result = entry.length > 1
+    ? Promise.all(entry.map(function (handler) { return handler(payload); }))
+    : entry[0](payload);
+
+  return new Promise(function (resolve, reject) {
+    result.then(function (res) {
+      try {
+        this$1._actionSubscribers
+          .filter(function (sub) { return sub.after; })
+          .forEach(function (sub) { return sub.after(action, this$1.state); });
+      } catch (e) {
+        if ((true)) {
+          console.warn("[vuex] error in after action subscribers: ");
+          console.error(e);
+        }
+      }
+      resolve(res);
+    }, function (error) {
+      try {
+        this$1._actionSubscribers
+          .filter(function (sub) { return sub.error; })
+          .forEach(function (sub) { return sub.error(action, this$1.state, error); });
+      } catch (e) {
+        if ((true)) {
+          console.warn("[vuex] error in error action subscribers: ");
+          console.error(e);
+        }
+      }
+      reject(error);
+    });
+  })
+};
+
+Store.prototype.subscribe = function subscribe (fn, options) {
+  return genericSubscribe(fn, this._subscribers, options)
+};
+
+Store.prototype.subscribeAction = function subscribeAction (fn, options) {
+  var subs = typeof fn === 'function' ? { before: fn } : fn;
+  return genericSubscribe(subs, this._actionSubscribers, options)
+};
+
+Store.prototype.watch = function watch (getter, cb, options) {
+    var this$1 = this;
+
+  if ((true)) {
+    assert(typeof getter === 'function', "store.watch only accepts a function.");
+  }
+  return this._watcherVM.$watch(function () { return getter(this$1.state, this$1.getters); }, cb, options)
+};
+
+Store.prototype.replaceState = function replaceState (state) {
+    var this$1 = this;
+
+  this._withCommit(function () {
+    this$1._vm._data.$$state = state;
+  });
+};
+
+Store.prototype.registerModule = function registerModule (path, rawModule, options) {
+    if ( options === void 0 ) options = {};
+
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+    assert(path.length > 0, 'cannot register the root module by using registerModule.');
+  }
+
+  this._modules.register(path, rawModule);
+  installModule(this, this.state, path, this._modules.get(path), options.preserveState);
+  // reset store to update getters...
+  resetStoreVM(this, this.state);
+};
+
+Store.prototype.unregisterModule = function unregisterModule (path) {
+    var this$1 = this;
+
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+  }
+
+  this._modules.unregister(path);
+  this._withCommit(function () {
+    var parentState = getNestedState(this$1.state, path.slice(0, -1));
+    Vue.delete(parentState, path[path.length - 1]);
+  });
+  resetStore(this);
+};
+
+Store.prototype.hasModule = function hasModule (path) {
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+  }
+
+  return this._modules.isRegistered(path)
+};
+
+Store.prototype.hotUpdate = function hotUpdate (newOptions) {
+  this._modules.update(newOptions);
+  resetStore(this, true);
+};
+
+Store.prototype._withCommit = function _withCommit (fn) {
+  var committing = this._committing;
+  this._committing = true;
+  fn();
+  this._committing = committing;
+};
+
+Object.defineProperties( Store.prototype, prototypeAccessors$1 );
+
+function genericSubscribe (fn, subs, options) {
+  if (subs.indexOf(fn) < 0) {
+    options && options.prepend
+      ? subs.unshift(fn)
+      : subs.push(fn);
+  }
+  return function () {
+    var i = subs.indexOf(fn);
+    if (i > -1) {
+      subs.splice(i, 1);
+    }
+  }
+}
+
+function resetStore (store, hot) {
+  store._actions = Object.create(null);
+  store._mutations = Object.create(null);
+  store._wrappedGetters = Object.create(null);
+  store._modulesNamespaceMap = Object.create(null);
+  var state = store.state;
+  // init all modules
+  installModule(store, state, [], store._modules.root, true);
+  // reset vm
+  resetStoreVM(store, state, hot);
+}
+
+function resetStoreVM (store, state, hot) {
+  var oldVm = store._vm;
+
+  // bind store public getters
+  store.getters = {};
+  // reset local getters cache
+  store._makeLocalGettersCache = Object.create(null);
+  var wrappedGetters = store._wrappedGetters;
+  var computed = {};
+  forEachValue(wrappedGetters, function (fn, key) {
+    // use computed to leverage its lazy-caching mechanism
+    // direct inline function use will lead to closure preserving oldVm.
+    // using partial to return function with only arguments preserved in closure environment.
+    computed[key] = partial(fn, store);
+    Object.defineProperty(store.getters, key, {
+      get: function () { return store._vm[key]; },
+      enumerable: true // for local getters
+    });
+  });
+
+  // use a Vue instance to store the state tree
+  // suppress warnings just in case the user has added
+  // some funky global mixins
+  var silent = Vue.config.silent;
+  Vue.config.silent = true;
+  store._vm = new Vue({
+    data: {
+      $$state: state
+    },
+    computed: computed
+  });
+  Vue.config.silent = silent;
+
+  // enable strict mode for new vm
+  if (store.strict) {
+    enableStrictMode(store);
+  }
+
+  if (oldVm) {
+    if (hot) {
+      // dispatch changes in all subscribed watchers
+      // to force getter re-evaluation for hot reloading.
+      store._withCommit(function () {
+        oldVm._data.$$state = null;
+      });
+    }
+    Vue.nextTick(function () { return oldVm.$destroy(); });
+  }
+}
+
+function installModule (store, rootState, path, module, hot) {
+  var isRoot = !path.length;
+  var namespace = store._modules.getNamespace(path);
+
+  // register in namespace map
+  if (module.namespaced) {
+    if (store._modulesNamespaceMap[namespace] && ("development" !== 'production')) {
+      console.error(("[vuex] duplicate namespace " + namespace + " for the namespaced module " + (path.join('/'))));
+    }
+    store._modulesNamespaceMap[namespace] = module;
+  }
+
+  // set state
+  if (!isRoot && !hot) {
+    var parentState = getNestedState(rootState, path.slice(0, -1));
+    var moduleName = path[path.length - 1];
+    store._withCommit(function () {
+      if ((true)) {
+        if (moduleName in parentState) {
+          console.warn(
+            ("[vuex] state field \"" + moduleName + "\" was overridden by a module with the same name at \"" + (path.join('.')) + "\"")
+          );
+        }
+      }
+      Vue.set(parentState, moduleName, module.state);
+    });
+  }
+
+  var local = module.context = makeLocalContext(store, namespace, path);
+
+  module.forEachMutation(function (mutation, key) {
+    var namespacedType = namespace + key;
+    registerMutation(store, namespacedType, mutation, local);
+  });
+
+  module.forEachAction(function (action, key) {
+    var type = action.root ? key : namespace + key;
+    var handler = action.handler || action;
+    registerAction(store, type, handler, local);
+  });
+
+  module.forEachGetter(function (getter, key) {
+    var namespacedType = namespace + key;
+    registerGetter(store, namespacedType, getter, local);
+  });
+
+  module.forEachChild(function (child, key) {
+    installModule(store, rootState, path.concat(key), child, hot);
+  });
+}
+
+/**
+ * make localized dispatch, commit, getters and state
+ * if there is no namespace, just use root ones
+ */
+function makeLocalContext (store, namespace, path) {
+  var noNamespace = namespace === '';
+
+  var local = {
+    dispatch: noNamespace ? store.dispatch : function (_type, _payload, _options) {
+      var args = unifyObjectStyle(_type, _payload, _options);
+      var payload = args.payload;
+      var options = args.options;
+      var type = args.type;
+
+      if (!options || !options.root) {
+        type = namespace + type;
+        if (( true) && !store._actions[type]) {
+          console.error(("[vuex] unknown local action type: " + (args.type) + ", global type: " + type));
+          return
+        }
+      }
+
+      return store.dispatch(type, payload)
+    },
+
+    commit: noNamespace ? store.commit : function (_type, _payload, _options) {
+      var args = unifyObjectStyle(_type, _payload, _options);
+      var payload = args.payload;
+      var options = args.options;
+      var type = args.type;
+
+      if (!options || !options.root) {
+        type = namespace + type;
+        if (( true) && !store._mutations[type]) {
+          console.error(("[vuex] unknown local mutation type: " + (args.type) + ", global type: " + type));
+          return
+        }
+      }
+
+      store.commit(type, payload, options);
+    }
+  };
+
+  // getters and state object must be gotten lazily
+  // because they will be changed by vm update
+  Object.defineProperties(local, {
+    getters: {
+      get: noNamespace
+        ? function () { return store.getters; }
+        : function () { return makeLocalGetters(store, namespace); }
+    },
+    state: {
+      get: function () { return getNestedState(store.state, path); }
+    }
+  });
+
+  return local
+}
+
+function makeLocalGetters (store, namespace) {
+  if (!store._makeLocalGettersCache[namespace]) {
+    var gettersProxy = {};
+    var splitPos = namespace.length;
+    Object.keys(store.getters).forEach(function (type) {
+      // skip if the target getter is not match this namespace
+      if (type.slice(0, splitPos) !== namespace) { return }
+
+      // extract local getter type
+      var localType = type.slice(splitPos);
+
+      // Add a port to the getters proxy.
+      // Define as getter property because
+      // we do not want to evaluate the getters in this time.
+      Object.defineProperty(gettersProxy, localType, {
+        get: function () { return store.getters[type]; },
+        enumerable: true
+      });
+    });
+    store._makeLocalGettersCache[namespace] = gettersProxy;
+  }
+
+  return store._makeLocalGettersCache[namespace]
+}
+
+function registerMutation (store, type, handler, local) {
+  var entry = store._mutations[type] || (store._mutations[type] = []);
+  entry.push(function wrappedMutationHandler (payload) {
+    handler.call(store, local.state, payload);
+  });
+}
+
+function registerAction (store, type, handler, local) {
+  var entry = store._actions[type] || (store._actions[type] = []);
+  entry.push(function wrappedActionHandler (payload) {
+    var res = handler.call(store, {
+      dispatch: local.dispatch,
+      commit: local.commit,
+      getters: local.getters,
+      state: local.state,
+      rootGetters: store.getters,
+      rootState: store.state
+    }, payload);
+    if (!isPromise(res)) {
+      res = Promise.resolve(res);
+    }
+    if (store._devtoolHook) {
+      return res.catch(function (err) {
+        store._devtoolHook.emit('vuex:error', err);
+        throw err
+      })
+    } else {
+      return res
+    }
+  });
+}
+
+function registerGetter (store, type, rawGetter, local) {
+  if (store._wrappedGetters[type]) {
+    if ((true)) {
+      console.error(("[vuex] duplicate getter key: " + type));
+    }
+    return
+  }
+  store._wrappedGetters[type] = function wrappedGetter (store) {
+    return rawGetter(
+      local.state, // local state
+      local.getters, // local getters
+      store.state, // root state
+      store.getters // root getters
+    )
+  };
+}
+
+function enableStrictMode (store) {
+  store._vm.$watch(function () { return this._data.$$state }, function () {
+    if ((true)) {
+      assert(store._committing, "do not mutate vuex store state outside mutation handlers.");
+    }
+  }, { deep: true, sync: true });
+}
+
+function getNestedState (state, path) {
+  return path.reduce(function (state, key) { return state[key]; }, state)
+}
+
+function unifyObjectStyle (type, payload, options) {
+  if (isObject(type) && type.type) {
+    options = payload;
+    payload = type;
+    type = type.type;
+  }
+
+  if ((true)) {
+    assert(typeof type === 'string', ("expects string as the type, but found " + (typeof type) + "."));
+  }
+
+  return { type: type, payload: payload, options: options }
+}
+
+function install (_Vue) {
+  if (Vue && _Vue === Vue) {
+    if ((true)) {
+      console.error(
+        '[vuex] already installed. Vue.use(Vuex) should be called only once.'
+      );
+    }
+    return
+  }
+  Vue = _Vue;
+  applyMixin(Vue);
+}
+
+/**
+ * Reduce the code which written in Vue.js for getting the state.
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} states # Object's item can be a function which accept state and getters for param, you can do something for state and getters in it.
+ * @param {Object}
+ */
+var mapState = normalizeNamespace(function (namespace, states) {
+  var res = {};
+  if (( true) && !isValidMap(states)) {
+    console.error('[vuex] mapState: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(states).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedState () {
+      var state = this.$store.state;
+      var getters = this.$store.getters;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapState', namespace);
+        if (!module) {
+          return
+        }
+        state = module.context.state;
+        getters = module.context.getters;
+      }
+      return typeof val === 'function'
+        ? val.call(this, state, getters)
+        : state[val]
+    };
+    // mark vuex getter for devtools
+    res[key].vuex = true;
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for committing the mutation
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept anthor params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @return {Object}
+ */
+var mapMutations = normalizeNamespace(function (namespace, mutations) {
+  var res = {};
+  if (( true) && !isValidMap(mutations)) {
+    console.error('[vuex] mapMutations: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(mutations).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedMutation () {
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
+
+      // Get the commit method from store
+      var commit = this.$store.commit;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapMutations', namespace);
+        if (!module) {
+          return
+        }
+        commit = module.context.commit;
+      }
+      return typeof val === 'function'
+        ? val.apply(this, [commit].concat(args))
+        : commit.apply(this.$store, [val].concat(args))
+    };
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for getting the getters
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} getters
+ * @return {Object}
+ */
+var mapGetters = normalizeNamespace(function (namespace, getters) {
+  var res = {};
+  if (( true) && !isValidMap(getters)) {
+    console.error('[vuex] mapGetters: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(getters).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    // The namespace has been mutated by normalizeNamespace
+    val = namespace + val;
+    res[key] = function mappedGetter () {
+      if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
+        return
+      }
+      if (( true) && !(val in this.$store.getters)) {
+        console.error(("[vuex] unknown getter: " + val));
+        return
+      }
+      return this.$store.getters[val]
+    };
+    // mark vuex getter for devtools
+    res[key].vuex = true;
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for dispatch the action
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} actions # Object's item can be a function which accept `dispatch` function as the first param, it can accept anthor params. You can dispatch action and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @return {Object}
+ */
+var mapActions = normalizeNamespace(function (namespace, actions) {
+  var res = {};
+  if (( true) && !isValidMap(actions)) {
+    console.error('[vuex] mapActions: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(actions).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedAction () {
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
+
+      // get dispatch function from store
+      var dispatch = this.$store.dispatch;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapActions', namespace);
+        if (!module) {
+          return
+        }
+        dispatch = module.context.dispatch;
+      }
+      return typeof val === 'function'
+        ? val.apply(this, [dispatch].concat(args))
+        : dispatch.apply(this.$store, [val].concat(args))
+    };
+  });
+  return res
+});
+
+/**
+ * Rebinding namespace param for mapXXX function in special scoped, and return them by simple object
+ * @param {String} namespace
+ * @return {Object}
+ */
+var createNamespacedHelpers = function (namespace) { return ({
+  mapState: mapState.bind(null, namespace),
+  mapGetters: mapGetters.bind(null, namespace),
+  mapMutations: mapMutations.bind(null, namespace),
+  mapActions: mapActions.bind(null, namespace)
+}); };
+
+/**
+ * Normalize the map
+ * normalizeMap([1, 2, 3]) => [ { key: 1, val: 1 }, { key: 2, val: 2 }, { key: 3, val: 3 } ]
+ * normalizeMap({a: 1, b: 2, c: 3}) => [ { key: 'a', val: 1 }, { key: 'b', val: 2 }, { key: 'c', val: 3 } ]
+ * @param {Array|Object} map
+ * @return {Object}
+ */
+function normalizeMap (map) {
+  if (!isValidMap(map)) {
+    return []
+  }
+  return Array.isArray(map)
+    ? map.map(function (key) { return ({ key: key, val: key }); })
+    : Object.keys(map).map(function (key) { return ({ key: key, val: map[key] }); })
+}
+
+/**
+ * Validate whether given map is valid or not
+ * @param {*} map
+ * @return {Boolean}
+ */
+function isValidMap (map) {
+  return Array.isArray(map) || isObject(map)
+}
+
+/**
+ * Return a function expect two param contains namespace and map. it will normalize the namespace and then the param's function will handle the new namespace and the map.
+ * @param {Function} fn
+ * @return {Function}
+ */
+function normalizeNamespace (fn) {
+  return function (namespace, map) {
+    if (typeof namespace !== 'string') {
+      map = namespace;
+      namespace = '';
+    } else if (namespace.charAt(namespace.length - 1) !== '/') {
+      namespace += '/';
+    }
+    return fn(namespace, map)
+  }
+}
+
+/**
+ * Search a special module from store by namespace. if module not exist, print error message.
+ * @param {Object} store
+ * @param {String} helper
+ * @param {String} namespace
+ * @return {Object}
+ */
+function getModuleByNamespace (store, helper, namespace) {
+  var module = store._modulesNamespaceMap[namespace];
+  if (( true) && !module) {
+    console.error(("[vuex] module namespace not found in " + helper + "(): " + namespace));
+  }
+  return module
+}
+
+// Credits: borrowed code from fcomb/redux-logger
+
+function createLogger (ref) {
+  if ( ref === void 0 ) ref = {};
+  var collapsed = ref.collapsed; if ( collapsed === void 0 ) collapsed = true;
+  var filter = ref.filter; if ( filter === void 0 ) filter = function (mutation, stateBefore, stateAfter) { return true; };
+  var transformer = ref.transformer; if ( transformer === void 0 ) transformer = function (state) { return state; };
+  var mutationTransformer = ref.mutationTransformer; if ( mutationTransformer === void 0 ) mutationTransformer = function (mut) { return mut; };
+  var actionFilter = ref.actionFilter; if ( actionFilter === void 0 ) actionFilter = function (action, state) { return true; };
+  var actionTransformer = ref.actionTransformer; if ( actionTransformer === void 0 ) actionTransformer = function (act) { return act; };
+  var logMutations = ref.logMutations; if ( logMutations === void 0 ) logMutations = true;
+  var logActions = ref.logActions; if ( logActions === void 0 ) logActions = true;
+  var logger = ref.logger; if ( logger === void 0 ) logger = console;
+
+  return function (store) {
+    var prevState = deepCopy(store.state);
+
+    if (typeof logger === 'undefined') {
+      return
+    }
+
+    if (logMutations) {
+      store.subscribe(function (mutation, state) {
+        var nextState = deepCopy(state);
+
+        if (filter(mutation, prevState, nextState)) {
+          var formattedTime = getFormattedTime();
+          var formattedMutation = mutationTransformer(mutation);
+          var message = "mutation " + (mutation.type) + formattedTime;
+
+          startMessage(logger, message, collapsed);
+          logger.log('%c prev state', 'color: #9E9E9E; font-weight: bold', transformer(prevState));
+          logger.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation);
+          logger.log('%c next state', 'color: #4CAF50; font-weight: bold', transformer(nextState));
+          endMessage(logger);
+        }
+
+        prevState = nextState;
+      });
+    }
+
+    if (logActions) {
+      store.subscribeAction(function (action, state) {
+        if (actionFilter(action, state)) {
+          var formattedTime = getFormattedTime();
+          var formattedAction = actionTransformer(action);
+          var message = "action " + (action.type) + formattedTime;
+
+          startMessage(logger, message, collapsed);
+          logger.log('%c action', 'color: #03A9F4; font-weight: bold', formattedAction);
+          endMessage(logger);
+        }
+      });
+    }
+  }
+}
+
+function startMessage (logger, message, collapsed) {
+  var startMessage = collapsed
+    ? logger.groupCollapsed
+    : logger.group;
+
+  // render
+  try {
+    startMessage.call(logger, message);
+  } catch (e) {
+    logger.log(message);
+  }
+}
+
+function endMessage (logger) {
+  try {
+    logger.groupEnd();
+  } catch (e) {
+    logger.log('—— log end ——');
+  }
+}
+
+function getFormattedTime () {
+  var time = new Date();
+  return (" @ " + (pad(time.getHours(), 2)) + ":" + (pad(time.getMinutes(), 2)) + ":" + (pad(time.getSeconds(), 2)) + "." + (pad(time.getMilliseconds(), 3)))
+}
+
+function repeat (str, times) {
+  return (new Array(times + 1)).join(str)
+}
+
+function pad (num, maxLength) {
+  return repeat('0', maxLength - num.toString().length) + num
+}
+
+var index = {
+  Store: Store,
+  install: install,
+  version: '3.5.1',
+  mapState: mapState,
+  mapMutations: mapMutations,
+  mapGetters: mapGetters,
+  mapActions: mapActions,
+  createNamespacedHelpers: createNamespacedHelpers,
+  createLogger: createLogger
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (index);
+
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
 /***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -61404,100 +60309,22 @@ module.exports = function(module) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var es6_promise_auto__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! es6-promise/auto */ "./node_modules/es6-promise/auto.js");
-/* harmony import */ var es6_promise_auto__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(es6_promise_auto__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-axios */ "./node_modules/vue-axios/dist/vue-axios.min.js");
-/* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _websanova_vue_auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @websanova/vue-auth */ "./node_modules/@websanova/vue-auth/dist/vue-auth.esm.js");
-/* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./auth */ "./resources/js/auth.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
-/* harmony import */ var vue_clazy_load__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-clazy-load */ "./node_modules/vue-clazy-load/dist/vue-clazy-load.js");
-/* harmony import */ var vue_clazy_load__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(vue_clazy_load__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
+/* harmony import */ var vue_clazy_load__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-clazy-load */ "./node_modules/vue-clazy-load/dist/vue-clazy-load.js");
+/* harmony import */ var vue_clazy_load__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_clazy_load__WEBPACK_IMPORTED_MODULE_1__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
-
-
-
-
-
-
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_5__["default"]); // Vue.use(VueAxios,axios);
-// axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api` ;
-// Vue.use(VueAuth);
-// Vue.use(VueAuth, auth);
-
-Vue.use(vue_clazy_load__WEBPACK_IMPORTED_MODULE_7___default.a); // ES6 (Babel and others)
-
+Vue.use(vue_clazy_load__WEBPACK_IMPORTED_MODULE_1___default.a);
 Vue.component('course-component', __webpack_require__(/*! ./components/CourseComponent.vue */ "./resources/js/components/CourseComponent.vue")["default"]);
 Vue.component('search-filed', __webpack_require__(/*! ./components/SearchField.vue */ "./resources/js/components/SearchField.vue")["default"]);
 Vue.component('course-questions', __webpack_require__(/*! ./components/Question.vue */ "./resources/js/components/Question.vue")["default"]);
 var app = new Vue({
   el: '#app',
-  router: new vue_router__WEBPACK_IMPORTED_MODULE_5__["default"](_routes__WEBPACK_IMPORTED_MODULE_6__["default"])
+  router: _routes__WEBPACK_IMPORTED_MODULE_0__["default"]
 });
-
-/***/ }),
-
-/***/ "./resources/js/auth.js":
-/*!******************************!*\
-  !*** ./resources/js/auth.js ***!
-  \******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _websanova_vue_auth_drivers_auth_bearer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @websanova/vue-auth/drivers/auth/bearer */ "./node_modules/@websanova/vue-auth/drivers/auth/bearer.js");
-/* harmony import */ var _websanova_vue_auth_drivers_http_axios_1_x__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @websanova/vue-auth/drivers/http/axios.1.x */ "./node_modules/@websanova/vue-auth/drivers/http/axios.1.x.js");
-/* harmony import */ var _websanova_vue_auth_drivers_router_vue_router_2_x__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @websanova/vue-auth/drivers/router/vue-router.2.x */ "./node_modules/@websanova/vue-auth/drivers/router/vue-router.2.x.js");
-
-
- // Auth base configuration some of this options
-// can be override in method calls
-
-var config = {
-  auth: _websanova_vue_auth_drivers_auth_bearer__WEBPACK_IMPORTED_MODULE_0__["default"],
-  http: _websanova_vue_auth_drivers_http_axios_1_x__WEBPACK_IMPORTED_MODULE_1__["default"],
-  router: _websanova_vue_auth_drivers_router_vue_router_2_x__WEBPACK_IMPORTED_MODULE_2__["default"],
-  tokenDefaultName: 'laravel-vue-spa',
-  tokenStore: ['localStorage'],
-  rolesVar: 'role',
-  registerData: {
-    url: 'auth/register',
-    method: 'POST',
-    redirect: '/login'
-  },
-  loginData: {
-    url: 'auth/login',
-    method: 'POST',
-    redirect: '',
-    fetchUser: true
-  },
-  logoutData: {
-    url: 'auth/logout',
-    method: 'POST',
-    redirect: '/',
-    makeRequest: true
-  },
-  fetchData: {
-    url: 'auth/user',
-    method: 'GET',
-    enabled: true
-  },
-  refreshData: {
-    url: 'auth/refresh',
-    method: 'GET',
-    enabled: true,
-    interval: 30
-  }
-};
-/* harmony default export */ __webpack_exports__["default"] = (config);
 
 /***/ }),
 
@@ -62498,6 +61325,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_ConcatUs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/ConcatUs */ "./resources/js/components/ConcatUs.vue");
 /* harmony import */ var _components_Privacy__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Privacy */ "./resources/js/components/Privacy.vue");
 /* harmony import */ var _components_CourseDeatailsComponent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/CourseDeatailsComponent */ "./resources/js/components/CourseDeatailsComponent.vue");
+/* harmony import */ var _storage__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./storage */ "./resources/js/storage.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 
 
 
@@ -62508,97 +61339,153 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/* harmony default export */ __webpack_exports__["default"] = ({
-  mode: 'history',
-  history: true,
-  linkActiveClass: 'font-semibold',
-  routes: [{
-    path: '*',
-    component: _components_NotFound__WEBPACK_IMPORTED_MODULE_5__["default"]
-  }, {
-    path: '/courses',
-    component: _components_CourseComponent__WEBPACK_IMPORTED_MODULE_6__["default"],
-    name: "Courses",
-    meta: {
-      auth: false
+
+
+
+vue__WEBPACK_IMPORTED_MODULE_11___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_12__["default"]);
+var routes = [{
+  path: '*',
+  component: _components_NotFound__WEBPACK_IMPORTED_MODULE_5__["default"]
+}, {
+  path: '/courses',
+  component: _components_CourseComponent__WEBPACK_IMPORTED_MODULE_6__["default"],
+  name: "Courses",
+  meta: {
+    requiresAuth: false
+  }
+}, {
+  path: '/course_details/:id',
+  component: _components_CourseDeatailsComponent__WEBPACK_IMPORTED_MODULE_9__["default"],
+  name: "course_details",
+  meta: {
+    requiresAuth: true
+  }
+}, {
+  path: '/privacy',
+  component: _components_Privacy__WEBPACK_IMPORTED_MODULE_8__["default"],
+  name: "Privacy",
+  meta: {
+    requiresAuth: false
+  }
+}, {
+  path: '/',
+  component: _components_Home__WEBPACK_IMPORTED_MODULE_0__["default"],
+  meta: {
+    requiresAuth: false
+  }
+}, {
+  path: '/concatUs',
+  component: _components_ConcatUs__WEBPACK_IMPORTED_MODULE_7__["default"],
+  name: "concatUs",
+  meta: {
+    requiresAuth: false
+  }
+}, {
+  path: '/home',
+  component: _components_Home__WEBPACK_IMPORTED_MODULE_0__["default"],
+  name: "Home",
+  meta: {
+    requiresAuth: false
+  }
+}, {
+  path: '/about',
+  component: _components_About__WEBPACK_IMPORTED_MODULE_1__["default"],
+  meta: {
+    requiresAuth: false
+  }
+}, {
+  path: '/register',
+  component: _components_Register__WEBPACK_IMPORTED_MODULE_2__["default"],
+  meta: {
+    requiresAuth: false
+  }
+}, {
+  path: '/login',
+  component: _components_Login__WEBPACK_IMPORTED_MODULE_3__["default"],
+  name: 'Login',
+  meta: {
+    requiresAuth: false
+  }
+}, {
+  path: "/dashboard",
+  name: "Dashboard",
+  component: _components_Dashboard__WEBPACK_IMPORTED_MODULE_4__["default"],
+  meta: {
+    requiresAuth: {
+      roles: 2,
+      redirect: {
+        name: 'login'
+      },
+      forbiddenRedirect: '/403'
     }
-  }, {
-    path: '/course_details/:id',
-    component: _components_CourseDeatailsComponent__WEBPACK_IMPORTED_MODULE_9__["default"],
-    name: "course_details",
-    meta: {
-      auth: true
-    }
-  }, {
-    path: '/privacy',
-    component: _components_Privacy__WEBPACK_IMPORTED_MODULE_8__["default"],
-    name: "Privacy",
-    meta: {
-      auth: false
-    }
-  }, {
-    path: '/',
-    component: _components_Home__WEBPACK_IMPORTED_MODULE_0__["default"],
-    meta: {
-      auth: false
-    }
-  }, {
-    path: '/concatUs',
-    component: _components_ConcatUs__WEBPACK_IMPORTED_MODULE_7__["default"],
-    name: "concatUs",
-    meta: {
-      auth: false
-    }
-  }, {
-    path: '/home',
-    component: _components_Home__WEBPACK_IMPORTED_MODULE_0__["default"],
-    name: "Home",
-    meta: {
-      auth: false
-    }
-  }, {
-    path: '/about',
-    component: _components_About__WEBPACK_IMPORTED_MODULE_1__["default"],
-    meta: {
-      auth: false
-    }
-  }, {
-    path: '/register',
-    component: _components_Register__WEBPACK_IMPORTED_MODULE_2__["default"],
-    meta: {
-      auth: false
-    }
-  }, {
-    path: '/login',
-    component: _components_Login__WEBPACK_IMPORTED_MODULE_3__["default"],
-    name: 'Login',
-    meta: {
-      auth: false
-    }
-  }, {
-    path: "/dashboard",
-    name: "Dashboard",
-    component: _components_Dashboard__WEBPACK_IMPORTED_MODULE_4__["default"],
-    meta: {
-      auth: {
-        roles: 2,
-        redirect: {
-          name: 'login'
-        },
-        forbiddenRedirect: '/403'
-      }
-    },
-    beforeEnter: function beforeEnter(to, form, next) {
-      axios.get('/api/athenticated').then(function () {
-        next();
-      })["catch"](function () {
-        return next({
-          name: 'Login'
-        });
+  },
+  beforeEnter: function beforeEnter(to, form, next) {
+    axios.get('/api/athenticated').then(function () {
+      next();
+    })["catch"](function () {
+      return next({
+        name: 'Login'
       });
-    }
-  }]
+    });
+  }
+}];
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_12__["default"]({
+  routes: routes
 });
+router.beforeEach(function (to, from, next) {
+  // check if the route requires authentication and user is not logged in
+  if (to.matched.some(function (route) {
+    return route.meta.requiresAuth;
+  }) && !_storage__WEBPACK_IMPORTED_MODULE_10__["default"].state.isLoggedIn) {
+    // redirect to login page
+    next({
+      name: 'login'
+    });
+    return;
+  } // if logged in redirect to dashboard
+
+
+  if (to.path === '/login' && _storage__WEBPACK_IMPORTED_MODULE_10__["default"].state.isLoggedIn) {
+    next({
+      name: 'dashboard'
+    });
+    return;
+  }
+
+  next();
+});
+/* harmony default export */ __webpack_exports__["default"] = (router);
+
+/***/ }),
+
+/***/ "./resources/js/storage.js":
+/*!*********************************!*\
+  !*** ./resources/js/storage.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+/* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+  state: {
+    isLoggedIn: !!localStorage.getItem('token')
+  },
+  mutations: {
+    loginUser: function loginUser(state) {
+      state.isLoggedIn = true;
+    },
+    logoutUser: function logoutUser(state) {
+      state.isLoggedIn = false;
+    }
+  }
+}));
 
 /***/ }),
 

@@ -48,6 +48,7 @@
         .form-horizontal .control-label {
             text-align: right !important;
         }
+
         td .fa-toggle-on {
             color: #15e408;
             font-size: 25px;
@@ -57,7 +58,6 @@
             color: #fa1135;
             font-size: 25px;
         }
-
 
 
         .panel-shadow {

@@ -274,10 +274,12 @@ class TrainingController extends Controller
                 ])->where('user_id', auth()->id())->where('type', 'posts')->get();
             }
                 elseif  ($request->type == 'trainings') {
-                    $likes = $Training = Training::with(['subject', 'titles', 'is_register'])
+                    $likes =   Training::with(['ratings', 'result', 'is_register', 'titles' => function ($q) {
+                        $q->with(['contents', 'is_complete:title_id,created_at']);
+                    }])
                         ->whereIn('id', function ($query) {
                             $query->select('liked_id')->from('likes')
-                                ->where('type', 'trainings')
+                                ->where('type', 'training')
                                 ->where('user_id', Auth::id());
                         })
                         ->orderByDesc('id')->get();

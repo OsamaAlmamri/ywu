@@ -54,20 +54,23 @@
                             <!-- Form Group -->
                             <div class="form-group col-lg-6 col-md-12 col-sm-12">
                                 <label> رقم الهاتف</label>
-                                <input type="text" v-model="phone"  placeholder="777777777" required="">
+                                <input type="text" v-model="phone" placeholder="777777777" required="">
                             </div>
 
 
                             <!-- Form Group -->
                             <div class="form-group col-lg-6 col-md-12 col-sm-12" style="display: none" id="dev_email">
                                 <label>الايميل </label>
-                                <input type="email" name="email" v-model="email" id="form_email" value="" placeholder="abcd@gmail.com">
+                                <input type="email" name="email" v-model="email" id="form_email" value=""
+                                       placeholder="abcd@gmail.com">
                             </div>
 
                             <!-- Form Group -->
-                            <div class="form-group col-lg-6 col-md-12 col-sm-12"  style="display: none" id="dev_destination">
+                            <div class="form-group col-lg-6 col-md-12 col-sm-12" style="display: none"
+                                 id="dev_destination">
                                 <label> الجهة</label>
-                                <input type="text" name="destination" v-model="destination"  id="form_destination" value=""
+                                <input type="text" name="destination" v-model="destination" id="form_destination"
+                                       value=""
                                        placeholder="الجهة">
                             </div>
 
@@ -76,14 +79,16 @@
                             <div class="form-group col-lg-6 col-md-12 col-sm-12">
                                 <label>كلمة السر</label>
                                 <span class="eye-icon flaticon-eye"></span>
-                                <input type="password" name="password" v-model="password" placeholder="كلمة السر" required="">
+                                <input type="password" name="password" v-model="password" placeholder="كلمة السر"
+                                       required="">
                             </div>
 
                             <!-- Form Group -->
                             <div class="form-group col-lg-6 col-md-12 col-sm-12">
                                 <label> تاكيد كلمة السر</label>
                                 <span class="eye-icon flaticon-eye"></span>
-                                <input type="password" name="password" v-model="password_confirmation"  placeholder="تاكيد كلمة السر"
+                                <input type="password" name="password" v-model="password_confirmation"
+                                       placeholder="تاكيد كلمة السر"
                                        required="">
                             </div>
 
@@ -94,8 +99,11 @@
                             </div>
 
                             <div class="form-group col-lg-12 col-md-12 col-sm-12">
-                                <div class="users">هل لديك حساب من قبل ؟ <router-link to="/login"> تسجيل
-                                    الدخول</router-link></div>
+                                <div class="users">هل لديك حساب من قبل ؟
+                                    <router-link to="/login"> تسجيل
+                                        الدخول
+                                    </router-link>
+                                </div>
                             </div>
 
                         </div>

@@ -6,6 +6,7 @@ use App\Category_Training;
 use App\Department;
 use App\EmployeeCategory;
 use App\Exam;
+use App\Like;
 use App\Models\Rateable\Rateable;
 use App\Result;
 use App\UserTraining;
@@ -21,8 +22,7 @@ class Training extends Model
 
     protected $table = 'trainings';
     protected $guarded = [];
-
-
+    protected $with=['is_like'];
 
 
     protected $appends = ['published','average-rating','count-rating','percent-rating'];
@@ -34,6 +34,8 @@ class Training extends Model
     function getAverageRatingAttribute(){
         return round($this->averageRating(),1);
     }
+
+
 
     function getCountRatingAttribute(){
         return $this->countRating();
@@ -87,6 +89,13 @@ class Training extends Model
     {
         $user_id= (auth()->guard('api')->user())?auth()->guard('api')->user()->id:0;
             return $this->hasOne(UserTraining::class, 'training_id', 'id')
+            ->where('user_id', $user_id);
+    }
+    public function is_like()
+    {
+        $user_id= (auth()->guard('api')->user())?auth()->guard('api')->user()->id:0;
+            return $this->hasOne(Like::class, 'liked_id', 'id')
+            ->where('type', 'training')
             ->where('user_id', $user_id);
     }
 }

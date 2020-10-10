@@ -15,12 +15,12 @@
                     <form method="post" autocomplete="off" @submit.prevent="loginUser" >
                         <div class="form-group">
                             <label>الايميل او رقم الهاتف </label>
-                            <input type="text"  v-model="phone"  placeholder="الايميل او رقم الهاتف  " required="">
+                            <input type="text"  v-model="form.phone"  placeholder="الايميل او رقم الهاتف  " required="">
                         </div>
                         <div class="form-group">
                             <label>كلمة السر</label>
                             <span class="eye-icon flaticon-eye"></span>
-                            <input type="password"   v-model="password"  placeholder="كلمة السر" required="">
+                            <input type="password"   v-model="form.password"  placeholder="كلمة السر" required="">
                         </div>
                         <div class="form-group">
                             <div class="clearfix">
@@ -52,39 +52,33 @@
 
 </template>
 <script>
+    import store from '../storage'
     export default {
-        data() {
-            return {
-                phone: null,
-                password: null,
-                has_error: false
+        data(){
+            return{
+                form:{
+                    phone: '',
+                    password: ''
+                },
+                errors: []
             }
         },
         mounted() {
             //
         },
-        methods: {
-            login() {
-                // get the redirect object
-                var redirect = this.$auth.redirect()
-                var app = this
-                this.$auth.login({
-                    params: {
-                        email: app.email,
-                        password: app.password
-                    },
-                    success: function() {
-                        // handle redirection
-                        const redirectTo =  'profile'
-                        this.$router.push({name: redirectTo})
-                    },
-                    error: function() {
-                        app.has_error = true
-                    },
-                    rememberMe: true,
-                    fetchUser: true
+        methods:{
+            loginUser(){
+                axios.post('/api/login', this.form).then(() =>{
+                    // login user, store the token and redirect to dashboard
+                    store.commit('loginUser')
+                    localStorage.setItem('token', response.data.token)
+                    localStorage.setItem('user_data', response.data.userData)
+                    this.$router.push({ name: "Dashboard"});
+                }).catch((error) =>{
+                    this.errors = error.response.data.errors;
                 })
             }
+
         }
     }
 </script>

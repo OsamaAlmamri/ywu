@@ -17,32 +17,32 @@
 @endsection
 @section('scripts')
     <script>
-        var lang={
-                lengthMenu: "Show _MENU_ Entries",
-                sSearch: '{{trans('dataTable.sSearch')}}',
-                info: "Showing _START_ to _END_ of _TOTAL_ Entries",
-                sEmptyTable: '{{ trans('dataTable.sEmptyTable')}}',
-                sInfo: '{{ trans('dataTable.sInfo')}}',
-                sInfoEmpty: '{{ trans('dataTable.sInfoEmpty')}}',
-                sInfoFiltered: '{{ trans('dataTable.sInfoFiltered')}}',
-                sInfoPostFix: '{{ trans('dataTable.sInfoPostFix')}}',
-                sLengthMenu: '{{ trans('dataTable.sLengthMenu')}}',
-                sInfoThousands: '{{ trans('dataTable.sInfoThousands')}}',
-                sLoadingRecords: '{{ trans('dataTable.sLoadingRecords')}}',
-                sProcessing: '{{ trans('dataTable.sProcessing')}}',
-                sZeroRecords: '{{ trans('dataTable.sZeroRecords')}}',
-                sSearch: '{{ trans('dataTable.sSearch')}}',
-                oPaginate: {
-                    sNext: '{{ trans('dataTable.sNext')}}',
-                    sPrevious: '{{ trans('dataTable.sPrevious')}}',
-                    sFirst: '{{ trans('dataTable.sFirst')}}',
-                    sLast: '{{ trans('dataTable.sLast')}}',
-                },
-                oAria: {
-                    sSortAscending: '{{ trans('dataTable.sSortAscending')}}',
-                    sSortDescending: '{{ trans('dataTable.sSortDescending')}}',
-                },
-            };
+        var lang = {
+            lengthMenu: "Show _MENU_ Entries",
+            sSearch: '{{trans('dataTable.sSearch')}}',
+            info: "Showing _START_ to _END_ of _TOTAL_ Entries",
+            sEmptyTable: '{{ trans('dataTable.sEmptyTable')}}',
+            sInfo: '{{ trans('dataTable.sInfo')}}',
+            sInfoEmpty: '{{ trans('dataTable.sInfoEmpty')}}',
+            sInfoFiltered: '{{ trans('dataTable.sInfoFiltered')}}',
+            sInfoPostFix: '{{ trans('dataTable.sInfoPostFix')}}',
+            sLengthMenu: '{{ trans('dataTable.sLengthMenu')}}',
+            sInfoThousands: '{{ trans('dataTable.sInfoThousands')}}',
+            sLoadingRecords: '{{ trans('dataTable.sLoadingRecords')}}',
+            sProcessing: '{{ trans('dataTable.sProcessing')}}',
+            sZeroRecords: '{{ trans('dataTable.sZeroRecords')}}',
+            sSearch: '{{ trans('dataTable.sSearch')}}',
+            oPaginate: {
+                sNext: '{{ trans('dataTable.sNext')}}',
+                sPrevious: '{{ trans('dataTable.sPrevious')}}',
+                sFirst: '{{ trans('dataTable.sFirst')}}',
+                sLast: '{{ trans('dataTable.sLast')}}',
+            },
+            oAria: {
+                sSortAscending: '{{ trans('dataTable.sSortAscending')}}',
+                sSortDescending: '{{ trans('dataTable.sSortDescending')}}',
+            },
+        };
     </script>
     @yield('custom_js')
 @endsection
