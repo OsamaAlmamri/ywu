@@ -41,6 +41,7 @@
 <body>
 <div class="page-wrapper" id="app">
 
+{{--    <nav-header></nav-header>--}}
     <header class="main-header header-style-one">
 
         <!-- Header Top -->
@@ -56,6 +57,10 @@
                             <li><span>الخط الساخن:</span><a href="tel:8000999"> 01 8000999</a></li>
                             <!--							<li><span>Email Us:</span><a href="mailto:info@yourcompany.com"> info@yourcompany.com</a></li>-->
                         </ul>
+                        <!--                            <router-link to="/">Home</router-link>-->
+                        <!--                            |-->
+                        <!--                            <router-link to="/about">About</router-link>-->
+                        <!--                            <span v-if="isLoggedIn"> | <a @click="logout">Logout</a></span>-->
 
                     </div>
 
@@ -63,15 +68,16 @@
                     <div class="top-left pull-left clearfix">
                         <!-- Login Nav -->
                         <ul class="login-nav">
-                            <li v-if="!store.state.isLoggedIn">
-                                <router-link  to="/login"> تسجيل الدخول</router-link>
+                            <li v-if="!isLoggedIn">
+                                <router-link to="/login"> تسجيل الدخول</router-link>
                             </li>
-                            <li v-if="!store.state.isLoggedIn">
+                            <li v-if="!isLoggedIn">
                                 <router-link to="/register"> انشاء حساب</router-link>
+                            </li>
 
-                            <li v-if="(store.state.isLoggedIn)">
-                                <router-link to="/logout"> تسجيل الخروج </router-link>
-
+                            <li v-if="isLoggedIn">
+                                <router-link to="/logout"> تسجيل الخروج</router-link>
+                            </li>
                         </ul>
                     </div>
 
@@ -158,6 +164,7 @@
         <!-- End Mobile Menu -->
 
     </header>
+
     <search-filed title="courses"></search-filed>
     <router-view></router-view>
     <!-- Call To Action Section Two -->

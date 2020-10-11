@@ -9,7 +9,7 @@ import concatUs from './components/ConcatUs';
 import Privacy from './components/Privacy';
 import CourseDetails from './components/CourseDeatailsComponent';
 import LogoutComponent from './components/Logout';
-import store from './storage';
+import store from './store';
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
@@ -51,12 +51,6 @@ const routes = [
             requiresAuth: false
         }
     },
-    ,
-    {
-        path: '/logout',
-        name: 'logout',
-        component: LogoutComponent
-    },
     {
         path: '/concatUs',
         component: concatUs,
@@ -95,6 +89,16 @@ const routes = [
             requiresAuth: false
         }
     },
+
+    {
+        path: '/logout',
+        name: 'logout',
+        component: LogoutComponent,
+        meta: {
+            requiresAuth: false
+        }
+
+    },
     {
         path: "/dashboard",
         name: "Dashboard",
@@ -102,7 +106,16 @@ const routes = [
         component: Dashboard,
         meta: {
             requiresAuth: {roles: 2, redirect: {name: 'login'}, forbiddenRedirect: '/403'}
+        },
+
+        beforeEnter: (to, form, next) => {
+            axios.get('/api/athenticated').then(() => {
+                next()
+            }).catch(() => {
+                return next({name: 'Login'})
+            })
         }
+
     }
 
 ];
@@ -110,23 +123,17 @@ const router = new VueRouter({
     routes
 })
 
+
 router.beforeEach((to, from, next) => {
-
-    // check if the route requires authentication and user is not logged in
-    if (to.matched.some(route => route.meta.requiresAuth) && !store.state.isLoggedIn) {
-        // redirect to login page
-        next({ name: 'login' })
-        return
+    if(to.matched.some(record => record.meta.requiresAuth)) {
+        if (store.getters.isLoggedIn) {
+            next()
+            return
+        }
+        next('/login')
+    } else {
+        next()
     }
-
-    // if logged in redirect to dashboard
-    if(to.path === '/login' && store.state.isLoggedIn) {
-        next({ name: 'Home' })
-        return
-    }
-
-    next()
-});
-
+})
 export default router
 

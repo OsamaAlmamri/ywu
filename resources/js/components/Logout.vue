@@ -3,12 +3,14 @@
 </template>
 
 <script>
-    import store from '../storage'
+    import store from '../store'
     export default {
         mounted () {
+            store.commit('logout')
             localStorage.removeItem('token')
-            store.commit('logoutUser')
-            this.$router.push({ name: 'login' })
+            localStorage.removeItem('user')
+            delete axios.defaults.headers.common['Authorization']
+            this.$router.push({ name: 'Login' })
         }
 
     }

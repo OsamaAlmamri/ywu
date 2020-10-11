@@ -117,41 +117,71 @@
     <!-- End Login Section -->
 </template>
 <script>
+
+
+
+//    register({commit}, user){
+//        return new Promise((resolve, reject) => {
+//            commit('auth_request')
+//            axios({url: 'http://localhost:3000/register', data: user, method: 'POST' })
+//                .then(resp => {
+//                    const token = resp.data.token
+//                    const user = resp.data.user
+//                    localStorage.setItem('token', token)
+//                    axios.defaults.headers.common['Authorization'] = token
+//                    commit('auth_success', token, user)
+//                    resolve(resp)
+//                })
+//                .catch(err => {
+//                    commit('auth_error', err)
+//                    localStorage.removeItem('token')
+//                    reject(err)
+//                })
+//        })
+//    },
     export default {
-        data() {
+        data(){
             return {
-                name: '',
-                email: '',
-                password: '',
-                destination: '',
-                password_confirmation: '',
-                has_error: false,
-                error: '',
-                errors: {},
-                success: false
+                name : "",
+                email : "",
+                password : "",
+                password_confirmation : "",
+                is_admin : null
             }
         },
         methods: {
-            register() {
-                var app = this
-                this.$auth.register({
-                    data: {
-                        email: app.email,
-                        password: app.password,
-                        password_confirmation: app.password_confirmation
-                    },
-                    success: function () {
-                        app.success = true
-                        this.$router.push({name: 'login', params: {successRegistrationRedirect: true}})
-                    },
-                    error: function (res) {
-                        console.log(res.response.data.errors)
-                        app.has_error = true
-                        app.error = res.response.data.error
-                        app.errors = res.response.data.errors || {}
-                    }
-                })
+            register: function () {
+                let data = {
+                    name: this.name,
+                    email: this.email,
+                    password: this.password,
+                    is_admin: this.is_admin
+                }
+                this.$store.dispatch('register', data)
+                    .then(() => this.$router.push('/'))
+                    .catch(err => console.log(err))
             }
+
+            // register() {
+            //     var app = this
+            //     this.$auth.register({
+            //         data: {
+            //             email: app.email,
+            //             password: app.password,
+            //             password_confirmation: app.password_confirmation
+            //         },
+            //         success: function () {
+            //             app.success = true
+            //             this.$router.push({name: 'login', params: {successRegistrationRedirect: true}})
+            //         },
+            //         error: function (res) {
+            //             console.log(res.response.data.errors)
+            //             app.has_error = true
+            //             app.error = res.response.data.error
+            //             app.errors = res.response.data.errors || {}
+            //         }
+            //     })
+            // }
         }
     }
 
