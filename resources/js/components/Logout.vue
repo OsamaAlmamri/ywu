@@ -10,5 +10,6 @@
             store.commit('logoutUser')
             this.$router.push({ name: 'login' })
         }
+
     }
 </script>

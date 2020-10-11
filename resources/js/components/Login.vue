@@ -7,20 +7,22 @@
                 <!-- Title Box -->
                 <div class="title-box">
                     <h2>تسجيل الدخول </h2>
-                    <div class="text"><span class="theme_color">مرحبــا!</span> قم بتسجيل الدخول للاستفادة  بشكل اكبر من الخدمات الذي يقدمها الموقع</div>
+                    <div class="text"><span class="theme_color">مرحبــا!</span> قم بتسجيل الدخول للاستفادة بشكل اكبر من
+                        الخدمات الذي يقدمها الموقع
+                    </div>
                 </div>
 
                 <!-- Login Form -->
                 <div class="styled-form">
-                    <form method="post" autocomplete="off" @submit.prevent="loginUser" >
+                    <form method="post" autocomplete="off" @submit.prevent="loginUser">
                         <div class="form-group">
                             <label>الايميل او رقم الهاتف </label>
-                            <input type="text"  v-model="form.phone"  placeholder="الايميل او رقم الهاتف  " required="">
+                            <input type="text" v-model="form.phone" placeholder="الايميل او رقم الهاتف  " required="">
                         </div>
                         <div class="form-group">
                             <label>كلمة السر</label>
                             <span class="eye-icon flaticon-eye"></span>
-                            <input type="password"   v-model="form.password"  placeholder="كلمة السر" required="">
+                            <input type="password" v-model="form.password" placeholder="كلمة السر" required="">
                         </div>
                         <div class="form-group">
                             <div class="clearfix">
@@ -36,10 +38,13 @@
                             </div>
                         </div>
                         <div class="form-group text-center">
-                            <button type="button" @click="loginUser()" class="theme-btn btn-style-three"><span class="txt">تسجيل الدخول <i class="fa fa-angle-left"></i></span></button>
+                            <button type="button" @click="loginUser()" class="theme-btn btn-style-three"><span
+                                class="txt">تسجيل الدخول <i class="fa fa-angle-left"></i></span></button>
                         </div>
                         <div class="form-group">
-                            <div class="users">ليس لديك حساب من قبل ؟ <router-link to="register">انشاء حساب جديد</router-link></div>
+                            <div class="users">ليس لديك حساب من قبل ؟
+                                <router-link to="register">انشاء حساب جديد</router-link>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -53,10 +58,11 @@
 </template>
 <script>
     import store from '../storage'
+
     export default {
-        data(){
-            return{
-                form:{
+        data() {
+            return {
+                form: {
                     phone: '',
                     password: ''
                 },
@@ -66,15 +72,17 @@
         mounted() {
             //
         },
-        methods:{
-            loginUser(){
-                axios.post('/api/login', this.form).then(() =>{
+        methods: {
+            loginUser() {
+
+                axios.post('/api/login', this.form).then(response => {
                     // login user, store the token and redirect to dashboard
                     store.commit('loginUser')
                     localStorage.setItem('token', response.data.token)
                     localStorage.setItem('user_data', response.data.userData)
-                    this.$router.push({ name: "Dashboard"});
-                }).catch((error) =>{
+                    console.log(response);
+                    this.$router.push({name: "Dashboard"});
+                }).catch((error) => {
                     this.errors = error.response.data.errors;
                 })
             }

@@ -8,6 +8,7 @@ import Course from './components/CourseComponent';
 import concatUs from './components/ConcatUs';
 import Privacy from './components/Privacy';
 import CourseDetails from './components/CourseDeatailsComponent';
+import LogoutComponent from './components/Logout';
 import store from './storage';
 
 import Vue from 'vue';
@@ -49,6 +50,12 @@ const routes = [
         meta: {
             requiresAuth: false
         }
+    },
+    ,
+    {
+        path: '/logout',
+        name: 'logout',
+        component: LogoutComponent
     },
     {
         path: '/concatUs',
@@ -95,16 +102,7 @@ const routes = [
         component: Dashboard,
         meta: {
             requiresAuth: {roles: 2, redirect: {name: 'login'}, forbiddenRedirect: '/403'}
-        },
-
-        beforeEnter: (to, form, next) => {
-            axios.get('/api/athenticated').then(() => {
-                next()
-            }).catch(() => {
-                return next({name: 'Login'})
-            })
         }
-
     }
 
 ];
@@ -123,7 +121,7 @@ router.beforeEach((to, from, next) => {
 
     // if logged in redirect to dashboard
     if(to.path === '/login' && store.state.isLoggedIn) {
-        next({ name: 'dashboard' })
+        next({ name: 'Home' })
         return
     }
 

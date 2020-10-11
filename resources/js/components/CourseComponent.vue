@@ -44,6 +44,8 @@
 
 <script>
     import CourseGideItem from './CourseGideItem.vue';
+    import store from '../storage'
+
 
     export default {
         props: ['items'],
@@ -59,29 +61,29 @@
         },
         created() {
 
-            if(localStorage.token) {
-                axios.post('/api/showTrainingByCategory', {
-                        headers: {
-                            'content-type': 'application/json',
-                            Authorization: 'Bearer ' + localStorage.getItem('token')
-                        }
-                    },
-                ).then(response => {
-                   var res = response.json()
-                    this.sections = res.Trainings;
-                    store.commit('loginUser')
-                }).catch(error => {
-                    if (error.response.status === 401 || error.response.status === 403) {
-                        store.commit('logoutUser')
-                        localStorage.setItem('token', '')
-                        this.$router.push({name: 'login'})
-                    }
+            // if (localStorage.token) {
+            //     axios.post('/api/showTrainingByCategory', {
+            //         headers: {
+            //             'content-type': 'application/json',
+            //             Authorization: 'Bearer ' + localStorage.getItem('token')
+            //         }
+            //     },).then(response => {
+            //         var res = response.json()
+            //         this.sections = res.Trainings;
+            //         store.commit('loginUser')
+            //     }).catch(error => {
+            //         console.log(error);
+            //         if (error.response.status === 401 || error.response.status === 403) {
+            //             store.commit('logoutUser')
+            //             localStorage.setItem('token', '')
+            //             this.$router.push({name: 'login'})
+            //         }
+            //
+            //     });
+            // }
 
-                });
-            }
-
-
-        // this.fetchArticles();
+            if (localStorage.token)
+                this.fetchArticles();
         },
         methods: {
             onToggle(index) {
@@ -95,14 +97,23 @@
                 fetch('/api/showTrainingByCategory', {
                     method: 'post',
                     headers: {
-                        'content-type': 'application/json'
+                        'content-type': 'application/json',
+                        Authorization: 'Bearer ' + localStorage.getItem('token')
                     }
                 })
                     .then(res => res.json())
                     .then(res => {
+                        store.commit('loginUser')
                         this.sections = res.Trainings;
                     })
-                    .catch(err => console.log(err));
+                    .catch(err => {
+                        console.log(err)
+                        if (err.response.status === 401 || err.response.status === 403) {
+                            store.commit('logoutUser')
+                            localStorage.setItem('token', '')
+                            this.$router.push({name: 'login'})
+                        }
+                    });
             },
 
         },

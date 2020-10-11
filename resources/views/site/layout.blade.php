@@ -63,11 +63,14 @@
                     <div class="top-left pull-left clearfix">
                         <!-- Login Nav -->
                         <ul class="login-nav">
-                            <li>
-                                <router-link to="/login"> تسجيل الدخول</router-link>
+                            <li v-if="!store.state.isLoggedIn">
+                                <router-link  to="/login"> تسجيل الدخول</router-link>
                             </li>
-                            <li>
+                            <li v-if="!store.state.isLoggedIn">
                                 <router-link to="/register"> انشاء حساب</router-link>
+
+                            <li v-if="(store.state.isLoggedIn)">
+                                <router-link to="/logout"> تسجيل الخروج </router-link>
 
                         </ul>
                     </div>
