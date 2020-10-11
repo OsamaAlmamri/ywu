@@ -8,7 +8,7 @@ export default new Vuex.Store({
     state: {
         status: '',
         token: localStorage.getItem('token') || '',
-        user: {}
+        user:localStorage.getItem('user') || {}
     },
     mutations: {
         auth_request(state) {
@@ -84,5 +84,6 @@ export default new Vuex.Store({
     getters: {
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
+        authUser: state => state.user,
     }
 })

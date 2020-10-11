@@ -2168,17 +2168,21 @@ __webpack_require__.r(__webpack_exports__);
     fetchArticles: function fetchArticles() {
       var _this = this;
 
-      var vm = this;
-      fetch('/api/showTrainingByCategory', {
-        method: 'post',
+      var vm = this; // fetch('/api/showTrainingByCategory', {
+      //     method: 'post',
+      //     headers: {
+      //         Authorization: 'Bearer ' + localStorage.getItem('token'),
+      //         'content-type': 'application/json'
+      //     }
+      // })
+
+      axios.post('/api/showTrainingByCategory', {
         headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
-          'content-type': 'application/json'
+          'content-type': 'application/json' // Authorization: 'Bearer ' + localStorage.getItem('token')
+
         }
       }).then(function (res) {
-        return res.json();
-      }).then(function (res) {
-        _this.sections = res.Trainings;
+        _this.sections = res.data.Trainings;
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -60844,10 +60848,13 @@ Vue.component('nav-header', __webpack_require__(/*! ./components/navHeader.vue *
 
 Vue.prototype.$http = axios__WEBPACK_IMPORTED_MODULE_2___default.a;
 
+var api_url = "http://127.0.0.1:8000";
+axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.baseURL = api_url;
+axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 var token = localStorage.getItem('token');
 
 if (token) {
-  Vue.prototype.$http.defaults.headers.common['Authorization'] = token;
+  Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 }
 
 var app = new Vue({
@@ -60861,6 +60868,9 @@ var app = new Vue({
   computed: {
     isLoggedIn: function isLoggedIn() {
       return _store__WEBPACK_IMPORTED_MODULE_3__["default"].getters.isLoggedIn;
+    },
+    authUser: function authUser() {
+      return _store__WEBPACK_IMPORTED_MODULE_3__["default"].getters.authUser;
     }
   },
   methods: {
@@ -62191,7 +62201,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   state: {
     status: '',
     token: localStorage.getItem('token') || '',
-    user: {}
+    user: localStorage.getItem('user') || {}
   },
   mutations: {
     auth_request: function auth_request(state) {
@@ -62276,6 +62286,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     authStatus: function authStatus(state) {
       return state.status;
+    },
+    authUser: function authUser(state) {
+      return state.user;
     }
   }
 }));

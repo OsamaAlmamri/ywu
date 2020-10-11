@@ -1,4 +1,3 @@
-
 require('./bootstrap');
 import router from './routes';
 import VueClazyLoad from 'vue-clazy-load' ;
@@ -11,13 +10,18 @@ Vue.component('search-filed', require('./components/SearchField.vue').default);
 Vue.component('course-questions', require('./components/Question.vue').default);
 Vue.component('nav-header', require('./components/navHeader.vue').default);
 import Axios from 'axios'
+
 Vue.prototype.$http = Axios;
 import store from "./store";
+var api_url = process.env.MIX_APP_URL;
+Axios.defaults.baseURL = api_url;
+Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 const token = localStorage.getItem('token')
 if (token) {
-    Vue.prototype.$http.defaults.headers.common['Authorization'] = token
+    Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
 }
+
 
 const app = new Vue({
     el: '#app',
@@ -30,6 +34,9 @@ const app = new Vue({
     computed: {
         isLoggedIn: function () {
             return store.getters.isLoggedIn
+        },
+        authUser: function () {
+            return store.getters.authUser
         }
     },
     methods: {

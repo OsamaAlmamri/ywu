@@ -55,7 +55,6 @@
                         <!-- Info List -->
                         <ul class="info-list">
                             <li><span>الخط الساخن:</span><a href="tel:8000999"> 01 8000999</a></li>
-                            <!--							<li><span>Email Us:</span><a href="mailto:info@yourcompany.com"> info@yourcompany.com</a></li>-->
                         </ul>
                         <!--                            <router-link to="/">Home</router-link>-->
                         <!--                            |-->

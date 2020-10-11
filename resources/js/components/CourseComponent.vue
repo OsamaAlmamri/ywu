@@ -92,17 +92,22 @@
             },
             fetchArticles() {
                 let vm = this;
-                fetch('/api/showTrainingByCategory', {
-                    method: 'post',
-                    headers: {
-                        Authorization: 'Bearer ' + localStorage.getItem('token'),
-                        'content-type': 'application/json'
-                    }
+                // fetch('/api/showTrainingByCategory', {
+                //     method: 'post',
+                //     headers: {
+                //         Authorization: 'Bearer ' + localStorage.getItem('token'),
+                //         'content-type': 'application/json'
+                //     }
+                // })
+                axios.post('/api/showTrainingByCategory', {
+                        headers: {
+                            'content-type': 'application/json',
+                            // Authorization: 'Bearer ' + localStorage.getItem('token')
+                        }
+                    },
+                ).then(res => {
+                    this.sections = res.data.Trainings;
                 })
-                    .then(res => res.json())
-                    .then(res => {
-                        this.sections = res.Trainings;
-                    })
                     .catch(err => console.log(err));
             },
 
