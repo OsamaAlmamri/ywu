@@ -62220,15 +62220,16 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
           data: user,
           method: 'POST'
         }).then(function (resp) {
-          var token = resp.data.data.token;
-          var user = resp.data.data.user;
-          localStorage.setItem('token', token);
-          localStorage.setItem('user', user);
-          axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.headers.common['Authorization'] = token;
-          commit('auth_success', token, user);
-          resolve(resp);
+          if (resp.data.status == false) alert(resp.data.msg);else {
+            var token = resp.data.data.token;
+            var _user = resp.data.data.userData;
+            localStorage.setItem('token', token);
+            localStorage.setItem('user', _user);
+            axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.headers.common['Authorization'] = token;
+            commit('auth_success', token, _user);
+            resolve(resp);
+          }
         })["catch"](function (err) {
-          console.log(err);
           commit('auth_error');
           alert(err.data.msg);
           localStorage.removeItem('token');
