@@ -1,4 +1,5 @@
 window._ = require('lodash');
+window.Vue = require('vue');
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -22,7 +23,19 @@ try {
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.events = new Vue();
+window.toastSuccess = function(title, body) {
+    window.events.$emit('toast-success', title, body);
+};
 
+window.toastError = function(title, body) {
+    window.events.$emit('toast-error', title, body);
+};
+
+
+window.toastStack = function(title, body,type) {
+    window.events.$emit('toast-stack', title, body,type);
+};
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

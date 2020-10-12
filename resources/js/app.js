@@ -9,6 +9,10 @@ Vue.component('course-component', require('./components/CourseComponent.vue').de
 Vue.component('search-filed', require('./components/SearchField.vue').default);
 Vue.component('course-questions', require('./components/Question.vue').default);
 Vue.component('nav-header', require('./components/navHeader.vue').default);
+Vue.component('toast-success', require('./components/ToastSuccess.vue').default);
+Vue.component('toast-error', require('./components/ToastError.vue').default);
+Vue.component('toast-stack', require('./components/ToastStack.vue').default);
+
 import Axios from 'axios'
 
 Vue.prototype.$http = Axios;

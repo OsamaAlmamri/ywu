@@ -23,12 +23,18 @@
                                 <!--Tab Btns-->
                                 <ul class="tab-btns tab-buttons clearfix">
                                     <li data-tab="#prod-overview" data-type="user"
-                                        class="user_type_tap tab-btn active-btn">مستخدم
+                                        @click="changeUserType('visitor','')"
+                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.userType=='visitor')}]">
+                                        مستخدم
                                     </li>
-                                    <li data-tab="#prod-bookmark" data-type="sub_cluster"
-                                        class="user_type_tap tab-btn ">شريك
+                                    <li data-tab="#prod-bookmark"
+                                        @click="changeUserType('share_user','sub_cluster')"
+                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.share_user_type=='sub_cluster')}]">
+                                        شريك
                                     </li>
-                                    <li data-tab="#prod-setting" data-type="copartner" class="user_type_tap tab-btn">عضو
+                                    <li data-tab="#prod-setting" @click="changeUserType('share_user','copartner')"
+                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.share_user_type=='copartner')}]">
+                                        عضو
                                         كتلة
                                     </li>
                                 </ul>
@@ -40,36 +46,34 @@
                 <!-- Login Form -->
                 <div class="styled-form">
                     <form method="post" action="index.html">
-                        @csrf
                         <input type="hidden" name="type" id="user_type_input" value="user">
                         <div class="row clearfix">
 
                             <!-- Form Group -->
                             <div class="form-group col-lg-6 col-md-12 col-sm-12">
                                 <label>الاسم </label>
-                                <input type="text" v-model="name" placeholder=" الاسم" required="">
+                                <input type="text" v-model="form.name" placeholder=" الاسم" required="">
                             </div>
 
 
                             <!-- Form Group -->
                             <div class="form-group col-lg-6 col-md-12 col-sm-12">
                                 <label> رقم الهاتف</label>
-                                <input type="text" v-model="phone" placeholder="777777777" required="">
+                                <input type="text" v-model="form.phone" placeholder="777777777" required="">
                             </div>
 
 
                             <!-- Form Group -->
-                            <div class="form-group col-lg-6 col-md-12 col-sm-12" style="display: none" id="dev_email">
+                            <div class="form-group col-lg-6 col-md-12 col-sm-12" v-show="form.userType=='share_user'">
                                 <label>الايميل </label>
-                                <input type="email" name="email" v-model="email" id="form_email" value=""
+                                <input type="email" name="email" v-model="form.email" id="form_email" value=""
                                        placeholder="abcd@gmail.com">
                             </div>
 
                             <!-- Form Group -->
-                            <div class="form-group col-lg-6 col-md-12 col-sm-12" style="display: none"
-                                 id="dev_destination">
+                            <div class="form-group col-lg-6 col-md-12 col-sm-12" v-show="form.userType=='share_user'">
                                 <label> الجهة</label>
-                                <input type="text" name="destination" v-model="destination" id="form_destination"
+                                <input type="text" name="destination" v-model="form.destination" id="form_destination"
                                        value=""
                                        placeholder="الجهة">
                             </div>
@@ -79,7 +83,7 @@
                             <div class="form-group col-lg-6 col-md-12 col-sm-12">
                                 <label>كلمة السر</label>
                                 <span class="eye-icon flaticon-eye"></span>
-                                <input type="password" name="password" v-model="password" placeholder="كلمة السر"
+                                <input type="password" name="password" v-model="form.password" placeholder="كلمة السر"
                                        required="">
                             </div>
 
@@ -87,7 +91,7 @@
                             <div class="form-group col-lg-6 col-md-12 col-sm-12">
                                 <label> تاكيد كلمة السر</label>
                                 <span class="eye-icon flaticon-eye"></span>
-                                <input type="password" name="password" v-model="password_confirmation"
+                                <input type="password" name="password" v-model="form.password_confirmation"
                                        placeholder="تاكيد كلمة السر"
                                        required="">
                             </div>
@@ -95,7 +99,8 @@
 
                             <div class="form-group col-lg-12 col-md-12 col-sm-12 text-center">
                                 <button type="button" class="theme-btn btn-style-three"><span
-                                    class="txt">التسجيل الان <i class="fa fa-angle-left"></i></span></button>
+                                    @click="register()" class="txt">التسجيل الان <i class="fa fa-angle-left"></i></span>
+                                </button>
                             </div>
 
                             <div class="form-group col-lg-12 col-md-12 col-sm-12">
@@ -117,49 +122,44 @@
     <!-- End Login Section -->
 </template>
 <script>
+    import store from '../store'
 
 
-
-//    register({commit}, user){
-//        return new Promise((resolve, reject) => {
-//            commit('auth_request')
-//            axios({url: 'http://localhost:3000/register', data: user, method: 'POST' })
-//                .then(resp => {
-//                    const token = resp.data.token
-//                    const user = resp.data.user
-//                    localStorage.setItem('token', token)
-//                    axios.defaults.headers.common['Authorization'] = token
-//                    commit('auth_success', token, user)
-//                    resolve(resp)
-//                })
-//                .catch(err => {
-//                    commit('auth_error', err)
-//                    localStorage.removeItem('token')
-//                    reject(err)
-//                })
-//        })
-//    },
     export default {
-        data(){
+        data() {
             return {
-                name : "",
-                email : "",
-                password : "",
-                password_confirmation : "",
-                is_admin : null
+                form: {
+                    userType: "visitor",
+                    destination: "",
+                    share_user_type: "",
+                    name: "",
+                    email: "",
+                    password: "",
+                    password_confirmation: "",
+                }
+            }
+        },
+        computed: {
+            objectClass: function () {
+                return {blue: this.active, red: !this.active};
             }
         },
         methods: {
+            changeUserType: function (type, share_type) {
+                this.form.userType = type;
+                this.form.share_user_type = share_type;
+            },
             register: function () {
-                let data = {
-                    name: this.name,
-                    email: this.email,
-                    password: this.password,
-                    is_admin: this.is_admin
+                let data = this.form;
+                if (data.password != data.password_confirmation) {
+                    toastStack('كلمة السر غير متطابقة', '', 'error');
+                    // toastStack('كلمة السر غير متطابقة', '', 'success');
+                } else {
+                    store.dispatch('register', data)
+                        .then(() => this.$router.push('/'))
+
+                        .catch(err => console.log(err))
                 }
-                this.$store.dispatch('register', data)
-                    .then(() => this.$router.push('/'))
-                    .catch(err => console.log(err))
             }
 
             // register() {
@@ -200,3 +200,4 @@
         border-bottom: 3px solid #00ab15;
     }
 </style>
+

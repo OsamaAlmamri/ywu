@@ -8,7 +8,7 @@ export default new Vuex.Store({
     state: {
         status: '',
         token: localStorage.getItem('token') || '',
-        user:localStorage.getItem('user') || {}
+        user: localStorage.getItem('user') || {}
     },
     mutations: {
         auth_request(state) {
@@ -22,6 +22,9 @@ export default new Vuex.Store({
         auth_error(state) {
             state.status = 'error'
         },
+        auth_pending(state) {
+            state.status = 'pending'
+        },
         logout(state) {
             state.status = ''
             state.token = ''
@@ -33,9 +36,10 @@ export default new Vuex.Store({
                 commit('auth_request')
                 axios({url: '/api/login', data: user, method: 'POST'})
                     .then(resp => {
-                        if (resp.data.status == false)
-                            alert(resp.data.msg);
-                        else {
+                        if (resp.data.status == false) {
+                            commit('auth_error');
+                            toastStack('   خطاء ', resp.data.msg, 'error');
+                        } else {
                             const token = resp.data.data.token
                             const user = resp.data.data.userData
                             localStorage.setItem('token', token)
@@ -46,9 +50,7 @@ export default new Vuex.Store({
                         }
                     })
                     .catch(err => {
-
                         commit('auth_error')
-                        alert(err.data.msg)
                         localStorage.removeItem('token')
                         localStorage.removeItem('user')
                         reject(err)
@@ -59,12 +61,23 @@ export default new Vuex.Store({
                 commit('auth_request')
                 axios({url: '/api/register', data: user, method: 'POST'})
                     .then(resp => {
-                        const token = resp.data.token
-                        const user = resp.data.user
-                        localStorage.setItem('token', token)
-                        axios.defaults.headers.common['Authorization'] = token
-                        commit('auth_success', token, user)
-                        resolve(resp)
+                        if (resp.data.status == false) {
+                            toastStack('   خطاء ', resp.data.msg, 'error');
+                            commit('auth_error');
+                        } else if (resp.data.status == true &&
+                            user.userType == 'share_user') {
+                            toastStack(resp.data.msg, '', 'success');
+                            commit('auth_pending');
+                            resolve(resp)
+                        } else {
+                            const token = resp.data.data.token
+                            const user = resp.data.data.userData
+                            localStorage.setItem('token', token)
+                            localStorage.setItem('user', user)
+                            axios.defaults.headers.common['Authorization'] = token
+                            commit('auth_success', token, user)
+                            resolve(resp)
+                        }
                     })
                     .catch(err => {
                         commit('auth_error', err)

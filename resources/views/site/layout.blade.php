@@ -16,6 +16,7 @@
     <link href="{{  asset('site/css/responsive.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/css/mcq.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/vue/loading.css')  }}" rel="stylesheet">
+    <link href="{{ asset('newLibs\toastr\toastr.css') }}" rel="stylesheet">
 
     <meta name="theme-color" content="#00ab15">
     <!-- Windows Phone -->
@@ -41,7 +42,7 @@
 <body>
 <div class="page-wrapper" id="app">
 
-{{--    <nav-header></nav-header>--}}
+    {{--    <nav-header></nav-header>--}}
     <header class="main-header header-style-one">
 
         <!-- Header Top -->
@@ -163,6 +164,11 @@
         <!-- End Mobile Menu -->
 
     </header>
+
+    <toast-success title="{{ session('success-title')??$successTitle??'' }}" body="{{ session('success-body')??$successBody??'' }} "></toast-success>
+    <toast-error title="{{ session('error-title')??$errorTitle??'' }}" body="{{ session('error-body')??$errorBody??'' }}" ></toast-error>
+
+    <toast-stack title="{{ session('stack-title')??$stackTitle??'' }}" body="{{ session('stack-body')??$stackTitle??'' }}" ></toast-stack>
 
     <search-filed title="courses"></search-filed>
     <router-view></router-view>
@@ -332,6 +338,8 @@
 <script src="{!! asset('site/js/swiper.min.js') !!}"></script>
 <script src="{!! asset('site/js/element-in-view.js') !!}"></script>
 <script src="{!! asset('site/js/jquery.paroller.min.js') !!}"></script>
+<link href="{!! asset('newLibs\toastr\toastr.min.js') !!}" media="all" rel="stylesheet"
+      type="text/css"/>
 {{--//form--}}
 <script src="{!! asset('site/js/validate.js') !!}"></script>
 

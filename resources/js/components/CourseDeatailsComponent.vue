@@ -76,7 +76,8 @@
                                                                         </a>
                                                                     </div>
                                                                     <div class="pull-left">
-                                                                        <a v-if="content.video_url" :href="content.video_url"
+                                                                        <a v-if="content.video_url"
+                                                                           :href="content.video_url"
                                                                            class="lightbox-image play-icon">
                                                                                     <span class="fa fa-play"><i
                                                                                         class="ripple"></i></span>
@@ -230,24 +231,24 @@
                             <!-- Video Box -->
                             <div class="intro-video"
                                  style="background-image:url('site/images/resource/video-image-1.jpg')">
-                            <a href="https://www.youtube.com/watch?v=kxPCFljwJws"
-                               class="lightbox-image intro-video-box"><span class="fa fa-play"><i
-                                class="ripple"></i></span></a>
-                            <h4>Preview this course</h4>
+                                <a href="https://www.youtube.com/watch?v=kxPCFljwJws"
+                                   class="lightbox-image intro-video-box"><span class="fa fa-play"><i
+                                    class="ripple"></i></span></a>
+                                <h4>Preview this course</h4>
+                            </div>
+                            <!-- End Video Box -->
+                            <div class="price">$11.99</div>
+                            <div class="time-left">23 hours left at this price!</div>
+
+                            <a href="#" class="theme-btn btn-style-three"><span class="txt">Add To Cart <i
+                                class="fa fa-angle-left"></i></span></a>
+                            <a href="#" class="theme-btn btn-style-two"><span class="txt">Buy Now <i
+                                class="fa fa-angle-left"></i></span></a>
                         </div>
-                        <!-- End Video Box -->
-                        <div class="price">$11.99</div>
-                        <div class="time-left">23 hours left at this price!</div>
-
-                        <a href="#" class="theme-btn btn-style-three"><span class="txt">Add To Cart <i
-                            class="fa fa-angle-left"></i></span></a>
-                        <a href="#" class="theme-btn btn-style-two"><span class="txt">Buy Now <i
-                            class="fa fa-angle-left"></i></span></a>
                     </div>
-                </div>
 
+                </div>
             </div>
-        </div>
 
         </div>
     </section>
@@ -275,7 +276,7 @@
                     "published": "",
                     "result": null,
                     "category": {
-                        "id":0 ,
+                        "id": 0,
                         "name": " "
                     },
                     "is_register": null,
@@ -289,7 +290,7 @@
             }
         },
         created() {
-            this.course_id=this.$route.params.id
+            this.course_id = this.$route.params.id
             this.fetchTraining();
         },
         methods: {
@@ -308,7 +309,7 @@
                         // 'Authorization': 'Bearer my-token',
                         // 'My-Custom-Header': 'foobar'
                     },
-                    body: JSON.stringify({ id:this.course_id, title: 'Vue POST Request Example' })
+                    body: JSON.stringify({id: this.course_id, title: 'Vue POST Request Example'})
                 })
                     .then(res => res.json())
                     .then(res => {

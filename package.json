@@ -27,6 +27,7 @@
         "@websanova/vue-auth": "^3.3.8",
         "es6-promise": "^4.2.8",
         "tailwindcss": "^1.5.2",
+        "toastr": "^2.1.4",
         "vue-axios": "^3.0.1",
         "vue-clazy-load": "^0.4.2",
         "vue-router": "^3.4.6",
