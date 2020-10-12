@@ -50,7 +50,7 @@
 
                         <div class="pull-right logo-box">
                             <div class="logo"><a href="index.html">
-                                <img width="50" src="site/images/Logo250px.png" alt=""
+                                <img width="50" src="/site/images/Logo250px.png" alt=""
                                      title="Bootcamp"></a></div>
                         </div>
                         <div class="nav-outer clearfix">
@@ -70,6 +70,9 @@
 
                                 <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                     <ul class="navigation clearfix">
+                                        <li>
+                                            <router-link v-if="isLoggedIn" to="/profile"> الصفحة الشخصية</router-link>
+                                        </li>
                                         <li>
                                             <router-link to="/home"> الرئيسية</router-link>
                                         </li>

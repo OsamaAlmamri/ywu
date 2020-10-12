@@ -30,14 +30,23 @@
             }
         },
         computed: {
+
             pageName: function () {
-                switch (this.title) {
+
+                switch ( this.$route.name) {
                     case 'home' :
+                        return "الرئيسية";
+                        break;
+
+                    case 'home2' :
                         return "الرئيسية";
                         break;
 
                     case 'courses' :
                         return "المواد التدريبية";
+                        break;
+                    case 'course_details' :
+                        return "تفاصيل المادة التدريبية";
                         break;
 
                     case 'privacy' :
@@ -46,6 +55,12 @@
 
                     case 'concatUs' :
                         return "تواصل معنا";
+                        break;
+                    case 'about' :
+                        return "عنا ";
+                        break;
+                    case 'profile' :
+                        return "الصفحة الشخصية ";
                         break;
                     case 'register' :
                         return "انشاء حساب جديد";

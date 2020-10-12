@@ -1,10 +1,27 @@
 <template>
-    <div class="absolute inset-0 bg-gray-200 flex items-center justify-center">
-       <div class="text-3xl text-center text-gray-700">Page Not Found! <br>404 ERROR!</div>
-    </div>
+    <!--Error Section-->
+    <section class="error-section">
+        <div class="auto-container">
+            <div class="content">
+                <div class="image">
+                    <img src="/site/images/resource/error.png" alt="">
+                </div>
+<!--                <div class="theme-btn btn-style-two"></div>-->
+                <router-link @click.native="$scrollToTop"  class="theme-btn btn-style-two" to="/home">
+                    <span class="txt">رجوع للصفحة الرئيسية <i class="fa fa-angle-left"></i></span>
+
+                </router-link>
+<!--                <a href="course.html" class="theme-btn btn-style-two">-->
+<!--                    <span class="txt">Back to the homepage <i class="fa fa-angle-right"></i></span>-->
+<!--                </a>-->
+            </div>
+        </div>
+    </section>
+    <!--End Error Section-->
+
 </template>
 <script>
 export default {
-    
+
 }
 </script>

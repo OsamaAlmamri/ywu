@@ -8,7 +8,7 @@ export default new Vuex.Store({
     state: {
         status: '',
         token: localStorage.getItem('token') || '',
-        user: localStorage.getItem('user') || {}
+        user: JSON.parse(localStorage.getItem('user'))  || {}
     },
     mutations: {
         auth_request(state) {
@@ -41,9 +41,10 @@ export default new Vuex.Store({
                             toastStack('   خطاء ', resp.data.msg, 'error');
                         } else {
                             const token = resp.data.data.token
-                            const user = resp.data.data.userData
+                            const user = JSON.stringify(resp.data.data.userData)
+                            console.log(user)
+                            localStorage.setItem('user',user);
                             localStorage.setItem('token', token)
-                            localStorage.setItem('user', user)
                             axios.defaults.headers.common['Authorization'] = token
                             commit('auth_success', token, user)
                             resolve(resp)

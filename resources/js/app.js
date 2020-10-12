@@ -17,6 +17,7 @@ import Axios from 'axios'
 
 Vue.prototype.$http = Axios;
 import store from "./store";
+
 var api_url = process.env.MIX_APP_URL;
 Axios.defaults.baseURL = api_url;
 Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -25,7 +26,7 @@ const token = localStorage.getItem('token')
 if (token) {
     Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
 }
-
+Vue.prototype.$scrollToTop = () => window.scrollTo(0, 0);
 
 const app = new Vue({
     el: '#app',
@@ -41,9 +42,15 @@ const app = new Vue({
         },
         authUser: function () {
             return store.getters.authUser
+        },
+        currentPage: function () {
+            return  this.$route.name
         }
     },
     methods: {
+        scrollToTop: function () {
+            window.scrollTo(0, 0);
+        },
         logout: function () {
             this.$store.dispatch('logout')
                 .then(() => {

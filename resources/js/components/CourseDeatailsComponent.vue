@@ -26,23 +26,37 @@
 
                                     <!--Tab Btns-->
                                     <ul class="tab-btns tab-buttons clearfix">
-                                        <li data-tab="#prod-overview" class="tab-btn active-btn">نظرة عامة</li>
-                                        <li data-tab="#prod-curriculum" class="tab-btn">العناوين</li>
-                                        <li data-tab="#prod-reviews" class="tab-btn">المحتوى التدريبي</li>
-                                        <li data-tab="#mcq_tap" id="mcq_tap_open" class="tab-btn">الاختبار</li>
+                                        <li data-tab="#prod-overview" @click="changeActive('prod-overview')"
+                                            :class="['tab-btn', {'active-btn':(activeTap=='prod-overview')}]">نظرة عامة
+                                        </li>
+                                        <li data-tab="#prod-curriculum" @click="changeActive('prod-curriculum')"
+                                            :class="['tab-btn', {'active-btn':(activeTap=='prod-curriculum')}]">العناوين
+                                        </li>
+                                        <li data-tab="#prod-reviews" @click="changeActive('prod-reviews')"
+                                            :class="['tab-btn', {'active-btn':(activeTap=='prod-reviews')}]">المحتوى
+                                            التدريبي
+                                        </li>
+                                        <li data-tab="#mcq_tap" @click="changeActive('mcq_tap')" id="mcq_tap_open"
+                                            :class="['tab-btn', {'active-btn':(activeTap=='mcq_tap')}]">الاختبار
+                                        </li>
                                     </ul>
 
                                     <!--Tabs Container-->
                                     <div class="tabs-content">
 
                                         <!--Tab / Active Tab-->
-                                        <div class="tab active-tab" id="prod-overview">
+                                        <div :class="['tab', {'active-tab':(activeTap=='prod-overview')}]"
+                                             id="prod-overview">
                                             <div class="content">
 
                                                 <!-- Cource Overview -->
                                                 <div class="course-overview">
-                                                    <div class="inner-box" v-html="training.description">
+                                                    <div class="inner-box">
+                                                        <h3>ماذا سوف تتعلم </h3>
+                                                        <div v-html="training.learn"></div>
 
+                                                        <h3>متطلبات الدورة التدريبية </h3>
+                                                        <div v-html="training.description"></div>
 
                                                     </div>
                                                 </div>
@@ -51,21 +65,23 @@
                                         </div>
 
                                         <!-- Tab -->
-                                        <div class="tab" id="prod-curriculum">
+                                        <div class="tab" :class="['tab', {'active-tab':(activeTap=='prod-curriculum')}]"
+                                             id="prod-curriculum">
                                             <div class="content">
 
                                                 <!-- Accordion Box -->
                                                 <ul class="accordion-box">
                                                     <!-- Block -->
-                                                    <li class="accordion block" v-for="title in training.titles">
-                                                        <div class="acc-btn @if($k==0)active @endif">
+                                                    <li class="accordion block" v-for="(title,key) in training.titles">
+                                                        <div :key="key" @click="change_active_lession(key)"
+                                                             :class="['acc-btn',{'active':key==active_lession}]">
                                                             <div class="icon-outer"><span
                                                                 class="icon icon-plus flaticon-angle-arrow-down"></span>
                                                             </div>
                                                             {{title.name}}
                                                         </div>
 
-                                                        <div class="acc-content @if($k==0)current @endif ">
+                                                        <div :class="['acc-content',{'current':key==active_lession}]">
                                                             <div v-for="content in title.contents" class="content">
                                                                 <div class="clearfix">
                                                                     <div class="pull-right">
@@ -108,7 +124,7 @@
                                         </div>
 
                                         <!-- Tab -->
-                                        <div class="tab" id="mcq_tap">
+                                        <div :class="['tab', {'active-tab':(activeTap=='mcq_tap')}]" id="mcq_tap">
                                             <div class="content">
                                                 <course-questions></course-questions>
 
@@ -117,7 +133,8 @@
 
 
                                         <!-- Tab -->
-                                        <div class="tab" id="prod-reviews">
+                                        <div :class="['tab', {'active-tab':(activeTap=='prod-reviews')}]"
+                                             id="prod-reviews">
                                             <div class="content">
 
                                                 <div class="cource-review-box">
@@ -227,28 +244,39 @@
                     <!-- Video Column -->
                     <div class="video-column col-lg-4 col-md-12 col-sm-12">
                         <div class="inner-column sticky-top">
+                            <div class="intro-video" v-bind:style="{ backgroundImage: 'url(assets/images/' + training.thumbnail + ')' }">
 
-                            <!-- Video Box -->
-                            <div class="intro-video"
-                                 style="background-image:url('site/images/resource/video-image-1.jpg')">
-                                <a href="https://www.youtube.com/watch?v=kxPCFljwJws"
-                                   class="lightbox-image intro-video-box"><span class="fa fa-play"><i
-                                    class="ripple"></i></span></a>
-                                <h4>Preview this course</h4>
-                            </div>
-                            <!-- End Video Box -->
-                            <div class="price">$11.99</div>
-                            <div class="time-left">23 hours left at this price!</div>
 
-                            <a href="#" class="theme-btn btn-style-three"><span class="txt">Add To Cart <i
-                                class="fa fa-angle-left"></i></span></a>
-                            <a href="#" class="theme-btn btn-style-two"><span class="txt">Buy Now <i
-                                class="fa fa-angle-left"></i></span></a>
+<!--                            <clazy-load class="wrapper intro-video" :src="'assets/images/' + training.thumbnail">-->
+<!--                                <transition name="fade">-->
+<!--                                    <div class="intro-video"-->
+<!--                                         v-bind:style="{ backgroundImage: 'url(assets/images/' + training.thumbnail + ')' }">-->
+<!--                                    </div>-->
+<!--                                </transition>-->
+<!--                                <transition name="fade" slot="placeholder">-->
+<!--                                    <div class="vue_preloader">-->
+<!--                                        <div class="circle">-->
+<!--                                            <div class="circle-inner"></div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </transition>-->
+<!--                            </clazy-load>-->
                         </div>
-                    </div>
 
+                        <!-- End Video Box -->
+                        <div class="price">{{training.length}}  <i class="fa fa-clock-o"></i></div>
+                        <div class="time-left"> تبدا في {{training.start_at}}</div>
+                        <div class="time-left"> تنتهي في {{training.end_at}}</div>
+
+                        <a href="#" v-show="training.is_like==null" class="theme-btn btn-style-three"><span class="txt">اضافة للمفضلة  <i
+                            class="fa fa-angle-left"></i></span></a>
+                        <a href="#"  v-show="training.is_register==null" class="theme-btn btn-style-two"><span class="txt">التسجيل بالدورة  <i
+                            class="fa fa-angle-left"></i></span></a>
+                    </div>
                 </div>
+
             </div>
+        </div>
 
         </div>
     </section>
@@ -283,6 +311,8 @@
                     "titles": []
                 },
                 activeIndex: null,
+                active_lession: 0,
+                activeTap: 'prod-overview',
                 sections: [],
                 course_id: '',
                 pagination: {},
@@ -299,6 +329,12 @@
                     return (this.activeIndex = null);
                 }
                 this.activeIndex = index;
+            },
+            changeActive(index) {
+                this.activeTap = index;
+            },
+            change_active_lession(index) {
+                this.active_lession = index;
             },
             fetchTraining() {
                 let vm = this;

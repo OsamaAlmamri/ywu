@@ -68,14 +68,14 @@
                     <div class="top-left pull-left clearfix">
                         <!-- Login Nav -->
                         <ul class="login-nav">
-                            <li v-if="!isLoggedIn">
+                            <li @click.native="$scrollToTop" v-if="!isLoggedIn">
                                 <router-link to="/login"> تسجيل الدخول</router-link>
                             </li>
-                            <li v-if="!isLoggedIn">
+                            <li @click.native="$scrollToTop" v-if="!isLoggedIn">
                                 <router-link to="/register"> انشاء حساب</router-link>
                             </li>
 
-                            <li v-if="isLoggedIn">
+                            <li @click.native="$scrollToTop" v-if="isLoggedIn">
                                 <router-link to="/logout"> تسجيل الخروج</router-link>
                             </li>
                         </ul>
@@ -112,25 +112,32 @@
 
                             <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
-                                    <li>
-                                        <router-link to="/home"> الرئيسية</router-link>
+                                    <li :class="[{'current':currentPage=='profile'}]">
+                                        <router-link @click.native="$scrollToTop" v-if="isLoggedIn" to="/profile">
+                                            الصفحة الشخصية
+                                        </router-link>
                                     </li>
-                                    <li>
-                                        <router-link to="/courses"> التدريب</router-link>
+                                    <li :class="[{'current':(currentPage=='home' ||currentPage=='home2')}]">
+                                        <router-link @click.native="$scrollToTop" to="/home"> الرئيسية</router-link>
+                                    </li>
+                                    <li :class="[{'current':currentPage=='courses'}]">
+                                        <router-link @click.native="$scrollToTop" to="/courses"> التدريب</router-link>
                                     </li>
 
-
-                                    <li>
-                                        <router-link to="/consultant"> الاستشارات</router-link>
+                                    <li :class="[{'current':currentPage=='consultant'}]">
+                                        <router-link @click.native="$scrollToTop" to="/consultant"> الاستشارات
+                                        </router-link>
                                     </li>
-                                    <li>
-                                        <router-link to="/women"> شوؤن المرأة</router-link>
+                                    <li :class="[{'current':currentPage=='women'}]">
+                                        <router-link @click.native="$scrollToTop" to="/women"> شوؤن المرأة</router-link>
                                     </li>
-                                    <li>
-                                        <router-link to="/privacy"> سياية الخصوصية</router-link>
+                                    <li :class="[{'current':currentPage=='privacy'}]">
+                                        <router-link @click.native="$scrollToTop" to="/privacy"> سياية الخصوصية
+                                        </router-link>
                                     </li>
-                                    <li>
-                                        <router-link to="/concatUs"> تواصل معنا</router-link>
+                                    <li :class="[{'current':currentPage=='concatUs'}]">
+                                        <router-link @click.native="$scrollToTop" to="/concatUs"> تواصل معنا
+                                        </router-link>
                                     </li>
                                 </ul>
                             </div>
@@ -165,12 +172,17 @@
 
     </header>
 
-    <toast-success title="{{ session('success-title')??$successTitle??'' }}" body="{{ session('success-body')??$successBody??'' }} "></toast-success>
-    <toast-error title="{{ session('error-title')??$errorTitle??'' }}" body="{{ session('error-body')??$errorBody??'' }}" ></toast-error>
+    <toast-success title="{{ session('success-title')??$successTitle??'' }}"
+                   body="{{ session('success-body')??$successBody??'' }} "></toast-success>
+    <toast-error title="{{ session('error-title')??$errorTitle??'' }}"
+                 body="{{ session('error-body')??$errorBody??'' }}"></toast-error>
 
-    <toast-stack title="{{ session('stack-title')??$stackTitle??'' }}" body="{{ session('stack-body')??$stackTitle??'' }}" ></toast-stack>
+    <toast-stack title="{{ session('stack-title')??$stackTitle??'' }}"
+                 body="{{ session('stack-body')??$stackTitle??'' }}"></toast-stack>
 
     <search-filed title="courses"></search-filed>
+
+    <button @click="show=!show"> </button>
     <router-view></router-view>
     <!-- Call To Action Section Two -->
     <section class="call-to-action-section-two"

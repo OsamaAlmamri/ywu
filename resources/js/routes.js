@@ -9,6 +9,7 @@ import concatUs from './components/ConcatUs';
 import Privacy from './components/Privacy';
 import CourseDetails from './components/CourseDeatailsComponent';
 import LogoutComponent from './components/Logout';
+import Profile from './components/Profile';
 import store from './store';
 
 import Vue from 'vue';
@@ -23,7 +24,7 @@ const routes = [
     {
         path: '/courses',
         component: Course,
-        name: "Courses",
+        name: "courses",
         meta: {
             requiresAuth: false
         }
@@ -39,7 +40,7 @@ const routes = [
     {
         path: '/privacy',
         component: Privacy,
-        name: "Privacy",
+        name: "privacy",
         meta: {
             requiresAuth: false
         }
@@ -47,6 +48,8 @@ const routes = [
     {
         path: '/',
         component: Home,
+        name: "home2",
+
         meta: {
             requiresAuth: false
         }
@@ -62,7 +65,7 @@ const routes = [
     {
         path: '/home',
         component: Home,
-        name: "Home",
+        name: "home",
         meta: {
             requiresAuth: false
         }
@@ -70,12 +73,16 @@ const routes = [
     {
         path: '/about',
         component: About,
+        name: "about",
+
         meta: {
             requiresAuth: false
         }
     },
     {
         path: '/register',
+        name: 'register',
+
         component: Register,
         meta: {
             requiresAuth: false
@@ -84,7 +91,7 @@ const routes = [
     {
         path: '/login',
         component: Login,
-        name: 'Login',
+        name: 'login',
         meta: {
             requiresAuth: false
         }
@@ -95,7 +102,17 @@ const routes = [
         name: 'logout',
         component: LogoutComponent,
         meta: {
-            requiresAuth: false
+            requiresAuth: true
+        }
+
+    },
+
+    {
+        path: '/profile',
+        name: 'profile',
+        component: Profile,
+        meta: {
+            requiresAuth: true
         }
 
     },
@@ -109,10 +126,11 @@ const routes = [
         },
 
         beforeEnter: (to, form, next) => {
-            axios.get('/api/athenticated').then(() => {
+            // window.scrollTo(0, 0);
+            axios.post('/api/user').then(() => {
                 next()
             }).catch(() => {
-                return next({name: 'Login'})
+                return next({name: 'login'})
             })
         }
 

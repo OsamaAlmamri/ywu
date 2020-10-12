@@ -77,7 +77,8 @@
                             </div>
 
                             <!-- Form Group -->
-                            <div class="form-group col-lg-6 col-md-12 col-sm-12"  style="display: none" id="dev_destination">
+                            <div class="form-group col-lg-6 col-md-12 col-sm-12" style="display: none"
+                                 id="dev_destination">
                                 <label> الجهة</label>
                                 <input type="text" name="destination" id="form_destination" value=""
                                        placeholder="الجهة">
@@ -138,7 +139,8 @@
                     $("#dev_email").hide();
                 } else {
                     $("#dev_destination").show();
-                    $("#dev_email").show();                }
+                    $("#dev_email").show();
+                }
             });
         });
     </script>
