@@ -10,6 +10,8 @@ import Privacy from './components/Privacy';
 import CourseDetails from './components/CourseDeatailsComponent';
 import LogoutComponent from './components/Logout';
 import Profile from './components/Profile';
+import women from './components/WomenComponent';
+import WomenDeatails from './components/WomenDeatails';
 import store from './store';
 
 import Vue from 'vue';
@@ -28,11 +30,26 @@ const routes = [
         meta: {
             requiresAuth: false
         }
-
-    }, {
+    },
+    {
+        path: '/women',
+        component: women,
+        name: "women",
+        meta: {
+            requiresAuth: false
+        }
+    },
+    {
         path: '/course_details/:id',
         component: CourseDetails,
         name: "course_details",
+        meta: {
+            requiresAuth: true
+        }
+    },  {
+        path: '/ShowPId/:id',
+        component: WomenDeatails,
+        name: "women_details",
         meta: {
             requiresAuth: true
         }

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Api\Trainings;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\LastPosts;
 use App\Like;
 use App\Models\Rateable\Rating;
 use App\Models\TrainingContents\SubjectCategory;
 use App\Models\TrainingContents\Training;
+use App\Models\WomenContents\WomenPosts;
 use App\Question;
 use App\Result;
 use App\Traits\JsonTrait;
@@ -90,6 +92,28 @@ class TrainingController extends Controller
                 return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
             } else {
                 return $this->GetDateResponse('Trainings', $Training);
+            }
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
+    public function getLastPosts(Request $request)
+    {
+        try {
+            $type = $request->type;
+            if ($type == 'trainings')
+//                $data = Training::orderByDesc('id')->limit(5)->get();
+                $data = LastPosts::collection(Training::orderByDesc('id')->limit(5)->get())->type('trainings');
+
+            else {
+                $data = LastPosts::collection(WomenPosts::orderByDesc('id')->limit(5)->get())->type('women');
+
+            }
+            if (!$data) {
+                return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
+            } else {
+                return $this->GetDateResponse('data', $data);
             }
         } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
@@ -272,28 +296,26 @@ class TrainingController extends Controller
                     $q->with(['category', 'comments']);
                 }
                 ])->where('user_id', auth()->id())->where('type', 'posts')->get();
+            } elseif ($request->type == 'trainings') {
+                $likes = Training::with(['ratings', 'result', 'is_register', 'titles' => function ($q) {
+                    $q->with(['contents', 'is_complete:title_id,created_at']);
+                }])
+                    ->whereIn('id', function ($query) {
+                        $query->select('liked_id')->from('likes')
+                            ->where('type', 'training')
+                            ->where('user_id', Auth::id());
+                    })
+                    ->orderByDesc('id')->get();
+            } else {
+                $type = 'women_posts';
+                $likes = Like::with(['women_post'])->where('user_id', auth()->id())
+                    ->where('type', 'women_posts')->get();
             }
-                elseif  ($request->type == 'trainings') {
-                    $likes =   Training::with(['ratings', 'result', 'is_register', 'titles' => function ($q) {
-                        $q->with(['contents', 'is_complete:title_id,created_at']);
-                    }])
-                        ->whereIn('id', function ($query) {
-                            $query->select('liked_id')->from('likes')
-                                ->where('type', 'training')
-                                ->where('user_id', Auth::id());
-                        })
-                        ->orderByDesc('id')->get();
-                } else {
-                    $type = 'women_posts';
-                    $likes = Like::with(['women_post'])->where('user_id', auth()->id())
-                        ->where('type', 'women_posts')->get();
-                }
-                return $this->GetDateResponse('data', $likes);
-            }
-        catch
-            (\Exception $ex) {
-                return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
-            }
+            return $this->GetDateResponse('data', $likes);
+        } catch
+        (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
     }
 
     public function update(Request $request, $id)

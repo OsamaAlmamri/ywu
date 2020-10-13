@@ -12,6 +12,7 @@ Vue.component('nav-header', require('./components/navHeader.vue').default);
 Vue.component('toast-success', require('./components/ToastSuccess.vue').default);
 Vue.component('toast-error', require('./components/ToastError.vue').default);
 Vue.component('toast-stack', require('./components/ToastStack.vue').default);
+Vue.component('recent-posts', require('./components/RecentPosts.vue').default);
 
 import Axios from 'axios'
 
@@ -27,15 +28,33 @@ if (token) {
     Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
 }
 Vue.prototype.$scrollToTop = () => window.scrollTo(0, 0);
+if (process.env.MIX_ENV_MODE === 'production') {
+    Vue.config.devtools = false;
+    Vue.config.debug = false;
+    Vue.config.silent = true;
+}
 
+// Vue.mixin({
+//     methods: {
+//         getFirst20Word: function (text) {
+//             text = text.replace(/<(.|\n)*?>/g, '');
+//             return text.substr(0, 100) + ' ...';
+//             // return text.split(' ').slice(0,20)
+//         }
+//     }
+// });
+const MyPlugin = {
+    install(Vue, options) {
+        Vue.prototype.getFirst20Word = (text) => {
+            text = text.replace(/<(.|\n)*?>/g, '');
+            return text.substr(0, 100) + ' ...';
+        };
+    }
+}
+Vue.use(MyPlugin)
 const app = new Vue({
     el: '#app',
-    // methods:
-    //     {
-    //         is_login: function () {
-    //             return this.$store.isLoggedIn;
-    //         }
-    //     },
+
     computed: {
         isLoggedIn: function () {
             return store.getters.isLoggedIn
@@ -44,7 +63,7 @@ const app = new Vue({
             return store.getters.authUser
         },
         currentPage: function () {
-            return  this.$route.name
+            return this.$route.name
         }
     },
     methods: {

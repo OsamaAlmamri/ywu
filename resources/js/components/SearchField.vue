@@ -42,8 +42,15 @@
                         return "الرئيسية";
                         break;
 
+                    case 'women_details' :
+                        return "تفاصيل حقوق المرأة";
+                        break;
+
                     case 'courses' :
                         return "المواد التدريبية";
+                        break;
+                    case 'women' :
+                        return "شؤون المرأة ";
                         break;
                     case 'course_details' :
                         return "تفاصيل المادة التدريبية";

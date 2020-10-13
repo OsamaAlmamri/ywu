@@ -29,11 +29,13 @@ class WomenPosts extends Model
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
+
     public function user_like()
     {
+        $user_id= (auth()->guard('api')->user())?auth()->guard('api')->user()->id:0;
         return $this->hasOne(Like::class, 'liked_id', 'id')
-            ->where('type','women_posts')
-            ;
+            ->where('type', 'women_posts')
+            ->where('user_id', $user_id);
     }
 
     public function category()

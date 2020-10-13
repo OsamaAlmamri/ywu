@@ -21,19 +21,8 @@ class PostController extends Controller
 
     public function index()
     {
-//        if ()
-        if (isset(request()->token) and request()->token != null) {
-            $this->user = JWTAuth::parseToken()->authenticate();
-            $id = $this->user->id;
-        } else {
-            $this->user = null;
-            $id = 0;
-        }
-
-
-        $post = WomenPosts::with(['user_like' => function ($q) use ($id) {
-            $q->where('user_id', $id);
-        }])->orderByDesc('id')->paginate(20);
+        $post = WomenPosts::with(['user_like'])
+            ->orderByDesc('id')->paginate(20);
         if (!$post) {
             return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
         } else {

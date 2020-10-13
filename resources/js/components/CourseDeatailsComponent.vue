@@ -244,39 +244,42 @@
                     <!-- Video Column -->
                     <div class="video-column col-lg-4 col-md-12 col-sm-12">
                         <div class="inner-column sticky-top">
-                            <div class="intro-video" v-bind:style="{ backgroundImage: 'url(assets/images/' + training.thumbnail + ')' }">
+                            <div class="intro-video"
+                                 v-bind:style="{ backgroundImage: 'url(assets/images/' + training.thumbnail + ')' }">
 
 
-<!--                            <clazy-load class="wrapper intro-video" :src="'assets/images/' + training.thumbnail">-->
-<!--                                <transition name="fade">-->
-<!--                                    <div class="intro-video"-->
-<!--                                         v-bind:style="{ backgroundImage: 'url(assets/images/' + training.thumbnail + ')' }">-->
-<!--                                    </div>-->
-<!--                                </transition>-->
-<!--                                <transition name="fade" slot="placeholder">-->
-<!--                                    <div class="vue_preloader">-->
-<!--                                        <div class="circle">-->
-<!--                                            <div class="circle-inner"></div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </transition>-->
-<!--                            </clazy-load>-->
+                                <!--                            <clazy-load class="wrapper intro-video" :src="'assets/images/' + training.thumbnail">-->
+                                <!--                                <transition name="fade">-->
+                                <!--                                    <div class="intro-video"-->
+                                <!--                                         v-bind:style="{ backgroundImage: 'url(assets/images/' + training.thumbnail + ')' }">-->
+                                <!--                                    </div>-->
+                                <!--                                </transition>-->
+                                <!--                                <transition name="fade" slot="placeholder">-->
+                                <!--                                    <div class="vue_preloader">-->
+                                <!--                                        <div class="circle">-->
+                                <!--                                            <div class="circle-inner"></div>-->
+                                <!--                                        </div>-->
+                                <!--                                    </div>-->
+                                <!--                                </transition>-->
+                                <!--                            </clazy-load>-->
+                            </div>
+
+                            <!-- End Video Box -->
+                            <div class="price">{{training.length}} <i class="fa fa-clock-o"></i></div>
+                            <div class="time-left"> تبدا في {{training.start_at}}</div>
+                            <div class="time-left"> تنتهي في {{training.end_at}}</div>
+
+                            <a href="#" v-show="training.is_like==null" class="theme-btn btn-style-three"><span
+                                class="txt">اضافة للمفضلة  <i
+                                class="fa fa-angle-left"></i></span></a>
+                            <a href="#" v-show="training.is_register==null" class="theme-btn btn-style-two"><span
+                                class="txt">التسجيل بالدورة  <i
+                                class="fa fa-angle-left"></i></span></a>
                         </div>
-
-                        <!-- End Video Box -->
-                        <div class="price">{{training.length}}  <i class="fa fa-clock-o"></i></div>
-                        <div class="time-left"> تبدا في {{training.start_at}}</div>
-                        <div class="time-left"> تنتهي في {{training.end_at}}</div>
-
-                        <a href="#" v-show="training.is_like==null" class="theme-btn btn-style-three"><span class="txt">اضافة للمفضلة  <i
-                            class="fa fa-angle-left"></i></span></a>
-                        <a href="#"  v-show="training.is_register==null" class="theme-btn btn-style-two"><span class="txt">التسجيل بالدورة  <i
-                            class="fa fa-angle-left"></i></span></a>
                     </div>
-                </div>
 
+                </div>
             </div>
-        </div>
 
         </div>
     </section>
@@ -284,6 +287,8 @@
 
 <script>
     // import question from './Question.vue';
+    import axios from "axios";
+
     export default {
         props: ['items'],
         // components: {question},
@@ -337,21 +342,33 @@
                 this.active_lession = index;
             },
             fetchTraining() {
-                let vm = this;
-                fetch('/api/ShowTrainings2', {
-                    method: 'post',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        // 'Authorization': 'Bearer my-token',
-                        // 'My-Custom-Header': 'foobar'
-                    },
-                    body: JSON.stringify({id: this.course_id, title: 'Vue POST Request Example'})
-                })
-                    .then(res => res.json())
-                    .then(res => {
-                        this.training = res.Trainings;
+                axios({url: '/api/ShowTrainings2', data: {id: this.course_id}, method: 'POST'})
+                    .then(resp => {
+                        if (resp.data.status == false) {
+                            toastStack('   خطاء ', resp.data.msg, 'error');
+                        } else {
+                            this.training = resp.data.Trainings;
+                        }
                     })
-                    .catch(err => console.log(err));
+                    .catch(err => {
+                        localStorage.removeItem('token')
+                        localStorage.removeItem('user')
+                        reject(err)
+                    })
+                // fetch('/api/ShowTrainings2', {
+                //     method: 'post',
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //         // 'Authorization': 'Bearer my-token',
+                //         // 'My-Custom-Header': 'foobar'
+                //     },
+                //     body: JSON.stringify({id: this.course_id, title: 'Vue POST Request Example'})
+                // })
+                //     .then(res => res.json())
+                //     .then(res => {
+                //         this.training = res.Trainings;
+                //     })
+                //     .catch(err => console.log(err));
             },
 
         },

@@ -16,7 +16,7 @@
     <link href="{{  asset('site/css/responsive.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/css/mcq.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/vue/loading.css')  }}" rel="stylesheet">
-    <link href="{{ asset('newLibs\toastr\toastr.css') }}" rel="stylesheet">
+{{--    <link href="{{ asset('site/newLibs\toastr\toastr.css') }}" rel="stylesheet">--}}
 
     <meta name="theme-color" content="#00ab15">
     <!-- Windows Phone -->
@@ -160,7 +160,7 @@
                 <div class="nav-logo" style="text-align: center">
                     <router-link to="/home"></router-link>
                     <img
-                        style="width: 130px;    margin-bottom: -30px;" src="/site/images/Logo250px.png"
+                        style="width: 130px;    margin-bottom: -30px;" src="site/images/Logo250px.png"
                         alt=""
                         title=""></a></div>
                 <div class="menu-outer">
@@ -183,7 +183,7 @@
     <search-filed title="courses"></search-filed>
 
     <button @click="show=!show"> </button>
-    <router-view></router-view>
+    <router-view :key="$route.fullPath" ></router-view>
     <!-- Call To Action Section Two -->
     <section class="call-to-action-section-two"
              style="background-image:url('/site/images/background/3.png')">
@@ -227,7 +227,7 @@
                                     <div class="logo">
                                         <a href="/">
                                             <router-link to="/home"></router-link>
-                                            <img src="/site/images/Logo250px.png" alt=""></a>
+                                            <img src="site/images/Logo250px.png" alt=""></a>
                                     </div>
                                     <div class="social-box">
                                         <a href="https://www.facebook.com/yemenwu" class="fa fa-facebook"></a>
@@ -350,7 +350,7 @@
 <script src="{!! asset('site/js/swiper.min.js') !!}"></script>
 <script src="{!! asset('site/js/element-in-view.js') !!}"></script>
 <script src="{!! asset('site/js/jquery.paroller.min.js') !!}"></script>
-<link href="{!! asset('newLibs\toastr\toastr.min.js') !!}" media="all" rel="stylesheet"
+{{--<link href="{!! asset('newLibs\toastr\toastr.min.js') !!}" media="all" rel="stylesheet"--}}
       type="text/css"/>
 {{--//form--}}
 <script src="{!! asset('site/js/validate.js') !!}"></script>
