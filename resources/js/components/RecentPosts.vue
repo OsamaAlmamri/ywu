@@ -13,8 +13,13 @@
                     <article class="post" v-for="post in posts">
                         <div class="post-inner">
                             <figure class="post-thumb">
-                                <router-link  :to="{ name: post_url, params: { id: post.id}}">
-                                    <img :src="'assets/images/' + post.image" alt=""></router-link>
+                                <router-link :to="{ name: post_url, params: { id: post.id}}">
+                                    <img :src="'assets/images/' + post.image" alt="" v-if="type!='posts'">
+                                    <div>
+                                        <i style="font-size: 20px" class="fa fa-users" v-if="type=='posts'"></i>
+                                            {{post.category}}
+                                    </div>
+                                </router-link>
                             </figure>
                             <div class="text">
                                 <router-link :to="{ name: post_url, params: { id: post.id}}">
@@ -57,8 +62,8 @@
                     case 'trainings':
                         return 'course_details';
                         break;
-                    case 'post':
-                        return 'women_details';
+                    case 'posts':
+                        return 'posts';
                         break;
                     default :
                         return 'women_details';

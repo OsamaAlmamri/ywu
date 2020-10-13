@@ -8,6 +8,7 @@ use App\Like;
 use App\Models\Rateable\Rating;
 use App\Models\TrainingContents\SubjectCategory;
 use App\Models\TrainingContents\Training;
+use App\Models\UserContents\Post;
 use App\Models\WomenContents\WomenPosts;
 use App\Question;
 use App\Result;
@@ -105,6 +106,10 @@ class TrainingController extends Controller
             if ($type == 'trainings')
 //                $data = Training::orderByDesc('id')->limit(5)->get();
                 $data = LastPosts::collection(Training::orderByDesc('id')->limit(5)->get())->type('trainings');
+
+            if ($type == 'posts')
+//                $data = Training::orderByDesc('id')->limit(5)->get();
+                $data = LastPosts::collection(Post::with('category')->orderByDesc('id')->limit(5)->get())->type('posts');
 
             else {
                 $data = LastPosts::collection(WomenPosts::orderByDesc('id')->limit(5)->get())->type('women');

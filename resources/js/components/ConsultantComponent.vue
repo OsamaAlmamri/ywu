@@ -20,7 +20,7 @@
                         <div class="options-view">
                             <div class="clearfix">
                                 <div class="pull-right">
-                                    <h3> منشورات شؤون المراة</h3>
+                                    <h3>الاستشارات </h3>
                                 </div>
 
                             </div>
@@ -29,11 +29,11 @@
 
                         <div class="row clearfix">
                             <div class="cource-block-two col-lg-3 col-md-4 col-sm-6 col-xs-12"
-                                 v-for="women_post in women_posts">
-                                <women-item
-                                    :women_post="women_post"
+                                 v-for="post in posts">
+                                <consultant-item
+                                    :post="post"
                                     @toggled="onToggle"
-                                ></women-item>
+                                ></consultant-item>
                             </div>
 
                         </div>
@@ -60,7 +60,7 @@
 
                 <!-- Sidebar Side -->
                 <div class="sidebar-side style-two col-lg-3 col-md-12 col-sm-12">
-                    <recent-posts name="اخر المنشورات" type="women"></recent-posts>
+                    <recent-posts name="اخر الاستشارات" type="posts"></recent-posts>
                 </div>
 
             </div>
@@ -71,15 +71,15 @@
 </template>
 
 <script>
-    import WomenItem from './WomenItem.vue';
+    import ConsultantItem from "./ConsultantItem";
 
     export default {
         props: ['items'],
-        components: {WomenItem},
+        components: {ConsultantItem},
         data() {
             return {
                 activeIndex: null,
-                women_posts: [],
+                posts: [],
                 women_id: '',
                 pagination: {},
                 edit: false
@@ -96,7 +96,7 @@
                 this.activeIndex = index;
             },
             fetchArticles() {
-                axios.post('/api/ShowP', {
+                axios.post('/api/AllPosts', {
                         headers: {
                             'content-type': 'application/json',
                             // Authorization: 'Bearer ' + localStorage.getItem('token')
@@ -104,7 +104,7 @@
                     },
                 ).then(res => {
                     // console.log(res.data.Posts.data)
-                    this.women_posts = res.data.Posts.data;
+                    this.posts = res.data.Posts.data;
                 })
                     .catch(err => console.log(err));
             },

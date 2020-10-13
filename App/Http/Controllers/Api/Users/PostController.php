@@ -20,17 +20,9 @@ class PostController extends Controller
 
     public function index()
     {
-        if (isset(request()->token) and request()->token != null) {
-            $this->user = JWTAuth::parseToken()->authenticate();
-            $id = $this->user->id;
-        } else {
-            $this->user = null;
-            $id = 0;
-        }
+
         if (request()->category != null) {
-            $post = Post::with(['user', 'category', 'comments', 'user_like' => function ($q) use ($id) {
-                $q->where('user_id', $id);
-            }])
+            $post = Post::with(['user', 'category', 'comments', 'user_like'])
                 ->where('status', true)
                 ->where('category_id', request()->category)
                 ->orderBy('id', 'desc')->paginate(20);
@@ -40,9 +32,7 @@ class PostController extends Controller
                 return $this->GetDateResponse('Posts', $post);
             }
         } else {
-            $post = Post::with(['user', 'category', 'comments', 'user_like' => function ($q) use ($id) {
-                $q->where('user_id', $id);
-            }])
+            $post = Post::with(['user', 'category', 'comments', 'user_like'])
                 ->where('status', true)
                 ->orderBy('id', 'desc')->paginate(5);
             if (!$post) {

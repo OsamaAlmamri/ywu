@@ -11,6 +11,8 @@ import CourseDetails from './components/CourseDeatailsComponent';
 import LogoutComponent from './components/Logout';
 import Profile from './components/Profile';
 import women from './components/WomenComponent';
+import ConsultantComponent from './components/ConsultantComponent';
+// import Co from './components/';
 import WomenDeatails from './components/WomenDeatails';
 import store from './store';
 
@@ -46,10 +48,18 @@ const routes = [
         meta: {
             requiresAuth: true
         }
-    },  {
-        path: '/ShowPId/:id',
+    },
+    {
+        path: '/women_details/:id',
         component: WomenDeatails,
         name: "women_details",
+        meta: {
+            requiresAuth: false
+        }
+    },   {
+        path: '/post_details/:id',
+        component: WomenDeatails,
+        name: "post_details",
         meta: {
             requiresAuth: true
         }
@@ -58,6 +68,14 @@ const routes = [
         path: '/privacy',
         component: Privacy,
         name: "privacy",
+        meta: {
+            requiresAuth: false
+        }
+    },
+    {
+        path: '/consultant',
+        component: ConsultantComponent,
+        name: "consultant",
         meta: {
             requiresAuth: false
         }
