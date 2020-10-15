@@ -4,14 +4,15 @@
 
     <section class="register-section">
         <loading :active.sync="isLoading"
-                 :can-cancel="false"
-                 color="#00ab15"
-                 loader="dots"
-                 background-color="#f8f9fa"
-                 height="200"
-                 width="140"
-                 :on-cancel="onCancel"
-                 :is-full-page="fullPage"></loading>
+                 :can-cancel=false
+                 :color="'#00ab15'"
+                 :loader="'dots'"
+                 :background-color="'#f8f9fa'"
+                 :height='200'
+                 :width='140'
+                 :on-cancel="onCancel()"
+                 :is-full-page="fullPage">
+        </loading>
         <div class="auto-container">
             <div class="register-box">
                 <!-- Title Box -->

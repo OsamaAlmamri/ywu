@@ -76,6 +76,7 @@ Route::group(['middleware' => 'CheckAdminT:api'], function () {
     Route::post('MyPosts', 'Api\Users\PostController@myPosts');
     Route::post('ShPost/{id}', 'Api\Users\PostController@show');
     Route::post('StPost', 'Api\Users\PostController@store');
+    Route::post('store_post', 'Api\Users\PostController@store_post');
     Route::post('UpPost/{id}', 'Api\Users\PostController@update');
     Route::post('DePost/{id}', 'Api\Users\PostController@destroy');
 
@@ -143,6 +144,7 @@ Route::post('ShowTrainingsCategory', 'EmpCateTrainingsController@index');
 Route::post('ShowTrainings2', 'Api\Trainings\TrainingController@index2');
 Route::post('getTrainingQuestions2', 'Api\Trainings\TrainingController@getTrainingQuestions');
 Route::post('getLastPosts', 'Api\Trainings\TrainingController@getLastPosts');
+Route::post('search', 'Api\Trainings\TrainingController@search');
 
 //Route::post('ShowContentId/{id}', 'Api\Trainings\ContentController@show');
 //Route::post('StoreContent', 'Api\Trainings\ContentController@store');

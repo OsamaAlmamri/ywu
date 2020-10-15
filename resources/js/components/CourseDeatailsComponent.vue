@@ -1,14 +1,15 @@
 <template>
     <section class="intro-section">
         <loading :active.sync="isLoading"
-                 :can-cancel="false"
-                 color="#00ab15"
-                 loader="dots"
-                 background-color="#f8f9fa"
-                 height="200"
-                 width="140"
-                 :on-cancel="onCancel"
-                 :is-full-page="fullPage"></loading>
+                 :can-cancel=false
+                 :color="'#00ab15'"
+                 :loader="'dots'"
+                 :background-color="'#f8f9fa'"
+                 :height='200'
+                 :width='140'
+                 :on-cancel="onCancel()"
+                 :is-full-page="fullPage">
+        </loading>
 
         <sweet-modal modal-theme="dark" :title="contentDeatail.name"
                      blocking="true" enable-mobile-fullscreen="true"

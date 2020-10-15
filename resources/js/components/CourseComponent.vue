@@ -1,14 +1,15 @@
 <template>
     <div>
         <loading :active.sync="isLoading"
-                 :can-cancel="false"
-                 color="#00ab15"
-                 loader="dots"
-                 background-color="#f8f9fa"
-                 height="200"
-                 width="140"
-                 :on-cancel="onCancel"
-                 :is-full-page="fullPage"></loading>
+                 :can-cancel=false
+                 :color="'#00ab15'"
+                 :loader="'dots'"
+                 :background-color="'#f8f9fa'"
+                 :height='200'
+                 :width='140'
+                 :on-cancel="onCancel()"
+                 :is-full-page="fullPage">
+        </loading>
         <div class="sidebar-page-container">
             <div class="patern-layer-one paroller" data-paroller-factor="0.40" data-paroller-factor-lg="0.20"
                  data-paroller-type="foreground" data-paroller-direction="vertical"

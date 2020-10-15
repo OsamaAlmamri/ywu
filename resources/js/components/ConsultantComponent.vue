@@ -2,14 +2,63 @@
     <!--Sidebar Page Container-->
     <div class="sidebar-page-container">
         <loading :active.sync="isLoading"
-                 :can-cancel="false"
-                 color="#00ab15"
-                 loader="dots"
-                 background-color="#f8f9fa"
-                 height="200"
-                 width="140"
-                 :on-cancel="onCancel"
-                 :is-full-page="fullPage"></loading>
+                 :can-cancel=false
+                 :color="'#00ab15'"
+                 :loader="'dots'"
+                 :background-color="'#f8f9fa'"
+                 :height='200'
+                 :width='140'
+                 :on-cancel="onCancel()"
+                 :is-full-page="fullPage">
+        </loading>
+
+        <div class="add_post_button" @click="openNewPostModal()"
+             style="display: block;">
+            <span class="fa fa-comment" v-show="authUser"></span>
+        </div>
+        <sweet-modal  :title="'اضافة استشارة جديدة '"
+                     :blocking=true :enable-mobile-fullscreen=true
+                     :pulse-on-block=true
+                     :overlay-theme="'dark'" ref="modal">
+            <div class="row clearfix">
+
+                <div class="form-group" style="width: 100%">
+                    <fieldset class="the-fieldset">
+                        <legend class="the-legend">عنوان الاستشارة *</legend>
+                        <input style="width: 100%" type="text" v-model="newPostData.title"  required="">
+                    </fieldset>
+                </div>
+
+                <div class="form-group" style="width: 100%">
+                    <fieldset class="the-fieldset">
+                        <legend class="the-legend">نص الاستشارة </legend>
+                        <textarea style="width: 100%" rows="4" class="" v-model="newPostData.body" ></textarea>
+                    </fieldset>
+                </div>
+                <h5>نوع الاستشارة </h5>
+                <section class="student-profile-section">
+                    <div class="inner-column">
+                        <div class="profile-info-tabs">
+                            <div class="profile-tabs tabs-box">
+                                <ul class="tab-btns tab-buttons clearfix">
+
+                                    <li v-for="(category,key) in categories"
+                                        @click="changeCategoryType(category.id)"
+                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(newPostData.category_id==category.id)}]">
+                                        {{category.name}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+            <sweet-button slot="button">
+                <button class="btn btn-info" @click.prevent="savePost()">تم</button>
+            </sweet-button>
+
+        </sweet-modal>
 
         <div class="patern-layer-one paroller" data-paroller-factor="0.40" data-paroller-factor-lg="0.20"
              data-paroller-type="foreground" data-paroller-direction="vertical"
@@ -85,15 +134,26 @@
     import Loading from 'vue-loading-overlay';
     // Import stylesheet
     import 'vue-loading-overlay/dist/vue-loading.css';
+    import axios from "axios";
+    import store from '../store'
+
     export default {
         props: ['items'],
         components: {ConsultantItem, Loading},
+
         data() {
             return {
+                newPostData: {
+                    'title': '',
+                    'body': '',
+                    'category_id': '1',
+                },
+
                 isLoading: false,
                 fullPage: false,
                 activeIndex: null,
                 posts: [],
+                categories: [],
                 women_id: '',
                 pagination: {},
                 edit: false
@@ -101,6 +161,14 @@
         },
         created() {
             this.fetchArticles();
+            this.fetchCategories();
+
+        },
+        computed: {
+
+            authUser: function () {
+                return store.getters.authUser
+            }
         },
         methods: {
             onToggle(index) {
@@ -129,9 +197,56 @@
                         console.log(err)
                     });
             },
+            fetchCategories() {
+                axios.post('/api/AllCategories', {
+                        headers: {
+                            'content-type': 'application/json',
+                        }
+                    },
+                ).then(res => {
+                    this.categories = res.data.categories;
+                })
+                    .catch(err => {
+                        this.isLoading = false;
+                        console.log(err)
+                    });
+            },
             onCancel() {
                 console.log('User cancelled the loader.')
-            }
+            },
+            changeCategoryType(key) {
+                this.newPostData.category_id=key;
+            },
+            openNewPostModal() {
+                this.$refs.modal.open();
+            },
+            savePost() {
+                if (localStorage.token) {
+                    this.isLoading = true;
+                    axios({url: '/api/store_post', data: this.newPostData, method: 'POST'})
+                        .then(resp => {
+                            this.isLoading = false;
+                            if (resp.data.status == false) {
+                                toastStack('   خطاء ', resp.data.msg, 'error');
+                            } else {
+                                this.posts.unshift(resp.data.data);
+                                toastStack(resp.data.msg, '', 'success');
+                                this.newPostData = {
+                                    'title': '',
+                                    'body': '',
+                                    'category_id': '1',
+                                }
+                                this.$refs.modal.open();
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                } else {
+                    toastStack('   خطاء ', 'يجب تسجيل الدخول اولا', 'error');
+                }
+                this.$emit('click', this.$vnode.key)
+            },
 
         },
         mounted() {
@@ -141,3 +256,14 @@
 
     }
 </script>
+<style>
+    .student-profile-section {
+        background-color: white;
+        padding: 0px 0px 0px;
+
+    }
+
+    .student-profile-section .profile-tabs .tab-btns {
+        border-bottom: 3px solid #00ab15;
+    }
+</style>

@@ -68,14 +68,14 @@
                     <div class="top-left pull-left clearfix">
                         <!-- Login Nav -->
                         <ul class="login-nav">
-                            <li @click.native="$scrollToTop" v-if="!isLoggedIn">
+                            <li @click="$scrollToTop" v-if="!isLoggedIn">
                                 <router-link to="/login"> تسجيل الدخول</router-link>
                             </li>
-                            <li @click.native="$scrollToTop" v-if="!isLoggedIn">
+                            <li @click="$scrollToTop" v-if="!isLoggedIn">
                                 <router-link to="/register"> انشاء حساب</router-link>
                             </li>
 
-                            <li @click.native="$scrollToTop" v-if="isLoggedIn">
+                            <li @click="$scrollToTop" v-if="isLoggedIn">
                                 <router-link to="/logout"> تسجيل الخروج</router-link>
                             </li>
                         </ul>
@@ -113,30 +113,30 @@
                             <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
                                     <li :class="[{'current':currentPage=='profile'}]">
-                                        <router-link @click.native="$scrollToTop" v-if="isLoggedIn" to="/profile">
+                                        <router-link @click="$scrollToTop" v-if="isLoggedIn" to="/profile">
                                             الصفحة الشخصية
                                         </router-link>
                                     </li>
                                     <li :class="[{'current':(currentPage=='home' ||currentPage=='home2')}]">
-                                        <router-link @click.native="$scrollToTop" to="/home"> الرئيسية</router-link>
+                                        <router-link @click="$scrollToTop" to="/home"> الرئيسية</router-link>
                                     </li>
                                     <li :class="[{'current':currentPage=='courses'}]">
-                                        <router-link @click.native="$scrollToTop" to="/courses"> التدريب</router-link>
+                                        <router-link @click="$scrollToTop" to="/courses"> التدريب</router-link>
                                     </li>
 
                                     <li :class="[{'current':currentPage=='consultant'}]">
-                                        <router-link @click.native="$scrollToTop" to="/consultant"> الاستشارات
+                                        <router-link @click="$scrollToTop" to="/consultant"> الاستشارات
                                         </router-link>
                                     </li>
                                     <li :class="[{'current':currentPage=='women'}]">
-                                        <router-link @click.native="$scrollToTop" to="/women"> شوؤن المرأة</router-link>
+                                        <router-link @click="$scrollToTop" to="/women"> شوؤن المرأة</router-link>
                                     </li>
                                     <li :class="[{'current':currentPage=='privacy'}]">
-                                        <router-link @click.native="$scrollToTop" to="/privacy"> سياية الخصوصية
+                                        <router-link @click="$scrollToTop" to="/privacy"> سياية الخصوصية
                                         </router-link>
                                     </li>
                                     <li :class="[{'current':currentPage=='concatUs'}]">
-                                        <router-link @click.native="$scrollToTop" to="/concatUs"> تواصل معنا
+                                        <router-link @click="$scrollToTop" to="/concatUs"> تواصل معنا
                                         </router-link>
                                     </li>
                                 </ul>
@@ -158,7 +158,7 @@
 
             <nav class="menu-box">
                 <div class="nav-logo" style="text-align: center">
-                    <router-link to="/home"></router-link>
+                    <router-link  @click.native="$scrollToTop" to="/home"></router-link>
                     <img
                         style="width: 130px;    margin-bottom: -30px;" src="site/images/Logo250px.png"
                         alt=""
@@ -182,16 +182,9 @@
 
     <search-filed title="courses"></search-filed>
 
+
+
     <button @click="show=!show"></button>
-    <loading :active.sync="isLoading"
-             :can-cancel="false"
-             color="#00ab15"
-             loader="dots"
-             background-color="#f8f9fa"
-             height="200"
-             width="140"
-             :on-cancel="onCancel"
-             :is-full-page="fullPage"></loading>
     <router-view :key="$route.fullPath"></router-view>
     <!-- Call To Action Section Two -->
     <section class="call-to-action-section-two"
@@ -203,7 +196,9 @@
                     و <br>نشر و عرض الاستشارات .
                 </div>
                 <div class="buttons-box">
-                    <a href="/courses" class="theme-btn btn-style-one"><span class="txt">المواد التدريبة <i
+                    <a href="/courses" class="theme-btn btn-style-one">
+
+                        <span class="txt">المواد التدريبة <i
                                 class="fa fa-angle-left"></i></span></a>
                     <a href="/consultant" class="theme-btn btn-style-two"><span class="txt">الاستشارات <i
                                 class="fa fa-angle-left"></i></span></a>
@@ -235,7 +230,7 @@
                                 <div class="footer-widget logo-widget">
                                     <div class="logo">
                                         <a href="/">
-                                            <router-link to="/home"></router-link>
+                                            <router-link   @click.native="$scrollToTop" to="/home"></router-link>
                                             <img src="site/images/Logo250px.png" alt=""></a>
                                     </div>
                                     <div class="social-box">

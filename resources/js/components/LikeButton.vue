@@ -1,14 +1,15 @@
 <template>
     <div class="students hours" @click="likePost()">
         <loading :active.sync="isLoading"
-                 :can-cancel="false"
-                 color="#00ab15"
-                 loader="dots"
-                 background-color="#f8f9fa"
-                 height="200"
-                 width="140"
-                 :on-cancel="onCancel"
-                 :is-full-page="fullPage"></loading>
+                 :can-cancel=false
+                 :color="'#00ab15'"
+                 :loader="'dots'"
+                 :background-color="'#f8f9fa'"
+                 :height='200'
+                 :width='140'
+                 :on-cancel="onCancel()"
+                 :is-full-page="fullPage">
+        </loading>
         <i
            :class="['fa', {'fa-heart-o':(like_description==0)}, {'fa-heart':(like_description==1)}]"></i>
         <span style="padding: 0 5px" v-show="hasCount==1">{{like_description_count}}</span>

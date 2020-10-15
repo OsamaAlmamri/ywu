@@ -1,7 +1,7 @@
 <template>
     <div class="inner-box">
         <div class="image">
-            <router-link :to="{ name: 'post_details', params: { id: post.id}}">
+            <router-link  @click.native="$scrollToTop" :to="{ name: 'post_details', params: { id: post.id}}">
 
                 <div class="col-xs-6 pull-right" style="margin: 15px 15px 0 0"><i class="fa fa-facebook-f"> </i>
                     {{post.category.name}}
@@ -13,7 +13,7 @@
         </div>
         <div class="lower-content" style="padding: 15px">
             <h5>
-                <router-link :to="{ name: 'post_details', params: { id: post.id}}">
+                <router-link   @click.native="$scrollToTop" :to="{ name: 'post_details', params: { id: post.id}}">
                     {{post.title}}
                 </router-link>
             </h5>

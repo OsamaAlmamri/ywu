@@ -9,6 +9,7 @@ use App\Models\Rateable\Rating;
 use App\Models\TrainingContents\SubjectCategory;
 use App\Models\TrainingContents\TitleContent;
 use App\Models\TrainingContents\Training;
+use App\Models\TrainingContents\TrainingTitle;
 use App\Models\UserContents\Post;
 use App\Models\WomenContents\WomenPosts;
 use App\Question;
@@ -198,32 +199,6 @@ class TrainingController extends Controller
         }
     }
 
-    public function store(Request $request)
-    {
-        try {
-//            $rules=$this->Post_Rules();
-//            $messages=$this->Post_Messages();
-//            $validator = Validator::make($request->all(), $rules,$messages);
-//            if ($validator->fails()) {
-//                $code = $this->returnCodeAccordingToInput($validator);
-//                return $this->returnValidationError($code, $validator);
-//            }
-            $Training = new Training();
-            $Training->name = $request->name;
-            $Training->subject_id = $request->subject_id;
-            $Training->length = $request->length;
-            $Training->start_at = $request->start_at;
-            $Training->end_at = $request->end_at;
-            $Training->thumbnail = $request->thumbnail;
-
-            $Training->save();
-            if ($Training->save())
-                return $this->GetDateResponse('Training', $Training, "تم نشر");
-        } catch (\Exception $ex) {
-            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
-        }
-    }
-
     public function complete_content(Request $request)
     {
         try {
@@ -309,22 +284,42 @@ class TrainingController extends Controller
         }
     }
 
+    public function has_progress($trining_id)
+    {
+        $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
+        return UserTrainingTiltle::whereIn('title_id', function ($query) use ($trining_id) {
+            $query->select('id')
+                ->from(with(new TrainingTitle())->getTable())
+                ->where('training_id', $trining_id);
+        })->where('user_id', $user_id)->count();
+    }
+
     public function register_to_training(Request $request)
     {
         try {
-
             $likes = UserTraining::where('user_id', auth()->id())
                 ->where('training_id', $request->training_id)
+//                ->where('status', 0)
                 ->get()->first();
+            $t = Training::find($request->training_id);
+            $user_training = $this->has_progress($request->training_id);
             if (!$likes) {
                 $l = new UserTraining();
                 $l->user_id = auth()->id();
+                $l->status = $t->type == 'عام';
                 $l->training_id = $request->training_id;
                 $l->save();
-                return $this->GetDateResponse('data', "1");
-            } else {
+                $m = ($t->type == 'عام') ? " " : " و بانتظار الموافقة عليك";
+                return $this->GetDateResponse('data', $l, "تم التسجيل بالدورة" . $m);
+            } else if ($user_training > 0) {
+                return $this->GetDateResponse('data', $likes, 'لا يمكن اللغاء التسجيل بعد البدء بالتدريب ');
+            }
+//            else if ($likes->status == 1 and  ) {
+//                return $this->GetDateResponse('data', $likes, 'لا يمكن اللغاء التسجيل بعد الموافة على التسجيل');
+//            }
+            else {
                 $likes->delete();
-                return $this->GetDateResponse('data', "0");
+                return $this->GetDateResponse('data', null, "تم الغاء التسجيل بالدورة ");
             }
         } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
@@ -341,9 +336,7 @@ class TrainingController extends Controller
                 }
                 ])->where('user_id', auth()->id())->where('type', 'posts')->get();
             } elseif ($request->type == 'trainings') {
-                $likes = Training::with(['ratings', 'result', 'is_register', 'titles' => function ($q) {
-                    $q->with(['contents']);
-                }])
+                $likes = Training::with(['is_register'])
                     ->whereIn('id', function ($query) {
                         $query->select('liked_id')->from('likes')
                             ->where('type', 'training')
@@ -362,41 +355,33 @@ class TrainingController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function search(Request $request)
     {
-//        $rules=$this->Post_Rules();
-//        $messages=$this->Post_Messages();
-//        $validator = Validator::make($request->all(), $rules,$messages);
-//        if ($validator->fails()) {
-//            $code = $this->returnCodeAccordingToInput($validator);
-//            return $this->returnValidationError($code, $validator);
-//        }
+        try {
+            $search = $request->search;
+            if ($request->type == 'posts') {
+                $data = Post::with(['category'])
+                    ->where('title', 'LIKE', '%' . $search . '%')
+                    ->orWhere('body', 'LIKE', '%' . $search . '%')
+                    ->get();
+            } elseif ($request->type == 'trainings') {
+                $data = Training::with(['subject', 'is_register'])
+                    ->where('name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('learn', 'LIKE', '%' . $search . '%')
+                    ->orWhere('instructor', 'LIKE', '%' . $search . '%')
+                    ->orWhere('description', 'LIKE', '%' . $search . '%')
+                    ->get();
 
-        $Training = Training::whereId($id)->first();
-        if ($Training) {
-            $Training = new Training();
-            $Training->name = $request->name;
-            $Training->subject_id = $request->subject_id;
-            $Training->length = $request->length;
-            $Training->start_at = $request->start_at;
-            $Training->end_at = $request->end_at;
-            $Training->thumbnail = $request->thumbnail;
-            $Training->update();
-            if ($Training) {
-                return $this->GetDateResponse('Training', $Training, "تم التعديل");
             } else {
-                return $this->ReturnErorrRespons('0000', 'حدث خطاء غير متوقع');
+                $type = 'women_posts';
+                $data = WomenPosts::where('title', 'LIKE', '%' . $search . '%')
+                    ->orWhere('body', 'LIKE', '%' . $search . '%')
+                    ->get();
             }
-        }
-    }
-
-    public function destroy($id)
-    {
-        $Training = Training::whereId($id)->first();
-        if ($Training->delete()) {
-            return $this->ReturnSuccessRespons("200", "تم الحذف بنجاح");
-        } else {
-            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لحذف هذا المنشور');
+            return $this->GetDateResponse('data', $data);
+        } catch
+        (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
         }
     }
 

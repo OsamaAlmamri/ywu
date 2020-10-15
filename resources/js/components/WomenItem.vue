@@ -1,7 +1,7 @@
 <template>
     <div class="inner-box">
         <div class="image">
-            <router-link :to="{ name: 'women_details', params: { id: women_post.id}}">
+            <router-link  @click.native="$scrollToTop"  :to="{ name: 'women_details', params: { id: women_post.id}}">
                 <clazy-load class="wrapper" :src="'assets/images/' + women_post.image">
                     <transition name="fade">
                         <div class="divClass"
@@ -20,7 +20,7 @@
         </div>
         <div class="lower-content">
             <h5>
-                <router-link :to="{ name: 'women_details', params: { id: women_post.id}}">
+                <router-link  @click.native="$scrollToTop"  :to="{ name: 'women_details', params: { id: women_post.id}}">
 
                     {{women_post.title}}
                 </router-link>

@@ -2,15 +2,11 @@
 
     <!--container-->
     <div id="ques_body">
-
-
         <!--questionBox-->
         <div class="questionBox" id="app">
-
             <!-- transition -->
             <transition :duration="{ enter: 500, leave: 300 }" enter-active-class="animated zoomIn"
                         leave-active-class="animated zoomOut" mode="out-in">
-
                 <!--qusetionContainer-->
                 <div class="questionContainer" v-if="questionIndex<questions.length" v-bind:key="questionIndex">
 
@@ -431,7 +427,7 @@
 
     .button.is-active {
         background: #00ab15;
-        color: white;
+        color: white !important;;
         border-color: transparent;
     }
 
