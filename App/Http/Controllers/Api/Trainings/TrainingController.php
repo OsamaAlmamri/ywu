@@ -7,6 +7,7 @@ use App\Http\Resources\LastPosts;
 use App\Like;
 use App\Models\Rateable\Rating;
 use App\Models\TrainingContents\SubjectCategory;
+use App\Models\TrainingContents\TitleContent;
 use App\Models\TrainingContents\Training;
 use App\Models\UserContents\Post;
 use App\Models\WomenContents\WomenPosts;
@@ -69,7 +70,7 @@ class TrainingController extends Controller
     {
         try {
             $Training = Training::with(['ratings', 'result', 'is_register', 'titles' => function ($q) {
-                $q->with(['contents', 'is_complete:title_id,created_at']);
+                $q->with(['contents']);
             }])
                 ->where('id', $request->id)->get()->first();
             if (!$Training) {
@@ -86,7 +87,7 @@ class TrainingController extends Controller
     {
         try {
             $Training = Training::with(['result', 'category', 'is_register', 'titles' => function ($q) {
-                $q->with(['contents', 'is_complete:title_id,created_at']);
+                $q->with(['contents']);
             }])
                 ->where('id', $request->id)->get()->first();
             if (!$Training) {
@@ -223,11 +224,49 @@ class TrainingController extends Controller
         }
     }
 
-    public function complete_title(Request $request)
+    public function complete_content(Request $request)
     {
         try {
-            UserTrainingTiltle::create(['user_id' => auth()->id(), 'title_id' => $request->title_id]);
-            return $this->GetDateResponse('data', "تم الحفظ");
+
+            $user_content = UserTrainingTiltle::where('content_id', $request->id)
+                ->get()->count();
+            $content = TitleContent::find($request->id);
+
+            if ($user_content == 0 and $content != null) {
+                UserTrainingTiltle::create(
+                    ['user_id' => auth()->id(),
+                        'content_id' => $request->id,
+                        'title_id' => $content->title_C->id,
+                    ]);
+
+            }
+//            return $this->GetDateResponse('data',  $request->id);
+
+            $completeTitile = 0;
+            if ($content != null) {
+//                return $this->GetDateResponse('data',  $content->title_C);
+                $countTiltiles = $content->title_C->contents->count();
+                $progress = $content->title_C->user_contents->count();
+                $user_title = UserTrainingTiltle::where('title_id', $content->title_C->id)
+                    ->where('content_id', 0)->get();
+                if ($progress >= $countTiltiles) {
+                    $completeTitile = 1;
+                    if ($user_title == null)
+                        UserTrainingTiltle::create(
+                            ['user_id' => auth()->id(),
+                                'content_id' => 0,
+                                'title_id' => $content->title_C->id,
+                            ]);
+                } else {
+                    if ($user_title) {
+//                        $user_title->delete();
+                        $completeTitile = 0;
+//                        $user_title->save();
+                    }
+                }
+            }
+
+            return $this->GetDateResponse('title_complete', $completeTitile, 'تم تحديد المحتوى كمكتمل ' . $request->id);
         } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
         }
@@ -303,7 +342,7 @@ class TrainingController extends Controller
                 ])->where('user_id', auth()->id())->where('type', 'posts')->get();
             } elseif ($request->type == 'trainings') {
                 $likes = Training::with(['ratings', 'result', 'is_register', 'titles' => function ($q) {
-                    $q->with(['contents', 'is_complete:title_id,created_at']);
+                    $q->with(['contents']);
                 }])
                     ->whereIn('id', function ($query) {
                         $query->select('liked_id')->from('likes')

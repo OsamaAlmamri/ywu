@@ -16,7 +16,7 @@
     <link href="{{  asset('site/css/responsive.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/css/mcq.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/vue/loading.css')  }}" rel="stylesheet">
-{{--    <link href="{{ asset('site/newLibs\toastr\toastr.css') }}" rel="stylesheet">--}}
+    {{--    <link href="{{ asset('site/newLibs\toastr\toastr.css') }}" rel="stylesheet">--}}
 
     <meta name="theme-color" content="#00ab15">
     <!-- Windows Phone -->
@@ -182,8 +182,17 @@
 
     <search-filed title="courses"></search-filed>
 
-    <button @click="show=!show"> </button>
-    <router-view :key="$route.fullPath" ></router-view>
+    <button @click="show=!show"></button>
+    <loading :active.sync="isLoading"
+             :can-cancel="false"
+             color="#00ab15"
+             loader="dots"
+             background-color="#f8f9fa"
+             height="200"
+             width="140"
+             :on-cancel="onCancel"
+             :is-full-page="fullPage"></loading>
+    <router-view :key="$route.fullPath"></router-view>
     <!-- Call To Action Section Two -->
     <section class="call-to-action-section-two"
              style="background-image:url('/site/images/background/3.png')">
@@ -323,8 +332,8 @@
                     <div class="last_footer">
 
                         <div class="developer">
-                            <p>تصميم وتطوير: <a href="https://www.facebook.com/osama.abosam.1234"
-                                                title="Osama Al-Mamari">Osama Al-Mamari</a></p>
+                            <p>تصميم وتطوير: <a href="https://www.facebook.com/Eng.Osama.Almamari"
+                                                title="م.اسامة المعمري">م.اسامة المعمري</a></p>
                         </div>
                     </div>
                 </div>
@@ -350,9 +359,7 @@
 <script src="{!! asset('site/js/swiper.min.js') !!}"></script>
 <script src="{!! asset('site/js/element-in-view.js') !!}"></script>
 <script src="{!! asset('site/js/jquery.paroller.min.js') !!}"></script>
-{{--<link href="{!! asset('newLibs\toastr\toastr.min.js') !!}" media="all" rel="stylesheet"--}}
-      type="text/css"/>
-{{--//form--}}
+
 <script src="{!! asset('site/js/validate.js') !!}"></script>
 
 <script src="{!! asset('site/js/parallax.min.js') !!}"></script>

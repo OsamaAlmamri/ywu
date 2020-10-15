@@ -2,6 +2,7 @@
 
 namespace App\Models\TrainingContents;
 
+use App\UserTrainingTiltle;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,11 +14,18 @@ class TitleContent extends Model
     protected $table = 'title_contents';
     protected $guarded = [];
 
-    protected $appends = ['published'];
+    protected $appends = ['published','is_complete'];
 
     public function getPublishedAttribute()
     {
         return Carbon::createFromTimestamp(strtotime($this->attributes['created_at']))->diffForHumans();
+    }
+    function getIsCompleteAttribute()
+    {
+        $complete = $this->user_content()->count();
+
+        return ($complete>0);
+
     }
 
     protected $hidden = [
@@ -33,4 +41,11 @@ class TitleContent extends Model
     {
         return $this->belongsTo(TrainingTitle::class, 'title_id', 'id');
     }
+
+    public function user_content()
+    {
+        return $this->hasOne(UserTrainingTiltle::class, 'content_id', 'id');
+    }
+
+
 }

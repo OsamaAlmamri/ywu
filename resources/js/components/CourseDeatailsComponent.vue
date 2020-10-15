@@ -1,5 +1,27 @@
 <template>
     <section class="intro-section">
+        <loading :active.sync="isLoading"
+                 :can-cancel="false"
+                 color="#00ab15"
+                 loader="dots"
+                 background-color="#f8f9fa"
+                 height="200"
+                 width="140"
+                 :on-cancel="onCancel"
+                 :is-full-page="fullPage"></loading>
+
+        <sweet-modal modal-theme="dark" :title="contentDeatail.name"
+                     blocking="true" enable-mobile-fullscreen="true"
+                     pulse-on-block="true"
+                     overlay-theme="dark" ref="modal">
+                   <div v-html="contentDeatail.body"></div>
+
+            <sweet-button slot="button" >
+                <button class="btn btn-info"   @click.prevent="completeContent()">تم</button>
+                </sweet-button>
+
+
+        </sweet-modal>
         <div class="patern-layer-one paroller" data-paroller-factor="0.40" data-paroller-factor-lg="0.20"
              data-paroller-type="foreground" data-paroller-direction="vertical"
              style="background-image: url('site/images/icons/icon-1.png')"></div>
@@ -72,20 +94,25 @@
                                                 <!-- Accordion Box -->
                                                 <ul class="accordion-box">
                                                     <!-- Block -->
-                                                    <li class="accordion block" v-for="(title,key) in training.titles">
-                                                        <div :key="key" @click="change_active_lession(key)"
-                                                             :class="['acc-btn',{'active':key==active_lession}]">
+                                                    <li class="accordion block" v-for="(title,title_key) in training.titles">
+                                                        <div :key="title_key" @click="change_active_lession(title_key)"
+                                                             :class="['acc-btn',{'active':title_key==active_lession}]">
                                                             <div class="icon-outer"><span
                                                                 class="icon icon-plus flaticon-angle-arrow-down"></span>
                                                             </div>
+                                                            <i class="fa fa-check" :key="title_key" v-if="title.is_complete"></i>
+
                                                             {{title.name}}
                                                         </div>
 
-                                                        <div :class="['acc-content',{'current':key==active_lession}]">
-                                                            <div v-for="content in title.contents" class="content">
+                                                        <div :class="['acc-content',{'current':title_key==active_lession}]">
+                                                            <div v-for="(content,content_key) in title.contents" class="content">
                                                                 <div class="clearfix">
                                                                     <div class="pull-right">
+<!--                                                                        contentCompleted(content,content_key,title_key)-->
+                                                                        <i class="fa fa-check" :key="content_key" v-if="content.is_complete"></i>
                                                                         <a href="void(0)"
+                                                                           @click.prevent="showContent(content,content_key,title_key)"
                                                                            :data-content="content"
                                                                            class="showContent">
                                                                             {{content.title}}
@@ -269,7 +296,8 @@
                             <div class="time-left"> تبدا في {{training.start_at}}</div>
                             <div class="time-left"> تنتهي في {{training.end_at}}</div>
 
-                            <a href="#" v-show="training.is_like==null" class="theme-btn btn-style-three"><span
+                            <a href="#" @click.prevent="openModal()" v-show="training.is_like==null"
+                               class="theme-btn btn-style-three"><span
                                 class="txt">اضافة للمفضلة  <i
                                 class="fa fa-angle-left"></i></span></a>
                             <a href="#" v-show="training.is_register==null" class="theme-btn btn-style-two"><span
@@ -288,12 +316,19 @@
 <script>
     // import question from './Question.vue';
     import axios from "axios";
+    import Loading from 'vue-loading-overlay';
+    // Import stylesheet
+    import 'vue-loading-overlay/dist/vue-loading.css';
 
     export default {
         props: ['items'],
         // components: {question},
+        components: {Loading},
+
         data() {
             return {
+                isLoading: false,
+                fullPage: true,
                 training: {
                     "id": 0,
                     "category_id": 0,
@@ -315,11 +350,27 @@
                     "is_register": null,
                     "titles": []
                 },
+                activeContent: {
+                    "id": 0,
+                    "is_complete":false,
+                    "title": "",
+                    "body": "",
+                    "image": "",
+                    "book": "",
+                    "sound": "",
+                    "video_url": "",
+                    "title_id": 0,
+                    "deleted_at": null,
+                    "published": "منذ أسبوع"
+                },
                 activeIndex: null,
                 active_lession: 0,
+                active_title_complete: 0,
                 activeTap: 'prod-overview',
                 sections: [],
                 course_id: '',
+                activeContent_key: 0,
+                activeContent_title_key: 0,
                 pagination: {},
                 edit: false
             }
@@ -328,12 +379,32 @@
             this.course_id = this.$route.params.id
             this.fetchTraining();
         },
+        computed: {
+            contentDeatail() {
+                return this.activeContent;
+            },
+            contentCompleted(content,content_key,title_key) {
+                return this.training.titles[title_key].contents[content_key].is_complete;
+
+            },
+
+        },
         methods: {
             onToggle(index) {
                 if (this.activeIndex == index) {
                     return (this.activeIndex = null);
                 }
                 this.activeIndex = index;
+            },
+            showContent(content,content_key,title_key) {
+
+                this.activeContent = content;
+                this.activeContent_key = content_key;
+                this.activeContent_title_key = title_key;
+                this.$refs.modal.open();
+            },
+            openModal() {
+                this.$refs.modal.open();
             },
             changeActive(index) {
                 this.activeTap = index;
@@ -342,8 +413,10 @@
                 this.active_lession = index;
             },
             fetchTraining() {
-                axios({url: '/api/ShowTrainings2', data: {id: this.course_id}, method: 'POST'})
+                this.isLoading = true;
+                axios({url: '/api/getTrainingDetails', data: {id: this.course_id}, method: 'POST'})
                     .then(resp => {
+                        this.isLoading = false;
                         if (resp.data.status == false) {
                             toastStack('   خطاء ', resp.data.msg, 'error');
                         } else {
@@ -351,6 +424,7 @@
                         }
                     })
                     .catch(err => {
+                        this.isLoading = false;
                         localStorage.removeItem('token')
                         localStorage.removeItem('user')
                         reject(err)
@@ -370,6 +444,51 @@
                 //     })
                 //     .catch(err => console.log(err));
             },
+
+            completeContent() {
+                axios({url: '/api/complete_content', data: {id: this.activeContent.id}, method: 'POST'})
+                    .then(resp => {
+                        if (resp.data.status == false) {
+                            toastStack('   خطاء ', resp.data.msg, 'error');
+                        } else {
+                            console.log(resp.data);
+                            console.log(this.training);
+                            console.log(this.training.titles);
+                            console.log(this.active_title_complete);
+                            console.log(this.activeContent_key);
+                            console.log(this.activeContent_key);
+                            console.log(  this.training.titles[this.active_title_complete]);
+                            console.log(  this.training.titles[this.active_title_complete].contents[this.activeContent_key]);
+                            // this.active_title_complete = resp.data.title_complete;
+                            this.training.titles[this.activeContent_title_key].contents[this.activeContent_key].is_complete= true;
+                            this.training.titles[this.activeContent_title_key].is_complete= resp.data.title_complete;
+                            this.$refs.modal.close();
+                        }
+                        this.isLoading = false;
+                    })
+                    .catch(err => {
+                        this.isLoading = false;
+                        console.log(err)
+                    })
+                // fetch('/api/ShowTrainings2', {
+                //     method: 'post',
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //         // 'Authorization': 'Bearer my-token',
+                //         // 'My-Custom-Header': 'foobar'
+                //     },
+                //     body: JSON.stringify({id: this.course_id, title: 'Vue POST Request Example'})
+                // })
+                //     .then(res => res.json())
+                //     .then(res => {
+                //         this.training = res.Trainings;
+                //     })
+                //     .catch(err => console.log(err));
+            },
+
+            onCancel() {
+                console.log('User cancelled the loader.')
+            }
 
         },
         mounted() {

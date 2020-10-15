@@ -18,6 +18,8 @@ import Axios from 'axios'
 
 Vue.prototype.$http = Axios;
 import store from "./store";
+import SweetModal from 'sweet-modal-vue/src/plugin.js'
+Vue.use(SweetModal)
 
 var api_url = process.env.MIX_APP_URL;
 Axios.defaults.baseURL = api_url;
@@ -34,22 +36,31 @@ if (process.env.MIX_ENV_MODE === 'production') {
     Vue.config.silent = true;
 }
 
-// Vue.mixin({
-//     methods: {
-//         getFirst20Word: function (text) {
-//             text = text.replace(/<(.|\n)*?>/g, '');
-//             return text.substr(0, 100) + ' ...';
-//             // return text.split(' ').slice(0,20)
-//         }
-//     }
-// });
+Vue.mixin({
+    methods: {
+        countWords: function (text,no_words) {
+            var str = text.replace(/(^\s*)|(\s*$)/gi, "");
+            str = str.replace(/[ ]{2,}/gi, " ");
+            str = str.replace(/\n /, "\n");
+            var words=str.split(' ').length;
+            return {
+                'words': words,
+                'newText': str.split(" ").splice(0, no_words).join(" "),
+                'isMore':(words>no_words)
+            };
+        }
+    }
+});
 const MyPlugin = {
     install(Vue, options) {
         Vue.prototype.getFirst20Word = (text) => {
             text = text.replace(/<(.|\n)*?>/g, '');
             return text.substr(0, 100) + ' ...';
         };
-    }
+
+
+    },
+
 }
 Vue.use(MyPlugin)
 const app = new Vue({

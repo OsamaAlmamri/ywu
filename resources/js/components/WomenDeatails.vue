@@ -1,6 +1,15 @@
 <template>
     <!--Sidebar Page Container-->
     <div class="sidebar-page-container">
+        <loading :active.sync="isLoading"
+                 :can-cancel="false"
+                 color="#00ab15"
+                 loader="dots"
+                 background-color="#f8f9fa"
+                 height="200"
+                 width="140"
+                 :on-cancel="onCancel"
+                 :is-full-page="fullPage"></loading>
         <div class="patern-layer-one paroller" data-paroller-factor="0.40" data-paroller-factor-lg="0.20"
              data-paroller-type="foreground" data-paroller-direction="vertical"
              style="background-image: url(images/icons/icon-1.png)"></div>
@@ -51,12 +60,16 @@
 <script>
     // import question from './Question.vue';
     import axios from "axios";
-
+    import Loading from 'vue-loading-overlay';
+    // Import stylesheet
+    import 'vue-loading-overlay/dist/vue-loading.css';
     export default {
         props: ['items'],
-        // components: {question},
+        components: { Loading},
         data() {
             return {
+                isLoading: false,
+                fullPage: false,
                 post: {
                     "id": 0,
                     "title": "",
@@ -81,6 +94,7 @@
         },
         methods: {
             fetchTraining() {
+                this.isLoading = true;
                 axios({url: '/api/ShowPId/' + this.post_id, data: {id: this.post_id}, method: 'POST'})
                     .then(resp => {
                         if (resp.data.status == false) {
@@ -88,15 +102,20 @@
                         } else {
                             this.post = resp.data.Post;
                         }
+                        this.isLoading = false;
                     })
                     .catch(err => {
                         // localStorage.removeItem('token')
                         // localStorage.removeItem('user')
                         console.log(err)
+                        this.isLoading = false;
                         // reject(err)
                     })
 
             },
+            onCancel() {
+                console.log('User cancelled the loader.')
+            }
 
         },
         mounted() {

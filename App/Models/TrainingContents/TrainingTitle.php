@@ -14,7 +14,7 @@ class TrainingTitle extends Model
     protected $table = 'training_titles';
     protected $guarded = [];
 
-    protected $appends = ['published'];
+    protected $appends = ['published','is_complete'];
 
     public function getPublishedAttribute()
     {
@@ -30,6 +30,15 @@ class TrainingTitle extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    function getIsCompleteAttribute()
+    {
+        $complete = $this->user_contents()->count();
+        $titles = $this->contents()->count();
+//        return $complete;
+        return ($complete >= $titles);
+
+    }
+
     public function training()
     {
         return $this->belongsTo(Training::class, 'training_id', 'id');
@@ -40,8 +49,21 @@ class TrainingTitle extends Model
         return $this->hasMany(TitleContent::class, 'title_id', 'id');
     }
 
-    public function is_complete()
+    public function user_contents()
     {
-        return $this->hasOne(UserTrainingTiltle::class, 'title_id', 'id')->where('user_id', auth()->id());
+        $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
+        return $this->hasMany(UserTrainingTiltle::class, 'title_id', 'id')
+//            ->where('content_id', '>', 0)
+            ->whereIn('content_id', function ($query) {
+                $query->select('id')
+                    ->from(with(new TitleContent())->getTable());
+//                    ->where('title_id', '=', 'training_titles.id');
+            })
+            ->where('user_id', $user_id);
     }
+
+//    public function is_complete()
+//    {
+//        return $this->hasOne(UserTrainingTiltle::class, 'title_id', 'id')->where('user_id', auth()->id());
+//    }
 }

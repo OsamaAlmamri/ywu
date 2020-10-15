@@ -1,6 +1,15 @@
 <template>
     <!-- Login Section -->
     <section class="login-section">
+        <loading :active.sync="isLoading"
+                 :can-cancel="false"
+                 color="#00ab15"
+                 loader="dots"
+                 background-color="#f8f9fa"
+                 height="200"
+                 width="140"
+                 :on-cancel="onCancel"
+                 :is-full-page="fullPage"></loading>
         <div class="auto-container">
             <div class="login-box">
 
@@ -53,9 +62,16 @@
 </template>
 <script>
     import store from '../store'
+    import Loading from 'vue-loading-overlay';
+    // Import stylesheet
+    import 'vue-loading-overlay/dist/vue-loading.css';
     export default {
+        components: { Loading},
+
         data(){
             return{
+                isLoading: false,
+                fullPage: true,
                 form:{
                     phone: '',
                     password: ''
@@ -70,9 +86,18 @@
             login: function () {
                 let phone = this.form.phone
                 let password = this.form.password
+                this.isLoading = true;
                 store.dispatch('login', { phone, password })
-                    .then(() => this.$router.push('/'))
-                    .catch(err => console.log(err))
+                    .then(() => {
+                        this.isLoading = false;
+                        this.$router.push('/')
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        this.isLoading = false;
+                    })
+            }, onCancel() {
+                console.log('User cancelled the loader.')
             }
         },
             // loginUser(){

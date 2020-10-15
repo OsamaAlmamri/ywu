@@ -3,6 +3,15 @@
     <!-- Register Section -->
 
     <section class="register-section">
+        <loading :active.sync="isLoading"
+                 :can-cancel="false"
+                 color="#00ab15"
+                 loader="dots"
+                 background-color="#f8f9fa"
+                 height="200"
+                 width="140"
+                 :on-cancel="onCancel"
+                 :is-full-page="fullPage"></loading>
         <div class="auto-container">
             <div class="register-box">
                 <!-- Title Box -->
@@ -124,10 +133,16 @@
 <script>
     import store from '../store'
 
-
+    import Loading from 'vue-loading-overlay';
+    // Import stylesheet
+    import 'vue-loading-overlay/dist/vue-loading.css';
+    import CourseGideItem from "./CourseGideItem";
     export default {
+        components: { Loading},
         data() {
             return {
+                isLoading: false,
+                fullPage: true,
                 form: {
                     userType: "visitor",
                     destination: "",
@@ -151,15 +166,26 @@
             },
             register: function () {
                 let data = this.form;
+
                 if (data.password != data.password_confirmation) {
                     toastStack('كلمة السر غير متطابقة', '', 'error');
                     // toastStack('كلمة السر غير متطابقة', '', 'success');
                 } else {
+                    this.isLoading = true;
                     store.dispatch('register', data)
-                        .then(() => this.$router.push('/'))
+                        .then(() => {
+                            this.isLoading = false;
+                            this.$router.push('/')
+                        })
 
-                        .catch(err => console.log(err))
+                        .catch(err => {
+                            this.isLoading = false;
+                            console.log(err)
+                        })
                 }
+            },
+            onCancel() {
+                console.log('User cancelled the loader.')
             }
 
             // register() {

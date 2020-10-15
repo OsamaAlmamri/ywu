@@ -21,7 +21,9 @@ class CreateTitleContentsTable extends Migration
             $table->string('book')->nullable();
             $table->string('sound')->nullable();
             $table->string('video_url')->nullable();
-            $table->foreignId('title_id')->constrained('training_titles')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('title_id')
+                ->constrained('training_titles')
+                ->onUpdate('cascade')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

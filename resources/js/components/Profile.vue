@@ -3,6 +3,15 @@
 
     <!-- Student Profile Section -->
     <section class="student-profile-section">
+        <loading :active.sync="isLoading"
+                 :can-cancel="false"
+                 color="#00ab15"
+                 loader="dots"
+                 background-color="#f8f9fa"
+                 height="200"
+                 width="140"
+                 :on-cancel="onCancel"
+                 :is-full-page="fullPage"></loading>
         <div class="patern-layer-one paroller" data-paroller-factor="0.40" data-paroller-factor-lg="0.20"
              data-paroller-type="foreground" data-paroller-direction="vertical"
              style="background-image: url(/site/images/icons/icon-1.png)"></div>
@@ -422,12 +431,17 @@
 <script>
     import CourseGideItem from './CourseGideItem.vue';
     import store from '../store'
-
+    import Loading from 'vue-loading-overlay';
+    // Import stylesheet
+    import 'vue-loading-overlay/dist/vue-loading.css';
+    import ConsultantItem from "./ConsultantItem";
     export default {
         props: ['items'],
-        components: {CourseGideItem},
+        components: {CourseGideItem, Loading},
         data() {
             return {
+                isLoading: false,
+                fullPage: false,
                 activeIndex: null,
                 sections: [],
                 course_id: '',
@@ -459,7 +473,7 @@
             },
             fetchArticles() {
                 let vm = this;
-
+                this.isLoading = true;
                 axios.post('/api/showTrainingByCategory', {
                         headers: {
                             'content-type': 'application/json',
@@ -467,10 +481,16 @@
                         }
                     },
                 ).then(res => {
+                    this.isLoading = false;
                     this.sections = res.data.Trainings;
                 })
-                    .catch(err => console.log(err));
-            },
+                    .catch(err => {
+                        this.isLoading = false;
+                        console.log(err)
+                    });
+            }, onCancel() {
+                console.log('User cancelled the loader.')
+            }
 
         },
         mounted() {
