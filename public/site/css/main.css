@@ -45,7 +45,7 @@
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Roboto+Condensed:400,700,700i&display=swap');
 
-/*  
+/*
 	font-family: 'Titillium Web', sans-serif;
 	font-family: 'Poppins', sans-serif;
 */
@@ -61,14 +61,14 @@
 @import url('jquery.bootstrap-touchspin.css');
 @import url('jquery.mCustomScrollbar.min.css');
 
-/*** 
+/***
 
 ====================================================================
 	Reset
 ====================================================================
 
 ***/
- 
+
 * {
 	margin:0px;
 	padding:0px;
@@ -76,7 +76,7 @@
 	outline:none;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Global Settings
@@ -147,16 +147,16 @@ h6{
 }
 
 input,button,select,textarea{
-	
+
 }
 
 textarea{
-	
+
 }
 
 p{
 	position:relative;
-	line-height:1.8em;	
+	line-height:1.8em;
 }
 
 .auto-container{
@@ -180,7 +180,7 @@ p{
 ul,li{
 	list-style:none;
 	padding:0px;
-	margin:0px;	
+	margin:0px;
 }
 
 img{
@@ -198,7 +198,7 @@ img{
 }
 
 .centered{
-	text-align:center;	
+	text-align:center;
 }
 
 /* List Style One */
@@ -623,11 +623,11 @@ img{
 }
 
 .btn-style-seven .txt{
-	z-index: 2;	
+	z-index: 2;
 	display: block;
 	position: relative;
 	width: 100%;
-	height: 100%;	
+	height: 100%;
 }
 
 .btn-style-seven::before{
@@ -778,7 +778,7 @@ img{
 }
 
 .social-icon-one li a:hover{
-	
+
 }
 
 .theme_color{
@@ -790,10 +790,10 @@ img{
 img{
 	display:inline-block;
 	max-width:100%;
-	height:auto;	
+	height:auto;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Scroll To Top style
@@ -820,7 +820,7 @@ img{
 	-ms-transition:all 300ms ease;
 	-o-transition:all 300ms ease;
 	-moz-transition:all 300ms ease;
-	transition:all 300ms ease;		
+	transition:all 300ms ease;
 }
 
 .scroll-to-top:hover{
@@ -828,7 +828,7 @@ img{
 	background:#00ab15;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Section Title
@@ -895,7 +895,7 @@ img{
 	color:#ffffff;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Main Header style
@@ -1044,7 +1044,7 @@ img{
 	-ms-transition:all 300ms ease;
 	-o-transition:all 300ms ease;
 	-moz-transition:all 300ms ease;
-	transition:all 300ms ease;	
+	transition:all 300ms ease;
 }
 
 .main-header .header-upper{
@@ -1318,7 +1318,7 @@ img{
 	-moz-animation-iteration-count: 1;
 	-op-animation-iteration-count: 1;
 	-webkit-animation-iteration-count: 1;
-	animation-iteration-count: 1;	
+	animation-iteration-count: 1;
 }
 
 .sticky-header .main-menu .navigation > li > a{
@@ -1460,7 +1460,7 @@ img{
 
 .main-menu .navigation > li > ul.from-left{
 	right:auto;
-	left:0px;	
+	left:0px;
 }
 
 .main-menu .navigation > li > ul > li{
@@ -1510,7 +1510,7 @@ img{
 	font-size:16px;
 	font-weight:normal;
 	text-align:center;
-	z-index:5;	
+	z-index:5;
 }
 
 .main-menu .navigation > li > ul > li.dropdown:hover > a:after{
@@ -1540,7 +1540,7 @@ img{
 
 .main-menu .navigation > li > ul > li > ul.from-left{
 	right:auto;
-	left:0px;	
+	left:0px;
 }
 
 .main-menu .navigation > li > ul > li > ul > li{
@@ -1551,7 +1551,7 @@ img{
 }
 
 .main-menu .navigation > li > ul > li > ul > li:last-child{
-	border-bottom:none;	
+	border-bottom:none;
 }
 
 .main-menu .navigation > li > ul > li > ul > li > a{
@@ -1590,11 +1590,11 @@ img{
 	font-size:16px;
 	font-weight:normal;
 	text-align:center;
-	z-index:5;	
+	z-index:5;
 }
 
 .main-menu .navigation > li > ul > li > ul > li.dropdown:hover > a:after{
-	color:#ffffff;	
+	color:#ffffff;
 }
 
 .main-menu .navigation > li.dropdown:hover > ul{
@@ -1621,7 +1621,7 @@ img{
 	-moz-transition:all 300ms ease;
 	-webkit-transition:all 500ms ease;
 	-ms-transition:all 300ms ease;
-	-o-transition:all 300ms ease;	
+	-o-transition:all 300ms ease;
 }
 
 .main-menu .navbar-collapse > ul li.dropdown .dropdown-btn{
@@ -1671,7 +1671,7 @@ img{
 	color:#ffffff;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Banner Section
@@ -1794,7 +1794,7 @@ img{
 	border-color:#00ab15;
 }
 
-/*** 
+/***
 
 ====================================================================
 			Mobile Menu
@@ -1828,7 +1828,7 @@ img{
 .mobile-menu .nav-logo{
 	position:relative;
 	padding:20px 20px;
-	text-align:right;	
+	text-align:right;
 }
 
 .mobile-menu .nav-logo img{
@@ -1852,9 +1852,9 @@ img{
 	height: 100%;
 	z-index: 1;
 	background: rgba(0,0,0,0.90);
-	-webkit-transform: translateX(101%);
-	-ms-transform: translateX(101%);
-	transform: translateX(101%);
+	-webkit-transform: translateX(0%);
+	-ms-transform: translateX(0%);
+	transform: translateX(0%);
 }
 
 .mobile-menu-visible .mobile-menu .menu-backdrop{
@@ -1884,9 +1884,9 @@ img{
 	opacity: 0;
 	visibility: hidden;
 	border-radius: 0px;
-	-webkit-transform: translateX(101%);
-	-ms-transform: translateX(101%);
-	transform: translateX(101%);
+	-webkit-transform: translateX(0%);
+	-ms-transform: translateX(0%);
+	transform: translateX(0%);
 }
 
 .mobile-menu-visible .mobile-menu .menu-box{
@@ -1899,7 +1899,7 @@ img{
 	transition:all 0.7s ease 500ms;
 	-webkit-transform: translateX(0%);
 	-ms-transform: translateX(0%);
-	transform: translateX(0%);
+	transform: translateX(00%);
 }
 
 .mobile-menu .close-btn{
@@ -1966,7 +1966,7 @@ img{
 
 .mobile-menu .navigation li:hover > a,
 .mobile-menu .navigation li.current > a{
-	color:#00ab15;	
+	color:#00ab15;
 }
 
 .mobile-menu .navigation li.dropdown .dropdown-btn{
@@ -2125,7 +2125,7 @@ img{
 
 .search-popup .form-group{
 	position:relative;
-	margin:0px;	
+	margin:0px;
 	overflow: hidden;
 }
 
@@ -2203,7 +2203,7 @@ img{
 	color:#ffffff;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Education Section
@@ -2281,7 +2281,7 @@ img{
 	margin-bottom:25px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Courses Section
@@ -2443,7 +2443,7 @@ img{
 	background-color:#09608c;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Call To Action Section
@@ -2530,7 +2530,7 @@ img{
 	border-color:#00ab15;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Video Section
@@ -2668,7 +2668,7 @@ img{
     100% {box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);}
 }
 
-/*** 
+/***
 
 ====================================================================
 	Achievements Section
@@ -2772,7 +2772,7 @@ img{
 	background-color:#f5f5f5;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Fluid Section One
@@ -2812,12 +2812,12 @@ img{
 	height:100%;
 	background-repeat:no-repeat;
 	background-position:center center;
-	background-size:cover;	
+	background-size:cover;
 }
 
 .fluid-section-one .image-column .image-box{
 	position:relative;
-	display:none;	
+	display:none;
 	margin:0px;
 }
 
@@ -3010,7 +3010,7 @@ img{
 	color:#00ab15;
 }
 
-/*** 
+/***
 
 ====================================================================
 	News Section
@@ -3154,7 +3154,7 @@ img{
 	color:#00ab15;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Testimonial Section
@@ -3224,7 +3224,7 @@ img{
     -webkit-transition: all 1200ms ease;
     -ms-transition: all 1200ms ease;
     -o-transition: all 1200ms ease;
-	
+
 }
 
 .testimonial-section .authors-box .author-two img{
@@ -3330,7 +3330,7 @@ img{
     -webkit-transition: all 1200ms ease;
     -ms-transition: all 1200ms ease;
     -o-transition: all 1200ms ease;
-	
+
 }
 
 .testimonial-section .authors-box .author-six img{
@@ -3480,7 +3480,7 @@ img{
 	margin:0px 10px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Main Footer
@@ -3716,7 +3716,7 @@ img{
 	transition:all 500ms ease;
 	-webkit-transition:all 500ms ease;
 	-ms-transition:all 500ms ease;
-	-o-transition:all 500ms ease;	
+	-o-transition:all 500ms ease;
 }
 
 .subscribe-form .form-group input[type="email"]:focus{
@@ -3763,7 +3763,7 @@ img{
 	color:#eeeeee;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Main Slider
@@ -3934,7 +3934,7 @@ img{
 	display:none;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Education Section Two
@@ -3988,7 +3988,7 @@ img{
 	margin-bottom:30px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Institute Section
@@ -4164,7 +4164,7 @@ img{
 	align-items:center;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Education Section Two
@@ -4228,7 +4228,7 @@ img{
 	margin-bottom:0px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Achievements Section Two
@@ -4464,7 +4464,7 @@ img{
     position: absolute;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Events Section
@@ -4595,7 +4595,7 @@ img{
 	margin-top:20px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Pricing Section
@@ -4620,7 +4620,7 @@ img{
 }
 
 .pricing-tabs .tabs-content .tab.active-tab{
-	display:block;	
+	display:block;
 }
 
 .pricing-tabs .tab-buttons{
@@ -4784,7 +4784,7 @@ img{
 	background-color:#00ab15;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Slider Section Two
@@ -4949,7 +4949,7 @@ img{
     position: relative;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Title Section
@@ -4976,7 +4976,7 @@ img{
 	background-repeat:no-repeat;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Education Section
@@ -5065,7 +5065,7 @@ img{
 	border-radius:50px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Project Section
@@ -5099,7 +5099,7 @@ img{
 }
 
 .project-tab{
-	position:relative;	
+	position:relative;
 }
 
 .project-tab .tabs-header{
@@ -5148,7 +5148,7 @@ img{
 
 .project-tab .p-tabs-content{
 	position:relative;
-	display:block;	
+	display:block;
 }
 
 .project-tab .p-tab{
@@ -5157,7 +5157,7 @@ img{
 	top:0px;
 	width:100%;
 	height:auto;
-	visibility:hidden;	
+	visibility:hidden;
 }
 
 .project-tab .p-tab.active-tab{
@@ -5184,7 +5184,7 @@ img{
 	-ms-transform:scaleY(0);
 	-o-transform:scaleY(0);
 	-moz-transform:scaleY(0);
-	transform:scaleY(0);	
+	transform:scaleY(0);
 }
 
 .project-section .owl-nav{
@@ -5384,7 +5384,7 @@ img{
 	border-radius:50px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Education Section Four
@@ -5479,7 +5479,7 @@ img{
 	border-radius:50px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Achievements Section Three
@@ -5583,7 +5583,7 @@ img{
 	margin:0 auto;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Pricing Section Two
@@ -5622,7 +5622,7 @@ img{
 }
 
 .pricing-tabs-two .tabs-content .tab.active-tab{
-	display:block;	
+	display:block;
 }
 
 .pricing-tabs-two .tabs-content .tab.active-tab .price-block-two{
@@ -5768,7 +5768,7 @@ img{
 	margin-top:12px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Testimonial Section Two
@@ -5935,7 +5935,7 @@ img{
 	font-family: 'Roboto Condensed', sans-serif;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Subscribe Section
@@ -5996,7 +5996,7 @@ img{
 	transition:all 500ms ease;
 	-webkit-transition:all 500ms ease;
 	-ms-transition:all 500ms ease;
-	-o-transition:all 500ms ease;	
+	-o-transition:all 500ms ease;
 }
 
 .subscribe-form-two .form-group input[type="email"]:focus{
@@ -6016,7 +6016,7 @@ img{
 	border-radius:50px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Page Title
@@ -6102,7 +6102,7 @@ img{
 	border-color:#00ab15;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Login Section
@@ -6319,7 +6319,7 @@ img{
 
 .styled-form .form-group .check-box input[type="checkbox"]:checked + label:after {
 	max-width: 20px;
-	opacity: 1;	
+	opacity: 1;
 }
 
 /* Radio Box */
@@ -6416,7 +6416,7 @@ img{
 
 .styled-form .form-group .radio-box input[type="radio"]:checked + label:after {
 	max-width: 20px;
-	opacity: 1;	
+	opacity: 1;
 }
 
 .styled-form .forgot{
@@ -6440,7 +6440,7 @@ img{
 	box-shadow:0px 0px 40px rgba(0,171,21,0.15);
 }
 
-/*** 
+/***
 
 ====================================================================
 	Register Section
@@ -6485,7 +6485,7 @@ img{
 	margin-top:12px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Privacy Section
@@ -6674,7 +6674,7 @@ img{
 	color:#626262;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Countdown style
@@ -6757,7 +6757,7 @@ img{
 	color:#00ab15;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Sidebar Page Container
@@ -7075,7 +7075,7 @@ img{
 	margin-top:10px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Styled Pagination
@@ -7252,7 +7252,7 @@ img{
 
 .skills-box .skills-form .radio-box input[type="radio"]:checked + label:after {
 	max-width: 20px;
-	opacity: 1;	
+	opacity: 1;
 }
 
 /* Radio Box Two */
@@ -7362,7 +7362,7 @@ img{
 
 .skills-box-two .skills-form-two .radio-box input[type="radio"]:checked + label:after {
 	max-width: 20px;
-	opacity: 1;	
+	opacity: 1;
 }
 
 /* Radio Box Three */
@@ -7471,7 +7471,7 @@ img{
 
 .skills-box-three .skills-form-three .radio-box-three input[type="radio"]:checked + label:after {
 	max-width: 20px;
-	opacity: 1;	
+	opacity: 1;
 }
 
 .popular-courses-section{
@@ -7677,7 +7677,7 @@ img{
 	box-shadow:0px 0px 20px rgba(0,0,0,0.10);
 }
 
-/*** 
+/***
 
 ====================================================================
 	Topics Section
@@ -7821,7 +7821,7 @@ img{
 	background-color:#ddffef;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Intro Section
@@ -7876,7 +7876,7 @@ img{
 	position:relative;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Intro Tabs Style
@@ -7885,7 +7885,7 @@ img{
 ***/
 
 .intro-section .intro-tabs{
-	position:relative;	
+	position:relative;
 }
 
 .intro-section .intro-tabs .tab-btns{
@@ -7932,7 +7932,7 @@ img{
 }
 
 .intro-section .intro-tabs .tabs-content .tab.active-tab{
-	display:block;	
+	display:block;
 }
 
 .intro-section .intro-tabs .tabs-content .minutes{
@@ -7943,7 +7943,7 @@ img{
 	margin-top:12px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Accordions style
@@ -8012,11 +8012,11 @@ img{
 	-webkit-transition:all 500ms ease;
 	-ms-transition:all 500ms ease;
 	-o-transition:all 500ms ease;
-	transition:all 500ms ease;	
+	transition:all 500ms ease;
 }
 
 .accordion-box .block .acc-btn.active .icon-outer{
-	
+
 }
 
 .accordion-box .block .acc-btn.active .icon-outer .icon-plus{
@@ -8030,12 +8030,12 @@ img{
 }
 
 .accordion-box .block .acc-content.current{
-	display:block;	
+	display:block;
 }
 
 .accordion-box .block .content{
 	position:relative;
-	padding:0px 40px 25px;	
+	padding:0px 40px 25px;
 }
 
 .accordion-box .block .play-icon{
@@ -8602,7 +8602,7 @@ img{
 
 
 
-/*** 
+/***
 
 ====================================================================
 	Intro Section Two
@@ -8657,7 +8657,7 @@ img{
 	position:relative;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Intro Tabs Style
@@ -8666,7 +8666,7 @@ img{
 ***/
 
 .intro-section-two .intro-tabs{
-	position:relative;	
+	position:relative;
 }
 
 .intro-section-two .intro-tabs .tab-btns{
@@ -8713,7 +8713,7 @@ img{
 }
 
 .intro-section-two .intro-tabs .tabs-content .tab.active-tab{
-	display:block;	
+	display:block;
 }
 
 .intro-section-two .intro-tabs .tabs-content .minutes{
@@ -8750,7 +8750,7 @@ img{
 	margin-bottom:40px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Books Page Section
@@ -8800,7 +8800,7 @@ img{
 	position:relative;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Books Tabs Style
@@ -8809,7 +8809,7 @@ img{
 ***/
 
 .books-page-section .books-tabs{
-	position:relative;	
+	position:relative;
 }
 
 .books-page-section .books-tabs .tab-btns{
@@ -8854,7 +8854,7 @@ img{
 }
 
 .books-page-section .books-tabs .tabs-content .tab.active-tab{
-	display:block;	
+	display:block;
 }
 
 /* Book Item */
@@ -9065,7 +9065,7 @@ img{
 }
 
 
-/*** 
+/***
 
 ====================================================================
 	Books Detail Section
@@ -9230,7 +9230,7 @@ img{
 	color:#626262;
 }
 
-/*** 
+/***
 
 ====================================================================
 	profile Section
@@ -9424,7 +9424,7 @@ img{
 	margin-top:20px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Student profile Section
@@ -9578,7 +9578,7 @@ img{
 	color:#00ab15;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Student Profile Tabs
@@ -9587,7 +9587,7 @@ img{
 ***/
 
 .student-profile-section .profile-tabs{
-	position:relative;	
+	position:relative;
 }
 
 .student-profile-section .profile-tabs .tab-btns{
@@ -9633,7 +9633,7 @@ img{
 }
 
 .student-profile-section .profile-tabs .tabs-content .tab.active-tab{
-	display:block;	
+	display:block;
 }
 
 .saved-books-section{
@@ -9641,7 +9641,7 @@ img{
 	padding-top:60px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Edit profile Section
@@ -9713,7 +9713,7 @@ img{
 	margin-bottom:15px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Edit Profile Tabs
@@ -9723,7 +9723,7 @@ img{
 
 .edit-profile-section .edit-profile-tabs{
 	position:relative;
-	
+
 }
 
 .edit-profile-section .edit-profile-tabs .tab-btns{
@@ -9770,7 +9770,7 @@ img{
 }
 
 .edit-profile-section .edit-profile-tabs .tabs-content .tab.active-tab{
-	display:block;	
+	display:block;
 }
 
 .edit-profile-section .edit-profile-tabs .tabs-content .title-box{
@@ -9784,7 +9784,7 @@ img{
 	font-weight:700;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Profile Form
@@ -9884,7 +9884,7 @@ img{
 	position:relative;
 	top:2px;
 	text-indent:0px;
-	color:#333333;	
+	color:#333333;
 }
 
 .form-group .ui-button .ui-icon:before{
@@ -9907,7 +9907,7 @@ img{
 }
 
 .ui-widget.ui-widget-content{
-	
+
 }
 
 .ui-menu .ui-menu-item{
@@ -9915,7 +9915,7 @@ img{
 }
 
 .ui-menu .ui-menu-item:last-child{
-	border:none;	
+	border:none;
 }
 
 .ui-state-active, .ui-widget-content .ui-state-active{
@@ -10095,10 +10095,10 @@ img{
 
 .sidebar .popular-tags a:hover{
 	background-color:#00ab15;
-	color:#ffffff;	
+	color:#ffffff;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Blog Detail
@@ -10205,7 +10205,7 @@ img{
 	margin-top:40px;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Comment Form
@@ -10285,7 +10285,7 @@ img{
 
 
 
-/*** 
+/***
 
 ====================================================================
 	Comments Area
@@ -10336,7 +10336,7 @@ img{
 }
 
 .sidebar-page-container .comments-area .reply-comment{
-	margin-right:100px;	
+	margin-right:100px;
 }
 
 .sidebar-page-container .comments-area .comment-box .author-thumb{
@@ -10406,7 +10406,7 @@ img{
 	color:#3d415b;
 }
 
-/*** 
+/***
 
 ====================================================================
 	Contact Page Section
@@ -10448,7 +10448,7 @@ img{
 	box-shadow:0px 0px 15px rgba(0,0,0,0.15);
 }
 
-/*** 
+/***
 
 ====================================================================
 	Contact Form
@@ -10525,7 +10525,7 @@ img{
 .contact-form input.error,
 .contact-form select.error,
 .contact-form textarea.error{
-	border-color:#ff0000 !important;	
+	border-color:#ff0000 !important;
 }
 
 .contact-form label.error{
@@ -10536,7 +10536,7 @@ img{
 	text-transform:uppercase;
 	font-size:12px;
 	color:#ff0000;
-	font-weight:500;	
+	font-weight:500;
 }
 
 .contact-info-section{

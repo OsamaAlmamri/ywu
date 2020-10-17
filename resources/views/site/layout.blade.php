@@ -183,13 +183,15 @@
     <search-filed title="courses"></search-filed>
 
 
-
     <button @click="show=!show"></button>
     <router-view :key="$route.fullPath"></router-view>
     <!-- Call To Action Section Two -->
     <section class="call-to-action-section-two"
              style="background-image:url('/site/images/background/3.png')">
         <div class="auto-container">
+
+           </div>
+
             <div class="content">
                 <h2>هل انت على استعداد للبدء؟</h2>
                 <div class="text">يمكنك الان عرض واخذ المواد التدريبة

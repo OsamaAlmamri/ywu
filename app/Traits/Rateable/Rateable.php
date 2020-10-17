@@ -20,7 +20,23 @@ trait Rateable
     }
     public function oneRating()
     {
-        return $this->ratings()->where('rating',1);
+        return ($this->ratings()->where('rating',1)->count()/($this->sumRating()==0?1:$this->sumRating()))*100*1;
+    }
+    public function towRating()
+    {
+        return ($this->ratings()->where('rating',2)->count()/($this->sumRating()==0?1:$this->sumRating()))*100*2;
+    }
+    public function threeRating()
+    {
+        return ($this->ratings()->where('rating',3)->count()/($this->sumRating()==0?1:$this->sumRating()))*100*3;
+    }
+    public function fourRating()
+    {
+        return ($this->ratings()->where('rating',4)->count()/($this->sumRating()==0?1:$this->sumRating()))*100*4;
+    }
+    public function fiveRating()
+    {
+        return ($this->ratings()->where('rating',5)->count()/($this->sumRating()==0?1:$this->sumRating()))*100*5;
     }
 
     public function sumRating()

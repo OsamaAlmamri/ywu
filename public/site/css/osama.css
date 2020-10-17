@@ -27,10 +27,53 @@
     padding: 0 10px;
     border: 1px solid #e0e0e0;
 }
+.mobile-menu .menu-backdrop {
+
+    background: none;
+}
+
+
+.intro-section .intro-tabs .tab-btns .tab-btn {
+    padding: 11px 24px 10px;
+}
 .the-fieldset {
     border: 1px solid #e0e0e0;
     padding: 10px;
 }
+
+.review-summary-widget--average-number--2Q0bz {
+    font-size: 4.4rem
+}
+
+@media (min-width: 37.56em) {
+    .review-summary-widget--average-number--2Q0bz {
+        line-height: 1
+    }
+}
+
+.new_rating_dev{
+    padding: 22px;
+    width: 100%;
+}
+
+
+@media (min-width: 37.56em) {
+    .review-summary-widget--average-stars--YnbDS {
+        display: flex;
+        padding: 0 0 .8rem
+    }
+}
+.review-summary-widget--average-rating-text--2BT9O {
+    padding: 0 0 0 .8rem
+}
+
+@media (min-width: 37.56em) {
+    .review-summary-widget--average-rating-text--2BT9O {
+        font-size: 1.4rem;
+        padding: 0
+    }
+}
+
 
 
 .add_post_button {

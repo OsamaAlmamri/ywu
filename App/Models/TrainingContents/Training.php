@@ -8,6 +8,7 @@ use App\EmployeeCategory;
 use App\Exam;
 use App\Like;
 use App\Models\Rateable\Rateable;
+use App\Models\Rateable\Rating;
 use App\Result;
 use App\SectionTraining;
 use App\UserTraining;
@@ -26,7 +27,8 @@ class Training extends Model
     protected $with = ['is_like'];
 
 
-    protected $appends = ['published', 'can_register', 'average_rating', 'count_rating', 'percent_rating'];
+    protected $appends = ['published', 'can_register',
+        'average_rating', 'count_rating', 'percent_rating','rating_details'];
 
     public function getPublishedAttribute()
     {
@@ -36,6 +38,19 @@ class Training extends Model
     function getAverageRatingAttribute()
     {
         return round($this->averageRating(), 1);
+    }
+
+    function getRatingDetailsAttribute()
+    {
+        return array(
+            'one'=> round($this->oneRating(), 1),
+            'tow'=> round($this->towRating(), 1),
+            'three'=> round($this->threeRating(), 1),
+            'four'=> round($this->fourRating(), 1),
+            'five'=> round($this->fiveRating(), 1),
+            'sum'=>$this->countRating(),
+            'average'=> round($this->averageRating(), 1),
+        );
     }
 
 
@@ -140,6 +155,13 @@ class Training extends Model
         $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
         return $this->hasOne(Like::class, 'liked_id', 'id')
             ->where('type', 'training')
+            ->where('user_id', $user_id);
+    }
+    public function is_rating()
+    {
+        $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
+        return $this->hasOne(Rating::class, 'rateable_id', 'id')
+            ->where('rateable_type', Training::class)
             ->where('user_id', $user_id);
     }
 

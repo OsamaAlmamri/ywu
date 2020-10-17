@@ -15,11 +15,11 @@
                      blocking="true" enable-mobile-fullscreen="true"
                      pulse-on-block="true"
                      overlay-theme="dark" ref="modal">
-                   <div v-html="contentDeatail.body"></div>
+            <div v-html="contentDeatail.body"></div>
 
-            <sweet-button slot="button" >
-                <button class="btn btn-info"   @click.prevent="completeContent()">تم</button>
-                </sweet-button>
+            <sweet-button slot="button">
+                <button class="btn btn-info" @click.prevent="completeContent()">تم</button>
+            </sweet-button>
 
 
         </sweet-modal>
@@ -56,8 +56,8 @@
                                             :class="['tab-btn', {'active-btn':(activeTap=='prod-curriculum')}]">العناوين
                                         </li>
                                         <li data-tab="#prod-reviews" @click="changeActive('prod-reviews')"
-                                            :class="['tab-btn', {'active-btn':(activeTap=='prod-reviews')}]">المحتوى
-                                            التدريبي
+                                            :class="['tab-btn', {'active-btn':(activeTap=='prod-reviews')}]">التقييمات
+
                                         </li>
                                         <li data-tab="#mcq_tap" @click="changeActive('mcq_tap')" id="mcq_tap_open"
                                             :class="['tab-btn', {'active-btn':(activeTap=='mcq_tap')}]">الاختبار
@@ -95,23 +95,28 @@
                                                 <!-- Accordion Box -->
                                                 <ul class="accordion-box">
                                                     <!-- Block -->
-                                                    <li class="accordion block" v-for="(title,title_key) in training.titles">
+                                                    <li class="accordion block"
+                                                        v-for="(title,title_key) in training.titles">
                                                         <div :key="title_key" @click="change_active_lession(title_key)"
                                                              :class="['acc-btn',{'active':title_key==active_lession}]">
                                                             <div class="icon-outer"><span
                                                                 class="icon icon-plus flaticon-angle-arrow-down"></span>
                                                             </div>
-                                                            <i class="fa fa-check" :key="title_key" v-if="title.is_complete"></i>
+                                                            <i class="fa fa-check" :key="title_key"
+                                                               v-if="title.is_complete"></i>
 
                                                             {{title.name}}
                                                         </div>
 
-                                                        <div :class="['acc-content',{'current':title_key==active_lession}]">
-                                                            <div v-for="(content,content_key) in title.contents" class="content">
+                                                        <div
+                                                            :class="['acc-content',{'current':title_key==active_lession}]">
+                                                            <div v-for="(content,content_key) in title.contents"
+                                                                 class="content">
                                                                 <div class="clearfix">
                                                                     <div class="pull-right">
-<!--                                                                        contentCompleted(content,content_key,title_key)-->
-                                                                        <i class="fa fa-check" :key="content_key" v-if="content.is_complete"></i>
+                                                                        <!--                                                                        contentCompleted(content,content_key,title_key)-->
+                                                                        <i class="fa fa-check" :key="content_key"
+                                                                           v-if="content.is_complete"></i>
                                                                         <a href="void(0)"
                                                                            @click.prevent="showContent(content,content_key,title_key)"
                                                                            :data-content="content"
@@ -165,99 +170,108 @@
                                              id="prod-reviews">
                                             <div class="content">
 
-                                                <div class="cource-review-box">
-                                                    <h4>Stephane Smith</h4>
-                                                    <div class="rating">
-                                                        <span class="total-rating">4.5</span> <span
-                                                        class="fa fa-star"></span><span
-                                                        class="fa fa-star"></span><span
-                                                        class="fa fa-star"></span><span
-                                                        class="fa fa-star"></span><span class="fa fa-star"></span>&ensp;
-                                                        256 Reviews
+
+                                                <div class="row" style="margin:0px 10px 30px;">
+                                                    <div class=" col-md-4">
+                                                        <div
+                                                            class="udlite-heading-xxxl review-summary-widget--average-number--2Q0bz">
+                                                            {{training.rating_details.average}}
+                                                        </div>
+                                                        <p class="review-summary-widget--average-rating-text--2BT9O">
+                                                            <rating-stars system="5"
+                                                                          :rating="training.rating_details.average"></rating-stars>
+                                                            عدد المقيمين {{training.rating_details.sum}}
+                                                        </p>
                                                     </div>
-                                                    <div class="text">Phasellus enim magna, varius et commodo ut,
-                                                        ultricies vitae velit. Ut nulla tellus, eleifend euismod
-                                                        pellentesque vel, sagittis vel justo. In libero urna, venenatis
-                                                        sit amet ornare non, suscipit nec risus.
+
+                                                    <div class=" col-md-7 ">
+                                                        <div class="row" v-for="i in reverseKeys(5)">
+                                                            <div class="col-8">
+                                                                <div class="row progress md-progress"
+                                                                     style="height: 20px; margin-bottom: 10px; ">
+                                                                    <div class="progress-bar progress-bar-success"
+                                                                         role="progressbar"
+                                                                         :style="[{'width': valueWidth(i+1)+'%'}, {'height': '20px'}]"
+                                                                         :aria-valuenow="valueWidth(i+1)"
+                                                                         aria-valuemin="0" aria-valuemax="100">
+                                                                        {{valueWidth(i+1)}} %
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <rating-stars system="5" :rating="i+1"></rating-stars>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
-                                                    <div class="helpful">Was this review helpful?</div>
-                                                    <ul class="like-option">
-                                                        <li><span class="icon fa fa-thumbs-o-up"></span></li>
-                                                        <li><span class="icon fa fa-thumbs-o-down"></span></li>
-                                                        <span class="report">Report</span>
-                                                    </ul>
+                                                    <hr>
                                                 </div>
 
-                                                <div class="cource-review-box">
-                                                    <h4>Anna Sthesia</h4>
-                                                    <div class="rating">
-                                                        <span class="total-rating">4.5</span> <span
-                                                        class="fa fa-star"></span><span
-                                                        class="fa fa-star"></span><span
-                                                        class="fa fa-star"></span><span
-                                                        class="fa fa-star"></span><span class="fa fa-star"></span>&ensp;
-                                                        256 Reviews
-                                                    </div>
-                                                    <div class="text">Phasellus enim magna, varius et commodo ut,
-                                                        ultricies vitae velit. Ut nulla tellus, eleifend euismod
-                                                        pellentesque vel, sagittis vel justo. In libero urna, venenatis
-                                                        sit amet ornare non, suscipit nec risus.
-                                                    </div>
-                                                    <div class="helpful">Was this review helpful?</div>
-                                                    <ul class="like-option">
-                                                        <li><span class="icon fa fa-thumbs-o-up"></span></li>
-                                                        <li><span class="icon fa fa-thumbs-o-down"></span></li>
-                                                        <span class="report">Report</span>
-                                                    </ul>
+                                                <div class="row new_rating_dev " v-show="show_new_rateForm">
+                                                    <fieldset class="the-fieldset new_rating_dev"
+                                                              style="border: 1px solid #e0e0e0; padding: 10px;">
+                                                        <legend class="the-legend"> اضافة تقييم</legend>
+                                                        <rating-stars2 font_size='3' v-on:change="change_new_rating_val"
+                                                                       :value="newRating.rating"></rating-stars2>
+                                                        <div class="form-group" style="width: 100%">
+                                                            <fieldset class="the-fieldset">
+                                                                <legend class="the-legend">نص التقييم</legend>
+                                                                <textarea style="width: 100%" rows="4" class=""
+                                                                          v-model="newRating.message"></textarea>
+                                                            </fieldset>
+                                                        </div>
+                                                        <button class="btn btn-primary" @click="rating()">حفظ التقييم
+                                                        </button>
+                                                        <button class="btn btn-warning" @click="edit_rate=false"
+                                                                v-show="training.is_rating!=null"> الغاء
+                                                        </button>
+                                                    </fieldset>
                                                 </div>
 
-                                                <div class="cource-review-box">
-                                                    <h4>Petey Cruiser</h4>
+                                                <div v-if="showOldRating"
+                                                     class="cource-review-box">
+                                                    <div style="width: 100%; display: inline-block;">
+                                                        <div
+                                                            :class="['dropdown', 'pull-left',{'show':(is_active_dropdown)}]">
+                                                            <button type="button"
+                                                                    @click="is_active_dropdown=!is_active_dropdown"
+                                                                    class="btn btn-defaulty dropdown-toggle"
+                                                                    data-toggle="dropdown">
+                                                                <span style="font-size: 17px">...</span>
+                                                            </button>
+                                                            <div class="dropdown-menu"
+                                                                 :class="['dropdown-menu',{'dropdown_animation':(is_active_dropdown)},{'show':(is_active_dropdown)}]">
+                                                                <a class="dropdown-item" href="#"
+                                                                   @click.prevent="edit_rating()">تعديل</a>
+                                                                <a class="dropdown-item" href="#"
+                                                                   @click.prevent="deleteRating()"> حذف </a>
+
+                                                            </div>
+                                                        </div>
+                                                        <h4 class="pull-right">
+                                                            {{training.is_rating.user_rater.name}} </h4>
+                                                    </div>
                                                     <div class="rating">
-                                                        <span class="total-rating">4.5</span> <span
-                                                        class="fa fa-star"></span><span
-                                                        class="fa fa-star"></span><span
-                                                        class="fa fa-star"></span><span
-                                                        class="fa fa-star"></span><span class="fa fa-star"></span>&ensp;
-                                                        256 Reviews
+                                                        <rating-stars :rating="training.is_rating.rating" system="5">
+                                                            <span slot="after"> {{training.is_rating.published}}</span>
+                                                        </rating-stars>
                                                     </div>
-                                                    <div class="text">Phasellus enim magna, varius et commodo ut,
-                                                        ultricies vitae velit. Ut nulla tellus, eleifend euismod
-                                                        pellentesque vel, sagittis vel justo. In libero urna, venenatis
-                                                        sit amet ornare non, suscipit nec risus.
-                                                    </div>
-                                                    <div class="helpful">Was this review helpful?</div>
-                                                    <ul class="like-option">
-                                                        <li><span class="icon fa fa-thumbs-o-up"></span></li>
-                                                        <li><span class="icon fa fa-thumbs-o-down"></span></li>
-                                                        <span class="report">Report</span>
-                                                    </ul>
+                                                    <div class="text">{{training.is_rating.message}}</div>
+                                                    <hr>
                                                 </div>
 
-                                                <div class="cource-review-box">
-                                                    <h4>Rick O'Shea</h4>
-                                                    <div class="rating">
-                                                        <span class="total-rating">4.5</span> <span
-                                                        class="fa fa-star"></span><span
-                                                        class="fa fa-star"></span><span
-                                                        class="fa fa-star"></span><span
-                                                        class="fa fa-star"></span><span class="fa fa-star"></span>&ensp;
-                                                        256 Reviews
-                                                    </div>
-                                                    <div class="text">Phasellus enim magna, varius et commodo ut,
-                                                        ultricies vitae velit. Ut nulla tellus, eleifend euismod
-                                                        pellentesque vel, sagittis vel justo. In libero urna, venenatis
-                                                        sit amet ornare non, suscipit nec risus.
-                                                    </div>
-                                                    <div class="helpful">Was this review helpful?</div>
-                                                    <ul class="like-option">
-                                                        <li><span class="icon fa fa-thumbs-o-up"></span></li>
-                                                        <li><span class="icon fa fa-thumbs-o-down"></span></li>
-                                                        <span class="report">Report</span>
-                                                    </ul>
 
-                                                    <a href="#" class="more">View More</a>
+                                                <div v-for="rating in training.ratings" class="cource-review-box">
+                                                    <h4>{{rating.user_rater.name}} </h4>
+                                                    <div class="rating">
+                                                        <rating-stars :rating="rating.rating" system="5">
+                                                            <span slot="after"> {{rating.published}}</span>
+                                                        </rating-stars>
+                                                    </div>
+                                                    <div class="text">{{rating.message}}</div>
+                                                    <hr>
                                                 </div>
+
 
                                             </div>
                                         </div>
@@ -315,45 +329,86 @@
 </template>
 
 <script>
-    // import question from './Question.vue';
+    import RatingStars from './RatingStars.vue';
     import axios from "axios";
     import Loading from 'vue-loading-overlay';
     // Import stylesheet
     import 'vue-loading-overlay/dist/vue-loading.css';
+    import RatingStars2 from "./RatingStars2";
 
     export default {
         props: ['items'],
         // components: {question},
-        components: {Loading},
+        components: {RatingStars2, Loading, RatingStars},
 
         data() {
             return {
                 isLoading: false,
+                edit_rate: false,
                 fullPage: true,
+                is_active_dropdown: false,
                 training: {
                     "id": 0,
                     "category_id": 0,
                     "name": "",
                     "description": "",
-                    "certificate": "",
-                    "mark": "",
-                    "type": "",
-                    "length": "",
-                    "start_at": "",
-                    "end_at": "",
-                    "thumbnail": "",
-                    "published": "",
+                    "learn": "",
+                    "instructor": null,
+                    "has_certificate": 0,
+                    "mark": 0,
+                    "type": " ",
+                    "length": " ",
+                    "start_at": " ",
+                    "end_at": " ",
+                    "thumbnail": " ",
+                    "deleted_at": null,
+                    "published": " ",
+                    "can_register": 1,
+                    "average_rating": 5,
+                    "count_rating": 1,
+                    "percent_rating": 100,
+                    "is_like": null,
+                    "ratings": [
+                        {
+                            "id": 2,
+                            "rateable_type": "",
+                            "rateable_id": 0,
+                            "rating": 0,
+                            "message": "",
+                            "user_id": 0,
+                            "created_at": "",
+                            "updated_at": "",
+                            "published": " ",
+                            "user_rater": {
+                                "id": 0,
+                                "name": " ",
+                                "type": "",
+                                "published": ""
+                            }
+                        }
+                    ],
+                    "is_rating": null,
                     "result": null,
-                    "category": {
+                    "is_register": {
                         "id": 0,
-                        "name": " "
+                        "user_id": 0,
+                        "training_id": 0,
+                        "status": 0,
+                        "created_at": "",
+                        "updated_at": "",
+                        "published": ""
                     },
-                    "is_register": null,
                     "titles": []
                 },
+                newRating:
+                    {
+                        course_id: 0,
+                        rating: 1,
+                        message: '',
+                    },
                 activeContent: {
                     "id": 0,
-                    "is_complete":false,
+                    "is_complete": false,
                     "title": "",
                     "body": "",
                     "image": "",
@@ -378,41 +433,95 @@
         },
         created() {
             this.course_id = this.$route.params.id
+            this.newRating.course_id = this.$route.params.id
             this.fetchTraining();
         },
         computed: {
             contentDeatail() {
                 return this.activeContent;
             },
-            contentCompleted(content,content_key,title_key) {
+            show_new_rateForm() {
+                return (this.training.is_rating == null || this.edit_rate == true);
+            },
+            showOldRating() {
+                // return false;
+                return (this.training.is_rating != null && this.edit_rate==false);
+            },
+
+            contentCompleted(content, content_key, title_key) {
                 return this.training.titles[title_key].contents[content_key].is_complete;
 
             },
 
-        },
+        }
+        ,
         methods: {
+            valueWidth(i) {
+                switch (i) {
+                    case 1:
+                        return this.training.rating_details.one;
+                        break;
+                    case 2:
+                        return this.training.rating_details.tow;
+                        break;
+                    case 3:
+                        return this.training.rating_details.three;
+                        break;
+                    case 4:
+                        return this.training.rating_details.four;
+                        break;
+                    case 5:
+                        return this.training.rating_details.five;
+                        break;
+
+                }
+                return this.tr;
+            }
+            ,
+            change_new_rating_val: function (newVal) {
+                this.newRating.rating = newVal;
+            }
+            ,
+
             onToggle(index) {
                 if (this.activeIndex == index) {
                     return (this.activeIndex = null);
                 }
                 this.activeIndex = index;
-            },
-            showContent(content,content_key,title_key) {
+            }
+            ,
+            showContent(content, content_key, title_key) {
 
                 this.activeContent = content;
                 this.activeContent_key = content_key;
                 this.activeContent_title_key = title_key;
                 this.$refs.modal.open();
-            },
+            }
+            ,
             openModal() {
                 this.$refs.modal.open();
-            },
+            }
+            ,
             changeActive(index) {
                 this.activeTap = index;
-            },
+            }
+            ,
             change_active_lession(index) {
                 this.active_lession = index;
-            },
+            }
+            ,
+            reverseKeys(n) {
+                return [...Array(n).keys()].slice().reverse()
+            }
+            ,
+            edit_rating() {
+                this.is_active_dropdown = false;
+                this.edit_rate = true;
+                this.newRating.rating = this.training.is_rating.rating;
+                this.newRating.message = this.training.is_rating.message;
+
+            }
+            ,
             fetchTraining() {
                 this.isLoading = true;
                 axios({url: '/api/getTrainingDetails', data: {id: this.course_id}, method: 'POST'})
@@ -444,7 +553,8 @@
                 //         this.training = res.Trainings;
                 //     })
                 //     .catch(err => console.log(err));
-            },
+            }
+            ,
 
             completeContent() {
                 axios({url: '/api/complete_content', data: {id: this.activeContent.id}, method: 'POST'})
@@ -452,17 +562,8 @@
                         if (resp.data.status == false) {
                             toastStack('   خطاء ', resp.data.msg, 'error');
                         } else {
-                            console.log(resp.data);
-                            console.log(this.training);
-                            console.log(this.training.titles);
-                            console.log(this.active_title_complete);
-                            console.log(this.activeContent_key);
-                            console.log(this.activeContent_key);
-                            console.log(  this.training.titles[this.active_title_complete]);
-                            console.log(  this.training.titles[this.active_title_complete].contents[this.activeContent_key]);
-                            // this.active_title_complete = resp.data.title_complete;
-                            this.training.titles[this.activeContent_title_key].contents[this.activeContent_key].is_complete= true;
-                            this.training.titles[this.activeContent_title_key].is_complete= resp.data.title_complete;
+                            this.training.titles[this.activeContent_title_key].contents[this.activeContent_key].is_complete = true;
+                            this.training.titles[this.activeContent_title_key].is_complete = resp.data.title_complete;
                             this.$refs.modal.close();
                         }
                         this.isLoading = false;
@@ -471,31 +572,76 @@
                         this.isLoading = false;
                         console.log(err)
                     })
-                // fetch('/api/ShowTrainings2', {
-                //     method: 'post',
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //         // 'Authorization': 'Bearer my-token',
-                //         // 'My-Custom-Header': 'foobar'
-                //     },
-                //     body: JSON.stringify({id: this.course_id, title: 'Vue POST Request Example'})
-                // })
-                //     .then(res => res.json())
-                //     .then(res => {
-                //         this.training = res.Trainings;
-                //     })
-                //     .catch(err => console.log(err));
-            },
+            }
+            ,
+
+            rating() {
+                this.isLoading = true;
+                axios({url: '/api/training/rate', data: this.newRating, method: 'POST'})
+                    .then(resp => {
+                        if (resp.data.status == false) {
+                            toastStack('   خطاء ', resp.data.msg, 'error');
+                        } else {
+                            toastStack(resp.data.msg, '', 'success');
+
+                            this.training.is_rating = resp.data.data;
+                            this.edit_rate = false;
+
+                        }
+                        this.isLoading = false;
+                    })
+                    .catch(err => {
+                        this.isLoading = false;
+                        console.log(err)
+                    })
+            }
+            ,
+
+            deleteRating() {
+                this.isLoading = true;
+                axios({url: '/api/training/delete_rate', data: {id: this.training.is_rating.id}, method: 'POST'})
+                    .then(resp => {
+                        if (resp.data.status == false) {
+                            toastStack('   خطاء ', resp.data.msg, 'error');
+                        } else {
+                            toastStack(resp.data.msg, '', 'success');
+                            if (resp.data.data == 1) {
+                                this.training.is_rating = null;
+                                this.edit_rate = true;
+                            }
+
+
+                        }
+                        this.isLoading = false;
+                    })
+                    .catch(err => {
+                        this.isLoading = false;
+                        console.log(err)
+                    })
+            }
+            ,
 
             onCancel() {
                 console.log('User cancelled the loader.')
             }
 
-        },
+        }
+        ,
         mounted() {
             console.log('Component mounted.')
-        },
+        }
+        ,
 
 
     }
 </script>
+
+<style>
+    .dropdown_animation {
+        position: absolute;
+        transform: translate3d(0px, 38px, 0px);
+        top: 0px;
+        left: 0px;
+        will-change: transform;
+    }
+</style>

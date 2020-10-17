@@ -2,6 +2,7 @@
 
 use App\Customer;
 use App\User;
+use Carbon\Carbon;
 use Config;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,7 +23,20 @@ class Rating extends Model
      * @var array
      */
     public $fillable = ['rating', 'message'];
+    protected $appends = ['published'];
+    protected $with=['userRater:id,name,type,created_at'];
 
+    public function getPublishedAttribute()
+    {
+        return Carbon::createFromTimestamp(strtotime($this->attributes['created_at']))->diffForHumans();
+    }
+//    public function getUserNameAttribute()
+//    {
+//        $user= $this->userRater;
+//        $name=$user->name;
+////        ->name;
+//        return$name;
+//    }
     /**
      * @return mixed
      */

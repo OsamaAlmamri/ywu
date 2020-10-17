@@ -11,12 +11,11 @@
                  :on-cancel="onCancel()"
                  :is-full-page="fullPage">
         </loading>
-
         <div class="add_post_button" @click="openNewPostModal()"
              style="display: block;">
             <span class="fa fa-comment" v-show="authUser"></span>
         </div>
-        <sweet-modal  :title="'اضافة استشارة جديدة '"
+        <sweet-modal :title="'اضافة استشارة جديدة'"
                      :blocking=true :enable-mobile-fullscreen=true
                      :pulse-on-block=true
                      :overlay-theme="'dark'" ref="modal">
@@ -25,14 +24,14 @@
                 <div class="form-group" style="width: 100%">
                     <fieldset class="the-fieldset">
                         <legend class="the-legend">عنوان الاستشارة *</legend>
-                        <input style="width: 100%" type="text" v-model="newPostData.title"  required="">
+                        <input style="width: 100%" type="text" v-model="newPostData.title" required="">
                     </fieldset>
                 </div>
 
                 <div class="form-group" style="width: 100%">
                     <fieldset class="the-fieldset">
-                        <legend class="the-legend">نص الاستشارة </legend>
-                        <textarea style="width: 100%" rows="4" class="" v-model="newPostData.body" ></textarea>
+                        <legend class="the-legend">نص الاستشارة</legend>
+                        <textarea style="width: 100%" rows="4" class="" v-model="newPostData.body"></textarea>
                     </fieldset>
                 </div>
                 <h5>نوع الاستشارة </h5>
@@ -215,7 +214,7 @@
                 console.log('User cancelled the loader.')
             },
             changeCategoryType(key) {
-                this.newPostData.category_id=key;
+                this.newPostData.category_id = key;
             },
             openNewPostModal() {
                 this.$refs.modal.open();

@@ -70,7 +70,10 @@ class TrainingController extends Controller
     public function getTrainingDetails(Request $request)
     {
         try {
-            $Training = Training::with(['ratings', 'result', 'is_register', 'titles' => function ($q) {
+            $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
+            $Training = Training::with(['ratings' => function ($q) use ($user_id) {
+                $q->where('user_id', '!=', $user_id);
+            }, 'is_rating', 'result', 'is_register', 'titles' => function ($q) {
                 $q->with(['contents']);
             }])
                 ->where('id', $request->id)->get()->first();
@@ -404,9 +407,13 @@ class TrainingController extends Controller
             $oldRating = Rating::all()
                 ->where('rateable_id', $request->course_id)
                 ->where('user_id', auth()->id())
-                ->where('rateable_type', $rateable_type)->count();
-            if ($oldRating > 0) {
-                return $this->ReturnErorrRespons('0000', 'لايمكن التقييم لاكثر من مرة');
+                ->where('rateable_type', $rateable_type)->first();
+            if ($oldRating != null) {
+                $oldRating->update([
+                    'rating' => $request->rating,
+                    'message' => $request->message,
+                ]);
+                return $this->GetDateResponse("data", $oldRating, 'تم تعديل التقييم بنجاح');
             } else {
                 $rating = new Rating();
                 $rating->rating = $request->rating;
@@ -414,8 +421,35 @@ class TrainingController extends Controller
 //                $rating->rateable_id = $request->course_id;
                 $rating->user_id = auth()->id();
                 $training->ratings()->save($rating);
-                return $this->ReturnSuccessRespons("200", "تم التقييم بنجاح  ");
+                $oldRating = Rating::find($rating->id);
+                return $this->GetDateResponse("data", $oldRating, "تم التقييم بنجاح  ");
             }
+        } catch (Exception $ex) {
+            return $this->ReturnErorrRespons('0000', $ex->getMessage());
+
+        }
+
+
+    }
+
+    function delete_rate(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(),
+                [
+                    'id' => 'required|numeric',
+
+                ]);
+            if ($validator->fails()) {
+                return $this->ReturnErorrRespons('0000', $validator->errors());
+            }
+            $oldRating = Rating::where('id', $request->id)
+                ->where('user_id', \auth()->id());
+            $is_deleted = 0;
+            if ($oldRating != null) {
+                $is_deleted=  $oldRating->delete();
+            }
+            return $this->GetDateResponse("data", $is_deleted, 'تم حذف التقييم بنجاح');
 
         } catch (Exception $ex) {
             return $this->ReturnErorrRespons('0000', $ex->getMessage());
