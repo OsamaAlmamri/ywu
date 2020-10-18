@@ -28,7 +28,7 @@ class Training extends Model
 
 
     protected $appends = ['published', 'can_register',
-        'average_rating', 'count_rating', 'percent_rating','rating_details'];
+        'average_rating', 'count_rating', 'percent_rating', 'rating_details'];
 
     public function getPublishedAttribute()
     {
@@ -43,13 +43,13 @@ class Training extends Model
     function getRatingDetailsAttribute()
     {
         return array(
-            'one'=> round($this->oneRating(), 1),
-            'tow'=> round($this->towRating(), 1),
-            'three'=> round($this->threeRating(), 1),
-            'four'=> round($this->fourRating(), 1),
-            'five'=> round($this->fiveRating(), 1),
-            'sum'=>$this->countRating(),
-            'average'=> round($this->averageRating(), 1),
+            'one' => round($this->oneRating(), 1),
+            'tow' => round($this->towRating(), 1),
+            'three' => round($this->threeRating(), 1),
+            'four' => round($this->fourRating(), 1),
+            'five' => round($this->fiveRating(), 1),
+            'sum' => $this->countRating(),
+            'average' => round($this->averageRating(), 1),
         );
     }
 
@@ -97,6 +97,19 @@ class Training extends Model
     public function subject()
     {
         return $this->belongsTo(Subject::class, 'subject_id', 'id');
+    }
+
+    function getUserCompleteAttribute()
+    {
+        $complete = $this->user_titile()->count();
+        $titles = $this->titles()->count();
+//
+        return array(
+            'is_complete' => $complete >= $titles,
+            'complete'=>$complete ,
+            'titles'=> $titles
+        );
+
     }
 
     public function category()
@@ -157,12 +170,26 @@ class Training extends Model
             ->where('type', 'training')
             ->where('user_id', $user_id);
     }
+
     public function is_rating()
     {
         $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
         return $this->hasOne(Rating::class, 'rateable_id', 'id')
             ->where('rateable_type', Training::class)
             ->where('user_id', $user_id);
+    }
+
+
+    public function user_titile()
+    {
+        $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
+        return $this->hasMany(TrainingTitle::class, 'training_id', 'id')
+            ->whereIn('id', function ($query) use ($user_id){
+                $query->select('title_id')
+                    ->from(with(new UserTrainingTiltle())->getTable())
+                    ->where('user_id', $user_id)
+                    ->where('content_id', 0);
+            });
     }
 
 }

@@ -13,6 +13,7 @@ Vue.component('toast-success', require('./components/ToastSuccess.vue').default)
 Vue.component('toast-error', require('./components/ToastError.vue').default);
 Vue.component('toast-stack', require('./components/ToastStack.vue').default);
 Vue.component('recent-posts', require('./components/RecentPosts.vue').default);
+Vue.component('dropdown', require('./components/dropdown.vue').default);
 
 import Axios from 'axios'
 

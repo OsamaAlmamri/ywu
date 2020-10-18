@@ -14,7 +14,7 @@ class TrainingTitle extends Model
     protected $table = 'training_titles';
     protected $guarded = [];
 
-    protected $appends = ['published','is_complete'];
+    protected $appends = ['published', 'is_complete'];
 
     public function getPublishedAttribute()
     {
@@ -35,7 +35,8 @@ class TrainingTitle extends Model
         $complete = $this->user_contents()->count();
         $titles = $this->contents()->count();
 //        return $complete;
-        return ($complete >= $titles);
+        return (($complete >= $titles) and $complete > 0);
+//        return ($complete >= $titles);
 
     }
 

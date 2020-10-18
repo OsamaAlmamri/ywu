@@ -76,7 +76,7 @@ class TrainingController extends Controller
             }, 'is_rating', 'result', 'is_register', 'titles' => function ($q) {
                 $q->with(['contents']);
             }])
-                ->where('id', $request->id)->get()->first();
+                ->where('id', $request->id)->get()->first()->append('user_complete');
             if (!$Training) {
                 return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
             } else {
@@ -207,9 +207,9 @@ class TrainingController extends Controller
         try {
 
             $user_content = UserTrainingTiltle::where('content_id', $request->id)
+                ->where('user_id', auth()->id())
                 ->get()->count();
             $content = TitleContent::find($request->id);
-
             if ($user_content == 0 and $content != null) {
                 UserTrainingTiltle::create(
                     ['user_id' => auth()->id(),
@@ -225,21 +225,25 @@ class TrainingController extends Controller
 //                return $this->GetDateResponse('data',  $content->title_C);
                 $countTiltiles = $content->title_C->contents->count();
                 $progress = $content->title_C->user_contents->count();
+
                 $user_title = UserTrainingTiltle::where('title_id', $content->title_C->id)
-                    ->where('content_id', 0)->get();
+                    ->where('user_id', auth()->id())
+                    ->where('content_id', 0)->get()->first();
                 if ($progress >= $countTiltiles) {
                     $completeTitile = 1;
-                    if ($user_title == null)
+                    if ($user_title == null) {
                         UserTrainingTiltle::create(
                             ['user_id' => auth()->id(),
                                 'content_id' => 0,
                                 'title_id' => $content->title_C->id,
                             ]);
+
+                    }
                 } else {
                     if ($user_title) {
-//                        $user_title->delete();
+                        $user_title->delete();
+                        $user_title->save();
                         $completeTitile = 0;
-//                        $user_title->save();
                     }
                 }
             }
@@ -253,8 +257,8 @@ class TrainingController extends Controller
     public function set_result(Request $request)
     {
         try {
-            Result::create(['user_id' => auth()->id(), 'grade' => $request->grade, 'training_id' => $request->training_id]);
-            return $this->GetDateResponse('data', "تم الحفظ");
+         $r=   Result::create(['user_id' => auth()->id(), 'grade' => $request->grade, 'training_id' => $request->training_id]);
+            return $this->GetDateResponse('data', $r,"تم حفظ نتيجتك بنجاح ");
         } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
         }
@@ -447,7 +451,7 @@ class TrainingController extends Controller
                 ->where('user_id', \auth()->id());
             $is_deleted = 0;
             if ($oldRating != null) {
-                $is_deleted=  $oldRating->delete();
+                $is_deleted = $oldRating->delete();
             }
             return $this->GetDateResponse("data", $is_deleted, 'تم حذف التقييم بنجاح');
 

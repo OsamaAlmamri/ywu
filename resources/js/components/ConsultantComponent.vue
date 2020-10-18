@@ -54,7 +54,7 @@
 
             </div>
             <sweet-button slot="button">
-                <button class="btn btn-info" @click.prevent="savePost()">تم</button>
+                <button class="btn btn-info" @click.prevent="(edit==false)?savePost():updatePost()">تم</button>
             </sweet-button>
 
         </sweet-modal>
@@ -87,9 +87,13 @@
 
                         <div class="row clearfix">
                             <div class="cource-block-two  col-sm-12 col-xs-12"
-                                 v-for="post in posts">
+                                 v-for="(post,key) in posts">
                                 <consultant-item
+                                    v-on:edit_post="edit_post"
+                                    v-on:delete_post="delete_post"
+                                    :key="key"
                                     :post="post"
+
                                     @toggled="onToggle"
                                 ></consultant-item>
                             </div>
@@ -143,12 +147,13 @@
         data() {
             return {
                 newPostData: {
+                    'id': 0,
                     'title': '',
                     'body': '',
                     'category_id': '1',
                 },
-
                 isLoading: false,
+                active_post: 0,
                 fullPage: false,
                 activeIndex: null,
                 posts: [],
@@ -175,6 +180,37 @@
                     return (this.activeIndex = null);
                 }
                 this.activeIndex = index;
+            },
+            deleteRating() {
+                this.isLoading = true;
+                axios({url: '/api/training/delete_rate', data: {id: this.training.is_rating.id}, method: 'POST'})
+                    .then(resp => {
+                        if (resp.data.status == false) {
+                            toastStack('   خطاء ', resp.data.msg, 'error');
+                        } else {
+                            toastStack(resp.data.msg, '', 'success');
+                            if (resp.data.data == 1) {
+                                this.training.is_rating = null;
+                                this.edit_rate = true;
+                            }
+
+
+                        }
+                        this.isLoading = false;
+                    })
+                    .catch(err => {
+                        this.isLoading = false;
+                        console.log(err)
+                    })
+            }, edit_post(key) {
+                this.edit = true;
+                console.log(this.posts[key]);
+                this.active_post = key;
+                this.newPostData.title = this.posts[key].title;
+                this.newPostData.id = this.posts[key].id;
+                this.newPostData.body = this.posts[key].body;
+                this.newPostData.category_id = this.posts[key].category_id;
+                this.$refs.modal.open();
             },
             fetchArticles() {
                 this.isLoading = true;
@@ -217,6 +253,13 @@
                 this.newPostData.category_id = key;
             },
             openNewPostModal() {
+                this.edit = false;
+                this.newPostData = {
+                    'id': 0,
+                    'title': '',
+                    'body': '',
+                    'category_id': '1',
+                };
                 this.$refs.modal.open();
             },
             savePost() {
@@ -235,7 +278,7 @@
                                     'body': '',
                                     'category_id': '1',
                                 }
-                                this.$refs.modal.open();
+                                this.$refs.modal.close();
                             }
                         })
                         .catch(err => {
@@ -246,6 +289,47 @@
                 }
                 this.$emit('click', this.$vnode.key)
             },
+            updatePost() {
+                if (localStorage.token) {
+                    this.isLoading = true;
+                    axios({url: '/api/update_post_web', data: this.newPostData, method: 'POST'})
+                        .then(resp => {
+                            this.isLoading = false;
+                            if (resp.data.status == false) {
+                                toastStack('   خطاء ', resp.data.msg, 'error');
+                            } else {
+                                this.posts[this.active_post] = (resp.data.data);
+                                toastStack(resp.data.msg, '', 'success');
+                                this.$refs.modal.close();
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                } else {
+                    toastStack('   خطاء ', 'يجب تسجيل الدخول اولا', 'error');
+                }
+                this.$emit('click', this.$vnode.key)
+            },
+            delete_post(key) {
+                this.isLoading = true;
+               var id = this.posts[key].id;
+                axios({url: '/api/DePost/'+id, data: {id: this.id}, method: 'POST'})
+                    .then(resp => {
+                        if (resp.data.status == false) {
+                            toastStack('   خطاء ', resp.data.msg, 'error');
+                        } else {
+                            this.posts.splice(key, 1);
+                            toastStack(resp.data.msg, '', 'success');
+                        }
+                        this.isLoading = false;
+                    })
+                    .catch(err => {
+                        this.isLoading = false;
+                        console.log(err)
+                    })
+            },
+
 
         },
         mounted() {

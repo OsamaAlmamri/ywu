@@ -39,6 +39,7 @@ export default new Vuex.Store({
                         if (resp.data.status == false) {
                             commit('auth_error');
                             toastStack('   خطاء ', resp.data.msg, 'error');
+                            reject(err)
                         } else {
                             const token = resp.data.data.token
                             const user = JSON.stringify(resp.data.data.userData)

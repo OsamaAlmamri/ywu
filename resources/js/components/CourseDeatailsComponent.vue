@@ -59,8 +59,13 @@
                                             :class="['tab-btn', {'active-btn':(activeTap=='prod-reviews')}]">التقييمات
 
                                         </li>
-                                        <li data-tab="#mcq_tap" @click="changeActive('mcq_tap')" id="mcq_tap_open"
+                                        <li v-if="calculateProgress=='100' && training.result==null " data-tab="#mcq_tap"
+                                            @click="changeActive('mcq_tap')" id="mcq_tap_open"
                                             :class="['tab-btn', {'active-btn':(activeTap=='mcq_tap')}]">الاختبار
+                                        </li>
+                                        <li v-if="training.result!=null"
+                                            @click="changeActive('result')"
+                                            :class="['tab-btn', {'active-btn':(activeTap=='result')}]">نتيجتي
                                         </li>
                                     </ul>
 
@@ -159,7 +164,17 @@
                                         <!-- Tab -->
                                         <div :class="['tab', {'active-tab':(activeTap=='mcq_tap')}]" id="mcq_tap">
                                             <div class="content">
-                                                <course-questions></course-questions>
+                                                <course-questions v-on:set_result="set_my_result"></course-questions>
+
+                                            </div>
+                                        </div>
+
+
+                                        <!-- Tab -->
+                                        <div :class="['tab', {'active-tab':(activeTap=='result')}]">
+                                            <div class="content" v-if="training.result!=null">
+                                                <h3>نتيجتك بهذا المادة التدريبية هي </h3>
+                                                <h2>{{training.result.grade}}</h2>
 
                                             </div>
                                         </div>
@@ -231,23 +246,29 @@
                                                 <div v-if="showOldRating"
                                                      class="cource-review-box">
                                                     <div style="width: 100%; display: inline-block;">
-                                                        <div
-                                                            :class="['dropdown', 'pull-left',{'show':(is_active_dropdown)}]">
-                                                            <button type="button"
-                                                                    @click="is_active_dropdown=!is_active_dropdown"
-                                                                    class="btn btn-defaulty dropdown-toggle"
-                                                                    data-toggle="dropdown">
-                                                                <span style="font-size: 17px">...</span>
-                                                            </button>
-                                                            <div class="dropdown-menu"
-                                                                 :class="['dropdown-menu',{'dropdown_animation':(is_active_dropdown)},{'show':(is_active_dropdown)}]">
+
+                                                        <dropdown>
+                                                            <div slot="items">
                                                                 <a class="dropdown-item" href="#"
                                                                    @click.prevent="edit_rating()">تعديل</a>
                                                                 <a class="dropdown-item" href="#"
                                                                    @click.prevent="deleteRating()"> حذف </a>
-
                                                             </div>
-                                                        </div>
+                                                        </dropdown>
+                                                        <!--                                                        <div-->
+                                                        <!--                                                            :class="['dropdown', 'pull-left',{'show':(is_active_dropdown)}]">-->
+                                                        <!--                                                            <button type="button"-->
+                                                        <!--                                                                    @click="is_active_dropdown=!is_active_dropdown"-->
+                                                        <!--                                                                    class="btn btn-defaulty dropdown-toggle"-->
+                                                        <!--                                                                    data-toggle="dropdown">-->
+                                                        <!--                                                                <span style="font-size: 17px">...</span>-->
+                                                        <!--                                                            </button>-->
+                                                        <!--                                                            <div class="dropdown-menu"-->
+                                                        <!--                                                                 :class="['dropdown-menu',{'dropdown_animation':(is_active_dropdown)},{'show':(is_active_dropdown)}]">-->
+                                                        <!--                                                              -->
+
+                                                        <!--                                                            </div>-->
+                                                        <!--                                                        </div>-->
                                                         <h4 class="pull-right">
                                                             {{training.is_rating.user_rater.name}} </h4>
                                                     </div>
@@ -315,6 +336,18 @@
                                class="theme-btn btn-style-three"><span
                                 class="txt">اضافة للمفضلة  <i
                                 class="fa fa-angle-left"></i></span></a>
+                            <div>
+                                <h4> التقدم بالدورة</h4>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success"
+                                         role="progressbar"
+                                         :style="[{'width': calculateProgress+'%'}, {'height': '20px'}]"
+                                         :aria-valuenow="calculateProgress"
+                                         aria-valuemin="0" aria-valuemax="100">{{calculateProgress}}%
+                                    </div>
+                                </div>
+                            </div>
+
                             <a href="#" v-show="training.is_register==null" class="theme-btn btn-style-two"><span
                                 class="txt">التسجيل بالدورة  <i
                                 class="fa fa-angle-left"></i></span></a>
@@ -368,6 +401,11 @@
                     "count_rating": 1,
                     "percent_rating": 100,
                     "is_like": null,
+                    "user_complete": {
+                        "is_complete": false,
+                        "complete": 3,
+                        "titles": 7
+                    },
                     "ratings": [
                         {
                             "id": 2,
@@ -440,12 +478,24 @@
             contentDeatail() {
                 return this.activeContent;
             },
+            calculateProgress() {
+                let titles = this.training.user_complete.titles;
+                let trainings = 0;
+
+                for (var i = 0; i < this.training.titles.length; i++) {
+                    if (this.training.titles[i].is_complete) {
+                        trainings++;
+                    }
+                }
+                var p = (trainings / ((titles > 0) ? titles : 1)) * 100;
+                return (p.toFixed(0));
+            },
             show_new_rateForm() {
                 return (this.training.is_rating == null || this.edit_rate == true);
             },
             showOldRating() {
                 // return false;
-                return (this.training.is_rating != null && this.edit_rate==false);
+                return (this.training.is_rating != null && this.edit_rate == false);
             },
 
             contentCompleted(content, content_key, title_key) {
@@ -520,8 +570,7 @@
                 this.newRating.rating = this.training.is_rating.rating;
                 this.newRating.message = this.training.is_rating.message;
 
-            }
-            ,
+            },
             fetchTraining() {
                 this.isLoading = true;
                 axios({url: '/api/getTrainingDetails', data: {id: this.course_id}, method: 'POST'})
@@ -610,6 +659,30 @@
                                 this.edit_rate = true;
                             }
 
+
+                        }
+                        this.isLoading = false;
+                    })
+                    .catch(err => {
+                        this.isLoading = false;
+                        console.log(err)
+                    })
+            },
+
+            set_my_result(grade) {
+                // this.isLoading = true;
+                axios({
+                    url: '/api/set_result',
+                    data: {grade: grade, training_id: this.training.id},
+                    method: 'POST'
+                })
+                    .then(resp => {
+                        if (resp.data.status == false) {
+                            toastStack('   خطاء ', resp.data.msg, 'error');
+                        } else {
+                            toastStack(resp.data.msg, '', 'success');
+                            this.training.result = resp.data.data;
+                            this.activeTap='result';
 
                         }
                         this.isLoading = false;

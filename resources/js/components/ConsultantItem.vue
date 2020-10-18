@@ -1,27 +1,43 @@
 <template>
     <div class="inner-box">
-        <div class="image">
-            <router-link  @click.native="$scrollToTop" :to="{ name: 'post_details', params: { id: post.id}}">
+        <div class="row">
+                <div class="col-xs-2 pull-right" style="margin: 20px 38px 0px 0px">
+                    <i class="fa fa-facebook-f"> </i>
+                </div>
+                <div class="col-xs-4 pull-right" style="margin: 15px 15px 0 0">
+                    <ul style="display: inline-block; list-style: none" class="">
+                        <li> {{post.category.name}}</li>
+                        <li>
+                            <i class="fa fa-clock-o"> </i>
+                            {{post.published}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col col-xs-5 " style="margin: 15px 0px  0 15px; text-align: end">
 
-                <div class="col-xs-6 pull-right" style="margin: 15px 15px 0 0"><i class="fa fa-facebook-f"> </i>
-                    {{post.category.name}}
+                    <dropdown v-if="authUser.id==post.user_id">
+                        <div slot="items">
+                            <a class="dropdown-item" href="#"
+                               @click.prevent="edit_rating()">تعديل</a>
+                            <a class="dropdown-item" href="#"
+                               @click.prevent="deleteRating()"> حذف </a>
+                        </div>
+                    </dropdown>
+
                 </div>
-                <div class="col-xs-6 pull-left" style="margin: 15px 0px  0 15px"><i class="fa fa-clock-o"> </i>
-                    {{post.published}}
-                </div>
-            </router-link>
+
         </div>
         <div class="lower-content" style="padding: 15px">
             <h5>
-                <router-link   @click.native="$scrollToTop" :to="{ name: 'post_details', params: { id: post.id}}">
+                <router-link @click.native="$scrollToTop" :to="{ name: 'post_details', params: { id: post.id}}">
                     {{post.title}}
                 </router-link>
             </h5>
 
             <div class="post-info" id="targetMore" v-html="textToDisplay">
             </div>
-            <span  @click="readmore=!readmore" v-if="post_words.isMore && !textMoreToShow">( عرض المزيد) </span>
-            <span  @click="readmore=!readmore"  v-if="post_words.isMore && (textMoreToShow)"> (عرض اقل)  </span>
+            <span @click="readmore=!readmore" v-if="post_words.isMore && !textMoreToShow">( عرض المزيد) </span>
+            <span @click="readmore=!readmore" v-if="post_words.isMore && (textMoreToShow)"> (عرض اقل)  </span>
             <hr></hr>
             <div class="clearfix">
                 <div class="pull-right" style="padding-right: 3em">
@@ -71,32 +87,55 @@
 
 <script>
     import LikeButton from './LikeButton.vue';
+    import axios from "axios";
+    import store from '../store'
 
     export default {
-        props: ['post'],
+
+        props: ['post','key'],
         components: {LikeButton},
         data() {
             return {
                 readmore: false,
                 bodyDisplay: '',
-                post_words:{
+                is_active_dropdown: false,
+                edit_post: false,
+                post_words: {
                     'words': 0,
-                    'newText':'',
-                    'isMore':false
+                    'newText': '',
+                    'isMore': false
                 }
             }
         },
         created() {
-            this.post_words =this.countWords(this.post.body,20) ;
+            this.post_words = this.countWords(this.post.body, 20);
         },
-        computed:{
-            textToDisplay:function()
-            {
-              return (this.readmore)? this.post_words.newText :this.post.body;
+        methods: {
+            deleteRating() {
+                this.$emit('delete_post', this.$vnode.key)
+
             },
-            textMoreToShow:function()
-            {
-              return (this.readmore);
+            edit_rating() {
+                this.is_active_dropdown = false;
+                this.edit_post = true;
+                // this.$emit('edit_post', this.post.id);
+                this.$emit('edit_post', this.$vnode.key)
+
+                // this.newRating.rating = this.training.is_rating.rating;
+                // this.newRating.message = this.training.is_rating.message;
+
+            },
+        },
+        computed: {
+            textToDisplay: function () {
+                return (this.readmore) ? this.post_words.newText : this.post.body;
+            },
+            authUser: function () {
+                return store.getters.authUser
+            },
+
+            textMoreToShow: function () {
+                return (this.readmore);
             }
 
         }

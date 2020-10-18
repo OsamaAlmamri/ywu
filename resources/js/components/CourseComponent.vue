@@ -94,7 +94,7 @@
             //     });
             // }
 
-            if (localStorage.token)
+            // if (localStorage.token)
                 this.fetchArticles();
         },
         methods: {

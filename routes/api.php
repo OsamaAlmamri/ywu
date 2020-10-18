@@ -78,6 +78,7 @@ Route::group(['middleware' => 'CheckAdminT:api'], function () {
     Route::post('StPost', 'Api\Users\PostController@store');
     Route::post('store_post', 'Api\Users\PostController@store_post');
     Route::post('UpPost/{id}', 'Api\Users\PostController@update');
+    Route::post('update_post_web', 'Api\Users\PostController@update_post_web');
     Route::post('DePost/{id}', 'Api\Users\PostController@destroy');
 
 ############## user Comments

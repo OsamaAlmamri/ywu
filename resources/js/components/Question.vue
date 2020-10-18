@@ -199,19 +199,27 @@
                         score = score + 1;
                     }
                 }
+                // this.$emit('set_result', score)
+
                 return score;
 
                 //return this.userResponses.filter(function(val) { return val }).length;
             }   ,
             endExam: function () {
-                this.questionIndex=this.questions.length;
+                var all=this.questions.length
+                this.questionIndex=all;
                 var score = 0;
                 for (let i = 0; i < this.userResponses.length; i++) {
                     if ( this.questions[i].answer==this.userResponses[i]) {
                         score = score + 1;
                     }
                 }
+                this.$emit('set_result', (score/(all>0?all:1))*100)
+
                 return score;
+
+                // this.$emit('set_result', score)
+
 
                 //return this.userResponses.filter(function(val) { return val }).length;
             }
