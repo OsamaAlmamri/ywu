@@ -257,8 +257,8 @@ class TrainingController extends Controller
     public function set_result(Request $request)
     {
         try {
-         $r=   Result::create(['user_id' => auth()->id(), 'grade' => $request->grade, 'training_id' => $request->training_id]);
-            return $this->GetDateResponse('data', $r,"تم حفظ نتيجتك بنجاح ");
+            $r = Result::create(['user_id' => auth()->id(), 'grade' => $request->grade, 'training_id' => $request->training_id]);
+            return $this->GetDateResponse('data', $r, "تم حفظ نتيجتك بنجاح ");
         } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
         }
@@ -269,11 +269,12 @@ class TrainingController extends Controller
         try {
             if ($request->type == 'posts')
                 $type = 'posts';
-            elseif ($request->type == 'training')
+            elseif ($request->type == 'training' or $request->type == 'trainings')
                 $type = 'training';
             else
                 $type = 'women_posts';
-            $likes = Like::where('user_id', auth()->id())->where('liked_id', $request->liked_id)->where('type', $type)->get()->first();
+            $likes = Like::where('user_id', auth()->id())
+                ->where('liked_id', $request->liked_id)->where('type', $type)->get()->first();
             if (!$likes) {
                 $l = new Like();
                 $l->user_id = auth()->id();
@@ -362,12 +363,41 @@ class TrainingController extends Controller
         }
     }
 
+    public function my_likes_page(Request $request)
+    {
+        try {
+
+            if ($request->type == 'posts') {
+                $likes = Like::with(['post' => function ($q) {
+                    $q->with(['category', 'comments'])->paginate(5);
+                }
+                ])->where('user_id', auth()->id())->where('type', 'posts')->get();
+            } elseif ($request->type == 'trainings') {
+                $likes = Training::with(['is_register'])
+                    ->whereIn('id', function ($query) {
+                        $query->select('liked_id')->from('likes')
+                            ->where('type', 'training')
+                            ->where('user_id', Auth::id());
+                    })
+                    ->orderByDesc('id')->paginate(5);
+            } else {
+                $type = 'women_posts';
+                $likes = Like::with(['women_post'])->where('user_id', auth()->id())
+                    ->where('type', 'women_posts')->paginate(5);
+            }
+            return $this->GetDateResponse('data', $likes);
+        } catch
+        (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
     public function search(Request $request)
     {
         try {
             $search = $request->search;
             if ($request->type == 'posts') {
-                $data = Post::with(['category'])
+                $data = Post::with(['user', 'category', 'comments', 'user_like'])
                     ->where('title', 'LIKE', '%' . $search . '%')
                     ->orWhere('body', 'LIKE', '%' . $search . '%')
                     ->get();
@@ -381,7 +411,7 @@ class TrainingController extends Controller
 
             } else {
                 $type = 'women_posts';
-                $data = WomenPosts::where('title', 'LIKE', '%' . $search . '%')
+                $data = WomenPosts::with(['user_like'])->where('title', 'LIKE', '%' . $search . '%')
                     ->orWhere('body', 'LIKE', '%' . $search . '%')
                     ->get();
             }

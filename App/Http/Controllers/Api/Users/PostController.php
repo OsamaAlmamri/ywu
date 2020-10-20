@@ -59,6 +59,26 @@ class PostController extends Controller
 
     }
 
+    public function myPosts_pages()
+    {
+        try {
+            $this->user = JWTAuth::parseToken()->authenticate();
+            $posts = Post::with(['user', 'category', 'comments', 'user_like'])
+//                ->where('status', true)
+//                ->where('category_id', request()->category)
+                ->orderBy('id', 'desc')->paginate(5);
+
+            if (!$posts) {
+                return $this->ReturnErorrRespons('0000', 'لايوجد استشارات');
+            } else {
+                return $this->GetDateResponse('data', $posts);
+            }
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons('0000', 'تم ايقاف حسابك مؤقتا');
+        }
+
+    }
+
     public function show($id)
     {
         $post = $this->user->posts()->find($id);

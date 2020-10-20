@@ -57,6 +57,7 @@ Route::group(['middleware' => 'CheckAdminT:api'], function () {
     Route::post('logout', 'Api\Users\UserController@logout');
     Route::post('user', 'Api\Users\UserController@getAuthUser');
     Route::post('update_user', 'Api\Users\UserController@Update_User_Details');
+    Route::post('update_profile', 'Api\Users\UserController@update_profile');
     Route::post('reset_user', 'Api\Users\UserController@Reset_User_Password');
     Route::post('changePassword', 'Api\Users\UserController@changePassword');
 
@@ -74,6 +75,7 @@ Route::group(['middleware' => 'CheckAdminT:api'], function () {
 
 ############## Posts Routes
     Route::post('MyPosts', 'Api\Users\PostController@myPosts');
+    Route::post('myPosts_pages', 'Api\Users\PostController@myPosts_pages');
     Route::post('ShPost/{id}', 'Api\Users\PostController@show');
     Route::post('StPost', 'Api\Users\PostController@store');
     Route::post('store_post', 'Api\Users\PostController@store_post');
@@ -100,6 +102,7 @@ Route::group(['middleware' => 'CheckAdminT:api'], function () {
     Route::post('set_result', 'Api\Trainings\TrainingController@set_result');
     Route::post('like', 'Api\Trainings\TrainingController@like');
     Route::post('my_likes', 'Api\Trainings\TrainingController@my_likes');
+    Route::post('my_likes_page', 'Api\Trainings\TrainingController@my_likes_page');
     Route::post('myTraining', 'Api\Trainings\TrainingController@myTraining');
     Route::post('training/rate', 'Api\Trainings\TrainingController@rate');
     Route::post('training/delete_rate', 'Api\Trainings\TrainingController@delete_rate');

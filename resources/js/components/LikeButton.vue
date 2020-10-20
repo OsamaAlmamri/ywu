@@ -11,7 +11,7 @@
                  :is-full-page="fullPage">
         </loading>
         <i
-           :class="['fa', {'fa-heart-o':(like_description==0)}, {'fa-heart':(like_description==1)}]"></i>
+            :class="['fa', {'fa-heart-o':(like_description==0)}, {'fa-heart':(like_description==1)}]"></i>
         <span style="padding: 0 5px" v-show="hasCount==1">{{like_description_count}}</span>
     </div>
 </template>
@@ -23,8 +23,8 @@
     import 'vue-loading-overlay/dist/vue-loading.css';
 
     export default {
-        props: ['is_liked','hasCount','countLikes','type','liked_id'],
-        components: { Loading},
+        props: ['is_liked', 'hasCount', 'countLikes', 'type', 'liked_id'],
+        components: {Loading},
 
         data() {
             return {
@@ -50,18 +50,22 @@
             likePost() {
                 if (localStorage.token) {
                     this.isLoading = true;
-                    axios({url: '/api/like', data: {type: this.type,
-                            liked_id: this.liked_id}, method: 'POST'})
+                    axios({
+                        url: '/api/like', data: {
+                            type: this.type,
+                            liked_id: this.liked_id
+                        }, method: 'POST'
+                    })
                         .then(resp => {
                             this.isLoading = false;
                             if (resp.data.status == false) {
                                 toastStack('   خطاء ', resp.data.msg, 'error');
                             } else {
                                 this.like = resp.data.data;
-                                if(resp.data.data==1)
-                                this.likeCount++;
+                                if (resp.data.data == 1)
+                                    this.likeCount++;
                                 else
-                                this.likeCount--;
+                                    this.likeCount--;
                             }
                         })
                         .catch(err => {

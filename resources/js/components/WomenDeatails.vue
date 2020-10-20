@@ -64,9 +64,10 @@
     import Loading from 'vue-loading-overlay';
     // Import stylesheet
     import 'vue-loading-overlay/dist/vue-loading.css';
+
     export default {
         props: ['items'],
-        components: { Loading},
+        components: {Loading},
         data() {
             return {
                 isLoading: false,

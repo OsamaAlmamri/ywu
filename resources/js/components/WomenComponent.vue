@@ -38,7 +38,7 @@
 
 
                         <div class="row clearfix">
-                            <div class="cource-block-two col-lg-3 col-md-4 col-sm-6 col-xs-12"
+                            <div class="cource-block-two col-lg-4 col-md-6 col-sm-12 col-xs-12"
                                  v-for="women_post in women_posts">
                                 <women-item
                                     :women_post="women_post"

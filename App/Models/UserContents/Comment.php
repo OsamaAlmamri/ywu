@@ -26,6 +26,7 @@ class Comment extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    protected $with=['user:id,name,type,created_at'];
     public function user()
     {
         return $this->belongsTo(User::class);

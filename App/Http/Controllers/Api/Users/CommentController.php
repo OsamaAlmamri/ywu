@@ -51,9 +51,10 @@ class CommentController extends Controller
                 $comment->is_consonant = 1;
 
             //$this->user->posts()->find($request->post_id) && $this->user->comments()->save($comment)
-            if ($this->user->comments()->save($comment))
-                return $this->GetDateResponse('comment', $comment, "تم انشاء تعليق");
-
+            if ($this->user->comments()->save($comment)) {
+                $c = Comment::find($comment->id);
+                return $this->GetDateResponse('comment', $c, " تم اضافة التعليق بنجاح");
+            }
             return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية للتعليق على هذا المنشور');
         } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
@@ -66,14 +67,12 @@ class CommentController extends Controller
         $rules = [
             "body" => "required",
         ];
-
         $validator = Validator::make($request->only('body'), $rules);
 
         if ($validator->fails()) {
             $code = $this->returnCodeAccordingToInput($validator);
             return $this->returnValidationError($code, $validator);
         }
-
         $comment = $this->user->comments()->find($id);
 
         if (!$comment) {

@@ -27,7 +27,6 @@
                         <input style="width: 100%" type="text" v-model="newPostData.title" required="">
                     </fieldset>
                 </div>
-
                 <div class="form-group" style="width: 100%">
                     <fieldset class="the-fieldset">
                         <legend class="the-legend">نص الاستشارة</legend>
@@ -83,11 +82,12 @@
 
                             </div>
                         </div>
-
+                        <!--                        v-for="post in laravelData.data" :key="post.id"-->
+                        <!--                        res.data.Posts.data;-->
 
                         <div class="row clearfix">
                             <div class="cource-block-two  col-sm-12 col-xs-12"
-                                 v-for="(post,key) in posts">
+                                 v-for="(post,key) in laravelData.data">
                                 <consultant-item
                                     v-on:edit_post="edit_post"
                                     v-on:delete_post="delete_post"
@@ -99,22 +99,33 @@
                             </div>
 
                         </div>
-
-                        <!-- Post Share Options -->
+                        <!--                        <pagination :data="laravelData" @pagination-change-page="getResults"></pagination>-->
                         <div class="styled-pagination">
-                            <ul class="clearfix">
-                                <li class="prev"><a href="#"><span class="fa fa-angle-left"></span> </a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li class="active"><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">6</a></li>
-                                <li><a href="#">7</a></li>
-                                <li><a href="#">8</a></li>
-                                <li class="next"><a href="#"><span class="fa fa-angle-right"></span> </a></li>
-                            </ul>
+                            <pagination
+                                :align="'right'"
+                                :show-disabled=true
+                                @pagination-change-page="getResults"
+                                :data="laravelData">
+                                <span slot="prev-nav">&lt;&lt; </span>
+                                <span slot="next-nav"> &gt;&gt;</span>
+                            </pagination>
+                            <!--                        <pagination :data="laravelData" @pagination-change-page="getResults"></pagination>-->
                         </div>
+                        <!-- Post Share Options -->
+<!--                        <div class="styled-pagination">-->
+<!--                            <ul class="clearfix">-->
+<!--                                <li class="prev"><a href="#"><span class="fa fa-angle-left"></span> </a></li>-->
+<!--                                <li><a href="#">1</a></li>-->
+<!--                                <li><a href="#">2</a></li>-->
+<!--                                <li class="active"><a href="#">3</a></li>-->
+<!--                                <li><a href="#">4</a></li>-->
+<!--                                <li><a href="#">5</a></li>-->
+<!--                                <li><a href="#">6</a></li>-->
+<!--                                <li><a href="#">7</a></li>-->
+<!--                                <li><a href="#">8</a></li>-->
+<!--                                <li class="next"><a href="#"><span class="fa fa-angle-right"></span> </a></li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
 
                     </div>
 
@@ -146,6 +157,7 @@
 
         data() {
             return {
+                laravelData: {},
                 newPostData: {
                     'id': 0,
                     'title': '',
@@ -164,7 +176,7 @@
             }
         },
         created() {
-            this.fetchArticles();
+            // this.fetchArticles();
             this.fetchCategories();
 
         },
@@ -175,6 +187,12 @@
             }
         },
         methods: {
+            getResults(page = 1) {
+                axios.post('api/AllPosts?page=' + page)
+                    .then(response => {
+                        this.laravelData = response.data.Posts;
+                    });
+            },
             onToggle(index) {
                 if (this.activeIndex == index) {
                     return (this.activeIndex = null);
@@ -202,7 +220,8 @@
                         this.isLoading = false;
                         console.log(err)
                     })
-            }, edit_post(key) {
+            },
+            edit_post(key) {
                 this.edit = true;
                 console.log(this.posts[key]);
                 this.active_post = key;
@@ -313,8 +332,8 @@
             },
             delete_post(key) {
                 this.isLoading = true;
-               var id = this.posts[key].id;
-                axios({url: '/api/DePost/'+id, data: {id: this.id}, method: 'POST'})
+                var id = this.posts[key].id;
+                axios({url: '/api/DePost/' + id, data: {id: this.id}, method: 'POST'})
                     .then(resp => {
                         if (resp.data.status == false) {
                             toastStack('   خطاء ', resp.data.msg, 'error');
@@ -334,6 +353,8 @@
         },
         mounted() {
             console.log('Component mounted.')
+            this.getResults();
+
         },
 
 

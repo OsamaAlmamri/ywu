@@ -1,30 +1,93 @@
 <template>
     <div class="inner-box">
-        <div class="row">
-                <div class="col-xs-2 pull-right" style="margin: 20px 38px 0px 0px">
-                    <i class="fa fa-facebook-f"> </i>
-                </div>
-                <div class="col-xs-4 pull-right" style="margin: 15px 15px 0 0">
-                    <ul style="display: inline-block; list-style: none" class="">
-                        <li> {{post.category.name}}</li>
-                        <li>
-                            <i class="fa fa-clock-o"> </i>
-                            {{post.published}}
-                        </li>
-                    </ul>
-                </div>
-                <div class="col col-xs-5 " style="margin: 15px 0px  0 15px; text-align: end">
+        <sweet-modal :title="post.title"
+                     :blocking=true :enable-mobile-fullscreen=true
+                     :pulse-on-block=true
+                     :overlay-theme="'dark'" ref="comments">
+            <div v-for="(comment,key ) in  post.comments">
+                <div class="row">
+                    <div class="col-xs-2 pull-right" style="margin: 20px 38px 0px 0px">
+                        <i class="fa fa-comment"> </i>
+                    </div>
+                    <div class="col-xs-4 pull-right" style="margin: 15px 15px 0 0">
+                        <ul style="display: inline-block; list-style: none" class="">
+                            <li><i v-if="comment.is_consonant==1" class="fa fa-user"> </i>
+                                {{comment.user.name}}
+                            </li>
+                            <li> {{comment.published}}</li>
 
-                    <dropdown v-if="authUser.id==post.user_id">
-                        <div slot="items">
-                            <a class="dropdown-item" href="#"
-                               @click.prevent="edit_rating()">تعديل</a>
-                            <a class="dropdown-item" href="#"
-                               @click.prevent="deleteRating()"> حذف </a>
+                        </ul>
+                    </div>
+                    <div class="col col-xs-5 " style="margin: 15px 0px  0 15px; text-align: end">
+
+                        <dropdown v-if="authUser.id==comment.user_id">
+                            <div slot="items">
+                                <a class="dropdown-item" href="#"
+                                   @click.prevent="edit_comment(key,comment)">تعديل</a>
+                                <a class="dropdown-item" href="#"
+                                   @click.prevent="deleteComment(key,comment)"> حذف </a>
+                            </div>
+                        </dropdown>
+
+                    </div>
+
+                </div>
+                <div class="lower-content" style="padding: 15px">
+                    <div class="post-info" v-html="comment.body">
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="row clearfix">
+                <div class="form-group" style="width: 100%">
+                    <fieldset class="the-fieldset">
+                        <legend class="the-legend"> اضاافة تعليق</legend>
+                        <div class="input-group mb-3">
+                            <textarea style="width: 100%" rows="3" class="" v-model="newComment.body"></textarea>
+                            <div class="input-group-append">
+                                <button class="btn btn-info"
+                                        @click.prevent="(edit==false)?saveComment():updateComment()">
+                                    {{(edit==false)?'اضافة التعليق':"حفظ التعديل"}}
+                                </button>
+                            </div>
+                            <div class="input-group-append">
+                                <button v-if="edit==true" class="btn btn-secondary"
+                                        @click.prevent="CancelUpdate()">الغاء التعديل
+                                </button>
+
+                            </div>
                         </div>
-                    </dropdown>
-
+                    </fieldset>
                 </div>
+            </div>
+        </sweet-modal>
+
+
+        <div class="row">
+            <div class="col-xs-2 pull-right" style="margin: 20px 38px 0px 0px">
+                <i class="fa fa-facebook-f"> </i>
+            </div>
+            <div class="col-xs-4 pull-right" style="margin: 15px 15px 0 0">
+                <ul style="display: inline-block; list-style: none" class="">
+                    <li> {{post.category.name}}</li>
+                    <li>
+                        <i class="fa fa-clock-o"> </i>
+                        {{post.published}}
+                    </li>
+                </ul>
+            </div>
+            <div class="col col-xs-5 " style="margin: 15px 0px  0 15px; text-align: end">
+
+                <dropdown v-if="authUser.id==post.user_id">
+                    <div slot="items">
+                        <a class="dropdown-item" href="#"
+                           @click.prevent="edit_comment()">تعديل</a>
+                        <a class="dropdown-item" href="#"
+                           @click.prevent="deleteComment()"> حذف </a>
+                    </div>
+                </dropdown>
+
+            </div>
 
         </div>
         <div class="lower-content" style="padding: 15px">
@@ -41,7 +104,8 @@
             <hr></hr>
             <div class="clearfix">
                 <div class="pull-right" style="padding-right: 3em">
-                    <div class="students"> {{(post.comments_count)}} <i class="fa fa-comments"></i></div>
+                    <div @click="openCommentModal()" class="students"> {{(post.comments_count)}} <i
+                        class="fa fa-comments"></i></div>
                 </div>
                 <div class="pull-left" style="padding-left: 3em">
                     <like-button type="posts" :key="post.id" :count-likes="post.likes_count" has-count="1"
@@ -87,16 +151,18 @@
 
 <script>
     import LikeButton from './LikeButton.vue';
+
     import axios from "axios";
     import store from '../store'
 
     export default {
 
-        props: ['post','key'],
+        props: ['post'],
         components: {LikeButton},
         data() {
             return {
                 readmore: false,
+                edit: false,
                 bodyDisplay: '',
                 is_active_dropdown: false,
                 edit_post: false,
@@ -104,6 +170,12 @@
                     'words': 0,
                     'newText': '',
                     'isMore': false
+                },
+                newComment: {
+                    'key': 0,
+                    'body': '',
+                    'id': 0,
+                    'post_id': this.post.id,
                 }
             }
         },
@@ -111,18 +183,96 @@
             this.post_words = this.countWords(this.post.body, 20);
         },
         methods: {
-            deleteRating() {
-                this.$emit('delete_post', this.$vnode.key)
+            deleteComment(key, comment) {
+                this.isLoading = true;
+                var id = comment.id;
+                axios({url: '/api/DeComment/' + id, data: {id: id}, method: 'POST'})
+                    .then(resp => {
+                        if (resp.data.status == false) {
+                            toastStack('   خطاء ', resp.data.msg, 'error');
+                        } else {
+                            this.post.comments.splice(key, 1);
+                            toastStack(resp.data.msg, '', 'success');
+                        }
+                        this.isLoading = false;
+                    })
+                    .catch(err => {
+                        this.isLoading = false;
+                        console.log(err)
+                    })
+            },
+            saveComment() {
+                if (localStorage.token) {
+                    this.isLoading = true;
+                    axios({url: '/api/StComment', data: this.newComment, method: 'POST'})
+                        .then(resp => {
+                            this.isLoading = false;
+                            if (resp.data.status == false) {
+                                toastStack('   خطاء ', resp.data.msg, 'error');
+                            } else {
+                                this.post.comments.push(resp.data.comment);
+                                toastStack(resp.data.msg, '', 'success');
+                                this.newComment = {
+                                    'post_id': this.post.id,
+                                    'key': 0,
+                                    'body': '',
+                                    'id': 0,
+                                }
+                                // this.$refs.modal.close();
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                } else {
+                    toastStack('   خطاء ', 'يجب تسجيل الدخول اولا', 'error');
+                }
+                this.$emit('click', this.$vnode.key)
+            },
+            updateComment() {
+                if (localStorage.token) {
+                    this.isLoading = true;
+                    axios({url: '/api/UpComment/' + this.newComment.id, data: this.newComment, method: 'POST'})
+                        .then(resp => {
+                            this.isLoading = false;
+                            if (resp.data.status == false) {
+                                toastStack('   خطاء ', resp.data.msg, 'error');
+                            } else {
+                                this.post.comments[this.newComment.key].body = (this.newComment.body);
+                                toastStack(resp.data.msg, '', 'success');
+                                this.newComment = {
+                                    'post_id': this.post.id,
+                                    'key': 0,
+                                    'body': '',
+                                    'id': 0,
+                                }
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                } else {
+                    toastStack('   خطاء ', 'يجب تسجيل الدخول اولا', 'error');
+                }
+                this.$emit('click', this.$vnode.key)
+            },
+            openCommentModal() {
+                this.$refs.comments.open();
+            },
+            edit_comment(key, comment) {
+                this.is_active_dropdown = false;
+                this.edit = true;
+                this.newComment.key = key;
+                this.newComment.body = comment.body;
+                this.newComment.id = comment.id;
 
             },
-            edit_rating() {
-                this.is_active_dropdown = false;
-                this.edit_post = true;
-                // this.$emit('edit_post', this.post.id);
-                this.$emit('edit_post', this.$vnode.key)
-
-                // this.newRating.rating = this.training.is_rating.rating;
-                // this.newRating.message = this.training.is_rating.message;
+            CancelUpdate() {
+                this.is_active_dropdown = true;
+                this.edit = false;
+                this.newComment.key = 0;
+                this.newComment.body = '';
+                this.newComment.id = 0;
 
             },
         },

@@ -13,6 +13,54 @@
                  :on-cancel="onCancel()"
                  :is-full-page="fullPage">
         </loading>
+
+        <div class="add_post_button" @click="openNewPostModal()"
+             style="display: block;">
+            <span class="fa fa-comment" v-show="authUser"></span>
+        </div>
+        <sweet-modal :title="'اضافة استشارة جديدة'"
+                     :blocking=true :enable-mobile-fullscreen=true
+                     :pulse-on-block=true
+                     :overlay-theme="'dark'" ref="modal">
+            <div class="row clearfix">
+
+                <div class="form-group" style="width: 100%">
+                    <fieldset class="the-fieldset">
+                        <legend class="the-legend">عنوان الاستشارة *</legend>
+                        <input style="width: 100%" type="text" v-model="newPostData.title" required="">
+                    </fieldset>
+                </div>
+                <div class="form-group" style="width: 100%">
+                    <fieldset class="the-fieldset">
+                        <legend class="the-legend">نص الاستشارة</legend>
+                        <textarea style="width: 100%" rows="4" class="" v-model="newPostData.body"></textarea>
+                    </fieldset>
+                </div>
+                <h5>نوع الاستشارة </h5>
+                <section class="student-profile-section">
+                    <div class="inner-column">
+                        <div class="profile-info-tabs">
+                            <div class="profile-tabs tabs-box">
+                                <ul class="tab-btns tab-buttons clearfix">
+
+                                    <li v-for="(category,key) in categories"
+                                        @click="changeCategoryType(category.id)"
+                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(newPostData.category_id==category.id)}]">
+                                        {{category.name}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+            <sweet-button slot="button">
+                <button class="btn btn-info" @click.prevent="(edit==false)?savePost():updatePost()">تم</button>
+            </sweet-button>
+
+        </sweet-modal>
+
         <div class="patern-layer-one paroller" data-paroller-factor="0.40" data-paroller-factor-lg="0.20"
              data-paroller-type="foreground" data-paroller-direction="vertical"
              style="background-image: url(/site/images/icons/icon-1.png)"></div>
@@ -30,7 +78,7 @@
                 <div class="image-column col-lg-3 col-md-12 col-sm-12">
                     <div class="inner-column">
                         <div class="image">
-                            <img src="/site/images/resource/student-2.jpg" alt="">
+                            <img src="/site/images/deafult.png" alt="">
                         </div>
                         <p>{{authUser.name}}</p>
                         <!--                        <a href="#" class="theme-btn btn-style-three"><span class="txt">Upload Picture <i-->
@@ -51,11 +99,26 @@
                                 <!--Tab Btns-->
                                 <ul class="tab-btns tab-buttons clearfix">
                                     <li data-tab="#prod-overview"
-                                        @click="changeActive('prod-overview')" :class="['tab-btn', {'active-btn':(activeTap=='prod-overview')}]">Overview</li>
+                                        @click="changeActive('prod-overview')"
+                                        :class="['tab-btn', {'active-btn':(activeTap=='prod-overview')}]">كورساتي
+                                    </li>
                                     <li data-tab="#prod-bookmark"
-                                        @click="changeActive('prod-bookmark')" :class="['tab-btn', {'active-btn':(activeTap=='prod-bookmark')}]">Bookmarks</li>
+                                        @click="changeActive('prod-bookmark')"
+                                        :class="['tab-btn', {'active-btn':(activeTap=='prod-bookmark')}]">استشاراتي
+                                    </li>
+                                    <li
+                                        @click="changeActive('prod-fav')"
+                                        :class="['tab-btn', {'active-btn':(activeTap=='prod-fav')}]">الكورسات المفضلة
+                                    </li>
                                     <li data-tab="#prod-setting"
-                                        @click="changeActive('prod-setting')" :class="['tab-btn', {'active-btn':(activeTap=='prod-setting')}]">Settings</li>
+                                        @click="changeActive('prod-setting')"
+                                        :class="['tab-btn', {'active-btn':(activeTap=='prod-setting')}]">الاعدادات
+                                    </li>
+                                    <li data-tab="#prod-password"
+                                        @click="changeActive('prod-password')"
+                                        :class="['tab-btn', {'active-btn':(activeTap=='prod-password')}]">تغيير كلمة
+                                        السر
+                                    </li>
                                 </ul>
 
                                 <!--Tabs Container-->
@@ -64,239 +127,172 @@
                                     <!--Tab / Active Tab-->
                                     <div :class="['tab', {'active-tab':(activeTap=='prod-overview')}]"
                                          id="prod-overview">
+                                        <!-- Sec Title -->
                                         <div class="content">
-                                            <!-- Sec Title -->
-                                            <div class="sec-title">
-                                                <h2>Courses In Progress</h2>
-                                            </div>
-
                                             <div class="row clearfix">
-
-                                                <!-- Cource Block Two -->
-                                                <div class="cource-block-two col-lg-4 col-md-6 col-sm-12">
-                                                    <div class="inner-box">
-                                                        <div class="image">
-                                                            <a href="course-detail.html"><img
-                                                                src="/site/images/resource/course-6.jpg" alt=""></a>
-                                                        </div>
-                                                        <div class="lower-content">
-                                                            <h5><a href="course-detail.html">Interaction Design</a></h5>
-                                                            <div class="text">Replenish of third creature and meat
-                                                                blessed void a fruit gathered waters.
-                                                            </div>
-                                                            <div class="clearfix">
-                                                                <div class="pull-left">
-                                                                    <div class="students">12 Lecturer</div>
-                                                                </div>
-                                                                <div class="pull-right">
-                                                                    <div class="hours">54 Hours</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                <div class="cource-block-two col-lg-4 col-md-6 col-sm-12 col-xs-12"
+                                                     v-for="(training,key) in my_trainings_data.data">
+                                                    <course-gide-item
+                                                        :training="training"
+                                                        @toggled="onToggle"
+                                                    ></course-gide-item>
                                                 </div>
+                                            </div>
+                                            <div class="styled-pagination">
+                                                <pagination
+                                                    :align="'right'"
+                                                    :show-disabled=true
+                                                    @pagination-change-page="my_trainings"
+                                                    :data="my_trainings_data">
+                                                    <span slot="prev-nav">&lt;&lt; </span>
+                                                    <span slot="next-nav"> &gt;&gt;</span>
+                                                </pagination>
+                                            </div>
 
-                                                <!-- Cource Block Two -->
-                                                <div class="cource-block-two col-lg-4 col-md-6 col-sm-12">
-                                                    <div class="inner-box">
-                                                        <div class="image">
-                                                            <a href="course-detail.html"><img
-                                                                src="/site/images/resource/course-7.jpg" alt=""></a>
-                                                        </div>
-                                                        <div class="lower-content">
-                                                            <h5><a href="course-detail.html">Visual Design</a></h5>
-                                                            <div class="text">Replenish of third creature and meat
-                                                                blessed void a fruit gathered waters.
-                                                            </div>
-                                                            <div class="clearfix">
-                                                                <div class="pull-left">
-                                                                    <div class="students">12 Lecturer</div>
-                                                                </div>
-                                                                <div class="pull-right">
-                                                                    <div class="hours">54 Hours</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Tab -->
+                                    <div :class="['tab', {'active-tab':(activeTap=='prod-bookmark')}]">
+                                        <div class="content">
+                                            <div class="row clearfix">
+                                                <div class="cource-block-two  col-sm-12 col-xs-12"
+                                                     v-for="(post,key) in my_consultantData.data">
+                                                    <consultant-item
+                                                        v-on:edit_post="edit_post"
+                                                        v-on:delete_post="delete_post"
+                                                        :key="key"
+                                                        :post="post"
+                                                        @toggled="onToggle"
+                                                    ></consultant-item>
                                                 </div>
 
                                             </div>
+                                            <div class="styled-pagination">
+                                                <pagination
+                                                    :align="'right'"
+                                                    :show-disabled=true
+                                                    @pagination-change-page="myConsultant"
+                                                    :data="my_consultantData">
+                                                    <span slot="prev-nav">&lt;&lt; </span>
+                                                    <span slot="next-nav"> &gt;&gt;</span>
+                                                </pagination>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div :class="['tab', {'active-tab':(activeTap=='prod-fav')}]">
+                                        <div class="content">
+                                            <div class="row clearfix">
+                                                <div class="cource-block-two col-lg-4 col-md-6 col-sm-12 col-xs-12"
+                                                     v-for="(training,key) in my_like_trainings.data">
+                                                    <course-gide-item
+                                                        :training="training"
+                                                        @toggled="onToggle"
+                                                    ></course-gide-item>
+                                                </div>
+                                            </div>
+                                            <div class="styled-pagination">
+                                                <pagination
+                                                    :align="'right'"
+                                                    :show-disabled=true
+                                                    @pagination-change-page="fav_trainings"
+                                                    :data="my_like_trainings">
+                                                    <span slot="prev-nav">&lt;&lt; </span>
+                                                    <span slot="next-nav"> &gt;&gt;</span>
+                                                </pagination>
+                                            </div>
+
 
                                         </div>
                                     </div>
 
-                                    <!-- Tab -->
-                                    <div :class="['tab', {'active-tab':(activeTap=='prod-bookmark')}]" id="prod-bookmark">
-                                        <div class="content">
 
-                                            <div class="row clearfix">
-
-                                                <!-- Cource Block Two -->
-                                                <div class="cource-block-two col-lg-4 col-md-6 col-sm-12">
-                                                    <div class="inner-box">
-                                                        <div class="image">
-                                                            <a href="course-detail.html"><img
-                                                                src="/site/images/resource/course-6.jpg" alt=""></a>
-                                                        </div>
-                                                        <div class="lower-content">
-                                                            <h5><a href="course-detail.html">Interaction Design</a></h5>
-                                                            <div class="text">Replenish of third creature and meat
-                                                                blessed void a fruit gathered waters.
-                                                            </div>
-                                                            <div class="clearfix">
-                                                                <div class="pull-left">
-                                                                    <div class="students">12 Lecturer</div>
-                                                                </div>
-                                                                <div class="pull-right">
-                                                                    <div class="hours">54 Hours</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Cource Block Two -->
-                                                <div class="cource-block-two col-lg-4 col-md-6 col-sm-12">
-                                                    <div class="inner-box">
-                                                        <div class="image">
-                                                            <a href="course-detail.html"><img
-                                                                src="/site/images/resource/course-7.jpg" alt=""></a>
-                                                        </div>
-                                                        <div class="lower-content">
-                                                            <h5><a href="course-detail.html">Visual Design</a></h5>
-                                                            <div class="text">Replenish of third creature and meat
-                                                                blessed void a fruit gathered waters.
-                                                            </div>
-                                                            <div class="clearfix">
-                                                                <div class="pull-left">
-                                                                    <div class="students">12 Lecturer</div>
-                                                                </div>
-                                                                <div class="pull-right">
-                                                                    <div class="hours">54 Hours</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Cource Block Two -->
-                                                <div class="cource-block-two col-lg-4 col-md-6 col-sm-12">
-                                                    <div class="inner-box">
-                                                        <div class="image">
-                                                            <a href="course-detail.html"><img
-                                                                src="/site/images/resource/course-8.jpg" alt=""></a>
-                                                        </div>
-                                                        <div class="lower-content">
-                                                            <h5><a href="course-detail.html">Wireframe Protos</a></h5>
-                                                            <div class="text">Replenish of third creature and meat
-                                                                blessed void a fruit gathered waters.
-                                                            </div>
-                                                            <div class="clearfix">
-                                                                <div class="pull-left">
-                                                                    <div class="students">12 Lecturer</div>
-                                                                </div>
-                                                                <div class="pull-right">
-                                                                    <div class="hours">54 Hours</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Cource Block Two -->
-                                                <div class="cource-block-two col-lg-4 col-md-6 col-sm-12">
-                                                    <div class="inner-box">
-                                                        <div class="image">
-                                                            <a href="course-detail.html"><img
-                                                                src="/site/images/resource/course-9.jpg" alt=""></a>
-                                                        </div>
-                                                        <div class="lower-content">
-                                                            <h5><a href="course-detail.html">Color Theory</a></h5>
-                                                            <div class="text">Replenish of third creature and meat
-                                                                blessed void a fruit gathered waters.
-                                                            </div>
-                                                            <div class="clearfix">
-                                                                <div class="pull-left">
-                                                                    <div class="students">12 Lecturer</div>
-                                                                </div>
-                                                                <div class="pull-right">
-                                                                    <div class="hours">54 Hours</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                    <!-- Tab -->
-
-
-                                    <div :class="['tab', {'active-tab':(activeTap=='prod-setting')}]"  id="prod-setting">
+                                    <div :class="['tab', {'active-tab':(activeTap=='prod-setting')}]" id="prod-setting">
                                         <div class="content">
                                             <!-- Title Box -->
                                             <div class="title-box">
-                                                <h5>Edit Profile</h5>
+                                                <h5>تعديل البيانات الشخصية</h5>
                                             </div>
 
                                             <!-- Profile Form -->
                                             <div class="profile-form">
 
                                                 <!-- Profile Form -->
-                                                <form method="post" action="blog.html">
+                                                <form>
                                                     <div class="row clearfix">
 
-                                                        <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                            <input type="text" name="username" placeholder="First Name"
+                                                        <div class=" col-sm-12 form-group">
+                                                            <input type="text" v-model="profile_info.name"
+                                                                   placeholder="الاسم"
                                                                    required="">
                                                             <span class="icon flaticon-edit-1"></span>
                                                         </div>
 
-                                                        <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                            <input type="text" name="username" placeholder="Last Name"
+                                                        <div class=" col-sm-12 form-group"
+                                                             v-if="authUser.type!='visitor'">
+                                                            <input type="email" v-model="profile_info.email"
+                                                                   placeholder="الايمل "
                                                                    required="">
                                                             <span class="icon flaticon-edit-1"></span>
                                                         </div>
 
-                                                        <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                            <input type="email" name="email" placeholder="Email"
+                                                        <div class=" col-sm-12 form-group">
+                                                            <input type="text" v-model="profile_info.phone"
+                                                                   placeholder="رقم الهاتف"
                                                                    required="">
                                                             <span class="icon flaticon-edit-1"></span>
                                                         </div>
-
-                                                        <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                            <input type="text" name="phone" placeholder="Phone"
-                                                                   required="">
-                                                            <span class="icon flaticon-edit-1"></span>
-                                                        </div>
-
-                                                        <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                                            <select class="custom-select-box">
-                                                                <option>Member Type</option>
-                                                                <option>Member 01</option>
-                                                                <option>Member 02</option>
-                                                                <option>Member 03</option>
-                                                                <option>Member 04</option>
-                                                                <option>Member 05</option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                                            <textarea class="" name="message"
-                                                                      placeholder="Your Message"></textarea>
-                                                        </div>
-
                                                         <div
                                                             class="col-lg-12 col-md-12 col-sm-12 form-group text-right">
-                                                            <button class="theme-btn btn-style-two" type="submit"
-                                                                    name="submit-form"><span class="txt">Cancel <i
+                                                            <button class="theme-btn btn-style-three" type="button"
+                                                                    @click.prevent="update_user_info()"><span
+                                                                class="txt">حفظ التغييرات<i
                                                                 class="fa fa-angle-left"></i></span></button>
+                                                        </div>
+
+                                                    </div>
+                                                </form>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div :class="['tab', {'active-tab':(activeTap=='prod-password')}]">
+                                        <div class="content">
+                                            >
+
+                                            <!-- Profile Form -->
+                                            <div class="profile-form">
+
+                                                <!-- Profile Form -->
+                                                <form>
+                                                    <div class="row clearfix">
+
+                                                        <div class=" col-sm-12 form-group">
+                                                            <input type="text" v-model="password.current_password"
+                                                                   placeholder="كلمة السر القديمة"
+                                                                   required="">
+                                                            <span class="icon flaticon-edit-1"></span>
+                                                        </div>
+
+
+                                                        <div class=" col-sm-12 form-group">
+                                                            <input type="text" v-model="password.new_password"
+                                                                   placeholder="كامة السر الجديدة "
+                                                                   required="">
+                                                            <span class="icon flaticon-edit-1"></span>
+                                                        </div>
+                                                        <div
+                                                            class="col-lg-12 col-md-12 col-sm-12 form-group text-right">
                                                             <button class="theme-btn btn-style-three" type="submit"
-                                                                    name="submit-form"><span class="txt">Save Change <i
+                                                                    @click.prevent="changePassword()"
+                                                                    name="submit-form"><span class="txt">حفظ التغييرات<i
                                                                 class="fa fa-angle-left"></i></span></button>
                                                         </div>
 
@@ -310,119 +306,17 @@
 
 
                                 </div>
+
                             </div>
                         </div>
-
-                        <!-- Post Share Options -->
-                        <div class="styled-pagination">
-                            <ul class="clearfix">
-                                <li class="prev"><a href="#"><span class="fa fa-angle-left"></span> </a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li class="active"><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">6</a></li>
-                                <li><a href="#">7</a></li>
-                                <li><a href="#">8</a></li>
-                                <li class="next"><a href="#"><span class="fa fa-angle-left"></span> </a></li>
-                            </ul>
-                        </div>
-
                     </div>
-                </div>
 
+
+                </div>
             </div>
 
         </div>
-
-        <!-- Saved Books Section -->
-        <div class="saved-books-section">
-            <div class="auto-container">
-                <div class="sec-title">
-                    <h2>Saved Books</h2>
-                </div>
-                <div class="row clearfix">
-
-                    <!-- Book Block -->
-                    <div class="book-block col-lg-3 col-md-4 col-sm-12">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <img src="/site/images/resource/book-14.jpg" alt="">
-                                <!-- Overlay Box -->
-                                <div class="overlay-box">
-                                    <div class="overlay-inner">
-                                        <div class="content">
-                                            <a href="books-detail.html" class="link"><span
-                                                class="icon fa fa-link"></span></a>
-                                            <a href="/site/images/resource/book-14.jpg" data-fancybox="books"
-                                               data-caption="" class="link"><span
-                                                class="icon flaticon-full-screen"></span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </figure>
-                            <div class="lower-box">
-                                <h6><a href="books-detail.html">Don’t make me think</a></h6>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Book Block -->
-                    <div class="book-block col-lg-3 col-md-4 col-sm-12">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <img src="/site/images/resource/book-15.jpg" alt="">
-                                <!-- Overlay Box -->
-                                <div class="overlay-box">
-                                    <div class="overlay-inner">
-                                        <div class="content">
-                                            <a href="books-detail.html" class="link"><span
-                                                class="icon fa fa-link"></span></a>
-                                            <a href="/site/images/resource/book-15.jpg" data-fancybox="books"
-                                               data-caption="" class="link"><span
-                                                class="icon flaticon-full-screen"></span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </figure>
-                            <div class="lower-box">
-                                <h6><a href="books-detail.html">Design of Everyday</a></h6>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Book Block -->
-                    <div class="book-block col-lg-3 col-md-4 col-sm-12">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <img src="/site/images/resource/book-16.jpg" alt="">
-                                <!-- Overlay Box -->
-                                <div class="overlay-box">
-                                    <div class="overlay-inner">
-                                        <div class="content">
-                                            <a href="books-detail.html" class="link"><span
-                                                class="icon fa fa-link"></span></a>
-                                            <a href="/site/images/resource/book-16.jpg" data-fancybox="books"
-                                               data-caption="" class="link"><span
-                                                class="icon flaticon-full-screen"></span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </figure>
-                            <div class="lower-box">
-                                <h6><a href="books-detail.html">Undercover UX Design</a></h6>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Book Block -->
-
-                </div>
-
-            </div>
         </div>
-
     </section>
     <!-- End Profile Section -->
 
@@ -436,15 +330,39 @@
     // Import stylesheet
     import 'vue-loading-overlay/dist/vue-loading.css';
     import ConsultantItem from "./ConsultantItem";
+    import axios from "axios";
+
     export default {
         props: ['items'],
-        components: {CourseGideItem, Loading},
+        components: {CourseGideItem, ConsultantItem, Loading},
         data() {
             return {
                 isLoading: false,
+                profile_info: {
+                    "name": store.getters.authUser.name,
+                    "email": store.getters.authUser.email,
+                    "phone": store.getters.authUser.phone
+                },
+                password: {
+                    'current_password': '',
+                    'new_password': ''
+                },
+                categories: [],
+                my_consultantData: {},
+                newPostData: {
+                    'id': 0,
+                    'title': '',
+                    'body': '',
+                    'category_id': '1',
+                },
+                my_favData: {},
+                // my_favData: {},
+                my_trainings_data: {},
+                my_like_trainings: {},
                 fullPage: false,
                 activeIndex: null,
                 sections: [],
+                posts: [],
                 course_id: '',
                 activeTap: 'prod-overview',
                 pagination: {},
@@ -459,43 +377,158 @@
         },
         created() {
             console.log(store.getters.authUser)
-            if (localStorage.token)
-                this.fetchArticles();
+
+            // if (localStorage.token) {
+            //     this.fav_trainings();
+            //     this.myConsultant();
+            //
+            // }
         },
         methods: {
             changeActive(index) {
                 this.activeTap = index;
+            },
+            fetchCategories() {
+                axios.post('/api/AllCategories', {
+                        headers: {
+                            'content-type': 'application/json',
+                        }
+                    },
+                ).then(res => {
+                    this.categories = res.data.categories;
+                })
+                    .catch(err => {
+                        this.isLoading = false;
+                        console.log(err)
+                    });
+            },
+            changeCategoryType(key) {
+                this.newPostData.category_id = key;
             },
             onToggle(index) {
                 if (this.activeIndex == index) {
                     return (this.activeIndex = null);
                 }
                 this.activeIndex = index;
+            }, edit_post(key) {
+                this.edit = true;
+                console.log(this.posts[key]);
+                this.active_post = key;
+                this.newPostData.title = this.posts[key].title;
+                this.newPostData.id = this.posts[key].id;
+                this.newPostData.body = this.posts[key].body;
+                this.newPostData.category_id = this.posts[key].category_id;
+                this.$refs.modal.open();
             },
-            fetchArticles() {
-                let vm = this;
+            delete_post(key) {
                 this.isLoading = true;
-                axios.post('/api/showTrainingByCategory', {
-                        headers: {
-                            'content-type': 'application/json',
-                            // Authorization: 'Bearer ' + localStorage.getItem('token')
+                var id = this.posts[key].id;
+                axios({url: '/api/DePost/' + id, data: {id: this.id}, method: 'POST'})
+                    .then(resp => {
+                        if (resp.data.status == false) {
+                            toastStack('   خطاء ', resp.data.msg, 'error');
+                        } else {
+                            this.posts.splice(key, 1);
+                            toastStack(resp.data.msg, '', 'success');
                         }
-                    },
-                ).then(res => {
-                    this.isLoading = false;
-                    this.sections = res.data.Trainings;
-                })
+                        this.isLoading = false;
+                    })
                     .catch(err => {
                         this.isLoading = false;
                         console.log(err)
+                    })
+            },
+            update_user_info() {
+                this.isLoading = true;
+                axios({url: '/api/update_profile', data: this.profile_info, method: 'POST'})
+                    .then(resp => {
+                        if (resp.data.status == false) {
+                            toastStack('   خطاء ', resp.data.msg, 'error');
+                        } else {
+                            // this.posts.splice(key, 1);
+                            let user = store.getters.authUser;
+                            user.name = this.profile_info.name;
+                            user.email = this.profile_info.email;
+                            user.phone = this.profile_info.phone;
+                            localStorage.setItem('user', JSON.stringify(user));
+                            toastStack(resp.data.msg, '', 'success');
+                        }
+                        this.isLoading = false;
+                    })
+                    .catch(err => {
+                        this.isLoading = false;
+                        console.log(err)
+                    })
+            },
+            changePassword() {
+                this.isLoading = true
+                if (this.password.new_password.length < 6)
+                    toastStack('   خطاء ', 'كلمة السر يجب ان تكون على الاقل 5 ارقام وحروف', 'error');
+                else {
+
+                    axios({url: '/api/changePassword', data: this.password, method: 'POST'})
+                        .then(resp => {
+                            if (resp.data.status == false) {
+                                toastStack('   خطاء ', resp.data.msg, 'error');
+                            } else {
+                                toastStack(resp.data.msg, '', 'success');
+                            }
+                            this.isLoading = false;
+                        })
+                        .catch(err => {
+                            this.isLoading = false;
+                            console.log(err)
+                        })
+                }
+            },
+            getmyfav_courses(page = 1) {
+                axios.post('api/AllPosts?page=' + page)
+                    .then(response => {
+                        this.laravelData = response.data.Posts;
                     });
-            }, onCancel() {
+            },
+            openNewPostModal() {
+                this.edit = false;
+                this.newPostData = {
+                    'id': 0,
+                    'title': '',
+                    'body': '',
+                    'category_id': '1',
+                };
+                this.$refs.modal.open();
+            },
+            fav_trainings(page = 1) {
+                axios({url: 'api/my_likes_page?page=' + page, data: {type: 'trainings'}, method: 'POST'})
+                    .then(response => {
+                        this.my_like_trainings = response.data.data;
+                    });
+            },
+            my_trainings(page = 1) {
+                axios({url: 'api/myTraining?page=' + page, method: 'POST'})
+                    .then(response => {
+                        this.my_trainings_data = response.data.Trainings;
+                    });
+            },
+            myConsultant(page = 1) {
+                axios({url: 'api/myPosts_pages?page=' + page, method: 'POST'})
+                    .then(response => {
+                        this.my_consultantData = response.data.data;
+                    });
+            },
+
+            onCancel() {
                 console.log('User cancelled the loader.')
             }
 
         },
+
         mounted() {
             console.log('Component mounted.')
+            this.fav_trainings();
+            this.myConsultant();
+            this.my_trainings();
+            this.fetchCategories();
+
         },
 
 
@@ -507,7 +540,7 @@
 
         padding: 140px 0px 90px;
         background-color: #f0f5fb;
-
+        margin-top: 50px;
     }
 
     .student-profile-section .profile-tabs .tab-btns {

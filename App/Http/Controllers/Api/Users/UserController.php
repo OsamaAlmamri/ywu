@@ -188,6 +188,20 @@ class UserController extends Controller
             return $this->ReturnSuccessRespons("200", "قم بتسجيل الدخول");
         }
     }
+    public
+    function update_profile(Request $request)
+    {
+        $user = JWTAuth::parseToken()->authenticate();
+        if ($user) {
+            $user->name = request()->name;
+            $user->phone = request()->phone;
+            $user->email = request()->email;
+            $user->update();
+            return $this->GetDateResponse('user', $user);
+        } else {
+            return $this->ReturnSuccessRespons("200", "قم بتسجيل الدخول");
+        }
+    }
 
 
     public
