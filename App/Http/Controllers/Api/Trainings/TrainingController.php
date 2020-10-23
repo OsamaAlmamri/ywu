@@ -456,7 +456,49 @@ class TrainingController extends Controller
                 $rating->user_id = auth()->id();
                 $training->ratings()->save($rating);
                 $oldRating = Rating::find($rating->id);
+
                 return $this->GetDateResponse("data", $oldRating, "تم التقييم بنجاح  ");
+            }
+        } catch (Exception $ex) {
+            return $this->ReturnErorrRespons('0000', $ex->getMessage());
+
+        }
+
+
+    }
+
+    function rate2(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(),
+                [
+                    'course_id' => 'required|numeric',
+                    'rating' => 'required|numeric|min:1|max:5',
+                    'message' => 'required',
+                ]);
+            if ($validator->fails()) {
+                return $this->ReturnErorrRespons('0000', $validator->errors());
+            }
+            $training = Training::find($request->course_id);
+            $rateable_type = 'App\Models\TrainingContents\Training';
+            $oldRating = Rating::all()
+                ->where('rateable_id', $request->course_id)
+                ->where('user_id', auth()->id())
+                ->where('rateable_type', $rateable_type)->first();
+            if ($oldRating != null) {
+                $oldRating->update([
+                    'rating' => $request->rating,
+                    'message' => $request->message,
+                ]);
+                return $this->GetDateResponse("data", $this->ratingInfo($request->course_id), 'تم تعديل التقييم بنجاح');
+            } else {
+                $rating = new Rating();
+                $rating->rating = $request->rating;
+                $rating->message = $request->message;
+                $rating->user_id = auth()->id();
+                $training->ratings()->save($rating);
+                $Training = $this->ratingInfo($request->course_id);
+                return $this->GetDateResponse("data", $Training, "تم التقييم بنجاح  ");
             }
         } catch (Exception $ex) {
             return $this->ReturnErorrRespons('0000', $ex->getMessage());
@@ -477,8 +519,9 @@ class TrainingController extends Controller
             if ($validator->fails()) {
                 return $this->ReturnErorrRespons('0000', $validator->errors());
             }
+
             $oldRating = Rating::where('id', $request->id)
-                ->where('user_id', \auth()->id());
+                ->where('user_id', auth()->id());
             $is_deleted = 0;
             if ($oldRating != null) {
                 $is_deleted = $oldRating->delete();
@@ -489,7 +532,40 @@ class TrainingController extends Controller
             return $this->ReturnErorrRespons('0000', $ex->getMessage());
 
         }
+    }
 
+    function delete_rate2(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(),
+                [
+                    'id' => 'required|numeric',
+                ]);
+            if ($validator->fails()) {
+                return $this->ReturnErorrRespons('0000', $validator->errors());
+            }
+            $oldRating = Rating::where('id', $request->id)
+                ->where('user_id', auth()->id());
+            $course_id = 0;
+            if ($oldRating != null) {
+                $course_id = $oldRating->rateable_id;
+                $oldRating->delete();
+            }
+            $Training = $this->ratingInfo($course_id);
+            return $this->GetDateResponse("data", $Training, 'تم حذف التقييم بنجاح');
 
+        } catch (Exception $ex) {
+            return $this->ReturnErorrRespons('0000', $ex->getMessage());
+
+        }
+    }
+
+    function ratingInfo($course_id)
+    {
+        $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
+        $training = Training::with(['is_rating', 'ratings' => function ($q) use ($user_id) {
+            $q->where('user_id', '!=', $user_id);
+        }])->where('id', $course_id)->get()->first();
+        return $training;
     }
 }

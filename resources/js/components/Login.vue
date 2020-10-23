@@ -91,7 +91,8 @@
                 store.dispatch('login', { phone, password })
                     .then(() => {
                         this.isLoading = false;
-                        this.$router.push('/')
+                        this.$router.push('/profile')
+                        location.reload();
                     })
                     .catch(err => {
                         console.log(err)

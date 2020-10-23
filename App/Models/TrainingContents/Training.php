@@ -124,7 +124,8 @@ class Training extends Model
 
     public function averageRating()
     {
-        return $this->ratings->avg('rating');
+        return $this->ratings()->avg('rating');
+
     }
 
     public function has_progress()

@@ -67,6 +67,7 @@
                                 else
                                     this.likeCount--;
                             }
+                            this.$emit('like', resp.data.data);
                         })
                         .catch(err => {
                             console.log(err)

@@ -78,7 +78,7 @@
                 <div class="image-column col-lg-3 col-md-12 col-sm-12">
                     <div class="inner-column">
                         <div class="image">
-                            <img src="/site/images/deafult.png" alt="">
+                            <img src="site/images/deafult.png" alt="">
                         </div>
                         <p>{{authUser.name}}</p>
                         <!--                        <a href="#" class="theme-btn btn-style-three"><span class="txt">Upload Picture <i-->
@@ -410,7 +410,8 @@
                     return (this.activeIndex = null);
                 }
                 this.activeIndex = index;
-            }, edit_post(key) {
+            },
+            edit_post(key) {
                 this.edit = true;
                 console.log(this.posts[key]);
                 this.active_post = key;
@@ -514,6 +515,55 @@
                     .then(response => {
                         this.my_consultantData = response.data.data;
                     });
+            },
+            savePost() {
+                if (localStorage.token) {
+                    this.isLoading = true;
+                    axios({url: '/api/store_post', data: this.newPostData, method: 'POST'})
+                        .then(resp => {
+                            this.isLoading = false;
+                            if (resp.data.status == false) {
+                                toastStack('   خطاء ', resp.data.msg, 'error');
+                            } else {
+                                this.posts.unshift(resp.data.data);
+                                toastStack(resp.data.msg, '', 'success');
+                                this.newPostData = {
+                                    'title': '',
+                                    'body': '',
+                                    'category_id': '1',
+                                }
+                                this.$refs.modal.close();
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                } else {
+                    toastStack('   خطاء ', 'يجب تسجيل الدخول اولا', 'error');
+                }
+                this.$emit('click', this.$vnode.key)
+            },
+            updatePost() {
+                if (localStorage.token) {
+                    this.isLoading = true;
+                    axios({url: '/api/update_post_web', data: this.newPostData, method: 'POST'})
+                        .then(resp => {
+                            this.isLoading = false;
+                            if (resp.data.status == false) {
+                                toastStack('   خطاء ', resp.data.msg, 'error');
+                            } else {
+                                this.posts[this.active_post] = (resp.data.data);
+                                toastStack(resp.data.msg, '', 'success');
+                                this.$refs.modal.close();
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                } else {
+                    toastStack('   خطاء ', 'يجب تسجيل الدخول اولا', 'error');
+                }
+                this.$emit('click', this.$vnode.key)
             },
 
             onCancel() {

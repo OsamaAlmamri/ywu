@@ -59,7 +59,8 @@
                                             :class="['tab-btn', {'active-btn':(activeTap=='prod-reviews')}]">التقييمات
 
                                         </li>
-                                        <li v-if="calculateProgress=='100' && training.result==null " data-tab="#mcq_tap"
+                                        <li v-if="calculateProgress=='100' && training.result==null "
+                                            data-tab="#mcq_tap"
                                             @click="changeActive('mcq_tap')" id="mcq_tap_open"
                                             :class="['tab-btn', {'active-btn':(activeTap=='mcq_tap')}]">الاختبار
                                         </li>
@@ -332,10 +333,16 @@
                             <div class="time-left"> تبدا في {{training.start_at}}</div>
                             <div class="time-left"> تنتهي في {{training.end_at}}</div>
 
-                            <a href="#" @click.prevent="openModal()" v-show="training.is_like==null"
+                            <a href="#"
+                               v-show="training.is_like==null"
                                class="theme-btn btn-style-three"><span
-                                class="txt">اضافة للمفضلة  <i
-                                class="fa fa-angle-left"></i></span></a>
+                                class="txt">
+                                 <like-button type="trainings" :on-like="likeTraining" :key="training.id"
+                                              count-likes="0" has-count="0"
+                                              :liked_id="training.id" :is_liked="training.is_like"></like-button>
+                                 {{(training.is_like==null?'اضافة للمفضلة':'الغاء من المفضلة')}}
+                                <i
+                                    class="fa fa-angle-left"></i></span></a>
                             <div>
                                 <h4> التقدم بالدورة</h4>
                                 <div class="progress">
@@ -348,9 +355,12 @@
                                 </div>
                             </div>
 
-                            <a href="#" v-show="training.is_register==null" class="theme-btn btn-style-two"><span
-                                class="txt">التسجيل بالدورة  <i
+                            <a href="#" :disabled="!training.can_register"  @click="registerInCourse()"
+                               class="theme-btn btn-style-two"><span
+                                class="txt"> {{registerDecription}}   <i
                                 class="fa fa-angle-left"></i></span></a>
+
+
                         </div>
                     </div>
 
@@ -368,11 +378,12 @@
     // Import stylesheet
     import 'vue-loading-overlay/dist/vue-loading.css';
     import RatingStars2 from "./RatingStars2";
+    import LikeButton from "./LikeButton";
 
     export default {
         props: ['items'],
         // components: {question},
-        components: {RatingStars2, Loading, RatingStars},
+        components: {RatingStars2, Loading, RatingStars, LikeButton},
 
         data() {
             return {
@@ -425,6 +436,15 @@
                             }
                         }
                     ],
+                    "rating_details": {
+                        "one": 0,
+                        "tow": 0,
+                        "three": 0,
+                        "four": 0,
+                        "five": 0,
+                        "sum": 0,
+                        "average": 0
+                    },
                     "is_rating": null,
                     "result": null,
                     "is_register": {
@@ -478,6 +498,15 @@
             contentDeatail() {
                 return this.activeContent;
             },
+            registerDecription() {
+                if (this.training.is_register == null)
+                    return ' تسجيل ';
+                else if (this.training.is_register.status == 0)
+                    return ' الغاء التسجيل  ';
+                else
+                    return '  الغاء التسجيل  ';
+
+            },
             calculateProgress() {
                 let titles = this.training.user_complete.titles;
                 let trainings = 0;
@@ -526,12 +555,36 @@
 
                 }
                 return this.tr;
-            }
-            ,
+            },
+            registerInCourse() {
+                if (localStorage.token) {
+                    axios({
+                        url: '/api/register_to_training', data: {
+                            training_id: this.training.id
+                        }, method: 'POST'
+                    }).then(resp => {
+                        if (resp.data.status == false) {
+                            toastStack('   خطاء ', resp.data.msg, 'error');
+                        } else {
+                            this.training.is_register = resp.data.data;
+                            toastStack(resp.data.msg, '', 'success');
+                        }
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                } else {
+                    toastStack('   خطاء ', 'يجب تسجيل الدخول اولا', 'error');
+                }
+                this.$emit('click', this.$vnode.key)
+            },
             change_new_rating_val: function (newVal) {
                 this.newRating.rating = newVal;
-            }
-            ,
+            }, likeTraining: function (is_like) {
+                if (is_like == 1)
+                    this.training.is_like = {'id': this.rating.id}
+                else
+                    this.training.is_like = null;
+            },
 
             onToggle(index) {
                 if (this.activeIndex == index) {
@@ -626,16 +679,17 @@
 
             rating() {
                 this.isLoading = true;
-                axios({url: '/api/training/rate', data: this.newRating, method: 'POST'})
+                axios({url: '/api/training/rate2', data: this.newRating, method: 'POST'})
                     .then(resp => {
                         if (resp.data.status == false) {
                             toastStack('   خطاء ', resp.data.msg, 'error');
                         } else {
                             toastStack(resp.data.msg, '', 'success');
-
-                            this.training.is_rating = resp.data.data;
+                            // this.training.is_rating = resp.data.data;
+                            this.training.is_rating = resp.data.data.is_rating;
+                            this.training.ratings = resp.data.data.ratings;
+                            this.training.rating_details = resp.data.data.rating_details;
                             this.edit_rate = false;
-
                         }
                         this.isLoading = false;
                     })
@@ -648,16 +702,19 @@
 
             deleteRating() {
                 this.isLoading = true;
-                axios({url: '/api/training/delete_rate', data: {id: this.training.is_rating.id}, method: 'POST'})
+                axios({url: '/api/training/delete_rate2', data: {id: this.training.is_rating.id}, method: 'POST'})
                     .then(resp => {
                         if (resp.data.status == false) {
                             toastStack('   خطاء ', resp.data.msg, 'error');
                         } else {
                             toastStack(resp.data.msg, '', 'success');
-                            if (resp.data.data == 1) {
-                                this.training.is_rating = null;
-                                this.edit_rate = true;
-                            }
+                            // if (resp.data.data == 1) {
+                            this.training.is_rating = resp.data.data.is_rating;
+                            this.training.ratings = resp.data.data.ratings;
+                            this.training.rating_details = resp.data.data.rating_details;
+                            // this.training.is_rating = null;
+                            this.edit_rate = true;
+                            // }
 
 
                         }
@@ -682,7 +739,7 @@
                         } else {
                             toastStack(resp.data.msg, '', 'success');
                             this.training.result = resp.data.data;
-                            this.activeTap='result';
+                            this.activeTap = 'result';
 
                         }
                         this.isLoading = false;
