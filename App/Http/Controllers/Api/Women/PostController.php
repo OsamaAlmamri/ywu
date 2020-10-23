@@ -21,8 +21,10 @@ class PostController extends Controller
 
     public function index()
     {
+        $limit=(request()->limit != null)?request()->limit:10;
+
         $post = WomenPosts::with(['user_like'])
-            ->orderByDesc('id')->paginate(20);
+            ->orderByDesc('id')->paginate($limit);
         if (!$post) {
             return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
         } else {

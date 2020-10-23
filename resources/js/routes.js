@@ -82,7 +82,7 @@ const routes = [
     },
     {
         path: '/',
-        component: Home,
+        component: Course,
         name: "home2",
 
         meta: {
@@ -99,7 +99,7 @@ const routes = [
     },
     {
         path: '/home',
-        component: Home,
+        component: Course,
         name: "home",
         meta: {
             requiresAuth: false

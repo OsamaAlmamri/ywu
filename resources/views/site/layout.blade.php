@@ -117,9 +117,9 @@
                                             الصفحة الشخصية
                                         </router-link>
                                     </li>
-                                    <li :class="[{'current':(currentPage=='home' ||currentPage=='home2')}]">
-                                        <router-link @click="$scrollToTop" to="/home"> الرئيسية</router-link>
-                                    </li>
+                                    {{--                                    <li :class="[{'current':(currentPage=='home' ||currentPage=='home2')}]">--}}
+                                    {{--                                        <router-link @click="$scrollToTop" to="/home"> الرئيسية</router-link>--}}
+                                    {{--                                    </li>--}}
                                     <li :class="[{'current':currentPage=='courses'}]">
                                         <router-link @click="$scrollToTop" to="/courses"> التدريب</router-link>
                                     </li>
@@ -158,7 +158,7 @@
 
             <nav class="menu-box">
                 <div class="nav-logo" style="text-align: center">
-                    <router-link  @click.native="$scrollToTop" to="/home"></router-link>
+                    <router-link @click.native="$scrollToTop" to="/home"></router-link>
                     <img
                         style="width: 130px;    margin-bottom: -30px;" src="site/images/Logo250px.png"
                         alt=""
@@ -190,153 +190,154 @@
              style="background-image:url('/site/images/background/3.png')">
         <div class="auto-container">
 
-           </div>
+        </div>
 
-            <div class="content">
-                <h2>هل انت على استعداد للبدء؟</h2>
-                <div class="text">يمكنك الان عرض واخذ المواد التدريبة
-                    و <br>نشر و عرض الاستشارات .
-                </div>
-                <div class="buttons-box">
-                    <a href="/courses" class="theme-btn btn-style-one">
+        <div class="content">
+            <h2>هل انت على استعداد للبدء؟</h2>
+            <div class="text">يمكنك الان عرض واخذ المواد التدريبة
+                و <br>نشر و عرض الاستشارات .
+            </div>
+            <div class="buttons-box">
+                <a href="/courses" class="theme-btn btn-style-one">
 
                         <span class="txt">المواد التدريبة <i
                                 class="fa fa-angle-left"></i></span></a>
-                    <a href="/consultant" class="theme-btn btn-style-two"><span class="txt">الاستشارات <i
-                                class="fa fa-angle-left"></i></span></a>
-                </div>
+                <a href="/consultant" class="theme-btn btn-style-two"><span class="txt">الاستشارات <i
+                            class="fa fa-angle-left"></i></span></a>
             </div>
         </div>
-    </section>
+</div>
+</section>
 
-    <footer class="main-footer">
-        <!-- Pattern Layer -->
-        <div class="pattern-layer paroller" data-paroller-factor="0.60" data-paroller-factor-lg="0.20"
-             data-paroller-type="foreground" data-paroller-direction="vertical"
-             style="background-image:url('{{asset('site/images/icons/icon-1.png')}}')"></div>
-        <div class="pattern-layer-two" data-paroller-factor="0.60"
-             data-paroller-factor-lg="0.20" data-paroller-type="foreground"
-             data-paroller-direction="vertical"
-             style="background-image:url('{{asset('site/images/icons/icon-3.png')}}')">
-        </div>
-        <div class="auto-container">
+<footer class="main-footer">
+    <!-- Pattern Layer -->
+    <div class="pattern-layer paroller" data-paroller-factor="0.60" data-paroller-factor-lg="0.20"
+         data-paroller-type="foreground" data-paroller-direction="vertical"
+         style="background-image:url('{{asset('site/images/icons/icon-1.png')}}')"></div>
+    <div class="pattern-layer-two" data-paroller-factor="0.60"
+         data-paroller-factor-lg="0.20" data-paroller-type="foreground"
+         data-paroller-direction="vertical"
+         style="background-image:url('{{asset('site/images/icons/icon-3.png')}}')">
+    </div>
+    <div class="auto-container">
 
-            <!-- Widgets Section -->
-            <div class="widgets-section">
-                <div class="row clearfix">
-                    <!-- Big Column -->
-                    <div class="big-column col-lg-6 col-md-12 col-sm-12">
-                        <div class="row clearfix">
-                            <!--Footer Column-->
-                            <div class="footer-column col-lg-5 col-md-5 col-sm-12">
-                                <div class="footer-widget logo-widget">
-                                    <div class="logo">
-                                        <a href="/">
-                                            <router-link   @click.native="$scrollToTop" to="/home"></router-link>
-                                            <img src="site/images/Logo250px.png" alt=""></a>
-                                    </div>
-                                    <div class="social-box">
-                                        <a href="https://www.facebook.com/yemenwu" class="fa fa-facebook"></a>
-                                        <a href="https://www.instagram.com/yemen_women_union/"
-                                           class="fa fa-instagram"></a>
-                                        <a href="https://twitter.com/yemenwomenunion" class="fa fa-twitter"></a>
-                                        <a href="http://yemenwu.org/rss.php" class="fa fa-google"></a>
-                                        <a href="https://www.youtube.com/channel/UCqfE0KSwfIheQSODW0U_aDw"
-                                           class="fa fa-youtube"></a>
-                                    </div>
+        <!-- Widgets Section -->
+        <div class="widgets-section">
+            <div class="row clearfix">
+                <!-- Big Column -->
+                <div class="big-column col-lg-6 col-md-12 col-sm-12">
+                    <div class="row clearfix">
+                        <!--Footer Column-->
+                        <div class="footer-column col-lg-5 col-md-5 col-sm-12">
+                            <div class="footer-widget logo-widget">
+                                <div class="logo">
+                                    <a href="/">
+                                        <router-link @click.native="$scrollToTop" to="/home"></router-link>
+                                        <img src="site/images/Logo250px.png" alt=""></a>
+                                </div>
+                                <div class="social-box" style="text-align: center;">
+                                    <a href="https://www.facebook.com/yemenwu" class="fa fa-facebook"></a>
+                                    <a href="https://www.instagram.com/yemen_women_union/"
+                                       class="fa fa-instagram"></a>
+                                    <a href="https://twitter.com/yemenwomenunion" class="fa fa-twitter"></a>
+                                    <a href="http://yemenwu.org/rss.php" class="fa fa-google"></a>
+                                    <a href="https://www.youtube.com/channel/UCqfE0KSwfIheQSODW0U_aDw"
+                                       class="fa fa-youtube"></a>
                                 </div>
                             </div>
-                            <!--Footer Column-->
-                            <div class="footer-column col-lg-7 col-md-7 col-sm-12">
-                                <div class="footer-widget links-widget">
-                                    <h4>من نحن</h4>
-                                    <div class="about-us">
-                                        <p>منظمة غير حكومية طوعية مستقلة تأسست منذ الستينات تضم في عضويتها من ترغب من
-                                            النساء من مختلف الفئات العمرية والانتماءات السياسية</p>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
+                        <!--Footer Column-->
+                        <div class="footer-column col-lg-7 col-md-7 col-sm-12">
+                            <div class="footer-widget links-widget">
+                                <h4>من نحن</h4>
+                                <div class="about-us">
+                                    <p>منظمة غير حكومية طوعية مستقلة تأسست منذ الستينات تضم في عضويتها من ترغب من
+                                        النساء من مختلف الفئات العمرية والانتماءات السياسية</p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
+                </div>
 
-                    <!-- Big Column -->
-                    <div class="big-column col-lg-6 col-md-12 col-sm-12">
-                        <div class="row clearfix">
+                <!-- Big Column -->
+                <div class="big-column col-lg-6 col-md-12 col-sm-12">
+                    <div class="row clearfix">
 
-                            <!--Footer Column-->
-                            <div class="footer-column col-lg-8 col-md-8 col-sm-12">
-                                <div class="footer-widget links-widget">
-                                    <h4>معلومات تهمك</h4>
-                                    <div class="about-us">
-                                        <address class="offset-top-20">
-                                            <ul class="contact-list">
-                                                <li class="transition-ef inner-lan"><i class="fa fa-envelope-o"></i><a
-                                                        href="mailto:info@yemenwu.org">info@yemenwu.org</a></li>
-                                                <li class="transition-ef inner-lan"><i class="fa fa-phone"></i><a
-                                                        href="tel:+967 01 480489">+967 01 480489</a></li>
-                                                <li class="transition-ef"><i class="fa fa-map-marker"></i>المكتب
-                                                    التنفيذي
-                                                    صنعاء - التحرير خلف البنك المركزي
-                                                </li>
-                                                {{--                                                <li class="transition-ef"><i class="fa fa-inbox"></i>صندوق بريد: 3541</li>--}}
-                                            </ul>
-                                        </address>
-                                    </div>
+                        <!--Footer Column-->
+                        <div class="footer-column col-lg-8 col-md-8  col-sx-12 col-sm-8">
+                            <div class="footer-widget links-widget">
+                                <h4>معلومات تهمك</h4>
+                                <div class="about-us">
+                                    <address class="offset-top-20">
+                                        <ul class="contact-list">
+                                            <li class="transition-ef inner-lan"><i class="fa fa-envelope-o"></i><a
+                                                    href="mailto:info@yemenwu.org">info@yemenwu.org</a></li>
+                                            <li class="transition-ef inner-lan"><i class="fa fa-phone"></i><a
+                                                    href="tel:+967 01 480489">+967 01 480489</a></li>
+                                            <li class="transition-ef"><i class="fa fa-map-marker"></i>المكتب
+                                                التنفيذي
+                                                صنعاء - التحرير خلف البنك المركزي
+                                            </li>
+                                            {{--                                                <li class="transition-ef"><i class="fa fa-inbox"></i>صندوق بريد: 3541</li>--}}
+                                        </ul>
+                                    </address>
                                 </div>
                             </div>
-
-                            <!--Footer Column-->
-                            <div class="footer-column col-lg-4 col-md-4 col-sm-12">
-                                <div class="footer-widget links-widget">
-                                    <h4> تنزيل التطبيقات</h4>
-
-                                    <ul class="links-widget">
-                                        <li>
-                                            <a href="https://play.google.com/store/apps/" target="_blank"><img
-                                                    src="site/images/google-play-img.png" alt=""></a>
-                                            {{--                                            <a href="https://play.google.com/store/apps/details?id=com.sahltaxi.passenger" target="_blank"><img src="assets/img/google-play-img.png" alt=""></a>--}}
-                                        </li>
-                                        <li>
-                                            <a href="https://itunes.apple.com" target="_blank"><img
-                                                    src="site/images/app-stor-img.png" alt=""></a>
-                                            {{--                                            <a href="https://itunes.apple.com/qa/app/sahl-taxi/id1455325390?mt=8" target="_blank"><img src="assets/img/app-stor-img.png" alt=""></a>--}}
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
                         </div>
+
+                        <!--Footer Column-->
+                        <div class="footer-column col-lg-4 col-md-4 col-sx-12 col-sm-4">
+                            <div class="footer-widget links-widget">
+                                <h4> تنزيل التطبيقات</h4>
+
+                                <ul class="links-widget">
+                                    <li style="display: inline-block;">
+                                        <a href="https://play.google.com/store/apps/" target="_blank"><img
+                                                src="site/images/google-play-img.png" alt=""></a>
+                                        {{--                                            <a href="https://play.google.com/store/apps/details?id=com.sahltaxi.passenger" target="_blank"><img src="assets/img/google-play-img.png" alt=""></a>--}}
+                                    </li>
+                                    <li style="display: inline-block;">
+
+                                    <a href="https://itunes.apple.com" target="_blank"><img
+                                                src="site/images/app-stor-img.png" alt=""></a>
+                                        {{--                                            <a href="https://itunes.apple.com/qa/app/sahl-taxi/id1455325390?mt=8" target="_blank"><img src="assets/img/app-stor-img.png" alt=""></a>--}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</footer>
+<div class="footer_menu_copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="last_footer">
+                    <div class="copy_right">
+                        <p style="text-align: center"><a href="#">حقوق النشر والتصميم محفوظة © 2020 اتحاد نساء اليمن</a></p>
                     </div>
 
                 </div>
             </div>
+            <div class="col-md-5">
+                <div class="last_footer">
 
-        </div>
-    </footer>
-    <div class="footer_menu_copyright">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-7">
-                    <div class="last_footer">
-                        <div class="copy_right">
-                            <p><a href="#">حقوق النشر والتصميم محفوظة © 2020 اتحاد نساء اليمن</a></p>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="last_footer">
-
-                        <div class="developer">
-                            <p>تصميم وتطوير: <a href="https://www.facebook.com/Eng.Osama.Almamari"
-                                                title="م.اسامة المعمري">م.اسامة المعمري</a></p>
-                        </div>
+                    <div class="developer" style="text-align: center">
+                        <p>تصميم وتطوير: <a href="https://www.facebook.com/Eng.Osama.Almamari"
+                                            title="م.اسامة المعمري">م.اسامة المعمري</a></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 </div>
 

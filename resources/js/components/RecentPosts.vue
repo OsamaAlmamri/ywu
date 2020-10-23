@@ -14,11 +14,10 @@
                         <div class="post-inner">
                             <figure class="post-thumb">
                                 <router-link :to="{ name: post_url, params: { id: post.id}}">
-                                    <img :src="'assets/images/' + post.image" alt="" v-if="type!='posts'">
-                                    <div>
-                                        <i style="font-size: 20px" class="fa fa-users" v-if="type=='posts'"></i>
-                                            {{post.category}}
-                                    </div>
+                                    <img style="width: 70px; border-radius: 49%;" :src="BaseImagePath + post.image" alt="" v-if="type!='posts'">
+<!--                                    <img :src="'assets/images/' + post.image" alt="" v-if="type=='posts'">-->
+                                    <img v-if="type=='posts'" style="width: 70px; border-radius: 49%;" :src="getImageType(post.category.id)">
+
                                 </router-link>
                             </figure>
                             <div class="text">

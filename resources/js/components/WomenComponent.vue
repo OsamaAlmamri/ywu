@@ -39,7 +39,7 @@
 
                         <div class="row clearfix">
                             <div class="cource-block-two col-lg-4 col-md-6 col-sm-12 col-xs-12"
-                                 v-for="women_post in women_posts">
+                                 v-for="women_post in pagesData.data">
                                 <women-item
                                     :women_post="women_post"
                                     @toggled="onToggle"
@@ -47,23 +47,17 @@
                             </div>
 
                         </div>
-
-                        <!-- Post Share Options -->
                         <div class="styled-pagination">
-                            <ul class="clearfix">
-                                <li class="prev"><a href="#"><span class="fa fa-angle-left"></span> </a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li class="active"><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">6</a></li>
-                                <li><a href="#">7</a></li>
-                                <li><a href="#">8</a></li>
-                                <li class="next"><a href="#"><span class="fa fa-angle-right"></span> </a></li>
-                            </ul>
+                            <pagination
+                                :align="'right'"
+                                :show-disabled=true
+                                @pagination-change-page="fetchArticles"
+                                :data="pagesData">
+                                <span slot="prev-nav">&lt;&lt; </span>
+                                <span slot="next-nav"> &gt;&gt;</span>
+                            </pagination>
+                            <!--                        <pagination :data="laravelData" @pagination-change-page="getResults"></pagination>-->
                         </div>
-
                     </div>
 
                 </div>
@@ -86,12 +80,14 @@
     // Import stylesheet
     import 'vue-loading-overlay/dist/vue-loading.css';
     import ConsultantItem from "./ConsultantItem";
+    import axios from "axios";
     export default {
         props: ['items'],
         components: {WomenItem, Loading},
         data() {
 
             return {
+                pagesData:{},
                 isLoading: false,
                 fullPage: false,
                 activeIndex: null,
@@ -111,17 +107,19 @@
                 }
                 this.activeIndex = index;
             },
-            fetchArticles() {
+            // getResults(page = 1) {
+            //     axios.post('api/AllPosts?page=' + page)
+            //         .then(response => {
+            //             this.laravelData = response.data.Posts;
+            //         });
+            // },
+            fetchArticles(page = 1) {
                 this.isLoading = true;
-                axios.post('/api/ShowP', {
-                        headers: {
-                            'content-type': 'application/json',
-                            // Authorization: 'Bearer ' + localStorage.getItem('token')
-                        }
-                    },
-                ).then(res => {
+                axios({url: '/api/ShowP?page='+ page, data: {limit: 9}, method: 'POST'})
+               .then(res => {
                     // console.log(res.data.Posts.data)
                     this.isLoading = false;
+                    this.pagesData = res.data.Posts;
                     this.women_posts = res.data.Posts.data;
                 })
                     .catch(err => {
@@ -136,6 +134,8 @@
         },
         mounted() {
             console.log('Component mounted.')
+            this.fetchArticles();
+
         },
 
 

@@ -65,7 +65,7 @@
 
         <div class="row">
             <div class="col-xs-2 pull-right" style="margin: 20px 38px 0px 0px">
-                <i class="fa fa-facebook-f"> </i>
+                <img style="width: 40px; border-radius: 49%;" :src="getImageType(post.category.id)">
             </div>
             <div class="col-xs-4 pull-right" style="margin: 15px 15px 0 0">
                 <ul style="display: inline-block; list-style: none" class="">

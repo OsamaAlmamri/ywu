@@ -35,7 +35,7 @@ class LastPosts extends JsonResource
                 'id' => $this->id,
                 'title' => $this->title,
                 'body' => $this->body,
-                'category' => $this->category->name,
+                'category' => $this->category,
             ];
         else {
             return [

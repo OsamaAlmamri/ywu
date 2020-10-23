@@ -36,7 +36,7 @@
                                 <li><span class="theme_color">{{post.published}}</span></li>
                             </ul>
                             <div class="image" v-show="post.image!=null">
-                                <img :src="'assets/images/'+post.image" alt="">
+                                <img :src="BaseImagePath+post.image" alt="">
                             </div>
                             <div v-html="post.body"></div>
                             <!--                            <div class="social-box">-->

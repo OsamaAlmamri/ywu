@@ -22,6 +22,7 @@ import Axios from 'axios'
 Vue.prototype.$http = Axios;
 import store from "./store";
 import SweetModal from 'sweet-modal-vue/src/plugin.js'
+
 Vue.use(SweetModal)
 
 var api_url = process.env.MIX_APP_URL;
@@ -40,17 +41,38 @@ if (process.env.MIX_ENV_MODE === 'production') {
 }
 
 Vue.mixin({
+    data() {
+        return {
+            BaseImagePath: 'assets//images//'
+        };
+    },
     methods: {
-        countWords: function (text,no_words) {
+        countWords: function (text, no_words) {
             var str = text.replace(/(^\s*)|(\s*$)/gi, "");
             str = str.replace(/[ ]{2,}/gi, " ");
             str = str.replace(/\n /, "\n");
-            var words=str.split(' ').length;
+            var words = str.split(' ').length;
             return {
                 'words': words,
                 'newText': str.split(" ").splice(0, no_words).join(" "),
-                'isMore':(words>no_words)
+                'isMore': (words > no_words)
             };
+        },
+        getImageType: function (type) {
+            switch (type) {
+                case 1:
+                    return "site/images/fam.png";
+                    break;
+                case 2:
+                    return "site/images/physc.png";
+                    break;
+                case 3:
+                    return "site/images/law.jpg";
+                    break;
+                default :
+                    return "site/images/ph6.png";
+
+            }
         }
     }
 });

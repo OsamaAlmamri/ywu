@@ -309,7 +309,7 @@
                     <div class="video-column col-lg-4 col-md-12 col-sm-12">
                         <div class="inner-column sticky-top">
                             <div class="intro-video"
-                                 v-bind:style="{ backgroundImage: 'url(assets/images/' + training.thumbnail + ')' }">
+                                 v-bind:style="{ backgroundImage: 'url('+BaseImagePath + training.thumbnail + ')' }">
 
 
                                 <!--                            <clazy-load class="wrapper intro-video" :src="'assets/images/' + training.thumbnail">-->

@@ -69,6 +69,9 @@
                     case 'profile' :
                         return "الصفحة الشخصية ";
                         break;
+                    case 'consultant' :
+                        return " الاستشارات ";
+                        break;
                     case 'register' :
                         return "انشاء حساب جديد";
                         break;

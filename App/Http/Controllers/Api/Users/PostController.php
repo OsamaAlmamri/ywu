@@ -21,11 +21,12 @@ class PostController extends Controller
     public function index()
     {
 
+        $limit=(request()->limit != null)?request()->limit:5;
         if (request()->category != null) {
             $post = Post::with(['user', 'category', 'comments', 'user_like'])
                 ->where('status', true)
                 ->where('category_id', request()->category)
-                ->orderBy('id', 'desc')->paginate(20);
+                ->orderBy('id', 'desc')->paginate($limit);
             if (!$post) {
                 return $this->ReturnErorrRespons('0000', 'لايوجد استشارات');
             } else {
@@ -34,7 +35,7 @@ class PostController extends Controller
         } else {
             $post = Post::with(['user', 'category', 'comments', 'user_like'])
                 ->where('status', true)
-                ->orderBy('id', 'desc')->paginate(5);
+                ->orderBy('id', 'desc')->paginate($limit);
             if (!$post) {
                 return $this->ReturnErorrRespons('0000', 'لايوجد استشارات');
             } else {
@@ -47,7 +48,9 @@ class PostController extends Controller
     {
         try {
             $this->user = JWTAuth::parseToken()->authenticate();
-            $mPosts = $this->user->posts()->where('status', true)->with(['category', 'comments'])->get(['id', 'title', 'body', 'user_id', 'category_id', 'status', 'favorite', 'created_at', 'updated_at'])->toArray();
+            $mPosts = $this->user->posts()->where('status', true)
+                ->with(['category', 'comments'])
+                ->get(['id', 'title', 'body', 'user_id', 'category_id', 'status', 'favorite', 'created_at', 'updated_at'])->toArray();
             if (!$mPosts) {
                 return $this->ReturnErorrRespons('0000', 'لايوجد استشارات');
             } else {
@@ -64,7 +67,7 @@ class PostController extends Controller
         try {
             $this->user = JWTAuth::parseToken()->authenticate();
             $posts = Post::with(['user', 'category', 'comments', 'user_like'])
-//                ->where('status', true)
+                ->where('user_id', auth()->id())
 //                ->where('category_id', request()->category)
                 ->orderBy('id', 'desc')->paginate(5);
 

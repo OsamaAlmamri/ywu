@@ -25,10 +25,10 @@
                     <!-- questionTitle -->
                     <h3 class="titleContainer title">{{ questions[questionIndex].text }}</h3>
 
-                    <clazy-load class="wrapper"  v-show="questions[questionIndex].image!=null" :src="'/assets/images/' + questions[questionIndex].image" >
+                    <clazy-load class="wrapper"  v-show="questions[questionIndex].image!=null" :src="BaseImagePath + questions[questionIndex].image" >
                         <transition name="fade">
                             <div class="divClass"
-                                 v-bind:style="{ backgroundImage: 'url(/assets/images/' +questions[questionIndex].image + ')' }">
+                                 v-bind:style="{ backgroundImage: 'url('+BaseImagePath +questions[questionIndex].image + ')' }">
                             </div>
                         </transition>
                         <transition name="fade" slot="placeholder">

@@ -158,6 +158,7 @@
             </div>
         </div>
     </div>
+    </div>
     <div id="formShow" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -214,7 +215,7 @@
 @endsection
 @section('custom_js')
 
-    @include('adminpanel.wyswyg')
+        @include('adminpanel.wyswyg')
 
     @include('adminpanel.active')
     <script>
@@ -484,8 +485,8 @@
                         $('#has_certificate').val(html.data.has_certificate);
                         $('#instructor').val(html.data.instructor);
                         // $('#description').val(html.data.description);
-                        tinyMCE.get("description").setContent((html.data.description==null?'':html.data.description));
-                        tinyMCE.get("learn").setContent((html.data.learn==null?'':html.data.learn));
+                        tinyMCE.get("description").setContent((html.data.description == null ? '' : html.data.description));
+                        tinyMCE.get("learn").setContent((html.data.learn == null ? '' : html.data.learn));
 
                         $('#store_image').html("<img src={{ URL::to('/') }}/assets/images/" + html.data.thumbnail + " width='70' class='img-thumbnail' />");
                         $('#store_image').append("<input type='hidden' name='hidden_image' value='" + html.data.thumbnail + "' />");
