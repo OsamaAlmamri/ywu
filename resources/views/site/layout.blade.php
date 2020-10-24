@@ -299,7 +299,7 @@
                                     </li>
                                     <li style="display: inline-block;">
 
-                                    <a href="https://itunes.apple.com" target="_blank"><img
+                                        <a href="https://itunes.apple.com" target="_blank"><img
                                                 src="site/images/app-stor-img.png" alt=""></a>
                                         {{--                                            <a href="https://itunes.apple.com/qa/app/sahl-taxi/id1455325390?mt=8" target="_blank"><img src="assets/img/app-stor-img.png" alt=""></a>--}}
                                     </li>
@@ -321,7 +321,8 @@
             <div class="col-md-7">
                 <div class="last_footer">
                     <div class="copy_right">
-                        <p style="text-align: center"><a href="#">حقوق النشر والتصميم محفوظة © 2020 اتحاد نساء اليمن</a></p>
+                        <p style="text-align: center"><a href="#">حقوق النشر والتصميم محفوظة © 2020 اتحاد نساء اليمن</a>
+                        </p>
                     </div>
 
                 </div>

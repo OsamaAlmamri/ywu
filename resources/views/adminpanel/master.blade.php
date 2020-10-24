@@ -511,6 +511,12 @@
             display: inline-block;
             vertical-align: middle
         }
+
+        .nav-md .container.body .col-md-3.left_col {
+
+            position: absolute;
+        }
+
     </style>
 
 
