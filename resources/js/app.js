@@ -58,6 +58,12 @@ Vue.mixin({
                 'isMore': (words > no_words)
             };
         },
+        scrollToTop: function () {
+            window.scrollTo(0, 0);
+            var div = document.querySelector('body');
+            div.classList.remove('mobile-menu-visible');
+
+        },
         getImageType: function (type) {
             switch (type) {
                 case 1:
@@ -74,6 +80,14 @@ Vue.mixin({
 
             }
         }
+    },
+    computed: {
+        ShowPublickSearchFiled: function () {
+            if ((this.$route.name == 'courses') || (this.$route.name == 'women') || (this.$route.name == 'consultant'))
+                return false;
+            return true;
+        }
+
     }
 });
 const MyPlugin = {
@@ -103,9 +117,12 @@ const app = new Vue({
         }
     },
     methods: {
-        scrollToTop: function () {
-            window.scrollTo(0, 0);
-        },
+        // scrollToTop: function () {
+        //     window.scrollTo(0, 0);
+        //     const div =  document.querySelector('body');
+        //     div.classList.remove('mobile-menu-visible');
+        //
+        // },
         logout: function () {
             this.$store.dispatch('logout')
                 .then(() => {

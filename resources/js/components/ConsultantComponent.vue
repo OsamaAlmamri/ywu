@@ -1,6 +1,10 @@
 <template>
     <!--Sidebar Page Container-->
-    <div class="sidebar-page-container">
+    <div>
+        <search-filed  v-on:search_result="setSearchResult"></search-filed>
+
+        <div class="sidebar-page-container">
+
         <loading :active.sync="isLoading"
                  :can-cancel=false
                  :color="'#00ab15'"
@@ -67,7 +71,45 @@
         <div class="circle-one"></div>
         <div class="circle-two"></div>
         <div class="auto-container">
-            <div class="row clearfix">
+            <div class="row clearfix"  v-if="is_search==true">
+
+                <!-- Content Side -->
+                <div class="content-side  col-md-12 col-sm-12">
+                    <div class="our-courses">
+                        <!-- Options View -->
+                        <div class="options-view">
+                            <div class="clearfix" >
+                                <div class="pull-right">
+                                    <h3> نتائج البحث عن "{{search_data}}"</h3>
+                                </div>
+                                <div class="pull-left">
+                                    <button class="btn btn-info" @click="is_search=false">اغلاق نتائج البحث</button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row clearfix">
+                            <div class="cource-block-two  col-sm-12 col-xs-12"
+                                 v-for="(post,key) in search_result">
+                                <consultant-item
+                                    v-on:edit_post="edit_post"
+                                    v-on:delete_post="delete_post"
+                                    :key="key"
+                                    :post="post"
+
+                                    @toggled="onToggle"
+                                ></consultant-item>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row clearfix"  v-if="is_search==false">
 
                 <!-- Content Side -->
                 <div class="content-side col-lg-8 col-md-12 col-sm-12">
@@ -112,20 +154,20 @@
                             <!--                        <pagination :data="laravelData" @pagination-change-page="getResults"></pagination>-->
                         </div>
                         <!-- Post Share Options -->
-<!--                        <div class="styled-pagination">-->
-<!--                            <ul class="clearfix">-->
-<!--                                <li class="prev"><a href="#"><span class="fa fa-angle-left"></span> </a></li>-->
-<!--                                <li><a href="#">1</a></li>-->
-<!--                                <li><a href="#">2</a></li>-->
-<!--                                <li class="active"><a href="#">3</a></li>-->
-<!--                                <li><a href="#">4</a></li>-->
-<!--                                <li><a href="#">5</a></li>-->
-<!--                                <li><a href="#">6</a></li>-->
-<!--                                <li><a href="#">7</a></li>-->
-<!--                                <li><a href="#">8</a></li>-->
-<!--                                <li class="next"><a href="#"><span class="fa fa-angle-right"></span> </a></li>-->
-<!--                            </ul>-->
-<!--                        </div>-->
+                        <!--                        <div class="styled-pagination">-->
+                        <!--                            <ul class="clearfix">-->
+                        <!--                                <li class="prev"><a href="#"><span class="fa fa-angle-left"></span> </a></li>-->
+                        <!--                                <li><a href="#">1</a></li>-->
+                        <!--                                <li><a href="#">2</a></li>-->
+                        <!--                                <li class="active"><a href="#">3</a></li>-->
+                        <!--                                <li><a href="#">4</a></li>-->
+                        <!--                                <li><a href="#">5</a></li>-->
+                        <!--                                <li><a href="#">6</a></li>-->
+                        <!--                                <li><a href="#">7</a></li>-->
+                        <!--                                <li><a href="#">8</a></li>-->
+                        <!--                                <li class="next"><a href="#"><span class="fa fa-angle-right"></span> </a></li>-->
+                        <!--                            </ul>-->
+                        <!--                        </div>-->
 
                     </div>
 
@@ -138,9 +180,10 @@
 
             </div>
 
+
         </div>
     </div>
-
+    </div>
 </template>
 
 <script>
@@ -167,6 +210,9 @@
                 isLoading: false,
                 active_post: 0,
                 fullPage: false,
+                is_search: false,
+                search_data: '',
+                search_result: [],
                 activeIndex: null,
                 posts: [],
                 categories: [],
@@ -267,6 +313,12 @@
             },
             onCancel() {
                 console.log('User cancelled the loader.')
+            },
+            setSearchResult(data) {
+
+                this.is_search=true;
+                this.search_data=data.title;
+                this.search_result=data.data;
             },
             changeCategoryType(key) {
                 this.newPostData.category_id = key;

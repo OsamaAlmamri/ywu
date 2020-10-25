@@ -20,8 +20,9 @@ class PostController extends Controller
 
     public function index()
     {
+        $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
 
-        $limit=(request()->limit != null)?request()->limit:5;
+        $limit = (request()->limit != null) ? request()->limit : 5;
         if (request()->category != null) {
             $post = Post::with(['user', 'category', 'comments', 'user_like'])
                 ->where('status', true)
@@ -35,6 +36,7 @@ class PostController extends Controller
         } else {
             $post = Post::with(['user', 'category', 'comments', 'user_like'])
                 ->where('status', true)
+                ->orWhere('user_id', $user_id)
                 ->orderBy('id', 'desc')->paginate($limit);
             if (!$post) {
                 return $this->ReturnErorrRespons('0000', 'لايوجد استشارات');

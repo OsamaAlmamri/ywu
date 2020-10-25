@@ -1,6 +1,11 @@
 <template>
     <!--Sidebar Page Container-->
+    <div>
+        <search-filed  v-on:search_result="setSearchResult"></search-filed>
+
+
     <div class="sidebar-page-container">
+
         <loading :active.sync="isLoading"
                  :can-cancel=false
                  :color="'#00ab15'"
@@ -20,7 +25,45 @@
         <div class="circle-one"></div>
         <div class="circle-two"></div>
         <div class="auto-container">
-            <div class="row clearfix">
+            <div v-if="is_search==true" class="row clearfix">
+
+                <!-- Content Side -->
+                <div class="content-side  col-md-12 col-sm-12">
+                    <div class="our-courses">
+
+                        <!-- Options View -->
+                        <div class="options-view">
+                            <div class="clearfix">
+                                <div class="pull-right">
+                                    <h3> نتائج البحث عن "{{search_data}}"</h3>
+                                </div>
+                                <div class="pull-left">
+                                    <button class="btn btn-info" @click="is_search=false">اغلاق نتائج البحث</button>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="row clearfix">
+                            <div class="cource-block-two col-lg-4 col-md-6 col-sm-12 col-xs-12"
+                                 v-for="women_post in search_result">
+                                <women-item
+                                    :women_post="women_post"
+                                    @toggled="onToggle"
+                                ></women-item>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div >
+
+            <div v-if="is_search==false" class="row clearfix">
 
                 <!-- Content Side -->
                 <div class="content-side col-lg-9 col-md-12 col-sm-12">
@@ -71,7 +114,7 @@
 
         </div>
     </div>
-
+    </div>
 </template>
 
 <script>
@@ -93,6 +136,9 @@
                 activeIndex: null,
                 women_posts: [],
                 women_id: '',
+                is_search: false,
+                search_data: '',
+                search_result: [],
                 pagination: {},
                 edit: false
             }
@@ -113,6 +159,12 @@
             //             this.laravelData = response.data.Posts;
             //         });
             // },
+            setSearchResult(data) {
+
+                this.is_search=true;
+                this.search_data=data.title;
+                this.search_result=data.data;
+            },
             fetchArticles(page = 1) {
                 this.isLoading = true;
                 axios({url: '/api/ShowP?page='+ page, data: {limit: 9}, method: 'POST'})

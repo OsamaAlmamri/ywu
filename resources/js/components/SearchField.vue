@@ -4,13 +4,16 @@
         <div class="auto-container">
             <h1> {{pageName}}</h1>
             <!-- Search Boxed -->
-            <div class="search-boxed">
+            <div v-if="showSearchFiled==true" class="search-boxed">
                 <div class="search-box">
                     <form method="post" action="contact.html">
                         <div class="form-group">
-                            <input type="search" name="search-field" value="" placeholder=" هل تبحث عن شيء ؟"
+                            <input type="search"
+                                   v-model="searchData"
+                                   value="" placeholder=" هل تبحث عن شيء ؟"
                                    required="">
-                            <button type="submit"><span class="icon fa fa-search"></span></button>
+                            <button @click.prevent="search()" type="button"><span class="icon fa fa-search"></span>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -21,19 +24,65 @@
 
 </template>
 <script>
-    export default {
-        props: ['title'],
+    import axios from "axios";
 
+    export default {
+        data() {
+            return {
+                isLoading: false,
+                fullPage: true,
+                searchData: '',
+            }
+        },
+        props: ['title'],
         methods: {
+
+            search() {
+                this.isLoading = true;
+                axios({
+                    url: '/api/search', data: {'type': this.search_type, 'search': this.searchData}, method: 'POST'
+                })
+                    .then(resp => {
+                        this.isLoading = false;
+                        var data = [];
+
+                        if (resp.data.status == false) {
+                            toastStack('   خطاء ', resp.data.msg, 'error');
+                        } else {
+                            data = resp.data.data;
+                        }
+                        this.$emit('search_result', {'data':data,'title':this.searchData});
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+                this.$emit('click', this.$vnode.key)
+            },
             toggle() {
                 this.$emit('toggled', this.$vnode.key)
+            },
+            onCancel() {
+                console.log('User cancelled the loader.')
             }
         },
         computed: {
 
+            showSearchFiled: function () {
+                return (this.$route.name == 'courses' ||
+                    this.$route.name == 'women' ||
+                    this.$route.name == 'consultant');
+            },   search_type: function () {
+                if (this.$route.name == 'courses')
+                    return "trainings";
+                else if (this.$route.name == 'women')
+                    return "women_posts";
+                else
+                    return "posts";
+            },
+
             pageName: function () {
 
-                switch ( this.$route.name) {
+                switch (this.$route.name) {
                     case 'home' :
                         return "الرئيسية";
                         break;

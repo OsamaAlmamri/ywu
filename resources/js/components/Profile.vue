@@ -130,6 +130,8 @@
                                         <!-- Sec Title -->
                                         <div class="content">
                                             <div class="row clearfix">
+                                                <h4 style="margin: 25%"  v-if="my_trainings_data.data.length==0">لم تقم باي كورس تدريبي حتى الان
+                                                </h4>
                                                 <div class="cource-block-two col-lg-4 col-md-6 col-sm-12 col-xs-12"
                                                      v-for="(training,key) in my_trainings_data.data">
                                                     <course-gide-item
@@ -158,6 +160,8 @@
                                     <div :class="['tab', {'active-tab':(activeTap=='prod-bookmark')}]">
                                         <div class="content">
                                             <div class="row clearfix">
+                                                <h4 style="margin: 25%"  v-if="my_consultantData.data.length==0">لم تقم باضافة اي استشارة
+                                                      </h4>
                                                 <div class="cource-block-two  col-sm-12 col-xs-12"
                                                      v-for="(post,key) in my_consultantData.data">
                                                     <consultant-item
@@ -188,6 +192,8 @@
                                     <div :class="['tab', {'active-tab':(activeTap=='prod-fav')}]">
                                         <div class="content">
                                             <div class="row clearfix">
+                                                <h4 style="margin: 25%" v-if="my_like_trainings.data.length==0">لم تقم باضافة اي مادة
+                                                    تدريبية للمفضلة </h4>
                                                 <div class="cource-block-two col-lg-4 col-md-6 col-sm-12 col-xs-12"
                                                      v-for="(training,key) in my_like_trainings.data">
                                                     <course-gide-item

@@ -329,20 +329,17 @@
                             </div>
 
                             <!-- End Video Box -->
-                            <div class="price">{{training.length}} <i class="fa fa-clock-o"></i></div>
-                            <div class="time-left"> تبدا في {{training.start_at}}</div>
-                            <div class="time-left"> تنتهي في {{training.end_at}}</div>
+                            <div class="price" style="font-size: 20px">{{training.length}} <i class="fa fa-clock-o"></i></div>
+                            <div class="time-left" v-if="training.start_at!=null"><span style="font-weight: 700"> تبدا في </span> {{training.start_at}}</div>
+                            <div class="time-left" v-if="training.end_at!=null"> <span style="font-weight: 700"> تنتهي  في </span><    {{training.end_at}}</div>
 
-                            <a href="#"
-                               v-show="training.is_like==null"
+                            <button @click="likePost()"
                                class="theme-btn btn-style-three"><span
                                 class="txt">
-                                 <like-button type="trainings" :on-like="likeTraining" :key="training.id"
-                                              count-likes="0" has-count="0"
-                                              :liked_id="training.id" :is_liked="training.is_like"></like-button>
                                  {{(training.is_like==null?'اضافة للمفضلة':'الغاء من المفضلة')}}
-                                <i
-                                    class="fa fa-angle-left"></i></span></a>
+                                <i class="fa fa-angle-left"></i>
+
+                            </span></button>
                             <div>
                                 <h4> التقدم بالدورة</h4>
                                 <div class="progress">
@@ -555,6 +552,27 @@
 
                 }
                 return this.tr;
+            },
+            likePost() {
+                if (localStorage.token) {
+                    axios({url: '/api/like', data: {type: 'trainings', liked_id: this.training.id},
+                        method: 'POST'})
+                        .then(resp => {
+                            if (resp.data.status == false) {
+                                toastStack('   خطاء ', resp.data.msg, 'error');
+                            } else {
+                                var like = resp.data.data;
+                                if (like== 1)
+                                    this.training.is_like= {'training_id':'1'};
+                                else
+                                    this.training.is_like=null;
+                            }})
+                        .catch(err => {
+                            console.log(err)
+                        })
+                } else {
+                    toastStack('   خطاء ', 'يجب تسجيل الدخول اولا', 'error');
+                }
             },
             registerInCourse() {
                 if (localStorage.token) {

@@ -108,13 +108,16 @@ class TrainingController extends Controller
     {
         try {
             $type = $request->type;
+            $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
+
             if ($type == 'trainings')
 //                $data = Training::orderByDesc('id')->limit(5)->get();
                 $data = LastPosts::collection(Training::orderByDesc('id')->limit(5)->get())->type('trainings');
 
             if ($type == 'posts')
 //                $data = Training::orderByDesc('id')->limit(5)->get();
-                $data = LastPosts::collection(Post::with('category')->orderByDesc('id')->limit(5)->get())->type('posts');
+                $data = LastPosts::collection(Post::with('category')
+                    ->where('user_id','!=',$user_id)->where('status',1)->orderByDesc('id')->limit(5)->get())->type('posts');
 
             else {
                 $data = LastPosts::collection(WomenPosts::orderByDesc('id')->limit(5)->get())->type('women');

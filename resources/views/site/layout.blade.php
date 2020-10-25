@@ -113,7 +113,7 @@
                             <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
                                     <li :class="[{'current':currentPage=='profile'}]">
-                                        <router-link @click="$scrollToTop" v-if="isLoggedIn" to="/profile">
+                                        <router-link @click.native="scrollToTop()" v-if="isLoggedIn" to="/profile">
                                             الصفحة الشخصية
                                         </router-link>
                                     </li>
@@ -121,22 +121,23 @@
                                     {{--                                        <router-link @click="$scrollToTop" to="/home"> الرئيسية</router-link>--}}
                                     {{--                                    </li>--}}
                                     <li :class="[{'current':currentPage=='courses'}]">
-                                        <router-link @click="$scrollToTop" to="/courses"> التدريب</router-link>
+                                        <router-link @click.native="scrollToTop()" to="/courses"> التدريب</router-link>
                                     </li>
 
                                     <li :class="[{'current':currentPage=='consultant'}]">
-                                        <router-link @click="$scrollToTop" to="/consultant"> الاستشارات
+                                        <router-link @click.native="scrollToTop()" to="/consultant"> الاستشارات
                                         </router-link>
                                     </li>
                                     <li :class="[{'current':currentPage=='women'}]">
-                                        <router-link @click="$scrollToTop" to="/women"> شوؤن المرأة</router-link>
+                                        <router-link @click.native="scrollToTop()" to="/women"> شوؤن المرأة
+                                        </router-link>
                                     </li>
                                     <li :class="[{'current':currentPage=='privacy'}]">
-                                        <router-link @click="$scrollToTop" to="/privacy"> سياية الخصوصية
+                                        <router-link @click.native="scrollToTop()" to="/privacy"> سياية الخصوصية
                                         </router-link>
                                     </li>
                                     <li :class="[{'current':currentPage=='concatUs'}]">
-                                        <router-link @click="$scrollToTop" to="/concatUs"> تواصل معنا
+                                        <router-link @click.native="scrollToTop()" to="/concatUs"> تواصل معنا
                                         </router-link>
                                     </li>
                                 </ul>
@@ -158,7 +159,7 @@
 
             <nav class="menu-box">
                 <div class="nav-logo" style="text-align: center">
-                    <router-link @click.native="$scrollToTop" to="/home"></router-link>
+                    <router-link @click.native="scrollToTop()" to="/home"></router-link>
                     <img
                         style="width: 130px;    margin-bottom: -30px;" src="site/images/Logo250px.png"
                         alt=""
@@ -180,14 +181,14 @@
     <toast-stack title="{{ session('stack-title')??$stackTitle??'' }}"
                  body="{{ session('stack-body')??$stackTitle??'' }}"></toast-stack>
 
-    <search-filed title="courses"></search-filed>
+    <search-filed title="courses" v-if="ShowPublickSearchFiled"></search-filed>
 
 
     <button @click="show=!show"></button>
     <router-view :key="$route.fullPath"></router-view>
     <!-- Call To Action Section Two -->
     <section class="call-to-action-section-two"
-             style="background-image:url('/site/images/background/3.png')">
+             style="background-image:url('site/images/background/3.png')">
         <div class="auto-container">
 
         </div>
@@ -198,12 +199,16 @@
                 و <br>نشر و عرض الاستشارات .
             </div>
             <div class="buttons-box">
-                <a href="/courses" class="theme-btn btn-style-one">
+                <router-link class="theme-btn btn-style-one" @click.native="scrollToTop()" to="/courses">
+                     <span class="txt">المواد التدريبة <i
+                             class="fa fa-angle-left"></i></span>
+                </router-link>
+                <router-link class="theme-btn btn-style-two" @click.native="scrollToTop()" to="/consultant">
 
-                        <span class="txt">المواد التدريبة <i
-                                class="fa fa-angle-left"></i></span></a>
-                <a href="/consultant" class="theme-btn btn-style-two"><span class="txt">الاستشارات <i
-                            class="fa fa-angle-left"></i></span></a>
+                    <span class="txt">الاستشارات <i
+                            class="fa fa-angle-left"></i></span>
+                </router-link>
+
             </div>
         </div>
 </div>
@@ -232,7 +237,7 @@
                             <div class="footer-widget logo-widget">
                                 <div class="logo">
                                     <a href="/">
-                                        <router-link @click.native="$scrollToTop" to="/home"></router-link>
+                                        <router-link @click.native="scrollToTop()" to="/home"></router-link>
                                         <img src="site/images/Logo250px.png" alt=""></a>
                                 </div>
                                 <div class="social-box" style="text-align: center;">

@@ -158,15 +158,6 @@ const routes = [
         component: Dashboard,
         meta: {
             requiresAuth: {roles: 2, redirect: {name: 'login'}, forbiddenRedirect: '/403'}
-        },
-
-        beforeEnter: (to, form, next) => {
-            // window.scrollTo(0, 0);
-            axios.post('/api/user').then(() => {
-                next()
-            }).catch(() => {
-                return next({name: 'login'})
-            })
         }
 
     }
@@ -178,6 +169,9 @@ const router = new VueRouter({
 
 
 router.beforeEach((to, from, next) => {
+    window.scrollTo(0, 0);
+    var div =  document.querySelector('body');
+    div.classList.remove('mobile-menu-visible');
     if(to.matched.some(record => record.meta.requiresAuth)) {
         if (store.getters.isLoggedIn) {
             next()
