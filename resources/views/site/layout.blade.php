@@ -16,7 +16,8 @@
     <link href="{{  asset('site/css/responsive.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/css/mcq.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/vue/loading.css')  }}" rel="stylesheet">
-    {{--    <link href="{{ asset('site/newLibs\toastr\toastr.css') }}" rel="stylesheet">--}}
+{{--    <link href="{{  asset('css/app.css')  }}" rel="stylesheet">--}}
+    <link href="{{  asset('css/toastr.css')  }}" rel="stylesheet">
 
     <meta name="theme-color" content="#00ab15">
     <!-- Windows Phone -->

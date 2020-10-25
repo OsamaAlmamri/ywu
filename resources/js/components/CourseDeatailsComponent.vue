@@ -329,12 +329,17 @@
                             </div>
 
                             <!-- End Video Box -->
-                            <div class="price" style="font-size: 20px">{{training.length}} <i class="fa fa-clock-o"></i></div>
-                            <div class="time-left" v-if="training.start_at!=null"><span style="font-weight: 700"> تبدا في </span> {{training.start_at}}</div>
-                            <div class="time-left" v-if="training.end_at!=null"> <span style="font-weight: 700"> تنتهي  في </span><    {{training.end_at}}</div>
+                            <div class="price" style="font-size: 20px">{{training.length}} <i class="fa fa-clock-o"></i>
+                            </div>
+                            <div class="time-left" v-if="training.start_at!=null"><span style="font-weight: 700"> تبدا في </span>
+                                {{training.start_at}}
+                            </div>
+                            <div class="time-left" v-if="training.end_at!=null"><span style="font-weight: 700"> تنتهي  في </span><
+                                {{training.end_at}}
+                            </div>
 
                             <button @click="likePost()"
-                               class="theme-btn btn-style-three"><span
+                                    class="theme-btn btn-style-three"><span
                                 class="txt">
                                  {{(training.is_like==null?'اضافة للمفضلة':'الغاء من المفضلة')}}
                                 <i class="fa fa-angle-left"></i>
@@ -352,7 +357,7 @@
                                 </div>
                             </div>
 
-                            <a href="#" :disabled="!training.can_register"  @click="registerInCourse()"
+                            <a href="#" :disabled="!training.can_register" @click="registerInCourse()"
                                class="theme-btn btn-style-two"><span
                                 class="txt"> {{registerDecription}}   <i
                                 class="fa fa-angle-left"></i></span></a>
@@ -555,18 +560,21 @@
             },
             likePost() {
                 if (localStorage.token) {
-                    axios({url: '/api/like', data: {type: 'trainings', liked_id: this.training.id},
-                        method: 'POST'})
+                    axios({
+                        url: '/api/like', data: {type: 'trainings', liked_id: this.training.id},
+                        method: 'POST'
+                    })
                         .then(resp => {
                             if (resp.data.status == false) {
                                 toastStack('   خطاء ', resp.data.msg, 'error');
                             } else {
                                 var like = resp.data.data;
-                                if (like== 1)
-                                    this.training.is_like= {'training_id':'1'};
+                                if (like == 1)
+                                    this.training.is_like = {'training_id': '1'};
                                 else
-                                    this.training.is_like=null;
-                            }})
+                                    this.training.is_like = null;
+                            }
+                        })
                         .catch(err => {
                             console.log(err)
                         })

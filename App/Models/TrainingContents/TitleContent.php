@@ -44,7 +44,10 @@ class TitleContent extends Model
 
     public function user_content()
     {
-        return $this->hasOne(UserTrainingTiltle::class, 'content_id', 'id');
+        $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
+
+        return $this->hasOne(UserTrainingTiltle::class, 'content_id', 'id')
+            ->where('user_id',$user_id);
     }
 
 

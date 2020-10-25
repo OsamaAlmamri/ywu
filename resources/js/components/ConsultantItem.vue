@@ -81,9 +81,9 @@
                 <dropdown v-if="authUser.id==post.user_id">
                     <div slot="items">
                         <a class="dropdown-item" href="#"
-                           @click.prevent="edit_comment()">تعديل</a>
+                           @click.prevent="editPost()">تعديل</a>
                         <a class="dropdown-item" href="#"
-                           @click.prevent="deleteComment()"> حذف </a>
+                           @click.prevent="deletePost()"> حذف </a>
                     </div>
                 </dropdown>
 
@@ -157,7 +157,7 @@
 
     export default {
 
-        props: ['post'],
+        props: ['post','_key'],
         components: {LikeButton},
         data() {
             return {
@@ -166,6 +166,7 @@
                 bodyDisplay: '',
                 is_active_dropdown: false,
                 edit_post: false,
+
                 post_words: {
                     'words': 0,
                     'newText': '',
@@ -183,6 +184,20 @@
             this.post_words = this.countWords(this.post.body, 20);
         },
         methods: {
+            deletePost() {
+                this.$emit('delete_post', this._key)
+
+            },
+            editPost() {
+                this.is_active_dropdown = false;
+                this.edit_post = true;
+                // this.$emit('edit_post', this.post.id);
+                this.$emit('edit_post', this._key)
+
+                // this.newRating.rating = this.training.is_rating.rating;
+                // this.newRating.message = this.training.is_rating.message;
+
+            },
             deleteComment(key, comment) {
                 this.isLoading = true;
                 var id = comment.id;

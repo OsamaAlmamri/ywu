@@ -70,9 +70,13 @@
             showSearchFiled: function () {
                 return (this.$route.name == 'courses' ||
                     this.$route.name == 'women' ||
+                    this.$route.name == 'home' ||
+                    this.$route.name == 'home2' ||
                     this.$route.name == 'consultant');
             },   search_type: function () {
-                if (this.$route.name == 'courses')
+                if (this.$route.name == 'courses' ||
+                    this.$route.name == 'women' ||
+                    this.$route.name == 'home')
                     return "trainings";
                 else if (this.$route.name == 'women')
                     return "women_posts";

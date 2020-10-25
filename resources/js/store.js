@@ -70,7 +70,6 @@ export default new Vuex.Store({
                             user.userType == 'share_user') {
                             toastStack(resp.data.msg, '', 'success');
                             commit('auth_pending');
-                            resolve(resp)
                         } else {
                             const token = resp.data.data.token
                             const user = resp.data.data.userData
@@ -78,8 +77,9 @@ export default new Vuex.Store({
                             localStorage.setItem('user', user)
                             axios.defaults.headers.common['Authorization'] = token
                             commit('auth_success', token, user)
-                            resolve(resp)
+
                         }
+                        resolve(resp)
                     })
                     .catch(err => {
                         commit('auth_error', err)

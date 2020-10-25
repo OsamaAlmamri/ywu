@@ -169,6 +169,7 @@
                                                         v-on:delete_post="delete_post"
                                                         :key="key"
                                                         :post="post"
+                                                        :_key="key"
                                                         @toggled="onToggle"
                                                     ></consultant-item>
                                                 </div>
@@ -419,23 +420,23 @@
             },
             edit_post(key) {
                 this.edit = true;
-                console.log(this.posts[key]);
+                console.log(this.my_consultantData.data[key]);
                 this.active_post = key;
-                this.newPostData.title = this.posts[key].title;
-                this.newPostData.id = this.posts[key].id;
-                this.newPostData.body = this.posts[key].body;
-                this.newPostData.category_id = this.posts[key].category_id;
+                this.newPostData.title = this.my_consultantData.data[key].title;
+                this.newPostData.id = this.my_consultantData.data[key].id;
+                this.newPostData.body = this.my_consultantData.data[key].body;
+                this.newPostData.category_id = this.my_consultantData.data[key].category_id;
                 this.$refs.modal.open();
             },
             delete_post(key) {
                 this.isLoading = true;
-                var id = this.posts[key].id;
+                var id = this.my_consultantData.data[key].id;
                 axios({url: '/api/DePost/' + id, data: {id: this.id}, method: 'POST'})
                     .then(resp => {
                         if (resp.data.status == false) {
                             toastStack('   خطاء ', resp.data.msg, 'error');
                         } else {
-                            this.posts.splice(key, 1);
+                            this.my_consultantData.data.splice(key, 1);
                             toastStack(resp.data.msg, '', 'success');
                         }
                         this.isLoading = false;
@@ -531,7 +532,7 @@
                             if (resp.data.status == false) {
                                 toastStack('   خطاء ', resp.data.msg, 'error');
                             } else {
-                                this.posts.unshift(resp.data.data);
+                                this.my_consultantData.data.unshift(resp.data.data);
                                 toastStack(resp.data.msg, '', 'success');
                                 this.newPostData = {
                                     'title': '',
@@ -558,7 +559,7 @@
                             if (resp.data.status == false) {
                                 toastStack('   خطاء ', resp.data.msg, 'error');
                             } else {
-                                this.posts[this.active_post] = (resp.data.data);
+                                this.my_consultantData.data[this.active_post] = (resp.data.data);
                                 toastStack(resp.data.msg, '', 'success');
                                 this.$refs.modal.close();
                             }

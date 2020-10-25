@@ -124,16 +124,17 @@
 
                             </div>
                         </div>
-                        <!--                        v-for="post in laravelData.data" :key="post.id"-->
+                        <!--                        v-for="post in consultant_data.data" :key="post.id"-->
                         <!--                        res.data.Posts.data;-->
 
                         <div class="row clearfix">
                             <div class="cource-block-two  col-sm-12 col-xs-12"
-                                 v-for="(post,key) in laravelData.data">
+                                 v-for="(post,key) in consultant_data.data">
                                 <consultant-item
                                     v-on:edit_post="edit_post"
                                     v-on:delete_post="delete_post"
                                     :key="key"
+                                    :_key="key"
                                     :post="post"
 
                                     @toggled="onToggle"
@@ -141,33 +142,16 @@
                             </div>
 
                         </div>
-                        <!--                        <pagination :data="laravelData" @pagination-change-page="getResults"></pagination>-->
                         <div class="styled-pagination">
                             <pagination
                                 :align="'right'"
                                 :show-disabled=true
-                                @pagination-change-page="getResults"
-                                :data="laravelData">
+                                @pagination-change-page="get_consultant_data"
+                                :data="consultant_data">
                                 <span slot="prev-nav">&lt;&lt; </span>
                                 <span slot="next-nav"> &gt;&gt;</span>
                             </pagination>
-                            <!--                        <pagination :data="laravelData" @pagination-change-page="getResults"></pagination>-->
                         </div>
-                        <!-- Post Share Options -->
-                        <!--                        <div class="styled-pagination">-->
-                        <!--                            <ul class="clearfix">-->
-                        <!--                                <li class="prev"><a href="#"><span class="fa fa-angle-left"></span> </a></li>-->
-                        <!--                                <li><a href="#">1</a></li>-->
-                        <!--                                <li><a href="#">2</a></li>-->
-                        <!--                                <li class="active"><a href="#">3</a></li>-->
-                        <!--                                <li><a href="#">4</a></li>-->
-                        <!--                                <li><a href="#">5</a></li>-->
-                        <!--                                <li><a href="#">6</a></li>-->
-                        <!--                                <li><a href="#">7</a></li>-->
-                        <!--                                <li><a href="#">8</a></li>-->
-                        <!--                                <li class="next"><a href="#"><span class="fa fa-angle-right"></span> </a></li>-->
-                        <!--                            </ul>-->
-                        <!--                        </div>-->
 
                     </div>
 
@@ -200,7 +184,7 @@
 
         data() {
             return {
-                laravelData: {},
+                consultant_data: {},
                 newPostData: {
                     'id': 0,
                     'title': '',
@@ -233,10 +217,10 @@
             }
         },
         methods: {
-            getResults(page = 1) {
+            get_consultant_data(page = 1) {
                 axios.post('api/AllPosts?page=' + page)
                     .then(response => {
-                        this.laravelData = response.data.Posts;
+                        this.consultant_data = response.data.Posts;
                     });
             },
             onToggle(index) {
@@ -269,12 +253,12 @@
             },
             edit_post(key) {
                 this.edit = true;
-                console.log(this.posts[key]);
+                console.log(this.consultant_data.data[key]);
                 this.active_post = key;
-                this.newPostData.title = this.posts[key].title;
-                this.newPostData.id = this.posts[key].id;
-                this.newPostData.body = this.posts[key].body;
-                this.newPostData.category_id = this.posts[key].category_id;
+                this.newPostData.title = this.consultant_data.data[key].title;
+                this.newPostData.id = this.consultant_data.data[key].id;
+                this.newPostData.body = this.consultant_data.data[key].body;
+                this.newPostData.category_id = this.consultant_data.data[key].category_id;
                 this.$refs.modal.open();
             },
             fetchArticles() {
@@ -342,7 +326,7 @@
                             if (resp.data.status == false) {
                                 toastStack('   خطاء ', resp.data.msg, 'error');
                             } else {
-                                this.posts.unshift(resp.data.data);
+                                this.consultant_data.data.unshift(resp.data.data);
                                 toastStack(resp.data.msg, '', 'success');
                                 this.newPostData = {
                                     'title': '',
@@ -369,7 +353,7 @@
                             if (resp.data.status == false) {
                                 toastStack('   خطاء ', resp.data.msg, 'error');
                             } else {
-                                this.posts[this.active_post] = (resp.data.data);
+                                this.consultant_data.data[this.active_post] = (resp.data.data);
                                 toastStack(resp.data.msg, '', 'success');
                                 this.$refs.modal.close();
                             }
@@ -384,13 +368,13 @@
             },
             delete_post(key) {
                 this.isLoading = true;
-                var id = this.posts[key].id;
+                var id = this.consultant_data.data[key].id;
                 axios({url: '/api/DePost/' + id, data: {id: this.id}, method: 'POST'})
                     .then(resp => {
                         if (resp.data.status == false) {
                             toastStack('   خطاء ', resp.data.msg, 'error');
                         } else {
-                            this.posts.splice(key, 1);
+                            this.consultant_data.data.splice(key, 1);
                             toastStack(resp.data.msg, '', 'success');
                         }
                         this.isLoading = false;
@@ -405,7 +389,7 @@
         },
         mounted() {
             console.log('Component mounted.')
-            this.getResults();
+            this.get_consultant_data();
 
         },
 
