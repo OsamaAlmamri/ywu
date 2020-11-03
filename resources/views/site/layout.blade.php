@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>اتحاد نساء اليمن</title>
+    <title>  Yemen Women Union Developments</title>
     <!-- Stylesheets -->
 
     <link href="{{  asset('site/css/bootstrap.css')  }}" rel="stylesheet">
@@ -98,7 +98,7 @@
                     <div class="pull-right logo-box">
                         <div class="logo"><a href="#">
                                 <img width="50" src="site/images/Logo250px.png" alt=""
-                                     title="اتحاد نساء اليمن"></a></div>
+                                     title=" Yemen Women Union Developments"></a></div>
                     </div>
                     <div class="nav-outer clearfix">
                         <!--Mobile Navigation Toggler-->
@@ -332,7 +332,7 @@
             <div class="col-md-12">
                 <div class="last_footer">
                     <div class="copy_right">
-                        <p style="text-align: center"><a href="#">حقوق النشر والتصميم محفوظة © 2020 اتحاد نساء اليمن</a>
+                        <p style="text-align: center"><a href="#">حقوق النشر والتصميم محفوظة © 2020   Yemen Women Union Developments</a>
                         </p>
                     </div>
 

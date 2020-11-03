@@ -98,8 +98,8 @@
 
             <div class="post-info" id="targetMore" v-html="textToDisplay">
             </div>
-            <span @click="readmore=!readmore" v-if="post_words.isMore && !textMoreToShow">( عرض المزيد) </span>
-            <span @click="readmore=!readmore" v-if="post_words.isMore && (textMoreToShow)"> (عرض اقل)  </span>
+            <span @click="readmore=!readmore" v-if="post_words.isMore && textMoreToShow">( عرض المزيد) </span>
+            <span @click="readmore=!readmore" v-if="post_words.isMore && !(textMoreToShow)"> (عرض اقل)  </span>
             <hr>
             <div class="clearfix">
                 <div class="pull-right" style="padding-right: 3em">

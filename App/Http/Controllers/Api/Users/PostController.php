@@ -112,7 +112,7 @@ class PostController extends Controller
                 'title' => $request->title,
                 'body' => $request->body,
                 "category_id" => $request->category_id,
-                'status' => 0,
+                'status' => 1,
                 'user_id' => $this->user->id,
             ]);
             $post = Post::with(['user', 'category', 'comments', 'user_like'])

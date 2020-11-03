@@ -1,14 +1,13 @@
-.fa-star
-{
+.fa-star {
     color: #f2c620;
 }
-.fa-heart,.fa-heart-o
-{
+
+.fa-heart, .fa-heart-o {
     color: #00ab15;
 }
-.btn_course_type
-{
-    background: #00ab15 ;
+
+.btn_course_type {
+    background: #00ab15;
     width: 100%;
 
     /*padding: 3px calc(25% + 4px);*/
@@ -17,11 +16,13 @@
 .progress-bar {
     background-color: #ec6a23;
 }
+
 .btn-primary:hover {
     color: #fff;
     background-color: #ec6a23;
     border-color: #ec6a23;
 }
+
 /*fieldset.scheduler-border {*/
 /*    border: 1px groove #ddd !important;*/
 /*    padding: 0 1.4em 1.4em 1.4em !important;*/
@@ -39,6 +40,7 @@
     padding: 0 10px;
     border: 1px solid #e0e0e0;
 }
+
 .mobile-menu .menu-backdrop {
 
     background: none;
@@ -48,6 +50,7 @@
 .intro-section .intro-tabs .tab-btns .tab-btn {
     padding: 11px 24px 10px;
 }
+
 .the-fieldset {
     border: 1px solid #e0e0e0;
     padding: 10px;
@@ -64,7 +67,7 @@
     }
 }
 
-.new_rating_dev{
+.new_rating_dev {
     padding: 22px;
     width: 100%;
 }
@@ -76,6 +79,7 @@
         padding: 0 0 .8rem
     }
 }
+
 .review-summary-widget--average-rating-text--2BT9O {
     padding: 0 0 0 .8rem;
     text-align: center;
@@ -87,7 +91,6 @@
         padding: 0
     }
 }
-
 
 
 .add_post_button {
@@ -112,16 +115,19 @@
     -moz-transition: all 300ms ease;
     transition: all 300ms ease;
 }
+
 .scroll-to-top {
     right: 15px;
     left: 0;
 }
-.btn_course_register
-{
+
+.btn_course_register {
     color: black;
     background: #e1e1e1;
-    padding: 3px 1vw;}
-.after_course_image{
+    padding: 3px 1vw;
+}
+
+.after_course_image {
     font-size: calc(100% + 0.2vw);
     padding-top: 2px;
     color: white;
