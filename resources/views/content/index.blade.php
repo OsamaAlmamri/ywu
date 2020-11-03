@@ -45,7 +45,7 @@
                             <div class="col-sm-8">
                                 <select class="form-control" id="title_id" name="title_id">
                                     @foreach($category as $c)
-                                        <option value="{{$c->id}}">{{$c->name}}</option>
+                                        <option  @if($id==$c->id ) selected @endif   value="{{$c->id}}">{{$c->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -341,6 +341,7 @@
 
                         tinyMCE.activeEditor.setContent(html.data.body);
                         $('#video').val(html.data.video);
+                        $('#title_id').val(html.data.title_id);
                         $('#store_image').html("<img src={{ URL::to('/') }}/assets/images/" + html.data.image + " width='70' class='img-thumbnail' />");
                         $('#store_image').append("<input type='hidden' name='hidden_image' value='" + html.data.image + "' />");
                         $('#hidden_id').val(html.data.id);

@@ -12,14 +12,15 @@
         </loading>
 
         <sweet-modal modal-theme="dark" :title="contentDeatail.name"
-                     blocking="true" enable-mobile-fullscreen="true"
-                     pulse-on-block="true"
-                     overlay-theme="dark" ref="modal">
+                     :blocking=true
+                     :enable-mobile-fullscreen=true
+                     :pulse-on-block=true
+                     :overlay-theme="'dark'" ref="modal">
             <div v-html="contentDeatail.body"></div>
 
-            <sweet-button slot="button">
+            <div name="buttons" slot="button">
                 <button class="btn btn-info" @click.prevent="completeContent()">تم</button>
-            </sweet-button>
+            </div>
 
 
         </sweet-modal>
@@ -248,7 +249,7 @@
                                                      class="cource-review-box">
                                                     <div style="width: 100%; display: inline-block;">
 
-                                                        <dropdown>
+                                                        <dropdown >
                                                             <div slot="items">
                                                                 <a class="dropdown-item" href="#"
                                                                    @click.prevent="edit_rating()">تعديل</a>
@@ -256,20 +257,7 @@
                                                                    @click.prevent="deleteRating()"> حذف </a>
                                                             </div>
                                                         </dropdown>
-                                                        <!--                                                        <div-->
-                                                        <!--                                                            :class="['dropdown', 'pull-left',{'show':(is_active_dropdown)}]">-->
-                                                        <!--                                                            <button type="button"-->
-                                                        <!--                                                                    @click="is_active_dropdown=!is_active_dropdown"-->
-                                                        <!--                                                                    class="btn btn-defaulty dropdown-toggle"-->
-                                                        <!--                                                                    data-toggle="dropdown">-->
-                                                        <!--                                                                <span style="font-size: 17px">...</span>-->
-                                                        <!--                                                            </button>-->
-                                                        <!--                                                            <div class="dropdown-menu"-->
-                                                        <!--                                                                 :class="['dropdown-menu',{'dropdown_animation':(is_active_dropdown)},{'show':(is_active_dropdown)}]">-->
-                                                        <!--                                                              -->
 
-                                                        <!--                                                            </div>-->
-                                                        <!--                                                        </div>-->
                                                         <h4 class="pull-right">
                                                             {{training.is_rating.user_rater.name}} </h4>
                                                     </div>
@@ -357,7 +345,7 @@
                                 </div>
                             </div>
 
-                            <a href="#" :disabled="!training.can_register" @click="registerInCourse()"
+                            <a href="#" v-show="!training.can_register" @click="registerInCourse()"
                                class="theme-btn btn-style-two"><span
                                 class="txt"> {{registerDecription}}   <i
                                 class="fa fa-angle-left"></i></span></a>

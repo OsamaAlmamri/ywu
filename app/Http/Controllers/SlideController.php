@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Admin;
 use App\Models\TrainingContents\Training;
 use App\Models\TrainingContents\TrainingTitle;
+use App\Models\UserContents\Post;
+use App\Models\WomenContents\WomenPosts;
 use App\Question;
 use App\Result;
 use App\Slide;
@@ -12,6 +14,7 @@ use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+
 class SlideController extends Controller
 {
     use JsonTrait;
@@ -27,7 +30,7 @@ class SlideController extends Controller
                     ->addColumn('btn_image', 'slides.btn.image')
                     ->addColumn('btn_sort', 'sortFiles.btn_sort')
                     ->addColumn('btn_status', 'slides.btn.status')
-                    ->rawColumns(['btn_sort', 'action', 'btn_image','btn_status'])
+                    ->rawColumns(['btn_sort', 'action', 'btn_image', 'btn_status'])
                     ->make(true);
             }
         }
@@ -49,6 +52,33 @@ class SlideController extends Controller
             }
         }
         return response('Update Successfully.', 200);
+    }
+
+    public
+    function changeType(Request $request)
+    {
+        $ids = "";
+        if ($request->type == 'trainings') {
+            $data = Training::all();
+            foreach ($data as $element) {
+                $ids.="<option value='".$element->id."'>".$element->name." </option>" ;
+
+            }
+        } elseif ($request->type == 'women') {
+            $data = WomenPosts::all();
+            foreach ($data as $element) {
+                $ids.="<option value='".$element->id."'>".$element->title." </option>" ;
+            }
+
+        } else {
+            $data = Post::all()->where('status', 1);
+            foreach ($data as $element) {
+                $ids.="<option value='".$element->id."'>".$element->title." </option>" ;
+            }
+
+
+        }
+        return response()->json($ids,200);
     }
 
     public function active(Request $r)

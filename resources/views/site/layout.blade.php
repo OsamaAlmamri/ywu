@@ -69,14 +69,18 @@
                     <div class="top-left pull-left clearfix">
                         <!-- Login Nav -->
                         <ul class="login-nav">
-                            <li @click="$scrollToTop" v-if="!isLoggedIn">
-                                <router-link to="/login"> تسجيل الدخول</router-link>
+                            <li   :class="[{'login-nav_active':currentPage!='register'}]"
+                                  @click="$scrollToTop" v-if="!isLoggedIn">
+
+                            <router-link to="/login"> تسجيل الدخول</router-link>
                             </li>
-                            <li @click="$scrollToTop" v-if="!isLoggedIn">
+                            <li @click="$scrollToTop" v-if="!isLoggedIn"
+                                :class="[{'login-nav_active':currentPage=='register'}]"
+                            >
                                 <router-link to="/register"> انشاء حساب</router-link>
                             </li>
 
-                            <li @click="$scrollToTop" v-if="isLoggedIn">
+                            <li class="login-nav_active"  @click="$scrollToTop" v-if="isLoggedIn">
                                 <router-link to="/logout"> تسجيل الخروج</router-link>
                             </li>
                         </ul>
@@ -92,9 +96,9 @@
                 <div class="clearfix">
 
                     <div class="pull-right logo-box">
-                        <div class="logo"><a href="index.html">
+                        <div class="logo"><a href="#">
                                 <img width="50" src="site/images/Logo250px.png" alt=""
-                                     title="Bootcamp"></a></div>
+                                     title="اتحاد نساء اليمن"></a></div>
                     </div>
                     <div class="nav-outer clearfix">
                         <!--Mobile Navigation Toggler-->
@@ -113,6 +117,7 @@
 
                             <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
+
                                     <li :class="[{'current':currentPage=='profile'}]">
                                         <router-link @click.native="scrollToTop()" v-if="isLoggedIn" to="/profile">
                                             الصفحة الشخصية
@@ -324,7 +329,7 @@
 <div class="footer_menu_copyright">
     <div class="container">
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-12">
                 <div class="last_footer">
                     <div class="copy_right">
                         <p style="text-align: center"><a href="#">حقوق النشر والتصميم محفوظة © 2020 اتحاد نساء اليمن</a>
@@ -333,15 +338,15 @@
 
                 </div>
             </div>
-            <div class="col-md-5">
-                <div class="last_footer">
+{{--            <div class="col-md-5">--}}
+{{--                <div class="last_footer">--}}
 
-                    <div class="developer" style="text-align: center">
-                        <p>تصميم وتطوير: <a href="https://www.facebook.com/Eng.Osama.Almamari"
-                                            title="م.اسامة المعمري">م.اسامة المعمري</a></p>
-                    </div>
-                </div>
-            </div>
+{{--                    <div class="developer" style="text-align: center">--}}
+{{--                        <p>تصميم وتطوير: <a href="https://www.facebook.com/Eng.Osama.Almamari"--}}
+{{--                                            title="م.اسامة المعمري">م.اسامة المعمري</a></p>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
     </div>
 </div>

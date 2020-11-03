@@ -13,7 +13,7 @@
         props: {
             'name': String,
             'font_size': {default:'2' ,type:String},
-            'value': null,
+            // 'value': null,
             'id': String,
             'disabled': Boolean,
             'required': Boolean

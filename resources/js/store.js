@@ -8,7 +8,7 @@ export default new Vuex.Store({
     state: {
         status: '',
         token: localStorage.getItem('token') || '',
-        user: JSON.parse(localStorage.getItem('user'))  || {}
+        user: JSON.parse(localStorage.getItem('user')) || {}
     },
     mutations: {
         auth_request(state) {
@@ -39,12 +39,12 @@ export default new Vuex.Store({
                         if (resp.data.status == false) {
                             commit('auth_error');
                             toastStack('   خطاء ', resp.data.msg, 'error');
-                            reject(err)
+                            reject(resp)
                         } else {
                             const token = resp.data.data.token
                             const user = JSON.stringify(resp.data.data.userData)
                             console.log(user)
-                            localStorage.setItem('user',user);
+                            localStorage.setItem('user', user);
                             localStorage.setItem('token', token)
                             axios.defaults.headers.common['Authorization'] = token
                             commit('auth_success', token, user)
@@ -66,13 +66,16 @@ export default new Vuex.Store({
                         if (resp.data.status == false) {
                             toastStack('   خطاء ', resp.data.msg, 'error');
                             commit('auth_error');
+                            reject(resp)
                         } else if (resp.data.status == true &&
                             user.userType == 'share_user') {
                             toastStack(resp.data.msg, '', 'success');
                             commit('auth_pending');
+                            reject(resp)
                         } else {
                             const token = resp.data.data.token
-                            const user = resp.data.data.userData
+                            // const user = resp.data.data.userData
+                            const user = JSON.stringify(resp.data.data.userData)
                             localStorage.setItem('token', token)
                             localStorage.setItem('user', user)
                             axios.defaults.headers.common['Authorization'] = token
@@ -84,6 +87,7 @@ export default new Vuex.Store({
                     .catch(err => {
                         commit('auth_error', err)
                         localStorage.removeItem('token')
+                        localStorage.removeItem('user')
                         reject(err)
                     })
             })
@@ -91,6 +95,7 @@ export default new Vuex.Store({
             return new Promise((resolve, reject) => {
                 commit('logout')
                 localStorage.removeItem('token')
+                localStorage.removeItem('user')
                 delete axios.defaults.headers.common['Authorization']
                 resolve()
             })

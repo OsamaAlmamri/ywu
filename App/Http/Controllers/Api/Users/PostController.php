@@ -94,6 +94,36 @@ class PostController extends Controller
         }
     }
 
+    public function store(Request $request)
+    {
+        $this->user = JWTAuth::parseToken()->authenticate();
+        try {
+            $rules = [
+                "title" => "required",
+                "body" => "required",
+                "category_id" => "required|integer",
+            ];
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                $code = $this->returnCodeAccordingToInput($validator);
+                return $this->returnValidationError($code, $validator);
+            }
+            $post = Post::create([
+                'title' => $request->title,
+                'body' => $request->body,
+                "category_id" => $request->category_id,
+                'status' => 0,
+                'user_id' => $this->user->id,
+            ]);
+            $post = Post::with(['user', 'category', 'comments', 'user_like'])
+                ->where('id', $post->id)->get()->first();
+            return $this->GetDateResponse('data', $post, "تم نشر استشارتك");
+
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
     public function store_post(Request $request)
     {
         $this->user = JWTAuth::parseToken()->authenticate();

@@ -18,9 +18,9 @@ class AdminController extends Controller
 {
     public function index(Request $request)
     {
-        $shareduser = ShareUser::all()->where('status', 'مفعل')->count();
+        $shareduser = User::all()->where('type','share_users')->where('status', 1)->count();
         $admin = Admin::where('id', 1)->first();
-        $users = User::all()->count();
+        $users = User::all()->where('type','visitor')->count();
         $employees = Employee::all()->count();
         $subjects = Subject::all()->count();
         $trainings = Training::all()->count();

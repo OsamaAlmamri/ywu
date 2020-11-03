@@ -18,6 +18,25 @@
                     <form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
+                            <label class="control-label col-sm-4">عند الضغط ينتقل الى قسم :</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="action_type" name="action_type">
+                                    <option value="">غير محدد</option>
+                                    <option value="posts"> الاستشارات</option>
+                                    <option value="trainings"> المواد التدريبية</option>
+                                    <option value="women"> شؤون المراة</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">عند الضغط ينتقل الى :</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="action_id" name="action_id">
+                                    <option value="">غير محدد</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label col-md-4">نص السلايد : </label>
                             <div class="col-md-8">
                                 <textarea name="description" id="description" class="form-control"></textarea>
@@ -196,6 +215,12 @@
                     success: function (html) {
                         $('#description').val(html.data.description);
                         $('#hidden_id').val(html.data.id);
+
+                        $('#action_type').val(html.data.action_type);
+                        $.when(change_type(html.data.action_type)).then(function (data) {
+                            $('#action_id').val(html.data.action_id);
+                        });
+                        $('#hidden_id').val(html.data.id);
                         $('#store_image').html("<img src={{ URL::to('/') }}/assets/images/" + html.data.image + " width='70' class='img-thumbnail' />");
                         $('.modal-title').text("تعديل السلايد ");
                         $('#action_button').val("تعديل");
@@ -203,7 +228,33 @@
                         $('#formModal').modal('show');
                     }
                 })
+            })
+            $(document).on('change', '#action_type', function () {
+                var type = $('#action_type').val();
+                change_type(type);
             });
+
+            function change_type(type = "") {
+
+                if (type == "")
+                    return $('#action_id').html("<option value=\"\">غير محدد</option>")
+                else {
+                    return $.ajax({
+                        url: "{{route('slides.changeType')}}",//   var url=$('#news').attr('action');
+                        method: 'post',
+                        dataType: 'json',// data type that i want to return
+                        data: '_token=' + ("{{csrf_token()}}") + '&type=' + type,// var form=$('#news').serialize();
+                        success: function (data) {
+                            $('#action_id').html(data);
+                        },
+                        error: function (xhr, status, error) {
+                            alert(xhr.responseText);
+                        }
+                    });
+
+                }
+
+            }
 
             var user_id;
 

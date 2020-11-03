@@ -19,8 +19,10 @@
             <span class="fa fa-comment" v-show="authUser"></span>
         </div>
         <sweet-modal :title="'اضافة استشارة جديدة'"
-                     :blocking=true :enable-mobile-fullscreen=true
+                     :blocking=true
+                     :enable-mobile-fullscreen=true
                      :pulse-on-block=true
+                     name="add_new_consultant"
                      :overlay-theme="'dark'" ref="modal">
             <div class="row clearfix">
 
@@ -55,9 +57,10 @@
                 </section>
 
             </div>
-            <sweet-button slot="button">
+            <div name="buttons" slot="button">
+
                 <button class="btn btn-info" @click.prevent="(edit==false)?savePost():updatePost()">تم</button>
-            </sweet-button>
+            </div>
 
         </sweet-modal>
 
@@ -272,7 +275,7 @@
 
                                     <div :class="['tab', {'active-tab':(activeTap=='prod-password')}]">
                                         <div class="content">
-                                            >
+
 
                                             <!-- Profile Form -->
                                             <div class="profile-form">
@@ -355,17 +358,25 @@
                     'new_password': ''
                 },
                 categories: [],
-                my_consultantData: {},
+                my_consultantData: {
+                    data:[]
+                },
                 newPostData: {
                     'id': 0,
                     'title': '',
                     'body': '',
                     'category_id': '1',
                 },
-                my_favData: {},
+                my_favData: {
+                    data:[]
+                },
                 // my_favData: {},
-                my_trainings_data: {},
-                my_like_trainings: {},
+                my_trainings_data: {
+                    data:[]
+                },
+                my_like_trainings: {
+                    data:[]
+                },
                 fullPage: false,
                 activeIndex: null,
                 sections: [],

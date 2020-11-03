@@ -8,7 +8,19 @@
 }
 .btn_course_type
 {
-    background: #00ab15 ; padding: 3px calc(25% + 4px);
+    background: #00ab15 ;
+    width: 100%;
+
+    /*padding: 3px calc(25% + 4px);*/
+}
+
+.progress-bar {
+    background-color: #ec6a23;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #ec6a23;
+    border-color: #ec6a23;
 }
 /*fieldset.scheduler-border {*/
 /*    border: 1px groove #ddd !important;*/

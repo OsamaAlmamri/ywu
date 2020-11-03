@@ -10,7 +10,7 @@
             localStorage.removeItem('token')
             localStorage.removeItem('user')
             delete axios.defaults.headers.common['Authorization']
-            this.$router.push({ name: 'Login' })
+            this.$router.push({ name: 'login' })
         }
 
     }

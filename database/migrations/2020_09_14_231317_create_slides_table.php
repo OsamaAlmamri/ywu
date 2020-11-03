@@ -16,6 +16,8 @@ class CreateSlidesTable extends Migration
         Schema::create('slides', function (Blueprint $table) {
             $table->id();
             $table->string('image');
+            $table->enum('action_type', ['trainings', 'posts', 'women'])->nullable();
+            $table->unsignedBigInteger('action_id')->nullable();
             $table->text('description')->nullable();
             $table->boolean('status')->default(1);
             $table->unsignedInteger('sort')->default(1);

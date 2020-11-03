@@ -62,7 +62,7 @@
                         return 'course_details';
                         break;
                     case 'posts':
-                        return 'posts';
+                        return 'consultant';
                         break;
                     default :
                         return 'women_details';

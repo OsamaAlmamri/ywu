@@ -128,6 +128,7 @@ Route::group(['middleware' => ('auth:admin')], function () {
     Route::get('slides/edit/{id}', 'SlideController@edit');
     Route::post('slides/changeOrder', 'SlideController@changeOrder')->name('slides.changeOrder');
     Route::post('slides/active', 'SlideController@active')->name('slides.active');
+    Route::post('slides/changeType', 'SlideController@changeType')->name('slides.changeType');
     Route::resource('slides', 'SlideController')->except('update');
 
 #################################################### activates

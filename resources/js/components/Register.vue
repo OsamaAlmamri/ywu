@@ -138,8 +138,9 @@
     // Import stylesheet
     import 'vue-loading-overlay/dist/vue-loading.css';
     import CourseGideItem from "./CourseGideItem";
+
     export default {
-        components: { Loading},
+        components: {Loading},
         data() {
             return {
                 isLoading: false,
@@ -167,7 +168,6 @@
             },
             register: function () {
                 let data = this.form;
-
                 if (data.password != data.password_confirmation) {
                     toastStack('كلمة السر غير متطابقة', '', 'error');
                     // toastStack('كلمة السر غير متطابقة', '', 'success');
@@ -176,9 +176,10 @@
                     store.dispatch('register', data)
                         .then(() => {
                             this.isLoading = false;
-                            this.$router.push('/')
+                            // this.$router.push('/')
+                            this.$router.push('/profile')
+                            location.reload();
                         })
-
                         .catch(err => {
                             this.isLoading = false;
                             console.log(err)

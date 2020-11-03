@@ -377,7 +377,7 @@ img{
 	height: 100%;
 	width: 100%;
 	content: "";
-	background-color: #075e89;
+	background-color: #ec6a23;
 	-webkit-transform: scale(0, 1);
 	-ms-transform: scale(0, 1);
 	transform: scale(0, 1);
@@ -993,7 +993,7 @@ img{
 	transition:all 300ms ease;
 }
 
-.main-header .header-top .login-nav li:nth-child(2) a{
+ .login-nav_active a{
 	color:#ffffff;
 	font-weight:400;
 	padding:6px 22px;
@@ -1002,7 +1002,7 @@ img{
 }
 
 .main-header .header-top .login-nav li:nth-child(2) a:hover{
-	background-color:#0d6691;
+	background-color:#ec6a23;
 	color:#ffffff;
 }
 
@@ -6028,7 +6028,7 @@ img{
 	position:relative;
 	text-align:center;
 	padding:220px 0px 0px;
-	background-color:#075e89;
+	background-color:#ec6a23;
 }
 
 .page-title.style-two{
@@ -6690,7 +6690,7 @@ img{
 	position:relative;
 	display:inline-block;
 	border-radius:20px;
-	background-color:#075e89;
+	background-color:#ec6a23;
 }
 
 .time-counter .time-countdown .counter-column{
@@ -8956,7 +8956,7 @@ img{
 }
 
 .book-block .overlay-inner .link:hover{
-	background-color:#075e89;
+	background-color:#ec6a23;
 	color:#ffffff;
 }
 
@@ -9932,7 +9932,7 @@ img{
 }
 
 .ui-menu-item:hover{
-	background-color:#075e89;
+	background-color:#ec6a23;
 }
 
 .profile-form .form-group .ui-button .ui-icon {

@@ -56,9 +56,9 @@
                 </section>
 
             </div>
-            <sweet-button slot="button">
+            <div slot="button">
                 <button class="btn btn-info" @click.prevent="(edit==false)?savePost():updatePost()">تم</button>
-            </sweet-button>
+            </div>
 
         </sweet-modal>
 
@@ -296,7 +296,7 @@
                     });
             },
             onCancel() {
-                console.log('User cancelled the loader.')
+                // console.log('User cancelled the loader.')
             },
             setSearchResult(data) {
 

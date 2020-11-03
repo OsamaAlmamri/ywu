@@ -62,7 +62,6 @@
             </div>
         </sweet-modal>
 
-
         <div class="row">
             <div class="col-xs-2 pull-right" style="margin: 20px 38px 0px 0px">
                 <img style="width: 40px; border-radius: 49%;" :src="getImageType(post.category.id)">
@@ -101,10 +100,10 @@
             </div>
             <span @click="readmore=!readmore" v-if="post_words.isMore && !textMoreToShow">( عرض المزيد) </span>
             <span @click="readmore=!readmore" v-if="post_words.isMore && (textMoreToShow)"> (عرض اقل)  </span>
-            <hr></hr>
+            <hr>
             <div class="clearfix">
                 <div class="pull-right" style="padding-right: 3em">
-                    <div @click="openCommentModal()" class="students"> {{(post.comments_count)}} <i
+                    <div @click="openCommentModal()" class="students"> {{(comments_count)}} <i
                         class="fa fa-comments"></i></div>
                 </div>
                 <div class="pull-left" style="padding-left: 3em">
@@ -114,39 +113,6 @@
             </div>
         </div>
     </div>
-    <!--    <div class="inner-box">-->
-    <!--        <div class="image">-->
-    <!--            <div class="widget-content">-->
-    <!--                <article class="post">-->
-    <!--                    <div class="row">-->
-    <!--                        <div class="col-xs-6 pull-right"><i class="fa fa-facebook-f"> </i> {{post.category.name}}</div>-->
-    <!--                        <div class="col-xs-6 pull-left"><i class="fa fa-clock-o"> </i> {{post.published}}</div>-->
-    <!--                    </div>-->
-    <!--                    <div class="post-inner">-->
-    <!--                        <div class="text">-->
-    <!--                            <router-link :to="{ name: 'post_details', params: { id: post.id}}">-->
-    <!--                                {{post.title}}-->
-    <!--                            </router-link>-->
-    <!--                        </div>-->
-    <!--                        <div class="post-info" v-html="getFirst20Word(post.body)">-->
-    <!--                        </div>-->
-
-    <!--                        <div class="clearfix">-->
-    <!--                            <div class="pull-right">-->
-    <!--                                <div class="students"> {{(post.comments_count)}} <i class="fa fa-comments"></i></div>-->
-    <!--                            </div>-->
-    <!--                            <div class="pull-left">-->
-    <!--                                <like-button type="posts" :key="post.id" :count-likes="post.likes_count" has-count="1"-->
-    <!--                                             :liked_id="post.id" :is_liked="post.user_like"></like-button>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                </article>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
-
-
 </template>
 
 <script>
@@ -297,6 +263,9 @@
             },
             authUser: function () {
                 return store.getters.authUser
+            },
+            comments_count: function () {
+                return this.post.comments.length
             },
 
             textMoreToShow: function () {

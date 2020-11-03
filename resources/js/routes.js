@@ -84,7 +84,6 @@ const routes = [
         path: '/',
         component: Course,
         name: "home2",
-
         meta: {
             requiresAuth: false
         }

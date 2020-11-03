@@ -37,20 +37,21 @@
             </h6>
 
             <h6 v-show="training.instructor!=null">
-                <i class="fa fa-user"></i>     {{training.instructor}}
+                <img src="site/images/instructor.png" style="width: 9%">
+                {{training.instructor}}
             </h6>
 
             <div class="clearfix">
-                <div class="pull-right">
-                    <div class=" students" :disabled="!training.can_register">
-                        <button @click="registerInCourse()" class="btn btn-secondary btn_course_register">
-                            {{registerDecription}}
-                        </button>
-                    </div>
-                </div>
-                <div class="pull-left">
+                <!--                <div class="pull-right">-->
+                <!--                    <div class=" students" :disabled="!training.can_register">-->
+                <!--                        <button @click="registerInCourse()" class="btn btn-secondary btn_course_register">-->
+                <!--                            {{registerDecription}}-->
+                <!--                        </button>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <div class="">
                     <div class="students hours">
-                        <button class="btn btn-primary btn_course_type" > {{training.type}}</button>
+                        <button class="btn btn-primary btn_course_type"> {{training.type}}</button>
                     </div>
                 </div>
             </div>

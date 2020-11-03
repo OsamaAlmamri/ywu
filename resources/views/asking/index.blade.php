@@ -7,7 +7,7 @@
             <div style="font-weight: bold"><b>الاحصائيات</b></div>
             <br>
 
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style="color: #eea236;">
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #eea236;">
                 <div class="card">
                     <div class="card-block">
                         <span class="count_top" style="font-weight: bold"><i class="fa fa-user"
@@ -17,7 +17,7 @@
                 </div>
 
             </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style=" color: #0055cc;">
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style=" color: #0055cc;">
                 <div class="card">
                     <div class="card-block">
                 <span class="count_top" style="font-weight: bold"><i class="fa fa-user-circle"
@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style=" color: #374E0C;">
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style=" color: #374E0C;">
                 <div class="card">
                     <div class="card-block">
                 <span class="count_top" style="font-weight: bold"><i class="fa fa-user-plus"
@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style="color: #AA22FF;">
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #AA22FF;">
                 <div class="card">
                     <div class="card-block">
                         <div class="count_top" style="font-weight: bold"><i class="fa fa-female"
@@ -46,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style="color: #265a88;">
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #265a88;">
                 <div class="card">
                     <div class="card-block">
                 <span class="count_top" style="font-weight: bold"><i class="fa fa-question-circle"
@@ -55,16 +55,16 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style="color: #00caff;">
-                <div class="card">
-                    <div class="card-block">
-                        <span class="count_top" style="font-weight: bold"><i class="fa fa-book"
-                                                                             style="font-size: 20px"></i> عدد المواد التدريبية</span>
-                        <div class="count">{{$subjects}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style="color: #6B6464;">
+{{--            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #00caff;">--}}
+{{--                <div class="card">--}}
+{{--                    <div class="card-block">--}}
+{{--                        <span class="count_top" style="font-weight: bold"><i class="fa fa-book"--}}
+{{--                                                                             style="font-size: 20px"></i> عدد المواد التدريبية</span>--}}
+{{--                        <div class="count">{{$subjects}}</div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #6B6464;">
                 <div class="card">
                     <div class="card-block">
                 <span class="count_top" style="font-weight: bold"><i class="fa fa-mortar-board"
@@ -73,7 +73,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style="color: #82ad2b;">
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #82ad2b;">
                 <div class="card">
                     <div class="card-block">
                 <span class="count_top" style="font-weight: bold"><i class="fa fa-check-circle"
@@ -82,7 +82,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count" style="color: #dd0066;">
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #dd0066;">
                 <div class="card">
                     <div class="card-block">
                         <span class="count_top" style="font-weight: bold"><i class="fa fa-close"
