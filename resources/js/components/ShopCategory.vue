@@ -17,7 +17,7 @@
                      style="text-align: center">
                     <flickity ref="flickity_categories" :options="flickityOptions">
                         <router-link @click.native="scrollToTop()" to="/ShopCategory" v-for="category in categories"
-                                     class="col-xs-4 col-sm-3 col-md-2 col-lg-1">
+                                     class="col-4 col-sm-3 col-md-2 col-lg-1">
 
                             <div class="category_image_box">
                                 <img class=" img-fluid category_image"

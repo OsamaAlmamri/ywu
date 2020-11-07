@@ -39,7 +39,7 @@
                 return this.like;
             },
             like_description_count() {
-                return this.likeCount;
+                return this.countLikes;
             }
 
         },

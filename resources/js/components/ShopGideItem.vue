@@ -36,9 +36,9 @@
             </h6>
 
             <div class="clearfix row add_to_cart_box" >
-                <div class="col-sm-2 cart_icon" style=""
+                <div class="col-2 cart_icon" style=""
                 ><i class="fa fa-cart-plus"></i></div>
-                <div class="col-sm-8"> إضافة الى السلة</div>
+                <div class="col-8"> إضافة الى السلة</div>
             </div>
         </div>
     </div>
