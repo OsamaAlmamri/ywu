@@ -51,7 +51,7 @@ class User extends Authenticatable implements JWTSubject
         'deleted_at' => 'datetime:Y-m-d H:i:s',
     ];
 
-    protected $fillable=['name','phone','email','status','type','password'] ;
+    protected $fillable=['name','gender','phone','email','status','type','password'] ;
     public function employee()
     {
         return $this->hasOne(Employee::class, 'user_id', 'id');

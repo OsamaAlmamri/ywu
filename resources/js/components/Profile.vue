@@ -101,21 +101,36 @@
 
                                 <!--Tab Btns-->
                                 <ul class="tab-btns tab-buttons clearfix">
+                                    <li data-tab="#prod-complete"
+                                        @click="changeActive('prod-complete')"
+                                        :class="['tab-btn', {'active-btn':(activeTap=='prod-complete')}]">
+                                        كورساتي (مكتمل)
+                                        <span class="tap_count_label"> {{my_complete_trainings_data.data.length}}</span>
+                                    </li>
                                     <li data-tab="#prod-overview"
                                         @click="changeActive('prod-overview')"
-                                        :class="['tab-btn', {'active-btn':(activeTap=='prod-overview')}]">كورساتي
+                                        :class="['tab-btn', {'active-btn':(activeTap=='prod-overview')}]">
+                                        كورساتي (غير مكتمل)
+                                        <span class="tap_count_label"> {{my_trainings_data.data.length}}</span>
+
+
                                     </li>
                                     <li data-tab="#prod-bookmark"
                                         @click="changeActive('prod-bookmark')"
                                         :class="['tab-btn', {'active-btn':(activeTap=='prod-bookmark')}]">استشاراتي
+                                        <span class="tap_count_label"> {{my_consultantData.data.length}}</span>
+
                                     </li>
                                     <li
                                         @click="changeActive('prod-fav')"
                                         :class="['tab-btn', {'active-btn':(activeTap=='prod-fav')}]">الكورسات المفضلة
+                                        <span class="tap_count_label"> {{my_favData.data.length}}</span>
+
                                     </li>
                                     <li data-tab="#prod-setting"
                                         @click="changeActive('prod-setting')"
                                         :class="['tab-btn', {'active-btn':(activeTap=='prod-setting')}]">الاعدادات
+
                                     </li>
                                     <li data-tab="#prod-password"
                                         @click="changeActive('prod-password')"
@@ -128,12 +143,44 @@
                                 <div class="tabs-content">
 
                                     <!--Tab / Active Tab-->
+                                    <div :class="['tab', {'active-tab':(activeTap=='prod-complete')}]"
+                                         id="prod-complete">
+                                        <!-- Sec Title -->
+                                        <div class="content">
+                                            <div class="row clearfix">
+                                                <h4 style="margin: 25%"  v-if="my_complete_trainings_data.data.length==0">لم تقم باخذ  اي كورس تدريبي حتى الان
+                                                </h4>
+                                                <div class="cource-block-two col-lg-4 col-md-6 col-sm-12 col-xs-12"
+                                                     v-for="(training,key) in my_complete_trainings_data.data">
+                                                    <course-gide-item
+                                                        :training="training"
+                                                        @toggled="onToggle"
+                                                    ></course-gide-item>
+                                                </div>
+                                            </div>
+                                            <div class="styled-pagination">
+                                                <pagination
+                                                    :align="'right'"
+                                                    :show-disabled=true
+                                                    @pagination-change-page="my_complete_trainings"
+                                                    :data="my_complete_trainings_data">
+                                                    <span slot="prev-nav">&lt;&lt; </span>
+                                                    <span slot="next-nav"> &gt;&gt;</span>
+                                                </pagination>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+
+                                    <!--Tab / Active Tab-->
                                     <div :class="['tab', {'active-tab':(activeTap=='prod-overview')}]"
                                          id="prod-overview">
                                         <!-- Sec Title -->
                                         <div class="content">
                                             <div class="row clearfix">
-                                                <h4 style="margin: 25%"  v-if="my_trainings_data.data.length==0">لم تقم باي كورس تدريبي حتى الان
+                                                <h4 style="margin: 25%"  v-if="my_trainings_data.data.length==0">لم تقم باخذ  اي كورس تدريبي حتى الان
                                                 </h4>
                                                 <div class="cource-block-two col-lg-4 col-md-6 col-sm-12 col-xs-12"
                                                      v-for="(training,key) in my_trainings_data.data">
@@ -326,7 +373,6 @@
             </div>
 
         </div>
-        </div>
     </section>
     <!-- End Profile Section -->
 
@@ -375,6 +421,9 @@
                     data:[]
                 },
                 my_like_trainings: {
+                    data:[]
+                },
+                my_complete_trainings_data: {
                     data:[]
                 },
                 fullPage: false,
@@ -523,9 +572,15 @@
                     });
             },
             my_trainings(page = 1) {
-                axios({url: 'api/myTraining?page=' + page, method: 'POST'})
+                axios({url: 'api/myTraining?page=' + page, data: {type: 'in_progress'}, method: 'POST'})
                     .then(response => {
                         this.my_trainings_data = response.data.Trainings;
+                    });
+            },
+            my_complete_trainings(page = 1) {
+                axios({url: 'api/myTraining?page=' + page,  data: {type: 'complete'},method: 'POST'})
+                    .then(response => {
+                        this.my_complete_trainings_data = response.data.Trainings;
                     });
             },
             myConsultant(page = 1) {

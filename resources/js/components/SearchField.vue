@@ -51,7 +51,7 @@
                         } else {
                             data = resp.data.data;
                         }
-                        this.$emit('search_result', {'data':data,'title':this.searchData});
+                        this.$emit('search_result', {'data': data, 'title': this.searchData});
                     })
                     .catch(err => {
                         console.log(err)
@@ -71,9 +71,10 @@
                 return (this.$route.name == 'courses' ||
                     this.$route.name == 'women' ||
                     this.$route.name == 'home' ||
+                    this.$route.name == 'shop' ||
                     this.$route.name == 'home2' ||
                     this.$route.name == 'consultant');
-            },   search_type: function () {
+            }, search_type: function () {
                 if (this.$route.name == 'courses' ||
                     this.$route.name == 'women' ||
                     this.$route.name == 'home')
@@ -88,10 +89,18 @@
 
                 switch (this.$route.name) {
                     case 'home' :
-                        return "الرئيسية";
+                        return "التدريب";
                         break;
 
-                    case 'home2' :
+                    case 'ShopCategory' :
+                        return "منتجات الصنف ";
+                        break;
+
+                    case 'shop' :
+                        return "السوق الالكتروني";
+                        break;
+
+                    case 'التدريب' :
                         return "الرئيسية";
                         break;
 

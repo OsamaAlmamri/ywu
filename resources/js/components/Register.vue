@@ -105,6 +105,30 @@
                                        placeholder="تاكيد كلمة السر"
                                        required="">
                             </div>
+                            <div class="student-profile-section">
+                                <!-- Profile Info Tabs-->
+                                <div class="profile-info-tabs">
+                                    <!-- Profile Tabs-->
+                                    <div class="profile-tabs tabs-box">
+                                        <ul class="tab-btns tab-buttons clearfix" style="display: flex">
+
+                                            <li data-tab="#prod-bookmark"
+                                                :class="[ 'tab-btn',{'active-btn':(form.gender=='male')},'gender_tap']"
+                                                style="padding: -23px 28px 46px;"
+                                                @click="form.gender='male'">
+                                                ذكر
+                                            </li>
+                                            <li data-tab="#prod-bookmark"
+                                                :class="['tab-btn',{'active-btn':(form.gender=='female')},'gender_tap']"
+                                                style="padding:-23px 28px 46px;"
+                                                @click="form.gender='female'">
+                                                انثى
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
 
 
                             <div class="form-group col-lg-12 col-md-12 col-sm-12 text-center">
@@ -151,6 +175,7 @@
                     share_user_type: "",
                     name: "",
                     email: "",
+                    gender: "female",
                     password: "",
                     password_confirmation: "",
                 }

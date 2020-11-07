@@ -28,7 +28,7 @@ class Training extends Model
 
 
     protected $appends = ['published', 'can_register',
-        'average_rating', 'count_rating', 'percent_rating', 'rating_details'];
+        'is_begin_training', 'average_rating', 'count_rating', 'percent_rating', 'rating_details'];
 
     public function getPublishedAttribute()
     {
@@ -78,6 +78,11 @@ class Training extends Model
         return $this->countRating();
     }
 
+    function getIsBeginTrainingAttribute()
+    {
+        return ($this->begin_training()->count()) > 0;
+    }
+
     function getPercentRatingAttribute()
     {
         return $this->ratingPercent();
@@ -106,8 +111,8 @@ class Training extends Model
 //
         return array(
             'is_complete' => $complete >= $titles,
-            'complete'=>$complete ,
-            'titles'=> $titles
+            'complete' => $complete,
+            'titles' => $titles
         );
 
     }
@@ -185,11 +190,22 @@ class Training extends Model
     {
         $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
         return $this->hasMany(TrainingTitle::class, 'training_id', 'id')
-            ->whereIn('id', function ($query) use ($user_id){
+            ->whereIn('id', function ($query) use ($user_id) {
                 $query->select('title_id')
                     ->from(with(new UserTrainingTiltle())->getTable())
                     ->where('user_id', $user_id)
                     ->where('content_id', 0);
+            });
+    }
+
+    public function begin_training()
+    {
+        $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
+        return $this->hasMany(TrainingTitle::class, 'training_id', 'id')
+            ->whereIn('id', function ($query) use ($user_id) {
+                $query->select('title_id')
+                    ->from(with(new UserTrainingTiltle())->getTable())
+                    ->where('user_id', $user_id);
             });
     }
 

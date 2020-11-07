@@ -83,7 +83,7 @@ Vue.mixin({
     },
     computed: {
         ShowPublickSearchFiled: function () {
-            if ((this.$route.name == 'home') || (this.$route.name == 'home2') || (this.$route.name == 'courses') || (this.$route.name == 'women') || (this.$route.name == 'consultant'))
+            if ((this.$route.name == 'shop') ||(this.$route.name == 'home') || (this.$route.name == 'home2') || (this.$route.name == 'courses') || (this.$route.name == 'women') || (this.$route.name == 'consultant'))
                 return false;
             return true;
         }

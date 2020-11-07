@@ -1,13 +1,48 @@
+.add_to_cart_box
+{
+    border: 2px solid;
+    text-align: end;
+    color: black;
+    font-weight: 600;
+    margin-right: 2px;
+    margin-left: 0px;
+    border-color: #68a15d;
+}
+.category_image_box
+{
+    border-radius: 50%;
+    background: #ffffff;
+}
+.options-view {
+    position: relative;
+    margin-bottom: 20px;
+    margin-top: 60px;
+}
+.category_image
+{
+    padding: 0.5vw;
+}
+.category_name
+{
+    font-weight: 600;
+    color: black;
+    margin-top: 15px;}
+.cart_icon
+{
+    background: #68a15d;
+    margin: -1px; color: white;
+}
+
 .fa-star {
     color: #f2c620;
 }
 
 .fa-heart, .fa-heart-o {
-    color: #00ab15;
+    color: #65a15d;
 }
 
 .btn_course_type {
-    background: #00ab15;
+    background: #65a15d;
     width: 100%;
 
     /*padding: 3px calc(25% + 4px);*/
@@ -45,6 +80,57 @@
 
     background: none;
 }
+
+.btn-info {
+    color: #fff;
+    background-color: #ec6a23;
+    border-color: #ec6a23;
+}
+
+.student-profile-section .profile-tabs .tab-btns .tab-btn {
+    padding: 12px 15px 10px;
+
+}
+
+.gender_tap {
+    padding: 12px 77px 10px !important;
+
+}
+
+@media only screen and (max-width: 479px) {
+    .gender_tap {
+        width: 50%;
+        margin-top: 1px;
+    }
+}
+
+@media only screen and (min-width: 1023px) {
+
+    .main-menu .navigation > li:hover > a, .main-menu .navigation > li.current > a
+    {
+        color: #0a0a0a;
+    }
+}
+.main-header.fixed-header  li.current a {
+    color: #ec6a23;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #ec6a23;
+    border-color: #ec6a23;
+}
+
+.tap_count_label {
+    color: #68a15d;
+
+}
+
+
+/*.main-menu .navigation > li:hover > a, .main-menu .navigation > li.current > a {*/
+/*    opacity: 1;*/
+/*    color: #050505;*/
+/*}*/
 
 
 .intro-section .intro-tabs .tab-btns .tab-btn {

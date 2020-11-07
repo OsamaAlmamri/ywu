@@ -11,15 +11,23 @@
                  :is-full-page="fullPage">
         </loading>
 
-        <sweet-modal modal-theme="dark" :title="contentDeatail.name"
-                     :blocking=true
-                     :enable-mobile-fullscreen=true
-                     :pulse-on-block=true
-                     :overlay-theme="'dark'" ref="modal">
+        <sweet-modal
+            :title="contentDeatail.name"
+            :blocking=true
+            width="70%"
+            height="90%"
+            :enable-mobile-fullscreen=true
+            :pulse-on-block=true
+            :overlay-theme="'dark'" ref="modal">
             <div v-html="contentDeatail.body"></div>
 
             <div name="buttons" slot="button">
                 <button class="btn btn-info" @click.prevent="completeContent()">تم</button>
+                <div class="pull-left">
+                    <button class="btn btn-info" v-show="hav_prev" @click.prevent="prev()"> <- السابق</button>
+                    <button class="btn btn-info" v-show="hav_next" @click.prevent="next()">التالي -></button>
+
+                </div>
             </div>
 
 
@@ -249,7 +257,7 @@
                                                      class="cource-review-box">
                                                     <div style="width: 100%; display: inline-block;">
 
-                                                        <dropdown >
+                                                        <dropdown>
                                                             <div slot="items">
                                                                 <a class="dropdown-item" href="#"
                                                                    @click.prevent="edit_rating()">تعديل</a>
@@ -345,7 +353,8 @@
                                 </div>
                             </div>
 
-                            <a href="#" v-show="!training.can_register" @click="registerInCourse()"
+                            <a href="#" v-show="showRegisterButton"
+                               @click="registerInCourse()"
                                class="theme-btn btn-style-two"><span
                                 class="txt"> {{registerDecription}}   <i
                                 class="fa fa-angle-left"></i></span></a>
@@ -488,13 +497,32 @@
             contentDeatail() {
                 return this.activeContent;
             },
+            showRegisterButton() {
+                return ((this.training.can_register==1)&& this.training.is_begin_training  == false);
+            },
+            hav_prev() {
+                return this.activeContent_key > 0;
+            },
+            hav_next() {
+                return this.activeContent_key < (this.current_content_length - 1);
+                // return this.activeContent;
+            },
+            current_content_length() {
+                return this.training.titles[this.activeContent_title_key].contents.length;
+
+                // return this.activeContent;
+            },
             registerDecription() {
                 if (this.training.is_register == null)
                     return ' تسجيل ';
-                else if (this.training.is_register.status == 0)
-                    return ' الغاء التسجيل  ';
+                else if (this.training.is_begin_training == false)
+                    return '    البدء بالدورة ';
+
+                    //     return ' الغاء التسجيل  ';
+                    // else
+                //     return '    التسجيل  ';
                 else
-                    return '  الغاء التسجيل  ';
+                    return '      ';
 
             },
             calculateProgress() {
@@ -572,20 +600,24 @@
             },
             registerInCourse() {
                 if (localStorage.token) {
-                    axios({
-                        url: '/api/register_to_training', data: {
-                            training_id: this.training.id
-                        }, method: 'POST'
-                    }).then(resp => {
-                        if (resp.data.status == false) {
-                            toastStack('   خطاء ', resp.data.msg, 'error');
-                        } else {
-                            this.training.is_register = resp.data.data;
-                            toastStack(resp.data.msg, '', 'success');
-                        }
-                    }).catch(err => {
-                        console.log(err)
-                    })
+                    if (this.training.is_register!=null && this.training.is_begin_training  == false) {
+                        this.training.is_begin_training = true;
+                    } else {
+                        axios({
+                            url: '/api/register_to_training', data: {
+                                training_id: this.training.id
+                            }, method: 'POST'
+                        }).then(resp => {
+                            if (resp.data.status == false) {
+                                toastStack('   خطاء ', resp.data.msg, 'error');
+                            } else {
+                                this.training.is_register = resp.data.data;
+                                toastStack(resp.data.msg, '', 'success');
+                            }
+                        }).catch(err => {
+                            console.log(err)
+                        })
+                    }
                 } else {
                     toastStack('   خطاء ', 'يجب تسجيل الدخول اولا', 'error');
                 }
@@ -593,7 +625,19 @@
             },
             change_new_rating_val: function (newVal) {
                 this.newRating.rating = newVal;
-            }, likeTraining: function (is_like) {
+            },
+            next: function () {
+                // if (this.hav_next() == true)
+                this.activeContent = this.training.titles[this.activeContent_title_key].contents[this.activeContent_key + 1];
+                this.activeContent_key += 1;
+
+            },
+            prev: function () {
+                // this.newRating.rating = newVal;
+                this.activeContent = this.training.titles[this.activeContent_title_key].contents[this.activeContent_key - 1];
+                this.activeContent_key -= 1;
+            },
+            likeTraining: function (is_like) {
                 if (is_like == 1)
                     this.training.is_like = {'id': this.rating.id}
                 else
@@ -608,11 +652,15 @@
             }
             ,
             showContent(content, content_key, title_key) {
+                if (this.is_begin_training == false)
+                    toastStack('   خطاء ', 'يرجى تحديد البدء بالدورة اولا', 'error');
 
-                this.activeContent = content;
-                this.activeContent_key = content_key;
-                this.activeContent_title_key = title_key;
-                this.$refs.modal.open();
+                else {
+                    this.activeContent = content;
+                    this.activeContent_key = content_key;
+                    this.activeContent_title_key = title_key;
+                    this.$refs.modal.open();
+                }
             }
             ,
             openModal() {
@@ -669,8 +717,7 @@
                 //         this.training = res.Trainings;
                 //     })
                 //     .catch(err => console.log(err));
-            }
-            ,
+            },
 
             completeContent() {
                 axios({url: '/api/complete_content', data: {id: this.activeContent.id}, method: 'POST'})
@@ -681,6 +728,7 @@
                             this.training.titles[this.activeContent_title_key].contents[this.activeContent_key].is_complete = true;
                             this.training.titles[this.activeContent_title_key].is_complete = resp.data.title_complete;
                             this.$refs.modal.close();
+                            this.training.is_begin_training = true;
                         }
                         this.isLoading = false;
                     })
@@ -688,9 +736,7 @@
                         this.isLoading = false;
                         console.log(err)
                     })
-            }
-            ,
-
+            },
             rating() {
                 this.isLoading = true;
                 axios({url: '/api/training/rate2', data: this.newRating, method: 'POST'})
@@ -711,9 +757,7 @@
                         this.isLoading = false;
                         console.log(err)
                     })
-            }
-            ,
-
+            },
             deleteRating() {
                 this.isLoading = true;
                 axios({url: '/api/training/delete_rate2', data: {id: this.training.is_rating.id}, method: 'POST'})

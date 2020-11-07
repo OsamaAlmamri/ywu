@@ -47,16 +47,33 @@ class TrainingController extends Controller
         }
     }
 
-    public function myTraining()
+    public function myTraining(Request $request)
     {
         $this->emp = Auth::user();
         try {
-            $Training = Training::with(['subject', 'titles', 'is_register'])
-                ->whereIn('id', function ($query) {
+            $Training = Training::with(['subject', 'titles', 'is_register']);
+            if (isset($request->type) and $request->type == 'complete')
+                $Training = $Training->whereIn('id', function ($query) {
                     $query->select('training_id')->from('user_trainings')
                         ->where('user_id', Auth::id());
-                })
-                ->orderByDesc('id')->paginate(20);
+                })->whereIn('id', function ($query) {
+                    $query->select('training_id')->from('results')
+                        ->where('user_id', Auth::id());
+                });
+            elseif (isset($request->type) and $request->type == 'in_progress')
+                $Training = $Training->whereIn('id', function ($query) {
+                    $query->select('training_id')->from('user_trainings')
+                        ->where('user_id', Auth::id());
+                })->whereNotIn('id', function ($query) {
+                    $query->select('training_id')->from('results')
+                        ->where('user_id', Auth::id());
+                });
+            else
+                $Training = $Training->whereIn('id', function ($query) {
+                    $query->select('training_id')->from('user_trainings')
+                        ->where('user_id', Auth::id());
+                });
+            $Training = $Training->orderByDesc('id')->paginate(20);
             if (!$Training) {
                 return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
             } else {
@@ -117,7 +134,7 @@ class TrainingController extends Controller
             if ($type == 'posts')
 //                $data = Training::orderByDesc('id')->limit(5)->get();
                 $data = LastPosts::collection(Post::with('category')
-                    ->where('user_id','!=',$user_id)->where('status',1)->orderByDesc('id')->limit(5)->get())->type('posts');
+                    ->where('user_id', '!=', $user_id)->where('status', 1)->orderByDesc('id')->limit(5)->get())->type('posts');
 
             else {
                 $data = LastPosts::collection(WomenPosts::orderByDesc('id')->limit(5)->get())->type('women');

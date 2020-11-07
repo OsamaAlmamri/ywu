@@ -11,6 +11,8 @@ import CourseDetails from './components/CourseDeatailsComponent';
 import LogoutComponent from './components/Logout';
 import Profile from './components/Profile';
 import women from './components/WomenComponent';
+import shop from './components/Shop';
+import ShopCategory from './components/ShopCategory';
 import ConsultantComponent from './components/ConsultantComponent';
 // import Co from './components/';
 import WomenDeatails from './components/WomenDeatails';
@@ -24,6 +26,22 @@ const routes = [
     {
         path: '*',
         component: NotFound
+    },
+    {
+        path: '/ShopCategory',
+        component: ShopCategory,
+        name: "ShopCategory",
+        meta: {
+            requiresAuth: false
+        }
+    },
+    {
+        path: '/shop',
+        component: shop,
+        name: "shop",
+        meta: {
+            requiresAuth: false
+        }
     },
     {
         path: '/courses',

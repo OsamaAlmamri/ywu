@@ -63,6 +63,7 @@ class UserController extends Controller
                 $user =new User();
                 $user->name=$request->name;
                 $user->phone=$request->phone;
+                $user->gender=$request->gender;
                 $user->password=$request->password;
                 $user->type='visitor';
                 $user->save();
