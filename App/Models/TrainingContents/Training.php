@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Training extends Model
 {
     use SoftDeletes;
-    use  Rateable;
+//    use  Rateable;
 
     protected $table = 'trainings';
     protected $guarded = [];

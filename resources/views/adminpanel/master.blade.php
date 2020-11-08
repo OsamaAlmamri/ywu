@@ -29,6 +29,9 @@
 
     <!-- Custom Theme Style -->
     <link href="{{ asset('build/css/custom.min.css') }}" rel="stylesheet">
+    <link href="{!! asset('new_admin/css/dropzone.css') !!}" media="all" rel="stylesheet" type="text/css" />
+
+    <link href="{!! asset('new_admin/css/image-picker.css') !!}" media="all" rel="stylesheet" type="text/css" />
 
     <!-- cdn -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -575,6 +578,10 @@
 {{--<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>--}}
 
 
+/***************************/
+<script src="{!! asset('new_admin/js/dropzone.js') !!}"></script>
+<script src="{!! asset('new_admin/js/image-picker.js') !!}"></script>
+<script src="{!! asset('new_admin/js/image-picker.min.js') !!}"></script>
 /***************************/
 <script src="{!! asset('newLibs/datatables.net/js/jquery.dataTables.min.js') !!}"></script>
 <script src="{!! asset('newLibs/data-table/extensions/buttons/js/dataTables.buttons.min.js') !!}"></script>

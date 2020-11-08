@@ -110,6 +110,17 @@ Route::group(['middleware' => ('auth:admin')], function () {
     Route::get('force-title/{id}', 'TitleController@force');
 
 
+    Route::group(['prefix' => 'admin/media'], function () {
+        Route::get('/display', 'MediaController@display');
+        Route::get('/add', 'MediaController@add');
+        Route::post('/updatemediasetting', 'MediaController@updatemediasetting');
+        Route::post('/uploadimage', 'MediaController@fileUpload');
+        Route::post('/delete', 'MediaController@deleteimage');
+        Route::get('/detail/{id}', 'MediaController@detailimage');
+        Route::get('/refresh', 'MediaController@refresh');
+        Route::post('/regenerateimage', 'MediaController@regenerateimage');
+    });
+
 #################################################### questions
     Route::get('/user_trainings/{id?}', 'UserTrainingController@index')->name('user_trainings');
     Route::get('user_trainings/destroy/{id}/{action_type}', 'UserTrainingController@destroy');
@@ -217,6 +228,6 @@ Route::get('/myProfile', 'HomeController@myProfile')->name('site.myProfile');
 Route::get('/site_login', 'HomeController@login')->name('site.login');
 Route::get('/register', 'HomeController@register')->name('site.register');
 Route::get('/login', 'HomeController@register')->name('site.login');
-Route::get('/{any?}', function (){
+Route::get('/{any?}', function () {
     return view('welcome');
 })->where('any', '^(?!api\/)[\/\w\.-]*');

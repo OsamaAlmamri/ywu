@@ -180,6 +180,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         //JWT
+        'Folklore\Image\ImageServiceProvider',
+        Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
+        anlutro\LaravelSettings\ServiceProvider::class,
+
 
     ],
 
@@ -233,10 +237,14 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         // JWT,
-        'Image' => Intervention\Image\Facades\Image::class,
+//        'Image' => Intervention\Image\Facades\Image::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+        'Image' => 'Folklore\Image\Facades\Image',
+
+        'Setting' => anlutro\LaravelSettings\Facade::class,
+
 
     ],
 

@@ -9,11 +9,11 @@
         <!-- menu profile quick info -->
         <div class="profile clearfix">
             <div class="profile_pic">
-                <img src="{{asset('assets/images/'.$admin->image)}}" alt="..." class="img-circle profile_img">
+                <img src="{{asset('assets/images/'.auth()->user()->image)}}" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
                 <span>الادمن</span>
-                <h2>{{$admin->name}}</h2>
+                <h2>{{auth()->user()->name}}</h2>
             </div>
         </div>
         <!-- /menu profile quick info -->
@@ -32,29 +32,31 @@
                             <li><a href="{{route('women-trashed')}}">سلة المحذوفات</a></li>
                         </ul>
                     </li>
-{{--                    <li><a><i class="fa fa-book"></i> المواد التدريبية <span--}}
-{{--                                class="fa fa-chevron-down"></span></a>--}}
-{{--                        <ul class="nav child_menu">--}}
-{{--                            <li><a href="{{route('subject')}}">عرض وادارة المواد التدريبية</a></li>--}}
-{{--                            <li><a href="{{route('subject-trashed')}}">سلة المحذوفات</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
-                    <li><a><i class="fa fa-mortar-board"></i> الدورات التدريبية <span
+                    {{--                    <li><a><i class="fa fa-book"></i> المواد التدريبية <span--}}
+                    {{--                                class="fa fa-chevron-down"></span></a>--}}
+                    {{--                        <ul class="nav child_menu">--}}
+                    {{--                            <li><a href="{{route('subject')}}">عرض وادارة المواد التدريبية</a></li>--}}
+                    {{--                            <li><a href="{{route('subject-trashed')}}">سلة المحذوفات</a></li>--}}
+                    {{--                        </ul>--}}
+                    {{--                    </li>--}}
+                    <li><a><i class="fa fa-picture-o"></i> الصور <span
                                 class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="{{route('training')}}">إدارة الدورات التدريبية</a></li>
-                            <li><a href="{{route('user_trainings')}}">طلبات الانضمام  للدورة التدريبية</a></li>
-                            <li><a href="{{route('training-trashed')}}">سلة المحذوفات</a></li>
+                            <li><a href="{{url('admin/media/add')}}"> اضافة صور جديدة </a></li>
+                            <li><a href="{{url('admin/media/display')}}"> اعدادات الصور </a></li>
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-edit"></i> الإستشارات <span class="fa fa-chevron-down"></span></a>
+
+
+                    <li><a><i class="fa fa-edit"></i>
+                            الإستشارات <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{route('showPosts')}}">عرض محتوى الاستشارات</a></li>
                             <li><a href="{{route('deleted_Post')}}">الاستشارات المرفوضة</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{route('slides.index')}}"><i class="fa fa-image"></i> السلايدات المتحركة </a> </li>
-                    <li><a href="{{route('activates.index')}}"><i class="fa fa-calendar-times-o"></i>  الانشطة </a> </li>
+                    <li><a href="{{route('slides.index')}}"><i class="fa fa-image"></i> السلايدات المتحركة </a></li>
+                    <li><a href="{{route('activates.index')}}"><i class="fa fa-calendar-times-o"></i> الانشطة </a></li>
 
                     <li><a><i class="fa fa-male"></i> حسابات الموظفين <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
@@ -112,7 +114,7 @@
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                        aria-expanded="false">
-                        <img src="{{asset('assets/images/'.$admin->image)}}" alt="">{{$admin->name}}
+                        <img src="{{asset('assets/images/'.auth()->user()->image)}}" alt="">{{auth()->user()->name}}
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
