@@ -108,7 +108,7 @@ Route::group(['middleware' => ('auth:admin')], function () {
     Route::get('title/show-trashed/{id}', 'TitleController@show_trashed');
     Route::get('restore-title/{id}', 'TitleController@restore_post');
     Route::get('force-title/{id}', 'TitleController@force');
-    Route::group(['prefix' => 'admin/media','namespace' => 'AdminControllers\Shop'], function () {
+    Route::group(['prefix' => 'admin/media', 'namespace' => 'AdminControllers\Shop'], function () {
         Route::get('/display', 'MediaController@display');
         Route::get('/add', 'MediaController@add');
         Route::post('/updatemediasetting', 'MediaController@updatemediasetting');
@@ -141,7 +141,7 @@ Route::group(['middleware' => ('auth:admin')], function () {
     Route::resource('slides', 'SlideController')->except('update');
 
 #################################################### sliders
-    Route::group(['prefix' => 'admin/shop/', 'as' => 'admin.shop.categories.','namespace' => 'AdminControllers\Shop'], function () {
+    Route::group(['prefix' => 'admin/shop/', 'as' => 'admin.shop.categories.', 'namespace' => 'AdminControllers\Shop'], function () {
         Route::post('categories/update', 'CategoriesController@update')->name('update');
         Route::get('categories/destroy/{id}', 'CategoriesController@destroy')->name('destroy');
         Route::get('categories/edit/{id}', 'CategoriesController@edit')->name('edit');
@@ -152,6 +152,23 @@ Route::group(['middleware' => ('auth:admin')], function () {
             'names' => [
                 'index' => 'index',
                 'store' => 'store',
+                // etc...
+            ]
+        ])->except('update');
+    });
+#################################################### sliders
+    Route::group(['prefix' => 'admin/shop/', 'as' => 'admin.shop.spaces.', 'namespace' => 'AdminControllers\Shop'], function () {
+        Route::post('spaces/update', 'SpacesController@update')->name('update');
+        Route::get('spaces/destroy/{id}', 'SpacesController@destroy')->name('destroy');
+        Route::get('spaces/show/{id}', 'SpacesController@show')->name('show');
+        Route::get('spaces/edit/{id}', 'SpacesController@edit')->name('edit');
+        Route::post('spaces/active', 'SpacesController@active')->name('active');
+
+        Route::resource('spaces', 'SpacesController', [
+            'names' => [
+                'index' => 'index',
+                'store' => 'store',
+                'show' => 'show',
                 // etc...
             ]
         ])->except('update');

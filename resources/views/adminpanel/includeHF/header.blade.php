@@ -49,6 +49,7 @@
                     <li><a><i class="fa fa-shopping-cart"></i> السوق <span
                                 class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
+                            <li><a href="{{route('admin.shop.spaces.index')}}"> ادارة المساحات </a></li>
                             <li><a href="{{route('admin.shop.categories.index')}}"> ادارة الاصناف </a></li>
                         </ul>
                     </li>

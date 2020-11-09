@@ -8,8 +8,6 @@ class ShopCategory extends Model
 {
     //
     protected $fillable = ['name', 'status', 'sort', 'image_id'];
-
-
     protected $appends = ['image', 'image_actual'];
 
     function getImageAttribute()
@@ -17,6 +15,7 @@ class ShopCategory extends Model
         $im = $this->image_category_th();
         return ($im != null) ? $this->image_category_th()->path : null;
     }
+
     function getImageActualAttribute()
     {
         $im = $this->image_category_act();
