@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\AdminControllers\Shop;
 
 use App\Http\Controllers\Controller;
 use App\Models\Images;
@@ -92,7 +92,9 @@ class MediaController extends Controller
             // Creating the directory, for example, if the date = 18/10/2017, the directory will be 2017/10/
             $directory = date_format($time, 'Y') . '/' . date_format($time, 'm');
             // Creating the file name: random string followed by the day, random number and the hour
-            $filename = date_format($time, 'd') . rand(1, 9) . date_format($time, 'h') . "." . $extension;
+//            $filename = date_format($time, 'd') . rand(1, 9) . date_format($time, 'h') . "." . $extension;
+            $filename = str_random(5) . date_format($time, 'd') . rand(1, 9) . date_format($time, 'h') . "." . $extension;
+
             // This is our upload main function, storing the image in the storage that named 'public'
             $upload_success = $image->storeAs($directory, $filename, 'public');
 

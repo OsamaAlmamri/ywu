@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Images;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 if(!function_exists('getViewCustomDate')) {
 
@@ -12,6 +14,18 @@ if(!function_exists('getViewCustomDate')) {
         }
         return '';
     }
+}
+
+function getAllImages()
+{
+
+    $images = new Images();
+    return $images->getimages();
+}
+
+function str_random($length = 16)
+{
+    return Str::random($length);
 }
 
 

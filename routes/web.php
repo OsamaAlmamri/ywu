@@ -108,9 +108,7 @@ Route::group(['middleware' => ('auth:admin')], function () {
     Route::get('title/show-trashed/{id}', 'TitleController@show_trashed');
     Route::get('restore-title/{id}', 'TitleController@restore_post');
     Route::get('force-title/{id}', 'TitleController@force');
-
-
-    Route::group(['prefix' => 'admin/media'], function () {
+    Route::group(['prefix' => 'admin/media','namespace' => 'AdminControllers\Shop'], function () {
         Route::get('/display', 'MediaController@display');
         Route::get('/add', 'MediaController@add');
         Route::post('/updatemediasetting', 'MediaController@updatemediasetting');
@@ -142,6 +140,22 @@ Route::group(['middleware' => ('auth:admin')], function () {
     Route::post('slides/changeType', 'SlideController@changeType')->name('slides.changeType');
     Route::resource('slides', 'SlideController')->except('update');
 
+#################################################### sliders
+    Route::group(['prefix' => 'admin/shop/', 'as' => 'admin.shop.categories.','namespace' => 'AdminControllers\Shop'], function () {
+        Route::post('categories/update', 'CategoriesController@update')->name('update');
+        Route::get('categories/destroy/{id}', 'CategoriesController@destroy')->name('destroy');
+        Route::get('categories/edit/{id}', 'CategoriesController@edit')->name('edit');
+        Route::post('categories/changeOrder', 'CategoriesController@changeOrder')->name('changeOrder');
+        Route::post('categories/active', 'CategoriesController@active')->name('active');
+        Route::post('categories/changeType', 'CategoriesController@changeType')->name('changeType');
+        Route::resource('categories', 'CategoriesController', [
+            'names' => [
+                'index' => 'index',
+                'store' => 'store',
+                // etc...
+            ]
+        ])->except('update');
+    });
 #################################################### activates
     Route::get('activates/show/{id}', 'ActivitiesController@show');
     Route::post('activates/update', 'ActivitiesController@update')->name('activates.update');

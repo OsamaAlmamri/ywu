@@ -21,24 +21,45 @@ class Images extends Model
         return $this->hasMany('App\Image_category');
     }
 
+//    public function getimages()
+//    {
+//
+//
+//        $allimagesth = DB::table('images')
+//            ->leftJoin('image_categories', 'images.id', '=', 'image_categories.image_id')
+//            ->select('path', 'images.id', 'image_type')
+//            ->where('image_categories.image_type', 'THUMBNAIL')
+//            ->orderby('images.id', 'DESC')
+//            ->get();
+//        $allimages = DB::table('images')
+//            ->leftJoin('image_categories', 'images.id', '=', 'image_categories.image_id')
+//            ->select('path', 'images.id', 'image_type')
+//            ->where('image_categories.image_type', 'ACTUAL')
+//            ->orderby('images.id', 'DESC')
+//            ->get();
+//
+//        $result = $allimages->merge($allimagesth)->keyBy('id');
+//
+//        return $result;
+//
+//    }
+
+
     public function getimages()
     {
-
-
         $allimagesth = DB::table('images')
             ->leftJoin('image_categories', 'images.id', '=', 'image_categories.image_id')
             ->select('path', 'images.id', 'image_type')
             ->where('image_categories.image_type', 'THUMBNAIL')
-            ->orderby('images.id', 'DESC')
             ->get();
         $allimages = DB::table('images')
             ->leftJoin('image_categories', 'images.id', '=', 'image_categories.image_id')
             ->select('path', 'images.id', 'image_type')
             ->where('image_categories.image_type', 'ACTUAL')
-            ->orderby('images.id', 'DESC')
             ->get();
 
-        $result = $allimages->merge($allimagesth)->keyBy('id');
+        $result = $allimagesth;
+//        $result = $allimages->merge($allimagesth)->keyBy('id');
 
         return $result;
 
