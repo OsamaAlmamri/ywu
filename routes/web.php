@@ -163,13 +163,26 @@ Route::group(['middleware' => ('auth:admin')], function () {
         Route::get('spaces/show/{id}', 'SpacesController@show')->name('show');
         Route::get('spaces/edit/{id}', 'SpacesController@edit')->name('edit');
         Route::post('spaces/active', 'SpacesController@active')->name('active');
-
         Route::resource('spaces', 'SpacesController', [
             'names' => [
                 'index' => 'index',
                 'store' => 'store',
-                'show' => 'show',
-                // etc...
+            ]
+        ])->except('update');
+    });
+#################################################### sliders
+    Route::group(['prefix' => 'admin/shop/', 'as' => 'admin.shop.products.', 'namespace' => 'AdminControllers\Shop'], function () {
+        Route::post('products/update', 'ProductsController@update')->name('update');
+        Route::get('products/destroy/{id}', 'ProductsController@destroy')->name('destroy');
+        Route::get('products/show/{id}', 'ProductsController@show')->name('show');
+        Route::get('products/edit/{id}', 'ProductsController@edit')->name('edit');
+        Route::post('products/active', 'ProductsController@active')->name('active');
+        Route::post('products/changeOrder', 'ProductsController@changeOrder')->name('changeOrder');
+
+        Route::resource('products', 'ProductsController', [
+            'names' => [
+                'index' => 'index',
+                'store' => 'store',
             ]
         ])->except('update');
     });

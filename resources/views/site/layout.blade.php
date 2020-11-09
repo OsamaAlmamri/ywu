@@ -96,7 +96,8 @@
                 <div class="clearfix">
 
                     <div class="pull-right logo-box">
-                        <div class="logo"><a href="#">
+                        <div class="logo"
+                        ><a href="#" class="logo_box_a">
                                 <img width="50" src="site/images/Logo250px.png" alt=""
                                      title=" Yemen Women Union Developments"></a></div>
                     </div>
@@ -248,7 +249,7 @@
                                     <div class="logo">
                                         <a href="/">
                                             <router-link @click.native="scrollToTop()" to="/home"></router-link>
-                                            <img src="site/images/Logo250px.png" alt=""></a>
+                                            <img src="site/images/Logo250p5x.png" alt=""></a>
                                     </div>
                                     <div class="social-box" style="text-align: center;">
                                         <a href="https://www.facebook.com/yemenwu" class="fa fa-facebook"></a>

@@ -39,18 +39,20 @@
                     {{--                            <li><a href="{{route('subject-trashed')}}">سلة المحذوفات</a></li>--}}
                     {{--                        </ul>--}}
                     {{--                    </li>--}}
-                    <li><a><i class="fa fa-picture-o"></i> الصور <span
-                                class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="{{url('admin/media/add')}}"> اضافة صور جديدة </a></li>
-                            <li><a href="{{url('admin/media/display')}}"> اعدادات الصور </a></li>
-                        </ul>
-                    </li>
+
                     <li><a><i class="fa fa-shopping-cart"></i> السوق <span
                                 class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
+                            <li><a><i class="fa fa-picture-o"></i> الصور <span
+                                        class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="{{url('admin/media/add')}}"> اضافة صور جديدة </a></li>
+                                    <li><a href="{{url('admin/media/display')}}"> اعدادات الصور </a></li>
+                                </ul>
+                            </li>
                             <li><a href="{{route('admin.shop.spaces.index')}}"> ادارة المساحات </a></li>
                             <li><a href="{{route('admin.shop.categories.index')}}"> ادارة الاصناف </a></li>
+                            <li><a href="{{route('admin.shop.products.index')}}"> ادارة المنتجات </a></li>
                         </ul>
                     </li>
 

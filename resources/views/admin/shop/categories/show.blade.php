@@ -20,7 +20,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-4"> الاسم : </label>
                             <div class="col-md-8">
-                                <input name="name" id="name" class="form-control"></input>
+                                <input name="name" id="name" class="form-control"/>
                             </div>
                             <span class="print-error-msg alert-danger" id="modal_error_name"></span>
 
@@ -109,23 +109,23 @@
                             title: '  ترتيب العرض ',
                             data: 'btn_sort',
                             name: 'btn_sort'
-                        }, {
+                        },
+                        {
                             title: '  الاسم',
                             data: 'name',
                             name: 'name'
                         },
-
                         {
                             data: 'btn_image',
                             name: 'btn_image',
                             title: ' الصورة '
-
                         },
                         {
                             title: 'الحالة',
                             data: 'btn_status',
                             name: 'btn_status',
-                        }, {
+                        },
+                        {
                             title: 'عمليات',
                             data: 'action',
                             name: 'action',
@@ -196,13 +196,12 @@
                     success: function (html) {
                         $('#name').val(html.data.name);
                         $('#hidden_id').val(html.data.id);
-                        $('#old_image_id').val(html.data.id);
+                        $('#old_image_id').val(html.data.image_id);
                         $('#old_image_preview_box').show();
                         $('#old_image_preview').html("<img src={{ URL::to('/') }}/" + html.data.image + " width='70' class='img-thumbnail' />");
                         $('#action_type').val(html.data.action_type);
-                        $.when(change_type(html.data.action_type)).then(function (data) {
-                            $('#action_id').val(html.data.action_id);
-                        });
+                        $('#action_id').val(html.data.action_id);
+
                         $('.modal-title').text("تعديل الصنف ");
                         $('#action_button').val("تعديل");
                         $('#action').val("Edit");
@@ -214,28 +213,6 @@
                 var type = $('#action_type').val();
                 change_type(type);
             });
-
-            function change_type(type = "") {
-
-                if (type == "")
-                    return $('#action_id').html("<option value=\"\">غير محدد</option>")
-                else {
-                    return $.ajax({
-                        url: "{{route('admin.shop.categories.changeType')}}",//   var url=$('#news').attr('action');
-                        method: 'post',
-                        dataType: 'json',// data type that i want to return
-                        data: '_token=' + ("{{csrf_token()}}") + '&type=' + type,// var form=$('#news').serialize();
-                        success: function (data) {
-                            $('#action_id').html(data);
-                        },
-                        error: function (xhr, status, error) {
-                            alert(xhr.responseText);
-                        }
-                    });
-
-                }
-
-            }
 
             var user_id;
 

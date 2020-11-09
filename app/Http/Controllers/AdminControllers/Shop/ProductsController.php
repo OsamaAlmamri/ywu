@@ -4,40 +4,44 @@ namespace App\Http\Controllers\AdminControllers\Shop;
 
 use App\Admin;
 use App\Http\Controllers\Controller;
+use App\Models\Shop\Product;
 use App\Models\Shop\ShopCategory;
-
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CategoriesController extends Controller
+class ProductsController extends Controller
 {
     use JsonTrait;
     use PostTrait;
 
     public function index()
     {
+
         if (request()->ajax()) {
-            $data = ShopCategory::orderBy('sort')->get();
+            if (request()->category_id == 0)
+                $data = Product::all();
+            else
+                $data = Product::where('category_id', 1)->get();
             if ($data) {
                 return datatables()->of($data)
-                    ->addColumn('action', 'admin.shop.categories.btn.action')
-                    ->addColumn('btn_image', 'admin.shop.categories.btn.image')
+                    ->addColumn('action', 'admin.shop.products.btn.action')
+                    ->addColumn('btn_image', 'admin.shop.products.btn.image')
                     ->addColumn('btn_sort', 'sortFiles.btn_sort')
-                    ->addColumn('btn_status', 'admin.shop.categories.btn.status')
-                    ->rawColumns(['btn_sort', 'action', 'btn_image', 'btn_status'])
+                    ->addColumn('btn_status', 'admin.shop.products.btn.status')
+                    ->addColumn('btn_available', 'admin.shop.products.btn.available')
+                    ->rawColumns(['action', 'btn_image', 'btn_sort', 'btn_available', 'btn_status'])
                     ->make(true);
             }
         }
         $admin = Admin::where('id', 1)->first();
-        return view('admin.shop.categories.show', compact(['admin']));
+        return view('admin.shop.products.index', compact(['admin']));
     }
 
-    public
     function changeOrder(Request $request)
     {
-        $sortData = ShopCategory::all();
+        $sortData = Product::all();
         foreach ($sortData as $element) {
             $element->timestamps = false; // To disable update_at field updation
             $id = $element->id;
@@ -50,8 +54,11 @@ class CategoriesController extends Controller
         return response('Update Successfully.', 200);
     }
 
-    public function show()
+
+    public function show($id)
     {
+        $data = Product::find($id);
+        return response()->json($data, 200);
 
     }
 
@@ -60,8 +67,12 @@ class CategoriesController extends Controller
         $new_status = 1;
         if ($r->status == 1)
             $new_status = 0;
-        $user = ShopCategory::find($r->id);
-        $user->status = $new_status;
+        $user = Product::find($r->id);
+        if ($r->type == 'available')
+            $user->available = $new_status;
+        else
+            $user->status = $new_status;
+
         $user->save();
         return $new_status;
     }
@@ -70,11 +81,17 @@ class CategoriesController extends Controller
     {
         $rules = [
             "name" => "required",
+            "category_id" => 'required',
+            "price" => 'required',
             "image_id" => [($request->action == 'Edit') ? 'nullable' : 'required'],
+
         ];
         $messages = [
             "name.required" => "يرجى اضافة اسم الصنف",
+            "category_id.required" => "يرجى اختيار صنف المنتج ",
+            "price.required" => "يرجى اضافة سعر المنتج ",
             "image_id.required" => "يرجى اختيار صورة اولا ",
+
 //            "image.mimes" => "يجب ان يكون امتداد الصورة: jpg,png,jpeg,gif,svg",
 
         ];
@@ -90,10 +107,10 @@ class CategoriesController extends Controller
                 'errors' => $error->errors(),
             ], 422);
         }
-        $image = $this->Post_Save($request, 'image', "IMG-", 'assets/images');
-        $categoty = ShopCategory::create(array_merge($request->except('image'),
+
+        $categoty = Product::create(array_merge($request->all(),
             [
-                'image' => $image,
+                'space_id' => 1,
             ]));
         return response()->json(['success' => 'تم الاضافة  بنجاح']);
     }
@@ -102,7 +119,7 @@ class CategoriesController extends Controller
     public function edit($id)
     {
         if (request()->ajax()) {
-            $data = ShopCategory::whereId($id)->first();
+            $data = Product::whereId($id)->first();
             return response()->json(['data' => $data]);
         }
     }
@@ -116,7 +133,7 @@ class CategoriesController extends Controller
                 'errors' => $error->errors(),
             ], 422);
         }
-        $categoty = ShopCategory::whereId($request->hidden_id)->first();
+        $categoty = Product::whereId($request->hidden_id)->first();
         $categoty = $categoty->update(array_merge($request->except('image_id'),
             [
                 'image_id' => $request['image_id'] = ($request['image_id'] != null) ? $request['image_id'] : $request['old_image_id']
@@ -128,7 +145,7 @@ class CategoriesController extends Controller
 
     public function destroy($id)
     {
-        $data = ShopCategory::findOrFail($id);
+        $data = Product::findOrFail($id);
         $data->delete();
     }
 }

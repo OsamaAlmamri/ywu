@@ -2,7 +2,7 @@
 @section('card_header')
     <div class="card-header">
         <br/>
-        <h3 align="right"> المساحات</h3>
+        <h3 align="right"> المنتجات </h3>
         <br/>
         <div class="row">
             <div class="col-md-4"></div>
@@ -10,8 +10,8 @@
                 <div class="form-group">
                     <select name="filter_country" id="filter_country" class="form-control" required>
                         <option value="0">الكل</option>
-                        @foreach(zones() as $c)
-                            <option value="{{ $c->id }}">{{ $c->name_ar }}</option>
+                        @foreach(categories() as $c)
+                            <option value="{{ $c->id }}">{{ $c->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -31,7 +31,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"> إنشاء مساحة جديد</h4>
+                    <h4 class="modal-title"> إنشاء منتج جديد</h4>
 
                 </div>
                 <div class="modal-body">
@@ -39,24 +39,38 @@
                     <form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label class="control-label col-sm-4">المحافظة :</label>
+                            <label class="control-label col-sm-4">الصنف :</label>
                             <div class="col-sm-8">
-                                <select class="form-control select2" id="zone_id" name="zone_id">
-
-                                    @foreach(zones() as $c)
-                                        <option value="{{$c->id}}">{{$c->name_ar}}</option>
+                                <select class="form-control select2" id="category_id" name="category_id">
+                                    @foreach(categories() as $c)
+                                        <option value="{{$c->id}}">{{$c->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
+                            <span class="print-error-msg alert-danger" id="modal_error_category_id"></span>
+
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-4">اسم المساحة : </label>
+                            <label class="control-label col-md-4">اسم المنتج : </label>
                             <div class="col-md-8">
                                 <input type="text" name="name" id="name" class="form-control"/>
                             </div>
+                            <span class="print-error-msg alert-danger" id="modal_error_name"></span>
+                        </div>
+                        @include('adminpanel.includes.image_to_select')
+                        <span class="print-error-msg alert-danger" id="modal_error_image_id"></span>
+
+                        <br/>
+                        <div class="form-group">
+                            <label class="control-label col-md-4"> السعر : </label>
+                            <div class="col-md-8">
+                                <input type="number" name="price" id="price" class="form-control"/>
+                            </div>
+                            <span class="print-error-msg alert-danger" id="modal_error_price"></span>
+
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-4">معلومات اخرى : </label>
+                            <label class="control-label col-md-4">وصف المنتج : </label>
                             <div class="col-md-12">
                                 <textarea class="form-control description" id="description" name="description"
                                           type="text">
@@ -66,6 +80,8 @@
                         </div>
                         <div class="form-group" align="center">
                             <input type="hidden" name="action" id="action"/>
+                            <input type="hidden" name="old_image_id" id="old_image_id"/>
+
                             <input type="hidden" name="hidden_id" id="hidden_id"/>
                             <input type="submit" name="action_button" id="action_button" class="btn btn-warning"
                                    value="اضافة"/>
@@ -96,7 +112,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title">حذف المساحة</h2>
+                    <h2 class="modal-title">حذف المنتج</h2>
                 </div>
                 <div class="modal-body">
                     <h4 align="center" style="margin:0;">هل انت متاكد من الحذف؟</h4>
@@ -108,10 +124,17 @@
             </div>
         </div>
     </div>
+    @include('adminpanel.includes.image_to_selected_model')
+
 @endsection
 @section('custom_js')
+    @include('adminpanel.includes.add_new_image_sceipts')
+    @include('adminpanel.active')
+
     @include('adminpanel.wyswyg')
     <script>
+        Active('{{route('admin.shop.products.active')}}');
+
         $(document).ready(function () {
             fill_datatable();
 
@@ -131,33 +154,76 @@
                     searchDelay: 350,
                     language: lang,
                     dom: 'Brfltip',
+                    "createdRow": function (row, data, dataIndex) {
+                        $(row).addClass('row1');
+                        $(row).attr('data-id', data.id);
+                        $(row).attr('width', "100%");
+                    },
                     lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
                     buttons: [
 
                         {
-                            text: '<i class="fa fa-plus" ></i>  إنشاء مساحة جديدة ',
+                            text: '<i class="fa fa-plus" ></i>  إنشاء منتج جديدة ',
                             className: 'btn btn-info create_record',
                         },
                     ],
                     ajax: {
-                        url: "{{route('admin.shop.spaces.index')}}",
-                        data: {zone_id: $("#filter_country").val()}
+                        url: "{{route('admin.shop.products.index')}}",
+                        data: {category_id: $("#filter_country").val()}
                     },
                     columns: [
-                        {
-                            title: ' الاسم ',
-                            data: 'name',
-                            name: 'name'
-                        },
 
+                        {
+                            title: '  ترتيب العرض ',
+                            data: 'btn_sort',
+                            name: 'btn_sort'
+                        },
                         {
                             title: 'المحافظة ',
                             name: 'zone',
                             data: 'zone',
                         },
                         {
+                            title: 'المساحة ',
+                            name: 'space',
+                            data: 'space',
+                        },
+                        {
+                            title: ' الاسم ',
+                            data: 'name',
+                            name: 'name'
+                        },
+                        {
+                            title: ' الصنف ',
+                            data: 'category',
+                            name: 'category'
+                        },
+                        {
+                            title: ' السعر ',
+                            data: 'price',
+                            name: 'price'
+                        },
+
+                        {
+                            data: 'btn_image',
+                            name: 'btn_image',
+                            title: ' الصورة '
+
+                        },
+
+                        {
                             title: 'تاريخ الاضافة ',
                             data: 'published',
+                        },
+                        {
+                            title: 'متوفر',
+                            data: 'btn_available',
+                            name: 'btn_available',
+                        },
+                        {
+                            title: 'الحالة',
+                            data: 'btn_status',
+                            name: 'btn_status',
                         },
                         {
                             title: 'عمليات',
@@ -171,21 +237,25 @@
             }
 
             $(document).on('click', '.create_record', function () {
-                $('.modal-title').text("إ إنشاء مساحة  جديدة");
+                $('.modal-title').text("إ إنشاء منتج  جديدة");
                 $('#action_button').val("حفظ");
                 $('#action').val("Add");
                 $('#sample_form')[0].reset();
                 $('#store_image').html('');
+                $('#old_image_preview_box').hide();
+                $('#old_image_preview').html('');
                 $('#formModal').modal('show');
             });
 
             $('#sample_form').on('submit', function (event) {
                 event.preventDefault();
                 if ($('#action').val() == 'Add')
-                    var url = "{{ route('admin.shop.spaces.store') }}";
+                    var url = "{{ route('admin.shop.products.store') }}";
                 else
-                    var url = "{{ route('admin.shop.spaces.update') }}";
+                    var url = "{{ route('admin.shop.products.update') }}";
                 var formData = new FormData(this);
+                formData.append("image_id", $("#select_img").val());
+
                 $.ajax({
                     url: url,
                     method: "POST",
@@ -220,12 +290,12 @@
                 var id = $(this).attr('id');
                 $('#form_show').html('');
                 $.ajax({
-                    url: "{{URL::to('')}}/admin/shop/spaces/show/" + id,
+                    url: "{{URL::to('')}}/admin/shop/products/show/" + id,
                     type: "GET",
                     dataType: "json",
                     success: function (data) {
                         $('#show_description').html(data.description);
-                        $('.modal-title').text("  وصف المساحة");
+                        $('.modal-title').text("  وصف المنتج");
                         $('#formShow').modal('show');
                     }
                 })
@@ -241,16 +311,22 @@
                 $('#form_result').html('');
 
                 $.ajax({
-                    url: "{{URL::to('')}}/admin/shop/spaces/edit/" + id + "",
+                    url: "{{URL::to('')}}/admin/shop/products/edit/" + id + "",
                     type: "GET",
                     dataType: "json",
                     success: function (html) {
                         $('#name').val(html.data.name);
                         $('#description_body').html(html.data.description);
+                        $('#old_image_id').val(html.data.image_id);
+                        $('#old_image_preview_box').show();
+                        $('#old_image_preview').html("<img src={{ URL::to('/') }}/" + html.data.image + " width='70' class='img-thumbnail' />");
+
                         tinyMCE.activeEditor.setContent(html.data.description);
-                        $('#zone_id').val(html.data.zone_id);
+                        $('#category_id').val(html.data.category_id);
+                        $('#category_id').val(html.data.category_id);
+                        $('#price').val(html.data.price);
                         $('#hidden_id').val(html.data.id);
-                        $('.modal-title').text("تعديل بيانات المساحة ");
+                        $('.modal-title').text("تعديل بيانات المنتج ");
                         $('#action_button').val("تعديل");
                         $('#action').val("Edit");
                         $('#formModal').modal('show');
@@ -260,13 +336,13 @@
             var deleted_id = 0;
             $(document).on('click', '.delete', function () {
                 deleted_id = $(this).attr('id');
-                $('.modal-title').text("حذف المساحة ");
+                $('.modal-title').text("حذف المنتج ");
                 $('#ok_button').text('حذف');
                 $('#confirmModal').modal('show');
             });
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "{{URL::to('')}}/admin/shop/spaces/destroy/" + deleted_id,
+                    url: "{{URL::to('')}}/admin/shop/products/destroy/" + deleted_id,
                     beforeSend: function () {
                         $('#ok_button').text('جاري الحذف...');
                     },
@@ -281,7 +357,11 @@
 
 
         });
+
+
     </script>
+    <?php $controler = 'admin.shop.products.changeOrder' ?>
+    @include('sortFiles.scripts')
 @endsection
 
 
