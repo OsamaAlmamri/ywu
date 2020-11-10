@@ -19,26 +19,61 @@
                     <form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label class="control-label col-sm-4">المحافظة :</label>
-                            <div class="col-sm-8">
-                                <select class="form-control select2" id="zone_id" name="zone_id">
-
-                                    @foreach(zones() as $c)
-                                        <option value="{{$c->id}}">{{$c->name_ar}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label class="control-label col-md-4">اسم الخيار : </label>
                             <div class="col-md-8">
-                                <input type="text" name="name" id="name" class="form-control"/>
+                                <input type="text" name="products_options_name" id="products_options_name"
+                                       class="form-control"/>
                             </div>
+                            <span class="print-error-msg alert-danger" id="modal_error_products_options_name"></span>
+
                         </div>
                         <div class="form-group" align="center">
                             <input type="hidden" name="action" id="action"/>
                             <input type="hidden" name="hidden_id" id="hidden_id"/>
                             <input type="submit" name="action_button" id="action_button" class="btn btn-warning"
+                                   value="اضافة"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="formOptionValueModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"> إنشاء خيار منتج جديد</h4>
+                </div>
+                <div class="modal-body">
+                    <span id="form_result"></span>
+                    <form method="post" id="formOptionValueModal_form" class="form-horizontal"
+                          enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">الخيار :</label>
+                            <div class="col-sm-8">
+                                <input id="op_products_options_id" type="hidden" name="products_options_id" value="0">
+                                <span id="op_products_options_name"> </span>
+                            </div>
+                            <span class="print-error-msg alert-danger" id="modal_error_category_id"></span>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-4">اسم الخيار : </label>
+                            <div class="col-md-8">
+                                <input type="text" name="products_options_values_name" id="products_options_values_name"
+                                       class="form-control"/>
+                            </div>
+                            <span class="print-error-msg alert-danger" id="modal_error_products_options_values_name"></span>
+
+                        </div>
+                        <div class="form-group" align="center">
+                            <input type="hidden" name="action" id="OptionValue_action"/>
+                            <input type="hidden" name="hidden_id" id="OptionValue_hidden_id"/>
+                            <input type="submit" name="action_button" id="OptionValue_action_button"
+                                   class="btn btn-warning"
                                    value="اضافة"/>
                         </div>
                     </form>
@@ -125,9 +160,56 @@
                 $('#action_button').val("حفظ");
                 $('#action').val("Add");
                 $('#sample_form')[0].reset();
-                $('#store_image').html('');
                 $('#formModal').modal('show');
             });
+            $(document).on('click', '.newOption_val', function () {
+                $('.modal-title').text(" إنشاء قيمة خيار منتج  جديد");
+                $('#OptionValue_action_button').val("حفظ");
+                // OptionValue_hidden_id
+                $('#op_products_options_name').text($(this).data('option_name'));
+                $('#op_products_options_id').val($(this).data('option_id'));
+                $('#OptionValue_action').val("Add");
+                $('#formOptionValueModal_form')[0].reset();
+                $('#formOptionValueModal').modal('show');
+            });
+
+            $('#formOptionValueModal_form').on('submit', function (event) {
+                event.preventDefault();
+                if ($('#OptionValue_action').val() == 'Add')
+                    var url = "{{ route('admin.shop.products_options.store_options_values') }}";
+                else
+                    var url = "{{ route('admin.shop.products_options.update_options_values') }}";
+                var formData = new FormData(this);
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: formData,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (data) {
+                        var html = '';
+                        $('#formOptionValueModal_form')[0].reset();
+                        $('#user_table').DataTable().ajax.reload();
+                        $("#formOptionValueModal_form .print-error-msg").html('');
+                        $('#formOptionValueModal').modal('hide');
+                    },
+                    error: function (jqXhr, status) {
+                        console.log(jqXhr);
+                        if (jqXhr.status === 422) {
+                            $("#formOptionValueModal_form .print-error-msg").html('');
+                            var errors = jqXhr.responseJSON.errors;
+                            $.each(errors, function (key, value) {
+                                $("#formOptionValueModal_form").find("#modal_error_" + key).html(value);
+                            });
+                        }
+                    }
+                })
+
+
+            });
+
 
             $('#sample_form').on('submit', function (event) {
                 event.preventDefault();
@@ -171,38 +253,44 @@
                 $('#user_table').DataTable().destroy();
                 fill_datatable();
             });
-
             $(document).on('click', '.edit', function () {
                 var id = $(this).attr('id');
                 $('#form_result').html('');
+                $('#hidden_id').val($(this).data('id'));
+                $('#products_options_name').val($(this).data('option_name'));
 
-                $.ajax({
-                    url: "{{URL::to('')}}/admin/shop/products_options/edit/" + id + "",
-                    type: "GET",
-                    dataType: "json",
-                    success: function (html) {
-                        $('#name').val(html.data.name);
-                        $('#description_body').html(html.data.description);
-                        tinyMCE.activeEditor.setContent(html.data.description);
-                        $('#zone_id').val(html.data.zone_id);
-                        $('#hidden_id').val(html.data.id);
-                        $('.modal-title').text("تعديل بيانات المساحة ");
-                        $('#action_button').val("تعديل");
-                        $('#action').val("Edit");
-                        $('#formModal').modal('show');
-                    }
-                })
+                $('.modal-title').text("تعديل بيانات الخيار ");
+                $('#action_button').val("تعديل");
+                $('#action').val("Edit");
+                $('#formModal').modal('show');
+
+
+
             });
+
+            $(document).on('click', '.edit_option_val', function () {
+                $('#OptionValue_hidden_id').val($(this).data('option_val_id'));
+                $('#op_products_options_name').text($(this).data('option_name'));
+                $('#products_options_values_name').val($(this).data('option_val_name'));
+                $('#op_products_options_id').val($(this).data('option_id'));
+                $('.modal-title').text("تعديل بيانات قيمة الخيار  ");
+                $('#OptionValue_action_button').val("تعديل");
+                $('#OptionValue_action').val("Edit");
+                $('#formOptionValueModal').modal('show');
+            });
+
             var deleted_id = 0;
+            var deleted_type = 'option';
             $(document).on('click', '.delete', function () {
                 deleted_id = $(this).attr('id');
-                $('.modal-title').text("حذف المساحة ");
+                deleted_type = $(this).data('type');
+                $('.modal-title').text("حذف  ");
                 $('#ok_button').text('حذف');
                 $('#confirmModal').modal('show');
             });
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "{{URL::to('')}}/admin/shop/products_options/destroy/" + deleted_id,
+                    url: "{{URL::to('')}}/admin/shop/products_options/destroy/" + deleted_id + "/" + deleted_type,
                     beforeSend: function () {
                         $('#ok_button').text('جاري الحذف...');
                     },

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProductsOptionsValue extends Model
 {
     //
+    public $timestamps=false;
     protected $primaryKey = 'products_options_values_id';
     protected $fillable = ['products_options_id', 'products_options_values_name'];
 }

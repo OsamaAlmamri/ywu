@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Images;
+use App\Models\Shop\ProductsOption;
 use App\Models\Shop\ShopCategory;
 use App\Models\Shop\Zone;
 use Carbon\Carbon;
@@ -35,6 +36,12 @@ function zones()
 function categories()
 {
     $data = ShopCategory::where('status', 1)->get();
+    return $data;
+}
+
+function products_option()
+{
+    $data = ProductsOption::all();
     return $data;
 }
 

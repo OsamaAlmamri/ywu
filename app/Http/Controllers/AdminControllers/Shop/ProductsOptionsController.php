@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminControllers\Shop;
 
 use App\Http\Controllers\Controller;
 use App\Models\Shop\ProductsOption;
+use App\Models\Shop\ProductsOptionsValue;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
 use Illuminate\Http\Request;
@@ -17,11 +18,15 @@ class ProductsOptionsController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $data = ProductsOption::all();
+            $data = ProductsOption::with('optionsValues')->get();
             if ($data) {
                 return datatables()->of($data)
                     ->addColumn('action', 'admin.shop.products_options.btn.action')
-                    ->addColumn('products_options_values', 'admin.shop.products_options.btn.products_options_values')
+                    ->addColumn('products_options_values', function ($row) {
+                        return view('admin.shop.products_options.btn.products_options_values')
+                            ->with('row', $row);
+                    })
+//                    ->addColumn('products_options_values','admin.shop.products_options.btn.products_options_values' )
                     ->rawColumns(['action', 'products_options_values'])
                     ->make(true);
             }
@@ -49,6 +54,7 @@ class ProductsOptionsController extends Controller
         return Validator::make($request->all(), $rules, $messages);
     }
 
+
     public function store(Request $request)
     {
         $error = $this->check_inputes($request);
@@ -62,13 +68,29 @@ class ProductsOptionsController extends Controller
         return response()->json(['success' => 'تم الاضافة  بنجاح']);
     }
 
-
-    public function edit($id)
+    private function check_options_values_inputes($request)
     {
-        if (request()->ajax()) {
-            $data = ProductsOption::whereId($id)->first();
-            return response()->json(['data' => $data]);
+        $rules = [
+            "products_options_id" => "required",
+            "products_options_values_name" => "required",
+        ];
+        $messages = [
+            "name.required" => "يرجى اضافة اسم الخيار ",
+        ];
+        return Validator::make($request->all(), $rules, $messages);
+    }
+
+    public function store_options_values(Request $request)
+    {
+        $error = $this->check_options_values_inputes($request);
+
+        if ($error->fails()) {
+            return response()->json([
+                'errors' => $error->errors(),
+            ], 422);
         }
+        $categoty = ProductsOptionsValue::create($request->all());
+        return response()->json(['success' => 'تم الاضافة  بنجاح']);
     }
 
     public function update(Request $request)
@@ -80,16 +102,45 @@ class ProductsOptionsController extends Controller
                 'errors' => $error->errors(),
             ], 422);
         }
-        $categoty = ProductsOption::whereId($request->hidden_id)->first();
+        $categoty = ProductsOption::find($request->hidden_id);
         $categoty = $categoty->update($request->all());
         return response()->json(['success' => 'تم التعديل  بنجاح']);
 
 
     }
 
-    public function destroy($id)
+
+    public function edit($id)
     {
-        $data = ProductsOption::findOrFail($id);
+        if (request()->ajax()) {
+            $data = ProductsOption::whereId($id)->first();
+            return response()->json(['data' => $data]);
+        }
+    }
+
+    public function update_options_values(Request $request)
+    {
+        $error = $this->check_options_values_inputes($request);
+
+        if ($error->fails()) {
+            return response()->json([
+                'errors' => $error->errors(),
+            ], 422);
+        }
+        $categoty = ProductsOptionsValue::find($request->hidden_id);
+        $categoty = $categoty->update($request->all());
+        return response()->json(['success' => 'تم التعديل  بنجاح']);
+
+
+    }
+
+    public function destroy($id, $type)
+    {
+//        return $id;
+        if ($type == 'option_value')
+            $data = ProductsOptionsValue::findOrFail($id);
+        else
+            $data = ProductsOption::findOrFail($id);
         $data->delete();
     }
 }

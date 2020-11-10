@@ -4,8 +4,13 @@
 }
 
 td .fa-toggle-on {
-    color: #15e408;
+    color: #34495e;
     font-size: 25px;
+}
+
+td a {
+    color: #34495e;
+
 }
 
 td .fa-toggle-off {

@@ -50,7 +50,7 @@
                                     <li><a href="{{url('admin/media/display')}}"> اعدادات الصور </a></li>
                                 </ul>
                             </li>
-                            <li><a href="{{route('admin.shop.spaces.index')}}"> خيارات المنتجات </a></li>
+                            <li><a href="{{route('admin.shop.products_options.index')}}"> خيارات المنتجات </a></li>
                             <li><a href="{{route('admin.shop.spaces.index')}}"> ادارة المساحات </a></li>
                             <li><a href="{{route('admin.shop.categories.index')}}"> ادارة الاصناف </a></li>
                             <li><a href="{{route('admin.shop.products.index')}}"> ادارة المنتجات </a></li>

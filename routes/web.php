@@ -47,8 +47,11 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
         });
 #################################################### sliders
         Route::group(['as' => 'admin.shop.products_options.'], function () {
+            Route::post('products_options_values/update', 'ProductsOptionsController@update_options_values')->name('update_options_values');
+            Route::post('products_options_values/store', 'ProductsOptionsController@store_options_values')->name('store_options_values');
+
             Route::post('products_options/update', 'ProductsOptionsController@update')->name('update');
-            Route::get('products_options/destroy/{id}', 'ProductsOptionsController@destroy')->name('destroy');
+            Route::get('products_options/destroy/{id}/{type}', 'ProductsOptionsController@destroy')->name('destroy');
             Route::get('products_options/edit/{id}', 'ProductsOptionsController@edit')->name('edit');
             Route::post('products_options/active', 'ProductsOptionsController@active')->name('active');
             Route::resource('products_options', 'ProductsOptionsController', [
@@ -58,6 +61,7 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
                 ]
             ])->except('update');
         });
+#################################################### sliders
 #################################################### sliders
         Route::group(['as' => 'admin.shop.products.'], function () {
             Route::post('products/update', 'ProductsController@update')->name('update');
