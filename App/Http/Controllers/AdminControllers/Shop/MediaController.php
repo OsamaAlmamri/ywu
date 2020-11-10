@@ -25,12 +25,12 @@ class MediaController extends Controller
     {
         $Images = new Images();
         $allimage = $Images->getimages();
-        return view("media.loadimages")->with('allimage', $allimage);
+        return view("admin.shop.media.loadimages")->with('allimage', $allimage);
     }
 
     public function display()
     {
-        return view("media.index");
+        return view("admin.shop.media.index");
     }
 
     public function settingmedia($requeest)
@@ -70,7 +70,7 @@ class MediaController extends Controller
     {
         $Images = new Images();
         $images = $Images->getimages();
-        return view('media.addimages')
+        return view('admin.shop.media.addimages')
             ->with('images', $images);
     }
 
@@ -220,7 +220,7 @@ class MediaController extends Controller
         //dd($imageDetail);
         //$returnHTML = view('admin.modal-body-view')->with('imageDetail', $imageDetail);
         $result['images'] = $images;
-        $returnHTML = view('media.detail')->with('result', $result);
+        $returnHTML = view('admin.shop.media.detail')->with('result', $result);
 
         return ($returnHTML);
 

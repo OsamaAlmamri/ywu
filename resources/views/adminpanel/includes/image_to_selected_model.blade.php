@@ -21,7 +21,7 @@
                 </select>
             </div>
             <div class="modal-footer">
-                <a href="{{url('admin/media/add')}}" target="_blank"
+                <a href="{{url('admin/shop/media/add')}}" target="_blank"
                    class="btn btn-primary pull-left">اضافة صور جديدة</a>
                 <button type="button"
                         class="btn btn-default refresh-image">

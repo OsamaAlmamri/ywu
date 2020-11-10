@@ -38,7 +38,7 @@
                             <i class="fa fa-question-circle" style="font-size: 100px"></i>
                             <br>
                             <br>
-                            <form method="POST" action="{{ route('Admin_Forget_check') }}" class="form-validate mb-4">
+                            <form method="POST" action="{{ route('admin.forget_check') }}" class="form-validate mb-4">
                                 @csrf
                                 <div class="form-group row" style="margin-left: 10%">
                                     <div class="col-md-10">

@@ -68,7 +68,7 @@
         }
     });
     $("select.show-html").imagepicker();
-    $("#AddImage").click(function(){ window.location.href = '{{url("admin/media/addimages")}}'; });
+    $("#AddImage").click(function(){ window.location.href = '{{url("admin/shop/media/addimages")}}'; });
 
     $(document).on('click','#selected', function(){
         var image_src = $('.thumbnail.selected').children('img').attr('src');
@@ -173,7 +173,7 @@
     $(document).on('click', '.refresh-image', function(e){
         $("#loader").show();
         $.ajax({
-            url: '{{ URL::to("admin/media/refresh")}}',
+            url: '{{ URL::to("admin/shop/media/refresh")}}',
             type: "GET",
             success: function (res) {
                 $("#loader").hide();

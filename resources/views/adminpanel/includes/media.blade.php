@@ -24,7 +24,7 @@
                 console.log(imgs);
                 if (imgs > 0) {
                     $.ajax({
-                        url: '{{ URL::to("admin/media/delete")}}',
+                        url: '{{ URL::to("admin/shop/media/delete")}}',
                         type: "POST",
                         data: formData,
                         success: function (res) {
@@ -81,7 +81,7 @@
             this.on("success", function (file, response) {
                 var a = document.createElement('span');
                 // a.className = "thumb-url btn btn-primary";
-                a.setAttribute('data-clipboard-text', '{{url('admin/media/uploadimage')}}' + '/' + response);
+                a.setAttribute('data-clipboard-text', '{{url('admin/shop/media/uploadimage')}}' + '/' + response);
                 // a.innerHTML = "copy url";
                 file.previewTemplate.appendChild(a);
 

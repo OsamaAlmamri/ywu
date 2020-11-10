@@ -73,7 +73,7 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary font-weight-bold" style="font-size: 17px;">دخول</button>
                             </form>
-                            <a href="{{route('Admin_Forget')}}" class="forgot-pass" style="font-size: 17px;">هل نسيت كلمة المرور؟</a><br>
+                            <a href="{{route('admin.forget')}}" class="forgot-pass" style="font-size: 17px;">هل نسيت كلمة المرور؟</a><br>
                         </div>
                     </div>
                 </div>
