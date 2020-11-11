@@ -66,7 +66,8 @@
                                 <input type="text" name="products_options_values_name" id="products_options_values_name"
                                        class="form-control"/>
                             </div>
-                            <span class="print-error-msg alert-danger" id="modal_error_products_options_values_name"></span>
+                            <span class="print-error-msg alert-danger"
+                                  id="modal_error_products_options_values_name"></span>
 
                         </div>
                         <div class="form-group" align="center">
@@ -258,14 +259,10 @@
                 $('#form_result').html('');
                 $('#hidden_id').val($(this).data('id'));
                 $('#products_options_name').val($(this).data('option_name'));
-
                 $('.modal-title').text("تعديل بيانات الخيار ");
                 $('#action_button').val("تعديل");
                 $('#action').val("Edit");
                 $('#formModal').modal('show');
-
-
-
             });
 
             $(document).on('click', '.edit_option_val', function () {

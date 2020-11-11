@@ -35,6 +35,9 @@
 
     <!-- cdn -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script type="text/javascript">
+        window.csrf_token = "{{ csrf_token() }}"
+    </script>
     <!-- datatable -->
     {{--    <link rel="stylesheet" href="js/dataTables.bootstrap.min.css"/>--}}
     <link href="{!! asset('js/dataTables.bootstrap.min.css') !!}" media="all" rel="stylesheet"

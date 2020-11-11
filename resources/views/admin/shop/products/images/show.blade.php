@@ -1,7 +1,7 @@
 @extends('adminpanel.dataTableLayout')
 @section('card_header')
     <div class="card-header">
-        <h3 align="right">الاصناف </h3>
+        <h3 align="right">صور المنتج ({{$product->name}}) </h3>
         <br/>
     </div>
 @endsection
@@ -11,35 +11,30 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"> إنشاء صنف جديد</h4>
+                    <h4 class="modal-title"> اضافة صورة جديدة</h4>
                 </div>
                 <div class="modal-body">
                     <span id="form_result"></span>
                     <form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group">
-                            <label class="control-label col-md-4"> الاسم : </label>
-                            <div class="col-md-8">
-                                <input name="name" id="name" class="form-control"/>
-                            </div>
-                            <span class="print-error-msg alert-danger" id="modal_error_name"></span>
+                    @csrf
 
-                        </div>
-                        @include('adminpanel.includes.image_to_select')
-                        <span class="print-error-msg alert-danger" id="modal_error_image_id"></span>
-
-                        <br/>
-                        <div class="form-group" align="center">
-                            <input type="hidden" name="action" id="action"/>
-                            <input type="hidden" name="hidden_id" id="hidden_id"/>
-                            <input type="hidden" name="old_image_id" id="old_image_id"/>
-                            <input type="submit" name="action_button" id="action_button" class="btn btn-warning"
-                                   value="نشر"/>
-                        </div>
-                    </form>
                 </div>
+                @include('adminpanel.includes.image_to_select')
+                <span class="print-error-msg alert-danger" id="modal_error_image_id"></span>
+
+                <br/>
+                <div class="form-group" align="center">
+                    <input type="hidden" name="action" id="action"/>
+                    <input type="hidden" name="hidden_id" id="hidden_id"/>
+                    <input type="hidden" name="product_id" value="{{$product->id}}"/>
+                    <input type="hidden" name="old_image_id" id="old_image_id"/>
+                    <input type="submit" name="action_button" id="action_button" class="btn btn-warning"
+                           value="نشر"/>
+                </div>
+                </form>
             </div>
         </div>
+    </div>
     </div>
     @include('adminpanel.includes.image_to_selected_model')
     <div id="confirmModal" class="modal fade" role="dialog">
@@ -47,10 +42,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title">حذف الصنف</h2>
+                    <h2 class="modal-title">حذف الصورة</h2>
                 </div>
                 <div class="modal-body">
-                    <h4 align="center" style="margin:0;">هل انت متاكد من حذف الصنف؟</h4>
+                    <h4 align="center" style="margin:0;">هل انت متاكد من حذف الصورة؟</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">نعم</button>
@@ -62,11 +57,8 @@
 @endsection
 @section('custom_js')
     @include('adminpanel.includes.add_new_image_sceipts')
-
-    @include('adminpanel.active')
     <script>
 
-        Active('{{route('admin.shop.categories.active')}}');
         $(document).ready(function () {
 
             fill_datatable();
@@ -96,12 +88,12 @@
                     buttons: [
 
                         {
-                            text: '<i class="fa fa-plus" ></i>   إنشاء صنف جديد  ',
+                            text: '<i class="fa fa-plus" ></i>   اضافة صورة جديدة  ',
                             className: 'btn btn-info create_record',
                         },
                     ],
                     ajax: {
-                        url: "{{route('admin.shop.categories.index')}}",
+                        url: "{{route('admin.shop.products.images.index',$product->id)}}",
                     },
                     columns: [
 
@@ -110,21 +102,13 @@
                             data: 'btn_sort',
                             name: 'btn_sort'
                         },
-                        {
-                            title: '  الاسم',
-                            data: 'name',
-                            name: 'name'
-                        },
+
                         {
                             data: 'btn_image',
                             name: 'btn_image',
                             title: ' الصورة '
                         },
-                        {
-                            title: 'الحالة',
-                            data: 'btn_status',
-                            name: 'btn_status',
-                        },
+
                         {
                             title: 'عمليات',
                             data: 'action',
@@ -136,7 +120,7 @@
             }
 
             $('.create_record').click(function () {
-                $('.modal-title').text("إنشاء صنف جديد");
+                $('.modal-title').text("اضافة صورة جديدة");
                 $("#formModal .print-error-msg").html('');
                 $('#sample_form')[0].reset();
                 $('#action_button').val("اضافة");
@@ -150,9 +134,9 @@
             $('#sample_form').on('submit', function (event) {
                 event.preventDefault();
                 if ($('#action').val() == 'Add')
-                    var url = "{{ route('admin.shop.categories.store') }}";
+                    var url = "{{ route('admin.shop.products.images.store') }}";
                 else
-                    var url = "{{ route('admin.shop.categories.update') }}";
+                    var url = "{{ route('admin.shop.products.images.update') }}";
                 var formData = new FormData(this);
                 formData.append("image_id", $("#select_img").val());
                 $.ajax({
@@ -190,11 +174,10 @@
                 var id = $(this).attr('id');
                 $('#form_result').html('');
                 $.ajax({
-                    url: "{{URL::to('')}}/admin/shop/categories/edit/" + id + "",
+                    url: "{{URL::to('')}}/admin/shop/products/images/edit/" + id + "",
                     type: "GET",
                     dataType: "json",
                     success: function (html) {
-                        $('#name').val(html.data.name);
                         $('#hidden_id').val(html.data.id);
                         $('#old_image_id').val(html.data.image_id);
                         $('#old_image_preview_box').show();
@@ -202,7 +185,7 @@
                         $('#action_type').val(html.data.action_type);
                         $('#action_id').val(html.data.action_id);
 
-                        $('.modal-title').text("تعديل الصنف ");
+                        $('.modal-title').text("تعديل الصورة ");
                         $('#action_button').val("تعديل");
                         $('#action').val("Edit");
                         $('#formModal').modal('show');
@@ -218,14 +201,14 @@
 
             $(document).on('click', '.delete', function () {
                 user_id = $(this).attr('id');
-                $('.modal-title').text("حذف الصنف");
+                $('.modal-title').text("حذف الصورة");
                 $('#ok_button').text('حذف');
                 $('#confirmModal').modal('show');
             });
 
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "{{URL::to('')}}/admin/shop/categories/destroy/" + user_id,
+                    url: "{{URL::to('')}}/admin/shop/products/images/destroy/" + user_id,
                     beforeSend: function () {
                         $('#ok_button').text('جاري الحذف...');
                     },
@@ -239,8 +222,11 @@
             });
         });
     </script>
-    <?php $controler = 'admin.shop.categories.changeOrder' ?>
+    <?php $controler = 'admin.shop.products.images.changeOrder' ?>
     @include('sortFiles.scripts')
 
 @endsection
+
+
+
 

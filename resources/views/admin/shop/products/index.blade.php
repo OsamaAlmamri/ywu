@@ -70,6 +70,35 @@
 
                         </div>
                         <div class="form-group">
+                            <label class="control-label col-md-4"> نوع النشاط : </label>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <label class="control-label col-md-6 col-sm-6col-xs-6">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" checked="" value="1"
+                                                       name="has_attribute">
+                                                متغير (لدية خيارات)
+                                            </label>
+                                        </div>
+                                    </label>
+                                    <label class="control-label col-md-6 col-sm-6 col-xs-6">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" checked="checked" value="0"
+                                                       name="has_attribute">
+                                                ثابت
+                                            </label>
+                                        </div>
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="print-error-msg alert-danger" id="modal_error_image"></div>
+                        </div>
+                        <br/>
+
+                        <div class="form-group">
                             <label class="control-label col-md-4">وصف المنتج : </label>
                             <div class="col-md-12">
                                 <textarea class="form-control description" id="description" name="description"
@@ -308,8 +337,9 @@
 
             $(document).on('click', '.edit', function () {
                 var id = $(this).attr('id');
+                $('input:radio[name="has_attribute"]').attr('checked', false);
+                $('#sample_form')[0].reset();
                 $('#form_result').html('');
-
                 $.ajax({
                     url: "{{URL::to('')}}/admin/shop/products/edit/" + id + "",
                     type: "GET",
@@ -326,10 +356,13 @@
                         $('#category_id').val(html.data.category_id);
                         $('#price').val(html.data.price);
                         $('#hidden_id').val(html.data.id);
+
                         $('.modal-title').text("تعديل بيانات المنتج ");
                         $('#action_button').val("تعديل");
                         $('#action').val("Edit");
+                        $('input:radio[name="has_attribute"]').filter('[value="' + html.data.has_attribute + '"]').attr('checked', true);
                         $('#formModal').modal('show');
+
                     }
                 })
             });

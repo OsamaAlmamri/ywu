@@ -46,8 +46,8 @@
                             <li><a><i class="fa fa-picture-o"></i> الصور <span
                                         class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="{{url('admin/media/add')}}"> اضافة صور جديدة </a></li>
-                                    <li><a href="{{url('admin/media/display')}}"> اعدادات الصور </a></li>
+                                    <li><a href="{{url('admin/shop/media/add')}}"> اضافة صور جديدة </a></li>
+                                    <li><a href="{{url('admin/shop/media/display')}}"> اعدادات الصور </a></li>
                                 </ul>
                             </li>
                             <li><a href="{{route('admin.shop.products_options.index')}}"> خيارات المنتجات </a></li>

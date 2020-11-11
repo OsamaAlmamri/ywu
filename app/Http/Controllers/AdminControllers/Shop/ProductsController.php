@@ -9,12 +9,20 @@ use App\Models\Shop\ShopCategory;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 
 class ProductsController extends Controller
 {
     use JsonTrait;
     use PostTrait;
+
+    public function __construct(Product $products)
+    {
+
+        $this->products = $products;
+
+    }
 
     public function index()
     {
@@ -38,6 +46,100 @@ class ProductsController extends Controller
         $admin = Admin::where('id', 1)->first();
         return view('admin.shop.products.index', compact(['admin']));
     }
+
+    public function attributes(Request $request)
+    {
+        $result = $this->products->addproductattribute($request);
+//        return  dd($result['products_attributes']);
+        return view('admin.shop.products.attribute.add')->with('result', $result);
+
+    }
+
+    public function addnewdefaultattribute(Request $request)
+    {
+        $products_attributes = $this->products->addnewdefaultattribute($request);
+        return ($products_attributes);
+    }
+
+    public function editdefaultattribute(Request $request)
+    {
+        $result = $this->products->editdefaultattribute($request);
+        return view("admin.shop.products.attribute.pop_up_forms.editdefaultattributeform")->with('result', $result);
+    }
+
+    public function updatedefaultattribute(Request $request)
+    {
+        $products_attributes = $this->products->updatedefaultattribute($request);
+        return ($products_attributes);
+
+    }
+
+    public function deletedefaultattributemodal(Request $request)
+    {
+
+        $product_id = $request->product_id;
+        $products_attributes_id = $request->products_attributes_id;
+        $result['data'] = array('product_id' => $product_id, 'products_attributes_id' => $products_attributes_id);
+        return view("admin.shop.products.attribute.modals.deletedefaultattributemodal")->with('result', $result);
+
+    }
+
+    public function deletedefaultattribute(Request $request)
+    {
+        $products_attributes = $this->products->deletedefaultattribute($request);
+        return ($products_attributes);
+    }
+
+    public function showoptions(Request $request)
+    {
+        $products_attributes = $this->products->showoptions($request);
+        return ($products_attributes);
+    }
+
+    public function editoptionform(Request $request)
+    {
+        $result = $this->products->editoptionform($request);
+        return view("admin.shop.products.attribute.pop_up_forms.editproductattributeoptionform")->with('result', $result);
+
+    }
+
+    public function updateoption(Request $request)
+    {
+        $products_attributes = $this->products->updateoption($request);
+        return ($products_attributes);
+    }
+
+    public function showdeletemodal(Request $request)
+    {
+
+        $product_id = $request->product_id;
+        $products_attributes_id = $request->products_attributes_id;
+        $result['data'] = array('product_id' => $product_id, 'products_attributes_id' => $products_attributes_id);
+        return view("admin.shop.products.attribute.modals.deleteproductattributemodal")->with('result', $result);
+
+    }
+
+    public function deleteoption(Request $request)
+    {
+
+        $products_attributes = $this->products->deleteoption($request);
+        return ($products_attributes);
+
+    }
+
+    public function getOptionsValue(Request $request)
+    {
+        $value = $this->products->getOptionsValue($request);
+        if (count($value) > 0) {
+            foreach ($value as $value_data) {
+                $value_name[] = "<option value='" . $value_data->products_options_values_id . "'>" . $value_data->products_options_values_name . "</option>";
+            }
+        } else {
+            $value_name = "<option value=''>" . Lang::get("labels.ChooseValue") . "</option>";
+        }
+        print_r($value_name);
+    }
+
 
     function changeOrder(Request $request)
     {

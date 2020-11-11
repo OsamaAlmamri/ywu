@@ -61,13 +61,12 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
                 ]
             ])->except('update');
         });
-#################################################### sliders
-#################################################### sliders
         Route::group(['as' => 'admin.shop.products.'], function () {
             Route::post('products/update', 'ProductsController@update')->name('update');
             Route::get('products/destroy/{id}', 'ProductsController@destroy')->name('destroy');
             Route::get('products/show/{id}', 'ProductsController@show')->name('show');
             Route::get('products/edit/{id}', 'ProductsController@edit')->name('edit');
+            Route::get('products/attributes/{id}', 'ProductsController@attributes')->name('attributes');
             Route::post('products/active', 'ProductsController@active')->name('active');
             Route::post('products/changeOrder', 'ProductsController@changeOrder')->name('changeOrder');
 
@@ -78,20 +77,28 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
                 ]
             ])->except('update');
         });
-        #################################################### media
+        Route::group(['as' => 'admin.shop.products.images.'], function () {
+            Route::post('products/images/update', 'ProductImagesController@update')->name('update');
+            Route::get('products/images/destroy/{id}', 'ProductImagesController@destroy')->name('destroy');
+            Route::get('products/images/index/{id}', 'ProductImagesController@index')->name('index');
+            Route::get('products/images/edit/{id}', 'ProductImagesController@edit')->name('edit');
+            Route::post('products/images/changeOrder', 'ProductImagesController@changeOrder')->name('changeOrder');
+            Route::post('products/images/store', 'ProductImagesController@store')->name('store');
 
-        Route::get('/display', 'MediaController@display');
-        Route::get('/add', 'MediaController@add');
-        Route::post('/updatemediasetting', 'MediaController@updatemediasetting');
-        Route::post('/uploadimage', 'MediaController@fileUpload');
-        Route::post('/delete', 'MediaController@deleteimage');
-        Route::get('/detail/{id}', 'MediaController@detailimage');
-        Route::get('/refresh', 'MediaController@refresh');
-        Route::post('/regenerateimage', 'MediaController@regenerateimage');
+        });
+        #################################################### media
+        Route::group(['prefix' => 'media', 'as' => 'admin.shop.media.'], function () {
+            Route::get('display', 'MediaController@display');
+            Route::get('add', 'MediaController@add');
+            Route::post('updatemediasetting', 'MediaController@updatemediasetting');
+            Route::post('uploadimage', 'MediaController@fileUpload');
+            Route::post('delete', 'MediaController@deleteimage');
+            Route::get('detail/{id}', 'MediaController@detailimage');
+            Route::get('refresh', 'MediaController@refresh');
+            Route::post('regenerateimage', 'MediaController@regenerateimage');
+        });
     });
     Route::group(['middleware' => ('auth:admin'), 'namespace' => 'Training'], function () {
-
-
         Route::get('user/destroy/{id}', 'UserController@destroy');
         Route::get('userShow/{id?}', 'UserController@index')->name('user');
         Route::get('userShowId/{id}', 'UserController@index');
@@ -256,6 +263,29 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
         Route::get('SharedUserRestore/{id}', 'FrontSharedUserController@restoreUser');
         Route::get('SharedUserForce/{id}', 'FrontSharedUserController@forceUser');
     });
+    Route::group(['middleware' => ('auth:admin'), 'namespace' => 'Shop', 'prefix' => 'admin/products/attach/attribute'], function () {
+        Route::get('/display/{id}', 'ProductsController@attributes');
+        Route::group(['prefix' => '/default'], function () {
+            Route::post('/', 'ProductsController@addnewdefaultattribute');
+            Route::post('/edit', 'ProductsController@editdefaultattribute');
+            Route::post('/update', 'ProductsController@updatedefaultattribute');
+            Route::post('/deletedefaultattributemodal', 'ProductsController@deletedefaultattributemodal');
+            Route::post('/delete', 'ProductsController@deletedefaultattribute');
+            Route::group(['prefix' => '/options'], function () {
+                Route::post('/add', 'ProductsController@showoptions');
+                Route::post('/edit', 'ProductsController@editoptionform');
+                Route::post('/update', 'ProductsController@updateoption');
+                Route::post('/showdeletemodal', 'ProductsController@showdeletemodal');
+                Route::post('/delete', 'ProductsController@deleteoption');
+                Route::post('/getOptionsValue', 'ProductsController@getOptionsValue');
+                Route::post('/currentstock', 'ProductsController@currentstock');
+
+            });
+
+        });
+
+    });
+
 
 });
 
