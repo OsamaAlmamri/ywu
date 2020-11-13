@@ -9,10 +9,25 @@ use Illuminate\Support\Facades\DB;
 class Product extends Model
 {
     //
-    protected $fillable = ['space_id', 'category_id', 'name', 'description', 'image_id', 'price', 'has_attribute', 'available', 'sort', 'status'];
+    protected $fillable = ['admin_id', 'category_id', 'name', 'description', 'image_id', 'price', 'has_attribute', 'available', 'sort', 'status'];
 
-    protected $appends = ['image',  'image_actual','published', 'zone', 'category', 'space'];
+    protected $appends = ['image', 'image_actual', 'published', 'zone', 'category', 'space'];
 
+
+    public function defaults_attributes()
+    {
+        return $this->hasMany(ProductsAttribute::class, 'product_id', 'id')->where('is_default', 1);
+    }
+
+    public function attributes()
+    {
+        return $this->hasMany(ProductsAttribute::class, 'product_id', 'id');
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class, 'product_id', 'id');
+    }
 //
 //    public function addproductattribute($request)
 //    {
@@ -56,15 +71,14 @@ class Product extends Model
     public function products_attributes($product_id = 0)
     {
 //        if ($product_id != null)
-            $products_attributes = DB::table('products_attributes')
-                ->join('products_options', 'products_options.products_options_id', '=', 'products_attributes.options_id')
-                ->join('products_options_values', 'products_options_values.products_options_values_id', '=', 'products_attributes.options_values_id')
+        $products_attributes = DB::table('products_attributes')
+            ->join('products_options', 'products_options.products_options_id', '=', 'products_attributes.options_id')
+            ->join('products_options_values', 'products_options_values.products_options_values_id', '=', 'products_attributes.options_values_id')
 //                ->select('products_attributes.*', 'products_options.products_options_name', 'products_options_values.products_options_values_name')
-                ->select('products_attributes.*', 'products_options.products_options_name', 'products_options_values.products_options_values_name')
-
-                ->where('products_attributes.product_id', '=', $product_id)
-                ->orderBy('products_attributes_id', 'DESC')
-                ->get();
+            ->select('products_attributes.*', 'products_options.products_options_name', 'products_options_values.products_options_values_name')
+            ->where('products_attributes.product_id', '=', $product_id)
+            ->orderBy('products_attributes_id', 'DESC')
+            ->get();
 
         return $products_attributes;
     }
@@ -95,7 +109,6 @@ class Product extends Model
                     ->join('products_options_values', 'products_options_values.products_options_values_id', '=', 'products_attributes.options_values_id')
 //                    ->select('products_attributes.*', 'products_options_values_name')
                     ->select('products_attributes.*', 'products_options.products_options_name', 'products_options_values.products_options_values_name')
-
                     ->where('products_attributes.product_id', '=', $request->product_id)
                     ->where('products_attributes.is_default', '=', '1')
                     ->orderBy('products_attributes_id', 'DESC')
@@ -129,7 +142,6 @@ class Product extends Model
             ->join('products_options', 'products_options.products_options_id', '=', 'products_attributes.options_id')
             ->join('products_options_values', 'products_options_values.products_options_values_id', '=', 'products_attributes.options_values_id')
             ->select('products_attributes.*', 'products_options.products_options_name', 'products_options_values.products_options_values_name')
-
             ->where('products_attributes.products_attributes_id', '=', $products_attributes_id)
             ->get();
         return $result;
@@ -157,7 +169,6 @@ class Product extends Model
 //                ->select('products_attributes.*', 'products_options_name', 'products_options_values_name')
 
                 ->select('products_attributes.*', 'products_options.products_options_name', 'products_options_values.products_options_values_name')
-
                 ->where('products_attributes.product_id', '=', $request->product_id)
                 ->where('products_attributes.is_default', '=', '1')
                 ->orderBy('products_attributes_id', 'DESC')
@@ -179,7 +190,6 @@ class Product extends Model
             ->join('products_options_values', 'products_options_values.products_options_values_id', '=', 'products_attributes.options_values_id')
 //            ->select('products_attributes.*', 'products_options_name', 'products_options_values_name')
             ->select('products_attributes.*', 'products_options.products_options_name', 'products_options_values.products_options_values_name')
-
             ->where('products_attributes.product_id', '=', $request->product_id)
             ->where('products_attributes.is_default', '=', '1')
             ->orderBy('products_attributes_id', 'DESC')
@@ -269,7 +279,6 @@ class Product extends Model
             ->join('products_options_values', 'products_options_values.products_options_values_id', '=', 'products_attributes.options_values_id')
 //            ->select('products_attributes.*', 'products_options_name', 'products_options_values_name')
             ->select('products_attributes.*', 'products_options.products_options_name', 'products_options_values.products_options_values_name')
-
             ->where('products_attributes.product_id', '=', $request->product_id)
             ->where('products_attributes.is_default', '=', '0')
             ->orderBy('products_attributes_id', 'DESC')
@@ -288,7 +297,6 @@ class Product extends Model
             ->join('products_options_values', 'products_options_values.products_options_values_id', '=', 'products_attributes.options_values_id')
 //            ->select('products_attributes.*', 'products_options.products_options_name', 'products_options_values.products_options_values_name')
             ->select('products_attributes.*', 'products_options.products_options_name', 'products_options_values.products_options_values_name')
-
             ->where('products_attributes.product_id', '=', $request->product_id)
             ->where('products_attributes.is_default', '=', '0')
             ->orderBy('products_attributes_id', 'DESC')
@@ -338,7 +346,7 @@ class Product extends Model
 
     public function space()
     {
-        return $this->belongsTo(Space::class, 'space_id', 'id')
+        return $this->belongsTo(Space::class, 'admin_id', 'id')
             ->first();
     }
 
@@ -352,6 +360,36 @@ class Product extends Model
     {
         $im = $this->image_category_act();
         return ($im != null) ? $this->image_category_act()->path : null;
+    }
+
+    function getProductOptionsAttribute()
+    {
+        $data = [];
+        $ids = [];
+        $im = $this->attributes()->get();
+        foreach ($im as $option) {
+            if (!in_array($option->options_id, $ids)) {
+                $ids[] = $option->options_id;
+                $values = [];
+                foreach ($im as $value) {
+                    if ($value->options_id == $option->options_id)
+                        $values[] = array(
+                            'options_values_id' => $value->options_values_id,
+                            'products_options_values_name' => $value->products_options_values_name,
+                            'price' => $value->options_values_price,
+                            'price_prefix' => $value->price_prefix,
+                            'is_default' => $value->is_default,
+                        );
+                }
+                $data[] = array(
+                    'options_id' => $option->options_id,
+                    'products_options_name' => $option->products_options_name,
+                    'values' => $values
+                );
+            }
+        }
+
+        return $data;
     }
 
     public function image_category_th()

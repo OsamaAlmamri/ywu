@@ -51,6 +51,7 @@ class Images extends Model
             ->leftJoin('image_categories', 'images.id', '=', 'image_categories.image_id')
             ->select('path', 'images.id', 'image_type')
             ->where('image_categories.image_type', 'THUMBNAIL')
+            ->where('user_id', \auth()->id())
             ->get();
         $allimages = DB::table('images')
             ->leftJoin('image_categories', 'images.id', '=', 'image_categories.image_id')

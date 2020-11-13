@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -183,6 +183,7 @@ return [
         'Folklore\Image\ImageServiceProvider',
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         anlutro\LaravelSettings\ServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
 
     ],

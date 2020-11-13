@@ -42,6 +42,10 @@ Route::post('register', 'Api\Users\UserController@register');
 ######### employee login and register
 Route::post('get_gov', 'Api\Shop\ZoneController@get_gov');
 Route::post('get_district', 'Api\Shop\ZoneController@get_district');
+Route::post('shop/all_categories', 'Api\Shop\CategoreisController@all_categories');
+Route::post('shop/get_product_by_categories', 'Api\Shop\CategoreisController@get_product_by_categories');
+Route::post('shop/get_category_products', 'Api\Shop\CategoreisController@get_category_products');
+Route::post('shop/product_details', 'Api\Shop\CategoreisController@product_details');
 Route::post('emp-login', 'Api\Employees\EmployeeController@login');
 Route::post('AllPosts', 'Api\Users\PostController@index');
 Route::post('actives', 'Api\Users\ActivatesController@index');

@@ -31,9 +31,9 @@ class ProductsController extends Controller
 
         if (request()->ajax()) {
             if (request()->category_id == 0)
-                $data = Product::all();
+                $data = Product::all()->where('admin_id', auth()->id());
             else
-                $data = Product::where('category_id', 1)->get();
+                $data = Product::where('category_id', 1)->where('admin_id', auth()->id())->get();
             if ($data) {
                 return datatables()->of($data)
                     ->addColumn('action', 'admin.shop.products.btn.action')
@@ -214,7 +214,8 @@ class ProductsController extends Controller
 
         $categoty = Product::create(array_merge($request->all(),
             [
-                'space_id' => 1,
+                'admin_id' => auth()->id(),
+
             ]));
         return response()->json(['success' => 'تم الاضافة  بنجاح']);
     }

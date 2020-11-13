@@ -37,4 +37,10 @@ class ShopCategory extends Model
                 $query->where('image_categories.image_type', '=', 'ACTUAL');
             })->first();
     }
+
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id', 'id');
+    }
 }

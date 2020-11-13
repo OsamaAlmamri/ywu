@@ -24,31 +24,17 @@
             <div class="menu_section">
                 <h3>قوائم العرض</h3>
                 <ul class="nav side-menu">
-                    <li><a href="{{route('home')}}"><i class="fa fa-home"></i> الرئيسية</a>
-                    </li>
-                    <li><a><i class="fa fa-user-plus"></i> مدراء النظام<span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="{{route('admin.admins.index')}}">عرض الكل</a></li>
-                        </ul>
-                    </li>
-                    <li><a><i class="fa fa-female"></i> شؤون المرأة<span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="{{route('women')}}">عرض محتويات شؤون المرأة</a></li>
-                            <li><a href="{{route('women-trashed')}}">سلة المحذوفات</a></li>
-                        </ul>
-                    </li>
-                    {{--                    <li><a><i class="fa fa-book"></i> المواد التدريبية <span--}}
-                    {{--                                class="fa fa-chevron-down"></span></a>--}}
-                    {{--                        <ul class="nav child_menu">--}}
-                    {{--                            <li><a href="{{route('subject')}}">عرض وادارة المواد التدريبية</a></li>--}}
-                    {{--                            <li><a href="{{route('subject-trashed')}}">سلة المحذوفات</a></li>--}}
-                    {{--                        </ul>--}}
-                    {{--                    </li>--}}
 
-                    <li><a><i class="fa fa-shopping-cart"></i> السوق <span
+                    @if (auth()->user()->type=='admin')
+
+                        <li><a href="{{route('home')}}"><i class="fa fa-home"></i> الرئيسية</a>
+                        </li>
+                    @endif
+                    <li>
+                        <a><i class="fa fa-shopping-cart"></i> السوق <span
                                 class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="{{route('admin.shop.sellers.index')}}">  البائعين </a></li>
+                            <li><a href="{{route('admin.shop.sellers.index')}}"> البائعين </a></li>
 
                             <li><a><i class="fa fa-picture-o"></i> الصور <span
                                         class="fa fa-chevron-down"></span></a>
@@ -57,45 +43,75 @@
                                     <li><a href="{{url('admin/shop/media/display')}}"> اعدادات الصور </a></li>
                                 </ul>
                             </li>
-                            <li><a href="{{route('admin.shop.products_options.index')}}"> خيارات المنتجات </a></li>
-                            <li><a href="{{route('admin.shop.spaces.index')}}"> ادارة المساحات </a></li>
-                            <li><a href="{{route('admin.shop.categories.index')}}"> ادارة الاصناف </a></li>
+                            @if (auth()->user()->type=='admin')
+
+                                <li><a href="{{route('admin.shop.products_options.index')}}"> خيارات المنتجات </a></li>
+                                {{--                            <li><a href="{{route('admin.shop.spaces.index')}}"> ادارة المساحات </a></li>--}}
+                                <li><a href="{{route('admin.shop.categories.index')}}"> ادارة الاصناف </a></li>
+                            @endif
                             <li><a href="{{route('admin.shop.products.index')}}"> ادارة المنتجات </a></li>
                         </ul>
                     </li>
+                    @if (auth()->user()->type=='admin')
+
+                        <li><a><i class="fa fa-user-plus"></i> مدراء النظام<span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="{{route('admin.admins.index')}}">عرض الكل</a></li>
+                            </ul>
+                        </li>
+                        <li><a><i class="fa fa-female"></i> شؤون المرأة<span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="{{route('women')}}">عرض محتويات شؤون المرأة</a></li>
+                                <li><a href="{{route('women-trashed')}}">سلة المحذوفات</a></li>
+                            </ul>
+                        </li>
+                        {{--                    <li><a><i class="fa fa-book"></i> المواد التدريبية <span--}}
+                        {{--                                class="fa fa-chevron-down"></span></a>--}}
+                        {{--                        <ul class="nav child_menu">--}}
+                        {{--                            <li><a href="{{route('subject')}}">عرض وادارة المواد التدريبية</a></li>--}}
+                        {{--                            <li><a href="{{route('subject-trashed')}}">سلة المحذوفات</a></li>--}}
+                        {{--                        </ul>--}}
+                        {{--                    </li>--}}
 
 
-                    <li><a><i class="fa fa-edit"></i>
-                            الإستشارات <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="{{route('showPosts')}}">عرض محتوى الاستشارات</a></li>
-                            <li><a href="{{route('deleted_Post')}}">الاستشارات المرفوضة</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="{{route('slides.index')}}"><i class="fa fa-image"></i> السلايدات المتحركة </a></li>
-                    <li><a href="{{route('activates.index')}}"><i class="fa fa-calendar-times-o"></i> الانشطة </a></li>
 
-                    <li><a><i class="fa fa-male"></i> حسابات الموظفين <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="{{route('Emp_Category')}}"> الاقسام </a></li>
-                            <li><a href="{{route('jobs')}}"> الوظائف</a></li>
-                            <li><a href="{{route('employee')}}">إدارة حسابات الموظفين</a></li>
-                            <li><a href="{{route('employee-trashed')}}">حسابات موقفة</a></li>
-                        </ul>
-                    </li>
-                    <li><a><i class="fa fa-user-plus"></i> حسابات الشركاء<span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="{{route('SharedUser')}}">طلبات العضوية</a></li>
-                            <li><a href="{{route('SharedUserAgree')}}">حسابات تم الموافقة عليها</a></li>
-                            <li><a href="{{route('SharedUserTrashed')}}">حسابات تم رفضها</a></li>
-                        </ul>
-                    </li>
-                    <li><a><i class="fa fa-user-circle"></i> حسابات المستخدمين <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="{{route('user')}}">إدارة حسابات المستخدمين</a></li>
-                            <li><a href="{{route('user-trashed')}}">حسابات موقفة</a></li>
-                        </ul>
-                    </li>
+
+                        <li><a><i class="fa fa-edit"></i>
+                                الإستشارات <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="{{route('showPosts')}}">عرض محتوى الاستشارات</a></li>
+                                <li><a href="{{route('deleted_Post')}}">الاستشارات المرفوضة</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{{route('slides.index')}}"><i class="fa fa-image"></i> السلايدات المتحركة </a></li>
+                        <li><a href="{{route('activates.index')}}"><i class="fa fa-calendar-times-o"></i> الانشطة </a>
+                        </li>
+
+                        <li><a><i class="fa fa-male"></i> حسابات الموظفين <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="{{route('Emp_Category')}}"> الاقسام </a></li>
+                                <li><a href="{{route('jobs')}}"> الوظائف</a></li>
+                                <li><a href="{{route('employee')}}">إدارة حسابات الموظفين</a></li>
+                                <li><a href="{{route('employee-trashed')}}">حسابات موقفة</a></li>
+                            </ul>
+                        </li>
+                        <li><a><i class="fa fa-user-plus"></i> حسابات الشركاء<span
+                                    class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="{{route('SharedUser')}}">طلبات العضوية</a></li>
+                                <li><a href="{{route('SharedUserAgree')}}">حسابات تم الموافقة عليها</a></li>
+                                <li><a href="{{route('SharedUserTrashed')}}">حسابات تم رفضها</a></li>
+                            </ul>
+                        </li>
+                        <li><a><i class="fa fa-user-circle"></i> حسابات المستخدمين <span
+                                    class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="{{route('user')}}">إدارة حسابات المستخدمين</a></li>
+                                <li><a href="{{route('user-trashed')}}">حسابات موقفة</a></li>
+                            </ul>
+                        </li>
+
+                    @endif
                 </ul>
             </div>
         </div>
