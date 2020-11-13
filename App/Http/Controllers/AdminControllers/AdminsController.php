@@ -1,13 +1,22 @@
 <?php
 
 namespace App\Http\Controllers\AdminControllers;
+
 use App\Admin;
+use App\Branch;
+use App\Department;
+use App\Employee;
 use App\Http\Controllers\Controller;
+use App\Job;
+use App\Models\Shop\ShopCategory;
 use App\Traits\PostTrait;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class AdminsController extends Controller
 {
@@ -18,6 +27,123 @@ class AdminsController extends Controller
         return redirect()->route('home');
     }
 
+    public function index()
+    {
+        if (request()->ajax()) {
+            $post = Admin::where('type', 'admin')->get();
+            if ($post) {
+                return datatables()->of($post)
+                    ->addColumn('action', 'admin.dashboard.admins.btn.action')
+                    ->addColumn('btn_status', 'admin.dashboard.admins.btn.status')
+                    ->rawColumns(['action', 'btn_status'])
+                    ->make(true);
+            }
+        }
+        return view('admin.dashboard.admins.index');
+    }
+
+    public function active(Request $r)
+    {
+        $new_status = 1;
+        if ($r->status == 1)
+            $new_status = 0;
+        $user = Admin::find($r->id);
+        $user->status = $new_status;
+        $user->save();
+        return $new_status;
+    }
+
+    private function checkInputes($request, $type = 'create')
+    {
+        $rules = [
+            "name" => "required",
+            'email' => ['required', 'string', 'email', ($type == 'create') ? Rule::unique('users', 'email') : Rule::unique('users', 'email')->ignore($request->hidden_id)],
+            'phone' => ['required', 'numeric', 'digits:9', 'starts_with:77,73,74,70,71', ($type == 'create') ? Rule::unique('users', 'phone') : Rule::unique('users', 'phone')->ignore($request->hidden_id)],
+            'password' => [($type == 'create') ? 'required' : 'nullable'],
+
+        ];
+        $messages = [
+            "name.required" => "يرجى كتابة اسم الموظف",
+            "phone.required" => "يرجى كتابة رقم الهاتف",
+            "phone.numeric" => "رقم الهاتف يجب ان يكون ارقام فقط ",
+            "phone.digits" => "يجب ان يكون رقم الهاتف 9 ارقام",
+            "phone.starts_with" => "قم بكتابة رقم هاتفك الشخصي",
+            "phone.unique" => "يوجد  مستخدم مسجل بهذا الرقم ",
+            "email.required" => "يرجى كتابة الايميل",
+            "email.email" => "يرجى كتابة الايميل بشكل صحيح",
+            "email.unique" => "هذا الايميل مسجل باسم مستخدم مسبقا يرجى اختيار ايميل اخر",
+            "password.required" => "يرجى كتابة كلمة المرور",
+            "department_id.required" => "يرجى تحديد القسم",
+            "branch_id.required" => "يرجى تحديد الفرع",
+            "job_id.required" => "يرجى تحديد الوظيفة",
+        ];
+        return Validator::make($request->all(), $rules, $messages);
+    }
+
+    public function store(Request $request)
+    {
+        $error = $this->checkInputes($request);
+        if ($error->fails()) {
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+        $request['password'] = bcrypt($request->password);
+        $user = Admin::create(array_merge($request->all(), [
+            'type' => 'admin',
+            'status' => 1,
+        ]));
+        return response()->json(['success' => 'تم إنشاء الحساب بنجاح']);
+    }
+
+    public function update(Request $request)
+    {
+        $error = $this->checkInputes($request, 'update');
+        if ($error->fails()) {
+            return response()->json(['errors' => $error->errors()->all()]);
+        }
+        $user = Admin::find($request->hidden_id);
+
+        if ($request->password == '') {
+            $user->update(array_merge($request->except('password')));
+        } else {
+            $request['password'] = Hash::make($request->password);
+            $user->update($request->all());
+        }
+        if ($user) {
+            return response()->json(['success' => 'تم التعديل بنجاح']);
+        } else {
+            return response()->json(['success' => 'فشل التعديل']);
+        }
+
+    }
+
+    public
+    function show($id)
+    {
+        if (request()->ajax()) {
+            $data = Admin::find($id);
+            return response()->json(['data' => $data]);
+        }
+    }
+
+    public
+    function edit($id)
+    {
+        if (request()->ajax()) {
+            $data = Admin::find($id);
+            return response()->json(['data' => $data]);
+        }
+    }
+
+    public
+    function destroy($id)
+    {
+        $data = Admin::findOrFail($id);
+        $data->status = 1;
+        $data->update();
+        if ($data) {
+            $data->delete();
+        }
+    }
 
 
     public function Update_Admin_Details()
@@ -42,7 +168,6 @@ class AdminsController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
         $Admin = Admin::where('id', $request->id)->first();
         if ($Admin) {
             if ($request->image != null) {

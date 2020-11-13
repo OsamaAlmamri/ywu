@@ -20,6 +20,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.2",
         "laravelcollective/html": "~6.0",
+        "spatie/laravel-permission": "^3.17",
         "tymon/jwt-auth": "^1.0",
         "yajra/laravel-datatables-oracle": "^9.10"
     },

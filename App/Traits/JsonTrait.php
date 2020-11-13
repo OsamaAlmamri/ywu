@@ -5,14 +5,16 @@ namespace App\Traits;
 
 trait JsonTrait
 {
+    private $headers = ['Content-Type' => 'application/json; charset=UTF-8','charset' => 'utf-8'];
 
     public function ReturnErorrRespons($errNum, $msg)
     {
+
         return response()->json([
             'status' => false,
             'errNum' => $errNum,
             'msg' => $msg,
-        ]);
+        ],200,$this->headers, JSON_UNESCAPED_UNICODE);
     }
 
     public function ReturnSuccessRespons($errNum = "200", $msg = "")
@@ -21,7 +23,7 @@ trait JsonTrait
             'status' => true,
             'errNum' => $errNum,
             'msg' => $msg,
-        ]);
+        ],200,$this->headers, JSON_UNESCAPED_UNICODE);
     }
 
     public function GetDateResponse($key, $value, $msg = "")
@@ -31,7 +33,7 @@ trait JsonTrait
             'errNum' => '200',
             'msg' => $msg,
             $key => $value,
-        ]);
+        ],200,$this->headers, JSON_UNESCAPED_UNICODE);
     }
 
     #################################### validat
@@ -43,6 +45,7 @@ trait JsonTrait
 
     public function returnCodeAccordingToInput($validator)
     {
+
         $inputs = array_keys($validator->errors()->toArray());
         $code = $this->getErrorCode($inputs[0]);
         return $code;

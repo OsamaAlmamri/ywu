@@ -26,6 +26,11 @@
                 <ul class="nav side-menu">
                     <li><a href="{{route('home')}}"><i class="fa fa-home"></i> الرئيسية</a>
                     </li>
+                    <li><a><i class="fa fa-user-plus"></i> مدراء النظام<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{route('admin.admins.index')}}">عرض الكل</a></li>
+                        </ul>
+                    </li>
                     <li><a><i class="fa fa-female"></i> شؤون المرأة<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{route('women')}}">عرض محتويات شؤون المرأة</a></li>
@@ -43,6 +48,8 @@
                     <li><a><i class="fa fa-shopping-cart"></i> السوق <span
                                 class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
+                            <li><a href="{{route('admin.shop.sellers.index')}}">  البائعين </a></li>
+
                             <li><a><i class="fa fa-picture-o"></i> الصور <span
                                         class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">

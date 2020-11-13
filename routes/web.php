@@ -16,6 +16,12 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
     Route::get('/admin_logout', 'AuthAdminController@LogoutAdmin')->name('Admin_logout');
     Route::group(['prefix' => 'admin/shop/', 'middleware' => ('auth:admin'), 'namespace' => 'Shop'], function () {
 
+        Route::group(['as' => 'admin.shop.sellers.'], function () {
+            Route::get('sellers/index', 'SellersController@index')->name('index');
+            Route::post('sellers/active', 'SellersController@active')->name('active');
+            Route::get('sellers/destroy/{id}', 'SellersController@destroy')->name('destroy');
+
+        });
         Route::group(['as' => 'admin.shop.categories.'], function () {
             Route::post('categories/update', 'CategoriesController@update')->name('update');
             Route::get('categories/destroy/{id}', 'CategoriesController@destroy')->name('destroy');
@@ -284,6 +290,18 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
 
         });
 
+    });
+    Route::group(['prefix' => 'admin/', 'as' => 'admin.admins.'], function () {
+        Route::post('admins/update', 'AdminsController@update')->name('update');
+        Route::get('admins/destroy/{id}', 'AdminsController@destroy')->name('destroy');
+        Route::get('admins/edit/{id}', 'AdminsController@edit')->name('edit');
+        Route::post('admins/active', 'AdminsController@active')->name('active');
+        Route::resource('admins', 'AdminsController', [
+            'names' => [
+                'index' => 'index',
+                'store' => 'store',
+            ]
+        ])->except('update');
     });
 
 

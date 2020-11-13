@@ -35,14 +35,14 @@ Route::group(['middleware' => ['api', 'CheckPass', 'CheckAdminT:admin-api']], fu
 
 ##################################################### Api Routes
 ######### user login and register
+Route::post('info', 'Api\Users\UserController@info');
 Route::post('login', 'Api\Users\UserController@login');
 Route::post('register', 'Api\Users\UserController@register');
 
 ######### employee login and register
+Route::post('get_gov', 'Api\Shop\ZoneController@get_gov');
+Route::post('get_district', 'Api\Shop\ZoneController@get_district');
 Route::post('emp-login', 'Api\Employees\EmployeeController@login');
-Route::post('emp-register', 'Api\Employees\EmployeeController@register');
-Route::post('shared-user-login', 'SharedUserController@login');
-Route::post('shared-user-register', 'SharedUserController@register');
 Route::post('AllPosts', 'Api\Users\PostController@index');
 Route::post('actives', 'Api\Users\ActivatesController@index');
 Route::post('slides', 'Api\Users\ActivatesController@slides');

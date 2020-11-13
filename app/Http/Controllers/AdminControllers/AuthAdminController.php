@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\AdminControllers;
+
 use App\Admin;
 use App\Http\Controllers\Controller;
 use App\Traits\PostTrait;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 class AuthAdminController extends Controller
 {
     use PostTrait;
+
     public function Admin_login()
     {
         return view('auth.login_1');

@@ -2,21 +2,16 @@
 
 namespace App\Http\Controllers\Api\Users;
 
-use App\Admin;
-use App\Customer;
 use App\Http\Controllers\Controller;
 use App\Models\Shop\ProductsAttribute;
 use App\Rules\MatchOldPassword;
-use App\Seller;
 use App\ShareUser;
 use App\Traits\AuthTrait;
 use App\Traits\JsonTrait;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use mysql_xdevapi\Exception;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -29,87 +24,38 @@ class UserController extends Controller
     public function register(Request $request)
     {
         try {
-//            createImage($request->image);
-//            return $this->ReturnErorrRespons('00000000', $request->all);
-//            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+            if ($request->userType == 'visitor')
+                $request->email = null;
+            $validator = Validator::make($request->all(), [
+                "name" => "required",
+                "phone" => "required|unique:users,phone",
+                "email" => "nullable|email|unique:users,email",
+                "password" => "required|string|min:4",
+                'userType' => 'required',
+                'share_user_type' => 'required_if:userType,share_user',
+                'destination' => 'required_if:userType,share_user',
+            ], [
+                "name.required" => "يرجى كتابة اسم المستخدم",
+                "phone.required" => "يرجى كتابة رقم الهاتف",
+                "phone.numeric" => "رقم الهاتف يجب ان يكون ارقام فقط ",
+                "phone.digits" => "يجب ان يكون رقم الهاتف 9 ارقام",
+                "phone.starts_with" => "قم بكتابة رقم هاتفك الشخصي",
+                "phone.unique" => "يوجد  مستخدم مسجل بهذا الرقم ",
+                "password.required" => "قم بكتابة الباسوورد",
+                "password.string" => "كلمة المرور يجب ان تكون قوية تحتوي على ارقام وحروف انجليزية كبتل واسمول ورموز",
+                "password.min" => "كلمة المرور يجب ان تكون 4 ارقام وحروف ورموز",
+            ]);
 
-            if ($request->userType == 'seller')
-                $validator = Validator::make($request->all(), [
-                    "name" => "required",
-                    "phone" => "required|unique:users,phone",
-                    "email" => "nullable|email|unique:users,email",
-                    "password" => "required|string|min:4",
-                    "sale_name" => "required|string",
-                    "ssn_image" => "required|image",
-//                    "image" => "required|image",
-                    "gov_id" => "required|numeric",
-                    "district_id" => "required|numeric",
-                    "more_address_info" => "required|string",
-                ], [
-                    "sale_name.required" => "يرجى كتابة الاسم التجاري ",
-                    "ssn_image.required" => "يرجى اضافة  صورة البطاقة لبشخصية ",
-                    "gov_id.required" => "يرجى تحديد المحافظة ",
-                    "district_id.required" => "يرجى تحديد المديرية ",
-                    "more_address_info.required" => "يرجى اضافة معلومات اضافية عن موقعكم ",
-                    "phone.required" => "يرجى كتابة رقم الهاتف",
-                    "phone.numeric" => "رقم الهاتف يجب ان يكون ارقام فقط ",
-                    "phone.digits" => "يجب ان يكون رقم الهاتف 9 ارقام",
-                    "phone.starts_with" => "قم بكتابة رقم هاتفك الشخصي",
-                    "phone.unique" => "يوجد  مستخدم مسجل بهذا الرقم ",
-                    "password.required" => "قم بكتابة الباسوورد",
-                    "password.string" => "كلمة المرور يجب ان تكون قوية تحتوي على ارقام وحروف انجليزية كبتل واسمول ورموز",
-                    "password.min" => "كلمة المرور يجب ان تكون 4 ارقام وحروف ورموز",
-                ]);
-            else
-                $validator = Validator::make($request->all(), [
-                    "name" => "required",
-                    "phone" => "required|unique:users,phone",
-                    "email" => "nullable|email|unique:users,email",
-                    "password" => "required|string|min:4",
-                    'userType' => 'required',
-                    'share_user_type' => 'required_if:userType,share_user',
-                    'destination' => 'required_if:userType,share_user',
-                    "gov_id" => "required_if:userType,customer|numeric",
-                    "district_id" => "required_if:userType,customer|numeric",
-                    "more_address_info" => "required_if:userType,customer|string",
-
-                ], [
-                    "gov_id.required" => "يرجى تحديد المحافظة ",
-                    "district_id.required" => "يرجى تحديد المديرية ",
-                    "more_address_info.required" => "يرجى اضافة معلومات اضافية عن موقعكم ",
-                    "name.required" => "يرجى كتابة اسم المستخدم",
-                    "phone.required" => "يرجى كتابة رقم الهاتف",
-                    "phone.numeric" => "رقم الهاتف يجب ان يكون ارقام فقط ",
-                    "phone.digits" => "يجب ان يكون رقم الهاتف 9 ارقام",
-                    "phone.starts_with" => "قم بكتابة رقم هاتفك الشخصي",
-                    "phone.unique" => "يوجد  مستخدم مسجل بهذا الرقم ",
-                    "password.required" => "قم بكتابة الباسوورد",
-                    "password.string" => "كلمة المرور يجب ان تكون قوية تحتوي على ارقام وحروف انجليزية كبتل واسمول ورموز",
-                    "password.min" => "كلمة المرور يجب ان تكون 4 ارقام وحروف ورموز",
-                ]);
             if ($validator->fails()) {
                 $code = $this->returnCodeAccordingToInput($validator);
                 return $this->returnValidationError($code, $validator);
+                return $this->returnValidationError($code, $request->all());
             }
             $oldPass = $request['password'];
             $request['password'] = bcrypt($request->password);
             if ($request->userType == 'share_user') {
                 $user = User::create(array_merge($request->all(), ['type' => 'share_users', 'status' => 0]));
                 ShareUser::create(['user_id' => $user->id, 'type' => $request->share_user_type, 'destination' => $request->destination]);
-            } elseif ($request->userType == 'customer') {
-                $user = User::create(array_merge($request->all(), ['type' => 'customers', 'status' => 1]));
-                $Customer = Customer::create(array_merge($request->all(), ['user_id' => $user->id]));
-            } elseif ($request->userType == 'seller') {
-                $user = Admin::create(array_merge($request->all(),
-                    ['type' => 'seller', 'status' => 0]
-                ));
-                $image = saveImage('images/admins/', $request->file('ssn_image'));
-                $saller = Seller::create(array_merge($request->except(['ssn_image', 'image']),
-                    ['admin_id' => $user->id, 'ssn_image' => $image]
-                ));
-                $this->loginAfterSignUp = false;
-                return $this->GetDateResponse('data', "seller");
-
             } else {
                 $user = new User();
                 $user->name = $request->name;
@@ -118,12 +64,15 @@ class UserController extends Controller
                 $user->password = $request->password;
                 $user->type = 'visitor';
                 $user->save();
+
             }
             $request['password'] = $oldPass;
+
             if ($this->loginAfterSignUp) {
                 return $this->login($request, 1);
             }
             return $this->GetDateResponse('data', $user);
+
         } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
         }
@@ -131,6 +80,7 @@ class UserController extends Controller
 
     public function login(Request $request, $fromRegister = 0)
     {
+
         try {
             $validator = Validator::make($request->all(), [
                 "phone" => "required",
@@ -141,18 +91,8 @@ class UserController extends Controller
                 return $this->returnValidationError($code, $validator);
             }
 
-
             $credential_email = ['email' => $request->phone, 'password' => $request->password];
             $credential_phone = ['phone' => $request->phone, 'password' => $request->password];
-            if ($request->userType == 'seller') {
-                if (Auth::guard('admin')->attempt($credential_phone) or Auth::guard('admin')->attempt($credential_email))
-//                    return redirect()->intended('/admin');
-                    return $this->GetDateResponse('data', 'seller');
-
-                else
-                    return $this->ReturnErorrRespons('0000', 'تاكد من كلمة المرور22222222');
-
-            }
             $jwt_token = null;
             if ($jwt_token = JWTAuth::attempt($credential_email) or $jwt_token = JWTAuth::attempt($credential_phone)) {
                 $user = JWTAuth::user();
@@ -172,8 +112,7 @@ class UserController extends Controller
                     return $this->ReturnErorrRespons('0000', 'تم ايقاف حسابك مؤقتا');
             } else
                 return $this->ReturnErorrRespons('0000', 'تاكد من كلمة المرور');
-        } catch
-        (\Exception $ex) {
+        } catch (\Exception $ex) {
             return $this->ReturnErorrRespons('0000', $ex->getMessage());
         }
 

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -15,8 +16,14 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'image','password'
+        'name', 'type', 'status', 'phone', 'email', 'image', 'password'
     ];
+    protected $appends = ['published'];
+
+    public function getPublishedAttribute()
+    {
+        return Carbon::createFromTimestamp(strtotime($this->attributes['created_at']))->diffForHumans();
+    }
 
     /**
      * The attributes that should be hidden for arrays.
@@ -32,7 +39,11 @@ class Admin extends Authenticatable
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    protected $casts = ['email_verified_at' => 'datetime'];
+
+    public function seller()
+    {
+        return $this->hasOne(Seller::class, 'admin_id', 'id');
+    }
+
 }

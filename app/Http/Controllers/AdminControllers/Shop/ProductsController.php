@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AdminControllers\Shop;
 use App\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Shop\Product;
+use App\Models\Shop\ProductsAttribute;
 use App\Models\Shop\ShopCategory;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
@@ -26,6 +27,7 @@ class ProductsController extends Controller
 
     public function index()
     {
+
 
         if (request()->ajax()) {
             if (request()->category_id == 0)

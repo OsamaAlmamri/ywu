@@ -76,7 +76,6 @@ class MediaController extends Controller
 
     public function fileUpload(Request $request)
     {
-
         // Creating a new time instance, we'll use it to name our file and declare the path
         $time = Carbon::now();
         // Requesting the file from the form

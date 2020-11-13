@@ -10,7 +10,6 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Employee extends Authenticatable
 {
-
     public $timestamps = false;
     protected $fillable = ['department_id', 'branch_id', 'job_id', 'user_id'];
 

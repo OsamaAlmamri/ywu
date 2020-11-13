@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('password');
             $table->enum('gender',['male','female'])->default('female');
-            $table->enum('type',['share_users','employees','visitor'])->default('visitor');
+            $table->enum('type',['customers','share_users','employees','visitor'])->default('visitor');
             $table->boolean('status')->default(1);
             $table->softDeletes();
             $table->timestamps();

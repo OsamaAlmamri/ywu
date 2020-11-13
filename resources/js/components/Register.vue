@@ -1,7 +1,5 @@
 <template>
-
     <!-- Register Section -->
-
     <section class="register-section">
         <loading :active.sync="isLoading"
                  :can-cancel=false
@@ -47,6 +45,18 @@
                                         عضو
                                         كتلة
                                     </li>
+                                    <li data-tab="#prod-overview" data-type="seller"
+                                        @click="changeUserType('seller','')"
+                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.userType=='seller')}]">
+                                        تاجر
+                                    </li>
+
+                                    <li data-tab="#prod-overview" data-type="customer"
+                                        @click="changeUserType('customer','')"
+                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.userType=='customer')}]">
+                                        متسوق
+                                    </li>
+
                                 </ul>
                             </div>
                         </div>
@@ -74,10 +84,58 @@
 
 
                             <!-- Form Group -->
-                            <div class="form-group col-lg-6 col-md-12 col-sm-12" v-show="form.userType=='share_user'">
+                            <div class="form-group col-lg-6 col-md-12 col-sm-12"
+                                 v-show="form.userType=='share_user'|| form.userType=='seller'">
                                 <label>الايميل </label>
                                 <input type="email" name="email" v-model="form.email" id="form_email" value=""
                                        placeholder="abcd@gmail.com">
+                            </div>
+
+                            <!-- Form Group -->
+                            <div class="form-group col-lg-6 col-md-12 col-sm-12"
+                                 v-show="form.userType=='seller'">
+                                <label>الاسم التجاري </label>
+                                <input type="text" name="sale_name" v-model="form.sale_name" id="form_sale_name"
+                                       value="">
+                            </div>
+
+                            <!-- Form Group -->
+                            <div class="form-group col-lg-6 col-md-12 col-sm-12"
+                                 v-show="form.userType=='customer' ||form.userType=='seller'">
+                                <label> المحافظة </label>
+                                <select @change="get_district()" class="form-control" id="sel1" v-model="form.gov_id">
+                                    <option v-for="gov in govs " :value="gov.id"> {{gov.name_ar}}</option>
+                                </select>
+                            </div>
+
+                            <!-- Form Group -->
+                            <div class="form-group col-lg-6 col-md-12 col-sm-12"
+                                 v-show="form.userType=='customer' || form.userType=='seller'">
+                                <label> المديرية </label>
+                                <select class="form-control" id="sel2" v-model="form.district_id">
+                                    <option v-for="dist in districts " :value="dist.id"> {{dist.name_ar}}</option>
+                                </select>
+
+                            </div>
+
+                            <!-- Form Group -->
+                            <div class="form-group col-md-12 col-sm-12"
+                                 v-show="form.userType=='customer' ||form.userType=='seller'">
+                                <label> معلومات اضافية عن مكان التواجد </label>
+                                <input type="text" name="" v-model="form.more_address_info" id="form_more_address_info"
+                                       value="">
+                            </div>
+                            <!-- Form Group -->
+                            <div class="form-group col-md-12 col-sm-12"
+                                 v-show="form.userType=='seller'">
+                                <div v-if="!image">
+                                    <h2>الصورة </h2>
+                                    <input type="file" id="file" ref="file" v-on:change="onFileChange()">
+                                </div>
+                                <div v-else>
+                                    <img id="slected_image" :src="image"/>
+                                    <button @click="removeImage()">حذف الصورة</button>
+                                </div>
                             </div>
 
                             <!-- Form Group -->
@@ -87,8 +145,6 @@
                                        value=""
                                        placeholder="الجهة">
                             </div>
-
-
                             <!-- Form Group -->
                             <div class="form-group col-lg-6 col-md-12 col-sm-12">
                                 <label>كلمة السر</label>
@@ -111,7 +167,6 @@
                                     <!-- Profile Tabs-->
                                     <div class="profile-tabs tabs-box">
                                         <ul class="tab-btns tab-buttons clearfix" style="display: flex">
-
                                             <li data-tab="#prod-bookmark"
                                                 :class="[ 'tab-btn',{'active-btn':(form.gender=='male')},'gender_tap']"
                                                 style="padding: -23px 28px 46px;"
@@ -162,6 +217,7 @@
     // Import stylesheet
     import 'vue-loading-overlay/dist/vue-loading.css';
     import CourseGideItem from "./CourseGideItem";
+    import axios from "axios";
 
     export default {
         components: {Loading},
@@ -169,6 +225,11 @@
             return {
                 isLoading: false,
                 fullPage: true,
+                gov_id: 0,
+                image: '',
+                district_id: 0,
+                govs: [],
+                districts: [],
                 form: {
                     userType: "visitor",
                     destination: "",
@@ -177,7 +238,11 @@
                     email: "",
                     gender: "female",
                     password: "",
-                    password_confirmation: "",
+                    sale_name: "",
+                    ssn_image: "",
+                    gov_id: "",
+                    district_id: "",
+                    more_address_info: "",
                 }
             }
         },
@@ -186,10 +251,36 @@
                 return {blue: this.active, red: !this.active};
             }
         },
+        created() {
+            this.get_gov();
+
+        },
         methods: {
             changeUserType: function (type, share_type) {
                 this.form.userType = type;
                 this.form.share_user_type = share_type;
+            },
+            get_district() {
+                axios({url: '/api/get_district', data: {"gov_id": this.form.gov_id}, method: 'POST'})
+                    .then(resp => {
+                        this.districts = (resp.data.data);
+                        this.form.district_id = this.districts[0].id;
+
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            },
+            get_gov() {
+                axios({url: '/api/get_gov', method: 'POST'})
+                    .then(resp => {
+                        this.govs = (resp.data.data);
+                        this.form.gov_id = this.govs[0].id;
+                        this.get_district()
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
             },
             register: function () {
                 let data = this.form;
@@ -207,13 +298,38 @@
                         })
                         .catch(err => {
                             this.isLoading = false;
-                            console.log(err)
+                            if (err == 'seller')
+                                this.$router.push('/login')
+                            // location.reload();
+                            // console.log(err)
                         })
                 }
             },
             onCancel() {
                 console.log('User cancelled the loader.')
-            }
+            },
+            onFileChange(e) {
+                this.form.ssn_image = this.$refs.file.files[0];
+                // var files = e.target.files || e.dataTransfer.files;
+                if (!this.form.ssn_image)
+                    return;
+                this.createImage(this.form.ssn_image);
+            },
+            createImage(file) {
+                var image = new Image();
+                var reader = new FileReader();
+                var vm = this;
+
+                reader.onload = (e) => {
+                    vm.image = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            },
+            removeImage: function (e) {
+                this.image = '';
+                this.form.ssn_image = '';
+            },
+
 
             // register() {
             //     var app = this
@@ -251,6 +367,13 @@
 
     .student-profile-section .profile-tabs .tab-btns {
         border-bottom: 3px solid #00ab15;
+    }
+
+    #slected_image {
+        width: 30%;
+        margin: auto;
+        display: block;
+        margin-bottom: 10px;
     }
 </style>
 
