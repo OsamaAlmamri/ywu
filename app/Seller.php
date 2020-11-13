@@ -41,4 +41,10 @@ class Seller extends Model
         return $this->belongsTo(Zone::class, 'district_id', 'id');
     }
 
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'admin_id', 'id');
+    }
+
+
 }
