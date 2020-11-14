@@ -23,7 +23,7 @@
                     </div>
                 </div>
 
-                <form method="post" id="admin_login" action="/admin/check_login">
+                <form method="post" id="admin_login" action="/ywu2/public/admin/check_login">
                     <input type="hidden" name="email" :value="form.phone">
                     <input type="hidden" name="password" :value="form.password">
                 </form>

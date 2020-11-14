@@ -9,6 +9,7 @@ Route::group(['prefix' => 'admin/', 'namespace' => 'AdminControllers'], function
     Route::post('/forget_check', 'AuthAdminController@Admin_forget_check')->name('admin.forget_check');
     Route::post('/check_login', 'AuthAdminController@adminLoginCheck')->name('login_admin');
 });
+
 Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers'], function () {
     Route::get('/admin', 'AdminsController@Admin')->name('Admin');
     Route::get('/admin/edit', 'AdminsController@Update_Admin_Details')->name('Admin_Edit');
@@ -103,6 +104,18 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
             Route::get('refresh', 'MediaController@refresh');
             Route::post('regenerateimage', 'MediaController@regenerateimage');
         });
+
+        Route::group(['prefix' => 'product_questions','as' => 'admin.shop.product_questions.'], function () {
+            Route::get('/index', 'ProductQuestionController@index')->name('index');
+            Route::get('/destroy/{id}', 'ProductQuestionController@destroy')->name('destroy');
+            Route::post('/active', 'ProductQuestionController@active')->name('active');
+            Route::post('/changeOrder', 'ProductQuestionController@changeOrder')->name('product_questions.changeOrder');
+            Route::get('/show_replies/{id}', 'ProductQuestionController@show_replies')->name('show_replies');
+            Route::post('/replay', 'ProductQuestionController@replay_product_questions')->name('replay');
+            Route::post('/delete_replay', 'ProductQuestionController@delete_replay')->name('delete_replay');
+            Route::get('/edit/{id}/{status}', 'ProductQuestionController@edit_product_questions')->name('edit_product_questions');
+        });
+
     });
     Route::group(['middleware' => ('auth:admin'), 'namespace' => 'Training'], function () {
         Route::get('user/destroy/{id}', 'UserController@destroy');

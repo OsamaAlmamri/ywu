@@ -27,8 +27,6 @@ class ProductsController extends Controller
 
     public function index()
     {
-
-
         if (request()->ajax()) {
             if (request()->category_id == 0)
                 $data = Product::all()->where('admin_id', auth()->id());

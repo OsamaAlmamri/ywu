@@ -50,6 +50,7 @@
                                 <li><a href="{{route('admin.shop.categories.index')}}"> ادارة الاصناف </a></li>
                             @endif
                             <li><a href="{{route('admin.shop.products.index')}}"> ادارة المنتجات </a></li>
+                            <li><a href="{{route('admin.shop.product_questions.index')}}"> اسئلة المنتجات </a></li>
                         </ul>
                     </li>
                     @if (auth()->user()->type=='admin')
