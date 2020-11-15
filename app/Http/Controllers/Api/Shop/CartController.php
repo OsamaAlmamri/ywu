@@ -7,6 +7,9 @@ use App\Http\Resources\LastPosts;
 use App\Like;
 use App\Models\Rateable\Rating;
 use App\Models\Shop\Cart;
+use App\Models\Shop\Order;
+use App\Models\Shop\OrderProduct;
+use App\Models\Shop\OrderSeller;
 use App\Models\Shop\Product;
 use App\Models\Shop\ProductsAttribute;
 use App\Models\TrainingContents\SubjectCategory;
@@ -15,6 +18,7 @@ use App\Models\TrainingContents\Training;
 use App\Models\TrainingContents\TrainingTitle;
 use App\Models\UserContents\Post;
 use App\Models\WomenContents\WomenPosts;
+use App\Models\Shop\OrderProductAttribute;
 use App\Question;
 use App\Result;
 use App\Traits\JsonTrait;
@@ -130,6 +134,96 @@ class CartController extends Controller
             }
             return $this->GetDateResponse('data', ['total' => $total, 'cart_items' => $items], 'تم تحديث السلة بنجاح');
 
+
+        } catch
+        (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
+
+    public function confirm_order(Request $request)
+    {
+
+        try {
+
+            $validator = Validator::make($request->all(),
+                [
+                    'gov_id' => 'required|numeric',
+                    'district_id' => 'required|numeric',
+                    'more_address_info' => 'required',
+                ]);
+            if ($validator->fails()) {
+                return $this->ReturnErorrRespons('0000', $validator->errors());
+            }
+
+            $cart_items = Cart::where('user_id', \auth()->id())->get();
+            if (count($cart_items) == 0)
+                return $this->ReturnErorrRespons("0000", "ليس هناك عناصر بالسلة");
+            else {
+                $order = Order::create(
+                    [
+                        'user_id' => auth()->id(),
+                        'gov_id' => $request->gov_id,
+                        'district_id' => $request->district_id,
+                        'more_address_info' => $request->more_address_info,
+                        'price' => 0,
+                        'phone' => isset($request->phone) ? $request->phone : auth()->user()->phone,
+                        'customer_name' => isset($request->customer_name) ? $request->customer_name : auth()->user()->name,
+                    ]);
+                $total = 0;
+                $sellersOrders = [];
+                $order_seller_id = [];
+                foreach ($cart_items as $cart_item) {
+                    $total += $cart_item->price;
+                    $product = Product::find($cart_item->product_id);
+                    if (array_key_exists($product->admin_id, $sellersOrders)) {
+                        $sellersOrders[$product->admin_id] += $cart_item->price;
+                    } else {
+                        $sellersOrders[$product->admin_id] = $cart_item->price;
+                        $seller = OrderSeller::create(
+                            ['seller_id' => $product->admin_id,
+                                'order_id' => $order->id,
+                                'price' => 0,
+                            ]);
+                        $order_seller_id[$product->admin_id] = $seller->id;
+
+                    }
+                    $order_product = OrderProduct::create(
+                        ['price' => $cart_item->price,
+                            'attributes' => $cart_item->attributes,
+                            'quantity' => $cart_item->quantity,
+                            'product_id' => $cart_item->product_id,
+                            'order_seller_id' => $order_seller_id[$product->admin_id],
+                            'order_id' => $order->id
+                        ]);
+                    foreach ($cart_item->product_attributes_descriptions as $att) {
+                        $att = OrderProductAttribute::create(
+                            [
+                                'order_product_id' => $order_product->id,
+                                'option_name' => $att->products_options_name,
+                                'option_value_name' => $att->products_options_values_name,
+                            ]);
+                    }
+                    foreach ($sellersOrders as $k => $val) {
+                        $s = OrderSeller::find($order_seller_id[$k]);
+                        $s->update([
+                            'price' => $val,
+                            'shipping_cost' => 0,
+                        ]);
+
+                    }
+
+                }
+                $order->update([
+                    'price' => $total
+                ]);
+                $order = Order::find($order->id);
+                DB::table('carts')->where([
+                    ['user_id', '=', \auth()->id()]])->delete();
+                return $this->GetDateResponse('data', $order, 'تم اضافة الطاب  بنجاح');
+
+            }
 
         } catch
         (\Exception $ex) {

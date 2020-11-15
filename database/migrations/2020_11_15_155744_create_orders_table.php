@@ -19,7 +19,8 @@ class CreateOrdersTable extends Migration
             $table->foreignId('gov_id')->constrained('zones')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('district_id')->constrained('zones')->onUpdate('cascade')->onDelete('cascade');
             $table->string('more_address_info');
-            $table->string('user_phone', 30);
+            $table->string('phone', 30);
+            $table->string('customer_name', 100);
             $table->string('payment_method', 191)->nullable();
             $table->decimal('price', 10);
             $table->decimal('shipping_cost', 10)->default(0);

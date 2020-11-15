@@ -15,9 +15,10 @@ class CreateOrderProductAttributesTable extends Migration
     {
         Schema::create('order_product_attributes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_product_id')->constrained('orders')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('order_product_id')->constrained('order_products')->onUpdate('cascade')->onDelete('cascade');
             $table->string('option_value_name');
             $table->string('option_name');
+
 
         });
     }
