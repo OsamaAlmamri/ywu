@@ -261,18 +261,106 @@ div.dt-buttons {
     position: relative;
     float: right;
 }
+.j-pro label {
+    text-align: right;
 
-
-.card-block {
-    padding: 1.25rem
+    display: block;
+    float: inherit;
+    color: inherit;
+    font-weight: normal;
+    text-align: right;
+    margin-bottom: 0;
+}
+.j-wrapper {
+    margin: 0 auto;
+    outline: none;
+    padding: 40px 15px;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+j-pro {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+.j-pro {
+    background-color: #f9fafd;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 2px 5px rgba(0,0,0,.6);
+    -moz-box-shadow: 0 2px 5px rgba(0,0,0,.6);
+    -o-box-shadow: 0 2px 5px rgba(0,0,0,.6);
+    box-shadow: 0 2px 5px rgba(0,0,0,.6);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: rgba(0,0,0,.54);
+    font: 16px 'Open Sans',Helvetica,Arial,sans-serif;
+    line-height: 1;
+    position: relative;
 }
 
+.j-pro .j-content {
+    padding: 25px 25px 0;
+}
+
+.j-pro .j-unit {
+    position: relative;
+    margin-bottom: 25px;
+}
+.j-pro .j-label {
+    margin: 5px;
+}
+.j-pro .j-input {
+    position: relative;
+}
+
+-pro .j-icon-right {
+    border-left: 1px solid rgba(0, 0, 0, 0.32);
+}
+.j-pro .j-icon-right {
+    border-left: 1px solid rgba(0,0,0,.54);
+    right: 3px;
+}
+.j-pro .j-icon-left, .j-pro .j-icon-right {
+    color: rgba(0,0,0,.54);
+    font-size: 17px;
+    height: 38px;
+    line-height: 38px !important;
+    opacity: .6;
+    position: absolute;
+    text-align: center;
+    top: 5px;
+    width: 42px;
+    z-index: 2;
+}
+.card-block {
+    padding: 1.25rem;
+}
+card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: .25rem;
+}
 .card {
     border-radius: 5px;
     -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
     box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
     border: none;
-    margin-bottom: 30px
+    margin-bottom: 30px;
+    background-color: #fff;
+
 }
 
 .card .card-footer {

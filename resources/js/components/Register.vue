@@ -78,6 +78,36 @@
 
                             <!-- Form Group -->
                             <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                                <label>  الجنس </label>
+
+                                <div class="student-profile-section" style="  margin-top: 0px;">
+                                    <!-- Profile Info Tabs-->
+                                    <div class="profile-info-tabs">
+                                        <!-- Profile Tabs-->
+                                        <div class="profile-tabs tabs-box">
+                                            <ul class="tab-btns tab-buttons clearfix" style="display: flex">
+                                                <li data-tab="#prod-bookmark"
+                                                    :class="[ 'tab-btn',{'active-btn':(form.gender=='male')},'gender_tap']"
+                                                    style="padding: -23px 28px 46px;"
+                                                    @click="form.gender='male'">
+                                                    ذكر
+                                                </li>
+                                                <li data-tab="#prod-bookmark"
+                                                    :class="['tab-btn',{'active-btn':(form.gender=='female')},'gender_tap']"
+                                                    style="padding:-23px 28px 46px;"
+                                                    @click="form.gender='female'">
+                                                    انثى
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Form Group -->
+                            <div class="form-group col-md-12 col-sm-12">
                                 <label> رقم الهاتف</label>
                                 <input type="text" v-model="form.phone" placeholder="777777777" required="">
                             </div>
@@ -148,41 +178,21 @@
                             <!-- Form Group -->
                             <div class="form-group col-lg-6 col-md-12 col-sm-12">
                                 <label>كلمة السر</label>
-                                <span class="eye-icon flaticon-eye"></span>
-                                <input type="password" name="password" v-model="form.password" placeholder="كلمة السر"
+                                <span class="eye-icon flaticon-eye" @click="show_password('password')"></span>
+                                <input :type="password__type" name="password" v-model="form.password"
+                                       placeholder="كلمة السر"
                                        required="">
                             </div>
 
                             <!-- Form Group -->
                             <div class="form-group col-lg-6 col-md-12 col-sm-12">
                                 <label> تاكيد كلمة السر</label>
-                                <span class="eye-icon flaticon-eye"></span>
-                                <input type="password" name="password" v-model="form.password_confirmation"
+                                <span class="eye-icon flaticon-eye"
+                                      @click="show_password('password_confirmation')"></span>
+                                <input :type="password_confirmation_type" name="password"
+                                       v-model="form.password_confirmation"
                                        placeholder="تاكيد كلمة السر"
                                        required="">
-                            </div>
-                            <div class="student-profile-section">
-                                <!-- Profile Info Tabs-->
-                                <div class="profile-info-tabs">
-                                    <!-- Profile Tabs-->
-                                    <div class="profile-tabs tabs-box">
-                                        <ul class="tab-btns tab-buttons clearfix" style="display: flex">
-                                            <li data-tab="#prod-bookmark"
-                                                :class="[ 'tab-btn',{'active-btn':(form.gender=='male')},'gender_tap']"
-                                                style="padding: -23px 28px 46px;"
-                                                @click="form.gender='male'">
-                                                ذكر
-                                            </li>
-                                            <li data-tab="#prod-bookmark"
-                                                :class="['tab-btn',{'active-btn':(form.gender=='female')},'gender_tap']"
-                                                style="padding:-23px 28px 46px;"
-                                                @click="form.gender='female'">
-                                                انثى
-                                            </li>
-
-                                        </ul>
-                                    </div>
-                                </div>
                             </div>
 
 
@@ -227,6 +237,8 @@
                 fullPage: true,
                 gov_id: 0,
                 image: '',
+                password_confirmation_type: 'password',
+                password__type: 'password',
                 district_id: 0,
                 govs: [],
                 districts: [],
@@ -237,6 +249,7 @@
                     name: "",
                     email: "",
                     gender: "female",
+                    password_confirmation: "",
                     password: "",
                     sale_name: "",
                     ssn_image: "",
@@ -256,6 +269,19 @@
 
         },
         methods: {
+            show_password: function (type) {
+                if (type == 'password_confirmation') {
+                    if (this.password_confirmation_type == 'password')
+                        this.password_confirmation_type = 'text';
+                    else
+                        this.password_confirmation_type = 'password';
+                } else {
+                    if (this.password__type == 'password')
+                        this.password__type = 'text';
+                    else
+                        this.password__type = 'password';
+                }
+            },
             changeUserType: function (type, share_type) {
                 this.form.userType = type;
                 this.form.share_user_type = share_type;
@@ -364,6 +390,7 @@
         padding: 21px 0px 67px;
 
     }
+
 
     .student-profile-section .profile-tabs .tab-btns {
         border-bottom: 3px solid #00ab15;

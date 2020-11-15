@@ -19,25 +19,35 @@
                         @csrf
                         <div class="form-group">
                             <label class="control-label col-sm-4">اسم المدير :</label>
-                            <div class="col-md-8">
+                            <div class="col-sm-8">
                                 <input type="text" name="name" id="name" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-4">الايميل : </label>
-                            <div class="col-md-8">
+                            <label class="control-label col-sm-4">الدور بالنظام : </label>
+                            <div class="col-sm-8">
+                                {!!Form ::select('role', getAllRole(),null,['class' => ' form-control', 'id' => 'role'])!!}
+
+                            </div>
+                            <span class="print-error-msg alert-danger" id="modal_error_category_id"></span>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">الايميل : </label>
+                            <div class="col-sm-8">
                                 <input type="text" name="email" id="email" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-4">رقم الهاتف : </label>
-                            <div class="col-md-8">
+                            <label class="control-label col-sm-4">رقم الهاتف : </label>
+                            <div class="col-sm-8">
                                 <input type="number" name="phone" id="phone" class="form-control"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-4">كلمة المرور : </label>
-                            <div class="col-md-8">
+                            <label class="control-label col-sm-4">كلمة المرور : </label>
+                            <div class="col-sm-8">
                                 <input type="text" name="password" id="password" class="form-control"/>
                             </div>
                         </div>
@@ -128,9 +138,13 @@
                         name: 'btn_status'
                     },
                     {
+                        title: ' الدور',
+                        data: 'role_name',
+                        name: 'role_name'
+                    },
+                    {
                         title: 'تاريخ إنشاء الحساب',
-                        data: 'published',
-                        data: 'published',
+                        data: 'created_at',
                     },
                     {
                         title: 'العمليات',
@@ -229,6 +243,7 @@
                         // $('#password').hide();
                         $('#phone').val(html.data.phone);
                         $('#status').val(html.data.status);
+                        $('#role').val(html.role);
                         $('#hidden_id').val(html.data.id);
                         $('.modal-title').text("تعديل بيانات الحساب");
                         $('#action_button').val("تعديل");

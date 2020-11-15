@@ -58,6 +58,11 @@ Route::post('showTrainingByCategory', 'Api\Trainings\TrainingController@showTrai
 
 Route::group(['middleware' => 'CheckAdminT:api'], function () {
 
+    Route::post('shop/add_to_cart', 'Api\Shop\CartController@add_to_cart');
+    Route::post('shop/delete_from_cart', 'Api\Shop\CartController@delete_from_cart');
+    Route::post('shop/update_cart', 'Api\Shop\CartController@update_cart');
+
+
 ######## user logout and details
     Route::post('logout', 'Api\Users\UserController@logout');
     Route::post('user', 'Api\Users\UserController@getAuthUser');

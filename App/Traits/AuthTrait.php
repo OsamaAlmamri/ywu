@@ -10,7 +10,8 @@ trait AuthTrait
     {
         return [
             "name" => "required",
-            "phone" => "required|unique:users,phone",
+//            "phone" => "required|unique:users,phone",
+            "phone" => "required|numeric|digits:9|starts_with:77,73,70,71|unique:users,phone",
             "email" => "nullable|email|unique:users,email",
             "password" => "required|string|min:4",
             'userType' => 'required',
@@ -28,7 +29,7 @@ trait AuthTrait
             "phone.required" => "يرجى كتابة رقم الهاتف",
             "phone.numeric" => "رقم الهاتف يجب ان يكون ارقام فقط ",
             "phone.digits" => "يجب ان يكون رقم الهاتف 9 ارقام",
-            "phone.starts_with" => "قم بكتابة رقم هاتفك الشخصي",
+            "phone.starts_with" => "قم بكتابة رقم هاتفك الشخصي ",
             "phone.unique" => "يوجد  مستخدم مسجل بهذا الرقم ",
             "password.required" => "قم بكتابة الباسوورد",
             "password.string" => "كلمة المرور يجب ان تكون قوية تحتوي على ارقام وحروف انجليزية كبتل واسمول ورموز",

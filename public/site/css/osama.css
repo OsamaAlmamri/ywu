@@ -12,6 +12,10 @@
     border-radius: 50%;
     background: #ffffff;
 }
+.fa-phone + a {
+    unicode-bidi: embed;
+    direction: ltr;
+}
 
 .options-view {
     position: relative;

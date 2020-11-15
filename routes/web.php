@@ -15,6 +15,22 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
     Route::get('/admin/edit', 'AdminsController@Update_Admin_Details')->name('Admin_Edit');
     Route::post('/admin/update', 'AdminsController@Admin_update')->name('Admin_Update');
     Route::get('/admin_logout', 'AuthAdminController@LogoutAdmin')->name('Admin_logout');
+
+    Route::group(['as' => 'admin.permissions.'], function () {
+        Route::get('permissions/index/{section_id?}', 'PermissionsController@index')->name('index');
+        Route::post('permissions/addNewRole', 'PermissionsController@addNewRole')->name('addNewRole');
+        Route::get('permissions/{id}/delete', 'PermissionsController@delete')->name('delete');
+        Route::resource('permissions', 'PermissionsController',
+            [
+                'names' => [
+                    'edit' => 'edit',
+                    'update' => 'update',
+                    'store' => 'store',
+                    // etc...
+                ]
+            ])->except('index');
+    });
+
     Route::group(['prefix' => 'admin/shop/', 'middleware' => ('auth:admin'), 'namespace' => 'Shop'], function () {
 
         Route::group(['as' => 'admin.shop.sellers.'], function () {
@@ -23,6 +39,8 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
             Route::get('sellers/destroy/{id}', 'SellersController@destroy')->name('destroy');
 
         });
+
+
         Route::group(['as' => 'admin.shop.categories.'], function () {
             Route::post('categories/update', 'CategoriesController@update')->name('update');
             Route::get('categories/destroy/{id}', 'CategoriesController@destroy')->name('destroy');

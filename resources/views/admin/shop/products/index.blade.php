@@ -70,7 +70,7 @@
 
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-4"> نوع النشاط : </label>
+                            <label class="control-label col-md-4"> نوع المنتج  : </label>
                             <div class="col-md-8">
                                 <div class="row">
                                     <label class="control-label col-md-6 col-sm-6col-xs-6">

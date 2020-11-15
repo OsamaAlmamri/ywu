@@ -18,7 +18,7 @@ class CreateProductsAttributesTable extends Migration
             $table->foreignId('product_id')->constrained('products')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('options_id')->references('products_options_id')->on('products_options')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('options_values_id')->references('products_options_values_id')->on('products_options_values')->onUpdate('cascade')->onDelete('cascade');
-            $table->decimal('options_values_price', 15);
+            $table->integer('options_values_price');
             $table->char('price_prefix', 1);
             $table->boolean('is_default')->default(0);
             $table->timestamps();

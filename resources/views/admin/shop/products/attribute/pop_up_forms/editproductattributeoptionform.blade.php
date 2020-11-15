@@ -5,26 +5,9 @@
   {!! Form::open(array('url' =>'admin/addNewProductAttribute', 'name'=>'editAttributeFrom', 'id'=>'editAttributeFrom', 'method'=>'post', 'class' => 'form-horizontal', 'enctype'=>'multipart/form-data')) !!}
 		  {!! Form::hidden('products_attributes_id',  $result['data']['products_attributes_id'], array('class'=>'form-control', 'id'=>'products_attributes_id')) !!}
 		  {!! Form::hidden('product_id',  $result['data']['product_id'], array('class'=>'form-control', 'id'=>'product_id')) !!}
-          {!! Form::hidden('language_id',  $result['data']['language_id'], array('class'=>'form-control', 'id'=>'language_id')) !!}
 <div class="modal-body">
 
-		<div class="form-group">
-              <label for="name" class="col-sm-2 col-md-4 control-label">{{ trans('labels.Language') }} </label>
-              <div class="col-sm-10 col-md-8">
-                  <select class="form-control edit_additional_language_id" name="languages_id">
-                    <option value="" class="field-validate">Choose Language</option>
-                     @foreach($result['languages'] as $languages)
-                      <option value="{{ $languages->languages_id }}"
-                      @if($result['data']['language_id'] == $languages->languages_id)
-                        selected
-                      @endif
-                      >{{ $languages->name }}</option>
-                     @endforeach
-                  </select>
-                <span class="help-block" style="font-weight: normal;font-size: 11px;margin-bottom: 0;">{{ trans('labels.Chooselagnuage') }}</span>
 
-              </div>
-          </div>
 
 
   <div class="form-group">
@@ -63,8 +46,11 @@
 	<div class="form-group">
 	  <label for="name" class="col-sm-2 col-md-4 control-label">{{ trans('labels.PricePrefix') }}</label>
 	  <div class="col-sm-10 col-md-8">
-		 {!! Form::text('price_prefix',  $result['products_attributes'][0]->price_prefix , array('class'=>'form-control', 'id'=>'price_prefix')) !!}
-         <span class="help-block" style="font-weight: normal;font-size: 11px;margin-bottom: 0;">{{ trans('labels.PricePrefixText') }}</span>
+          <select class="form-control edit-additional-products_options_values_id field-validate" name="price_prefix">
+                  <option @if($result['products_attributes'][0]->price_prefix == '+') selected @endif value="+">+</option>
+                  <option @if($result['products_attributes'][0]->price_prefix == '-') selected @endif value="-">-</option>
+          </select>
+          <span class="help-block" style="font-weight: normal;font-size: 11px;margin-bottom: 0;">{{ trans('labels.PricePrefixText') }}</span>
 
 	  </div>
 	</div>

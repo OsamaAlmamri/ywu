@@ -16,7 +16,8 @@ class Product extends Model
 
     public function defaults_attributes()
     {
-        return $this->hasMany(ProductsAttribute::class, 'product_id', 'id')->where('is_default', 1);
+        return $this->hasMany(ProductsAttribute::class, 'product_id', 'id')
+            ->where('is_default', 1);
     }
 
     public function attributes()
@@ -256,7 +257,14 @@ class Product extends Model
         $result['options_value'] = $options_value;
         $result['data'] = array('product_id' => $request->product_id, 'products_attributes_id' => $products_attributes_id);
 
-        $result['products_attributes'] = $this->products_attributes($products_attributes_id);;;
+        $products_attributes = DB::table('products_attributes')
+            ->join('products_options', 'products_options.products_options_id', '=', 'products_attributes.options_id')
+            ->join('products_options_values', 'products_options_values.products_options_values_id', '=', 'products_attributes.options_values_id')
+//            ->select('products_attributes.*', 'products_options_name', 'products_options_values_name')
+            ->select('products_attributes.*', 'products_options.products_options_name', 'products_options_values.products_options_values_name')
+            ->where('products_attributes.products_attributes_id', '=', $products_attributes_id)
+            ->get();;
+        $result['products_attributes'] = $products_attributes;
         return $result;
     }
 
@@ -374,6 +382,7 @@ class Product extends Model
                 foreach ($im as $value) {
                     if ($value->options_id == $option->options_id)
                         $values[] = array(
+                            'products_attributes_id' => $option->products_attributes_id,
                             'options_values_id' => $value->options_values_id,
                             'products_options_values_name' => $value->products_options_values_name,
                             'price' => $value->options_values_price,

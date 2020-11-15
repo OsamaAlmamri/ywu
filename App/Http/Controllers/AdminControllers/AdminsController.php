@@ -13,6 +13,7 @@ use App\Traits\PostTrait;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -31,8 +32,17 @@ class AdminsController extends Controller
     {
         if (request()->ajax()) {
             $post = Admin::where('type', 'admin')->get();
-            if ($post) {
-                return datatables()->of($post)
+            $data = DB::table('admins')
+                ->leftJoin('model_has_roles', 'model_has_roles.model_id', '=', 'admins.id')
+                ->leftJoin('roles', 'model_has_roles.role_id', '=', 'roles.id')
+                ->select('admins.*',
+                    'roles.name as role_name')->where('type', 'admin');
+            if (auth()->user()->getRoleNames()->first() !== 'Developer')
+                $data = $data->where('roles.name', '<>', 'Developer');
+            $data = $data->orderByDesc('id')->get();
+
+            if ($data) {
+                return datatables()->of($data)
                     ->addColumn('action', 'admin.dashboard.admins.btn.action')
                     ->addColumn('btn_status', 'admin.dashboard.admins.btn.status')
                     ->rawColumns(['action', 'btn_status'])
@@ -91,6 +101,8 @@ class AdminsController extends Controller
             'type' => 'admin',
             'status' => 1,
         ]));
+        $user->syncRoles([$request->role]);
+
         return response()->json(['success' => 'تم إنشاء الحساب بنجاح']);
     }
 
@@ -107,8 +119,10 @@ class AdminsController extends Controller
         } else {
             $request['password'] = Hash::make($request->password);
             $user->update($request->all());
+
         }
         if ($user) {
+            $user->syncRoles([$request->role]);
             return response()->json(['success' => 'تم التعديل بنجاح']);
         } else {
             return response()->json(['success' => 'فشل التعديل']);
@@ -130,7 +144,7 @@ class AdminsController extends Controller
     {
         if (request()->ajax()) {
             $data = Admin::find($id);
-            return response()->json(['data' => $data]);
+            return response()->json(['role' => getFirstRole($id), 'data' => $data]);
         }
     }
 

@@ -67,8 +67,8 @@
                         </div>
                         <div class="form-group">
                             <label>كلمة السر</label>
-                            <span class="eye-icon flaticon-eye"></span>
-                            <input type="password" v-model="form.password" placeholder="كلمة السر" required="">
+                            <span class="eye-icon flaticon-eye" @click="show_password()"></span>
+                            <input :type="type_password" v-model="form.password" placeholder="كلمة السر" required="">
                         </div>
                         <div class="form-group">
                             <div class="clearfix">
@@ -115,6 +115,7 @@
             return {
                 isLoading: false,
                 fullPage: true,
+                type_password: 'password',
                 form: {
                     phone: '',
                     userType: 'user',
@@ -130,6 +131,12 @@
             changeUserType: function (type) {
                 this.form.userType = type;
             },
+            show_password: function () {
+                if (this.type_password == 'password')
+                    this.type_password = 'text';
+                else
+                    this.type_password = 'password';
+            },
             login: function () {
                 let phone = this.form.phone
                 let password = this.form.password
@@ -140,8 +147,7 @@
                         this.isLoading = false;
                         if (this.form.userType == 'seller') {
                             $('#admin_login')[0].submit();
-                        }else
-                        {
+                        } else {
                             this.$router.push('/profile')
                             location.reload();
                         }

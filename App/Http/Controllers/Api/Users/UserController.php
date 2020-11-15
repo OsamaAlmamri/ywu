@@ -36,7 +36,9 @@ class UserController extends Controller
             if ($request->userType == 'seller')
                 $validator = Validator::make($request->all(), [
                     "name" => "required",
-                    "phone" => "required|unique:users,phone",
+//                    "phone" => "required|unique:users,phone",
+                    "phone" => "required|numeric|digits:9|starts_with:77,73,70,71|unique:admins,phone",
+
                     "email" => "nullable|email|unique:users,email",
                     "password" => "required|string|min:4",
                     "sale_name" => "required|string",
@@ -63,9 +65,9 @@ class UserController extends Controller
             else
                 $validator = Validator::make($request->all(), [
                     "name" => "required",
-                    "phone" => "required|unique:users,phone",
                     "email" => "nullable|email|unique:users,email",
                     "password" => "required|string|min:4",
+                    "phone" => "required|numeric|digits:9|starts_with:77,73,70,71|unique:users,phone",
                     'userType' => 'required',
                     'share_user_type' => 'required_if:userType,share_user',
                     'destination' => 'required_if:userType,share_user',

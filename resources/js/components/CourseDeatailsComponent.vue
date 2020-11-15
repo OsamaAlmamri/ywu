@@ -125,6 +125,7 @@
 
                                                         <div
                                                             :class="['acc-content',{'current':title_key==active_lession}]">
+                                                            <h3 v-if="title.contents.length==0"> سينم اضافة المحتوى قريبا</h3>
                                                             <div v-for="(content,content_key) in title.contents"
                                                                  class="content">
                                                                 <div class="clearfix">

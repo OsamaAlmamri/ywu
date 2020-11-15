@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProductsAttribute extends Model
 {
     //
+    protected $primaryKey='products_attributes_id';
 
 //$products_attributes = DB::table('products_attributes')
 //->join('products_options', 'products_options.products_options_id', '=', 'products_attributes.options_id')
