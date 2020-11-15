@@ -2,6 +2,7 @@
 
 namespace App\Models\Shop;
 
+use App\Models\Rateable\Rateable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 class Product extends Model
 {
     //
+    use  Rateable;
+
     protected $fillable = ['admin_id', 'category_id', 'name', 'description', 'image_id', 'price', 'has_attribute', 'available', 'sort', 'status'];
 
     protected $appends = ['image', 'image_actual', 'published', 'zone', 'category', 'space'];
