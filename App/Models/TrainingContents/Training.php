@@ -34,7 +34,15 @@ class Training extends Model
     {
         return Carbon::createFromTimestamp(strtotime($this->attributes['created_at']))->diffForHumans();
     }
+    function getPercentRatingAttribute()
+    {
+        return $this->ratingPercent();
+    }
+    public function averageRating()
+    {
+        return $this->ratings()->avg('rating');
 
+    }
     function getAverageRatingAttribute()
     {
         return round($this->averageRating(), 1);
@@ -53,6 +61,18 @@ class Training extends Model
         );
     }
 
+    function getCountRatingAttribute()
+    {
+        return $this->countRating();
+    }
+
+    public function is_rating()
+    {
+        $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
+        return $this->hasOne(Rating::class, 'rateable_id', 'id')
+            ->where('rateable_type', Training::class)
+            ->where('user_id', $user_id);
+    }
 
     public function getCanRegisterAttribute()
     {
@@ -73,20 +93,13 @@ class Training extends Model
     }
 
 
-    function getCountRatingAttribute()
-    {
-        return $this->countRating();
-    }
 
     function getIsBeginTrainingAttribute()
     {
         return ($this->begin_training()->count()) > 0;
     }
 
-    function getPercentRatingAttribute()
-    {
-        return $this->ratingPercent();
-    }
+
 
     protected $hidden = [
         'created_at', 'updated_at'
@@ -127,11 +140,7 @@ class Training extends Model
         return $this->hasMany(TrainingTitle::class, 'training_id', 'id');
     }
 
-    public function averageRating()
-    {
-        return $this->ratings()->avg('rating');
 
-    }
 
     public function has_progress()
     {
@@ -177,13 +186,6 @@ class Training extends Model
             ->where('user_id', $user_id);
     }
 
-    public function is_rating()
-    {
-        $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
-        return $this->hasOne(Rating::class, 'rateable_id', 'id')
-            ->where('rateable_type', Training::class)
-            ->where('user_id', $user_id);
-    }
 
 
     public function user_titile()

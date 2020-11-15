@@ -3,6 +3,8 @@
 namespace App\Models\Shop;
 
 use App\Models\Rateable\Rateable;
+use App\Models\Rateable\Rating;
+use App\Models\TrainingContents\Training;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -14,8 +16,49 @@ class Product extends Model
 
     protected $fillable = ['admin_id', 'category_id', 'name', 'description', 'image_id', 'price', 'has_attribute', 'available', 'sort', 'status'];
 
-    protected $appends = ['image', 'image_actual', 'published', 'zone', 'category', 'space'];
+    protected $appends = ['image', 'image_actual', 'zone', 'category', 'space', 'published', 'average_rating', 'count_rating', 'percent_rating', 'rating_details'];
 
+
+    function getPercentRatingAttribute()
+    {
+        return $this->ratingPercent();
+    }
+
+    public function averageRating()
+    {
+        return $this->ratings()->avg('rating');
+    }
+
+    function getAverageRatingAttribute()
+    {
+        return round($this->averageRating(), 1);
+    }
+
+    function getRatingDetailsAttribute()
+    {
+        return array(
+            'one' => round($this->oneRating(), 1),
+            'tow' => round($this->towRating(), 1),
+            'three' => round($this->threeRating(), 1),
+            'four' => round($this->fourRating(), 1),
+            'five' => round($this->fiveRating(), 1),
+            'sum' => $this->countRating(),
+            'average' => round($this->averageRating(), 1),
+        );
+    }
+
+    function getCountRatingAttribute()
+    {
+        return $this->countRating();
+    }
+
+    public function is_rating()
+    {
+        $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
+        return $this->hasOne(Rating::class, 'rateable_id', 'id')
+            ->where('rateable_type', Product::class)
+            ->where('user_id', $user_id);
+    }
 
     public function defaults_attributes()
     {
@@ -28,32 +71,15 @@ class Product extends Model
         return $this->hasMany(ProductsAttribute::class, 'product_id', 'id');
     }
 
+    function product_questions()
+    {
+        return $this->hasMany(ProductQuestion::class, 'product_id', 'id')->orderByDesc('id');
+    }
+
     public function images()
     {
         return $this->hasMany(ProductImage::class, 'product_id', 'id');
     }
-//
-//    public function addproductattribute($request)
-//    {
-//        $product_id = $request->id;
-//        $subcategory_id = $request->subcategory_id;
-//        $options = DB::table('products_options')->get();
-//        $result['options'] = $options;
-//        $result['subcategory_id'] = $subcategory_id;
-//        $options_value = DB::table('products_options_values')->get();
-//        $result['options_value'] = $options_value;
-//        $result['data'] = array('product_id' => $product_id);
-//        $products_attributes = DB::table('products_attributes')
-//            ->join('products_options', 'products_options.products_options_id', '=', 'products_attributes.options_id')
-//            ->join('products_options_values', 'products_options_values.products_options_values_id', '=', 'products_attributes.options_values_id')
-//            ->select('products_attributes.*')
-//            ->where('products_attributes.product_id', '=', $product_id)
-//            ->orderBy('products_attributes_id', 'DESC')
-//            ->get();
-//        $result['products_attributes'] = $products_attributes;
-//        return $result;
-
-//    }
 
     public function addproductattribute($request)
     {

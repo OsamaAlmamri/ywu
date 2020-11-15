@@ -40,7 +40,6 @@ class CartController extends Controller
 
     public function add_to_cart(Request $request)
     {
-        return Cart::all();
         $this->customer = Auth::user();
         try {
             $product = Product::find($request['product_id']);
@@ -89,6 +88,17 @@ class CartController extends Controller
             DB::table('carts')->where([['id', '=', $request->id],
                 ['user_id', '=', \auth()->id()]])->delete();
             return $this->GetDateResponse('data', '', 'تم الحذف بنجاح');
+
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
+    public function my_cart(Request $request)
+    {
+        try {
+            $data = Cart::where('user_id', '=', \auth()->id())->get();
+            return $this->GetDateResponse('data', $data);
 
         } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());

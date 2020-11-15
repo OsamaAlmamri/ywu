@@ -31,6 +31,7 @@ class ProductQuestion extends Model
     {
         return $this->question_replaiess()->get()->count();
     }
+
     function getProductsNameAttribute()
     {
         $im = $this->product()->get()->first();
@@ -47,14 +48,17 @@ class ProductQuestion extends Model
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'customers_id', 'id');
     }
+
     public function question_replaiess()
     {
         return $this->hasMany(QuestionReplay::class, 'product_question_id', 'id');
     }
+
     function replies()
     {
         return $this->hasMany(QuestionReplay::class, 'product_question_id', 'id')->orderByDesc('id');

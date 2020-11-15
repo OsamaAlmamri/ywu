@@ -287,7 +287,9 @@ class TrainingController extends Controller
     public function like(Request $request)
     {
         try {
-            if ($request->type == 'posts')
+            if ($request->type == 'product')
+                $type = 'product';
+            elseif ($request->type == 'posts')
                 $type = 'posts';
             elseif ($request->type == 'training' or $request->type == 'trainings')
                 $type = 'training';

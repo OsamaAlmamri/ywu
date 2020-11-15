@@ -22,7 +22,9 @@ class CategoreisController extends Controller
 
     public function product_details(Request $request)
     {
-        $data = Product::with(['defaults_attributes', 'images'])
+        $data = Product::with(['defaults_attributes', 'images', 'product_questions' => function ($q) {
+            $q->with('replies');
+        }])
             ->where('id', $request->product_id)->first()->append(['product_options']);
         return $this->GetDateResponse('data', $data);
     }
