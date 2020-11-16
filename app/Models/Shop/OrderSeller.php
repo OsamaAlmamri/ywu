@@ -13,7 +13,13 @@ class OrderSeller extends Model
 
     protected $fillable = ['order_id', 'seller_id', 'status', 'price', 'shipping_cost', 'shipping_method'];
 
-    protected $appends = ['seller'];
+    protected $appends = ['seller', 'order_status_name'];
+
+    function getOrderStatusNameAttribute()
+    {
+        $status = $this->attributes['status'];
+        return trans('status.order_' . $status);
+    }
 
     public function getSellerAttribute()
     {
@@ -22,12 +28,18 @@ class OrderSeller extends Model
         return $s;
 
     }
-    protected $with=['products'];
+
+    protected $with = ['products'];
 
 
     public function admin()
     {
         return $this->belongsTo(Admin::class, 'seller_id', 'id');
+    }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id', 'id');
     }
 
     public function products()

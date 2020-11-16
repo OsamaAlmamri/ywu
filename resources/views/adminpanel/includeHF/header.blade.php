@@ -56,10 +56,14 @@
 
                                     <li><a href="{{route('admin.shop.categories.index')}}"> ادارة الاصناف </a></li>
                                 @endif
-                                {{--                            @else--}}
                                 @if ((Auth::user()->can('show products') == true))
                                     <li><a href="{{route('admin.shop.products.index')}}"> ادارة المنتجات </a></li>
                                     <li><a href="{{route('admin.shop.product_questions.index')}}"> اسئلة المنتجات </a>
+                                    </li>
+                                @endif
+                                @if ((Auth::user()->can('show orders') == true))
+                                    <li><a href="{{route('admin.shop.orders.index')}}"> الطلبات الاساسية  </a></li>
+                                    <li><a href="{{route('admin.shop.orders.index','sub_orders')}}"> الطلبات الفرعية   </a>
                                     </li>
                                 @endif
                             @endif

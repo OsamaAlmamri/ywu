@@ -123,7 +123,6 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
             Route::get('refresh', 'MediaController@refresh');
             Route::post('regenerateimage', 'MediaController@regenerateimage');
         });
-
         Route::group(['prefix' => 'product_questions', 'as' => 'admin.shop.product_questions.'], function () {
             Route::get('/index', 'ProductQuestionController@index')->name('index');
             Route::get('/destroy/{id}', 'ProductQuestionController@destroy')->name('destroy');
@@ -133,6 +132,14 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
             Route::post('/replay', 'ProductQuestionController@replay_product_questions')->name('replay');
             Route::post('/delete_replay', 'ProductQuestionController@delete_replay')->name('delete_replay');
             Route::get('/edit/{id}/{status}', 'ProductQuestionController@edit_product_questions')->name('edit_product_questions');
+        });
+
+        Route::group(['prefix' => 'orders', 'as' => 'admin.shop.orders.'], function () {
+            Route::get('/index/{type?}', 'OrdersController@index')->name('index');
+            Route::get('/destroy/{id}', 'OrdersController@destroy')->name('destroy');
+            Route::get('/show_seller_order/{id}', 'OrdersController@show_seller_order')->name('show_seller_order');
+            Route::get('/show_main_order/{id}', 'OrdersController@show_main_order')->name('show_main_order');
+            Route::post('/active', 'OrdersController@active')->name('active');
         });
 
     });

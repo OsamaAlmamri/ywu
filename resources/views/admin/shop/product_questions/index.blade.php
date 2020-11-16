@@ -152,7 +152,7 @@
             });
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "{{URL::to('')}}/admin/shop/products/destroy/" + deleted_id,
+                    url: "{{URL::to('')}}/admin/shop/product_questions/destroy/" + deleted_id,
                     beforeSend: function () {
                         $('#ok_button').text('جاري الحذف...');
                     },
@@ -170,7 +170,7 @@
 
 
     </script>
-    <?php $controler = 'admin.shop.products.changeOrder' ?>
+    <?php $controler = 'admin.shop.product_questions.changeOrder' ?>
     @include('sortFiles.scripts')
 @endsection
 

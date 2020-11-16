@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
             $table->string('phone', 30);
             $table->string('customer_name', 100);
             $table->string('payment_method', 191)->nullable();
+            $table->boolean('payment_status')->default(0);
             $table->decimal('price', 10);
             $table->decimal('shipping_cost', 10)->default(0);
             $table->timestamps();

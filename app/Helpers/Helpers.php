@@ -5,6 +5,7 @@ use App\Models\Images;
 use App\Models\Shop\ProductsOption;
 use App\Models\Shop\ShopCategory;
 use App\Models\Shop\Zone;
+use App\PaymentStatus;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -88,6 +89,56 @@ function set_users_decices($request)
         'device_type' => $request->device_type,
     );
     setFirBaseToken($data);
+}
+
+function getSpesificStatus($status = 0)
+{
+
+    $s = array(
+        'new' => trans('status.order_new'),
+        'cancel_by_seller' => trans('status.order_cancel_by_seller'),
+        'new_cancel_by_user' => trans('status.order_new_cancel_by_user'),
+        'in_progress' => trans('status.order_in_progress'),
+        'shipping' => trans('status.order_shipping'),
+        'delivery' => trans('status.order_delivery'),
+    );
+    if ($status != 0)
+        return $s[$status];
+    else {
+        return $s;
+    }
+}
+
+
+function getCities()
+{
+    $allCities = Zone::all()->where('parent', 0);
+    $cities = [];
+    foreach ($allCities as $city) {
+        $cities[$city->id] = $city->name_ar;
+    }
+
+    return $cities;
+}
+
+function paymentStatus($status = 'all')
+{
+//    $s['all'] = "الكل";
+//    $s['0'] = "تم الدفع";
+//    $s['1'] = "لم يتم الدفع";
+    $s = array(
+        'all' => "الكل",
+        '0' => trans('status.payment_0'),
+        '1' => trans('status.payment_1'),
+
+    );
+    if ($status != 0)
+        return $s[$status];
+    else {
+        return $s;
+    }
+
+    return $s[$status];
 }
 
 function getAllImages()
