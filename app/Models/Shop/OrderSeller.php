@@ -3,6 +3,7 @@
 namespace App\Models\Shop;
 
 
+use App\Admin;
 use Illuminate\Database\Eloquent\Model;
 
 class OrderSeller extends Model
@@ -11,4 +12,26 @@ class OrderSeller extends Model
     public $timestamps = false;
 
     protected $fillable = ['order_id', 'seller_id', 'status', 'price', 'shipping_cost', 'shipping_method'];
+
+    protected $appends = ['seller'];
+
+    public function getSellerAttribute()
+    {
+        $s = $this->admin()->get()->first();
+        $s->seller = $s->seller;
+        return $s;
+
+    }
+    protected $with=['products'];
+
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'seller_id', 'id');
+    }
+
+    public function products()
+    {
+        return $this->hasMany(OrderProduct::class, 'order_id', 'id');
+    }
 }

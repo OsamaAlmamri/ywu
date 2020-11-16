@@ -105,6 +105,19 @@ class CartController extends Controller
         }
     }
 
+    public function my_orders(Request $request)
+    {
+        try {
+            $data = Order::with(['sellers'])
+                ->where('user_id', '=', \auth()->id())
+                ->paginate(5);
+            return $this->GetDateResponse('data', $data);
+
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
     public function update_cart(Request $request)
     {
         $this->customer = Auth::user();
