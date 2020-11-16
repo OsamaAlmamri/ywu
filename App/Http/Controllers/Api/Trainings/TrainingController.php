@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\LastPosts;
 use App\Like;
 use App\Models\Rateable\Rating;
+use App\Models\Shop\Product;
 use App\Models\TrainingContents\SubjectCategory;
 use App\Models\TrainingContents\TitleContent;
 use App\Models\TrainingContents\Training;
@@ -359,8 +360,13 @@ class TrainingController extends Controller
     public function my_likes(Request $request)
     {
         try {
-
-            if ($request->type == 'posts') {
+            if ($request->type == 'product') {
+                $likes = Product::whereIn('id', function ($query) {
+                    $query->select('liked_id')->from('likes')
+                        ->where('type', 'product')
+                        ->where('user_id', Auth::id());
+                })->orderByDesc('id')->get();
+            } elseif ($request->type == 'posts') {
                 $likes = Like::with(['post' => function ($q) {
                     $q->with(['category', 'comments']);
                 }
@@ -385,7 +391,8 @@ class TrainingController extends Controller
         }
     }
 
-    public function my_likes_page(Request $request)
+    public
+    function my_likes_page(Request $request)
     {
         try {
 
@@ -414,7 +421,8 @@ class TrainingController extends Controller
         }
     }
 
-    public function search(Request $request)
+    public
+    function search(Request $request)
     {
         try {
             $search = $request->search;

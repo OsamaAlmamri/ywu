@@ -1,10 +1,12 @@
 <?php
 
+use App\Device;
 use App\Models\Images;
 use App\Models\Shop\ProductsOption;
 use App\Models\Shop\ShopCategory;
 use App\Models\Shop\Zone;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 use Spatie\Permission\Models\Role;
@@ -19,6 +21,73 @@ if (!function_exists('getViewCustomDate')) {
         }
         return '';
     }
+}
+if (!function_exists('getAdminsOrderNotifucation')) {
+    function getAdminsOrderNotifucation($event_status)
+    {
+        $admins = \App\Admin::all()->where('type', 'admin');
+        return $admins;
+    }
+}
+function DatediffForHumans($date)
+{
+    return Carbon::createFromTimestamp(strtotime($date))->diffForHumans();
+}
+
+function getNotifiableUsers($user = 0, $admins = [])
+{
+    $tokens = [];
+    $devices = DB::table('devices')
+        ->where(function ($query) use ($user) {
+            $query->where('user_type', 'like', 'user')
+                ->where('user_id', $user);
+        })
+        ->orWhere(function ($query) use ($admins) {
+            $query->where('user_type', 'like', 'admin')
+                ->whereIn('user_id', $admins);
+        })->get();
+    foreach ($devices as $device)
+        $tokens[] = $device->device_token;
+    return $tokens;
+}
+
+
+function setFirBaseToken($data)
+{
+//    $devices = Device::where('device_token', $data['device_token'])->delete();
+//
+    $device = Device::all()
+        ->where('user_type', 'like', $data['user_type'])
+        ->where('device_id', 'like', $data['device_id'])
+        ->where('device_type', 'like', $data['device_type'])
+        ->first();
+    if ($device == null)
+        Device::create($data);
+    else
+        $device->update($data);
+    return 1;
+}
+
+function get_devic_mac()
+{
+    return substr(exec('getmac'), 0, 17);
+}
+
+function set_users_decices($request)
+{
+    if (isset($request->device_type) and $request->device_type == 'web') {
+        $device_id = get_devic_mac();
+    } else {
+        $device_id = $request->device_type;
+    }
+    $data = array(
+        'user_id' => \auth()->id(),
+        'user_type' => 'user',
+        'device_id' => $device_id,
+        'device_token' => $request->device_token,
+        'device_type' => $request->device_type,
+    );
+    setFirBaseToken($data);
 }
 
 function getAllImages()
@@ -37,6 +106,7 @@ function formatDateToTimeLine($date)
         'all' => Carbon::parse($date)->day . '/' . Carbon::parse($date)->shortMonthName . '/' . Carbon::parse($date)->year,
     );
 }
+
 
 function zones()
 {

@@ -184,6 +184,7 @@ return [
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         anlutro\LaravelSettings\ServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Kreait\Laravel\Firebase\ServiceProvider::class
 
 
     ],

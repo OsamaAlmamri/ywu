@@ -386,6 +386,13 @@
 <script src="{!! asset('site/js/wow.js') !!}"></script>
 <script src="{!! asset('site/js/jquery-ui.js') !!}"></script>
 <script src="{!! asset('site/js/script.js') !!}"></script>
+
+
+
+
 @yield('js')
+
+
+
 </body>
 </html>

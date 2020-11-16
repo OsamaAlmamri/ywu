@@ -116,7 +116,7 @@ class UserController extends Controller
                 $user = new User();
                 $user->name = $request->name;
                 $user->phone = $request->phone;
-                $user->gender = $request->gender;
+                $user->gender = isset($request->gender) ? $request->gender : 'female';
                 $user->password = $request->password;
                 $user->type = 'visitor';
                 $user->save();
@@ -165,6 +165,9 @@ class UserController extends Controller
                         $user->branch = $user->employee->branch;
                         $user->department = $user->employee->department;
                         $user->job = $user->employee->department;
+                    }
+                    if (isset($request->device_token)) {
+                        set_users_decices($request);
                     }
                     return $this->GetDateResponse('data', ['token' => $jwt_token, 'userData' => $user]);
                 }

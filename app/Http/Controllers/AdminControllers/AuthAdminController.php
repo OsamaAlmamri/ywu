@@ -33,6 +33,14 @@ class AuthAdminController extends Controller
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
+            $data = array(
+                'user_id' => Auth::guard('admin')->id(),
+                'user_type' => 'admin',
+                'device_id' => get_devic_mac(),
+                'device_token' => $request->device_token,
+                'device_type' => 'web',
+            );
+            setFirBaseToken($data);
             return redirect()->intended('/admin');
         } elseif ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api\Shop;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\FireBaseController;
 use App\Http\Resources\LastPosts;
 use App\Like;
 use App\Models\Rateable\Rating;
 use App\Models\Shop\Cart;
 use App\Models\Shop\Order;
+use App\Models\Shop\OrderPayment;
 use App\Models\Shop\OrderProduct;
 use App\Models\Shop\OrderSeller;
 use App\Models\Shop\Product;
@@ -19,6 +21,8 @@ use App\Models\TrainingContents\TrainingTitle;
 use App\Models\UserContents\Post;
 use App\Models\WomenContents\WomenPosts;
 use App\Models\Shop\OrderProductAttribute;
+use App\Notifications\AppNotification;
+use App\Notifications\OrderNotification;
 use App\Question;
 use App\Result;
 use App\Traits\JsonTrait;
@@ -36,6 +40,11 @@ class CartController extends Controller
     protected $other;
     use JsonTrait;
     use PostTrait;
+
+    public function __construct(FireBaseController $firbaseContoller)
+    {
+        $this->firbaseContoller = $firbaseContoller;
+    }
 
 
     public function add_to_cart(Request $request)
@@ -98,6 +107,53 @@ class CartController extends Controller
     {
         try {
             $data = Cart::where('user_id', '=', \auth()->id())->get();
+            return $this->GetDateResponse('data', $data);
+
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
+    public function add_payment(Request $request)
+    {
+        try {
+//            'order_id', 'user_id', 'invoice_number', 'status', 'amount',
+//            return
+//            return $this->ReturnErorrRespons('$ex->getCode()',  \auth()->id());
+
+            $validator = Validator::make($request->all(),
+                [
+                    'order_id' => 'required|exists:orders,id',
+                    'invoice_number' => 'required|numeric',
+                    'amount' => 'required|numeric',
+                ],
+                [
+                    'order_id.required' => 'يرجى تحديد رقم الطلب ',
+                    'invoice_number.required' => 'يرجى تحديد رقم الحوالة ',
+                    'amount.required' => 'يرجى تحديد مبلغ الحوالة'
+                ]);
+            if ($validator->fails()) {
+                return $this->ReturnErorrRespons('0000', $validator->errors());
+            }
+            $data = OrderPayment::create(array_merge($request->all(), ['user_id' => auth()->id()]));
+            $message = ' تم اضافة تكاليف الطلب رقم ' . $request->order_id . '  من العميل  ' . \auth()->user()->name;
+            $dataToNotification = array(
+                'sender_name' => auth()->user()->name,
+                'order_id' => $request->order_id,
+                'notification_type' => "order",
+                'user_id' => \auth()->id(),
+                'sender_image' => url('site/images/Logo250px.png'),
+                'message' => $message,
+                'date' => $data->created_at
+            );
+            $admins_id = [];
+            $admins = getAdminsOrderNotifucation('new_payment');
+            foreach ($admins as $admin) {
+                $admins_id[] = $admin->id;
+                $admin->notify(new AppNotification($dataToNotification));
+            }
+            $tokens = getNotifiableUsers(0, $admins_id);
+            $this->firbaseContoller->multi($tokens, $dataToNotification);
             return $this->GetDateResponse('data', $data);
 
         } catch (\Exception $ex) {
@@ -179,11 +235,11 @@ class CartController extends Controller
             if ($validator->fails()) {
                 return $this->ReturnErorrRespons('0000', $validator->errors());
             }
-
             $cart_items = Cart::where('user_id', \auth()->id())->get();
             if (count($cart_items) == 0)
                 return $this->ReturnErorrRespons("0000", "ليس هناك عناصر بالسلة");
             else {
+
                 $order = Order::create(
                     [
                         'user_id' => auth()->id(),
@@ -234,7 +290,19 @@ class CartController extends Controller
                             'price' => $val,
                             'shipping_cost' => 0,
                         ]);
-
+                        $message = 'طلب جديد برقم ' . $s->id . '  من العميل  ' . \auth()->user()->name;
+                        $dataToNotification = array(
+                            'sender_name' => auth()->user()->name,
+                            'order_id' => $s->id,
+                            'notification_type' => "order",
+                            'user_id' => \auth()->id(),
+                            'sender_image' => url('site/images/Logo250px.png'),
+                            'message' => $message,
+                            'date' => $order->created_at
+                        );
+                        $s->admin->notify(new AppNotification($dataToNotification));
+                        $tokens = getNotifiableUsers(0, [$s->admin->id]);
+                        $this->firbaseContoller->multi($tokens, $dataToNotification);
                     }
 
                 }
@@ -244,6 +312,25 @@ class CartController extends Controller
                 $order = Order::find($order->id);
                 DB::table('carts')->where([
                     ['user_id', '=', \auth()->id()]])->delete();
+                $message = 'طلب جديد برقم ' . $order->id . '  من العميل  ' . \auth()->user()->name;
+
+                $dataToNotification = array(
+                    'sender_name' => auth()->user()->name,
+                    'order_id' => $order->id,
+                    'notification_type' => "order",
+                    'user_id' => \auth()->id(),
+                    'sender_image' => url('site/images/Logo250px.png'),
+                    'message' => $message,
+                    'date' => $order->created_at
+                );
+                $admins_id = [];
+                $admins = getAdminsOrderNotifucation('new_order');
+                foreach ($admins as $admin) {
+                    $admins_id[] = $admin->id;
+                    $admin->notify(new AppNotification($dataToNotification));
+                }
+                $tokens = getNotifiableUsers(0, $admins_id);
+                $this->firbaseContoller->multi($tokens, $dataToNotification);
                 return $this->GetDateResponse('data', $order, 'تم اضافة الطاب  بنجاح');
 
             }

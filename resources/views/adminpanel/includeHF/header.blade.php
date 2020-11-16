@@ -213,7 +213,30 @@
                         <li><a href="{{route('Admin_logout')}}"><i class="fa fa-sign-out pull-right"></i> خروج</a></li>
                     </ul>
                 </li>
-            </ul>
+                <li role="presentation" class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown"
+                       aria-expanded="false">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="badge bg-green" id="notification_count">{{ auth()->user()->unreadNotifications->count() }}</span>
+                    </a>
+                    <ul id="admin_notification" class="dropdown-menu list-unstyled msg_list" style="    max-height: 350px;
+    overflow: scroll;" role="menu">
+
+                        @foreach(auth()->user()->unreadNotifications as $notification)
+                            <li>
+                                <a href="{{route('admin.shop.orders.showNotification',[$notification->data['order_id'],$notification->id])}}">
+                                <span class="image">
+                                    <img src="{{ ($notification->data['sender_image'])}}" alt=" Image"/>
+                                </span>
+                                    <span>
+                          <span> {{ $notification->data['sender_name'] }}</span>
+                          <span class="time">{{DatediffForHumans( $notification->data['date']) }}  </span>
+                        </span>
+                                    <span class="message">{{ $notification->data['message'] }}</span>
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
         </nav>
     </div>
 </div>

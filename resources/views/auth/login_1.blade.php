@@ -40,6 +40,8 @@
                             <br>
                             <form method="POST" action="{{ route('login_admin') }}" class="form-validate mb-4">
                                 @csrf
+                                <input type="hidden" name="device_token" id="device_token" value="0">
+
                                 <div class="form-group row" style="margin-left: 10%">
                                     <div class="col-md-10">
                                     <input id="email" type="email" name="email"
@@ -96,5 +98,63 @@
 <script src="{{asset('login/vendor/chart.js/Chart.min.js')}}"></script>
 <script src="{{asset('login/vendor/jquery-validation/jquery.validate.min.js')}}"></script>
 <script src="{{asset('login/js/front.js')}}"></script>
+<script src="{{asset('firebase\firebase-app.js')}}"></script>
+<script src="{{asset('firebase\firebase-messaging.js')}}"></script>
+<script src="{{asset('firebase\firebase-analytics.js')}}"></script>
+<script>
+    $(document).ready(function () {
+        // Your web app's Firebase configuration
+
+        var firebaseConfig = {
+            apiKey: "AIzaSyA6i0L2F8RrJ13E0dRCZWdgJMWnzKx-x30",
+            authDomain: "halaalmadi-e8464.firebaseapp.com",
+            databaseURL: "https://halaalmadi-e8464.firebaseio.com",
+            projectId: "halaalmadi-e8464",
+            storageBucket: "halaalmadi-e8464.appspot.com",
+            messagingSenderId: "51100198139",
+            appId: "1:51100198139:web:1e7f13b469cd102a4ffc5e",
+            measurementId: "G-LYPYW0D2ZZ"
+        };
+// Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const messaging = firebase.messaging();
+        messaging.requestPermission()
+            .then(function () {
+                console.log('Notification permission granted.');
+                // TODO(developer): Retrieve a Instance ID token for use with FCM.
+                // ...
+            })
+            .catch(function (err) {
+                console.log('Unable to get permission to notify.----------- ', err);
+            });
+        messaging.usePublicVapidKey("BOhwORjxRrq_yMgeKxEZ06IhrFdSxONWttCKZrJTwJ4N84hxNZ9rS_8-kHvGBrKaPlcxUFgd9oinnd4DpfSjHAE");
+        // Get Instance ID token. Initially this makes a network call, once retrieved
+        // subsequent calls to getToken will return from cache.
+        messaging.requestPermission()
+            .then(() => {
+                console.log("Have Permission");
+                return messaging.getToken();
+            })
+            .then(token => {
+                console.log("FCM Token:", token);
+                $("#device_token").val(token);
+                //Do something with TOken like subscribe to topics
+            })
+            .catch(error => {
+                if (error.code === "messaging/permission-blocked") {
+                    console.log("Please Unblock Notification Request Manually");
+                } else {
+                    console.log("Error Occurred", error);
+                }
+            });
+        messaging.onMessage(function (payload) {
+            console.log('Message received. ', payload);
+
+        });
+
+    })
+
+</script>
+
 </body>
 </html>

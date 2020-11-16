@@ -40,6 +40,7 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
 
         });
 
+        Route::get('sellers/index/{id}', 'SellersController@destroy')->name('admin.shop.orders.showNotification');
 
         Route::group(['as' => 'admin.shop.categories.'], function () {
             Route::post('categories/update', 'CategoriesController@update')->name('update');
@@ -123,7 +124,7 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
             Route::post('regenerateimage', 'MediaController@regenerateimage');
         });
 
-        Route::group(['prefix' => 'product_questions','as' => 'admin.shop.product_questions.'], function () {
+        Route::group(['prefix' => 'product_questions', 'as' => 'admin.shop.product_questions.'], function () {
             Route::get('/index', 'ProductQuestionController@index')->name('index');
             Route::get('/destroy/{id}', 'ProductQuestionController@destroy')->name('destroy');
             Route::post('/active', 'ProductQuestionController@active')->name('active');
