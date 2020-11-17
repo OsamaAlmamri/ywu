@@ -17,6 +17,10 @@ class OrderProduct extends Model
         return array_map('intval', explode(',', $this->attributes['attributes']));
 
     }
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
 
     public function getProductAttributesDescriptionsAttribute()
     {

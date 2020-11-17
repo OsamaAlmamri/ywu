@@ -1,5 +1,5 @@
 @if (auth()->user()->type=='admin')
-    @if ($payment_status==0)
+    @if (isset($payment_status)and $payment_status==0)
         <button type="button" name="delete" id="{{$id}}" class="payment btn btn-info btn-sm"
                 style="float: right"> تاكيد الدفع
         </button>

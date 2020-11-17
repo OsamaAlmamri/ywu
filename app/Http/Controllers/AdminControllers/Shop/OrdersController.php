@@ -61,13 +61,21 @@ class OrdersController extends Controller
                         $query->where('gov_id', $to_zone);
                     if ($payment_status != 'all')
                         $query->where('payment_status', $payment_status);
-                    if ($status != 'all')
-                        $query->where('status', $status);
+
                 });
+//            if ($status != 'all')
+//                $data = $data->where('status', $status);
 
         }
 
         return $data->get();
+    }
+
+    public function show_seller_order($id)
+    {
+      $order_seller=  OrderSeller::find($id);
+        return view('admin.shop.orders.show')->with('type', 'sub_order')->with('order_seller',$order_seller);
+
     }
 
     public function active(Request $r)

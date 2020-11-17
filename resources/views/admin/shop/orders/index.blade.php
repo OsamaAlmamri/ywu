@@ -152,8 +152,8 @@
                             @else
                         {
                             title: 'البائع',
-                            data: 'seller.sale_name',
-                            name: 'seller.sale_name',
+                            data: 'seller_name',
+                            name: 'seller_name',
                         },
                         {
                             title: 'العميل',

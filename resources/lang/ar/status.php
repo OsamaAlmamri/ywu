@@ -17,4 +17,8 @@ return [
     'order_in_progress' => 'قيد التجهيز',
     'order_shipping' => 'تم الشحن',
     'order_delivery' => 'تم التسليم',
+
+
+    'payment_0' => 'لم يتم  الدفع',
+    'payment_1' => 'تم الدفع',
 ];
