@@ -122,6 +122,10 @@ class PermissionsController extends Controller
         $permission = Permission::create(['name' => 'show orders']);
         $permission = Permission::create(['name' => 'manage orders']);//add ,update , delete
 
+        /********************* order_statuses  *********************/
+        $permission = Permission::create(['name' => 'show payment']);
+        $permission = Permission::create(['name' => 'manage payment']);//add ,update , delete
+
         /********************* reports  *********************/
         $permission = Permission::create(['name' => 'show orders_report']);
         $permission = Permission::create(['name' => 'show products_report']);
@@ -139,6 +143,10 @@ class PermissionsController extends Controller
 
     public function index()
     {
+//        /********************* order_statuses  *********************/
+//        $permission = Permission::create(['name' => 'show payment']);
+//        $permission = Permission::create(['name' => 'manage payment']);//add ,update , delete
+
 
 //        \auth()->user()->syncRoles(['Developer']);
 //        $this->addRoles();

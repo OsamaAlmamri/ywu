@@ -62,7 +62,6 @@
 @endsection
 @section('custom_js')
     @include('adminpanel.includes.add_new_image_sceipts')
-
     @include('adminpanel.active')
     <script>
 

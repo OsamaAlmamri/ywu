@@ -50,6 +50,6 @@ class OrderSeller extends Model
 
     public function products()
     {
-        return $this->hasMany(OrderProduct::class, 'order_id', 'id');
+        return $this->hasMany(OrderProduct::class, 'order_seller_id', 'id');
     }
 }

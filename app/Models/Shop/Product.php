@@ -2,6 +2,7 @@
 
 namespace App\Models\Shop;
 
+use App\Like;
 use App\Models\Rateable\Rateable;
 use App\Models\Rateable\Rating;
 use App\Models\TrainingContents\Training;
@@ -18,11 +19,21 @@ class Product extends Model
 
     protected $appends = ['image', 'image_actual', 'zone', 'category', 'space', 'published', 'average_rating', 'count_rating', 'percent_rating', 'rating_details'];
 
+    protected $with = ['is_like'];
 
     function getPercentRatingAttribute()
     {
         return $this->ratingPercent();
     }
+
+    public function is_like()
+    {
+        $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
+        return $this->hasOne(Like::class, 'liked_id', 'id')
+            ->where('type', 'product')
+            ->where('user_id', $user_id);
+    }
+
 
     public function averageRating()
     {

@@ -62,8 +62,14 @@
                                     </li>
                                 @endif
                                 @if ((Auth::user()->can('show orders') == true))
-                                    <li><a href="{{route('admin.shop.orders.index')}}"> الطلبات الاساسية  </a></li>
-                                    <li><a href="{{route('admin.shop.orders.index','sub_orders')}}"> الطلبات الفرعية   </a>
+                                    <li><a href="{{route('admin.shop.orders.index')}}"> الطلبات الاساسية </a></li>
+                                    <li><a href="{{route('admin.shop.orders.index','sub_orders')}}"> الطلبات
+                                            الفرعية </a>
+                                    </li>
+                                @endif
+                                @if ((Auth::user()->can('show payment') == true))
+                                    <li><a href="{{route('admin.shop.payments.index')}}"> اشعارات الدفع(الحوالات) </a>
+                                    </li>
                                     </li>
                                 @endif
                             @endif
@@ -221,7 +227,8 @@
                     <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown"
                        aria-expanded="false">
                         <i class="fa fa-envelope-o"></i>
-                        <span class="badge bg-green" id="notification_count">{{ auth()->user()->unreadNotifications->count() }}</span>
+                        <span class="badge bg-green"
+                              id="notification_count">{{ auth()->user()->unreadNotifications->count() }}</span>
                     </a>
                     <ul id="admin_notification" class="dropdown-menu list-unstyled msg_list" style="    max-height: 350px;
     overflow: scroll;" role="menu">

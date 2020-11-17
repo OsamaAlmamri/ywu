@@ -21,4 +21,7 @@ return [
 
     'payment_0' => 'لم يتم  الدفع',
     'payment_1' => 'تم الدفع',
+
+    'confirm_payment_0' => 'لم يتم المراجعة ',
+    'confirm_payment_1' => 'تم المراجعة ',
 ];

@@ -2,26 +2,9 @@
 @section('card_header')
     <div class="card-header">
         <br/>
-        <h3 align="right"> الاسئلة </h3>
+        <h3 align="right"> تقييمات المنتج ({{$product->name}}) </h3>
         <br/>
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <select name="filter_country" id="filter_country" class="form-control" required>
-                        <option value="0">الكل</option>
-                        @foreach(categories() as $c)
-                            <option value="{{ $c->id }}">{{ $c->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form-group" align="center">
-                    <button type="button" name="filter" id="filter" class="btn btn-info">عرض</button>
-                    <button type="button" name="reset" id="reset" class="btn btn-default">الغاء</button>
-                </div>
-            </div>
-            <div class="col-md-4"></div>
-        </div>
+
 
     </div>
 @endsection
@@ -32,7 +15,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title">حذف السؤوال</h2>
+                    <h2 class="modal-title">حذف التقييم</h2>
                 </div>
                 <div class="modal-body">
                     <h4 align="center" style="margin:0;">هل انت متاكد من الحذف؟</h4>
@@ -47,9 +30,7 @@
 
 @endsection
 @section('custom_js')
-    @include('adminpanel.active')
     <script>
-        Active('{{route('admin.shop.product_questions.active')}}');
         $(document).ready(function () {
             fill_datatable();
 
@@ -77,49 +58,33 @@
                     lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
                     buttons: [],
                     ajax: {
-                        url: "{{route('admin.shop.product_questions.index')}}",
+                        url: "{{route('admin.shop.products.ratings.index',$product->id)}}",
                         data: {category_id: $("#filter_country").val()}
                     },
                     columns: [
+
                         {
-                            title: '  ترتيب العرض ',
-                            data: 'btn_sort',
-                            name: 'btn_sort'
-                        },
-                        {
-                            title: 'المنتج',
-                            data: 'products_name',
-                            name: 'products_name',
-                        }, {
                             title: 'العميل',
                             data: 'user_name',
                             name: 'user_name',
                         },
                         {
-                            title: 'نص االسؤوال',
-                            data: 'text',
-                            name: 'text',
+                            title: 'التقييم',
+                            data: 'rating',
+                            name: 'rating',
                         },
                         {
-                            title: 'الردود',
-                            data: 'reples',
-                            name: 'reples',
+                            title: 'نص االتقييم',
+                            data: 'message',
+                            name: 'message',
                         },
+
                         {
-                            title: 'تاريخ الاضافة ',
+                            title: 'تاريخ التقييم ',
                             data: 'published',
                         },
-                        {
-                            title: 'الحالة',
-                            data: 'btn_status',
-                            name: 'btn_status',
-                        },
-                        {
-                            title: 'عمليات',
-                            data: 'action',
-                            name: 'action',
-                            orderable: false
-                        },
+
+
                     ],
 
                 });
@@ -145,13 +110,13 @@
             var deleted_id = 0;
             $(document).on('click', '.delete', function () {
                 deleted_id = $(this).attr('id');
-                $('.modal-title').text("حذف السؤوال ");
+                $('.modal-title').text("حذف التقييم ");
                 $('#ok_button').text('حذف');
                 $('#confirmModal').modal('show');
             });
             $('#ok_button').click(function () {
                 $.ajax({
-                    url: "{{URL::to('')}}/admin/shop/product_questions/destroy/" + deleted_id,
+                    url: "{{URL::to('')}}/admin/shop/products/ratings/destroy/" + deleted_id,
                     beforeSend: function () {
                         $('#ok_button').text('جاري الحذف...');
                     },
@@ -169,8 +134,6 @@
 
 
     </script>
-    <?php $controler = 'admin.shop.product_questions.changeOrder' ?>
-    @include('sortFiles.scripts')
 @endsection
 
 

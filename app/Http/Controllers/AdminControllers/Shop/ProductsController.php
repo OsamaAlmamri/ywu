@@ -38,8 +38,9 @@ class ProductsController extends Controller
                     ->addColumn('btn_image', 'admin.shop.products.btn.image')
                     ->addColumn('btn_sort', 'sortFiles.btn_sort')
                     ->addColumn('btn_status', 'admin.shop.products.btn.status')
+                    ->addColumn('btn_rating', 'admin.shop.products.btn.rating')
                     ->addColumn('btn_available', 'admin.shop.products.btn.available')
-                    ->rawColumns(['action', 'btn_image', 'btn_sort', 'btn_available', 'btn_status'])
+                    ->rawColumns(['action','btn_rating', 'btn_image', 'btn_sort', 'btn_available', 'btn_status'])
                     ->make(true);
             }
         }

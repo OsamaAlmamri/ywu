@@ -87,6 +87,9 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
                 ]
             ])->except('update');
         });
+        Route::group(['prefix' => 'products/', 'as' => 'admin.shop.products.ratings.'], function () {
+            Route::get('ratings/{id}', 'ProductRatingsController@index')->name('index');
+        });
         Route::group(['as' => 'admin.shop.products.'], function () {
             Route::post('products/update', 'ProductsController@update')->name('update');
             Route::get('products/destroy/{id}', 'ProductsController@destroy')->name('destroy');
@@ -95,7 +98,6 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
             Route::get('products/attributes/{id}', 'ProductsController@attributes')->name('attributes');
             Route::post('products/active', 'ProductsController@active')->name('active');
             Route::post('products/changeOrder', 'ProductsController@changeOrder')->name('changeOrder');
-
             Route::resource('products', 'ProductsController', [
                 'names' => [
                     'index' => 'index',
@@ -127,7 +129,7 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
             Route::get('/index', 'ProductQuestionController@index')->name('index');
             Route::get('/destroy/{id}', 'ProductQuestionController@destroy')->name('destroy');
             Route::post('/active', 'ProductQuestionController@active')->name('active');
-            Route::post('/changeOrder', 'ProductQuestionController@changeOrder')->name('product_questions.changeOrder');
+            Route::post('/changeOrder', 'ProductQuestionController@changeOrder')->name('changeOrder');
             Route::get('/show_replies/{id}', 'ProductQuestionController@show_replies')->name('show_replies');
             Route::post('/replay', 'ProductQuestionController@replay_product_questions')->name('replay');
             Route::post('/delete_replay', 'ProductQuestionController@delete_replay')->name('delete_replay');
@@ -137,9 +139,15 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
         Route::group(['prefix' => 'orders', 'as' => 'admin.shop.orders.'], function () {
             Route::get('/index/{type?}', 'OrdersController@index')->name('index');
             Route::get('/destroy/{id}', 'OrdersController@destroy')->name('destroy');
-            Route::get('/show_seller_order/{id}', 'OrdersController@show_seller_order')->name('show_seller_order');
+            Route::any('/show_seller_order/{id}', 'OrdersController@show_seller_order')->name('show_seller_order');
             Route::get('/show_main_order/{id}', 'OrdersController@show_main_order')->name('show_main_order');
             Route::post('/active', 'OrdersController@active')->name('active');
+            Route::post('/change_sub_status', 'OrdersController@change_sub_status')->name('change_sub_status');
+        });
+
+        Route::group(['prefix' => 'payment', 'as' => 'admin.shop.payments.'], function () {
+            Route::get('/index/{type?}', 'PaymentController@index')->name('index');
+            Route::post('/change_status', 'PaymentController@change_status')->name('change_status');
         });
 
     });

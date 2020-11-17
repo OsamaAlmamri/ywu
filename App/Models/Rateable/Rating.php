@@ -23,20 +23,22 @@ class Rating extends Model
      * @var array
      */
     public $fillable = ['rating', 'message'];
-    protected $appends = ['published'];
-    protected $with=['userRater:id,name,type,created_at'];
+    protected $appends = ['published', 'user_name'];
+    protected $with = ['userRater:id,name,type,created_at'];
+
 
     public function getPublishedAttribute()
     {
         return Carbon::createFromTimestamp(strtotime($this->attributes['created_at']))->diffForHumans();
     }
-//    public function getUserNameAttribute()
-//    {
-//        $user= $this->userRater;
-//        $name=$user->name;
-////        ->name;
-//        return$name;
-//    }
+
+    public function getUserNameAttribute()
+    {
+        $user = $this->userRater()->get()->first();
+        return $user->name;//
+        ;
+    }
+
     /**
      * @return mixed
      */
@@ -44,11 +46,11 @@ class Rating extends Model
     {
         return $this->morphTo();
     }
+
     public function userRater()
     {
-        return $this->belongsTo(User::class,'user_id','id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
-
 
 
     /**

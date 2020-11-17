@@ -78,7 +78,6 @@
 @endsection
 @section('custom_js')
     @include('adminpanel.active')
-    @include('adminpanel.wyswyg')
     <script>
         Active('{{route('admin.shop.orders.active')}}');
         $(document).ready(function () {

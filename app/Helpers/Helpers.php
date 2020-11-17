@@ -110,6 +110,23 @@ function getSpesificStatus($status = 0)
 }
 
 
+function getSellerOrderStatus($status = 0)
+{
+
+    $s = array(
+        'new' => trans('status.order_new'),
+        'in_progress' => trans('status.order_in_progress'),
+        'shipping' => trans('status.order_shipping'),
+        'delivery' => trans('status.order_delivery'),
+    );
+    if ($status != 0)
+        return $s[$status];
+    else {
+        return $s;
+    }
+}
+
+
 function getCities()
 {
     $allCities = Zone::all()->where('parent', 0);
@@ -123,9 +140,6 @@ function getCities()
 
 function paymentStatus($status = 'all')
 {
-//    $s['all'] = "الكل";
-//    $s['0'] = "تم الدفع";
-//    $s['1'] = "لم يتم الدفع";
     $s = array(
         'all' => "الكل",
         '0' => trans('status.payment_0'),
@@ -137,7 +151,23 @@ function paymentStatus($status = 'all')
     else {
         return $s;
     }
+    return $s[$status];
+}
 
+function confirm_paymentStatus($status = 'all')
+{
+
+    $s = array(
+        'all' => "الكل",
+        '0' => trans('status.confirm_payment_0'),
+        '1' => trans('status.confirm_payment_1'),
+
+    );
+    if ($status != 0)
+        return $s[$status];
+    else {
+        return $s;
+    }
     return $s[$status];
 }
 

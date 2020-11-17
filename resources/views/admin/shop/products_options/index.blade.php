@@ -101,7 +101,6 @@
     </div>
 @endsection
 @section('custom_js')
-    @include('adminpanel.wyswyg')
     <script>
         $(document).ready(function () {
             fill_datatable();

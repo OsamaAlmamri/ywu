@@ -140,7 +140,7 @@ class CartController extends Controller
             $dataToNotification = array(
                 'sender_name' => auth()->user()->name,
                 'order_id' => $request->order_id,
-                'notification_type' => "order",
+                'notification_type' => "payment",
                 'user_id' => \auth()->id(),
                 'sender_image' => url('site/images/Logo250px.png'),
                 'message' => $message,
@@ -239,7 +239,7 @@ class CartController extends Controller
             if (count($cart_items) == 0)
                 return $this->ReturnErorrRespons("0000", "ليس هناك عناصر بالسلة");
             else {
-
+                $total_order_price = 0;
                 $order = Order::create(
                     [
                         'user_id' => auth()->id(),
@@ -254,12 +254,13 @@ class CartController extends Controller
                 $sellersOrders = [];
                 $order_seller_id = [];
                 foreach ($cart_items as $cart_item) {
-                    $total += $cart_item->price;
+                    $total += ($cart_item->quantity * $cart_item->price);
+                    $total_order_price += ($cart_item->quantity * $cart_item->price);
                     $product = Product::find($cart_item->product_id);
                     if (array_key_exists($product->admin_id, $sellersOrders)) {
-                        $sellersOrders[$product->admin_id] += $cart_item->price;
+                        $sellersOrders[$product->admin_id] += ($cart_item->quantity * $cart_item->price);
                     } else {
-                        $sellersOrders[$product->admin_id] = $cart_item->price;
+                        $sellersOrders[$product->admin_id] = ($cart_item->quantity * $cart_item->price);
                         $seller = OrderSeller::create(
                             ['seller_id' => $product->admin_id,
                                 'order_id' => $order->id,
@@ -294,7 +295,7 @@ class CartController extends Controller
                         $dataToNotification = array(
                             'sender_name' => auth()->user()->name,
                             'order_id' => $s->id,
-                            'notification_type' => "order",
+                            'notification_type' => "sub_order",
                             'user_id' => \auth()->id(),
                             'sender_image' => url('site/images/Logo250px.png'),
                             'message' => $message,
@@ -306,10 +307,12 @@ class CartController extends Controller
                     }
 
                 }
-                $order->update([
-                    'price' => $total
-                ]);
+
                 $order = Order::find($order->id);
+                $order->update([
+                    'price' => $total_order_price
+                ]);
+
                 DB::table('carts')->where([
                     ['user_id', '=', \auth()->id()]])->delete();
                 $message = 'طلب جديد برقم ' . $order->id . '  من العميل  ' . \auth()->user()->name;

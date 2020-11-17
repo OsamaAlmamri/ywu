@@ -4,12 +4,14 @@ namespace App\Http\Controllers\AdminControllers\Shop;
 
 use App\Admin;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\FireBaseController;
 use App\Models\Shop\Order;
 use App\Models\Shop\OrderSeller;
 use App\Models\Shop\Product;
 use App\Models\Shop\ProductQuestion;
 use App\Models\Shop\ProductsOption;
 use App\Models\Shop\QuestionReplay;
+use App\Notifications\AppNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
@@ -17,6 +19,11 @@ use Illuminate\Support\Facades\Lang;
 class OrdersController extends Controller
 
 {
+    public function __construct(FireBaseController $firbaseContoller)
+    {
+        $this->firbaseContoller = $firbaseContoller;
+    }
+
     public function index($type = 'main')
     {
         if (request()->ajax()) {
@@ -28,11 +35,18 @@ class OrdersController extends Controller
             $to = (request()->to_date == null) ? date('9999-01-01') : date(request()->to_date);
             $data = $this->getData($type, $to_zone, $status, $payment_status, $from, $to);
             if ($data) {
-                return datatables()->of($data)
-                    ->addColumn('action', 'admin.shop.orders.btn.action')
-                    ->addColumn('btn_status', 'admin.shop.orders.btn.status')
-                    ->rawColumns(['action', 'btn_status'])
-                    ->make(true);
+                if ($type == 'main')
+                    return datatables()->of($data)
+                        ->addColumn('action', 'admin.shop.orders.btn.action_main')
+                        ->addColumn('btn_status', 'admin.shop.orders.btn.status')
+                        ->rawColumns(['action', 'btn_status'])
+                        ->make(true);
+                else
+                    return datatables()->of($data)
+                        ->addColumn('action', 'admin.shop.orders.btn.action')
+                        ->addColumn('btn_status', 'admin.shop.orders.btn.status')
+                        ->rawColumns(['action', 'btn_status'])
+                        ->make(true);
 
 
             }
@@ -62,7 +76,7 @@ class OrdersController extends Controller
                     if ($payment_status != 'all')
                         $query->where('payment_status', $payment_status);
 
-                });
+                })->where('seller_id', auth()->id());
 //            if ($status != 'all')
 //                $data = $data->where('status', $status);
 
@@ -73,84 +87,41 @@ class OrdersController extends Controller
 
     public function show_seller_order($id)
     {
-      $order_seller=  OrderSeller::find($id);
-        return view('admin.shop.orders.show')->with('type', 'sub_order')->with('order_seller',$order_seller);
+        $order_seller = OrderSeller::find($id);
+        return view('admin.shop.orders.show')->with('type', 'sub_order')->with('order_seller', $order_seller);
 
     }
 
-    public function active(Request $r)
+    public function show_main_order($id)
     {
-        $new_status = 1;
-        if ($r->status == 1)
-            $new_status = 0;
-        $user = ProductQuestion::find($r->id);
-        $user->status = $new_status;
-        $user->save();
-        return $new_status;
+        $order = Order::find($id);
+        return view('admin.shop.orders.show_main')->with('type', 'order')->with('order', $order);
+
     }
 
-    public function replay_orders(Request $request)
+
+    public function change_sub_status(Request $request)
     {
-        $dada = array(
-            'product_question_id' => $request->ques_ques_id,
-            'text' => $request->reply,
-            'replay_user_id' => auth()->user()->id,
-            'replay_user_type' => 'admin',
+
+        $order_seller = OrderSeller::find($request->order_id);
+        $order_seller->status = $request->status;
+        $order_seller->save();
+
+        $message = '  تم تغيير حالة الطلب رقم  ' . $order_seller->id . '  من قبل متجر   ' . $order_seller->seller_name;
+        $dataToNotification = array(
+            'sender_name' => auth()->user()->name,
+            'order_id' => $order_seller->id,
+            'notification_type' => "sub_order",
+            'user_id' => \auth()->id(),
+            'sender_image' => url('site/images/Logo250px.png'),
+            'message' => $message,
+            'date' => now()
         );
-        if ($request->ques_ques_replay_id == 0)
-            $replay = QuestionReplay::create($dada);
-        else {
-            $replay = QuestionReplay::find($request->ques_ques_replay_id);
-            $replay->update($dada);
-        }
-        return response($replay, 200);
-    }
+        $order_seller->order->user->notify(new AppNotification($dataToNotification));
+        $tokens = getNotifiableUsers(0, [$order_seller->order->user->id]);
+        $this->firbaseContoller->multi($tokens, $dataToNotification);
 
-    public function delete_replay(Request $request)
-    {
-
-        $replay = QuestionReplay::find($request->reply_id)->delete();
-
-        return response($replay == true ? 1 : 0, 200);
-    }
-
-    public function edit_orders($id, $status)
-    {
-        $pro = ProductsOption::find($id);
-        if ($status == 1)
-            $pro->update(['status' => 1, 'question_read' => 1]);
-        elseif ($status == 0)
-            $pro->update(['question_read' => 1]);
-        else
-            $pro->update(['status' => 0, 'question_read' => 1]);
-        $message = Lang::get("labels.product_question_updateMessage");
-        return redirect()->back()->withErrors([$message]);
-
-    }
-
-    public
-    function changeOrder(Request $request)
-    {
-        $sortData = ProductQuestion::all();
-        foreach ($sortData as $element) {
-            $element->timestamps = false; // To disable update_at field updation
-            $id = $element->id;
-            foreach ($request->order as $order) {
-                if ($order['id'] == $id) {
-                    $element->update(['sort' => $order['position']]);
-                }
-            }
-        }
-        return response('Update Successfully.', 200);
-    }
-
-
-    public function show_replies($id)
-    {
-        $productQuestion = ProductQuestion::find($id);
-        return view("admin.shop.orders.show")
-            ->with('productQuestion', $productQuestion);
-
+        return response($order_seller, 200);
     }
 
 

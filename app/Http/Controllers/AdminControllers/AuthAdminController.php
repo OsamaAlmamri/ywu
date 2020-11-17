@@ -32,7 +32,11 @@ class AuthAdminController extends Controller
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
-        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (Auth::guard('admin')->attempt(
+            ['email' => $request->email,
+                'password' => $request->password,
+                'status' => 1]
+        )) {
             $data = array(
                 'user_id' => Auth::guard('admin')->id(),
                 'user_type' => 'admin',
