@@ -127,11 +127,13 @@
                     {
                         data: 'created_at',
                     },
+                        @if ((Auth::user()->can('manage training') == true))
                     {
                         data: 'action',
                         name: 'action',
                         orderable: false
                     },
+                    @endif
                 ]
             });
 

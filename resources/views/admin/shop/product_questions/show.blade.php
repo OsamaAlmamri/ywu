@@ -154,11 +154,13 @@
             <div class="container">
                 <div id="timeline">
                     <div class="row timeline-movement timeline-movement-top">
-                        <div class="timeline-badge timeline-future-movement">
-                            <a href="#" class="replay_btn">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </a>
-                        </div>
+                        @if ((Auth::user()->can('manage products_questions') == true))
+                            <div class="timeline-badge timeline-future-movement">
+                                <a href="#" class="replay_btn">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </a>
+                            </div>
+                        @endif
                         <div class="timeline-badge timeline-filter-movement">
                             <a href="#">
                                 <span class="glyphicon glyphicon-time"></span>
@@ -182,10 +184,12 @@
                             <div class="row">
                                 <div class="col-sm-11">
                                     <div class="timeline-panel credits">
-                                        <a href="#" style="float: left" data-id="{{$replay->id}}"
-                                           class="btn_delete_replay"> <i class="fa fa-trash"></i></a>
-                                        <a href="#" style="float: left ; margin-left: 8px" class="btn_update_replay"
-                                           data-id="{{$replay->id}}"> <i class="fa fa-edit"></i></a>
+                                        @if ((Auth::user()->can('manage products_questions') == true))
+                                            <a href="#" style="float: left" data-id="{{$replay->id}}"
+                                               class="btn_delete_replay"> <i class="fa fa-trash"></i></a>
+                                            <a href="#" style="float: left ; margin-left: 8px" class="btn_update_replay"
+                                               data-id="{{$replay->id}}"> <i class="fa fa-edit"></i></a>
+                                        @endif
                                         <ul class="timeline-panel-ul">
                                             <li><span
                                                     class="importo">{{$replay->admin->name }}</span>

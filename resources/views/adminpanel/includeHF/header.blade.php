@@ -3,9 +3,7 @@
         <div class="navbar nav_title" style="border: 0;">
             <a href="{{route('home')}}" class="site_title"><i class="fa fa-paw"></i> <span>لوحة التحكم</span></a>
         </div>
-
         <div class="clearfix"></div>
-
         <!-- menu profile quick info -->
         <div class="profile clearfix">
             <div class="profile_pic">
@@ -24,12 +22,8 @@
             <div class="menu_section">
                 <h3>قوائم العرض</h3>
                 <ul class="nav side-menu">
-
-                    @if (auth()->user()->type=='admin')
-
-                        <li><a href="{{route('home')}}"><i class="fa fa-home"></i> الرئيسية</a>
-                        </li>
-                    @endif
+                    <li><a href="{{route('home')}}"><i class="fa fa-home"></i> الرئيسية</a>
+                    </li>
                     <li>
                         <a><i class="fa fa-shopping-cart"></i> السوق <span
                                 class="fa fa-chevron-down"></span></a>
@@ -45,139 +39,145 @@
                                     <li><a href="{{url('admin/shop/media/display')}}"> اعدادات الصور </a></li>
                                 </ul>
                             </li>
-                            @if (auth()->user()->type=='admin')
-                                @if ((Auth::user()->can('show products_attributes') == true))
+                            @if ((Auth::user()->can('show products_attributes') == true))
 
-                                    <li><a href="{{route('admin.shop.products_options.index')}}"> خيارات المنتجات </a>
-                                    </li>
-                                @endif
-                                {{--                            <li><a href="{{route('admin.shop.spaces.index')}}"> ادارة المساحات </a></li>--}}
-                                @if ((Auth::user()->can('show categories') == true))
-
-                                    <li><a href="{{route('admin.shop.categories.index')}}"> ادارة الاصناف </a></li>
-                                @endif
-                                @if ((Auth::user()->can('show products') == true))
-                                    <li><a href="{{route('admin.shop.products.index')}}"> ادارة المنتجات </a></li>
-                                    <li><a href="{{route('admin.shop.product_questions.index')}}"> اسئلة المنتجات </a>
-                                    </li>
-                                @endif
-                                @if ((Auth::user()->can('show orders') == true))
-                                    <li><a href="{{route('admin.shop.orders.index')}}"> الطلبات الاساسية </a></li>
-                                    <li><a href="{{route('admin.shop.orders.index','sub_orders')}}"> الطلبات
-                                            الفرعية </a>
-                                    </li>
-                                @endif
-                                @if ((Auth::user()->can('show payment') == true))
-                                    <li><a href="{{route('admin.shop.payments.index')}}"> اشعارات الدفع(الحوالات) </a>
-                                    </li>
-                                    </li>
-                                @endif
+                                <li><a href="{{route('admin.shop.products_options.index')}}"> خيارات المنتجات </a>
+                                </li>
                             @endif
+                            {{--                            <li><a href="{{route('admin.shop.spaces.index')}}"> ادارة المساحات </a></li>--}}
+                            @if ((Auth::user()->can('show categories') == true))
+
+                                <li><a href="{{route('admin.shop.categories.index')}}"> ادارة الاصناف </a></li>
+                            @endif
+                            @if ((Auth::user()->can('show products') == true))
+                                <li><a href="{{route('admin.shop.products.index')}}"> ادارة المنتجات </a></li>
+                                <li><a href="{{route('admin.shop.product_questions.index')}}"> اسئلة المنتجات </a>
+                                </li>
+                            @endif
+                            @if ((Auth::user()->can('show orders') == true))
+                                @if(auth()->user()->type=="admin")
+                                    <li><a href="{{route('admin.shop.orders.index')}}"> الطلبات الاساسية </a></li>
+                                @endif
+                                <li><a href="{{route('admin.shop.orders.index','sub_orders')}}"> الطلبات
+                                        الفرعية </a>
+                                </li>
+                            @endif
+                            @if ((Auth::user()->can('show payment') == true))
+                                <li><a href="{{route('admin.shop.payments.index')}}"> اشعارات الدفع(الحوالات) </a>
+                                </li>
+
+                            @endif
+
                         </ul>
                     </li>
                     @if (auth()->user()->type=='admin')
-                        @if ((Auth::user()->can('show products_attributes') == true))
+                        <li><a><i class="fa fa-user-plus"></i> مدراء النظام<span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                @if ((Auth::user()->can('show admins') == true))
+                                    <li><a href="{{route('admin.admins.index')}}">عرض الكل</a></li>
+                                @endif
 
-                            <li><a><i class="fa fa-user-plus"></i> مدراء النظام<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    @if ((Auth::user()->can('show admins') == true))
-                                        <li><a href="{{route('admin.admins.index')}}">عرض الكل</a></li>
-                                    @endif
+                                @if ((Auth::user()->can('show permissions') == true))
+                                    <li><a href="{{route('admin.permissions.index')}}"> مجموعات الوصول</a></li>
+                                @endif
 
-                                    @if ((Auth::user()->can('show permissions') == true))
-                                        <li><a href="{{route('admin.permissions.index')}}"> مجموعات الوصول</a></li>
-                                    @endif
+                            </ul>
+                        </li>
+                    @endif
+                    @if ((Auth::user()->can('show women') == true))
 
-                                </ul>
-                            </li>
-                        @endif
-                        @if ((Auth::user()->can('show women') == true))
+                        <li><a><i class="fa fa-female"></i> شؤون المرأة<span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="{{route('women')}}">عرض محتويات شؤون المرأة</a></li>
+                                <li><a href="{{route('women-trashed')}}">سلة المحذوفات</a></li>
+                            </ul>
+                        </li>
+                    @endif
+                    @if ((Auth::user()->can('show training') == true))
+                    <li><a><i class="fa fa-mortar-board"></i>
+                            الدورات التدريبية <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{route('training')}}">إدارة الدورات التدريبية</a></li>
+                            <li><a href="{{route('user_trainings')}}">طلبات الانضمام  للدورة التدريبية</a></li>
+                            <li><a href="{{route('training-trashed')}}">سلة المحذوفات</a></li>
+                        </ul>
+                    </li>
+                    @endif
 
-                            <li><a><i class="fa fa-female"></i> شؤون المرأة<span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="{{route('women')}}">عرض محتويات شؤون المرأة</a></li>
-                                    <li><a href="{{route('women-trashed')}}">سلة المحذوفات</a></li>
-                                </ul>
-                            </li>
-                        @endif
-                        {{--                    <li><a><i class="fa fa-book"></i> المواد التدريبية <span--}}
-                        {{--                                class="fa fa-chevron-down"></span></a>--}}
-                        {{--                        <ul class="nav child_menu">--}}
-                        {{--                            <li><a href="{{route('subject')}}">عرض وادارة المواد التدريبية</a></li>--}}
-                        {{--                            <li><a href="{{route('subject-trashed')}}">سلة المحذوفات</a></li>--}}
-                        {{--                        </ul>--}}
-                        {{--                    </li>--}}
+{{--                                        <li><a><i class="fa fa-book"></i> المواد التدريبية <span--}}
+{{--                                                    class="fa fa-chevron-down"></span></a>--}}
+{{--                                            <ul class="nav child_menu">--}}
+{{--                                                <li><a href="{{route('subject')}}">عرض وادارة المواد التدريبية</a></li>--}}
+{{--                                                <li><a href="{{route('subject-trashed')}}">سلة المحذوفات</a></li>--}}
+{{--                                            </ul>--}}
+{{--                                        </li>--}}
 
 
 
-                        @if ((Auth::user()->can('show consultant') == true))
+                    @if ((Auth::user()->can('show consultant') == true))
+                        <li><a><i class="fa fa-edit"></i>
+                                الإستشارات <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="{{route('showPosts')}}">عرض محتوى الاستشارات</a></li>
+                                <li><a href="{{route('deleted_Post')}}">الاستشارات المرفوضة</a></li>
+                            </ul>
+                        </li>
+                    @endif
+                    @if ((Auth::user()->can('show slides') == true))
+                        <li><a href="{{route('slides.index')}}">
+                                <i class="fa fa-image"></i> السلايدات المتحركة </a>
+                        </li>
+                    @endif
+                    @if ((Auth::user()->can('show activates') == true))
+                        <li><a href="{{route('activates.index')}}"><i class="fa fa-calendar-times-o"></i> الانشطة
+                            </a>
+                        </li>
+                    @endif
+                    @if (
+                    (Auth::user()->can('show employees') == true) or
+                    (Auth::user()->can('show employees_jobs') == true) or
+                    (Auth::user()->can('show employees_sections') == true)  )
+                        <li><a><i class="fa fa-male"></i> حسابات الموظفين <span
+                                    class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                @if ((Auth::user()->can('show employees_sections') == true))
 
-                            <li><a><i class="fa fa-edit"></i>
-                                    الإستشارات <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="{{route('showPosts')}}">عرض محتوى الاستشارات</a></li>
-                                    <li><a href="{{route('deleted_Post')}}">الاستشارات المرفوضة</a></li>
-                                </ul>
-                            </li>
-                        @endif
-                        @if ((Auth::user()->can('show slides') == true))
-                            <li><a href="{{route('slides.index')}}">
-                                    <i class="fa fa-image"></i> السلايدات المتحركة </a>
-                            </li>
-                        @endif
-                        @if ((Auth::user()->can('show activates') == true))
+                                    <li><a href="{{route('Emp_Category')}}"> الاقسام </a></li>
+                                @endif
 
-                            <li><a href="{{route('activates.index')}}"><i class="fa fa-calendar-times-o"></i> الانشطة
-                                </a>
-                            </li>
-                        @endif
-                        @if (
-                        (Auth::user()->can('show employees') == true) or
-                        (Auth::user()->can('show employees_jobs') == true) or
-                        (Auth::user()->can('show employees_sections') == true)  )
+                                @if ((Auth::user()->can('show employees_jobs') == true))
+                                    <li><a href="{{route('jobs')}}"> الوظائف</a></li>
+                                @endif
 
-                            <li><a><i class="fa fa-male"></i> حسابات الموظفين <span
-                                        class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    @if ((Auth::user()->can('show employees_sections') == true))
+                                @if ((Auth::user()->can('show employees') == true))
 
-                                        <li><a href="{{route('Emp_Category')}}"> الاقسام </a></li>
-                                    @endif
+                                    <li><a href="{{route('employee')}}">إدارة حسابات الموظفين</a></li>
+                                    <li><a href="{{route('employee-trashed')}}">حسابات موقفة</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    @if ((Auth::user()->can('show share_users') == true))
 
-                                    @if ((Auth::user()->can('show employees_jobs') == true))
-                                        <li><a href="{{route('jobs')}}"> الوظائف</a></li>
-                                    @endif
+                        <li><a><i class="fa fa-user-plus"></i> حسابات الشركاء<span
+                                    class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="{{route('SharedUser')}}">طلبات العضوية</a></li>
+                                <li><a href="{{route('SharedUserAgree')}}">حسابات تم الموافقة عليها</a></li>
+                                <li><a href="{{route('SharedUserTrashed')}}">حسابات تم رفضها</a></li>
+                            </ul>
+                        </li>
+                    @endif
+                    @if ((Auth::user()->can('show users') == true))
 
-                                    @if ((Auth::user()->can('show employees') == true))
+                        <li><a><i class="fa fa-user-circle"></i> حسابات المستخدمين <span
+                                    class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="{{route('user')}}">إدارة حسابات المستخدمين</a></li>
+                                <li><a href="{{route('user-trashed')}}">حسابات موقفة</a></li>
+                            </ul>
+                        </li>
 
-                                        <li><a href="{{route('employee')}}">إدارة حسابات الموظفين</a></li>
-                                        <li><a href="{{route('employee-trashed')}}">حسابات موقفة</a></li>
-                                    @endif
-                                </ul>
-                            </li>
-                        @endif
-                        @if ((Auth::user()->can('show share_users') == true))
-
-                            <li><a><i class="fa fa-user-plus"></i> حسابات الشركاء<span
-                                        class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="{{route('SharedUser')}}">طلبات العضوية</a></li>
-                                    <li><a href="{{route('SharedUserAgree')}}">حسابات تم الموافقة عليها</a></li>
-                                    <li><a href="{{route('SharedUserTrashed')}}">حسابات تم رفضها</a></li>
-                                </ul>
-                            </li>
-                        @endif
-                        @if ((Auth::user()->can('show users') == true))
-
-                            <li><a><i class="fa fa-user-circle"></i> حسابات المستخدمين <span
-                                        class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="{{route('user')}}">إدارة حسابات المستخدمين</a></li>
-                                    <li><a href="{{route('user-trashed')}}">حسابات موقفة</a></li>
-                                </ul>
-                            </li>
-
-                        @endif
                     @endif
                 </ul>
             </div>
@@ -248,6 +248,9 @@
                             </li>
                         @endforeach
                     </ul>
+
+                </li>
+            </ul>
         </nav>
     </div>
 </div>

@@ -13,7 +13,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title"> منسور جديد</h4>
+                    <h4 class="modal-title"> منشور جديد</h4>
                 </div>
                 <div class="modal-body">
                     <span id="form_show"></span>
@@ -87,9 +87,7 @@
                 language: lang,
                 dom: 'Brfltip',
                 lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
-                buttons: [
-
-                ],
+                buttons: [],
                 ajax: {
                     url: "{{ route('women-trashed') }}",
                 },
@@ -119,16 +117,15 @@
                         data: 'published',
                         name: 'published',
                         title: 'تاريخ النشر',
-
-
                     },
+                        @if ((Auth::user()->can('manage women') == true))
                     {
                         data: 'action',
                         title: 'عمليات',
-
                         name: 'action',
                         orderable: false
                     },
+                    @endif
                 ]
             });
 

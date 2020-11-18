@@ -130,6 +130,7 @@
                             title: 'تاريخ الحوالة ',
                             data: 'order.created_at',
                         },
+                            @if ((Auth::user()->can('manage payment') == true))
                         {
                             title: 'حالة مراجعة الدفع',
                             data: 'btn_status',
@@ -144,12 +145,15 @@
                             data: 'admin_name',
                             name: 'admin',
                         },
+
+
                         {
                             title: 'عمليات',
                             data: 'action',
                             name: 'action',
                             orderable: false
                         },
+                        @endif
                     ],
 
                 });

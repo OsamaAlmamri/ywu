@@ -81,11 +81,14 @@
                         data: {category_id: $("#filter_country").val()}
                     },
                     columns: [
+                            @if ((Auth::user()->can('manage products_questions') == true))
+
                         {
                             title: '  ترتيب العرض ',
                             data: 'btn_sort',
                             name: 'btn_sort'
                         },
+                            @endif
                         {
                             title: 'المنتج',
                             data: 'products_name',
@@ -109,6 +112,7 @@
                             title: 'تاريخ الاضافة ',
                             data: 'published',
                         },
+                            @if ((Auth::user()->can('manage products_questions') == true))
                         {
                             title: 'الحالة',
                             data: 'btn_status',
@@ -120,6 +124,7 @@
                             name: 'action',
                             orderable: false
                         },
+                        @endif
                     ],
 
                 });

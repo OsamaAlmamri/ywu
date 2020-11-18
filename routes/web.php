@@ -7,7 +7,7 @@ Route::group(['prefix' => 'admin/', 'namespace' => 'AdminControllers'], function
     Route::get('/login', 'AuthAdminController@Admin_login')->name('admin.login');
     Route::get('/forget', 'AuthAdminController@Admin_forget')->name('admin.forget');
     Route::post('/forget_check', 'AuthAdminController@Admin_forget_check')->name('admin.forget_check');
-    Route::post('/check_login', 'AuthAdminController@adminLoginCheck')->name('login_admin');
+    Route::any('/check_login', 'AuthAdminController@adminLoginCheck')->name('login_admin');
 });
 
 Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers'], function () {

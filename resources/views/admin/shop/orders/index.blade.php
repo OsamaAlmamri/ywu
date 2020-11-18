@@ -187,6 +187,7 @@
                             data: 'order_status_name',
                         },
                             @endif
+                            @if ((Auth::user()->can('manage orders') == true))
 
                         {
                             title: 'الحالة',
@@ -199,21 +200,11 @@
                             name: 'action',
                             orderable: false
                         },
+                        @endif
                     ],
 
                 });
             }
-
-            $(document).on('click', '.create_record', function () {
-                $('.modal-title').text("إ إنشاء منتج  جديدة");
-                $('#action_button').val("حفظ");
-                $('#action').val("Add");
-                $('#sample_form')[0].reset();
-                $('#store_image').html('');
-                $('#old_image_preview_box').hide();
-                $('#old_image_preview').html('');
-                $('#formModal').modal('show');
-            });
 
 
             $(document).on('click', '#filter', function () {

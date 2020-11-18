@@ -152,11 +152,13 @@
                 dom: 'Brfltip',
                 lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
                 buttons: [
+                        @if ((Auth::user()->can('manage employees') == true))
 
                     {
                         text: '<i class="fa fa-plus" ></i>  إنشاء حساب موظف جديد  ',
                         className: 'btn btn-info create_record',
                     },
+                    @endif
                 ],
                 ajax: {
                     url: "{{ route('employee',$id) }}",
@@ -200,12 +202,15 @@
                         data: 'published',
                         data: 'published',
                     },
+                        @if ((Auth::user()->can('manage employees') == true))
+
                     {
                         title: 'العمليات',
                         data: 'action',
                         name: 'action',
                         orderable: false
                     },
+                    @endif
                 ]
             });
 

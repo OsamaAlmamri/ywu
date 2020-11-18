@@ -67,22 +67,28 @@
                         data: 'email',
                         name: 'email'
                     },
+                        @if ((Auth::user()->can('active users') == true))
+
                     {
                         title: 'حالة الحساب',
                         data: 'status',
                         name: 'status'
                     },
+                    @endif
                     {
                         title: 'تاريخ إنشاء الحساب',
                         data: 'published',
                         data: 'published',
                     },
+                        @if ((Auth::user()->can('manage users') == true))
+
                     {
                         title: 'العمليات',
                         data: 'action',
                         name: 'action',
                         orderable: false
                     },
+                    @endif
                 ]
             });
 

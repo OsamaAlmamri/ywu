@@ -93,22 +93,25 @@
                     dom: 'Brfltip',
                     lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
                     buttons: [
-
+                            @if ((Auth::user()->can('manage categories') == true))
                         {
                             text: '<i class="fa fa-plus" ></i>   إنشاء صنف جديد  ',
                             className: 'btn btn-info create_record',
                         },
+                        @endif
                     ],
                     ajax: {
                         url: "{{route('admin.shop.categories.index')}}",
                     },
                     columns: [
+                            @if ((Auth::user()->can('manage categories') == true))
 
                         {
                             title: '  ترتيب العرض ',
                             data: 'btn_sort',
                             name: 'btn_sort'
                         },
+                            @endif
                         {
                             title: '  الاسم',
                             data: 'name',
@@ -119,17 +122,20 @@
                             name: 'btn_image',
                             title: ' الصورة '
                         },
+                            @if ((Auth::user()->can('manage categories') == true))
                         {
                             title: 'الحالة',
                             data: 'btn_status',
                             name: 'btn_status',
                         },
+
                         {
                             title: 'عمليات',
                             data: 'action',
                             name: 'action',
                             orderable: false
                         },
+                        @endif
                     ]
                 });
             }

@@ -92,6 +92,8 @@
                 </div>
             </div>
         </div>
+        @if ((Auth::user()->can('manage consultant') == true))
+
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
@@ -110,6 +112,7 @@
                 </div>
             </div>
         </div>
+        @endif
     </div>
 @endsection
 @section('scripts')

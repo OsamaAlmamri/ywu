@@ -72,10 +72,13 @@
                 language: lang,
                 dom: 'Brfltip',
                 buttons: [
+                        @if ((Auth::user()->can('manage employees_jobs') == true))
+
                     {
                         text: '<i class="fa fa-plus" ></i>  إنشاء قسم وظيفي جديد  ',
                         className: 'btn btn-info create_record',
                     },
+                    @endif
                 ],
                 lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
                 ajax: {
@@ -92,12 +95,14 @@
                         name: 'published',
                         title: ' تاريخ إنشاء الوظيفة'
                     },
+                        @if ((Auth::user()->can('manage employees_jobs') == true))
                     {
                         data: 'action',
                         name: 'action',
                         title: 'العمليات ',
                         orderable: false
                     },
+                    @endif
                 ]
             });
 

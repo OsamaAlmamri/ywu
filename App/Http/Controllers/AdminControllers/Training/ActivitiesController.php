@@ -26,10 +26,10 @@ class ActivitiesController extends Controller
             $post = Activaty::orderBy('sort')->get();
             if ($post) {
                 return datatables()->of($post)
-                    ->addColumn('action', 'activates.btn.action')
-                    ->addColumn('btn_image', 'activates.btn.image')
+                    ->addColumn('action', 'admin.training.activates.btn.action')
+                    ->addColumn('btn_image', 'admin.training.activates.btn.image')
                     ->addColumn('btn_sort', 'sortFiles.btn_sort')
-                    ->addColumn('btn_status', 'activates.btn.status')
+                    ->addColumn('btn_status', 'admin.training.activates.btn.status')
                     ->rawColumns(['btn_sort', 'action', 'btn_image','btn_status'])
                     ->make(true);
             }

@@ -29,7 +29,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-4">الرابط الخارجي ان وجد : </label>
                             <div class="col-md-8">
-                             <input type="url" name="url" id="url">
+                                <input type="url" name="url" id="url">
                             </div>
                             <div class="print-error-msg alert-danger" id="modal_error_title"></div>
                         </div>
@@ -76,7 +76,8 @@
                         <div class="form-group">
                             <label class="control-label col-md-4">تفاصيل النشاط : </label>7<br/>
                             <div class="col-md-12">
-                                <textarea name="description"  id="description" class="form-control description"></textarea>
+                                <textarea name="description" id="description"
+                                          class="form-control description"></textarea>
                             </div>
                             <div class="print-error-msg alert-danger" id="modal_error_description"></div>
                         </div>
@@ -167,22 +168,26 @@
                     dom: 'Brfltip',
                     lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
                     buttons: [
+                            @if ((Auth::user()->can('manage activates') == true))
 
                         {
                             text: '<i class="fa fa-plus" ></i>  إنشاء  نشاط جديد  ',
                             className: 'btn btn-info create_record',
                         },
+                        @endif
                     ],
                     ajax: {
                         url: "{{route('activates.index')}}",
                     },
                     columns: [
-
+                            @if ((Auth::user()->can('manage activates') == true))
                         {
                             title: '  ترتيب العرض ',
                             data: 'btn_sort',
                             name: 'btn_sort'
-                        }, {
+                        },
+                            @endif
+                        {
                             title: 'عنوان  النشاط',
                             data: 'title',
                             name: 'title'
@@ -211,6 +216,7 @@
                             data: 'url',
                             name: 'url'
                         },
+                            @if ((Auth::user()->can('manage activates') == true))
                         {
                             title: 'الحالة',
                             data: 'btn_status',
@@ -221,6 +227,7 @@
                             name: 'action',
                             orderable: false
                         },
+                        @endif
                     ]
                 });
             }
@@ -317,7 +324,7 @@
                     dataType: "json",
                     success: function (html) {
                         $('#show_title').html("<h4><b>العنوان : " + html.data.title + "</b></h4>");
-                        $('#show_body').html("<b>محتوى النص : " +"<br>"+ html.data.description + "</br>");
+                        $('#show_body').html("<b>محتوى النص : " + "<br>" + html.data.description + "</br>");
                         $('.modal-title').text("عرض بيانات المحتوى");
                         $('#formShow').modal('show');
                     }

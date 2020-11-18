@@ -84,11 +84,14 @@
                                     class="fa fa-print"></i> طباعة
                             </button>
                         </div>
-                        <div class="col-xs-6">
-                            <button class="btn btn-default" id="change_status"><i
-                                    class="fa fa-share"></i> تغيير حالة الطلب
-                            </button>
-                        </div>
+                        @if ((Auth::user()->can('manage orders') == true))
+
+                            <div class="col-xs-6">
+                                <button class="btn btn-default" id="change_status"><i
+                                        class="fa fa-share"></i> تغيير حالة الطلب
+                                </button>
+                            </div>
+                        @endif
                     </div>
                 </section>
             </div>

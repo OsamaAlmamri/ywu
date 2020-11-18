@@ -190,23 +190,26 @@
                     },
                     lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
                     buttons: [
+                            @if ((Auth::user()->can('manage products') == true))
 
                         {
                             text: '<i class="fa fa-plus" ></i>  إنشاء منتج جديدة ',
                             className: 'btn btn-info create_record',
                         },
+                        @endif
                     ],
                     ajax: {
                         url: "{{route('admin.shop.products.index')}}",
                         data: {category_id: $("#filter_country").val()}
                     },
                     columns: [
-
+                            @if ((Auth::user()->can('manage products') == true))
                         {
                             title: '  ترتيب العرض ',
                             data: 'btn_sort',
                             name: 'btn_sort'
                         },
+                        @endif
                         {
                             title: 'المحافظة ',
                             name: 'zone',
@@ -254,6 +257,7 @@
                             data: 'btn_rating',
                             name: 'btn_rating',
                         },
+                            @if ((Auth::user()->can('manage products') == true))
                         {
                             title: 'الحالة',
                             data: 'btn_status',
@@ -265,6 +269,7 @@
                             name: 'action',
                             orderable: false
                         },
+                        @endif
                     ],
 
                 });

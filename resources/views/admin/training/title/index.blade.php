@@ -28,11 +28,14 @@
                 <div class="col-md-4"></div>
             </div>
             <br/>
-            <div align="right">
-                <button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm">إنشاء مادة
-                    جديده
-                </button>
-            </div>
+            @if ((Auth::user()->can('manage training') == true))
+                <div align="right">
+                    <button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm">إنشاء
+                        مادة
+                        جديده
+                    </button>
+                </div>
+            @endif
             <br/>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped" id="user_table">
@@ -137,11 +140,13 @@
                         {
                             data: 'published',
                         },
+                            @if ((Auth::user()->can('manage training') == true))
                         {
                             data: 'action',
                             name: 'action',
                             orderable: false
                         },
+                        @endif
                     ]
                 });
             }

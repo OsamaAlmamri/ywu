@@ -22,7 +22,7 @@ class TitleController extends Controller
             $post = TrainingTitle::with('training')->where('training_id', $id)->get();
             if ($post) {
                 return datatables()->of($post)
-                    ->addColumn('action', 'title.btn.action')
+                    ->addColumn('action', 'admin.training.title.btn.action')
                     ->editColumn('training', function ($post) {
                         return $post->training->name;
                     })

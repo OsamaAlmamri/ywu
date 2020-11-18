@@ -36,7 +36,7 @@ class ContentController extends Controller
             $post = $post->orderByDesc('id')->get();
             if ($post) {
                 return datatables()->of($post)
-                    ->addColumn('action', 'content.btn.action')
+                    ->addColumn('action', 'admin.training.content.btn.action')
                     ->editColumn('title_C', function ($post) {
                         return empty($post->title_C) ? 'لايوجد عنوان' : $post->title_C->name;
                     })

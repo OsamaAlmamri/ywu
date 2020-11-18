@@ -101,12 +101,15 @@
                         data: 'published',
                         data: 'published',
                     },
+                        @if ((Auth::user()->can('manage employees_sections') == true))
+
                     {
                         title: 'العمليات',
                         data: 'action',
                         name: 'action',
                         orderable: false
                     },
+                    @endif
                 ]
             });
 

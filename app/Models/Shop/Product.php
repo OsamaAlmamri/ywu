@@ -17,7 +17,7 @@ class Product extends Model
 
     protected $fillable = ['admin_id', 'category_id', 'name', 'description', 'image_id', 'price', 'has_attribute', 'available', 'sort', 'status'];
 
-    protected $appends = ['image', 'image_actual', 'zone', 'category', 'space', 'published', 'average_rating', 'count_rating', 'percent_rating', 'rating_details'];
+    protected $appends = ['in_cart', 'image', 'image_actual', 'zone', 'category', 'space', 'published', 'average_rating', 'count_rating', 'percent_rating', 'rating_details'];
 
     protected $with = ['is_like'];
 
@@ -31,6 +31,13 @@ class Product extends Model
         $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
         return $this->hasOne(Like::class, 'liked_id', 'id')
             ->where('type', 'product')
+            ->where('user_id', $user_id);
+    }
+
+    public function productCart()
+    {
+        $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
+        return $this->hasOne(Cart::class, 'product_id', 'id')
             ->where('user_id', $user_id);
     }
 
@@ -408,6 +415,12 @@ class Product extends Model
     {
         $im = $this->image_category_act();
         return ($im != null) ? $this->image_category_act()->path : null;
+    }
+
+    function getInCartAttribute()
+    {
+        $im = $this->productCart()->get()->first();
+        return ($im != null) ? 1 : 0;
     }
 
     function getProductOptionsAttribute()

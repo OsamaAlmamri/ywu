@@ -79,22 +79,29 @@
                         name: 'seller.more_address_info'
                     },
 
-                    {
-                        title: 'حالة الحساب',
-                        data: 'btn_status',
-                        name: 'btn_status'
-                    },
+
                     {
                         title: 'تاريخ إنشاء الحساب',
                         data: 'published',
                         data: 'published',
                     },
+                        @if ((Auth::user()->can('active sellers') == true))
+                    {
+                        title: 'حالة الحساب',
+                        data: 'btn_status',
+                        name: 'btn_status'
+                    },
+                        @endif
+                        @if ((Auth::user()->can('manage sellers') == true))
+
+
                     {
                         title: 'العمليات',
                         data: 'action',
                         name: 'action',
                         orderable: false
                     },
+                    @endif
                 ]
             });
         });

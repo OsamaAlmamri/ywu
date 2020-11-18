@@ -41,8 +41,9 @@
     <link href="{{asset('site/css/osama.css')  }}" rel="stylesheet">
 </head>
 <body>
-<div class="page-wrapper" id="app">
 
+<div class="page-wrapper" id="app">
+    <input type="hidden" name="" id="device_token" value="">
     {{--    <nav-header></nav-header>--}}
     <header class="main-header header-style-one">
 
@@ -387,11 +388,104 @@
 <script src="{!! asset('site/js/jquery-ui.js') !!}"></script>
 <script src="{!! asset('site/js/script.js') !!}"></script>
 
+<script src="{{asset('firebase\firebase-app.js')}}"></script>
+<script src="{{asset('firebase\firebase-messaging.js')}}"></script>
+<script src="{{asset('firebase\firebase-firestore.js')}}"></script>
+<script src="{{asset('firebase\firebase-analytics.js')}}"></script>
 
+<script>
+
+    $(document).ready(function () {
+        // Your web app's Firebase configuration
+        var notificattions = $('#admin_notification');
+        var notificationsCount = parseInt($('#notification_count').text());
+
+        function playSound() {
+            var mp3Source = '<source src="{{url('')}}/1.mp3" type="audio/mpeg">';
+            var oggSource = '<source src="{{url('')}}/1.ogg" type="audio/ogg">';
+            var embedSource = '<embed hidden="true" autostart="true" loop="false" src="{{url('')}}/1.mp3">';
+            document.getElementById("sound").innerHTML = '<audio autoplay="autoplay">' + mp3Source + oggSource + embedSource + '</audio>';
+        }
+
+        function newNotification(data) {
+            toastr.info(data.message);
+            var existingNotifications = notificattions.html();
+            var newNotificationHtml = '<li>\n' +
+                '                            <a>\n' +
+                '                                <span class="image">\n' +
+                '                                    <img src="' + data.sender_image + '" alt=" Image"/>\n' +
+                '                                </span>\n' +
+                '                                <span>\n' +
+                '                          <span>' + data.sender_name + ' </span>\n' +
+                '                          <span class="time">الان  </span>\n' +
+                // '                          <span class="time">' + data.date + ' </span>\n' +
+                '                        </span>\n' +
+                '                                <span class="message">' + data.message + '</span>\n' +
+                '                            </a>\n' +
+                '                        </li>';
+            notificattions.html(newNotificationHtml + existingNotifications);
+            notificationsCount += 1;
+            $('#notification_count').text(notificationsCount);
+        }
+
+        var firebaseConfig = {
+            apiKey: "AIzaSyA6i0L2F8RrJ13E0dRCZWdgJMWnzKx-x30",
+            authDomain: "halaalmadi-e8464.firebaseapp.com",
+            databaseURL: "https://halaalmadi-e8464.firebaseio.com",
+            projectId: "halaalmadi-e8464",
+            storageBucket: "halaalmadi-e8464.appspot.com",
+            messagingSenderId: "51100198139",
+            appId: "1:51100198139:web:1e7f13b469cd102a4ffc5e",
+            measurementId: "G-LYPYW0D2ZZ"
+        };
+// Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        const messaging = firebase.messaging();
+        messaging.requestPermission()
+            .then(function () {
+                console.log('Notification permission granted.');
+                // TODO(developer): Retrieve a Instance ID token for use with FCM.
+                // ...
+            })
+            .catch(function (err) {
+                console.log('Unable to get permission to notify.----------- ', err);
+            });
+        messaging.usePublicVapidKey("BOhwORjxRrq_yMgeKxEZ06IhrFdSxONWttCKZrJTwJ4N84hxNZ9rS_8-kHvGBrKaPlcxUFgd9oinnd4DpfSjHAE");
+        // Get Instance ID token. Initially this makes a network call, once retrieved
+        // subsequent calls to getToken will return from cache.
+        messaging.requestPermission()
+            .then(() => {
+                console.log("Have Permission");
+                return messaging.getToken();
+            })
+            .then(token => {
+                console.log("FCM Token:", token);
+                $("#device_token").val(token);
+                //Do something with TOken like subscribe to topics
+            })
+            .catch(error => {
+                if (error.code === "messaging/permission-blocked") {
+                    console.log("Please Unblock Notification Request Manually");
+                } else {
+                    console.log("Error Occurred", error);
+                }
+            });
+        messaging.onMessage(function (payload) {
+            console.log('Message received. ', payload);
+            newNotification(payload.data);
+            playSound();
+
+
+        });
+
+
+    })
+
+</script>
 
 
 @yield('js')
-
 
 
 </body>

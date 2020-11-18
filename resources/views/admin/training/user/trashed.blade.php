@@ -92,12 +92,15 @@
                         data: 'published',
                         data: 'published',
                     },
+                        @if ((Auth::user()->can('manage users') == true))
+
                     {
                         title: 'العمليات',
                         data: 'action',
                         name: 'action',
                         orderable: false
                     }
+                    @endif
                 ]
 
             });

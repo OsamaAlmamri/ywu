@@ -215,7 +215,7 @@
 @endsection
 @section('custom_js')
 
-        @include('adminpanel.wyswyg')
+    @include('adminpanel.wyswyg')
 
     @include('adminpanel.active')
     <script>
@@ -242,11 +242,12 @@
                     dom: 'Brfltip',
                     lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
                     buttons: [
-
+                            @if ((Auth::user()->can('manage training') == true))
                         {
                             text: '<i class="fa fa-plus" ></i>  إنشاء دورة تدريبية جديده ',
                             className: 'btn btn-info create_record',
                         },
+                        @endif
                     ],
                     ajax: {
                         url: "{{ route('training') }}",
@@ -321,12 +322,14 @@
                             title: 'عرض المحتويات',
                             orderable: false,
                         },
+                            @if ((Auth::user()->can('manage training') == true))
                         {
                             data: 'action',
                             name: 'action',
                             title: 'عمليات',
                             orderable: false,
                         },
+                        @endif
                     ],
                 });
             }

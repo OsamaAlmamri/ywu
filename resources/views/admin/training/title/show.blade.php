@@ -108,11 +108,12 @@
                     dom: 'Brfltip',
                     lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
                     buttons: [
-
+                            @if ((Auth::user()->can('manage training') == true))
                         {
                             text: '<i class="fa fa-plus" ></i>  إنشاء عنوان فرعي جديده  ',
                             className: 'btn btn-info create_record',
                         },
+                        @endif
                     ],
                     ajax: {
                         url: "{{route('showTitles',$id)}}",
@@ -133,12 +134,14 @@
                             name: 'العنوان',
                             data: 'published',
                         },
+                            @if ((Auth::user()->can('manage training') == true))
                         {
                             title: 'عمليات',
                             data: 'action',
                             name: 'action',
                             orderable: false
                         },
+                        @endif
                     ]
                 });
             }

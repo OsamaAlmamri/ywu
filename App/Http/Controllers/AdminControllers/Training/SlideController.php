@@ -27,10 +27,10 @@ class SlideController extends Controller
             $post = Slide::orderBy('sort')->get();
             if ($post) {
                 return datatables()->of($post)
-                    ->addColumn('action', 'slides.btn.action')
-                    ->addColumn('btn_image', 'slides.btn.image')
+                    ->addColumn('action', 'admin.training.slides.btn.action')
+                    ->addColumn('btn_image', 'admin.training.slides.btn.image')
                     ->addColumn('btn_sort', 'sortFiles.btn_sort')
-                    ->addColumn('btn_status', 'slides.btn.status')
+                    ->addColumn('btn_status', 'admin.training.slides.btn.status')
                     ->rawColumns(['btn_sort', 'action', 'btn_image', 'btn_status'])
                     ->make(true);
             }

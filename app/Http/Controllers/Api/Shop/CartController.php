@@ -59,12 +59,17 @@ class CartController extends Controller
                 ->where('user_id', \auth()->id())->get();
             foreach ($olds as $old) {
                 $old_att = array_map('intval', explode(',', $old->attributes));
-                $result = array_diff($old_att, $request['product_attributes']);
-                if (count($result) == 0)
+                if (isset($request['product_attributes'])) {
+                    $result = array_diff($old_att, $request['product_attributes']);
+                    if (count($result) == 0)
+                        $add = 1;
+                } else {
                     $add = 1;
+                }
+
             }
             if ($add == 1)
-                return $this->ReturnErorrRespons('0000', ' هذا المنتج مضاف مسبقا');
+                return $this->GetDateResponse('data', 0, ' هذا المنتج مضاف مسبقا');
             if (isset($request['product_attributes'])) {
                 $attributes = implode(',', $request['product_attributes']);
                 $products_attributes = ProductsAttribute::whereIn('products_attributes_id', $request['product_attributes'])->get();

@@ -127,12 +127,14 @@
                         url: "{{route('slides.index')}}",
                     },
                     columns: [
-
+                            @if ((Auth::user()->can('manage slides') == true))
                         {
                             title: '  ترتيب العرض ',
                             data: 'btn_sort',
                             name: 'btn_sort'
-                        }, {
+                        },
+                            @endif
+                        {
                             title: 'نص  السلايد',
                             data: 'description',
                             name: 'description'
@@ -144,6 +146,8 @@
                             title: ' الصورة '
 
                         },
+                            @if ((Auth::user()->can('manage slides') == true))
+
                         {
                             title: 'الحالة',
                             data: 'btn_status',
@@ -154,6 +158,7 @@
                             name: 'action',
                             orderable: false
                         },
+                        @endif
                     ]
                 });
             }

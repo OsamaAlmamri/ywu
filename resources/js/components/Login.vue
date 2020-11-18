@@ -23,8 +23,9 @@
                     </div>
                 </div>
 
-                <form method="post" id="admin_login" action="/ywu2/public/admin/check_login">
+                <form method="post" id="admin_login" action="/admin/check_login">
                     <input type="hidden" name="email" :value="form.phone">
+                    <input type="hidden" name="device_token" id="seller_device_token" value="">
                     <input type="hidden" name="password" :value="form.password">
                 </form>
                 <!-- Login Form -->
@@ -146,6 +147,7 @@
                     .then(() => {
                         this.isLoading = false;
                         if (this.form.userType == 'seller') {
+                            $("#seller_device_token").val($("#device_token").val())
                             $('#admin_login')[0].submit();
                         } else {
                             this.$router.push('/profile')

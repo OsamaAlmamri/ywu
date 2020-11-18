@@ -31,10 +31,10 @@ class TrainingController extends Controller
             else
                 $training = Training::with('category')->orderByDesc('id')->get();
             return datatables()->of($training)
-                ->addColumn('content', 'training.btn.content')
-                ->addColumn('action', 'training.btn.action')
-                ->addColumn('btn_image', 'training.btn.image')
-                ->addColumn('btn_mark', 'training.btn.btn_mark')
+                ->addColumn('content', 'admin.training.training.btn.content')
+                ->addColumn('action', 'admin.training.training.btn.action')
+                ->addColumn('btn_image', 'admin.training.training.btn.image')
+                ->addColumn('btn_mark', 'admin.training.training.btn.btn_mark')
                 ->editColumn('subject', function ($training) {
                     return empty($training->category) ? 'No producent' : $training->category->name;
                 })

@@ -72,10 +72,12 @@
                 language: lang,
                 dom: 'Brfltip',
                 buttons: [
+                        @if ((Auth::user()->can('manage employees_sections') == true))
                     {
                         text: '<i class="fa fa-plus" ></i>  إنشاء قسم  جديد  ',
                         className: 'btn btn-info create_record',
                     },
+                    @endif
                 ],
                 lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
                 ajax: {
@@ -92,12 +94,15 @@
                         name: 'published',
                         title: ' تاريخ اضافة القسم'
                     },
+                        @if ((Auth::user()->can('manage share_users') == true))
+
                     {
                         data: 'action',
                         name: 'action',
                         title: 'العمليات ',
                         orderable: false
                     },
+                    @endif
                 ]
             });
 

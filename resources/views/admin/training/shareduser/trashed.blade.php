@@ -97,12 +97,15 @@
                         data: 'published',
                         data: 'published',
                     },
+                        @if ((Auth::user()->can('manage share_users') == true))
+
                     {
                         title: 'العمليات',
                         data: 'action',
                         name: 'action',
                         orderable: false
                     },
+                    @endif
                 ]
             });
 

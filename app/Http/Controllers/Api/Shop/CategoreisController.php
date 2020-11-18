@@ -32,8 +32,11 @@ class CategoreisController extends Controller
 
     public function gov_seller(Request $request)
     {
-        $data = Seller::with(['admin:id,name,email,phone,created_at'])
-            ->where('gov_id', $request->gov_id)->get();
+        if (isset($request->gov_id) and $request->gov_id > 0)
+            $data = Seller::with(['admin:id,name,email,phone,created_at'])
+                ->where('gov_id', $request->gov_id)->get();
+        else
+            $data = Seller::with(['admin:id,name,email,phone,created_at'])->get();
         return $this->GetDateResponse('data', $data);
     }
 

@@ -25,7 +25,7 @@ class UserTrainingController extends Controller
                 $post = $post->get();
             if ($post) {
                 return datatables()->of($post)
-                    ->addColumn('action', 'user_trinings.btn.action')
+                    ->addColumn('action', 'admin.training.user_trinings.btn.action')
                     ->rawColumns(['action'])
                     ->make(true);
             }

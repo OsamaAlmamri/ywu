@@ -76,12 +76,14 @@
                             name: 'published',
                             data: 'published',
                         },
+                            @if ((Auth::user()->can('manage training') == true))
                         {
                             title: 'عمليات',
                             data: 'action',
                             name: 'action',
                             orderable: false
                         },
+                        @endif
                     ]
                 });
             }
