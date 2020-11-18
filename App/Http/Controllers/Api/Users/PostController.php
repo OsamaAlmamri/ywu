@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\UserContents\Category;
 use App\Models\UserContents\Comment;
 use App\Models\UserContents\Post;
+use App\Notifications\AppNotification;
 use App\Traits\JsonTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -117,6 +118,24 @@ class PostController extends Controller
             ]);
             $post = Post::with(['user', 'category', 'comments', 'user_like'])
                 ->where('id', $post->id)->get()->first();
+            $message = 'هناك استشارة جديدة من   ' . $this->user->name . '  بانتظار الموافقة  ' ;
+            $dataToNotification = array(
+                'sender_name' => auth()->user()->name,
+                'order_id' => $post->id,
+                'notification_type' => "new_post",
+                'user_id' => \auth()->id(),
+                'sender_image' => url('site/images/Logo250px.png'),
+                'message' => $message,
+                'date' => $post->created_at
+            );
+            $admins_id = [];
+            $admins = getAdminsOrderNotifucation('new_post');
+            foreach ($admins as $admin) {
+                $admins_id[] = $admin->id;
+                $admin->notify(new AppNotification($dataToNotification));
+            }
+            $tokens = getNotifiableUsers(0, $admins_id);
+            $this->firbaseContoller->multi($tokens, $dataToNotification);
             return $this->GetDateResponse('data', $post, "تم نشر استشارتك");
 
         } catch (\Exception $ex) {

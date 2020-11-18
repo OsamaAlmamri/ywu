@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api\Users;
 use App\Admin;
 use App\Customer;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\FireBaseController;
 use App\Models\Shop\ProductsAttribute;
+use App\Notifications\AppNotification;
 use App\Rules\MatchOldPassword;
 use App\Seller;
 use App\ShareUser;
@@ -25,6 +27,11 @@ class UserController extends Controller
     public $loginAfterSignUp = true;
     use JsonTrait;
     use AuthTrait;
+
+    public function __construct(FireBaseController $firbaseContoller)
+    {
+        $this->firbaseContoller = $firbaseContoller;
+    }
 
     public function register(Request $request)
     {
@@ -98,6 +105,26 @@ class UserController extends Controller
             if ($request->userType == 'share_user') {
                 $user = User::create(array_merge($request->all(), ['type' => 'share_users', 'status' => 0]));
                 ShareUser::create(['user_id' => $user->id, 'type' => $request->share_user_type, 'destination' => $request->destination]);
+
+                $message = 'قام  ' . $user->name . '  بتسجيل حساب شريك جديد و بانتظار الموافقة  ' ;
+                $dataToNotification = array(
+                    'sender_name' => auth()->user()->name,
+                    'order_id' => $user->id,
+                    'notification_type' => "new_share_user",
+                    'user_id' => \auth()->id(),
+                    'sender_image' => url('site/images/Logo250px.png'),
+                    'message' => $message,
+                    'date' => $user->created_at
+                );
+                $admins_id = [];
+                $admins = getAdminsOrderNotifucation('new_share_user');
+                foreach ($admins as $admin) {
+                    $admins_id[] = $admin->id;
+                    $admin->notify(new AppNotification($dataToNotification));
+                }
+                $tokens = getNotifiableUsers(0, $admins_id);
+                $this->firbaseContoller->multi($tokens, $dataToNotification);
+
             } elseif ($request->userType == 'customer') {
                 $user = User::create(array_merge($request->all(), ['type' => 'customers', 'status' => 1]));
                 $Customer = Customer::create(array_merge($request->all(), ['user_id' => $user->id]));
@@ -109,6 +136,25 @@ class UserController extends Controller
                 $saller = Seller::create(array_merge($request->except(['ssn_image', 'image']),
                     ['admin_id' => $user->id, 'ssn_image' => $image]
                 ));
+
+                $message = 'قام  ' . $user->name . '  بتسجيل حساب تاجر جديد و بانتظار الموافقة  ' ;
+                $dataToNotification = array(
+                    'sender_name' => auth()->user()->name,
+                    'order_id' => $user->id,
+                    'notification_type' => "new_seller",
+                    'user_id' => \auth()->id(),
+                    'sender_image' => url('site/images/Logo250px.png'),
+                    'message' => $message,
+                    'date' => $user->created_at
+                );
+                $admins_id = [];
+                $admins = getAdminsOrderNotifucation('new_seller');
+                foreach ($admins as $admin) {
+                    $admins_id[] = $admin->id;
+                    $admin->notify(new AppNotification($dataToNotification));
+                }
+                $tokens = getNotifiableUsers(0, $admins_id);
+                $this->firbaseContoller->multi($tokens, $dataToNotification);
                 $this->loginAfterSignUp = false;
                 return $this->GetDateResponse('data', "seller");
 

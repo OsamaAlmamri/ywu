@@ -23,6 +23,19 @@ if (!function_exists('getViewCustomDate')) {
         return '';
     }
 }
+
+
+function notification_type($date)
+{
+    // new_share_user
+    // new_seller
+    // new_post
+    // payment
+    // sub_order
+    // order
+    // new_training_user
+    return '';
+}
 if (!function_exists('getAdminsOrderNotifucation')) {
     function getAdminsOrderNotifucation($event_status)
     {
