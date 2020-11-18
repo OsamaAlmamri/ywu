@@ -22,6 +22,13 @@ class EmployeeController extends Controller
     use JsonTrait;
     use PostTrait;
 
+    public function __construct()
+    {
+        $this->middleware('permission:show employees', ['only' => ['index','show','index_trashed']]);
+        $this->middleware('permission:manage employees', ['only' => ['force','restore_post','edit_trashed','index_trashed','changeOrder','destroy','edit','store','update','active']]);
+        $this->middleware('permission:active employees', ['only' => ['active']]);
+    }
+
     public function index($id = 0)
     {
         if (request()->ajax()) {

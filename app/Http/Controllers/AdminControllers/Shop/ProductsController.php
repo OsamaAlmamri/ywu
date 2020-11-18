@@ -12,7 +12,8 @@ use App\Traits\PostTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
-
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 class ProductsController extends Controller
 {
     use JsonTrait;
@@ -20,8 +21,16 @@ class ProductsController extends Controller
 
     public function __construct(Product $products)
     {
-
         $this->products = $products;
+        $this->middleware('permission:show products', ['only' => ['index', 'attributes']]);
+        $this->middleware('permission:manage products',
+            ['only' => ['changeOrder', 'addnewdefaultattribute', 'showoptions',
+                'updatedefaultattribute', 'deletedefaultattributemodal',
+                'deletedefaultattribute', 'editoptionform', 'updateoption',
+                'showdeletemodal', 'deleteoption', 'getOptionsValue', 'attributes',
+                'changeOrder', 'destroy', 'edit', 'store', 'update', 'active']]);
+        $this->middleware('permission:active products', ['only' => ['active']]);
+
 
     }
 
@@ -40,7 +49,7 @@ class ProductsController extends Controller
                     ->addColumn('btn_status', 'admin.shop.products.btn.status')
                     ->addColumn('btn_rating', 'admin.shop.products.btn.rating')
                     ->addColumn('btn_available', 'admin.shop.products.btn.available')
-                    ->rawColumns(['action','btn_rating', 'btn_image', 'btn_sort', 'btn_available', 'btn_status'])
+                    ->rawColumns(['action', 'btn_rating', 'btn_image', 'btn_sort', 'btn_available', 'btn_status'])
                     ->make(true);
             }
         }
@@ -140,7 +149,6 @@ class ProductsController extends Controller
         }
         print_r($value_name);
     }
-
 
     function changeOrder(Request $request)
     {

@@ -20,6 +20,13 @@ class ActivitiesController extends Controller
     use JsonTrait;
     use PostTrait;
 
+    public function __construct()
+    {
+        $this->middleware('permission:show activates', ['only' => ['index','show']]);
+        $this->middleware('permission:manage activates', ['only' => ['changeOrder','destroy','edit','store','update','active']]);
+        $this->middleware('permission:active activates', ['only' => ['active']]);
+    }
+
     public function index()
     {
         if (request()->ajax()) {

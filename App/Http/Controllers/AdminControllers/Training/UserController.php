@@ -10,10 +10,20 @@ use App\User;
 use App\Http\Controllers\Controller;
 
 
+
 class UserController extends Controller
 {
     use JsonTrait;
     use PostTrait;
+
+
+    public function __construct()
+    {
+        $this->middleware('permission:show users', ['only' => ['index','show','changeType','index_trashed']]);
+        $this->middleware('permission:manage users', ['only' => ['index_trashed','restore_post','force','changeType','changeOrder','destroy','edit','store','update','active']]);
+        $this->middleware('permission:active users', ['only' => ['active']]);
+    }
+
 
     public function index($id = 0)
     {

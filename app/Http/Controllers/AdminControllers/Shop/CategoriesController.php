@@ -15,6 +15,12 @@ class CategoriesController extends Controller
 {
     use JsonTrait;
     use PostTrait;
+    public function __construct()
+    {
+        $this->middleware('permission:show categories', ['only' => ['index','show']]);
+        $this->middleware('permission:manage categories', ['only' => ['changeOrder','destroy','edit','store','update','active']]);
+        $this->middleware('permission:active categories', ['only' => ['active']]);
+    }
 
     public function index()
     {
@@ -49,7 +55,6 @@ class CategoriesController extends Controller
         }
         return response('Update Successfully.', 200);
     }
-
     public function show()
     {
 

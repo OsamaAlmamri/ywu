@@ -17,6 +17,7 @@ class SharedUserController extends Controller
     use JsonTrait;
     use AuthTrait;
 
+
     public function register(Request $request)
     {
         try {

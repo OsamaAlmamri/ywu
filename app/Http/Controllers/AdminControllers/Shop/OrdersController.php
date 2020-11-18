@@ -15,13 +15,18 @@ use App\Notifications\AppNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
-
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 class OrdersController extends Controller
 
 {
+
     public function __construct(FireBaseController $firbaseContoller)
     {
         $this->firbaseContoller = $firbaseContoller;
+        $this->middleware('permission:show orders', ['only' => ['index','show_main_order','show_seller_order']]);
+        $this->middleware('permission:manage orders', ['only' => ['change_sub_status','destroy','edit','store','update','active']]);
+        $this->middleware('permission:active orders', ['only' => ['active']]);
     }
 
     public function index($type = 'main')
@@ -53,8 +58,6 @@ class OrdersController extends Controller
         }
         return view('admin.shop.orders.index', compact('type'));
     }
-
-
     public function getData($type, $to_zone, $status, $payment_status, $from_date = '1970-01-01', $to_date = '9999-09-09')
     {
         if ($type == 'main') {
@@ -84,22 +87,18 @@ class OrdersController extends Controller
 
         return $data->get();
     }
-
     public function show_seller_order($id)
     {
         $order_seller = OrderSeller::find($id);
         return view('admin.shop.orders.show')->with('type', 'sub_order')->with('order_seller', $order_seller);
 
     }
-
     public function show_main_order($id)
     {
         $order = Order::find($id);
         return view('admin.shop.orders.show_main')->with('type', 'order')->with('order', $order);
 
     }
-
-
     public function change_sub_status(Request $request)
     {
 

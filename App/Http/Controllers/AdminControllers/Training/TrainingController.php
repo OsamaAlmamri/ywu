@@ -19,6 +19,12 @@ class TrainingController extends Controller
 {
     use JsonTrait;
     use PostTrait;
+    public function __construct()
+    {
+        $this->middleware('permission:show training', ['only' => ['index','show']]);
+        $this->middleware('permission:manage training', ['only' => ['index_trashed','show_trashed','restore_post','force','changeOrder','destroy','edit','store','update','active']]);
+        $this->middleware('permission:active training', ['only' => ['active']]);
+    }
 
     public function index()
     {

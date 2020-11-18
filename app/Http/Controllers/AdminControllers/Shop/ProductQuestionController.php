@@ -11,10 +11,19 @@ use App\Models\Shop\QuestionReplay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
-
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 class ProductQuestionController extends Controller
 
 {
+    public function __construct()
+    {
+        $this->middleware('permission:show products_questions', ['only' => ['filter2','index','show_replies']]);
+        $this->middleware('permission:manage products_questions', ['only' => ['replay_product_questions','delete_replay','edit_product_questions',
+            'changeOrder','filter2','active']]);
+        $this->middleware('permission:active products_questions', ['only' => ['active']]);
+    }
+
     public function index()
     {
         if (request()->ajax()) {

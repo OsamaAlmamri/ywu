@@ -18,6 +18,12 @@ class ContentController extends Controller
 {
     use JsonTrait;
     use PostTrait;
+    public function __construct()
+    {
+        $this->middleware('permission:show training', ['only' => ['index','show']]);
+        $this->middleware('permission:manage training', ['only' => ['changeOrder','destroy','edit','store','update','active']]);
+        $this->middleware('permission:active training', ['only' => ['active']]);
+    }
 
     public function index_edit($id)
     {

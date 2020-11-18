@@ -9,12 +9,22 @@ use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class ProductsOptionsController extends Controller
 {
     use JsonTrait;
     use PostTrait;
+    public function __construct()
+    {
+        $this->middleware('permission:show products_attributes', ['only' => ['index','show']]);
+        $this->middleware('permission:manage products_attributes',
+            ['only' => ['changeOrder', 'store_options_values','update_options_values',
+                'changeOrder','update_options_values', 'destroy', 'edit', 'store', 'update', 'active']]);
 
+
+    }
     public function index()
     {
         if (request()->ajax()) {
@@ -34,15 +44,12 @@ class ProductsOptionsController extends Controller
         return view('admin.shop.products_options.index');
     }
 
-
     public function show($id)
     {
         $data = ProductsOption::find($id);
         return response()->json($data, 200);
 
     }
-
-
     private function check_inputes($request)
     {
         $rules = [
@@ -53,8 +60,6 @@ class ProductsOptionsController extends Controller
         ];
         return Validator::make($request->all(), $rules, $messages);
     }
-
-
     public function store(Request $request)
     {
         $error = $this->check_inputes($request);

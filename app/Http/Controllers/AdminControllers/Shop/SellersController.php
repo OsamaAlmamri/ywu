@@ -22,6 +22,12 @@ class SellersController extends Controller
 {
     use PostTrait;
 
+    public function __construct()
+    {
+        $this->middleware('permission:show sellers', ['only' => ['index','show']]);
+        $this->middleware('permission:manage sellers', ['only' => ['changeOrder','destroy','edit','store','update','active']]);
+        $this->middleware('permission:active sellers', ['only' => ['active']]);
+    }
     public function index()
     {
         if (request()->ajax()) {

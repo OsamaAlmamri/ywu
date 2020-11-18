@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminControllers\Shop;
 
 use App\Admin;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\FireBaseController;
 use App\Models\Shop\Order;
 use App\Models\Shop\OrderPayment;
 use App\Models\Shop\OrderSeller;
@@ -15,10 +16,16 @@ use Faker\Provider\ar_SA\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
-
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 class PaymentController extends Controller
 
 {
+    public function __construct()
+    {
+        $this->middleware('permission:show payment', ['only' => ['index',]]);
+        $this->middleware('permission:manage payment', ['only' => ['change_status','destroy','edit','store','update','active']]);
+    }
     public function index()
     {
         if (request()->ajax()) {

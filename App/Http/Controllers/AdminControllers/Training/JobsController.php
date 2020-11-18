@@ -19,6 +19,12 @@ class JobsController extends Controller
     use JsonTrait;
     use PostTrait;
 
+    public function __construct()
+    {
+        $this->middleware('permission:show employees_jobs', ['only' => ['index','show','index_edit']]);
+        $this->middleware('permission:manage employees_jobs', ['only' => ['destroy_training','index_edit','store_training','destroy_training','changeOrder','destroy','edit','store','update','active']]);
+        $this->middleware('permission:active employees_jobs', ['only' => ['active']]);
+    }
     public function index()
     {
         if (request()->ajax()) {

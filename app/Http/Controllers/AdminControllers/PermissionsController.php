@@ -17,13 +17,14 @@ use Spatie\Permission\Models\Role;
 class PermissionsController extends Controller
 {
     //
+
     public function __construct()
     {
 
 //        $this->middleware('auth');
-//        $this->middleware('permission:show permissions', ['only' => ['index']]);
-//        $this->middleware('permission:manage permissions', ['only' => ['create', 'edit', 'update', 'delete', 'deleteMulti']]);
-//        $this->middleware('permission:manage deleted permissions', ['only' => ['deleted', 'forceDelete', 'restore', 'delete']]);
+        $this->middleware('permission:show permissions', ['only' => ['index']]);
+        $this->middleware('permission:manage permissions', ['only' => ['create', 'edit', 'update', 'delete', 'deleteMulti']]);
+        $this->middleware('permission:manage deleted permissions', ['only' => ['deleted', 'forceDelete', 'restore', 'delete']]);
 
     }
 

@@ -21,6 +21,13 @@ class SlideController extends Controller
     use JsonTrait;
     use PostTrait;
 
+    public function __construct()
+    {
+        $this->middleware('permission:show slides', ['only' => ['index','show','changeType']]);
+        $this->middleware('permission:manage slides', ['only' => ['changeType','changeOrder','destroy','edit','store','update','active']]);
+        $this->middleware('permission:active slides', ['only' => ['active']]);
+    }
+
     public function index()
     {
         if (request()->ajax()) {

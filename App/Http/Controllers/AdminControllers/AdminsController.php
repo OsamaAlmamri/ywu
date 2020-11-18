@@ -27,7 +27,12 @@ class AdminsController extends Controller
     {
         return redirect()->route('home');
     }
-
+    public function __construct()
+    {
+        $this->middleware('permission:show training', ['only' => ['index','show','Update_Admin_Details','Admin_update']]);
+        $this->middleware('permission:manage training', ['only' => ['Update_Admin_Details','Admin_update','restore_post','force','changeOrder','destroy','edit','store','update','active']]);
+        $this->middleware('permission:active training', ['only' => ['active']]);
+    }
     public function index()
     {
         if (request()->ajax()) {

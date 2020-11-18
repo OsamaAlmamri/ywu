@@ -18,6 +18,13 @@ class WomenController extends Controller
     use JsonTrait;
     use PostTrait;
 
+    public function __construct()
+    {
+        $this->middleware('permission:show women', ['only' => ['index','show','index_trashed']]);
+        $this->middleware('permission:manage activates', ['only' => ['index_trashed','edit_trashed','restore_post','force','changeOrder','destroy','edit','store','update','active']]);
+        $this->middleware('permission:active activates', ['only' => ['active']]);
+    }
+
     public function index()
     {
         if (request()->ajax()) {
@@ -67,8 +74,6 @@ class WomenController extends Controller
         ];
         return Validator::make($request->all(), $rules, $messages);
     }
-
-
     public function store(Request $request)
     {
         $rules = $this->Post_Rules();
