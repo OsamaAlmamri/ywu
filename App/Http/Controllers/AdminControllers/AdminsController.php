@@ -29,9 +29,9 @@ class AdminsController extends Controller
     }
     public function __construct()
     {
-        $this->middleware('permission:show training', ['only' => ['index','show','Update_Admin_Details','Admin_update']]);
-        $this->middleware('permission:manage training', ['only' => ['Update_Admin_Details','Admin_update','restore_post','force','changeOrder','destroy','edit','store','update','active']]);
-        $this->middleware('permission:active training', ['only' => ['active']]);
+        $this->middleware('permission:show admins', ['only' => ['index','show','Update_Admin_Details','Admin_update']]);
+        $this->middleware('permission:manage admins', ['only' => ['Update_Admin_Details','Admin_update','restore_post','force','changeOrder','destroy','edit','store','update','active']]);
+        $this->middleware('permission:active admins', ['only' => ['active']]);
     }
     public function index()
     {

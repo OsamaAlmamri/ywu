@@ -35,27 +35,27 @@
                                         :class="['user_type_tap', 'tab-btn',{'active-btn':(form.userType=='visitor')}]">
                                         مستخدم
                                     </li>
-                                    <li data-tab="#prod-bookmark"
-                                        @click="changeUserType('share_user','sub_cluster')"
-                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.share_user_type=='sub_cluster')}]">
-                                        شريك
-                                    </li>
-                                    <li data-tab="#prod-setting" @click="changeUserType('share_user','copartner')"
-                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.share_user_type=='copartner')}]">
-                                        عضو
-                                        كتلة
-                                    </li>
+<!--                                    <li data-tab="#prod-bookmark"-->
+<!--                                        @click="changeUserType('share_user','sub_cluster')"-->
+<!--                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.share_user_type=='sub_cluster')}]">-->
+<!--                                        شريك-->
+<!--                                    </li>-->
+<!--                                    <li data-tab="#prod-setting" @click="changeUserType('share_user','copartner')"-->
+<!--                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.share_user_type=='copartner')}]">-->
+<!--                                        عضو-->
+<!--                                        كتلة-->
+<!--                                    </li>-->
                                     <li data-tab="#prod-overview" data-type="seller"
                                         @click="changeUserType('seller','')"
                                         :class="['user_type_tap', 'tab-btn',{'active-btn':(form.userType=='seller')}]">
                                         تاجر
                                     </li>
 
-                                    <li data-tab="#prod-overview" data-type="customer"
-                                        @click="changeUserType('customer','')"
-                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.userType=='customer')}]">
-                                        متسوق
-                                    </li>
+                                    <!--                                    <li data-tab="#prod-overview" data-type="customer"-->
+                                    <!--                                        @click="changeUserType('customer','')"-->
+                                    <!--                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.userType=='customer')}]">-->
+                                    <!--                                        متسوق-->
+                                    <!--                                    </li>-->
 
                                 </ul>
                             </div>
@@ -78,7 +78,7 @@
 
                             <!-- Form Group -->
                             <div class="form-group col-lg-6 col-md-12 col-sm-12">
-                                <label>  الجنس </label>
+                                <label> الجنس </label>
 
                                 <div class="student-profile-section" style="  margin-top: 0px;">
                                     <!-- Profile Info Tabs-->
@@ -105,9 +105,36 @@
                                 </div>
                             </div>
 
+                            <!-- Form Group -->
+                            <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                                <!--                                 v-show="form.userType=='customer' ||form.userType=='seller'">-->
+
+                                <label> المحافظة </label>
+                                <select @change="get_district()" class="form-control" id="sel1" v-model="form.gov_id">
+                                    <option v-for="gov in govs " :value="gov.id"> {{gov.name_ar}}</option>
+                                </select>
+                            </div>
 
                             <!-- Form Group -->
-                            <div class="form-group col-md-12 col-sm-12">
+                            <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                                <!--                                 v-show="form.userType=='customer' || form.userType=='seller'">-->
+                                <label> المديرية </label>
+                                <select class="form-control" id="sel2" v-model="form.district_id">
+                                    <option v-for="dist in districts " :value="dist.id"> {{dist.name_ar}}</option>
+                                </select>
+
+                            </div>
+
+                            <!-- Form Group -->
+                            <div class="form-group col-md-6 col-sm-12">
+                                <!--                                 v-show="form.userType=='customer' ||form.userType=='seller'">-->
+                                <label> معلومات اضافية عن مكان التواجد </label>
+                                <input type="text" name="" v-model="form.more_address_info" id="form_more_address_info"
+                                       value="">
+                            </div>
+                            <!-- Form Group -->
+                            <!-- Form Group -->
+                            <div class="form-group col-md-6 col-sm-12">
                                 <label> رقم الهاتف</label>
                                 <input type="text" v-model="form.phone" placeholder="777777777" required="">
                             </div>
@@ -129,42 +156,15 @@
                                        value="">
                             </div>
 
-                            <!-- Form Group -->
-                            <div class="form-group col-lg-6 col-md-12 col-sm-12"
-                                 v-show="form.userType=='customer' ||form.userType=='seller'">
-                                <label> المحافظة </label>
-                                <select @change="get_district()" class="form-control" id="sel1" v-model="form.gov_id">
-                                    <option v-for="gov in govs " :value="gov.id"> {{gov.name_ar}}</option>
-                                </select>
-                            </div>
-
-                            <!-- Form Group -->
-                            <div class="form-group col-lg-6 col-md-12 col-sm-12"
-                                 v-show="form.userType=='customer' || form.userType=='seller'">
-                                <label> المديرية </label>
-                                <select class="form-control" id="sel2" v-model="form.district_id">
-                                    <option v-for="dist in districts " :value="dist.id"> {{dist.name_ar}}</option>
-                                </select>
-
-                            </div>
-
-                            <!-- Form Group -->
-                            <div class="form-group col-md-12 col-sm-12"
-                                 v-show="form.userType=='customer' ||form.userType=='seller'">
-                                <label> معلومات اضافية عن مكان التواجد </label>
-                                <input type="text" name="" v-model="form.more_address_info" id="form_more_address_info"
-                                       value="">
-                            </div>
-                            <!-- Form Group -->
                             <div class="form-group col-md-12 col-sm-12"
                                  v-show="form.userType=='seller'">
                                 <div v-if="!image">
-                                    <h2>الصورة </h2>
+                                    <h3>صورة البطاقة الشخصية </h3>
                                     <input type="file" id="file" ref="file" v-on:change="onFileChange()">
                                 </div>
                                 <div v-else>
-                                    <img id="slected_image" :src="image"/>
-                                    <button @click="removeImage()">حذف الصورة</button>
+                                    <img c id="slected_image" :src="image"/>
+                                    <button class="btn btn-warning" id="slected_image_button" @click="removeImage()">حذف الصورة</button>
                                 </div>
                             </div>
 
@@ -244,6 +244,8 @@
                 districts: [],
                 form: {
                     userType: "visitor",
+                    device_type: "web",
+                    device_token: $("#device_token").val(),
                     destination: "",
                     share_user_type: "",
                     name: "",
@@ -309,6 +311,7 @@
                     })
             },
             register: function () {
+                this.form.device_token = $("#device_token").val();
                 let data = this.form;
                 if (data.password != data.password_confirmation) {
                     toastStack('كلمة السر غير متطابقة', '', 'error');
@@ -401,6 +404,10 @@
         margin: auto;
         display: block;
         margin-bottom: 10px;
+    }
+    #slected_image_button {
+
+        margin-right: 45%;
     }
 </style>
 

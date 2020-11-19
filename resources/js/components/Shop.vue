@@ -11,15 +11,13 @@
                  :on-cancel="onCancel()"
                  :is-full-page="fullPage">
         </loading>
-
         <div class="sidebar-page-container">
             <div class="row clearfix" style="text-align: center">
-                <div  class="content-side col-lg-12 col-md-12 col-sm-12"
+                <div class="content-side col-lg-12 col-md-12 col-sm-12"
                      style="text-align: center">
                     <flickity ref="flickity_categories" :options="flickityOptions">
-                        <router-link  @click.native="scrollToTop()"  to="/ShopCategory" v-for="category in categories"
-                             class="col-4 col-sm-3 col-md-2 col-lg-1">
-
+                        <router-link @click.native="scrollToTop()" to="/ShopCategory" v-for="category in categories"
+                                     class="col-4 col-sm-3 col-md-2 col-lg-1">
                             <div class="category_image_box">
                                 <img class=" img-fluid category_image"
                                      :data-flickity-lazyload="category.image"
@@ -28,10 +26,7 @@
                             <p class="category_name"> {{category.name}} </p>
                         </router-link>
                     </flickity>
-
                 </div>
-
-
             </div>
         </div>
         <div class="sidebar-page-container">
@@ -59,14 +54,25 @@
                                     </div>
                                 </div>
                             </div>
-                            <flickity :ref="'flickity'+section.id" :options="flickityOptions_products">
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-6" v-for="training in section.products">
+                            <flickity v-if="section.products.length>=4" :ref="'flickity'+section.id"
+                                      :options="flickityOptions_products">
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-6" v-for="product in section.products">
                                     <shop-gide-item
-                                        :training="training"
+                                        :product="product"
+                                        @toggled="onToggle">
+
+                                    </shop-gide-item>
+                                </div>
+                            </flickity>
+
+                            <div class="row" v-if="section.products.length<4">
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-6" v-for="product in section.products">
+                                    <shop-gide-item
+                                        :product="product"
                                         @toggled="onToggle"
                                     ></shop-gide-item>
                                 </div>
-                            </flickity>
+                            </div>
                         </div>
                         <div v-if="is_search==true" class="our-courses">
                             <!-- Options View -->
@@ -104,6 +110,7 @@
     import 'vue-loading-overlay/dist/vue-loading.css';
     import Flickity from 'vue-flickity';
     import ShopGideItem from './ShopGideItem';
+    import axios from "axios";
 
     export default {
         props: ['items'],
@@ -121,7 +128,7 @@
                     prevNextButtons: true,
                     groupCells: 1,
                     pageDots: false,
-                    // wrapAround: true
+                    wrapAround: true
 
                     // any options from Flickity can be used
                 },
@@ -182,123 +189,123 @@
                 fullPage: true,
                 activeIndex: null,
                 sections: [
-                    {
-                        id: 1,
-                        name: 'اشغال يدوية',
-                        image: 'site/images/categories/handsewing.png',
-                        products: [
-                            {
-                                id: 1,
-                                price: 10000,
-                                rating_avg: 2,
-                                name: "بالطو تشكيلة جديدة وجودة عالية",
-                                image: 'site/images/products/i8.jpg',
-                                is_like: false,
-                            },
-                            {
-                                id: 2,
-                                price: 10000,
-                                rating_avg: 5,
-                                name: "بالطو  جديد تشكيلة هندي ",
-                                image: 'site/images/products/i5.jpg',
-                                is_like: false,
-                            }]
-                    },
-                    {
-                        id: 2,
-                        name: ' ملابس نسائية ',
-                        image: 'site/images/categories/womencoat.png',
-                        products: [
-                            {
-                                id: 1,
-                                price: 10000,
-                                rating_avg: 2,
-                                name: "بالطو تشكيلة جديدة وجودة عالية",
-                                image: 'site/images/products/i8.jpg',
-                                is_like: false,
-                            },
-                            {
-                                id: 2,
-                                price: 10000,
-                                rating_avg: 5,
-                                name: "بالطو  جديد تشكيلة هندي ",
-                                image: 'site/images/products/i5.jpg',
-                                is_like: false,
-                            },
-                            {
-                                id: 1,
-                                price: 10000,
-                                rating_avg: 2,
-                                name: "بالطو تشكيلة جديدة وجودة عالية",
-                                image: 'site/images/products/i8.jpg',
-                                is_like: false,
-                            },
-                            {
-                                id: 2,
-                                price: 10000,
-                                rating_avg: 5,
-                                name: "بالطو  جديد تشكيلة هندي ",
-                                image: 'site/images/products/i5.jpg',
-                                is_like: false,
-                            },
-                            {
-                                id: 3,
-                                price: 10000,
-                                rating_avg: 2,
-                                name: "بالطو تشكيلة جديدة وجودة عالية",
-                                image: 'site/images/products/i8.jpg',
-                                is_like: false,
-                            },
-                            {
-                                id: 4,
-                                price: 10000,
-                                rating_avg: 5,
-                                name: "بالطو  جديد تشكيلة هندي ",
-                                image: 'site/images/products/i5.jpg',
-                                is_like: false,
-                            },
-
-                        ]
-                    },
-                    {
-                        id: 3,
-                        name: '  ازياء شعبية ',
-                        image: 'site/images/categories/myanmar.png',
-                        products: [
-                            {
-                                id: 1,
-                                price: 10000,
-                                rating_avg: 2,
-                                name: "زي صنعاني نسائي لون اسود",
-                                image: 'site/images/products/i4.jpeg',
-                                is_like: false,
-                            },
-                            {
-                                id: 2,
-                                price: 10000,
-                                rating_avg: 5,
-                                name: "زي صنعاني نسائي لون احمر",
-                                image: 'site/images/products/i2.jpeg',
-                                is_like: false,
-                            }, {
-                                id: 3,
-                                price: 10000,
-                                rating_avg: 2,
-                                name: "زي تهامي للاعراس",
-                                image: 'site/images/products/i3.jpeg',
-                                is_like: false,
-                            },
-                            {
-                                id: 4,
-                                price: 10000,
-                                rating_avg: 5,
-                                name: "بالطو  جديد تشكيلة هندي ",
-                                image: 'site/images/products/i5.jpg',
-                                is_like: false,
-                            },
-
-                        ]
-                    },
+                    // {
+                    //     id: 1,
+                    //     name: 'اشغال يدوية',
+                    //     image: 'site/images/categories/handsewing.png',
+                    //     products: [
+                    //         {
+                    //             id: 1,
+                    //             price: 10000,
+                    //             rating_avg: 2,
+                    //             name: "بالطو تشكيلة جديدة وجودة عالية",
+                    //             image: 'site/images/products/i8.jpg',
+                    //             is_like: false,
+                    //         },
+                    //         {
+                    //             id: 2,
+                    //             price: 10000,
+                    //             rating_avg: 5,
+                    //             name: "بالطو  جديد تشكيلة هندي ",
+                    //             image: 'site/images/products/i5.jpg',
+                    //             is_like: false,
+                    //         }]
+                    // },
+                    // {
+                    //     id: 2,
+                    //     name: ' ملابس نسائية ',
+                    //     image: 'site/images/categories/womencoat.png',
+                    //     products: [
+                    //         {
+                    //             id: 1,
+                    //             price: 10000,
+                    //             rating_avg: 2,
+                    //             name: "بالطو تشكيلة جديدة وجودة عالية",
+                    //             image: 'site/images/products/i8.jpg',
+                    //             is_like: false,
+                    //         },
+                    //         {
+                    //             id: 2,
+                    //             price: 10000,
+                    //             rating_avg: 5,
+                    //             name: "بالطو  جديد تشكيلة هندي ",
+                    //             image: 'site/images/products/i5.jpg',
+                    //             is_like: false,
+                    //         },
+                    //         {
+                    //             id: 1,
+                    //             price: 10000,
+                    //             rating_avg: 2,
+                    //             name: "بالطو تشكيلة جديدة وجودة عالية",
+                    //             image: 'site/images/products/i8.jpg',
+                    //             is_like: false,
+                    //         },
+                    //         {
+                    //             id: 2,
+                    //             price: 10000,
+                    //             rating_avg: 5,
+                    //             name: "بالطو  جديد تشكيلة هندي ",
+                    //             image: 'site/images/products/i5.jpg',
+                    //             is_like: false,
+                    //         },
+                    //         {
+                    //             id: 3,
+                    //             price: 10000,
+                    //             rating_avg: 2,
+                    //             name: "بالطو تشكيلة جديدة وجودة عالية",
+                    //             image: 'site/images/products/i8.jpg',
+                    //             is_like: false,
+                    //         },
+                    //         {
+                    //             id: 4,
+                    //             price: 10000,
+                    //             rating_avg: 5,
+                    //             name: "بالطو  جديد تشكيلة هندي ",
+                    //             image: 'site/images/products/i5.jpg',
+                    //             is_like: false,
+                    //         },
+                    //
+                    //     ]
+                    // },
+                    // {
+                    //     id: 3,
+                    //     name: '  ازياء شعبية ',
+                    //     image: 'site/images/categories/myanmar.png',
+                    //     products: [
+                    //         {
+                    //             id: 1,
+                    //             price: 10000,
+                    //             rating_avg: 2,
+                    //             name: "زي صنعاني نسائي لون اسود",
+                    //             image: 'site/images/products/i4.jpeg',
+                    //             is_like: false,
+                    //         },
+                    //         {
+                    //             id: 2,
+                    //             price: 10000,
+                    //             rating_avg: 5,
+                    //             name: "زي صنعاني نسائي لون احمر",
+                    //             image: 'site/images/products/i2.jpeg',
+                    //             is_like: false,
+                    //         }, {
+                    //             id: 3,
+                    //             price: 10000,
+                    //             rating_avg: 2,
+                    //             name: "زي تهامي للاعراس",
+                    //             image: 'site/images/products/i3.jpeg',
+                    //             is_like: false,
+                    //         },
+                    //         {
+                    //             id: 4,
+                    //             price: 10000,
+                    //             rating_avg: 5,
+                    //             name: "بالطو  جديد تشكيلة هندي ",
+                    //             image: 'site/images/products/i5.jpg',
+                    //             is_like: false,
+                    //         },
+                    //
+                    //     ]
+                    // },
                 ],
                 is_search: false,
                 search_data: '',
@@ -310,6 +317,8 @@
         },
         created() {
             // this.fetchArticles();
+            this.get_product_by_categories();
+            this.all_categories();
         },
         methods: {
             next(c_flickity) {
@@ -331,30 +340,24 @@
                 this.search_data = data.title;
                 this.search_result = data.data;
             },
-            fetchArticles() {
-                let vm = this;
-                // fetch('/api/showTrainingByCategory', {
-                //     method: 'post',
-                //     headers: {
-                //         Authorization: 'Bearer ' + localStorage.getItem('token'),
-                //         'content-type': 'application/json'
-                //     }
-                // })
-                this.isLoading = true;
-                axios.post('/api/showTrainingByCategory', {
-                        headers: {
-                            'content-type': 'application/json',
-                            // Authorization: 'Bearer ' + localStorage.getItem('token')
-                        }
-                    },
-                ).then(res => {
-                    this.sections = res.data.Trainings;
-                    this.isLoading = false;
-                })
+
+            get_product_by_categories() {
+                axios({url: '/api/shop/get_product_by_categories', method: 'POST'})
+                    .then(resp => {
+                        this.sections = (resp.data.data);
+                    })
                     .catch(err => {
-                        this.isLoading = false;
                         console.log(err)
-                    });
+                    })
+            },
+            all_categories() {
+                axios({url: '/api/shop/all_categories', method: 'POST'})
+                    .then(resp => {
+                        this.categories = (resp.data.data);
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
             },
             onCancel() {
                 console.log('User cancelled the loader.')
@@ -374,6 +377,5 @@
     .flickity-button:disabled {
         display: none;
     }
-
 
 </style>

@@ -4,7 +4,9 @@
 
         <span v-for="i in parseInt(rating)" class="fa fa-star"></span>
         <span v-for="i in system-rating" class="fa fa-star-o"></span>
-        <slot name="after">    </slot>
+        <slot name="after">
+
+        </slot>
     </div>
 </template>
 <script>

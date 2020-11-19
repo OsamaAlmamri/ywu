@@ -4772,11 +4772,15 @@ __webpack_require__.r(__webpack_exports__);
       var phone = this.form.phone;
       var password = this.form.password;
       var userType = this.form.userType;
+      var device_type = "web";
+      var device_token = $("#device_token").val();
       this.isLoading = true;
       _store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('login', {
         phone: phone,
         password: password,
-        userType: userType
+        userType: userType,
+        device_token: device_token,
+        device_type: device_type
       }).then(function () {
         _this.isLoading = false;
 
@@ -4960,6 +4964,593 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProductDeatailsComponent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProductDeatailsComponent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _RatingStars_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RatingStars.vue */ "./resources/js/components/RatingStars.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/vue-loading.min.js");
+/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-loading-overlay/dist/vue-loading.css */ "./node_modules/vue-loading-overlay/dist/vue-loading.css");
+/* harmony import */ var vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _RatingStars2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./RatingStars2 */ "./resources/js/components/RatingStars2.vue");
+/* harmony import */ var _LikeButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./LikeButton */ "./resources/js/components/LikeButton.vue");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+ // Import stylesheet
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['items'],
+  // components: {question},
+  components: {
+    RatingStars2: _RatingStars2__WEBPACK_IMPORTED_MODULE_4__["default"],
+    Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_2___default.a,
+    RatingStars: _RatingStars_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    LikeButton: _LikeButton__WEBPACK_IMPORTED_MODULE_5__["default"]
+  },
+  data: function data() {
+    return {
+      isLoading: false,
+      edit_rate: false,
+      fullPage: true,
+      is_active_dropdown: false,
+      product: {
+        "id": 3,
+        "admin_id": 1,
+        "category_id": 2,
+        "name": "pkpk",
+        "description": "<div id=\"description_body\"></div>",
+        "image_id": 72,
+        "price": 846,
+        "has_attribute": 1,
+        "available": 1,
+        "sort": 2,
+        "status": 1,
+        "created_at": "2020-11-09T22:03:26.000000Z",
+        "updated_at": "2020-11-11T18:31:24.000000Z",
+        "in_cart": 0,
+        "image": "images/media/2020/11/thumbnail1604929449c1liS09104.jpeg",
+        "image_actual": "images/media/2020/11/c1liS09104.jpeg",
+        "zone": "صنعاء / صنعاء",
+        "category": "عطورات",
+        "space": "ihjoihoi",
+        "published": "منذ أسبوع",
+        "average_rating": 5,
+        "count_rating": 1,
+        "percent_rating": 100,
+        "rating_details": {
+          "one": 0,
+          "tow": 0,
+          "three": 0,
+          "four": 0,
+          "five": 100,
+          "sum": 1,
+          "average": 5
+        },
+        "product_options": [{
+          "options_id": 5,
+          "products_options_name": "الوزن",
+          "values": [{
+            "products_attributes_id": 9,
+            "options_values_id": 11,
+            "products_options_values_name": "jo",
+            "price": "0.00",
+            "price_prefix": "+",
+            "is_default": 0
+          }]
+        }, {
+          "options_id": 4,
+          "products_options_name": "الحجماهع",
+          "values": [{
+            "products_attributes_id": 10,
+            "options_values_id": 7,
+            "products_options_values_name": "صغير",
+            "price": "0.00",
+            "price_prefix": "+",
+            "is_default": 0
+          }]
+        }, {
+          "options_id": 1,
+          "products_options_name": "اللون",
+          "values": [{
+            "products_attributes_id": 11,
+            "options_values_id": 6,
+            "products_options_values_name": "احمرni",
+            "price": "0.00",
+            "price_prefix": "+",
+            "is_default": 1
+          }, {
+            "products_attributes_id": 11,
+            "options_values_id": 2,
+            "products_options_values_name": "ازرق",
+            "price": "100.00",
+            "price_prefix": "-",
+            "is_default": 0
+          }]
+        }],
+        "is_like": null,
+        "defaults_attributes": [{
+          "products_attributes_id": 11,
+          "product_id": 3,
+          "options_id": 1,
+          "options_values_id": 6,
+          "options_values_price": "0.00",
+          "price_prefix": "+",
+          "is_default": 1,
+          "created_at": null,
+          "updated_at": null,
+          "products_options_name": "اللون",
+          "products_options_values_name": "احمرni"
+        }],
+        "images": [{
+          "id": 4,
+          "product_id": 3,
+          "image_id": 68,
+          "sort": 1,
+          "image": "images/media/2020/11/thumbnail1604929441ujrrh09804.jpg",
+          "image_actual": "images/media/2020/11/ujrrh09804.jpg"
+        }],
+        "product_questions": [{
+          "id": 3,
+          "product_id": 3,
+          "customers_id": 3,
+          "text": "giug",
+          "question_read": 0,
+          "sort": 1,
+          "status": 0,
+          "created_at": "2020-11-15T22:07:04.000000Z",
+          "updated_at": "2020-11-15T22:07:04.000000Z",
+          "user_name": "صدام حسين",
+          "published": "منذ 3 أيام",
+          "replaies": 1,
+          "products_name": "pkpk",
+          "replies": [{
+            "id": 1,
+            "product_question_id": 3,
+            "replay_user_id": 1,
+            "text": "zxxxxxxxxxx",
+            "replay_user_type": "admin",
+            "created_at": "2020-11-14T15:32:13.000000Z",
+            "updated_at": "2020-11-14T15:32:13.000000Z",
+            "user_name": "Osama Mohammed"
+          }]
+        }]
+      },
+      newRating: {
+        product_id: 0,
+        rating: 1,
+        message: ''
+      },
+      activeIndex: null,
+      activeTap: 'overview',
+      sections: [],
+      course_id: '',
+      activeContent_key: 0,
+      activeContent_title_key: 0,
+      pagination: {},
+      edit: false
+    };
+  },
+  created: function created() {
+    this.course_id = this.$route.params.id;
+    this.newRating.product_id = this.$route.params.id;
+    this.fetchTraining();
+  },
+  computed: {
+    show_new_rateForm: function show_new_rateForm() {
+      return this.product.is_rating == null || this.edit_rate == true;
+    },
+    showOldRating: function showOldRating() {
+      // return false;
+      return this.product.is_rating != null && this.edit_rate == false;
+    }
+  },
+  methods: {
+    valueWidth: function valueWidth(i) {
+      switch (i) {
+        case 1:
+          return this.product.rating_details.one;
+          break;
+
+        case 2:
+          return this.product.rating_details.tow;
+          break;
+
+        case 3:
+          return this.product.rating_details.three;
+          break;
+
+        case 4:
+          return this.product.rating_details.four;
+          break;
+
+        case 5:
+          return this.product.rating_details.five;
+          break;
+      }
+
+      return this.tr;
+    },
+    likePost: function likePost() {
+      var _this = this;
+
+      if (localStorage.token) {
+        axios__WEBPACK_IMPORTED_MODULE_1___default()({
+          url: '/api/like',
+          data: {
+            type: 'product',
+            liked_id: this.product.id
+          },
+          method: 'POST'
+        }).then(function (resp) {
+          if (resp.data.status == false) {
+            toastStack('   خطاء ', resp.data.msg, 'error');
+          } else {
+            var like = resp.data.data;
+            if (like == 1) _this.product.is_like = {
+              'product_id': '1'
+            };else _this.product.is_like = null;
+          }
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        toastStack('   خطاء ', 'يجب تسجيل الدخول اولا', 'error');
+      }
+    },
+    change_new_rating_val: function change_new_rating_val(newVal) {
+      this.newRating.rating = newVal;
+    },
+    likeTraining: function likeTraining(is_like) {
+      if (is_like == 1) this.product.is_like = {
+        'id': this.rating.id
+      };else this.product.is_like = null;
+    },
+    onToggle: function onToggle(index) {
+      if (this.activeIndex == index) {
+        return this.activeIndex = null;
+      }
+
+      this.activeIndex = index;
+    },
+    openModal: function openModal() {
+      this.$refs.modal.open();
+    },
+    changeActive: function changeActive(index) {
+      this.activeTap = index;
+    },
+    reverseKeys: function reverseKeys(n) {
+      return _toConsumableArray(Array(n).keys()).slice().reverse();
+    },
+    edit_rating: function edit_rating() {
+      this.is_active_dropdown = false;
+      this.edit_rate = true;
+      this.newRating.rating = this.product.is_rating.rating;
+      this.newRating.message = this.product.is_rating.message;
+    },
+    fetchTraining: function fetchTraining() {
+      var _this2 = this;
+
+      this.isLoading = true;
+      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+        url: '/api/shop/product_details',
+        data: {
+          product_id: this.course_id
+        },
+        method: 'POST'
+      }).then(function (resp) {
+        _this2.isLoading = false;
+
+        if (resp.data.status == false) {
+          toastStack('   خطاء ', resp.data.msg, 'error');
+        } else {
+          _this2.product = resp.data.data;
+        }
+      })["catch"](function (err) {
+        _this2.isLoading = false;
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        reject(err);
+      });
+    },
+    rating: function rating() {
+      var _this3 = this;
+
+      this.isLoading = true;
+      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+        url: '/api/shop/product_rate2',
+        data: this.newRating,
+        method: 'POST'
+      }).then(function (resp) {
+        if (resp.data.status == false) {
+          toastStack('   خطاء ', resp.data.msg, 'error');
+        } else {
+          toastStack(resp.data.msg, '', 'success'); // this.product.is_rating = resp.data.data;
+
+          _this3.product.is_rating = resp.data.data.is_rating;
+          _this3.product.ratings = resp.data.data.ratings;
+          _this3.product.rating_details = resp.data.data.rating_details;
+          _this3.edit_rate = false;
+        }
+
+        _this3.isLoading = false;
+      })["catch"](function (err) {
+        _this3.isLoading = false;
+        console.log(err);
+      });
+    },
+    deleteRating: function deleteRating() {
+      var _this4 = this;
+
+      this.isLoading = true;
+      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+        url: '/api/training/delete_rate2',
+        data: {
+          id: this.product.is_rating.id
+        },
+        method: 'POST'
+      }).then(function (resp) {
+        if (resp.data.status == false) {
+          toastStack('   خطاء ', resp.data.msg, 'error');
+        } else {
+          toastStack(resp.data.msg, '', 'success'); // if (resp.data.data == 1) {
+
+          _this4.product.is_rating = resp.data.data.is_rating;
+          _this4.product.ratings = resp.data.data.ratings;
+          _this4.product.rating_details = resp.data.data.rating_details; // this.product.is_rating = null;
+
+          _this4.edit_rate = true; // }
+        }
+
+        _this4.isLoading = false;
+      })["catch"](function (err) {
+        _this4.isLoading = false;
+        console.log(err);
+      });
+    },
+    onCancel: function onCancel() {
+      console.log('User cancelled the loader.');
+    }
+  },
+  mounted: function mounted() {
+    console.log('Component mounted.');
+  }
+});
 
 /***/ }),
 
@@ -5949,6 +6540,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['rating', 'system']
 });
@@ -6406,6 +6999,8 @@ __webpack_require__.r(__webpack_exports__);
       districts: [],
       form: {
         userType: "visitor",
+        device_type: "web",
+        device_token: $("#device_token").val(),
         destination: "",
         share_user_type: "",
         name: "",
@@ -6478,6 +7073,7 @@ __webpack_require__.r(__webpack_exports__);
     register: function register() {
       var _this3 = this;
 
+      this.form.device_token = $("#device_token").val();
       var data = this.form;
 
       if (data.password != data.password_confirmation) {
@@ -6724,6 +7320,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var vue_flickity__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-flickity */ "./node_modules/vue-flickity/src/flickity.vue");
 /* harmony import */ var _ShopGideItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ShopGideItem */ "./resources/js/components/ShopGideItem.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6829,6 +7433,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['items'],
   components: {
@@ -6849,8 +7454,8 @@ __webpack_require__.r(__webpack_exports__);
         resize: true,
         prevNextButtons: true,
         groupCells: 1,
-        pageDots: false // wrapAround: true
-        // any options from Flickity can be used
+        pageDots: false,
+        wrapAround: true // any options from Flickity can be used
 
       },
       flickityOptions_products: {
@@ -6900,106 +7505,124 @@ __webpack_require__.r(__webpack_exports__);
       isLoading: false,
       fullPage: true,
       activeIndex: null,
-      sections: [{
-        id: 1,
-        name: 'اشغال يدوية',
-        image: 'site/images/categories/handsewing.png',
-        products: [{
-          id: 1,
-          price: 10000,
-          rating_avg: 2,
-          name: "بالطو تشكيلة جديدة وجودة عالية",
-          image: 'site/images/products/i8.jpg',
-          is_like: false
-        }, {
-          id: 2,
-          price: 10000,
-          rating_avg: 5,
-          name: "بالطو  جديد تشكيلة هندي ",
-          image: 'site/images/products/i5.jpg',
-          is_like: false
-        }]
-      }, {
-        id: 2,
-        name: ' ملابس نسائية ',
-        image: 'site/images/categories/womencoat.png',
-        products: [{
-          id: 1,
-          price: 10000,
-          rating_avg: 2,
-          name: "بالطو تشكيلة جديدة وجودة عالية",
-          image: 'site/images/products/i8.jpg',
-          is_like: false
-        }, {
-          id: 2,
-          price: 10000,
-          rating_avg: 5,
-          name: "بالطو  جديد تشكيلة هندي ",
-          image: 'site/images/products/i5.jpg',
-          is_like: false
-        }, {
-          id: 1,
-          price: 10000,
-          rating_avg: 2,
-          name: "بالطو تشكيلة جديدة وجودة عالية",
-          image: 'site/images/products/i8.jpg',
-          is_like: false
-        }, {
-          id: 2,
-          price: 10000,
-          rating_avg: 5,
-          name: "بالطو  جديد تشكيلة هندي ",
-          image: 'site/images/products/i5.jpg',
-          is_like: false
-        }, {
-          id: 3,
-          price: 10000,
-          rating_avg: 2,
-          name: "بالطو تشكيلة جديدة وجودة عالية",
-          image: 'site/images/products/i8.jpg',
-          is_like: false
-        }, {
-          id: 4,
-          price: 10000,
-          rating_avg: 5,
-          name: "بالطو  جديد تشكيلة هندي ",
-          image: 'site/images/products/i5.jpg',
-          is_like: false
-        }]
-      }, {
-        id: 3,
-        name: '  ازياء شعبية ',
-        image: 'site/images/categories/myanmar.png',
-        products: [{
-          id: 1,
-          price: 10000,
-          rating_avg: 2,
-          name: "زي صنعاني نسائي لون اسود",
-          image: 'site/images/products/i4.jpeg',
-          is_like: false
-        }, {
-          id: 2,
-          price: 10000,
-          rating_avg: 5,
-          name: "زي صنعاني نسائي لون احمر",
-          image: 'site/images/products/i2.jpeg',
-          is_like: false
-        }, {
-          id: 3,
-          price: 10000,
-          rating_avg: 2,
-          name: "زي تهامي للاعراس",
-          image: 'site/images/products/i3.jpeg',
-          is_like: false
-        }, {
-          id: 4,
-          price: 10000,
-          rating_avg: 5,
-          name: "بالطو  جديد تشكيلة هندي ",
-          image: 'site/images/products/i5.jpg',
-          is_like: false
-        }]
-      }],
+      sections: [// {
+        //     id: 1,
+        //     name: 'اشغال يدوية',
+        //     image: 'site/images/categories/handsewing.png',
+        //     products: [
+        //         {
+        //             id: 1,
+        //             price: 10000,
+        //             rating_avg: 2,
+        //             name: "بالطو تشكيلة جديدة وجودة عالية",
+        //             image: 'site/images/products/i8.jpg',
+        //             is_like: false,
+        //         },
+        //         {
+        //             id: 2,
+        //             price: 10000,
+        //             rating_avg: 5,
+        //             name: "بالطو  جديد تشكيلة هندي ",
+        //             image: 'site/images/products/i5.jpg',
+        //             is_like: false,
+        //         }]
+        // },
+        // {
+        //     id: 2,
+        //     name: ' ملابس نسائية ',
+        //     image: 'site/images/categories/womencoat.png',
+        //     products: [
+        //         {
+        //             id: 1,
+        //             price: 10000,
+        //             rating_avg: 2,
+        //             name: "بالطو تشكيلة جديدة وجودة عالية",
+        //             image: 'site/images/products/i8.jpg',
+        //             is_like: false,
+        //         },
+        //         {
+        //             id: 2,
+        //             price: 10000,
+        //             rating_avg: 5,
+        //             name: "بالطو  جديد تشكيلة هندي ",
+        //             image: 'site/images/products/i5.jpg',
+        //             is_like: false,
+        //         },
+        //         {
+        //             id: 1,
+        //             price: 10000,
+        //             rating_avg: 2,
+        //             name: "بالطو تشكيلة جديدة وجودة عالية",
+        //             image: 'site/images/products/i8.jpg',
+        //             is_like: false,
+        //         },
+        //         {
+        //             id: 2,
+        //             price: 10000,
+        //             rating_avg: 5,
+        //             name: "بالطو  جديد تشكيلة هندي ",
+        //             image: 'site/images/products/i5.jpg',
+        //             is_like: false,
+        //         },
+        //         {
+        //             id: 3,
+        //             price: 10000,
+        //             rating_avg: 2,
+        //             name: "بالطو تشكيلة جديدة وجودة عالية",
+        //             image: 'site/images/products/i8.jpg',
+        //             is_like: false,
+        //         },
+        //         {
+        //             id: 4,
+        //             price: 10000,
+        //             rating_avg: 5,
+        //             name: "بالطو  جديد تشكيلة هندي ",
+        //             image: 'site/images/products/i5.jpg',
+        //             is_like: false,
+        //         },
+        //
+        //     ]
+        // },
+        // {
+        //     id: 3,
+        //     name: '  ازياء شعبية ',
+        //     image: 'site/images/categories/myanmar.png',
+        //     products: [
+        //         {
+        //             id: 1,
+        //             price: 10000,
+        //             rating_avg: 2,
+        //             name: "زي صنعاني نسائي لون اسود",
+        //             image: 'site/images/products/i4.jpeg',
+        //             is_like: false,
+        //         },
+        //         {
+        //             id: 2,
+        //             price: 10000,
+        //             rating_avg: 5,
+        //             name: "زي صنعاني نسائي لون احمر",
+        //             image: 'site/images/products/i2.jpeg',
+        //             is_like: false,
+        //         }, {
+        //             id: 3,
+        //             price: 10000,
+        //             rating_avg: 2,
+        //             name: "زي تهامي للاعراس",
+        //             image: 'site/images/products/i3.jpeg',
+        //             is_like: false,
+        //         },
+        //         {
+        //             id: 4,
+        //             price: 10000,
+        //             rating_avg: 5,
+        //             name: "بالطو  جديد تشكيلة هندي ",
+        //             image: 'site/images/products/i5.jpg',
+        //             is_like: false,
+        //         },
+        //
+        //     ]
+        // },
+      ],
       is_search: false,
       search_data: '',
       search_result: [],
@@ -7008,7 +7631,10 @@ __webpack_require__.r(__webpack_exports__);
       edit: false
     };
   },
-  created: function created() {// this.fetchArticles();
+  created: function created() {
+    // this.fetchArticles();
+    this.get_product_by_categories();
+    this.all_categories();
   },
   methods: {
     next: function next(c_flickity) {
@@ -7029,28 +7655,27 @@ __webpack_require__.r(__webpack_exports__);
       this.search_data = data.title;
       this.search_result = data.data;
     },
-    fetchArticles: function fetchArticles() {
+    get_product_by_categories: function get_product_by_categories() {
       var _this = this;
 
-      var vm = this; // fetch('/api/showTrainingByCategory', {
-      //     method: 'post',
-      //     headers: {
-      //         Authorization: 'Bearer ' + localStorage.getItem('token'),
-      //         'content-type': 'application/json'
-      //     }
-      // })
-
-      this.isLoading = true;
-      axios.post('/api/showTrainingByCategory', {
-        headers: {
-          'content-type': 'application/json' // Authorization: 'Bearer ' + localStorage.getItem('token')
-
-        }
-      }).then(function (res) {
-        _this.sections = res.data.Trainings;
-        _this.isLoading = false;
+      axios__WEBPACK_IMPORTED_MODULE_5___default()({
+        url: '/api/shop/get_product_by_categories',
+        method: 'POST'
+      }).then(function (resp) {
+        _this.sections = resp.data.data;
       })["catch"](function (err) {
-        _this.isLoading = false;
+        console.log(err);
+      });
+    },
+    all_categories: function all_categories() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_5___default()({
+        url: '/api/shop/all_categories',
+        method: 'POST'
+      }).then(function (resp) {
+        _this2.categories = resp.data.data;
+      })["catch"](function (err) {
         console.log(err);
       });
     },
@@ -7456,6 +8081,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _LikeButton_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LikeButton.vue */ "./resources/js/components/LikeButton.vue");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _RatingStars__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RatingStars */ "./resources/js/components/RatingStars.vue");
 //
 //
 //
@@ -7504,48 +8130,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['training'],
+  props: ['product'],
   components: {
-    LikeButton: _LikeButton_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
-  computed: {
-    registerDecription: function registerDecription() {
-      if (this.training.is_register == null) return ' تسجيل ';else if (this.training.is_register.status == 0) return ' الغاء التسجيل  ';else return '  الغاء التسجيل  ';
-    }
-  },
-  methods: {
-    registerInCourse: function registerInCourse() {
-      var _this = this;
-
-      if (localStorage.token) {
-        axios__WEBPACK_IMPORTED_MODULE_1___default()({
-          url: '/api/register_to_training',
-          data: {
-            training_id: this.training.id
-          },
-          method: 'POST'
-        }).then(function (resp) {
-          if (resp.data.status == false) {
-            toastStack('   خطاء ', resp.data.msg, 'error');
-          } else {
-            _this.training.is_register = resp.data.data;
-            toastStack(resp.data.msg, '', 'success');
-          }
-        })["catch"](function (err) {
-          console.log(err);
-        });
-      } else {
-        toastStack('   خطاء ', 'يجب تسجيل الدخول اولا', 'error');
-      }
-
-      this.$emit('click', this.$vnode.key);
-    },
-    toggle: function toggle() {
-      this.$emit('toggled', this.$vnode.key);
-    }
+    LikeButton: _LikeButton_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    RatingStars: _RatingStars__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 });
 
@@ -12894,6 +13502,25 @@ exports.push([module.i, "\n.dropdown_animation {\n    position: absolute;\n    t
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProductDeatailsComponent.vue?vue&type=style&index=0&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProductDeatailsComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.dropdown_animation {\n    position: absolute;\n    transform: translate3d(0px, 38px, 0px);\n    top: 0px;\n    left: 0px;\n    will-change: transform;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Profile.vue?vue&type=style&index=0&lang=css&":
 /*!*************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Profile.vue?vue&type=style&index=0&lang=css& ***!
@@ -12964,7 +13591,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.student-profile-section {\n    background-color: white;\n    padding: 21px 0px 67px;\n}\n.student-profile-section .profile-tabs .tab-btns {\n    border-bottom: 3px solid #00ab15;\n}\n#slected_image {\n    width: 30%;\n    margin: auto;\n    display: block;\n    margin-bottom: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.student-profile-section {\n    background-color: white;\n    padding: 21px 0px 67px;\n}\n.student-profile-section .profile-tabs .tab-btns {\n    border-bottom: 3px solid #00ab15;\n}\n#slected_image {\n    width: 30%;\n    margin: auto;\n    display: block;\n    margin-bottom: 10px;\n}\n#slected_image_button {\n\n    margin-right: 45%;\n}\n", ""]);
 
 // exports
 
@@ -12983,7 +13610,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.flickity-button:disabled {\n    display: none;\n}\n\n\n", ""]);
+exports.push([module.i, "\n.flickity-button:disabled {\n    display: none;\n}\n\n", ""]);
 
 // exports
 
@@ -48199,6 +48826,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProductDeatailsComponent.vue?vue&type=style&index=0&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProductDeatailsComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--7-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/vue-loader/lib??vue-loader-options!./ProductDeatailsComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProductDeatailsComponent.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Profile.vue?vue&type=style&index=0&lang=css&":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Profile.vue?vue&type=style&index=0&lang=css& ***!
@@ -53175,11 +53832,19 @@ var render = function() {
                                         },
                                         [
                                           title.contents.length == 0
-                                            ? _c("h3", [
-                                                _vm._v(
-                                                  " سينم اضافة المحتوى قريبا"
-                                                )
-                                              ])
+                                            ? _c(
+                                                "h3",
+                                                {
+                                                  staticStyle: {
+                                                    "margin-right": "90px"
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    " سيتم اضافة المحتوى قريبا"
+                                                  )
+                                                ]
+                                              )
                                             : _vm._e(),
                                           _vm._v(" "),
                                           _vm._l(title.contents, function(
@@ -55481,7 +56146,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                                    متدرب\n                                "
+                          "\n                                        مستخدم\n                                    "
                         )
                       ]
                     ),
@@ -55506,32 +56171,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                                    تاجر\n                                "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      {
-                        class: [
-                          "user_type_tap",
-                          "tab-btn",
-                          { "active-btn": _vm.form.userType == "customer" }
-                        ],
-                        attrs: {
-                          "data-tab": "#prod-overview",
-                          "data-type": "customer"
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.changeUserType("customer")
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                                    متسوق\n                                "
+                          "\n                                        تاجر\n                                    "
                         )
                       ]
                     )
@@ -55716,7 +56356,7 @@ var render = function() {
                     { staticClass: "users" },
                     [
                       _vm._v(
-                        "ليس لديك حساب من قبل ؟\n                            "
+                        "ليس لديك حساب من قبل ؟\n                                "
                       ),
                       _c("router-link", { attrs: { to: "register" } }, [
                         _vm._v("انشاء حساب جديد")
@@ -55745,7 +56385,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "text" }, [
         _c("span", { staticClass: "theme_color" }, [_vm._v("مرحبــا!")]),
         _vm._v(
-          " قم بتسجيل الدخول للاستفادة بشكل اكبر من\n                    الخدمات الذي يقدمها الموقع\n                "
+          " قم بتسجيل الدخول للاستفادة بشكل اكبر من\n                        الخدمات الذي يقدمها الموقع\n                    "
         )
       ])
     ])
@@ -56064,6 +56704,755 @@ var staticRenderFns = [
             )
           ])
         ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProductDeatailsComponent.vue?vue&type=template&id=062d52d6&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ProductDeatailsComponent.vue?vue&type=template&id=062d52d6& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "section",
+    { staticClass: "intro-section" },
+    [
+      _c("loading", {
+        attrs: {
+          active: _vm.isLoading,
+          "can-cancel": false,
+          color: "#00ab15",
+          loader: "dots",
+          "background-color": "#f8f9fa",
+          height: 200,
+          width: 140,
+          "on-cancel": _vm.onCancel(),
+          "is-full-page": _vm.fullPage
+        },
+        on: {
+          "update:active": function($event) {
+            _vm.isLoading = $event
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("div", {
+        staticClass: "patern-layer-one paroller",
+        staticStyle: {
+          "background-image": "url('site/images/icons/icon-1.png')"
+        },
+        attrs: {
+          "data-paroller-factor": "0.40",
+          "data-paroller-factor-lg": "0.20",
+          "data-paroller-type": "foreground",
+          "data-paroller-direction": "vertical"
+        }
+      }),
+      _vm._v(" "),
+      _c("div", {
+        staticClass: "patern-layer-two paroller",
+        staticStyle: {
+          "background-image": "url('site/images/icons/icon-2.png')"
+        },
+        attrs: {
+          "data-paroller-factor": "0.40",
+          "data-paroller-factor-lg": "-0.20",
+          "data-paroller-type": "foreground",
+          "data-paroller-direction": "vertical"
+        }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "circle-one" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "auto-container" }, [
+        _c("div", { staticClass: "sec-title" }, [
+          _c("h2", [_vm._v(_vm._s(_vm.product.name))])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "inner-container" }, [
+          _c("div", { staticClass: "row clearfix" }, [
+            _c(
+              "div",
+              { staticClass: "content-column col-lg-8 col-md-12 col-sm-12" },
+              [
+                _c("div", { staticClass: "inner-column" }, [
+                  _c("div", { staticClass: "intro-info-tabs" }, [
+                    _c("div", { staticClass: "intro-tabs tabs-box" }, [
+                      _c(
+                        "ul",
+                        { staticClass: "tab-btns tab-buttons clearfix" },
+                        [
+                          _c(
+                            "li",
+                            {
+                              class: [
+                                "tab-btn",
+                                { "active-btn": _vm.activeTap == "overview" }
+                              ],
+                              attrs: { "data-tab": "#overview" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.changeActive("overview")
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                " التفاصيل\n                                    "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              class: [
+                                "tab-btn",
+                                { "active-btn": _vm.activeTap == "questioins" }
+                              ],
+                              attrs: { "data-tab": "#questioins" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.changeActive("questioins")
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "الاسئلة\n                                    "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              class: [
+                                "tab-btn",
+                                { "active-btn": _vm.activeTap == "reviews" }
+                              ],
+                              attrs: { "data-tab": "#reviews" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.changeActive("reviews")
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "التقييمات\n                                    "
+                              )
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "tabs-content" }, [
+                        _c(
+                          "div",
+                          {
+                            class: [
+                              "tab",
+                              { "active-tab": _vm.activeTap == "overview" }
+                            ],
+                            attrs: { id: "overview" }
+                          },
+                          [
+                            _c("div", { staticClass: "content" }, [
+                              _c("div", { staticClass: "course-overview" }, [
+                                _c("div", { staticClass: "inner-box" }, [
+                                  _c("h3", [_vm._v("تفاصيل المنتج ")]),
+                                  _vm._v(" "),
+                                  _c("div", {
+                                    domProps: {
+                                      innerHTML: _vm._s(_vm.product.description)
+                                    }
+                                  })
+                                ])
+                              ])
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "tab",
+                            class: [
+                              "tab",
+                              { "active-tab": _vm.activeTap == "questioins" }
+                            ],
+                            attrs: { id: "questioins" }
+                          },
+                          [_vm._m(0)]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            class: [
+                              "tab",
+                              { "active-tab": _vm.activeTap == "reviews" }
+                            ],
+                            attrs: { id: "reviews" }
+                          },
+                          [
+                            _c(
+                              "div",
+                              { staticClass: "content" },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "row",
+                                    staticStyle: { margin: "0px 10px 30px" }
+                                  },
+                                  [
+                                    _c("div", { staticClass: " col-md-4" }, [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "udlite-heading-xxxl review-summary-widget--average-number--2Q0bz"
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                                        " +
+                                              _vm._s(
+                                                _vm.product.rating_details
+                                                  .average
+                                              ) +
+                                              "\n                                                    "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "p",
+                                        {
+                                          staticClass:
+                                            "review-summary-widget--average-rating-text--2BT9O"
+                                        },
+                                        [
+                                          _c("rating-stars", {
+                                            attrs: {
+                                              system: "5",
+                                              rating:
+                                                _vm.product.rating_details
+                                                  .average
+                                            }
+                                          }),
+                                          _vm._v(
+                                            "\n                                                        عدد المقيمين " +
+                                              _vm._s(
+                                                _vm.product.rating_details.sum
+                                              ) +
+                                              "\n                                                    "
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      { staticClass: " col-md-7 " },
+                                      _vm._l(_vm.reverseKeys(5), function(i) {
+                                        return _c(
+                                          "div",
+                                          { staticClass: "row" },
+                                          [
+                                            _c(
+                                              "div",
+                                              { staticClass: "col-8" },
+                                              [
+                                                _c(
+                                                  "div",
+                                                  {
+                                                    staticClass:
+                                                      "row progress md-progress",
+                                                    staticStyle: {
+                                                      height: "20px",
+                                                      "margin-bottom": "10px"
+                                                    }
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "div",
+                                                      {
+                                                        staticClass:
+                                                          "progress-bar progress-bar-success",
+                                                        style: [
+                                                          {
+                                                            width:
+                                                              _vm.valueWidth(
+                                                                i + 1
+                                                              ) + "%"
+                                                          },
+                                                          { height: "20px" }
+                                                        ],
+                                                        attrs: {
+                                                          role: "progressbar",
+                                                          "aria-valuenow": _vm.valueWidth(
+                                                            i + 1
+                                                          ),
+                                                          "aria-valuemin": "0",
+                                                          "aria-valuemax": "100"
+                                                        }
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          "\n                                                                    " +
+                                                            _vm._s(
+                                                              _vm.valueWidth(
+                                                                i + 1
+                                                              )
+                                                            ) +
+                                                            " %\n                                                                "
+                                                        )
+                                                      ]
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              { staticClass: "col-4" },
+                                              [
+                                                _c("rating-stars", {
+                                                  attrs: {
+                                                    system: "5",
+                                                    rating: i + 1
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            )
+                                          ]
+                                        )
+                                      }),
+                                      0
+                                    ),
+                                    _vm._v(" "),
+                                    _c("hr")
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: _vm.show_new_rateForm,
+                                        expression: "show_new_rateForm"
+                                      }
+                                    ],
+                                    staticClass: "row new_rating_dev "
+                                  },
+                                  [
+                                    _c(
+                                      "fieldset",
+                                      {
+                                        staticClass:
+                                          "the-fieldset new_rating_dev",
+                                        staticStyle: {
+                                          border: "1px solid #e0e0e0",
+                                          padding: "10px"
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "legend",
+                                          { staticClass: "the-legend" },
+                                          [_vm._v(" اضافة تقييم")]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("rating-stars2", {
+                                          attrs: {
+                                            font_size: "3",
+                                            value: _vm.newRating.rating
+                                          },
+                                          on: {
+                                            change: _vm.change_new_rating_val
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass: "form-group",
+                                            staticStyle: { width: "100%" }
+                                          },
+                                          [
+                                            _c(
+                                              "fieldset",
+                                              { staticClass: "the-fieldset" },
+                                              [
+                                                _c(
+                                                  "legend",
+                                                  { staticClass: "the-legend" },
+                                                  [_vm._v("نص التقييم")]
+                                                ),
+                                                _vm._v(" "),
+                                                _c("textarea", {
+                                                  directives: [
+                                                    {
+                                                      name: "model",
+                                                      rawName: "v-model",
+                                                      value:
+                                                        _vm.newRating.message,
+                                                      expression:
+                                                        "newRating.message"
+                                                    }
+                                                  ],
+                                                  staticStyle: {
+                                                    width: "100%"
+                                                  },
+                                                  attrs: { rows: "4" },
+                                                  domProps: {
+                                                    value: _vm.newRating.message
+                                                  },
+                                                  on: {
+                                                    input: function($event) {
+                                                      if (
+                                                        $event.target.composing
+                                                      ) {
+                                                        return
+                                                      }
+                                                      _vm.$set(
+                                                        _vm.newRating,
+                                                        "message",
+                                                        $event.target.value
+                                                      )
+                                                    }
+                                                  }
+                                                })
+                                              ]
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass: "btn btn-primary",
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.rating()
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "حفظ التقييم\n                                                    "
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "button",
+                                          {
+                                            directives: [
+                                              {
+                                                name: "show",
+                                                rawName: "v-show",
+                                                value:
+                                                  _vm.product.is_rating != null,
+                                                expression:
+                                                  "product.is_rating!=null"
+                                              }
+                                            ],
+                                            staticClass: "btn btn-warning",
+                                            on: {
+                                              click: function($event) {
+                                                _vm.edit_rate = false
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              " الغاء\n                                                    "
+                                            )
+                                          ]
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _vm.showOldRating
+                                  ? _c(
+                                      "div",
+                                      { staticClass: "cource-review-box" },
+                                      [
+                                        _c(
+                                          "div",
+                                          {
+                                            staticStyle: {
+                                              width: "100%",
+                                              display: "inline-block"
+                                            }
+                                          },
+                                          [
+                                            _c("dropdown", [
+                                              _c(
+                                                "div",
+                                                {
+                                                  attrs: { slot: "items" },
+                                                  slot: "items"
+                                                },
+                                                [
+                                                  _c(
+                                                    "a",
+                                                    {
+                                                      staticClass:
+                                                        "dropdown-item",
+                                                      attrs: { href: "#" },
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          $event.preventDefault()
+                                                          return _vm.edit_rating()
+                                                        }
+                                                      }
+                                                    },
+                                                    [_vm._v("تعديل")]
+                                                  ),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "a",
+                                                    {
+                                                      staticClass:
+                                                        "dropdown-item",
+                                                      attrs: { href: "#" },
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          $event.preventDefault()
+                                                          return _vm.deleteRating()
+                                                        }
+                                                      }
+                                                    },
+                                                    [_vm._v(" حذف ")]
+                                                  )
+                                                ]
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c(
+                                              "h4",
+                                              { staticClass: "pull-right" },
+                                              [
+                                                _vm._v(
+                                                  "\n                                                        " +
+                                                    _vm._s(
+                                                      _vm.product.is_rating
+                                                        .user_rater.name
+                                                    ) +
+                                                    " "
+                                                )
+                                              ]
+                                            )
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { staticClass: "rating" },
+                                          [
+                                            _c(
+                                              "rating-stars",
+                                              {
+                                                attrs: {
+                                                  rating:
+                                                    _vm.product.is_rating
+                                                      .rating,
+                                                  system: "5"
+                                                }
+                                              },
+                                              [
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    attrs: { slot: "after" },
+                                                    slot: "after"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      " " +
+                                                        _vm._s(
+                                                          _vm.product.is_rating
+                                                            .published
+                                                        )
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            )
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c("div", { staticClass: "text" }, [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.product.is_rating.message
+                                            )
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c("hr")
+                                      ]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm._l(_vm.product.ratings, function(rating) {
+                                  return _c(
+                                    "div",
+                                    { staticClass: "cource-review-box" },
+                                    [
+                                      _c("h4", [
+                                        _vm._v(
+                                          _vm._s(rating.user_rater.name) + " "
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "rating" },
+                                        [
+                                          _c(
+                                            "rating-stars",
+                                            {
+                                              attrs: {
+                                                rating: rating.rating,
+                                                system: "5"
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "span",
+                                                {
+                                                  attrs: { slot: "after" },
+                                                  slot: "after"
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    " " +
+                                                      _vm._s(rating.published)
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("div", { staticClass: "text" }, [
+                                        _vm._v(_vm._s(rating.message))
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("hr")
+                                    ]
+                                  )
+                                })
+                              ],
+                              2
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "video-column col-lg-4 col-md-12 col-sm-12" },
+              [
+                _c("div", { staticClass: "inner-column sticky-top" }, [
+                  _c("div", {
+                    staticClass: "intro-video",
+                    staticStyle: { "": "" },
+                    style: {
+                      padding: "170px 6px",
+                      backgroundImage: "url(" + _vm.product.image + ")"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "theme-btn btn-style-three",
+                      staticStyle: {},
+                      on: {
+                        click: function($event) {
+                          return _vm.likePost()
+                        }
+                      }
+                    },
+                    [
+                      _c("span", { staticClass: "txt" }, [
+                        _vm._v(
+                          "\n                             " +
+                            _vm._s(
+                              _vm.product.is_like == null
+                                ? "اضافة للمفضلة"
+                                : "الغاء من المفضلة"
+                            ) +
+                            "\n                            "
+                        ),
+                        _c("i", { staticClass: "fa fa-angle-left" })
+                      ])
+                    ]
+                  )
+                ])
+              ]
+            )
+          ])
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "content" }, [
+      _c("ul", { staticClass: "accordion-box" }, [
+        _vm._v(
+          "\n                                                الاسئلة\n                                            "
+        )
       ])
     ])
   }
@@ -57908,60 +59297,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                                    مستخدم\n                                "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      {
-                        class: [
-                          "user_type_tap",
-                          "tab-btn",
-                          {
-                            "active-btn":
-                              _vm.form.share_user_type == "sub_cluster"
-                          }
-                        ],
-                        attrs: { "data-tab": "#prod-bookmark" },
-                        on: {
-                          click: function($event) {
-                            return _vm.changeUserType(
-                              "share_user",
-                              "sub_cluster"
-                            )
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                                    شريك\n                                "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      {
-                        class: [
-                          "user_type_tap",
-                          "tab-btn",
-                          {
-                            "active-btn":
-                              _vm.form.share_user_type == "copartner"
-                          }
-                        ],
-                        attrs: { "data-tab": "#prod-setting" },
-                        on: {
-                          click: function($event) {
-                            return _vm.changeUserType("share_user", "copartner")
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                                    عضو\n                                    كتلة\n                                "
+                          "\n                                        مستخدم\n                                    "
                         )
                       ]
                     ),
@@ -57986,32 +59322,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                                    تاجر\n                                "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      {
-                        class: [
-                          "user_type_tap",
-                          "tab-btn",
-                          { "active-btn": _vm.form.userType == "customer" }
-                        ],
-                        attrs: {
-                          "data-tab": "#prod-overview",
-                          "data-type": "customer"
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.changeUserType("customer", "")
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                                    متسوق\n                                "
+                          "\n                                        تاجر\n                                    "
                         )
                       ]
                     )
@@ -58070,7 +59381,7 @@ var render = function() {
                   "div",
                   { staticClass: "form-group col-lg-6 col-md-12 col-sm-12" },
                   [
-                    _c("label", [_vm._v("  الجنس ")]),
+                    _c("label", [_vm._v(" الجنس ")]),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -58108,7 +59419,7 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                                ذكر\n                                            "
+                                      "\n                                                    ذكر\n                                                "
                                     )
                                   ]
                                 ),
@@ -58134,7 +59445,7 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                                انثى\n                                            "
+                                      "\n                                                    انثى\n                                                "
                                     )
                                   ]
                                 )
@@ -58147,7 +59458,144 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-group col-md-12 col-sm-12" }, [
+                _c(
+                  "div",
+                  { staticClass: "form-group col-lg-6 col-md-12 col-sm-12" },
+                  [
+                    _c("label", [_vm._v(" المحافظة ")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.gov_id,
+                            expression: "form.gov_id"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "sel1" },
+                        on: {
+                          change: [
+                            function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.form,
+                                "gov_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            },
+                            function($event) {
+                              return _vm.get_district()
+                            }
+                          ]
+                        }
+                      },
+                      _vm._l(_vm.govs, function(gov) {
+                        return _c("option", { domProps: { value: gov.id } }, [
+                          _vm._v(" " + _vm._s(gov.name_ar))
+                        ])
+                      }),
+                      0
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "form-group col-lg-6 col-md-12 col-sm-12" },
+                  [
+                    _c("label", [_vm._v(" المديرية ")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.district_id,
+                            expression: "form.district_id"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "sel2" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form,
+                              "district_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      _vm._l(_vm.districts, function(dist) {
+                        return _c("option", { domProps: { value: dist.id } }, [
+                          _vm._v(" " + _vm._s(dist.name_ar))
+                        ])
+                      }),
+                      0
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group col-md-6 col-sm-12" }, [
+                  _c("label", [_vm._v(" معلومات اضافية عن مكان التواجد ")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.more_address_info,
+                        expression: "form.more_address_info"
+                      }
+                    ],
+                    attrs: {
+                      type: "text",
+                      name: "",
+                      id: "form_more_address_info",
+                      value: ""
+                    },
+                    domProps: { value: _vm.form.more_address_info },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.form,
+                          "more_address_info",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group col-md-6 col-sm-12" }, [
                   _c("label", [_vm._v(" رقم الهاتف")]),
                   _vm._v(" "),
                   _c("input", {
@@ -58275,186 +59723,6 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value:
-                          _vm.form.userType == "customer" ||
-                          _vm.form.userType == "seller",
-                        expression:
-                          "form.userType=='customer' ||form.userType=='seller'"
-                      }
-                    ],
-                    staticClass: "form-group col-lg-6 col-md-12 col-sm-12"
-                  },
-                  [
-                    _c("label", [_vm._v(" المحافظة ")]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.gov_id,
-                            expression: "form.gov_id"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { id: "sel1" },
-                        on: {
-                          change: [
-                            function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.form,
-                                "gov_id",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            },
-                            function($event) {
-                              return _vm.get_district()
-                            }
-                          ]
-                        }
-                      },
-                      _vm._l(_vm.govs, function(gov) {
-                        return _c("option", { domProps: { value: gov.id } }, [
-                          _vm._v(" " + _vm._s(gov.name_ar))
-                        ])
-                      }),
-                      0
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value:
-                          _vm.form.userType == "customer" ||
-                          _vm.form.userType == "seller",
-                        expression:
-                          "form.userType=='customer' || form.userType=='seller'"
-                      }
-                    ],
-                    staticClass: "form-group col-lg-6 col-md-12 col-sm-12"
-                  },
-                  [
-                    _c("label", [_vm._v(" المديرية ")]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.district_id,
-                            expression: "form.district_id"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { id: "sel2" },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.form,
-                              "district_id",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      _vm._l(_vm.districts, function(dist) {
-                        return _c("option", { domProps: { value: dist.id } }, [
-                          _vm._v(" " + _vm._s(dist.name_ar))
-                        ])
-                      }),
-                      0
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value:
-                          _vm.form.userType == "customer" ||
-                          _vm.form.userType == "seller",
-                        expression:
-                          "form.userType=='customer' ||form.userType=='seller'"
-                      }
-                    ],
-                    staticClass: "form-group col-md-12 col-sm-12"
-                  },
-                  [
-                    _c("label", [_vm._v(" معلومات اضافية عن مكان التواجد ")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.more_address_info,
-                          expression: "form.more_address_info"
-                        }
-                      ],
-                      attrs: {
-                        type: "text",
-                        name: "",
-                        id: "form_more_address_info",
-                        value: ""
-                      },
-                      domProps: { value: _vm.form.more_address_info },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.form,
-                            "more_address_info",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
                         value: _vm.form.userType == "seller",
                         expression: "form.userType=='seller'"
                       }
@@ -58464,7 +59732,7 @@ var render = function() {
                   [
                     !_vm.image
                       ? _c("div", [
-                          _c("h2", [_vm._v("الصورة ")]),
+                          _c("h3", [_vm._v("صورة البطاقة الشخصية ")]),
                           _vm._v(" "),
                           _c("input", {
                             ref: "file",
@@ -58478,12 +59746,18 @@ var render = function() {
                         ])
                       : _c("div", [
                           _c("img", {
-                            attrs: { id: "slected_image", src: _vm.image }
+                            attrs: {
+                              c: "",
+                              id: "slected_image",
+                              src: _vm.image
+                            }
                           }),
                           _vm._v(" "),
                           _c(
                             "button",
                             {
+                              staticClass: "btn btn-warning",
+                              attrs: { id: "slected_image_button" },
                               on: {
                                 click: function($event) {
                                   return _vm.removeImage()
@@ -58842,11 +60116,11 @@ var render = function() {
                       { staticClass: "users" },
                       [
                         _vm._v(
-                          "هل لديك حساب من قبل ؟\n                                "
+                          "هل لديك حساب من قبل ؟\n                                    "
                         ),
                         _c("router-link", { attrs: { to: "/login" } }, [
                           _vm._v(
-                            " تسجيل\n                                    الدخول\n                                "
+                            " تسجيل\n                                        الدخول\n                                    "
                           )
                         ])
                       ],
@@ -58874,7 +60148,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "text" }, [
         _c("span", { staticClass: "theme_color" }, [_vm._v("مرحبــا!")]),
         _vm._v(
-          " قم بنشاء حساب للاستفاد بشكل اكبر من\n                    الخدمات الذي يقدمها الموقع\n                "
+          " قم بنشاء حساب للاستفاد بشكل اكبر من\n                        الخدمات الذي يقدمها الموقع\n                    "
         )
       ])
     ])
@@ -59129,31 +60403,59 @@ var render = function() {
                               : _vm._e()
                           ]),
                           _vm._v(" "),
-                          _c(
-                            "flickity",
-                            {
-                              ref: "flickity" + section.id,
-                              refInFor: true,
-                              attrs: { options: _vm.flickityOptions_products }
-                            },
-                            _vm._l(section.products, function(training) {
-                              return _c(
-                                "div",
+                          section.products.length >= 4
+                            ? _c(
+                                "flickity",
                                 {
-                                  staticClass:
-                                    "col-lg-3 col-md-4 col-sm-6 col-6"
+                                  ref: "flickity" + section.id,
+                                  refInFor: true,
+                                  attrs: {
+                                    options: _vm.flickityOptions_products
+                                  }
                                 },
-                                [
-                                  _c("shop-gide-item", {
-                                    attrs: { training: training },
-                                    on: { toggled: _vm.onToggle }
-                                  })
-                                ],
-                                1
+                                _vm._l(section.products, function(product) {
+                                  return _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "col-lg-3 col-md-4 col-sm-6 col-6"
+                                    },
+                                    [
+                                      _c("shop-gide-item", {
+                                        attrs: { product: product },
+                                        on: { toggled: _vm.onToggle }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                }),
+                                0
                               )
-                            }),
-                            0
-                          )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          section.products.length < 4
+                            ? _c(
+                                "div",
+                                { staticClass: "row" },
+                                _vm._l(section.products, function(product) {
+                                  return _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "col-lg-3 col-md-4 col-sm-6 col-6"
+                                    },
+                                    [
+                                      _c("shop-gide-item", {
+                                        attrs: { product: product },
+                                        on: { toggled: _vm.onToggle }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                }),
+                                0
+                              )
+                            : _vm._e()
                         ],
                         1
                       )
@@ -59415,12 +60717,12 @@ var render = function() {
       [
         _c(
           "clazy-load",
-          { staticClass: "wrapper", attrs: { src: _vm.training.image } },
+          { staticClass: "wrapper", attrs: { src: _vm.product.image } },
           [
             _c("transition", { attrs: { name: "fade" } }, [
               _c("div", {
                 staticClass: "divClass",
-                style: { backgroundImage: "url(" + _vm.training.image + ")" }
+                style: { backgroundImage: "url(" + _vm.product.image + ")" }
               })
             ]),
             _vm._v(" "),
@@ -59445,21 +60747,20 @@ var render = function() {
       1
     ),
     _vm._v(" "),
-    _c("div", { staticClass: "clearfix after_course_image" }, [
-      _vm._m(0),
-      _vm._v(" "),
+    _c("div", { staticClass: "clearfix " }, [
       _c(
         "div",
         { staticClass: "pull-left", staticStyle: { "padding-left": "2em" } },
         [
           _c("like-button", {
-            key: _vm.training.id,
+            key: _vm.product.id,
+            staticClass: "like_product_button",
             attrs: {
-              type: "trainings",
+              type: "product",
               "count-likes": "0",
               "has-count": "0",
-              liked_id: _vm.training.id,
-              is_liked: _vm.training.is_like
+              liked_id: _vm.product.id,
+              is_liked: _vm.product.is_like
             }
           })
         ],
@@ -59468,66 +60769,73 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "lower-content" }, [
-      _c(
-        "h6",
-        [
-          _c(
-            "router-link",
-            {
-              attrs: {
-                to: { name: "course_details", params: { id: _vm.training.id } }
-              },
-              nativeOn: {
-                click: function($event) {
-                  return _vm.$scrollToTop($event)
+      _c("div", { staticClass: "product_name_and_price" }, [
+        _c(
+          "h6",
+          [
+            _c(
+              "router-link",
+              {
+                attrs: {
+                  to: {
+                    name: "product_details",
+                    params: { id: _vm.product.id }
+                  }
+                },
+                nativeOn: {
+                  click: function($event) {
+                    return _vm.$scrollToTop($event)
+                  }
                 }
-              }
-            },
-            [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.training.name) +
-                  "\n            "
-              )
-            ]
+              },
+              [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.product.name) +
+                    "\n                "
+                )
+              ]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("h6", [
+          _vm._v(
+            "\n                " +
+              _vm._s(_vm.product.price) +
+              " ر.ي\n            "
           )
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "detail_product_item" },
+        [
+          _c("rating-stars", { attrs: { system: "5", rating: 4 } }, [
+            _c("span", { attrs: { slot: "after" }, slot: "after" }, [
+              _vm._v("(" + _vm._s(_vm.product.average_rating) + ") ")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _c("i", { staticClass: "fa fa-map-marker " }),
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.product.zone) +
+                "/   " +
+                _vm._s(_vm.product.space) +
+                "/\n            "
+            )
+          ])
         ],
         1
-      ),
-      _vm._v(" "),
-      _vm._m(1)
+      )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "pull-right", staticStyle: { "padding-right": "2em" } },
-      [
-        _c("div", { staticClass: " students" }, [
-          _c("i", { staticClass: "fa fa-star" }),
-          _vm._v("5/5")
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "clearfix row add_to_cart_box" }, [
-      _c("div", { staticClass: "col-2 cart_icon" }, [
-        _c("i", { staticClass: "fa fa-cart-plus" })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-8" }, [_vm._v(" إضافة الى السلة")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -78339,6 +79647,93 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/ProductDeatailsComponent.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/ProductDeatailsComponent.vue ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ProductDeatailsComponent_vue_vue_type_template_id_062d52d6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProductDeatailsComponent.vue?vue&type=template&id=062d52d6& */ "./resources/js/components/ProductDeatailsComponent.vue?vue&type=template&id=062d52d6&");
+/* harmony import */ var _ProductDeatailsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProductDeatailsComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/ProductDeatailsComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _ProductDeatailsComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProductDeatailsComponent.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/ProductDeatailsComponent.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _ProductDeatailsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ProductDeatailsComponent_vue_vue_type_template_id_062d52d6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ProductDeatailsComponent_vue_vue_type_template_id_062d52d6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ProductDeatailsComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ProductDeatailsComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/ProductDeatailsComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductDeatailsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ProductDeatailsComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProductDeatailsComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductDeatailsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ProductDeatailsComponent.vue?vue&type=style&index=0&lang=css&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/ProductDeatailsComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductDeatailsComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--7-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/vue-loader/lib??vue-loader-options!./ProductDeatailsComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProductDeatailsComponent.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductDeatailsComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductDeatailsComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductDeatailsComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductDeatailsComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductDeatailsComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ProductDeatailsComponent.vue?vue&type=template&id=062d52d6&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/ProductDeatailsComponent.vue?vue&type=template&id=062d52d6& ***!
+  \*********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductDeatailsComponent_vue_vue_type_template_id_062d52d6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ProductDeatailsComponent.vue?vue&type=template&id=062d52d6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ProductDeatailsComponent.vue?vue&type=template&id=062d52d6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductDeatailsComponent_vue_vue_type_template_id_062d52d6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductDeatailsComponent_vue_vue_type_template_id_062d52d6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Profile.vue":
 /*!*********************************************!*\
   !*** ./resources/js/components/Profile.vue ***!
@@ -79768,11 +81163,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Shop__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Shop */ "./resources/js/components/Shop.vue");
 /* harmony import */ var _components_ShopCategory__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/ShopCategory */ "./resources/js/components/ShopCategory.vue");
 /* harmony import */ var _components_ConsultantComponent__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/ConsultantComponent */ "./resources/js/components/ConsultantComponent.vue");
-/* harmony import */ var _components_WomenDeatails__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/WomenDeatails */ "./resources/js/components/WomenDeatails.vue");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var _components_ProductDeatailsComponent__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/ProductDeatailsComponent */ "./resources/js/components/ProductDeatailsComponent.vue");
+/* harmony import */ var _components_WomenDeatails__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/WomenDeatails */ "./resources/js/components/WomenDeatails.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+
 
 
 
@@ -79794,7 +81191,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_18___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_19__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_19___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_20__["default"]);
 var routes = [{
   path: '*',
   component: _components_NotFound__WEBPACK_IMPORTED_MODULE_5__["default"]
@@ -79835,14 +81232,21 @@ var routes = [{
   }
 }, {
   path: '/women_details/:id',
-  component: _components_WomenDeatails__WEBPACK_IMPORTED_MODULE_16__["default"],
+  component: _components_WomenDeatails__WEBPACK_IMPORTED_MODULE_17__["default"],
   name: "women_details",
   meta: {
     requiresAuth: false
   }
 }, {
+  path: '/product_details/:id',
+  component: _components_ProductDeatailsComponent__WEBPACK_IMPORTED_MODULE_16__["default"],
+  name: "product_details",
+  meta: {
+    requiresAuth: false
+  }
+}, {
   path: '/post_details/:id',
-  component: _components_WomenDeatails__WEBPACK_IMPORTED_MODULE_16__["default"],
+  component: _components_WomenDeatails__WEBPACK_IMPORTED_MODULE_17__["default"],
   name: "post_details",
   meta: {
     requiresAuth: true
@@ -79931,7 +81335,7 @@ var routes = [{
     }
   }
 }];
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_19__["default"]({
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_20__["default"]({
   routes: routes
 });
 router.beforeEach(function (to, from, next) {
@@ -79942,7 +81346,7 @@ router.beforeEach(function (to, from, next) {
   if (to.matched.some(function (record) {
     return record.meta.requiresAuth;
   })) {
-    if (_store__WEBPACK_IMPORTED_MODULE_17__["default"].getters.isLoggedIn) {
+    if (_store__WEBPACK_IMPORTED_MODULE_18__["default"].getters.isLoggedIn) {
       next();
       return;
     }

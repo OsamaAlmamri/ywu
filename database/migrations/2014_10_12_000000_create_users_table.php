@@ -22,6 +22,9 @@ class CreateUsersTable extends Migration
             $table->enum('gender',['male','female'])->default('female');
             $table->enum('type',['customers','share_users','employees','visitor'])->default('visitor');
             $table->boolean('status')->default(1);
+            $table->foreignId('gov_id')->constrained('zones')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('district_id')->constrained('zones')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('more_address_info');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -106,12 +106,12 @@ class UserController extends Controller
                 $user = User::create(array_merge($request->all(), ['type' => 'share_users', 'status' => 0]));
                 ShareUser::create(['user_id' => $user->id, 'type' => $request->share_user_type, 'destination' => $request->destination]);
 
-                $message = 'قام  ' . $user->name . '  بتسجيل حساب شريك جديد و بانتظار الموافقة  ' ;
+                $message = 'قام  ' . $user->name . '  بتسجيل حساب شريك جديد و بانتظار الموافقة  ';
                 $dataToNotification = array(
-                    'sender_name' => auth()->user()->name,
+                    'sender_name' => $user->name,
                     'order_id' => $user->id,
                     'notification_type' => "new_share_user",
-                    'user_id' => \auth()->id(),
+                    'user_id' => $user->id,
                     'sender_image' => url('site/images/Logo250px.png'),
                     'message' => $message,
                     'date' => $user->created_at
@@ -137,12 +137,12 @@ class UserController extends Controller
                     ['admin_id' => $user->id, 'ssn_image' => $image]
                 ));
 
-                $message = 'قام  ' . $user->name . '  بتسجيل حساب تاجر جديد و بانتظار الموافقة  ' ;
+                $message = 'قام  ' . $user->name . '  بتسجيل حساب تاجر جديد و بانتظار الموافقة  ';
                 $dataToNotification = array(
-                    'sender_name' => auth()->user()->name,
+                    'sender_name' => $user->name,
                     'order_id' => $user->id,
                     'notification_type' => "new_seller",
-                    'user_id' => \auth()->id(),
+                    'user_id' => $user->id,
                     'sender_image' => url('site/images/Logo250px.png'),
                     'message' => $message,
                     'date' => $user->created_at
@@ -192,13 +192,16 @@ class UserController extends Controller
 
             $credential_email = ['email' => $request->phone, 'password' => $request->password];
             $credential_phone = ['phone' => $request->phone, 'password' => $request->password];
+            $credential_email_S = ['status' => 1, 'email' => $request->phone, 'password' => $request->password];
+            $credential_phone_S = ['status' => 1, 'password' => $request->password];
             if ($request->userType == 'seller') {
-                if (Auth::guard('admin')->attempt($credential_phone) or Auth::guard('admin')->attempt($credential_email))
-//                    return redirect()->intended('/admin');
-                    return $this->GetDateResponse('data', 'seller');
-
-                else
-                    return $this->ReturnErorrRespons('0000', 'تاكد من كلمة المرور22222222');
+                if (Auth::guard('admin')->attempt($credential_phone) or Auth::guard('admin')->attempt($credential_email)) { // return redirect()->intended('/admin');
+                    if (Auth::guard('admin')->attempt($credential_phone_S) or Auth::guard('admin')->attempt($credential_email_S))  // return redirect()->intended('/admin');
+                        return $this->GetDateResponse('data', 'seller');
+                    else
+                        return $this->ReturnErorrRespons('0000', 'لا يمكن تسجيل الدخول  الا  بعد  تفعيل حسابك من قبل ادارة النظام  ');
+                } else
+                    return $this->ReturnErorrRespons('0000', 'تاكد من كلمة المرور');
 
             }
             $jwt_token = null;

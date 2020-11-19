@@ -46,6 +46,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #265a88;">
                 <div class="card">
                     <div class="card-block">
@@ -55,15 +56,6 @@
                     </div>
                 </div>
             </div>
-{{--            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #00caff;">--}}
-{{--                <div class="card">--}}
-{{--                    <div class="card-block">--}}
-{{--                        <span class="count_top" style="font-weight: bold"><i class="fa fa-book"--}}
-{{--                                                                             style="font-size: 20px"></i> عدد المواد التدريبية</span>--}}
-{{--                        <div class="count">{{$subjects}}</div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
             <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #6B6464;">
                 <div class="card">
                     <div class="card-block">
@@ -91,27 +83,107 @@
                     </div>
                 </div>
             </div>
-        </div>
-        @if ((Auth::user()->can('manage consultant') == true))
 
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="x_panel">
-                <div class="x_title">
-                    <h2>طلبات نشر الاستشارات</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                        </li>
-                    </ul>
-                    <div class="clearfix"></div>
+
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #eea236;">
+                <div class="card">
+                    <div class="card-block">
+                        <span class="count_top" style="font-weight: bold"><i class="fa fa-tags"
+                                                                             style="font-size: 20px"></i> عدد الاصناف </span>
+                        <div class="count">{{$shopCategory}}</div>
+                    </div>
                 </div>
-                <div class="x_content">
-                    <button style="margin: 5px;" class="btn btn-primary  btn-sm update-all" data-url="">موافقة</button>
-                    <button style="margin: 5px;" class="btn btn-danger btn-sm delete-all" data-url="">رفض</button>
-                    @csrf
-                    @include('admin.training.asking.fetch')
+
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style=" color: #0055cc;">
+                <div class="card">
+                    <div class="card-block">
+                <span class="count_top" style="font-weight: bold"><i class="fa fa-product-hunt"
+                                                                     style="font-size: 20px"></i> عدد المنتجات </span>
+                        <div class="count">{{$products}} </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style=" color: #374E0C;">
+                <div class="card">
+                    <div class="card-block">
+                <span class="count_top" style="font-weight: bold"><i class="fa fa-user-plus"
+                                                                     style="font-size: 20px"></i> عدد البائعين </span>
+                        <div class="count">{{$seller}} </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #AA22FF;">
+                <div class="card">
+                    <div class="card-block">
+                        <div class="count_top" style="font-weight: bold"><i class="fa fa-cart-plus"
+                                                                            style="font-size: 20px"></i>
+                            عدد الطلبات
+                        </div>
+                        <div class="count">{{$all_orders}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #265a88;">
+                <div class="card">
+                    <div class="card-block">
+                <span class="count_top" style="font-weight: bold"><i class="fa fa-question-circle"
+                                                                     style="font-size: 20px"></i> عدد  الطلبات الجديدة </span>
+                        <div class="count">{{$new_orders}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #6B6464;">
+                <div class="card">
+                    <div class="card-block">
+                <span class="count_top" style="font-weight: bold"><i class="fa fa-hand-grab-o"
+                                                                     style="font-size: 20px"></i>  الطلبات المسلمة  </span>
+                        <div class="count">{{$deliver_orders}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #82ad2b;">
+                <div class="card">
+                    <div class="card-block">
+                <span class="count_top" style="font-weight: bold"><i class="fa fa-check-circle"
+                                                                     style="font-size: 20px"></i> الطلبات المدفوعة </span>
+                        <div class="count">{{$all_payment_orders}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #dd0066;">
+                <div class="card">
+                    <div class="card-block">
+                        <span class="count_top" style="font-weight: bold"><i class="fa fa-close"
+                                                                             style="font-size: 20px"></i>  الطلبات غير المدفوعة </span>
+                        <div class="count">{{$all_no_payment_orders}}</div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        @if ((Auth::user()->can('manage consultant') == true))
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>طلبات نشر الاستشارات</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <button style="margin: 5px;" class="btn btn-primary  btn-sm update-all" data-url="">موافقة
+                        </button>
+                        <button style="margin: 5px;" class="btn btn-danger btn-sm delete-all" data-url="">رفض</button>
+                        @csrf
+                        @include('admin.training.asking.fetch')
+                    </div>
+                </div>
+            </div>
         @endif
     </div>
 @endsection

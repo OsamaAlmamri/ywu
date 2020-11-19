@@ -51,15 +51,19 @@ class User extends Authenticatable implements JWTSubject
         'deleted_at' => 'datetime:Y-m-d H:i:s',
     ];
 
-    protected $fillable=['name','gender','phone','email','status','type','password'] ;
+    protected $fillable = ['name', 'gender', 'phone', 'email', 'status',
+        'type', 'password', 'gov_id', 'district_id', 'more_address_info'];
+
     public function employee()
     {
         return $this->hasOne(Employee::class, 'user_id', 'id');
     }
+
     public function share_user()
     {
         return $this->hasOne(ShareUser::class, 'user_id', 'id');
     }
+
     public function posts()
     {
         return $this->hasMany(Post::class, 'user_id', 'id');
@@ -72,17 +76,17 @@ class User extends Authenticatable implements JWTSubject
 
     public function accepted_training()
     {
-        return $this->belongsToMany(Training::class,'user_trainings','user_id','training_id')->where('status',1);
+        return $this->belongsToMany(Training::class, 'user_trainings', 'user_id', 'training_id')->where('status', 1);
     }
 
     public function training()
     {
-        return $this->belongsToMany(Training::class,'user_trainings','user_id','training_id');
+        return $this->belongsToMany(Training::class, 'user_trainings', 'user_id', 'training_id');
     }
 
     public function not_accepty_training()
     {
-        return $this->belongsToMany(Training::class,'user_trainings','user_id','training_id')->where('status',1);
+        return $this->belongsToMany(Training::class, 'user_trainings', 'user_id', 'training_id')->where('status', 1);
     }
 
     /**

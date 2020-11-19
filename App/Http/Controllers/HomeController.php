@@ -42,6 +42,7 @@ class HomeController extends Controller
     {
         return view('site.login')->with('page_title', ' تسجيل الدخول');
     }
+
     public function register()
     {
         return view('site.register')->with('page_title', ' انشاء حساب جديد');
@@ -52,16 +53,22 @@ class HomeController extends Controller
         return view('site.woman')->with('page_title', 'قضايا المراة');
     }
 
-    public function womwn_details($id=0)
+    public function womwn_details($id = 0)
     {
         return view('site.womwn_details')->with('page_title', 'قضايا المراة');
     }
-    public function myProfile($id=0)
+
+    public function product_details($id = 0)
+    {
+        return view('site.womwn_details')->with('page_title', 'تفاصيل المنتج ');
+    }
+
+    public function myProfile($id = 0)
     {
         return view('site.profile')->with('page_title', 'صفحتي الشخصية');
     }
 
-    public function courses($type='grid')
+    public function courses($type = 'grid')
     {
 
         $Training = SubjectCategory::with(['trainings' => function ($sub) {
@@ -69,8 +76,8 @@ class HomeController extends Controller
         }])->get();
 
 //        return dd($Training);
-       $view= ($type=='grid')?'courses':'courses_list';
-        return view('site.'.$view)
+        $view = ($type == 'grid') ? 'courses' : 'courses_list';
+        return view('site.' . $view)
             ->with('sections', $Training)
             ->with('page_title', ' الدورات التدريبية');
     }
@@ -90,11 +97,11 @@ class HomeController extends Controller
         return view('site.about')->with('page_title', 'عنا ');
     }
 
-    public function course_detail($id=1)
+    public function course_detail($id = 1)
     {
-        $training=Training::find($id);
+        $training = Training::find($id);
         return view('site.course_detail')
-            ->with('training',$training)
+            ->with('training', $training)
             ->with('page_title', ' تفاصيل الدورة التدريبية');
     }
 }

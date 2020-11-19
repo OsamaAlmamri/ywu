@@ -41,6 +41,57 @@ class CategoreisController extends Controller
     }
 
 
+//    public function get_product_by_categories(Request $request)
+//    {
+//        $has_categories = false;
+//        $has_govs = false;
+//        $has_seller = false;
+//        if (isset($request->seller_id) and $request->seller_id > 0)
+//            $has_seller = true;
+//        if (isset($request->govs) and count($request->govs) > 0)
+//            $has_govs = true;
+//        if (isset($request->categories) and count($request->categories) > 0)
+//            $has_categories = true;
+//
+//        try {
+//            $data = ShopCategory::with(['products' => function ($q) use ($has_seller, $has_govs, $request) {
+//                $q->where('status', 1);
+//                if ($has_govs) {
+//                    $q->whereIn('admin_id', function ($query) use ($request) {
+//                        $query->select('admin_id')
+//                            ->from(with(new Seller())->getTable())
+//                            ->whereIn('gov_id', $request->govs);
+//                    });
+//                }
+//                if ($has_seller) {
+//                    $q->where('admin_id', $request->seller_id);
+//                }
+//            }]);
+//            if ($has_categories) {
+//                $data = $data->whereIn('id', $request->categories);
+//            }
+//
+//            $data = $data
+//                ->whereExists(function ($query) use ($has_seller, $request) {
+//
+//                    $query->select("products.id")
+//                        ->from('products')
+//                        ->whereRaw('products.category_id = shop_categories.id');
+//                    if ($has_seller) {
+//                        $query->where('products.admin_id', $request->seller_id);
+//                    }
+//                })
+//                ->orderBy('sort')->get();
+//            if (!$data) {
+//                return $this->ReturnErorrRespons('0000', 'لايوجد اصناف');
+//            } else {
+//                return $this->GetDateResponse('data', $data);
+//            }
+//        } catch (\Exception $ex) {
+//            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+//        }
+//    }
+
     public function get_product_by_categories(Request $request)
     {
         $has_categories = false;
@@ -48,9 +99,9 @@ class CategoreisController extends Controller
         $has_seller = false;
         if (isset($request->seller_id) and $request->seller_id > 0)
             $has_seller = true;
-        if (isset($request->govs) and count($request->govs) > 0)
+        if (isset($request->govs) and ($request->govs) > 0)
             $has_govs = true;
-        if (isset($request->categories) and count($request->categories) > 0)
+        if (isset($request->categories) and ($request->categories) > 0)
             $has_categories = true;
 
         try {
@@ -60,7 +111,7 @@ class CategoreisController extends Controller
                     $q->whereIn('admin_id', function ($query) use ($request) {
                         $query->select('admin_id')
                             ->from(with(new Seller())->getTable())
-                            ->whereIn('gov_id', $request->govs);
+                            ->where('gov_id', $request->govs);
                     });
                 }
                 if ($has_seller) {
@@ -68,7 +119,7 @@ class CategoreisController extends Controller
                 }
             }]);
             if ($has_categories) {
-                $data = $data->whereIn('id', $request->categories);
+                $data = $data->where('id', $request->categories);
             }
 
             $data = $data

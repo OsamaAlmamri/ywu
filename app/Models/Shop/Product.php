@@ -6,6 +6,7 @@ use App\Like;
 use App\Models\Rateable\Rateable;
 use App\Models\Rateable\Rating;
 use App\Models\TrainingContents\Training;
+use App\Seller;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -17,9 +18,9 @@ class Product extends Model
 
     protected $fillable = ['admin_id', 'category_id', 'name', 'description', 'image_id', 'price', 'has_attribute', 'available', 'sort', 'status'];
 
-    protected $appends = ['in_cart', 'image', 'image_actual', 'zone', 'category', 'space', 'published', 'average_rating', 'count_rating', 'percent_rating', 'rating_details'];
+    protected $appends = ['in_cart', 'image', 'image_actual', 'zone',   'category', 'space', 'published', 'average_rating', 'count_rating', 'percent_rating', 'rating_details'];
 
-    protected $with = ['is_like'];
+    protected $with = ['is_like','is_rating'];
 
     function getPercentRatingAttribute()
     {
@@ -384,13 +385,13 @@ class Product extends Model
     function getZoneAttribute()
     {
         $im = $this->space();
-        return ($im != null) ? $this->space()->zone : null;
+        return ($im != null) ? $this->space()->gov.' / '. $this->space()->district  : null;
     }
 
     function getSpaceAttribute()
     {
         $im = $this->space();
-        return ($im != null) ? $this->space()->name : null;
+        return ($im != null) ? $this->space()->more_address_info : null;
     }
 
     function getCategoryAttribute()
@@ -401,7 +402,7 @@ class Product extends Model
 
     public function space()
     {
-        return $this->belongsTo(Space::class, 'admin_id', 'id')
+        return $this->belongsTo(Seller::class, 'admin_id', 'id')
             ->first();
     }
 

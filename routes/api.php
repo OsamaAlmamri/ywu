@@ -66,6 +66,7 @@ Route::group(['middleware' => 'CheckAdminT:api'], function () {
     Route::post('shop/add_payment', 'Api\Shop\CartController@add_payment');
     Route::post('shop/confirm_order', 'Api\Shop\CartController@confirm_order');
     Route::post('shop/product_rate', 'Api\Shop\ProductsController@product_rate');
+    Route::post('shop/product_rate2', 'Api\Shop\ProductsController@rate2');
 
     Route::post('shop/addQuestion', 'Api\Shop\ProductsController@addQuestion');
     Route::post('shop/updateQuestion', 'Api\Shop\ProductsController@updateQuestion');

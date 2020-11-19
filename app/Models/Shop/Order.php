@@ -3,13 +3,20 @@
 namespace App\Models\Shop;
 
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
     //
     protected $fillable = ['price', 'payment_status', 'user_id', 'gov_id', 'district_id', 'more_address_info', 'phone', 'customer_name'];
-    protected $appends = ['district', 'gov', 'user_name'];
+    protected $appends = ['published','district', 'gov', 'user_name'];
+
+
+    public function getPublishedAttribute()
+    {
+        return Carbon::createFromTimestamp(strtotime($this->attributes['created_at']))->diffForHumans();
+    }
 
 
     function getDistrictAttribute()

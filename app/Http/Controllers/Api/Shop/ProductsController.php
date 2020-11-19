@@ -62,6 +62,55 @@ class ProductsController extends Controller
 
     }
 
+    function ratingInfo($course_id)
+    {
+        $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
+        $training = Product::with(['is_rating', 'ratings' => function ($q) use ($user_id) {
+            $q->where('user_id', '!=', $user_id);
+        }])->where('id', $course_id)->get()->first();
+        return $training;
+    }
+    function rate2(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(),
+                [
+                    'product_id' => 'required|numeric',
+                    'rating' => 'required|numeric|min:1|max:5',
+                    'message' => 'required',
+                ]);
+            if ($validator->fails()) {
+                return $this->ReturnErorrRespons('0000', $validator->errors());
+            }
+            $training = Product::find($request->product_id);
+            $rateable_type = Product::class;
+            $oldRating = Rating::all()
+                ->where('rateable_id', $request->product_id)
+                ->where('user_id', auth()->id())
+                ->where('rateable_type', $rateable_type)->first();
+            if ($oldRating != null) {
+                $oldRating->update([
+                    'rating' => $request->rating,
+                    'message' => $request->message,
+                ]);
+                return $this->GetDateResponse("data", $this->ratingInfo($request->course_id), 'تم تعديل التقييم بنجاح');
+            } else {
+                $rating = new Rating();
+                $rating->rating = $request->rating;
+                $rating->message = $request->message;
+                $rating->user_id = auth()->id();
+                $training->ratings()->save($rating);
+                $Training = $this->ratingInfo($request->product_id);
+                return $this->GetDateResponse("data", $Training, "تم التقييم بنجاح  ");
+            }
+        } catch (Exception $ex) {
+            return $this->ReturnErorrRespons('0000', $ex->getMessage());
+
+        }
+
+
+    }
+
     public function addQuestion(Request $request)
     {
         try {

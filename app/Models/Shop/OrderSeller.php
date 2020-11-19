@@ -13,7 +13,7 @@ class OrderSeller extends Model
 
     protected $fillable = ['order_id', 'seller_id', 'status', 'price', 'shipping_cost', 'shipping_method'];
 
-    protected $appends = ['seller_name','seller', 'order_status_name'];
+    protected $appends = ['seller_name', 'seller', 'order_status_name'];
 
     function getOrderStatusNameAttribute()
     {
@@ -24,14 +24,19 @@ class OrderSeller extends Model
     public function getSellerAttribute()
     {
         $s = $this->admin()->get()->first();
+
         $s->seller = $s->seller;
         return $s;
 
     }
+
     public function getSellerNameAttribute()
     {
         $s = $this->admin()->get()->first();
-        return $s->seller->sale_name;
+        if ($s->seller != null)
+            return $s->seller->sale_name;
+        return
+            null;
 
     }
 

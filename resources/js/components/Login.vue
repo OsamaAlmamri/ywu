@@ -41,18 +41,18 @@
                                     <li data-tab="#prod-overview" data-type="user"
                                         @click="changeUserType('user')"
                                         :class="['user_type_tap', 'tab-btn',{'active-btn':(form.userType=='user')}]">
-                                        متدرب
+                                        مستخدم
                                     </li>
                                     <li data-tab="#prod-overview" data-type="seller"
                                         @click="changeUserType('seller')"
                                         :class="['user_type_tap', 'tab-btn',{'active-btn':(form.userType=='seller')}]">
                                         تاجر
                                     </li>
-                                    <li data-tab="#prod-overview" data-type="customer"
-                                        @click="changeUserType('customer')"
-                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.userType=='customer')}]">
-                                        متسوق
-                                    </li>
+<!--                                    <li data-tab="#prod-overview" data-type="customer"-->
+<!--                                        @click="changeUserType('customer')"-->
+<!--                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.userType=='customer')}]">-->
+<!--                                        متسوق-->
+<!--                                    </li>-->
 
                                 </ul>
                             </div>
@@ -142,8 +142,10 @@
                 let phone = this.form.phone
                 let password = this.form.password
                 let userType = this.form.userType
+                let device_type = "web";
+                let device_token = $("#device_token").val()
                 this.isLoading = true;
-                store.dispatch('login', {phone, password, userType})
+                store.dispatch('login', {phone, password, userType, device_token,device_type})
                     .then(() => {
                         this.isLoading = false;
                         if (this.form.userType == 'seller') {

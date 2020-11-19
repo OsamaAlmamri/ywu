@@ -106,11 +106,13 @@
                 dom: 'Brfltip',
                 lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
                 buttons: [
+                        @if ((Auth::user()->can('manage admins') == true))
 
                     {
                         text: '<i class="fa fa-plus" ></i>  إنشاء حساب مدير جديد  ',
                         className: 'btn btn-info create_record',
                     },
+                    @endif
                 ],
                 ajax: {
                     url: "{{ route('admin.admins.index') }}",
@@ -131,12 +133,13 @@
                         data: 'email',
                         name: 'email'
                     },
-
+                        @if ((Auth::user()->can('active admins') == true))
                     {
                         title: 'حالة الحساب',
                         data: 'btn_status',
                         name: 'btn_status'
                     },
+                    @endif
                     {
                         title: ' الدور',
                         data: 'role_name',
@@ -146,12 +149,15 @@
                         title: 'تاريخ إنشاء الحساب',
                         data: 'created_at',
                     },
+                        @if ((Auth::user()->can('manage admins') == true))
+
                     {
                         title: 'العمليات',
                         data: 'action',
                         name: 'action',
                         orderable: false
                     },
+                    @endif
                 ]
             });
 

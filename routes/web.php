@@ -368,10 +368,11 @@ Route::get('/concatUs', 'HomeController@concatUs')->name('site.concatUs');
 Route::get('/about', 'HomeController@about')->name('site.about');
 Route::get('/course_details/{id?}', 'HomeController@course_detail')->name('site.course_detail');
 Route::get('/womwn_details/{id?}', 'HomeController@womwn_details')->name('site.womwn_details');
+Route::get('/product_details/{id?}', 'HomeController@product_details')->name('site.product_details');
 Route::get('/myProfile', 'HomeController@myProfile')->name('site.myProfile');
 Route::get('/site_login', 'HomeController@login')->name('site.login');
 Route::get('/register', 'HomeController@register')->name('site.register');
 Route::get('/login', 'HomeController@register')->name('site.login');
-Route::get('/{any?}', function () {
-    return view('welcome');
-})->where('any', '^(?!api\/)[\/\w\.-]*');
+//Route::get('/{any?}', function () {
+//    return view('welcome');
+//})->where('any', '^(?!api\/)[\/\w\.-]*');

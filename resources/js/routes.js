@@ -14,6 +14,7 @@ import women from './components/WomenComponent';
 import shop from './components/Shop';
 import ShopCategory from './components/ShopCategory';
 import ConsultantComponent from './components/ConsultantComponent';
+import ProductDeatailsComponent from './components/ProductDeatailsComponent';
 // import Co from './components/';
 import WomenDeatails from './components/WomenDeatails';
 import store from './store';
@@ -74,7 +75,16 @@ const routes = [
         meta: {
             requiresAuth: false
         }
-    },   {
+    },
+    {
+        path: '/product_details/:id',
+        component: ProductDeatailsComponent,
+        name: "product_details",
+        meta: {
+            requiresAuth: false
+        }
+    },
+    {
         path: '/post_details/:id',
         component: WomenDeatails,
         name: "post_details",

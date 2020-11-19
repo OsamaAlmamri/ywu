@@ -94,23 +94,23 @@
                         </li>
                     @endif
                     @if ((Auth::user()->can('show training') == true))
-                    <li><a><i class="fa fa-mortar-board"></i>
-                            الدورات التدريبية <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="{{route('training')}}">إدارة الدورات التدريبية</a></li>
-                            <li><a href="{{route('user_trainings')}}">طلبات الانضمام  للدورة التدريبية</a></li>
-                            <li><a href="{{route('training-trashed')}}">سلة المحذوفات</a></li>
-                        </ul>
-                    </li>
+                        <li><a><i class="fa fa-mortar-board"></i>
+                                الدورات التدريبية <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="{{route('training')}}">إدارة الدورات التدريبية</a></li>
+                                <li><a href="{{route('user_trainings')}}">طلبات الانضمام للدورة التدريبية</a></li>
+                                <li><a href="{{route('training-trashed')}}">سلة المحذوفات</a></li>
+                            </ul>
+                        </li>
                     @endif
 
-{{--                                        <li><a><i class="fa fa-book"></i> المواد التدريبية <span--}}
-{{--                                                    class="fa fa-chevron-down"></span></a>--}}
-{{--                                            <ul class="nav child_menu">--}}
-{{--                                                <li><a href="{{route('subject')}}">عرض وادارة المواد التدريبية</a></li>--}}
-{{--                                                <li><a href="{{route('subject-trashed')}}">سلة المحذوفات</a></li>--}}
-{{--                                            </ul>--}}
-{{--                                        </li>--}}
+                    {{--                                        <li><a><i class="fa fa-book"></i> المواد التدريبية <span--}}
+                    {{--                                                    class="fa fa-chevron-down"></span></a>--}}
+                    {{--                                            <ul class="nav child_menu">--}}
+                    {{--                                                <li><a href="{{route('subject')}}">عرض وادارة المواد التدريبية</a></li>--}}
+                    {{--                                                <li><a href="{{route('subject-trashed')}}">سلة المحذوفات</a></li>--}}
+                    {{--                                            </ul>--}}
+                    {{--                                        </li>--}}
 
 
 
@@ -235,7 +235,7 @@
 
                         @foreach(auth()->user()->unreadNotifications as $notification)
                             <li>
-                                <a href="{{route('admin.shop.orders.showNotification',[$notification->data['order_id'],$notification->id])}}">
+                                <a href="{{ notification_type($notification->data['order_id'],$notification->data['notification_type'])}}">
                                 <span class="image">
                                     <img src="{{ ($notification->data['sender_image'])}}" alt=" Image"/>
                                 </span>

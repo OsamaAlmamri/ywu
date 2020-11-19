@@ -13,11 +13,9 @@ use Illuminate\Support\Facades\File;
 use Spatie\Permission\Models\Role;
 
 if (!function_exists('getViewCustomDate')) {
-
     function getViewCustomDate($date)
     {
         if ($date) {
-
             return Carbon::createFromTimestamp(strtotime($date))->format('Y-m-d');
         }
         return '';
@@ -25,17 +23,39 @@ if (!function_exists('getViewCustomDate')) {
 }
 
 
-function notification_type($date)
+function notification_type($id, $type)
 {
-    // new_share_user
-    // new_seller
-    // new_post
-    // payment
-    // sub_order
-    // order
-    // new_training_user
-    return '';
+    switch ($type) {
+        case 'new_share_user':
+            return route('SharedUser', $id);
+            break;
+        case 'new_seller':
+            return route('admin.shop.sellers.index');
+            break;
+        case 'new_post':
+            return route('admin.home');
+            break;
+        case 'payment':
+            return route('admin.shop.payments.index');
+            break;
+        case 'sub_order':
+            return route('admin.shop.orders.show_seller_order', $id);
+            break;
+        case 'order':
+            return route('admin.shop.orders.show_main_order', $id);
+            break;
+        case 'new_training_user':
+            return route('user_trainings');
+            break;
+        default:
+            return '/admin/home';
+    }
+
+    //
+//
+    '';
 }
+
 if (!function_exists('getAdminsOrderNotifucation')) {
     function getAdminsOrderNotifucation($event_status)
     {
@@ -68,7 +88,7 @@ function getNotifiableUsers($user = 0, $admins = [])
 
 function setFirBaseToken($data)
 {
-//    $devices = Device::where('device_token', $data['device_token'])->delete();
+    $devices = Device::where('device_token', $data['device_token'])->delete();
 //
     $device = Device::all()
         ->where('user_type', 'like', $data['user_type'])

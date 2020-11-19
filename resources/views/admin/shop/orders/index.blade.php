@@ -18,15 +18,15 @@
                         <?php $getGovernorate = getCities(); $getGovernorate['all'] = 'all'; ?>
                         {!!Form ::select('to_zone', array_reverse($getGovernorate,true),'',['class' => 'select2 form-control', 'id' => 'to_zone'])!!}
                     </div>
-                    {{--                    @if($type=='sub')--}}
-                    <div class="input-group col-sm-3">
-                        <span class="input-group-addon">حالة الطلب</span>
-                        {!!Form ::select('status', getSpesificStatus(0),'',['class' => 'select2 form-control', 'id' => 'filter_status'])!!}
-                    </div>
-                    {{--                    @else--}}
-                    {{--                        <input type="hidden" id="filter_status" value="{{getSpesificStatus(0)}}">--}}
-                    {{--                        <input type="hidden" id="filter_status" value="{{getSpesificStatus($type)}}">--}}
-                    {{--                    @endif--}}
+                    @if($type!='main')
+                        <div class="input-group col-sm-3">
+                            <span class="input-group-addon">حالة الطلب</span>
+                            {!!Form ::select('status', getSpesificStatus(0),'',['class' => 'select2 form-control', 'id' => 'filter_status'])!!}
+                        </div>
+                        {{--                    @endif--}}
+                    @else
+                        <input type="hidden" id="filter_status" value="all">
+                    @endif
                     <div class="input-group col-sm-3">
                         <span class="input-group-addon">حالة الدفع</span>
                         {!!Form ::select('payment', paymentStatus('all'),'',['class' => 'select2 form-control', 'id' => 'filter_payment_status'])!!}
@@ -65,10 +65,31 @@
                     <h2 class="modal-title">حذف الطلب</h2>
                 </div>
                 <div class="modal-body">
-                    <h4 align="center" style="margin:0;">هل انت متاكد من الحذف؟</h4>
+                    <h4 align="center" style="margin:0;">هل انت متاكد من تاكيد الدفع ؟</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">نعم</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">الغاء</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="confirmModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title">تاكيد عملية الدفع</h2>
+                </div>
+                <div class="modal-body">
+                    <h4 align="center" style="margin:0;">هل انت متاكد من التاكيد؟</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">تاكيد المراجعة</button>
+                    <button type="button" name="ok_button" id="ok_button_with_order" class="btn btn-danger">تاكيد
+                        المراجعة معا
+                        الطلب
+                    </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">الغاء</button>
                 </div>
             </div>
@@ -212,30 +233,53 @@
                 fill_datatable();
             });
 
-            var deleted_id = 0;
-            $(document).on('click', '.delete', function () {
-                deleted_id = $(this).attr('id');
-                $('.modal-title').text("حذف الطلب ");
-                $('#ok_button').text('حذف');
-                $('#confirmModal').modal('show');
-            });
-            $('#ok_button').click(function () {
-                $.ajax({
-                    url: "{{URL::to('')}}/admin/shop/orders/destroy/" + deleted_id,
-                    beforeSend: function () {
-                        $('#ok_button').text('جاري الحذف...');
-                    },
-                    success: function (data) {
-                        setTimeout(function () {
-                            $('#confirmModal').modal('hide');
-                            $('#user_table').DataTable().ajax.reload();
-                        }, 2000);
-                    }
-                })
-            });
-
 
         });
+        var type_id;
+        var actionType;
+
+        $(document).on('click', '.change_status', function () {
+            type_id = $(this).attr('id');
+            actionType = $(this).attr('actionType');
+            if (actionType == "change_payment") {
+                $('.modal-title').text("تاكيد مراجعة الطلب");
+            }
+                // else if (type_id == "delete_payment")
+            //     $('.modal-title').text("حذف الصنف");
+            else {
+                $('.modal-title').text("تاكيد دفع الطلب");
+            }
+            $('#ok_button').text('تاكيد');
+            $('#confirmModal').modal('show');
+        });
+
+        $('#ok_button').click(function () {
+            confirm_payment(0);
+        });
+
+        $('#ok_button_with_order').click(function () {
+            confirm_payment(1);
+        });
+
+        function confirm_payment(with_order) {
+            $.ajax({
+                url: "{{route('admin.shop.payments.change_status')}}",
+                method: "post",
+                data: '_token=' + ("{{csrf_token()}}") +
+                    '&type=' + actionType +
+                    '&with_order=' + with_order +
+                    '&type_id=' + type_id,
+                beforeSend: function () {
+                    $('#ok_button').text('جاري التاكيد...');
+                },
+                success: function (data) {
+                    setTimeout(function () {
+                        $('#confirmModal').modal('hide');
+                        $('#user_table').DataTable().ajax.reload();
+                    }, 2000);
+                }
+            });
+        }
 
 
     </script>

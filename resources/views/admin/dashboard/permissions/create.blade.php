@@ -65,19 +65,46 @@
     margin-top: -20px;">
 
                                                                     @foreach ($sub_permission as $k_sub => $permission)
-                                                                        <div class=" col-md-4 col-sm-6 col-xs-12">
-                                                                            <div class=" radio-inline">
-                                                                                <label>
-                                                                                    <input type="checkbox"
-                                                                                           name="permissions[]"
-                                                                                           @if(in_array($permission->id, $oldRolePermission))
-                                                                                           checked
-                                                                                           @endif
-                                                                                           class=" selectAll select-message{{$k}}"
-                                                                                           value="{{$permission->id}}"> {{$permission->name}}
-                                                                                </label>
+                                                                        @if (
+                                                                               ( ($permission->name=="manage products")
+                                                                                or ($permission->name=="manage products_questions")
+                                                                                or ($permission->name=="show products_questions")
+                                                                                or ($permission->name=="show products")
+                                                                                 )
+                                                                                )
+                                                                            @if  (auth()->user()->getRoleNames()->first() === 'Developer')
+                                                                                <div
+                                                                                    class=" col-md-4 col-sm-6 col-xs-12">
+                                                                                    <div class=" radio-inline">
+                                                                                        <label>
+                                                                                            <input type="checkbox"
+                                                                                                   name="permissions[]"
+                                                                                                   @if(in_array($permission->id, $oldRolePermission))
+                                                                                                   checked
+                                                                                                   @endif
+                                                                                                   class=" selectAll select-message{{$k}}"
+                                                                                                   value="{{$permission->id}}"> {{$permission->name}}
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            @endif
+
+                                                                        @else
+                                                                            <div
+                                                                                class=" col-md-4 col-sm-6 col-xs-12">
+                                                                                <div class=" radio-inline">
+                                                                                    <label>
+                                                                                        <input type="checkbox"
+                                                                                               name="permissions[]"
+                                                                                               @if(in_array($permission->id, $oldRolePermission))
+                                                                                               checked
+                                                                                               @endif
+                                                                                               class=" selectAll select-message{{$k}}"
+                                                                                               value="{{$permission->id}}"> {{$permission->name}}
+                                                                                    </label>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
+                                                                    @endif
                                                                 @endforeach
                                                                 <!--                        @error('categories') <span class="btn-block badge badge-danger">{{ $message }}</span> @enderror-->
 

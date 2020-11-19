@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Trainings;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\FireBaseController;
 use App\Http\Resources\LastPosts;
 use App\Like;
 use App\Models\Rateable\Rating;
@@ -13,6 +14,7 @@ use App\Models\TrainingContents\Training;
 use App\Models\TrainingContents\TrainingTitle;
 use App\Models\UserContents\Post;
 use App\Models\WomenContents\WomenPosts;
+use App\Notifications\AppNotification;
 use App\Question;
 use App\Result;
 use App\Traits\JsonTrait;
@@ -30,6 +32,10 @@ class TrainingController extends Controller
     use JsonTrait;
     use PostTrait;
 
+    public function __construct(FireBaseController $firbaseContoller)
+    {
+        $this->firbaseContoller = $firbaseContoller;
+    }
 
     public function index()
     {
@@ -341,6 +347,25 @@ class TrainingController extends Controller
                 $l->training_id = $request->training_id;
                 $l->save();
                 $m = ($t->type == 'عام') ? " " : " و بانتظار الموافقة عليك";
+                $message = 'قام  ' . \auth()->user()->name . '  بالتسجيل ب المادة التدريبية  ' . $t->name;
+                $dataToNotification = array(
+                    'sender_name' => auth()->user()->name,
+                    'order_id' => $t->id,
+                    'notification_type' => "new_training_user",
+                    'user_id' => \auth()->id(),
+                    'sender_image' => url('site/images/Logo250px.png'),
+                    'message' => $message,
+                    'date' => $l->created_at
+                );
+                $admins_id = [];
+                $admins = getAdminsOrderNotifucation('new_seller');
+                foreach ($admins as $admin) {
+                    $admins_id[] = $admin->id;
+                    $admin->notify(new AppNotification($dataToNotification));
+                }
+                $tokens = getNotifiableUsers(0, $admins_id);
+                $this->firbaseContoller->multi($tokens, $dataToNotification);
+
                 return $this->GetDateResponse('data', $l, "تم التسجيل بالدورة" . $m);
             } else if ($user_training > 0) {
                 return $this->GetDateResponse('data', $likes, 'لا يمكن اللغاء التسجيل بعد البدء بالتدريب ');
