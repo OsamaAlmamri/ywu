@@ -12,6 +12,7 @@ import LogoutComponent from './components/Logout';
 import Profile from './components/Profile';
 import women from './components/WomenComponent';
 import shop from './components/Shop';
+import cart from './components/CartComponent';
 import ShopCategory from './components/ShopCategory';
 import ConsultantComponent from './components/ConsultantComponent';
 import ProductDeatailsComponent from './components/ProductDeatailsComponent';
@@ -32,6 +33,14 @@ const routes = [
         path: '/ShopCategory',
         component: ShopCategory,
         name: "ShopCategory",
+        meta: {
+            requiresAuth: false
+        }
+    },
+    {
+        path: '/cart',
+        component: cart,
+        name: "cart",
         meta: {
             requiresAuth: false
         }

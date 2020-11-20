@@ -58,6 +58,9 @@ class CartController extends Controller
             $olds = Cart::where('product_id', $request['product_id'])
                 ->where('user_id', \auth()->id())->get();
             foreach ($olds as $old) {
+                if ($product->has_attribute == 0 and $olds->count() > 0) {
+                    $add = 1;
+                }
                 $old_att = array_map('intval', explode(',', $old->attributes));
                 if (isset($request['product_attributes'])) {
                     $result = array_diff($old_att, $request['product_attributes']);

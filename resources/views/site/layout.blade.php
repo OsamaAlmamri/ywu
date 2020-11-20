@@ -152,6 +152,10 @@
                                         <router-link @click.native="scrollToTop()" to="/shop"> السوق الالكتروني
                                         </router-link>
                                     </li>
+                                    <li :class="[{'current':currentPage=='cart'}]">
+                                        <router-link @click.native="scrollToTop()" to="/cart"> السلة
+                                        </router-link>
+                                    </li>
                                 </ul>
                             </div>
 

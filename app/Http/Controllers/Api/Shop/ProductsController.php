@@ -70,6 +70,7 @@ class ProductsController extends Controller
         }])->where('id', $course_id)->get()->first();
         return $training;
     }
+
     function rate2(Request $request)
     {
         try {
@@ -93,7 +94,7 @@ class ProductsController extends Controller
                     'rating' => $request->rating,
                     'message' => $request->message,
                 ]);
-                return $this->GetDateResponse("data", $this->ratingInfo($request->course_id), 'تم تعديل التقييم بنجاح');
+                return $this->GetDateResponse("data", $this->ratingInfo($request->product_id), 'تم تعديل التقييم بنجاح');
             } else {
                 $rating = new Rating();
                 $rating->rating = $request->rating;
@@ -188,7 +189,7 @@ class ProductsController extends Controller
 
                     }
                 }
-                return $this->GetDateResponse("data", 'لايمكن حذف هذا السؤال');
+                return $this->ReturnErorrRespons("0000", 'لايمكن حذف هذا السؤال');
 
             }
         } catch (Exception $ex) {
@@ -206,16 +207,19 @@ class ProductsController extends Controller
             ],
                 [
                     'product_question_id.required' => 'رقم السؤال مطلوب',
-                    'text.required' => ' نص السؤال مطلوب',
+                    'text.required' => ' نص الرد مطلوب',
                 ]);
             if ($validator->fails()) {
                 return $this->ReturnErorrRespons('0000', $validator->errors());
             }
             if (auth()->user() != null) {
-                QuestionReplay::create(array_merge($request->all(), [
+             $r=   QuestionReplay::create(array_merge($request->all(), [
                     'replay_user_id' => auth()->user()->id,
+                    'replay_user_type' => 'customer',
                 ]));
-                return $this->GetDateResponse("data", 1, 'تم تعديل السؤال بنجاح');
+             $reply=QuestionReplay::find($r->id);
+
+                return $this->GetDateResponse("data", $r, 'تم اضافة الرد  بنجاح');
             }
         } catch (Exception $ex) {
             return $this->ReturnErorrRespons('0000', $ex->getMessage());

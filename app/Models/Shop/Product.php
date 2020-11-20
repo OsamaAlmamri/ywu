@@ -18,9 +18,9 @@ class Product extends Model
 
     protected $fillable = ['admin_id', 'category_id', 'name', 'description', 'image_id', 'price', 'has_attribute', 'available', 'sort', 'status'];
 
-    protected $appends = ['in_cart', 'image', 'image_actual', 'zone',   'category', 'space', 'published', 'average_rating', 'count_rating', 'percent_rating', 'rating_details'];
+    protected $appends = ['in_cart', 'image', 'image_actual', 'zone', 'category', 'space', 'published', 'average_rating', 'count_rating', 'percent_rating', 'rating_details'];
 
-    protected $with = ['is_like','is_rating'];
+    protected $with = ['is_like', 'is_rating'];
 
     function getPercentRatingAttribute()
     {
@@ -385,7 +385,7 @@ class Product extends Model
     function getZoneAttribute()
     {
         $im = $this->space();
-        return ($im != null) ? $this->space()->gov.' / '. $this->space()->district  : null;
+        return ($im != null) ? $this->space()->gov . ' / ' . $this->space()->district : null;
     }
 
     function getSpaceAttribute()
@@ -436,7 +436,7 @@ class Product extends Model
                 foreach ($im as $value) {
                     if ($value->options_id == $option->options_id)
                         $values[] = array(
-                            'products_attributes_id' => $option->products_attributes_id,
+                            'products_attributes_id' => $value->products_attributes_id,
                             'options_values_id' => $value->options_values_id,
                             'products_options_values_name' => $value->products_options_values_name,
                             'price' => $value->options_values_price,

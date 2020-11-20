@@ -3,12 +3,12 @@ import Vuex from 'vuex'
 import axios from 'axios'
 
 Vue.use(Vuex)
-
 export default new Vuex.Store({
     state: {
         status: '',
         token: localStorage.getItem('token') || '',
-        user: JSON.parse(localStorage.getItem('user')) || {}
+        user: JSON.parse(localStorage.getItem('user')) || {},
+        cart: JSON.parse(localStorage.getItem('cart')) || []
     },
     mutations: {
         auth_request(state) {
@@ -67,7 +67,7 @@ export default new Vuex.Store({
             return new Promise((resolve, reject) => {
                 commit('auth_request')
                 let formData = new FormData();
-                for ( var key in user ) {
+                for (var key in user) {
                     formData.append(key, user[key]);
                 }
 
@@ -131,5 +131,6 @@ export default new Vuex.Store({
         isLoggedIn: state => !!state.token,
         authStatus: state => state.status,
         authUser: state => state.user,
+        cart: state => state.user,
     }
 })

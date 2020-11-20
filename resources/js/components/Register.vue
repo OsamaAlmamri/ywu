@@ -35,16 +35,16 @@
                                         :class="['user_type_tap', 'tab-btn',{'active-btn':(form.userType=='visitor')}]">
                                         مستخدم
                                     </li>
-<!--                                    <li data-tab="#prod-bookmark"-->
-<!--                                        @click="changeUserType('share_user','sub_cluster')"-->
-<!--                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.share_user_type=='sub_cluster')}]">-->
-<!--                                        شريك-->
-<!--                                    </li>-->
-<!--                                    <li data-tab="#prod-setting" @click="changeUserType('share_user','copartner')"-->
-<!--                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.share_user_type=='copartner')}]">-->
-<!--                                        عضو-->
-<!--                                        كتلة-->
-<!--                                    </li>-->
+                                    <!--                                    <li data-tab="#prod-bookmark"-->
+                                    <!--                                        @click="changeUserType('share_user','sub_cluster')"-->
+                                    <!--                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.share_user_type=='sub_cluster')}]">-->
+                                    <!--                                        شريك-->
+                                    <!--                                    </li>-->
+                                    <!--                                    <li data-tab="#prod-setting" @click="changeUserType('share_user','copartner')"-->
+                                    <!--                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.share_user_type=='copartner')}]">-->
+                                    <!--                                        عضو-->
+                                    <!--                                        كتلة-->
+                                    <!--                                    </li>-->
                                     <li data-tab="#prod-overview" data-type="seller"
                                         @click="changeUserType('seller','')"
                                         :class="['user_type_tap', 'tab-btn',{'active-btn':(form.userType=='seller')}]">
@@ -164,7 +164,9 @@
                                 </div>
                                 <div v-else>
                                     <img c id="slected_image" :src="image"/>
-                                    <button class="btn btn-warning" id="slected_image_button" @click="removeImage()">حذف الصورة</button>
+                                    <button class="btn btn-warning" id="slected_image_button" @click="removeImage()">حذف
+                                        الصورة
+                                    </button>
                                 </div>
                             </div>
 
@@ -405,6 +407,7 @@
         display: block;
         margin-bottom: 10px;
     }
+
     #slected_image_button {
 
         margin-right: 45%;

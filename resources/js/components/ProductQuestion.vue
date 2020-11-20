@@ -1,31 +1,30 @@
 <template>
     <div class="inner-box">
-        <sweet-modal :title="post.title"
+        <sweet-modal :title="'اضافة رد جديد'"
                      :blocking=true :enable-mobile-fullscreen=true
                      :pulse-on-block=true
-                     :overlay-theme="'dark'" ref="comments">
-            <div v-for="(comment,key ) in  post.comments">
+                     :overlay-theme="'dark'" ref="new_reply">
+            <div v-for="(reply,key ) in  product_question.replies">
                 <div class="row">
                     <div class="col-xs-2 pull-right" style="margin: 20px 38px 0px 0px">
                         <i class="fa fa-comment"> </i>
                     </div>
                     <div class="col-xs-4 pull-right" style="margin: 15px 15px 0 0">
                         <ul style="display: inline-block; list-style: none" class="">
-                            <li><i v-if="comment.is_consonant==1" class="fa fa-user"> </i>
-                                {{comment.user.name}}
+                            <li><i class="fa fa-user"> </i>
+                                {{reply.user_name}}
                             </li>
-                            <li> {{comment.published}}</li>
+                            <li> {{reply.created_at}}</li>
 
                         </ul>
                     </div>
                     <div class="col col-xs-5 " style="margin: 15px 0px  0 15px; text-align: end">
-
-                        <dropdown v-if="authUser.id==comment.user_id">
+                        <dropdown v-if="authUser.id==reply.replay_user_id">
                             <div slot="items">
                                 <a class="dropdown-item" href="#"
-                                   @click.prevent="edit_comment(key,comment)">تعديل</a>
+                                   @click.prevent="edit_reply_question(key,reply)">تعديل</a>
                                 <a class="dropdown-item" href="#"
-                                   @click.prevent="deleteComment(key,comment)"> حذف </a>
+                                   @click.prevent="deleteReply(key,reply)"> حذف </a>
                             </div>
                         </dropdown>
 
@@ -33,7 +32,8 @@
 
                 </div>
                 <div class="lower-content" style="padding: 15px">
-                    <div class="post-info" v-html="comment.body">
+                    <div class="post-info" v-html="">
+                        {{reply.text}}
                     </div>
                 </div>
                 <hr>
@@ -41,13 +41,14 @@
             <div class="row clearfix">
                 <div class="form-group" style="width: 100%">
                     <fieldset class="the-fieldset">
-                        <legend class="the-legend"> اضاافة تعليق</legend>
+                        <legend class="the-legend"> اضافة رد جديد</legend>
                         <div class="input-group mb-3">
-                            <textarea style="width: 100%" rows="3" class="" v-model="newComment.body"></textarea>
+                            <textarea style="width: 100%" rows="3" class=""
+                                      v-model="new_reply_question.text"></textarea>
                             <div class="input-group-append">
                                 <button class="btn btn-info"
-                                        @click.prevent="(edit==false)?saveComment():updateComment()">
-                                    {{(edit==false)?'اضافة التعليق':"حفظ التعديل"}}
+                                        @click.prevent="(edit==false)?addReplay():updateComment()">
+                                    {{(edit==false)?'اضافة الرد':"حفظ التعديل"}}
                                 </button>
                             </div>
                             <div class="input-group-append">
@@ -64,20 +65,19 @@
 
         <div class="row">
             <div class="col-xs-2 pull-right" style="margin: 20px 38px 0px 0px">
-                <img style="width: 40px; border-radius: 49%;" :src="getImageType(post.category.id)">
+                <img style="width: 40px; border-radius: 49%;" :src="getImageType(1)">
             </div>
             <div class="col-xs-4 pull-right" style="margin: 15px 15px 0 0">
                 <ul style="display: inline-block; list-style: none" class="">
-                    <li> {{post.category.name}}</li>
+                    <li> {{product_question.user_name}}</li>
                     <li>
                         <i class="fa fa-clock-o"> </i>
-                        {{post.published}}
+                        {{product_question.published}}
                     </li>
                 </ul>
             </div>
             <div class="col col-xs-5 " style="margin: 15px 0px  0 15px; text-align: end">
-
-                <dropdown v-if="authUser.id==post.user_id">
+                <dropdown v-if="authUser.id==product_question.customers_id">
                     <div slot="items">
                         <a class="dropdown-item" href="#"
                            @click.prevent="editPost()">تعديل</a>
@@ -85,94 +85,81 @@
                            @click.prevent="deletePost()"> حذف </a>
                     </div>
                 </dropdown>
-
             </div>
 
         </div>
         <div class="lower-content" style="padding: 15px">
-            <h5>
-                <router-link @click.native="$scrollToTop" :to="{ name: 'post_details', params: { id: post.id}}">
-                    {{post.title}}
-                </router-link>
-            </h5>
-
-            <div class="post-info" id="targetMore" v-html="textToDisplay">
+            <div class="post-info">
+                {{product_question.text}}
             </div>
-            <span @click="readmore=!readmore" v-if="post_words.isMore && textMoreToShow">( عرض المزيد) </span>
-            <span @click="readmore=!readmore" v-if="post_words.isMore && !(textMoreToShow)"> (عرض اقل)  </span>
-            <hr>
             <div class="clearfix">
                 <div class="pull-right" style="padding-right: 3em">
-                    <div @click="openCommentModal()" class="students"> {{(comments_count)}} <i
-                        class="fa fa-comments"></i></div>
+                    <div @click="openCommentModal()" class="students"> {{(product_replyes_count())}} <i
+                        class="fa fa-reply"></i></div>
                 </div>
-                <div class="pull-left" style="padding-left: 3em">
-                    <like-button type="posts" :key="post.id" :count-likes="post.likes_count" has-count="1"
-                                 :liked_id="post.id" :is_liked="post.user_like"></like-button>
-                </div>
+
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import LikeButton from './LikeButton.vue';
-
     import axios from "axios";
     import store from '../store'
 
     export default {
-
-        props: ['post', '_key'],
-        components: {LikeButton},
+        props: ['product_question', '_key'],
         data() {
             return {
                 readmore: false,
                 edit: false,
                 bodyDisplay: '',
                 is_active_dropdown: false,
-                edit_post: false,
-
-                post_words: {
+                edit_product: false,
+                product_words: {
                     'words': 0,
                     'newText': '',
                     'isMore': false
                 },
-                newComment: {
+                new_reply_question: {
                     'key': 0,
-                    'body': '',
+                    'text': '',
+                    'replay_id': 0,
                     'id': 0,
-                    'post_id': this.post.id,
+                    'product_question_id': this.product_question.id,
                 }
             }
         },
-        created() {
-            this.post_words = this.countWords(this.post.body, 20);
-        },
         methods: {
             deletePost() {
-                this.$emit('delete_post', this._key)
-
+                this.$emit('delete_question', this._key)
+            },
+            product_replyes_count: function () {
+                // return 0;
+                if (this.product_question.replies)
+                    return this.product_question.replies.length;
+                else
+                    return 0;
             },
             editPost() {
                 this.is_active_dropdown = false;
-                this.edit_post = true;
-                // this.$emit('edit_post', this.post.id);
-                this.$emit('edit_post', this._key)
+                this.edit_product = true;
+                // this.$emit('edit_product', this.product.id);
+                this.$emit('edit_question', this._key)
 
                 // this.newRating.rating = this.training.is_rating.rating;
                 // this.newRating.message = this.training.is_rating.message;
 
             },
-            deleteComment(key, comment) {
+            deleteReply(key, replay) {
                 this.isLoading = true;
-                var id = comment.id;
-                axios({url: '/api/DeComment/' + id, data: {id: id}, method: 'POST'})
+                var id = replay.id;
+                axios({url: '/api/shop/deleteReplay', data: {replay_id: id}, method: 'POST'})
                     .then(resp => {
                         if (resp.data.status == false) {
                             toastStack('   خطاء ', resp.data.msg, 'error');
                         } else {
-                            this.post.comments.splice(key, 1);
+                            this.product_question.replies.splice(key, 1);
                             toastStack(resp.data.msg, '', 'success');
                         }
                         this.isLoading = false;
@@ -182,22 +169,23 @@
                         console.log(err)
                     })
             },
-            saveComment() {
+            addReplay() {
                 if (localStorage.token) {
                     this.isLoading = true;
-                    axios({url: '/api/StComment', data: this.newComment, method: 'POST'})
+                    axios({url: '/api/shop/addReplay', data: this.new_reply_question, method: 'POST'})
                         .then(resp => {
                             this.isLoading = false;
                             if (resp.data.status == false) {
                                 toastStack('   خطاء ', resp.data.msg, 'error');
                             } else {
-                                this.post.comments.push(resp.data.comment);
+                                this.product_question.replies.push(resp.data.data);
                                 toastStack(resp.data.msg, '', 'success');
-                                this.newComment = {
-                                    'post_id': this.post.id,
+                                this.new_reply_question = {
                                     'key': 0,
-                                    'body': '',
+                                    'text': '',
                                     'id': 0,
+                                    'replay_id': 0,
+                                    'product_question_id': this.product_question.id,
                                 }
                                 // this.$refs.modal.close();
                             }
@@ -213,20 +201,27 @@
             updateComment() {
                 if (localStorage.token) {
                     this.isLoading = true;
-                    axios({url: '/api/UpComment/' + this.newComment.id, data: this.newComment, method: 'POST'})
+                    axios({
+                        url: '/api/shop/updateReplay',
+                        data: this.new_reply_question,
+                        method: 'POST'
+                    })
                         .then(resp => {
                             this.isLoading = false;
                             if (resp.data.status == false) {
                                 toastStack('   خطاء ', resp.data.msg, 'error');
                             } else {
-                                this.post.comments[this.newComment.key].body = (this.newComment.body);
+                                this.product_question.replies[this.new_reply_question.key].text = (this.new_reply_question.text);
                                 toastStack(resp.data.msg, '', 'success');
-                                this.newComment = {
-                                    'post_id': this.post.id,
+
+                                this.new_reply_question = {
+                                    'product_id': this.product.id,
                                     'key': 0,
-                                    'body': '',
+                                    'text': '',
+                                    'replay_id': 0,
                                     'id': 0,
                                 }
+                                this.edit=false;
                             }
                         })
                         .catch(err => {
@@ -238,35 +233,32 @@
                 this.$emit('click', this.$vnode.key)
             },
             openCommentModal() {
-                this.$refs.comments.open();
+                this.$refs.new_reply.open();
             },
-            edit_comment(key, comment) {
+            edit_reply_question(key, replay) {
                 this.is_active_dropdown = false;
                 this.edit = true;
-                this.newComment.key = key;
-                this.newComment.body = comment.body;
-                this.newComment.id = comment.id;
+                this.new_reply_question.key = key;
+                this.new_reply_question.text = replay.text;
+                this.new_reply_question.id = replay.id;
+                this.new_reply_question.replay_id = replay.id;
 
             },
             CancelUpdate() {
                 this.is_active_dropdown = true;
                 this.edit = false;
-                this.newComment.key = 0;
-                this.newComment.body = '';
-                this.newComment.id = 0;
+                this.new_reply_question.key = 0;
+                this.new_reply_question.text = '';
+                this.new_reply_question.id = 0;
+                this.new_reply_question.replay_id = 0;
 
             },
         },
         computed: {
-            textToDisplay: function () {
-                return (this.readmore) ? this.post_words.newText : this.post.body;
-            },
             authUser: function () {
                 return store.getters.authUser
             },
-            comments_count: function () {
-                return this.post.comments.length
-            },
+
 
             textMoreToShow: function () {
                 return (this.readmore);

@@ -10,6 +10,35 @@
                  :on-cancel="onCancel()"
                  :is-full-page="fullPage">
         </loading>
+        <sweet-modal :title="'تعديل السؤال'"
+                     :blocking=true :enable-mobile-fullscreen=true
+                     :pulse-on-block=true
+                     :overlay-theme="'dark'" ref="edit_ques">
+            <div class="row clearfix">
+                <div class="form-group" style="width: 100%">
+                    <fieldset class="the-fieldset">
+                        <legend class="the-legend"> تعديل السؤال</legend>
+                        <div class="input-group mb-3">
+                            <textarea style="width: 100%" rows="3" class=""
+                                      v-model="edit_question_data.text"></textarea>
+                            <div class="input-group-append">
+                                <button class="btn btn-info"
+                                        @click.prevent="updateQuestion()">
+                                    حفظ التعديل
+                                </button>
+                            </div>
+                            <div class="input-group-append">
+                                <button v-if="edit==true" class="btn btn-secondary"
+                                        @click.prevent="CancelUpdate()">الغاء التعديل
+                                </button>
+
+
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </sweet-modal>
 
         <div class="patern-layer-one paroller" data-paroller-factor="0.40" data-paroller-factor-lg="0.20"
              data-paroller-type="foreground" data-paroller-direction="vertical"
@@ -54,11 +83,67 @@
                                         <div :class="['tab', {'active-tab':(activeTap=='overview')}]"
                                              id="overview">
                                             <div class="content">
-
                                                 <!-- Cource Overview -->
                                                 <div class="course-overview">
-                                                    <div class="inner-box">
-                                                        <h3>تفاصيل المنتج </h3>
+                                                    <div class="inner-box product-page">
+                                                        <form name="attributes" id="add-Product-form" method="post">
+                                                            <div>
+                                                                <h3>{{product.name}}</h3>
+                                                                <p><strong>السعر </strong> {{calculatePrice}} ر.ي</p>
+                                                                <p>
+                                                                    <i class="fa fa-map-marker "></i>
+                                                                    {{product.zone}}/ {{product.space}}/
+                                                                </p>
+                                                            </div>
+                                                            <div class="pro-options row">
+                                                                <div class="attributes col-12 col-md-4 box"
+                                                                     v-for="(products_option,key) in product.product_options">
+                                                                    <label class="">{{products_option.products_options_name}}</label>
+                                                                    <div class="select-control">
+                                                                        <select v-on:change="change_attribute(key)"
+                                                                                v-model="selected_product_attributes[key]"
+                                                                                class="currentstock form-control">
+                                                                            <option
+                                                                                v-for="products_option_val in products_option.values"
+                                                                                :value="products_option_val">
+                                                                                {{products_option_val.products_options_values_name}}
+                                                                            </option>
+
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="pro-counter">
+                                                                <div class="input-group item-quantity">
+                                                                    <h4>الكمية : </h4>
+                                                                    <input type="number" name="quantity"
+                                                                           class="form-control qty"
+                                                                           min="1"
+                                                                           v-model="cart_item.quantity">
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button"
+                                                                                class="quantity-plus1 btn qtyplus"
+                                                                                @click="change_quantity('+')"><i
+                                                                            class="fa fa-plus"></i></button>
+                                                                        <button type="button"
+                                                                                class="quantity-minus1 btn qtyminus"
+                                                                                @click="change_quantity('-')"><i
+                                                                            class="fa fa-minus"></i></button></span>
+                                                                </div>
+                                                            </div>
+                                                            <button v-if="product.available==1"
+                                                                    @click="addToCart()"
+                                                                    class="btn btn-secondary btn-lg swipe-to-top  add-to-Cart stock-cart"
+                                                                    type="button" products_id="3">
+                                                                اضافة الى السلة
+                                                            </button>
+                                                            <button v-if="product.available==0"
+                                                                    class="btn btn-danger btn btn-lg swipe-to-top  stock-out-cart"
+                                                                    type="button">المنتج غير متوفر حاليا
+                                                            </button>
+                                                        </form>
+                                                        <hr>
+                                                        <h3>وصف المنتج </h3>
                                                         <div v-html="product.description"></div>
                                                     </div>
                                                 </div>
@@ -70,9 +155,30 @@
                                              id="questioins">
                                             <div class="content">
                                                 <!-- Accordion Box -->
-                                                <ul class="accordion-box">
-                                                    الاسئلة
-                                                </ul>
+                                                <div class="row new_rating_dev ">
+                                                    <fieldset class="the-fieldset new_rating_dev"
+                                                              style="border: 1px solid #e0e0e0; padding: 10px;">
+                                                        <legend class="the-legend"> اضافة سؤال جديد</legend>
+                                                        <div class="form-group" style="width: 100%">
+                                                            <fieldset class="the-fieldset">
+                                                                <legend class="the-legend">نص السؤال</legend>
+                                                                <textarea style="width: 100%" rows="4" class=""
+                                                                          v-model="newQuestion.text"></textarea>
+                                                            </fieldset>
+                                                        </div>
+                                                        <button class="btn btn-primary" @click="add_new_question()">
+                                                            اضافة
+                                                        </button>
+
+                                                    </fieldset>
+                                                </div>
+
+                                                <product-question v-for="(product_question,key) in  product.product_questions"
+                                                                  v-on:edit_question="edit_question"
+                                                                  v-on:delete_question="delete_question"
+                                                                  :_key="key"
+                                                                  :product_question="product_question">
+                                                </product-question>
 
                                             </div>
                                         </div>
@@ -187,9 +293,23 @@
                     <!-- Video Column -->
                     <div class="video-column col-lg-4 col-md-12 col-sm-12">
                         <div class="inner-column sticky-top">
-                            <div class="intro-video" style=": "
-                                 v-bind:style="{padding:'170px 6px', backgroundImage: 'url('+ product.image + ')' }">
-                            </div>
+                            <flickity :ref="'flickity_product_detail'" :options="flickity_product_detail">
+
+                                <div class="col-12">
+                                    <div class="category_image_box">
+                                        <img class=" img-fluid category_image"
+                                             :data-flickity-lazyload="product.image_actual"
+                                             :src="product.image_actual">
+                                    </div>
+                                </div>
+                                <div v-for="image in product.images" class="col-12">
+                                    <div class="category_image_box">
+                                        <img class=" img-fluid category_image"
+                                             :data-flickity-lazyload="image.image_actual"
+                                             :src="image.image_actual">
+                                    </div>
+                                </div>
+                            </flickity>
 
                             <button @click="likePost()"
                                     class="theme-btn btn-style-three" style="margin-top"><span
@@ -215,168 +335,64 @@
     // Import stylesheet
     import 'vue-loading-overlay/dist/vue-loading.css';
     import RatingStars2 from "./RatingStars2";
+    import ProductQuestion from "./ProductQuestion";
     import LikeButton from "./LikeButton";
+    import Flickity from "vue-flickity";
 
     export default {
         props: ['items'],
         // components: {question},
-        components: {RatingStars2, Loading, RatingStars, LikeButton},
+        components: {RatingStars2, Loading, RatingStars, LikeButton, Flickity, ProductQuestion},
 
         data() {
             return {
+                flickity_product_detail: {
+                    initialIndex: 0,
+                    // rightToLeft: true,
+                    // groupCells: 1,
+                    freeScroll: true,
+                    // contain: true,
+                    lazyLoad: true,
+                    autoPlay: 5000,
+                    resize: true,
+                    prevNextButtons: true,
+                    groupCells: true,
+                    pageDots: false,
+                    wrapAround: true
+
+                    // any options from Flickity can be used
+                },
                 isLoading: false,
                 edit_rate: false,
                 fullPage: true,
+                attributes_price: 0,
                 is_active_dropdown: false,
-                product: {
-                    "id": 3,
-                    "admin_id": 1,
-                    "category_id": 2,
-                    "name": "pkpk",
-                    "description": "<div id=\"description_body\"></div>",
-                    "image_id": 72,
-                    "price": 846,
-                    "has_attribute": 1,
-                    "available": 1,
-                    "sort": 2,
-                    "status": 1,
-                    "created_at": "2020-11-09T22:03:26.000000Z",
-                    "updated_at": "2020-11-11T18:31:24.000000Z",
-                    "in_cart": 0,
-                    "image": "images/media/2020/11/thumbnail1604929449c1liS09104.jpeg",
-                    "image_actual": "images/media/2020/11/c1liS09104.jpeg",
-                    "zone": "صنعاء / صنعاء",
-                    "category": "عطورات",
-                    "space": "ihjoihoi",
-                    "published": "منذ أسبوع",
-                    "average_rating": 5,
-                    "count_rating": 1,
-                    "percent_rating": 100,
-                    "rating_details": {
-                        "one": 0,
-                        "tow": 0,
-                        "three": 0,
-                        "four": 0,
-                        "five": 100,
-                        "sum": 1,
-                        "average": 5
-                    },
-                    "product_options": [
-                        {
-                            "options_id": 5,
-                            "products_options_name": "الوزن",
-                            "values": [
-                                {
-                                    "products_attributes_id": 9,
-                                    "options_values_id": 11,
-                                    "products_options_values_name": "jo",
-                                    "price": "0.00",
-                                    "price_prefix": "+",
-                                    "is_default": 0
-                                }
-                            ]
-                        },
-                        {
-                            "options_id": 4,
-                            "products_options_name": "الحجماهع",
-                            "values": [
-                                {
-                                    "products_attributes_id": 10,
-                                    "options_values_id": 7,
-                                    "products_options_values_name": "صغير",
-                                    "price": "0.00",
-                                    "price_prefix": "+",
-                                    "is_default": 0
-                                }
-                            ]
-                        },
-                        {
-                            "options_id": 1,
-                            "products_options_name": "اللون",
-                            "values": [
-                                {
-                                    "products_attributes_id": 11,
-                                    "options_values_id": 6,
-                                    "products_options_values_name": "احمرni",
-                                    "price": "0.00",
-                                    "price_prefix": "+",
-                                    "is_default": 1
-                                },
-                                {
-                                    "products_attributes_id": 11,
-                                    "options_values_id": 2,
-                                    "products_options_values_name": "ازرق",
-                                    "price": "100.00",
-                                    "price_prefix": "-",
-                                    "is_default": 0
-                                }
-                            ]
-                        }
-                    ],
-                    "is_like": null,
-                    "defaults_attributes": [
-                        {
-                            "products_attributes_id": 11,
-                            "product_id": 3,
-                            "options_id": 1,
-                            "options_values_id": 6,
-                            "options_values_price": "0.00",
-                            "price_prefix": "+",
-                            "is_default": 1,
-                            "created_at": null,
-                            "updated_at": null,
-                            "products_options_name": "اللون",
-                            "products_options_values_name": "احمرni"
-                        }
-                    ],
-                    "images": [
-                        {
-                            "id": 4,
-                            "product_id": 3,
-                            "image_id": 68,
-                            "sort": 1,
-                            "image": "images/media/2020/11/thumbnail1604929441ujrrh09804.jpg",
-                            "image_actual": "images/media/2020/11/ujrrh09804.jpg"
-                        }
-                    ],
-                    "product_questions": [
-                        {
-                            "id": 3,
-                            "product_id": 3,
-                            "customers_id": 3,
-                            "text": "giug",
-                            "question_read": 0,
-                            "sort": 1,
-                            "status": 0,
-                            "created_at": "2020-11-15T22:07:04.000000Z",
-                            "updated_at": "2020-11-15T22:07:04.000000Z",
-                            "user_name": "صدام حسين",
-                            "published": "منذ 3 أيام",
-                            "replaies": 1,
-                            "products_name": "pkpk",
-                            "replies": [
-                                {
-                                    "id": 1,
-                                    "product_question_id": 3,
-                                    "replay_user_id": 1,
-                                    "text": "zxxxxxxxxxx",
-                                    "replay_user_type": "admin",
-                                    "created_at": "2020-11-14T15:32:13.000000Z",
-                                    "updated_at": "2020-11-14T15:32:13.000000Z",
-                                    "user_name": "Osama Mohammed"
-                                }
-                            ]
-                        }
-                    ]
+                cart_item: {
+                    quantity: 1,
+                    product_id: this.$route.params.id,
+                    product_attributes: [],
                 },
+                product: {},
                 newRating:
                     {
                         product_id: 0,
                         rating: 1,
                         message: '',
                     },
+                newQuestion:
+                    {
+                        product_id: this.$route.params.id,
+                        text: '',
+                    },
+                edit_question_data:
+                    {
+                        product_question_id: 0,
+                        key: 0,
+                        text: '',
+                    },
                 activeIndex: null,
                 activeTap: 'overview',
+                selected_product_attributes: [],
                 sections: [],
                 course_id: '',
                 activeContent_key: 0,
@@ -391,6 +407,17 @@
             this.fetchTraining();
         },
         computed: {
+            calculatePrice() {
+                this.attributes_price = 0;
+                for (let i = 0; i < this.selected_product_attributes.length; i++) {
+                    if (this.selected_product_attributes[i].price_prefix == "+")
+                        this.attributes_price += parseInt(this.selected_product_attributes[i].price);
+                    else
+                        this.attributes_price -= parseInt(this.selected_product_attributes[i].price);
+                }
+                return (this.product.price + this.attributes_price) * this.cart_item.quantity;
+            },
+
             show_new_rateForm() {
                 return (this.product.is_rating == null || this.edit_rate == true);
             },
@@ -398,9 +425,70 @@
                 // return false;
                 return (this.product.is_rating != null && this.edit_rate == false);
             },
-        }
-        ,
+        },
         methods: {
+            delete_question(key) {
+                this.isLoading = true;
+                let id = this.product.product_questions[key].id;
+                axios({url: '/api/shop/deleteQuestion', data: {product_question_id: id}, method: 'POST'})
+                    .then(resp => {
+                        if (resp.data.status == false) {
+                            toastStack('   خطاء ', resp.data.msg, 'error');
+                        } else {
+                            this.product.product_questions.splice(key, 1);
+                            toastStack('تم الحذف بنجاح', '', 'success');
+                        }
+                        this.isLoading = false;
+                    })
+                    .catch(err => {
+                        this.isLoading = false;
+                        console.log(err)
+                    })
+            },
+            edit_question(key) {
+                this.edit_question_data.key = key;
+                this.edit_question_data.product_question_id = this.product.product_questions[key].id;
+                this.edit_question_data.text = this.product.product_questions[key].text;
+                this.$refs.edit_ques.open();
+            },
+            CancelUpdate() {
+                this.$refs.edit_ques.close();
+
+            },
+            updateQuestion() {
+                if (localStorage.token) {
+                    axios({
+                        url: '/api/shop/updateQuestion', data: this.edit_question_data,
+                        method: 'POST'
+                    })
+                        .then(resp => {
+                            if (resp.data.status == false) {
+                                toastStack('   خطاء ', resp.data.msg, 'error');
+                            } else {
+                                toastStack( resp.data.msg,'', 'success');
+                                this.product.product_questions[this.edit_question_data.key].text = this.edit_question_data.text;
+                                this.$refs.edit_ques.close();
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                } else {
+                    toastStack('   خطاء ', 'يجب تسجيل الدخول اولا', 'error');
+                }
+            },
+            change_quantity(type) {
+
+                if (type == "+")
+                    this.cart_item.quantity++;
+                else {
+                    if (this.cart_item.quantity > 1)
+                        this.cart_item.quantity--;
+                }
+            },
+            change_attribute(key) {
+                this.cart_item.product_attributes[key] = this.selected_product_attributes[key].products_attributes_id;
+            },
             valueWidth(i) {
                 switch (i) {
                     case 1:
@@ -437,6 +525,33 @@
                                     this.product.is_like = {'product_id': '1'};
                                 else
                                     this.product.is_like = null;
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                } else {
+                    toastStack('   خطاء ', 'يجب تسجيل الدخول اولا', 'error');
+                }
+            },
+            addToCart() {
+                if (localStorage.token) {
+                    axios({
+                        url: '/api/shop/add_to_cart', data: this.cart_item,
+                        method: 'POST'
+                    })
+                        .then(resp => {
+                            if (resp.data.status == false) {
+                                toastStack('   خطاء ', resp.data.msg, 'error');
+                            } else {
+                                var cart = resp.data.data;
+                                if (cart == 0)
+                                    toastStack('   خطاء ', "المنتج موجود مسبقا بالسلة", 'error');
+                                else {
+                                    toastStack('   تم الاضافة الى السلة بنجاح ', '', 'success');
+                                    // const user = JSON.stringify(resp.data.data.userData)
+                                }
+                                // this.product.in.is_like = null;
                             }
                         })
                         .catch(err => {
@@ -486,6 +601,24 @@
                             toastStack('   خطاء ', resp.data.msg, 'error');
                         } else {
                             this.product = resp.data.data;
+                            let product_options = resp.data.data.product_options;
+                            console.log("product_options");
+                            console.log(product_options);
+                            if (product_options.length > 0) {
+                                console.log('cccccccccoooo');
+                                for (let i = 0; i < product_options.length; i++) {
+                                    console.log('ccccccccc' + i);
+                                    this.selected_product_attributes.push(product_options[i].values[0]);
+                                    this.cart_item.product_attributes.push(product_options[i].values[0].products_attributes_id);
+                                    if (product_options[i].values[0].price_prefix == "+")
+                                        this.attributes_price += parseInt(product_options[i].values[0].price);
+                                    else
+                                        this.attributes_price -= parseInt(product_options[i].values[0].price);
+
+                                }
+                            }
+
+
                         }
                     })
                     .catch(err => {
@@ -493,6 +626,26 @@
                         localStorage.removeItem('token')
                         localStorage.removeItem('user')
                         reject(err)
+                    })
+            },
+            add_new_question() {
+                this.isLoading = true;
+                axios({url: '/api/shop/addQuestion', data: this.newQuestion, method: 'POST'})
+                    .then(resp => {
+                        if (resp.data.status == false) {
+                            toastStack('   خطاء ', resp.data.msg, 'error');
+                        } else {
+                            toastStack(resp.data.msg, '', 'success');
+                            this.newQuestion.text = " ";
+                            // this.product.is_rating = resp.data.data;
+                            this.product.product_questions.unshift(resp.data.data);
+                            this.edit_rate = false;
+                        }
+                        this.isLoading = false;
+                    })
+                    .catch(err => {
+                        this.isLoading = false;
+                        console.log(err)
                     })
             },
             rating() {
@@ -508,6 +661,7 @@
                             this.product.ratings = resp.data.data.ratings;
                             this.product.rating_details = resp.data.data.rating_details;
                             this.edit_rate = false;
+
                         }
                         this.isLoading = false;
                     })

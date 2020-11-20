@@ -100,6 +100,13 @@
                         return "السوق الالكتروني";
                         break;
 
+                    case 'product_details' :
+                        return "تفاصيل المنتج";
+                        break
+                    case 'cart' :
+                        return " سلة المنتجات ";
+                        break;
+
                     case 'التدريب' :
                         return "الرئيسية";
                         break;
