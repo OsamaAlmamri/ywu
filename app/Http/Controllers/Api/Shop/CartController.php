@@ -143,7 +143,10 @@ class CartController extends Controller
             if ($validator->fails()) {
                 return $this->ReturnErorrRespons('0000', $validator->errors());
             }
-            $data = OrderPayment::create(array_merge($request->all(), ['user_id' => auth()->id()]));
+            $data = OrderPayment::create(array_merge($request->all(), ['status' => 1, 'user_id' => auth()->id()]));
+            $o = Order::find($request->order_id);
+            $o->payment_status = 1;
+            $o->save();
             $message = ' تم اضافة تكاليف الطلب رقم ' . $request->order_id . '  من العميل  ' . \auth()->user()->name;
             $dataToNotification = array(
                 'sender_name' => auth()->user()->name,
@@ -154,16 +157,19 @@ class CartController extends Controller
                 'message' => $message,
                 'date' => $data->created_at
             );
-            $admins_id = [];
-            $admins = getAdminsOrderNotifucation('new_payment');
-            foreach ($admins as $admin) {
-                $admins_id[] = $admin->id;
-                $admin->notify(new AppNotification($dataToNotification));
-            }
-            $tokens = getNotifiableUsers(0, $admins_id);
-            $this->firbaseContoller->multi($tokens, $dataToNotification);
-            return $this->GetDateResponse('data', $data);
+            try {
+                $admins_id = [];
+                $admins = getAdminsOrderNotifucation('new_payment');
+                foreach ($admins as $admin) {
+                    $admins_id[] = $admin->id;
+                    $admin->notify(new AppNotification($dataToNotification));
+                }
+                $tokens = getNotifiableUsers(0, $admins_id);
+                $this->firbaseContoller->multi($tokens, $dataToNotification);
+                return $this->GetDateResponse('data', $data);
+            } catch (\Exception $ex) {
 
+            }
         } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
         }
@@ -174,7 +180,7 @@ class CartController extends Controller
         try {
             $data = Order::with(['sellers'])
                 ->where('user_id', '=', \auth()->id())
-                ->paginate(5);
+                ->paginate(100);
             return $this->GetDateResponse('data', $data);
 
         } catch (\Exception $ex) {
@@ -310,8 +316,11 @@ class CartController extends Controller
                             'date' => $order->created_at
                         );
                         $s->admin->notify(new AppNotification($dataToNotification));
-                        $tokens = getNotifiableUsers(0, [$s->admin->id]);
-                        $this->firbaseContoller->multi($tokens, $dataToNotification);
+                        try {
+                            $tokens = getNotifiableUsers(0, [$s->admin->id]);
+                            $this->firbaseContoller->multi($tokens, $dataToNotification);
+                        } catch (\Exception $ex) {
+                        }
                     }
 
                 }
@@ -334,14 +343,18 @@ class CartController extends Controller
                     'message' => $message,
                     'date' => $order->created_at
                 );
-                $admins_id = [];
-                $admins = getAdminsOrderNotifucation('new_order');
-                foreach ($admins as $admin) {
-                    $admins_id[] = $admin->id;
-                    $admin->notify(new AppNotification($dataToNotification));
+                try {
+                    $admins_id = [];
+                    $admins = getAdminsOrderNotifucation('new_order');
+                    foreach ($admins as $admin) {
+                        $admins_id[] = $admin->id;
+                        $admin->notify(new AppNotification($dataToNotification));
+                    }
+                    $tokens = getNotifiableUsers(0, $admins_id);
+                    $this->firbaseContoller->multi($tokens, $dataToNotification);
+                } catch (\Exception $ex) {
+
                 }
-                $tokens = getNotifiableUsers(0, $admins_id);
-                $this->firbaseContoller->multi($tokens, $dataToNotification);
                 return $this->GetDateResponse('data', $order, 'تم اضافة الطاب  بنجاح');
 
             }

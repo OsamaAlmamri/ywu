@@ -70,9 +70,9 @@
             showSearchFiled: function () {
                 return (this.$route.name == 'courses' ||
                     this.$route.name == 'women' ||
-                    this.$route.name == 'home' ||
-                    this.$route.name == 'shop' ||
-                    this.$route.name == 'home2' ||
+                    // this.$route.name == 'home' ||
+                    // this.$route.name == 'shop' ||
+                    // this.$route.name == 'home2' ||
                     this.$route.name == 'consultant');
             }, search_type: function () {
                 if (this.$route.name == 'courses' ||
@@ -89,7 +89,19 @@
 
                 switch (this.$route.name) {
                     case 'home' :
-                        return "التدريب";
+                        return "السوق الالكتروني";
+                        break;
+
+                    case 'my_orders' :
+                        return "طلباتي";
+                        break;
+
+                    case 'shop_search' :
+                        return "البحث عن منتجات محددة";
+                        break;
+
+                    case 'shop_like' :
+                        return "منتجاتي المفضلة";
                         break;
 
                     case 'ShopCategory' :
@@ -107,8 +119,8 @@
                         return " سلة المنتجات ";
                         break;
 
-                    case 'التدريب' :
-                        return "الرئيسية";
+                    case 'home2' :
+                        return "السوق الالكتروني";
                         break;
 
                     case 'women_details' :
@@ -148,7 +160,7 @@
                         return "تسجيل الدخول";
                         break;
                     default:
-                        return " --";
+                        return "";
 
                 }
             }

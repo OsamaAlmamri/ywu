@@ -40,16 +40,24 @@
             </div>
 
             <div class="detail_product_item">
-                <rating-stars system="5"
-                              :rating="4">
-                    <span slot="after">({{product.average_rating}}) </span>
-                </rating-stars>
+
+                <p>
+                    <img style="width: 31px;
+    border-radius: 50px;" :src="product.sell_icon">
+                    <span>
+                      {{product.sell_name}}
+                    </span>
+                </p>
+
                 <p>
                     <i class="fa fa-map-marker "></i>
                     {{product.zone}}/   {{product.space}}/
                 </p>
 
-
+                <rating-stars system="5"
+                              :rating="4">
+                    <span slot="after">({{product.average_rating}}) </span>
+                </rating-stars>
             </div>
             <!--            <div class="clearfix row add_to_cart_box">-->
             <!--                <div class="col-2 cart_icon" style=""-->

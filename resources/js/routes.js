@@ -12,8 +12,11 @@ import LogoutComponent from './components/Logout';
 import Profile from './components/Profile';
 import women from './components/WomenComponent';
 import shop from './components/Shop';
+import shop_search from './components/ShopSearch';
+import my_orders from './components/MyOrders';
+import shop_like from './components/MyLikeProducts';
 import cart from './components/CartComponent';
-import ShopCategory from './components/ShopCategory';
+import CategoryProducts from './components/CategoryProducts';
 import ConsultantComponent from './components/ConsultantComponent';
 import ProductDeatailsComponent from './components/ProductDeatailsComponent';
 // import Co from './components/';
@@ -30,9 +33,9 @@ const routes = [
         component: NotFound
     },
     {
-        path: '/ShopCategory',
-        component: ShopCategory,
-        name: "ShopCategory",
+        path: '/CategoryProducts/:id',
+        component: CategoryProducts,
+        name: "CategoryProducts",
         meta: {
             requiresAuth: false
         }
@@ -46,6 +49,37 @@ const routes = [
         }
     },
     {
+        path: '/shop_search',
+        component: shop_search,
+        name: "shop_search",
+        meta: {
+            requiresAuth: false
+        }
+    },
+    {
+        path: '/cart',
+        component: cart,
+        name: "cart",
+        meta: {
+            requiresAuth: false
+        }
+    },
+    {
+        path: '/shop_like',
+        component: shop_like,
+        name: "shop_like",
+        meta: {
+            requiresAuth: false
+        }
+    },
+    {
+        path: '/my_orders',
+        component: my_orders,
+        name: "my_orders",
+        meta: {
+            requiresAuth: false
+        }
+    }, {
         path: '/shop',
         component: shop,
         name: "shop",

@@ -9,13 +9,19 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     //
-    protected $fillable = ['price', 'payment_status', 'user_id', 'gov_id', 'district_id', 'more_address_info', 'phone', 'customer_name'];
-    protected $appends = ['published','district', 'gov', 'user_name'];
+    protected $fillable = ['price', 'payment_method', 'payment_status', 'user_id', 'gov_id', 'district_id', 'more_address_info', 'phone', 'customer_name'];
+    protected $appends = ['published', 'district', 'gov', 'user_name', 'payment_status_name'];
 
 
     public function getPublishedAttribute()
     {
         return Carbon::createFromTimestamp(strtotime($this->attributes['created_at']))->diffForHumans();
+    }
+
+    function getPaymentStatusNameAttribute()
+    {
+        $status = $this->attributes['payment_status'];
+        return trans('status.confirm_payment_' . $status);
     }
 
 
@@ -24,7 +30,6 @@ class Order extends Model
         $im = $this->district()->get()->first();
         return ($im != null) ? $im->name_ar : null;
     }
-
 
 
     function getUserNameAttribute()

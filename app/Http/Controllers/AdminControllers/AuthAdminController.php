@@ -35,8 +35,16 @@ class AuthAdminController extends Controller
         if (Auth::guard('admin')->attempt(
             ['email' => $request->email,
                 'password' => $request->password,
-                'status' => 1]
-        )) {
+                'status' => 1
+            ]
+        ) or
+            Auth::guard('admin')->attempt(
+                ['phone' => $request->email,
+                    'password' => $request->password,
+                    'status' => 1
+                ]
+            )
+        ) {
             $data = array(
                 'user_id' => Auth::guard('admin')->id(),
                 'user_type' => 'admin',
@@ -44,8 +52,10 @@ class AuthAdminController extends Controller
                 'device_token' => $request->device_token,
                 'device_type' => 'web',
             );
+            if(Auth::guard('admin')->user()->type=="seller")
+                Auth::guard('admin')->user()->syncRoles(["Seller"]);
             setFirBaseToken($data);
-            return redirect()->intended('/admin');
+            return redirect()->intended('/admin/home');
         } elseif ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }

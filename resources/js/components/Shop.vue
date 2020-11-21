@@ -11,25 +11,8 @@
                  :on-cancel="onCancel()"
                  :is-full-page="fullPage">
         </loading>
-        <div class="sidebar-page-container">
-            <div class="row clearfix" style="text-align: center">
-                <div class="content-side col-lg-12 col-md-12 col-sm-12"
-                     style="text-align: center">
-                    <flickity ref="flickity_categories" :options="flickityOptions">
-                        <router-link @click.native="scrollToTop()" to="/ShopCategory" v-for="category in categories"
-                                     class="col-4 col-sm-3 col-md-2 col-lg-1">
-                            <div class="category_image_box">
-                                <img class=" img-fluid category_image"
-                                     :data-flickity-lazyload="category.image"
-                                     :src="category.image">
-                            </div>
-                            <p class="category_name"> {{category.name}} </p>
-                        </router-link>
-                    </flickity>
-                </div>
-            </div>
-        </div>
-        <div class="sidebar-page-container">
+        <shop-category></shop-category>
+        <div class="sidebar-page-container" style="margin-top:-130">
             <div class="patern-layer-one paroller" data-paroller-factor="0.40" data-paroller-factor-lg="0.20"
                  data-paroller-type="foreground" data-paroller-direction="vertical"
                  style="background-image: url('/site/images/icons/icon-1.png')">
@@ -119,16 +102,21 @@
             return {
                 flickityOptions: {
                     initialIndex: 0,
-                    rightToLeft: true,
+                    // rightToLeft: true,
+                    // groupCells: 1,
+                    // rightToLeft: true,
                     // freeScroll: true,
-                    contain: true,
+                    cellAlign: 'center',
+                    // contain: true,
+                    freeScroll: true,
+                    // contain: true,
                     lazyLoad: true,
                     autoPlay: 5000,
                     resize: true,
                     prevNextButtons: true,
-                    groupCells: 1,
+                    groupCells: true,
                     pageDots: false,
-                    wrapAround: true
+                    // wrapAround: true
 
                     // any options from Flickity can be used
                 },
@@ -148,43 +136,7 @@
 
                     // any options from Flickity can be used
                 },
-                categories: [
-                    {
-                        id: 1,
-                        name: 'اشغال يدوية',
-                        image: 'site/images/categories/handsewing.png',
-                    },
-                    {
-                        id: 2,
-                        name: ' ملابس نسائية ',
-                        image: 'site/images/categories/womencoat.png',
-                    },
-                    {
-                        id: 3,
-                        name: '  ازياء شعبية ',
-                        image: 'site/images/categories/myanmar.png',
-                    },
-                    {
-                        id: 4,
-                        name: '  اكسسوارات  ',
-                        image: 'site/images/categories/necklace.png',
-                    },
-                    {
-                        id: 5,
-                        name: '  عطور  ',
-                        image: 'site/images/categories/perfume.png',
-                    },
-                    {
-                        id: 6,
-                        name: '  مستحضرات تجميل  ',
-                        image: 'site/images/categories/cosmetics.png',
-                    },
-                    {
-                        id: 7,
-                        name: '  صنائع غذائية  ',
-                        image: 'site/images/categories/manufacturing.png',
-                    },
-                ],
+                categories:[],
                 isLoading: false,
                 fullPage: true,
                 activeIndex: null,
@@ -354,7 +306,11 @@
                 axios({url: '/api/shop/all_categories', method: 'POST'})
                     .then(resp => {
                         this.categories = (resp.data.data);
+                    }).then(response => {
+                    this.$nextTick(function () { // the magic
+                        this.$refs.flickity_categories.rerender()
                     })
+                })
                     .catch(err => {
                         console.log(err)
                     })

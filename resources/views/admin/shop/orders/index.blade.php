@@ -168,6 +168,9 @@
                         {
                             title: 'تاريخ الطلب ',
                             data: 'created_at',
+                        },     {
+                            title: 'طريقة الدفع ',
+                            data: 'payment_method',
                         },
                             @else
                         {

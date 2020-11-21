@@ -2,6 +2,7 @@
 
 namespace App\Models\Shop;
 
+use App\Admin;
 use App\Like;
 use App\Models\Rateable\Rateable;
 use App\Models\Rateable\Rating;
@@ -18,7 +19,7 @@ class Product extends Model
 
     protected $fillable = ['admin_id', 'category_id', 'name', 'description', 'image_id', 'price', 'has_attribute', 'available', 'sort', 'status'];
 
-    protected $appends = ['in_cart', 'image', 'image_actual', 'zone', 'category', 'space', 'published', 'average_rating', 'count_rating', 'percent_rating', 'rating_details'];
+    protected $appends = ['sell_icon','sell_name','in_cart', 'image', 'image_actual', 'zone', 'category', 'space', 'published', 'average_rating', 'count_rating', 'percent_rating', 'rating_details'];
 
     protected $with = ['is_like', 'is_rating'];
 
@@ -384,14 +385,26 @@ class Product extends Model
 
     function getZoneAttribute()
     {
-        $im = $this->space();
-        return ($im != null) ? $this->space()->gov . ' / ' . $this->space()->district : null;
+        $im = $this->seller()->get()->first();
+        return ($im != null) ?$im->seller->gov . ' , ' .$im->seller->district : null;
+    }
+
+    function getSellIconAttribute()
+    {
+        $im = $this->seller()->get()->first();
+        return ($im != null) ?url( $im->seller->ssn_image ): null;
+    }
+    function getSellNameAttribute()
+    {
+        $im = $this->seller()->get()->first();
+        return ($im != null) ?( $im->seller->sale_name ): null;
     }
 
     function getSpaceAttribute()
     {
-        $im = $this->space();
-        return ($im != null) ? $this->space()->more_address_info : null;
+        $im = $this->seller()->get()->first();
+        return ($im != null) ?( $im->seller->more_address_info ): null ;
+
     }
 
     function getCategoryAttribute()
@@ -402,9 +415,15 @@ class Product extends Model
 
     public function space()
     {
-        return $this->belongsTo(Seller::class, 'admin_id', 'id')
+        return $this->hasOne(Seller::class, 'admin_id', 'id')
             ->first();
     }
+    public function seller()
+    {
+        return $this->belongsTo(Admin::class, 'admin_id', 'id');
+    }
+
+
 
     public function category()
     {

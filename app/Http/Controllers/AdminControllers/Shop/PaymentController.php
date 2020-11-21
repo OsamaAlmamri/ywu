@@ -64,17 +64,17 @@ class PaymentController extends Controller
 
         if ($request->type == "change_order_payment") {
             $order = Order::find($request->type_id);
-            $order->payment_status = 1;
+            $order->payment_status = 2;
             $order->save();
         } else {
             $order_payment = OrderPayment::find($request->type_id);
-            $order_payment->status = 1;
+            $order_payment->status = 2;
             $order_payment->admin_id = auth()->id();
 
             $order_payment->save();
             if ($request->with_order == 1) {
                 $order = Order::find($order_payment->order_id);
-                $order->payment_status = 1;
+                $order->payment_status = 2;
                 $order->save();
             }
 

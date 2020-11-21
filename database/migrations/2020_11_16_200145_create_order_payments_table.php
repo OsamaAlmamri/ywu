@@ -20,7 +20,7 @@ class CreateOrderPaymentsTable extends Migration
             $table->foreignId('order_id')->constrained('orders')->onUpdate('cascade')->onDelete('cascade');
             $table->string('invoice_number');
             $table->string('amount');
-            $table->boolean('status')->default(0);
+            $table->smallInteger('status')->default(0);
             $table->text('note')->nullable();
             $table->timestamps();
         });

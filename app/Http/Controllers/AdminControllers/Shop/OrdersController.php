@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+
 class OrdersController extends Controller
 
 {
@@ -24,8 +25,8 @@ class OrdersController extends Controller
     public function __construct(FireBaseController $firbaseContoller)
     {
         $this->firbaseContoller = $firbaseContoller;
-        $this->middleware('permission:show orders', ['only' => ['index','show_main_order','show_seller_order']]);
-        $this->middleware('permission:manage orders', ['only' => ['change_sub_status','destroy','edit','store','update','active']]);
+        $this->middleware('permission:show orders', ['only' => ['index', 'show_main_order', 'show_seller_order']]);
+        $this->middleware('permission:manage orders', ['only' => ['change_sub_status', 'destroy', 'edit', 'store', 'update', 'active']]);
         $this->middleware('permission:active orders', ['only' => ['active']]);
     }
 
@@ -58,15 +59,17 @@ class OrdersController extends Controller
         }
         return view('admin.shop.orders.index', compact('type'));
     }
+
     public function getData($type, $to_zone, $status, $payment_status, $from_date = '1970-01-01', $to_date = '9999-09-09')
     {
         if ($type == 'main') {
 
             $data = Order::whereBetween('created_at', [$from_date, $to_date]);
             if ($to_zone != 'all')
-                $data = $data->where('gov_id', $to_zone);
+                $data = $data->where('gov_id', $to_zone)->orderByDesc('id');
             if ($payment_status != 'all')
-                $data = $data->where('payment_status', $payment_status);
+                $data = $data->where('payment_status', $payment_status)->orderByDesc('id');
+
 
         } else {
             $data = OrderSeller::with('order')
@@ -79,26 +82,29 @@ class OrdersController extends Controller
                     if ($payment_status != 'all')
                         $query->where('payment_status', $payment_status);
 
-                })->where('seller_id', auth()->id());
+                })->where('seller_id', auth()->id())->orderByDesc('id');
 //            if ($status != 'all')
 //                $data = $data->where('status', $status);
 
         }
-
-        return $data->get();
+        $data = $data->orderByDesc('id')->get();
+        return $data;
     }
+
     public function show_seller_order($id)
     {
         $order_seller = OrderSeller::find($id);
         return view('admin.shop.orders.show')->with('type', 'sub_order')->with('order_seller', $order_seller);
 
     }
+
     public function show_main_order($id)
     {
         $order = Order::find($id);
         return view('admin.shop.orders.show_main')->with('type', 'order')->with('order', $order);
 
     }
+
     public function change_sub_status(Request $request)
     {
 

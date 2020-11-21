@@ -194,6 +194,7 @@ function confirm_paymentStatus($status = 'all')
         'all' => "الكل",
         '0' => trans('status.confirm_payment_0'),
         '1' => trans('status.confirm_payment_1'),
+        '2' => trans('status.confirm_payment_2'),
 
     );
     if ($status != 0)

@@ -68,6 +68,47 @@
                     <form method="post" action="index.html">
                         <input type="hidden" name="type" id="user_type_input" value="user">
                         <div class="row clearfix">
+                            <div class="form-group  col-md-12 col-sm-12"  v-show="form.userType!='seller'">
+                                <label> نوع المستخدم </label>
+
+                                <div class="student-profile-section" style="  margin-top: 0px;">
+                                    <!-- Profile Info Tabs-->
+                                    <div class="profile-info-tabs">
+                                        <!-- Profile Tabs-->
+                                        <div class="profile-tabs tabs-box">
+                                            <ul class="tab-btns tab-buttons clearfix" style="display: flex">
+                                                <li data-tab="#prod-bookmark"
+                                                    :class="[ 'tab-btn',{'active-btn':(form.userType=='customer')},'gender_tap']"
+                                                    style="padding: -23px 28px 46px;"
+                                                    @click="form.userType='customer'">
+                                                    متسوق
+                                                </li>
+                                                <li data-tab="#prod-bookmark"
+                                                    :class="[ 'tab-btn',{'active-btn':(form.userType=='visitor')},'gender_tap']"
+                                                    style="padding: -23px 28px 46px;"
+                                                    @click="form.userType='visitor'">
+                                                    متدرب
+                                                </li>
+                                                <li data-tab="#prod-bookmark"
+                                                    :class="[ 'tab-btn',{'active-btn':(form.share_user_type=='sub_cluster')&& form.userType=='share_user'},'gender_tap']"
+                                                    style="padding: -23px 28px 46px;"
+                                                    @click="changeUserType('share_user','copartner')"
+                                                  >
+                                                    عضوء شريك
+                                                </li>
+                                                <li data-tab="#prod-bookmark"
+                                                    :class="[ 'tab-btn',{'active-btn':(form.share_user_type=='sub_cluster') && form.userType=='share_user'},'gender_tap']"
+                                                    style="padding: -23px 28px 46px;"
+                                                    @click="changeUserType('share_user','sub_cluster')"
+                                                   >
+                                                    عضوء كتلة
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <!-- Form Group -->
                             <div class="form-group col-lg-6 col-md-12 col-sm-12">
@@ -159,7 +200,7 @@
                             <div class="form-group col-md-12 col-sm-12"
                                  v-show="form.userType=='seller'">
                                 <div v-if="!image">
-                                    <h3>صورة البطاقة الشخصية </h3>
+                                    <h3>صورة (شعار) المنتجر  </h3>
                                     <input type="file" id="file" ref="file" v-on:change="onFileChange()">
                                 </div>
                                 <div v-else>

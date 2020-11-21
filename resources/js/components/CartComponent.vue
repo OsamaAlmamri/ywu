@@ -41,12 +41,39 @@
                                 <option v-for="dist in districts " :value="dist.id"> {{dist.name_ar}}</option>
                             </select>
                         </div>
-                        <!-- Form Group -->
-                        <div class="form-group col-md-6 col-sm-12">
+                        <!--                        &lt;!&ndash; Form Group &ndash;&gt;-->
+                        <!--                        <div class="form-group col-md-12 col-sm-12">-->
+                        <!--                            <input type="text" name="" v-model="form.more_address_info" id="form_more_address_info"-->
+                        <!--                                   value="">-->
+                        <!--                        </div>-->
+                        <div class="form-group col-md-12 col-sm-12">
                             <label> معلومات اضافية عن مكان التواجد </label>
-                            <input type="text" name="" v-model="form.more_address_info" id="form_more_address_info"
-                                   value="">
+                            <input type="text" class="form-control" v-model="form.more_address_info">
                         </div>
+                        <br>
+                        <h5 style="padding: 1px 18px;">طريقة الدفع
+                        </h5>
+                        <section class="student-profile-section">
+                            <div class="inner-column">
+                                <div class="profile-info-tabs">
+                                    <div class="profile-tabs tabs-box">
+                                        <ul class="tab-btns tab-buttons clearfix">
+                                            <li
+                                                @click="changeCategoryType('transfer')"
+                                                :class="['user_type_tap', 'tab-btn',{'active-btn':(form.payment_method=='transfer')}]">
+                                                حوالة
+                                            </li>
+                                            <li
+                                                @click="changeCategoryType('on_delivery')"
+                                                :class="['user_type_tap', 'tab-btn',{'active-btn':(form.payment_method=='on_delivery')}]">
+                                                الدفع عند الاستلام
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
                     </div>
                     <br>
                     <div class="form-group" style="width: 100%">
@@ -74,7 +101,7 @@
                 <div class="row clearfix">
                     <div class="content-column col-md-12 col-sm-12">
                         <div class="inner-column">
-                            <div class="course-overview">
+                            <div v-show="cart_items.length>0" class="course-overview">
                                 <div class="inner-box product-page">
                                     <form name="attributes" id="add-Product-form" method="post">
                                         <div class="pro-options row cart_item_box"
@@ -153,6 +180,10 @@
                                     </button>
                                 </div>
                             </div>
+                            <div style="text-align: center">
+                                <img v-show="cart_items.length<1" src="site/images/empty-cart.png">
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -197,6 +228,7 @@
                     gov_id: store.getters.authUser.gov_id,
                     district_id: store.getters.authUser.district_id,
                     more_address_info: store.getters.authUser.more_address_info,
+                    payment_method: "transfer",
                 }
             }
         },
@@ -235,15 +267,15 @@
                         reject(err)
                     })
             },
-            delete_fromCart(id,key) {
+            delete_fromCart(id, key) {
                 this.isLoading = true;
-                axios({url: '/api/shop/delete_from_cart',data:{id:id}, method: 'POST'})
+                axios({url: '/api/shop/delete_from_cart', data: {id: id}, method: 'POST'})
                     .then(resp => {
                         this.isLoading = false;
                         if (resp.data.status == false) {
                             toastStack('   خطاء ', resp.data.msg, 'error');
                         } else {
-                            this.cart_items.splice(key,1);
+                            this.cart_items.splice(key, 1);
                             // this.cart_items[key]
                         }
                     })
@@ -251,6 +283,9 @@
                         this.isLoading = false;
                         reject(err)
                     })
+            },
+            changeCategoryType(type) {
+                this.form.payment_method = type;
             },
             change_quantity(type, key) {
                 if (type == "+")
@@ -302,7 +337,7 @@
                                 {
                                     toastStack('تم  تاكيد الطلب  بنجاح', '', 'success');
                                     this.cart_items = [];
-                                    this.$refs.comments.open();
+                                    this.$refs.comments.close();
                                 }
                             }
                         })
@@ -351,3 +386,14 @@
     }
 </script>
 
+<style>
+    .student-profile-section {
+        background-color: white;
+        padding: 0px 0px 0px;
+
+    }
+
+    .student-profile-section .profile-tabs .tab-btns {
+        border-bottom: 3px solid #00ab15;
+    }
+</style>

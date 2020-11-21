@@ -21,8 +21,8 @@
                             صاحب الطلب
                             <address>
                                 <strong> {{$order->user_name}}.</strong>
-                                <br>{{$order->gov}},{{$order->district}},{{$order->more_address_info}}
-                                <br> رقم النلفون : {{$order->user->name}}
+                                <br>{{$order->user->gov}},{{$order->district}},{{$order->user->more_address_info}}
+                                <br> رقم النلفون : {{$order->user->phone}}
                             </address>
                         </div>
                         <!-- /.col -->
@@ -50,9 +50,8 @@
 
                 @foreach($order->sellers as $order_seller )
                     <!-- Table row -->
-                        <div style="margin: 2px 25px;
-    padding: 5px;
-    border: 1px solid;">
+
+                        <div style="margin: 2px 25px; padding: 5px; border: 1px solid;">
                             <div class="row invoice-info">
                                 <div class="col-xs-6 col-sm-4 invoice-col">
                                     صاحب المتجر

@@ -80,9 +80,17 @@
                             >
                                 <router-link to="/register"> انشاء حساب</router-link>
                             </li>
+                            <li >
+                                <router-link @click.native="scrollToTop()" v-if="isLoggedIn" to="/profile">
 
-                            <li class="login-nav_active" @click="$scrollToTop" v-if="isLoggedIn">
+                                </router-link>
+                            </li>
+
+                            <li :class="[{'login-nav_active':currentPage!='profile'}]"  @click="$scrollToTop" v-if="isLoggedIn">
                                 <router-link to="/logout"> تسجيل الخروج</router-link>
+                            </li>
+                            <li  :class="[{'login-nav_active':currentPage=='profile'}]"  @click="$scrollToTop" v-if="isLoggedIn">
+                                <router-link to="/profile"> الصفحة الشخصية </router-link>
                             </li>
                         </ul>
                     </div>
@@ -119,12 +127,46 @@
 
                             <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
-
-                                    <li :class="[{'current':currentPage=='profile'}]">
-                                        <router-link @click.native="scrollToTop()" v-if="isLoggedIn" to="/profile">
-                                            الصفحة الشخصية
+                                    <li :class="['dropdown' , {'shop_dropdown':(currentPage=='shop'|| currentPage=='my_orders'
+                                     || currentPage=='CategoryProducts' || currentPage=='home' || currentPage=='home2' || currentPage=='shop_search'|| currentPage=='course_details'||
+                                     currentPage=='shop_like' ||currentPage=='cart')},{'current':currentPage=='shop'}]">
+                                        <router-link @click.native="scrollToTop()"  to="/shop">
+                                            السوق الالكتروني
                                         </router-link>
+                                        <ul>
+                                            <li :class="['shop_element_item',{'current':currentPage=='shop'}]">
+                                                <router-link @click.native="scrollToTop()"  to="/shop">
+                                                    الرئيسية
+                                                </router-link>
+                                            </li>
+                                            <li :class="['shop_element_item',{'current':currentPage=='my_orders'}]">
+                                                <router-link @click.native="scrollToTop()"
+                                                             to="/my_orders">
+                                                    طلباتي
+                                                </router-link>
+                                            </li>
+                                            <li :class="['shop_element_item',{'current':currentPage=='shop_search'}]">
+                                                <router-link @click.native="scrollToTop()"
+                                                             to="/shop_search">
+                                                    بحث
+                                                </router-link>
+                                            </li>
+                                            <li :class="['shop_element_item',{'current':currentPage=='shop_like'}]">
+                                                <router-link @click.native="scrollToTop()"
+                                                             to="/shop_like">
+                                                    المفضلة
+                                                </router-link>
+                                            </li>
+                                            <li :class="['shop_element_item',{'current':currentPage=='cart'}]">
+                                                <router-link @click.native="scrollToTop()" to="/cart">
+                                                    السلة
+                                                </router-link>
+                                            </li>
+
+                                        </ul>
                                     </li>
+
+
                                     {{--                                    <li :class="[{'current':(currentPage=='home' ||currentPage=='home2')}]">--}}
                                     {{--                                        <router-link @click="$scrollToTop" to="/home"> الرئيسية</router-link>--}}
                                     {{--                                    </li>--}}
@@ -137,25 +179,25 @@
                                         </router-link>
                                     </li>
                                     <li :class="[{'current':currentPage=='women'}]">
-                                        <router-link @click.native="scrollToTop()" to="/women"> شوؤن المرأة
+                                        <router-link @click.native="scrollToTop()" to="/women"> شؤون المرأة
                                         </router-link>
                                     </li>
-                                    <li :class="[{'current':currentPage=='privacy'}]">
-                                        <router-link @click.native="scrollToTop()" to="/privacy"> سياية الخصوصية
-                                        </router-link>
-                                    </li>
+{{--                                    <li :class="[{'current':currentPage=='privacy'}]">--}}
+{{--                                        <router-link @click.native="scrollToTop()" to="/privacy"> سياية الخصوصية--}}
+{{--                                        </router-link>--}}
+{{--                                    </li>--}}
                                     <li :class="[{'current':currentPage=='concatUs'}]">
                                         <router-link @click.native="scrollToTop()" to="/concatUs"> تواصل معنا
                                         </router-link>
                                     </li>
-                                    <li :class="[{'current':currentPage=='shop'}]">
-                                        <router-link @click.native="scrollToTop()" to="/shop"> السوق الالكتروني
-                                        </router-link>
-                                    </li>
-                                    <li :class="[{'current':currentPage=='cart'}]">
-                                        <router-link @click.native="scrollToTop()" to="/cart"> السلة
-                                        </router-link>
-                                    </li>
+                                    {{--                                    <li :class="[{'current':currentPage=='shop'}]">--}}
+                                    {{--                                        <router-link @click.native="scrollToTop()" to="/shop"> السوق الالكتروني--}}
+                                    {{--                                        </router-link>--}}
+                                    {{--                                    </li>--}}
+                                    {{--                                    <li :class="[{'current':currentPage=='cart'}]">--}}
+                                    {{--                                        <router-link @click.native="scrollToTop()" to="/cart"> السلة--}}
+                                    {{--                                        </router-link>--}}
+                                    {{--                                    </li>--}}
                                 </ul>
                             </div>
 

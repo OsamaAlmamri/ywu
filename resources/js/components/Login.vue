@@ -23,8 +23,8 @@
                     </div>
                 </div>
 
-<!--                <form method="post" id="admin_login" action="/admin/check_login">-->
-                <form method="post" id="admin_login" action="https://halaalmadi.com/ywu2/public/admin/check_login">
+                <form method="post" id="admin_login" action="/admin/check_login">
+                    <!--                <form method="post" id="admin_login" action="https://halaalmadi.com/ywu2/public/admin/check_login">-->
                     <input type="hidden" name="email" :value="form.phone">
                     <input type="hidden" name="device_token" id="seller_device_token" value="">
                     <input type="hidden" name="password" :value="form.password">
@@ -49,11 +49,11 @@
                                         :class="['user_type_tap', 'tab-btn',{'active-btn':(form.userType=='seller')}]">
                                         تاجر
                                     </li>
-<!--                                    <li data-tab="#prod-overview" data-type="customer"-->
-<!--                                        @click="changeUserType('customer')"-->
-<!--                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.userType=='customer')}]">-->
-<!--                                        متسوق-->
-<!--                                    </li>-->
+                                    <!--                                    <li data-tab="#prod-overview" data-type="customer"-->
+                                    <!--                                        @click="changeUserType('customer')"-->
+                                    <!--                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.userType=='customer')}]">-->
+                                    <!--                                        متسوق-->
+                                    <!--                                    </li>-->
 
                                 </ul>
                             </div>
@@ -146,14 +146,17 @@
                 let device_type = "web";
                 let device_token = $("#device_token").val()
                 this.isLoading = true;
-                store.dispatch('login', {phone, password, userType, device_token,device_type})
+                store.dispatch('login', {phone, password, userType, device_token, device_type})
                     .then(() => {
                         this.isLoading = false;
                         if (this.form.userType == 'seller') {
                             $("#seller_device_token").val($("#device_token").val())
                             $('#admin_login')[0].submit();
                         } else {
-                            this.$router.push('/profile')
+                            if (this.form.userType == 'customer')
+                                this.$router.push('/shop')
+                            else
+                                this.$router.push('/profile')
                             location.reload();
                         }
                     })

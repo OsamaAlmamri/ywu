@@ -193,7 +193,7 @@ class UserController extends Controller
             $credential_email = ['email' => $request->phone, 'password' => $request->password];
             $credential_phone = ['phone' => $request->phone, 'password' => $request->password];
             $credential_email_S = ['status' => 1, 'email' => $request->phone, 'password' => $request->password];
-            $credential_phone_S = ['status' => 1, 'password' => $request->password];
+            $credential_phone_S = ['status' => 1, 'phone' => $request->phone, 'password' => $request->password];
             if ($request->userType == 'seller') {
                 if (Auth::guard('admin')->attempt($credential_phone) or Auth::guard('admin')->attempt($credential_email)) { // return redirect()->intended('/admin');
                     if (Auth::guard('admin')->attempt($credential_phone_S) or Auth::guard('admin')->attempt($credential_email_S))  // return redirect()->intended('/admin');
