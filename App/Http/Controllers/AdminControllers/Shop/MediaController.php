@@ -95,7 +95,7 @@ class MediaController extends Controller
             $filename = str_random(5) . date_format($time, 'd') . rand(1, 9) . date_format($time, 'h') . "." . $extension;
 
             // This is our upload main function, storing the image in the storage that named 'public'
-            $upload_success = $image->storeAs($directory, $filename, 'public');
+            $upload_success = $image->storeAs($directory, $filename,env('PublicFolder') );
 
             //store DB
             $Path = 'images/media/' . $directory . '/' . $filename;

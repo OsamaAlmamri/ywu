@@ -15,6 +15,7 @@ Vue.component('toast-stack', require('./components/ToastStack.vue').default);
 Vue.component('recent-posts', require('./components/RecentPosts.vue').default);
 Vue.component('dropdown', require('./components/dropdown.vue').default);
 Vue.component('ShopCategory', require('./components/ShopCategory.vue').default);
+
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 

@@ -296,7 +296,7 @@
                                     <div class="logo">
                                         <a href="/">
                                             <router-link @click.native="scrollToTop()" to="/home"></router-link>
-                                            <img src="site/images/Logo250p5x.png" alt=""></a>
+                                            <img style="width: 130%" src="site/images/Logo250p50x.png" alt=""></a>
                                     </div>
                                     <div class="social-box" style="text-align: center;">
                                         <a href="https://www.facebook.com/yemenwu" class="fa fa-facebook"></a>
@@ -314,8 +314,7 @@
                                 <div class="footer-widget links-widget">
                                     <h4>من نحن</h4>
                                     <div class="about-us">
-                                        <p>منظمة غير حكومية طوعية مستقلة تأسست منذ الستينات تضم في عضويتها من ترغب من
-                                            النساء من مختلف الفئات العمرية والانتماءات السياسية</p>
+                                        <p>اتحاد نساء اليمن منظمة جماهيرية طوعية غير حكومية له شخصية اعتبارية مالية مستقلة ولا يهدف الى العمل الربحي. تأسس منذ الستينات ويبلغ عدد عضواته 1,450,000 عضوة من مختلف الانتماءات السياسية والاجتماعية.</p>
                                     </div>
                                 </div>
                             </div>
