@@ -12,7 +12,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>window.Laravel = {csrfToken: '{{ csrf_token() }}'}</script>
 
-    <link href="{{asset('site/css/main.css')  }}" rel="stylesheet">
+    <link href="{{asset('site/css/main5.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/css/responsive.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/css/mcq.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/vue/loading.css')  }}" rel="stylesheet">
@@ -38,7 +38,7 @@
 
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
-    <link href="{{asset('site/css/osama.css')  }}" rel="stylesheet">
+    <link href="{{asset('site/css/osama5.css')  }}" rel="stylesheet">
 
     <style>
         .mobile-menu{
@@ -288,57 +288,79 @@
         <div class="pattern-layer paroller" data-paroller-factor="0.60" data-paroller-factor-lg="0.20"
              data-paroller-type="foreground" data-paroller-direction="vertical"
              style="background-image:url('{{asset('site/images/icons/icon-1.png')}}')"></div>
-        <div class="pattern-layer-two" data-paroller-factor="0.60"
-             data-paroller-factor-lg="0.20" data-paroller-type="foreground"
-             data-paroller-direction="vertical"
-             style="background-image:url('{{asset('site/images/icons/icon-3.png')}}')">
-        </div>
+{{--        <div class="pattern-layer-two" data-paroller-factor="0.60"--}}
+{{--             data-paroller-factor-lg="0.20" data-paroller-type="foreground"--}}
+{{--             data-paroller-direction="vertical"--}}
+{{--             style="background-image:url('{{asset('site/images/icons/icon-3.png')}}')">--}}
+{{--        </div>--}}
         <div class="auto-container">
 
             <!-- Widgets Section -->
             <div class="widgets-section">
                 <div class="row clearfix">
                     <!-- Big Column -->
-                    <div class="big-column col-lg-6 col-md-12 col-sm-12">
+                    <div class="big-column col-lg-5 col-md-12 col-sm-12">
                         <div class="row clearfix">
                             <!--Footer Column-->
-                            <div class="footer-column col-lg-5 col-md-5 col-sm-12">
+                            <div class="footer-column col-6">
                                 <div class="footer-widget logo-widget">
                                     <div class="logo">
                                         <a href="/">
                                             <router-link @click.native="scrollToTop()" to="/home"></router-link>
-                                            <img style="width: 130%" src="site/images/Logo250p50x.png" alt=""></a>
+                                            <img style="width: 60%" src="site/images/footer/1.png" alt=""></a>
                                     </div>
-                                    <div class="social-box" style="text-align: center;">
-                                        <a href="https://www.facebook.com/yemenwu" class="fa fa-facebook"></a>
-                                        <a href="https://www.instagram.com/yemen_women_union/"
-                                           class="fa fa-instagram"></a>
-                                        <a href="https://twitter.com/yemenwomenunion" class="fa fa-twitter"></a>
-                                        <a href="http://yemenwu.org/rss.php" class="fa fa-google"></a>
-                                        <a href="https://www.youtube.com/channel/UCqfE0KSwfIheQSODW0U_aDw"
-                                           class="fa fa-youtube"></a>
-                                    </div>
+
                                 </div>
                             </div>
                             <!--Footer Column-->
-                            <div class="footer-column col-lg-7 col-md-7 col-sm-12">
-                                <div class="footer-widget links-widget">
-                                    <h4>من نحن</h4>
-                                    <div class="about-us">
-                                        <p>اتحاد نساء اليمن منظمة جماهيرية طوعية غير حكومية له شخصية اعتبارية مالية مستقلة ولا يهدف الى العمل الربحي. تأسس منذ الستينات ويبلغ عدد عضواته 1,450,000 عضوة من مختلف الانتماءات السياسية والاجتماعية.</p>
+                            <div class="footer-column col-6">
+                                <div class="footer-widget logo-widget">
+                                    <div class="logo">
+                                        <a href="/">
+                                            <router-link @click.native="scrollToTop()" to="/home"></router-link>
+                                            <img style="width: 60%" src="site/images/Logo250px.png" alt=""></a>
                                     </div>
+
                                 </div>
                             </div>
+                            <!--Footer Column-->
+
+                            <div class="footer-column col-6">
+                                <div class="footer-widget logo-widget">
+                                    <div class="logo">
+                                        <a href="/">
+                                            <router-link @click.native="scrollToTop()" to="/home"></router-link>
+                                            <img style="width: 85%;
+    margin-top: -9%;" src="site/images/footer/2.png" alt=""></a>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--Footer Column-->
+                            <!--Footer Column-->
+
+
+                            <div class="footer-column col-6">
+                                <div class="footer-widget logo-widget">
+                                    <div class="logo">
+                                        <a href="/">
+                                            <router-link @click.native="scrollToTop()" to="/home"></router-link>
+                                            <img style="width: 60%" src="site/images/footer/3.png" alt=""></a>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--Footer Column-->
 
                         </div>
                     </div>
 
                     <!-- Big Column -->
-                    <div class="big-column col-lg-6 col-md-12 col-sm-12">
+                    <div class="big-column col-lg-7 col-md-12 col-sm-12">
                         <div class="row clearfix">
 
                             <!--Footer Column-->
-                            <div class="footer-column col-lg-8 col-md-8  col-sx-12 col-sm-8">
+                            <div class="footer-column col-8">
                                 <div class="footer-widget links-widget">
                                     <h4>معلومات تهمك</h4>
                                     <div class="about-us">
@@ -352,7 +374,7 @@
                                                     التنفيذي
                                                     صنعاء - التحرير خلف البنك المركزي
                                                 </li>
-                                                {{--                                                <li class="transition-ef"><i class="fa fa-inbox"></i>صندوق بريد: 3541</li>--}}
+                                                                                                <li class="transition-ef"><i class="fa fa-inbox"></i>صندوق بريد: 3541</li>
                                             </ul>
                                         </address>
                                     </div>
@@ -360,7 +382,7 @@
                             </div>
 
                             <!--Footer Column-->
-                            <div class="footer-column col-lg-4 col-md-4 col-sx-12 col-sm-4">
+                            <div class="footer-column  col-4">
                                 <div class="footer-widget links-widget">
                                     <h4> تنزيل التطبيقات</h4>
 
@@ -377,6 +399,15 @@
                                             {{--                                            <a href="https://itunes.apple.com/qa/app/sahl-taxi/id1455325390?mt=8" target="_blank"><img src="assets/img/app-stor-img.png" alt=""></a>--}}
                                         </li>
                                     </ul>
+                                    <div class="social-box" >
+                                        <a href="https://www.facebook.com/yemenwu" class="fa fa-facebook"></a>
+                                        <a href="https://www.instagram.com/yemen_women_union/"
+                                           class="fa fa-instagram"></a>
+                                        <a href="https://twitter.com/yemenwomenunion" class="fa fa-twitter"></a>
+                                        <a href="http://yemenwu.org/rss.php" class="fa fa-google"></a>
+                                        <a href="https://www.youtube.com/channel/UCqfE0KSwfIheQSODW0U_aDw"
+                                           class="fa fa-youtube"></a>
+                                    </div>
                                 </div>
                             </div>
 
@@ -418,7 +449,7 @@
 
 <div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-arrow-circle-up"></span></div>
 {{--//for vue JS--}}
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/app5.js') }}"></script>
 <script src="{{ asset('site/vue/vue-clazy-load.min.js') }}"></script>
 
 
