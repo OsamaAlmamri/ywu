@@ -252,7 +252,7 @@ class CartController extends Controller
                 return $this->ReturnErorrRespons('0000', $validator->errors());
             }
             $cart_items = Cart::where('user_id', \auth()->id())->get();
-            return $this->ReturnErorrRespons("0000", "سيبدا التسوق قريبا بتاريخ 25 نوفمبر ");
+//            return $this->ReturnErorrRespons("0000", "سيبدا التسوق قريبا بتاريخ 25 نوفمبر ");
 
             if (count($cart_items) == 0)
                 return $this->ReturnErorrRespons("0000", "ليس هناك عناصر بالسلة");

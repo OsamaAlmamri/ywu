@@ -7,7 +7,14 @@
         <!-- menu profile quick info -->
         <div class="profile clearfix">
             <div class="profile_pic">
-                <img src="{{asset('assets/images/'.auth()->user()->image)}}" alt="..." class="img-circle profile_img">
+                @if (auth()->user()->type=='admin')
+
+                    <img src="{{asset('assets/images/'.auth()->user()->image)}}" alt="..."
+                         class="img-circle profile_img">
+                @else
+                    <img src="{{url(auth()->user()->seller->ssn_image)}}" alt="..."
+                         class="img-circle profile_img">
+                @endif
             </div>
             <div class="profile_info">
                 <span>الادمن</span>
@@ -214,7 +221,13 @@
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                        aria-expanded="false">
-                        <img src="{{asset('assets/images/'.auth()->user()->image)}}" alt="">{{auth()->user()->name}}
+                        @if (auth()->user()->type=='admin')
+                            <img src="{{asset('assets/images/'.auth()->user()->image)}}" alt="">{{auth()->user()->name}}
+                        @else
+
+                            <img src="{{url(auth()->user()->seller->ssn_image)}}" alt="">{{auth()->user()->seller->sale_name}}
+                        @endif
+{{--                        <img src="{{asset('assets/images/'.auth()->user()->image)}}" alt="">{{auth()->user()->name}}--}}
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">

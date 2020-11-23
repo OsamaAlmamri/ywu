@@ -8,7 +8,7 @@
 
         <loading :active.sync="isLoading"
                  :can-cancel=false
-                 :color="'#00ab15'"
+                 :color="'#593c97'"
                  :loader="'dots'"
                  :background-color="'#f8f9fa'"
                  :height='200'

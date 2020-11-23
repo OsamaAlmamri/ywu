@@ -54,7 +54,7 @@ class DashboardController extends Controller
         } else {
 
             $admin_id = auth()->id();
-            $products = Product::all()->where('user_id', $admin_id)->count();
+            $products = Product::all()->where('admin_id', $admin_id)->count();
             $all_orders = OrderSeller::all()->where('seller_id', $admin_id)->count();
             $new_orders = OrderSeller::all()->where('seller_id', $admin_id)->where('status', "new")->count();
             $deliver_orders = OrderSeller::all()->where('seller_id', $admin_id)->where('status', "delivery")->count();

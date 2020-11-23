@@ -17,11 +17,11 @@
     <link href="{{  asset('site/css/mcq.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/vue/loading.css')  }}" rel="stylesheet">
 
-    <meta name="theme-color" content="#00ab15">
+    <meta name="theme-color" content="#593c97">
     <!-- Windows Phone -->
-    <meta name="msapplication-navbutton-color" content="#00ab15">
+    <meta name="msapplication-navbutton-color" content="#593c97">
     <!-- iOS Safari -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="#00ab15">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#593c97">
 
     <link rel="shortcut icon" href="{{  asset('site/images/Logo250px.png')  }}" type="image/x-icon">
     <link rel="icon" href="{{  asset('site/images/Logo250px.png')  }}" type="image/x-icon">
@@ -260,7 +260,7 @@
         .contact-info-section .info-column .icon,
         .contact-info-section .info-column:nth-child(2) .icon {
 
-            color: #00ab15;
+            color: #593c97;
             font-size: 30px;
 
         }

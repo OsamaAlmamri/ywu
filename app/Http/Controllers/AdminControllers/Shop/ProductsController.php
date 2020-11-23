@@ -22,14 +22,14 @@ class ProductsController extends Controller
     public function __construct(Product $products)
     {
         $this->products = $products;
-        $this->middleware('permission:show products', ['only' => ['index', 'attributes']]);
+        $this->middleware('permission:show products', ['only' => ['index','active', 'attributes']]);
         $this->middleware('permission:manage products',
             ['only' => ['changeOrder', 'addnewdefaultattribute', 'showoptions',
                 'updatedefaultattribute', 'deletedefaultattributemodal',
                 'deletedefaultattribute', 'editoptionform', 'updateoption',
                 'showdeletemodal', 'deleteoption', 'getOptionsValue', 'attributes',
                 'changeOrder', 'destroy', 'edit', 'store', 'update', 'active']]);
-        $this->middleware('permission:active products', ['only' => ['active']]);
+//        $this->middleware('permission:active products', ['only' => ['active']]);
 
 
     }

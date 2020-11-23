@@ -23,7 +23,7 @@
                     }
 
                     .student-profile-section .profile-tabs .tab-btns {
-                        border-bottom: 3px solid #00ab15;
+                        border-bottom: 3px solid #593c97;
                     }
                 </style>
                 <section class="student-profile-section">

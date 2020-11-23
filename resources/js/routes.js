@@ -41,14 +41,6 @@ const routes = [
         }
     },
     {
-        path: '/cart',
-        component: cart,
-        name: "cart",
-        meta: {
-            requiresAuth: false
-        }
-    },
-    {
         path: '/shop_search',
         component: shop_search,
         name: "shop_search",
@@ -61,7 +53,7 @@ const routes = [
         component: cart,
         name: "cart",
         meta: {
-            requiresAuth: false
+            requiresAuth: true
         }
     },
     {
@@ -108,7 +100,7 @@ const routes = [
         component: CourseDetails,
         name: "course_details",
         meta: {
-            requiresAuth: true
+            requiresAuth: false
         }
     },
     {
@@ -132,7 +124,7 @@ const routes = [
         component: WomenDeatails,
         name: "post_details",
         meta: {
-            requiresAuth: true
+            requiresAuth: false
         }
     },
     {
@@ -153,7 +145,7 @@ const routes = [
     },
     {
         path: '/',
-        component: Course,
+        component: shop,
         name: "home2",
         meta: {
             requiresAuth: false
@@ -169,7 +161,7 @@ const routes = [
     },
     {
         path: '/home',
-        component: Course,
+        component: shop,
         name: "home",
         meta: {
             requiresAuth: false

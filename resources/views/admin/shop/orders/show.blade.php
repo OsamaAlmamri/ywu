@@ -16,19 +16,18 @@
                         <div class="col-xs-4 col-sm-4 invoice-col">
                             صاحب الطلب
                             <address>
-                                <strong> {{$order_seller->seller_name}}.</strong>
-                                <br>{{$order_seller->order->gov}}
-                                <br>{{$order_seller->order->district}},{{$order_seller->order->more_address_info}}
-                                <br> رقم النلفون : {{$order_seller->order->user->name}}
+                                <strong> {{$order_seller->order->user->name}}.</strong>
+                             <br>  {{$order_seller->order->user->gov}},{{$order_seller->order->user->district}},{{$order_seller->order->user->more_address_info}}
+                                <br> رقم النلفون : {{$order_seller->order->user->phone}}
                             </address>
                         </div>
                         <div class="col-xs-4 col-sm-4 invoice-col">
                             مستلم الطلب
                             <address>
-                                <strong> {{$order_seller->seller_name}}.</strong>
+                                <strong> {{$order_seller->order->customer_name}}.</strong>
                                 <br>{{$order_seller->order->gov}}
-                                <br>{{$order_seller->order->district}},{{$order_seller->order->more_address_info}}
-                                <br> رقم النلفون : {{$order_seller->order->user->name}}
+                                ,{{$order_seller->order->district}},{{$order_seller->order->more_address_info}}
+                                <br> رقم النلفون : {{$order_seller->order->phone}}
                             </address>
                         </div>
                         <div class="col-xs-4 col-sm-4 invoice-col">

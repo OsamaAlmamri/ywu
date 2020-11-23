@@ -4,12 +4,44 @@
         <h3 align="right">حسابات البائعين النظام</h3>
         <br/>
     </div>
+    <div id="formShow" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"> الصور </h4>
+                </div>
+                <div class="modal-body">
+                    <span id="form_show"></span>
+                    <div id="show_description" class="row">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('custom_js')
     @include('adminpanel.active')
     <script>
         Active('{{route('admin.shop.sellers.active')}}');
+        $(document).on('click', '.show_images', function () {
+
+            var id = $(this).attr('id');
+            $.ajax({
+                url: "{{URL::to('')}}/admin/shop/sellers/showImages/" + id + "",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    $("#show_description").html(data);
+                }
+            })
+            $('#formShow').modal('show');
+        });
+
+
         $(document).ready(function () {
             $('#user_table').DataTable({
                 processing: true,

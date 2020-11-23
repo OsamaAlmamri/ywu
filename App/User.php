@@ -3,6 +3,7 @@
 namespace App;
 
 
+use App\Models\Shop\Zone;
 use App\Models\TrainingContents\Training;
 use App\Models\UserContents\Comment;
 use App\Models\UserContents\Post;
@@ -24,7 +25,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $guarded = [];
-    protected $appends = ['published'];
+    protected $appends = ['published', 'district', 'gov',];
 
     public function getPublishedAttribute()
     {
@@ -54,6 +55,31 @@ class User extends Authenticatable implements JWTSubject
     protected $fillable = ['name', 'gender', 'phone', 'email', 'status',
         'type', 'password', 'gov_id', 'district_id', 'more_address_info'];
 
+
+
+    function getGovAttribute()
+    {
+        $im = $this->gov()->get()->first();
+        return ($im != null) ? $im->name_ar : null;
+    }
+    public function district()
+    {
+        return $this->belongsTo(Zone::class, 'district_id', 'id');
+    }
+
+
+    function getDistrictAttribute()
+    {
+        $im = $this->district()->get()->first();
+        return ($im != null) ? $im->name_ar : null;
+    }
+
+
+
+    public function gov()
+    {
+        return $this->belongsTo(Zone::class, 'gov_id', 'id');
+    }
     public function employee()
     {
         return $this->hasOne(Employee::class, 'user_id', 'id');

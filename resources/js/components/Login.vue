@@ -3,7 +3,7 @@
     <section class="login-section">
         <loading :active.sync="isLoading"
                  :can-cancel=false
-                 :color="'#00ab15'"
+                 :color="'#593c97'"
                  :loader="'dots'"
                  :background-color="'#f8f9fa'"
                  :height='200'
@@ -23,7 +23,7 @@
                     </div>
                 </div>
 
-                <form method="post" id="admin_login" action="/admin/check_login">
+                <form method="post" id="admin_login" action="http://127.0.0.1:8000/admin/check_login">
                     <!--                <form method="post" id="admin_login" action="https://halaalmadi.com/ywu2/public/admin/check_login">-->
                     <input type="hidden" name="email" :value="form.phone">
                     <input type="hidden" name="device_token" id="seller_device_token" value="">

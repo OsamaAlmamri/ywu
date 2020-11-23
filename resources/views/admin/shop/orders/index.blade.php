@@ -213,11 +213,11 @@
                             @endif
                             @if ((Auth::user()->can('manage orders') == true))
 
-                        {
-                            title: 'الحالة',
-                            data: 'btn_status',
-                            name: 'btn_status',
-                        },
+                        // {
+                        //     title: 'الحالة',
+                        //     data: 'btn_status',
+                        //     name: 'btn_status',
+                        // },
                         {
                             title: 'عمليات',
                             data: 'action',

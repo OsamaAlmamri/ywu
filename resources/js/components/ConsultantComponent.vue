@@ -7,7 +7,7 @@
 
         <loading :active.sync="isLoading"
                  :can-cancel=false
-                 :color="'#00ab15'"
+                 :color="'#593c97'"
                  :loader="'dots'"
                  :background-color="'#f8f9fa'"
                  :height='200'
@@ -404,6 +404,6 @@
     }
 
     .student-profile-section .profile-tabs .tab-btns {
-        border-bottom: 3px solid #00ab15;
+        border-bottom: 3px solid #593c97;
     }
 </style>

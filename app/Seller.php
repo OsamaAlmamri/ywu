@@ -12,7 +12,7 @@ class Seller extends Model
     //
     public $timestamps = false;
     protected $fillable = [
-        'admin_id', 'sale_name', 'ssn_image', 'gov_id', 'district_id', 'more_address_info'
+        'admin_id', 'images', 'sale_name', 'ssn_image', 'gov_id', 'district_id', 'more_address_info'
     ];
 
 

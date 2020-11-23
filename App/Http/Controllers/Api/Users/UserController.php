@@ -107,24 +107,29 @@ class UserController extends Controller
                 ShareUser::create(['user_id' => $user->id, 'type' => $request->share_user_type, 'destination' => $request->destination]);
 
                 $message = 'قام  ' . $user->name . '  بتسجيل حساب شريك جديد و بانتظار الموافقة  ';
-                $dataToNotification = array(
-                    'sender_name' => $user->name,
-                    'order_id' => $user->id,
-                    'notification_type' => "new_share_user",
-                    'user_id' => $user->id,
-                    'sender_image' => url('site/images/Logo250px.png'),
-                    'message' => $message,
-                    'date' => $user->created_at
-                );
-                $admins_id = [];
-                $admins = getAdminsOrderNotifucation('new_share_user');
-                foreach ($admins as $admin) {
-                    $admins_id[] = $admin->id;
-                    $admin->notify(new AppNotification($dataToNotification));
-                }
-                $tokens = getNotifiableUsers(0, $admins_id);
-                $this->firbaseContoller->multi($tokens, $dataToNotification);
+                try {
 
+                    $dataToNotification = array(
+                        'sender_name' => $user->name,
+                        'order_id' => $user->id,
+                        'notification_type' => "new_share_user",
+                        'user_id' => $user->id,
+                        'sender_image' => url('site/images/Logo250px.png'),
+                        'message' => $message,
+                        'date' => $user->created_at
+                    );
+                    $admins_id = [];
+                    $admins = getAdminsOrderNotifucation('new_share_user');
+                    foreach ($admins as $admin) {
+                        $admins_id[] = $admin->id;
+                        $admin->notify(new AppNotification($dataToNotification));
+                    }
+//                    $tokens = getNotifiableUsers(0, $admins_id);
+//                    $this->firbaseContoller->multi($tokens, $dataToNotification);
+                } catch
+                (\Exception $ex) {
+
+                }
             } elseif ($request->userType == 'customer') {
                 $user = User::create(array_merge($request->all(), ['type' => 'customers', 'status' => 1]));
                 $Customer = Customer::create(array_merge($request->all(), ['user_id' => $user->id]));
@@ -133,8 +138,9 @@ class UserController extends Controller
                     ['type' => 'seller', 'status' => 0]
                 ));
                 $image = saveImage('images/admins/', $request->file('ssn_image'));
-                $saller = Seller::create(array_merge($request->except(['ssn_image', 'image']),
-                    ['admin_id' => $user->id, 'ssn_image' => $image]
+
+                $saller = Seller::create(array_merge($request->except(['images', 'ssn_image', 'image']),
+                    ['images' => json_encode($request->images), 'admin_id' => $user->id, 'ssn_image' => $image]
                 ));
 
                 $message = 'قام  ' . $user->name . '  بتسجيل حساب تاجر جديد و بانتظار الموافقة  ';
@@ -147,14 +153,19 @@ class UserController extends Controller
                     'message' => $message,
                     'date' => $user->created_at
                 );
-                $admins_id = [];
-                $admins = getAdminsOrderNotifucation('new_seller');
-                foreach ($admins as $admin) {
-                    $admins_id[] = $admin->id;
-                    $admin->notify(new AppNotification($dataToNotification));
+                try {
+                    $admins_id = [];
+                    $admins = getAdminsOrderNotifucation('new_seller');
+                    foreach ($admins as $admin) {
+                        $admins_id[] = $admin->id;
+                        $admin->notify(new AppNotification($dataToNotification));
+                    }
+//                    $tokens = getNotifiableUsers(0, $admins_id);
+//                    $this->firbaseContoller->multi($tokens, $dataToNotification);
+                } catch
+                (\Exception $ex) {
+
                 }
-                $tokens = getNotifiableUsers(0, $admins_id);
-                $this->firbaseContoller->multi($tokens, $dataToNotification);
                 $this->loginAfterSignUp = false;
                 return $this->GetDateResponse('data', "seller");
 
@@ -188,7 +199,6 @@ class UserController extends Controller
                 $code = $this->returnCodeAccordingToInput($validator);
                 return $this->returnValidationError($code, $validator);
             }
-
 
             $credential_email = ['email' => $request->phone, 'password' => $request->password];
             $credential_phone = ['phone' => $request->phone, 'password' => $request->password];

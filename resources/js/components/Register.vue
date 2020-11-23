@@ -3,7 +3,7 @@
     <section class="register-section">
         <loading :active.sync="isLoading"
                  :can-cancel=false
-                 :color="'#00ab15'"
+                 :color="'#593c97'"
                  :loader="'dots'"
                  :background-color="'#f8f9fa'"
                  :height='200'
@@ -17,7 +17,8 @@
 
                 <div class="title-box">
                     <h2>انشاء حساب جديد</h2>
-                    <div class="text"><span class="theme_color">مرحبــا!</span> قم بنشاء حساب للاستفاد بشكل اكبر من
+                    <div class="text"><span class="theme_color">مرحبــا!</span>
+                        قم بإنشاء حساب للاستفاد بشكل اكبر من
                         الخدمات الذي يقدمها الموقع
                     </div>
                 </div>
@@ -68,7 +69,7 @@
                     <form method="post" action="index.html">
                         <input type="hidden" name="type" id="user_type_input" value="user">
                         <div class="row clearfix">
-                            <div class="form-group  col-md-12 col-sm-12"  v-show="form.userType!='seller'">
+                            <div class="form-group  col-md-12 col-sm-12" v-show="form.userType!='seller'">
                                 <label> نوع المستخدم </label>
 
                                 <div class="student-profile-section" style="  margin-top: 0px;">
@@ -78,29 +79,29 @@
                                         <div class="profile-tabs tabs-box">
                                             <ul class="tab-btns tab-buttons clearfix" style="display: flex">
                                                 <li data-tab="#prod-bookmark"
-                                                    :class="[ 'tab-btn',{'active-btn':(form.userType=='customer')},'gender_tap']"
+                                                    :class="[ 'tab-btn',{'active-btn':(form.userType=='customer')},'usres_types_taps']"
                                                     style="padding: -23px 28px 46px;"
                                                     @click="form.userType='customer'">
                                                     متسوق
                                                 </li>
                                                 <li data-tab="#prod-bookmark"
-                                                    :class="[ 'tab-btn',{'active-btn':(form.userType=='visitor')},'gender_tap']"
+                                                    :class="[ 'tab-btn',{'active-btn':(form.userType=='visitor')},'usres_types_taps']"
                                                     style="padding: -23px 28px 46px;"
                                                     @click="form.userType='visitor'">
                                                     متدرب
                                                 </li>
                                                 <li data-tab="#prod-bookmark"
-                                                    :class="[ 'tab-btn',{'active-btn':(form.share_user_type=='sub_cluster')&& form.userType=='share_user'},'gender_tap']"
+                                                    :class="[ 'tab-btn',{'active-btn':(form.share_user_type=='copartner')&& form.userType=='share_user'},'usres_types_taps']"
                                                     style="padding: -23px 28px 46px;"
                                                     @click="changeUserType('share_user','copartner')"
-                                                  >
+                                                >
                                                     عضوء شريك
                                                 </li>
                                                 <li data-tab="#prod-bookmark"
-                                                    :class="[ 'tab-btn',{'active-btn':(form.share_user_type=='sub_cluster') && form.userType=='share_user'},'gender_tap']"
+                                                    :class="[ 'tab-btn',{'active-btn':(form.share_user_type=='sub_cluster') && form.userType=='share_user'},'usres_types_taps']"
                                                     style="padding: -23px 28px 46px;"
                                                     @click="changeUserType('share_user','sub_cluster')"
-                                                   >
+                                                >
                                                     عضوء كتلة
                                                 </li>
 
@@ -200,11 +201,12 @@
                             <div class="form-group col-md-12 col-sm-12"
                                  v-show="form.userType=='seller'">
                                 <div v-if="!image">
-                                    <h3>صورة (شعار) المنتجر  </h3>
-                                    <input type="file" id="file" ref="file" v-on:change="onFileChange()">
+                                    <h3>صورة (شعار) المتجر </h3>
+                                    <input type="file" id="file" accept="image/*" ref="file"
+                                           v-on:change="onFileChange()">
                                 </div>
                                 <div v-else>
-                                    <img c id="slected_image" :src="image"/>
+                                    <img id="slected_image" :src="image"/>
                                     <button class="btn btn-warning" id="slected_image_button" @click="removeImage()">حذف
                                         الصورة
                                     </button>
@@ -238,6 +240,43 @@
                                        required="">
                             </div>
 
+                            <div class="col-12 row" v-show="form.userType=='seller'">
+                                <div class="col-md-8">
+                                    <h5> شروط قبول المشاركة:</h5>
+                                    <ul style="list-style: circle">
+                                        <li>صور للمنتجات واضحه ذو جاذبيه و جودة عالية</li>
+                                        <li>اظهار كل مزايا وخصائص المنتج</li>
+                                        <li>التصوير بخلفية قماشية بيضاء او لون مناسب مع لون المنتج</li>
+                                        <li>اختيار زاويه مناسبه لتصوير المنتج</li>
+                                        <li>المنتجات بانواعها يدويه تصنعها النساء</li>
+
+                                    </ul>
+                                </div>
+                                <div class="col-md-4">
+                                    <div id="my-strictly-unique-vue-upload-multiple-image"
+                                         style="display: flex; justify-content: center;">
+                                        <vue-upload-multiple-image
+                                            @upload-success="uploadImageSuccess"
+                                            @before-remove="beforeRemove"
+                                            :data-images="images"
+                                            idUpload="myIdUpload"
+                                            editUpload="myIdEdit"
+                                            :showPrimary="false"
+                                            :showEdit="false"
+                                            :maxImage="4"
+                                            dragText="اسحب"
+                                            browseText="تصفح"
+                                            primaryText="افتراضي"
+                                            markIsPrimaryText="ضبط الصورة الافتراضية"
+                                            popupText="وصف الصورة الافتراضية"
+                                            dropText="اسحب و افلات"
+                                        ></vue-upload-multiple-image>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
 
                             <div class="form-group col-lg-12 col-md-12 col-sm-12 text-center">
                                 <button type="button" class="theme-btn btn-style-three"><span
@@ -265,6 +304,8 @@
 </template>
 <script>
     import store from '../store'
+    import VueUploadMultipleImage from 'vue-upload-multiple-image'
+
 
     import Loading from 'vue-loading-overlay';
     // Import stylesheet
@@ -273,13 +314,16 @@
     import axios from "axios";
 
     export default {
-        components: {Loading},
+        components: {Loading, VueUploadMultipleImage},
         data() {
             return {
                 isLoading: false,
                 fullPage: true,
                 gov_id: 0,
                 image: '',
+                images: [],
+                selected_images: [],
+                uploaded_image: [],
                 password_confirmation_type: 'password',
                 password__type: 'password',
                 district_id: 0,
@@ -296,6 +340,7 @@
                     gender: "female",
                     password_confirmation: "",
                     password: "",
+                    images: [],
                     sale_name: "",
                     ssn_image: "",
                     gov_id: "",
@@ -314,6 +359,39 @@
 
         },
         methods: {
+            uploadImageSuccess(formData, index, fileList) {
+                console.log('data', formData, index, fileList)
+                // Upload image api
+                this.isLoading = true;
+                axios({url: '/api/upload_image', data: formData, method: 'POST'})
+                    .then(resp => {
+                        if (resp.data.status == false) {
+                            toastStack('   خطاء ', resp.data.msg, 'error');
+                            fileList.slice(index, 1)
+                        } else {
+                            fileList[index].name = resp.data.data;
+                            console.log(resp.data);
+                        }
+                        this.selected_images = fileList;
+                        this.isLoading = false;
+                    })
+                    .catch(err => {
+                        fileList.slice(index, 1)
+                        this.selected_images = fileList;
+                        reject(err)
+                        this.isLoading = false;
+                    })
+            },
+            beforeRemove(index, done, fileList) {
+                console.log('index', index, fileList)
+                var r = confirm("remove image")
+                if (r == true) {
+                    done()
+                    fileList.slice(index, 1)
+                } else {
+                }
+                this.selected_images = fileList;
+            },
             show_password: function (type) {
                 if (type == 'password_confirmation') {
                     if (this.password_confirmation_type == 'password')
@@ -336,7 +414,6 @@
                     .then(resp => {
                         this.districts = (resp.data.data);
                         this.form.district_id = this.districts[0].id;
-
                     })
                     .catch(err => {
                         console.log(err)
@@ -355,9 +432,17 @@
             },
             register: function () {
                 this.form.device_token = $("#device_token").val();
+                console.log(this.selected_images)
+                this.form.images = [];
+                for (var i = 0; i < this.selected_images.length; i++) {
+                    this.form.images.push(this.selected_images[i].name)
+                }
                 let data = this.form;
                 if (data.password != data.password_confirmation) {
                     toastStack('كلمة السر غير متطابقة', '', 'error');
+                    // toastStack('كلمة السر غير متطابقة', '', 'success');
+                } else if (this.selected_images.length < 2 && this.form.userType == 'seller') {
+                    toastStack('يجب اضافة على الاقل صورتين لكي يتم قبول حسابك', '', 'error');
                     // toastStack('كلمة السر غير متطابقة', '', 'success');
                 } else {
                     this.isLoading = true;
@@ -439,7 +524,7 @@
 
 
     .student-profile-section .profile-tabs .tab-btns {
-        border-bottom: 3px solid #00ab15;
+        border-bottom: 3px solid #593c97;
     }
 
     #slected_image {

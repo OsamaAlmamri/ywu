@@ -35,6 +35,7 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
 
         Route::group(['as' => 'admin.shop.sellers.'], function () {
             Route::get('sellers/index', 'SellersController@index')->name('index');
+            Route::get('sellers/showImages/{id}', 'SellersController@showImages')->name('showImages');
             Route::post('sellers/active', 'SellersController@active')->name('active');
             Route::get('sellers/destroy/{id}', 'SellersController@destroy')->name('destroy');
 

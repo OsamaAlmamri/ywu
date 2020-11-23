@@ -19,12 +19,12 @@
     {{--    <link href="{{  asset('css/app.css')  }}" rel="stylesheet">--}}
     <link href="{{  asset('css/toastr.css')  }}" rel="stylesheet">
 
-    <meta name="theme-color" content="#00ab15">
+    <meta name="theme-color" content="#593c97">
     <!-- Windows Phone -->
-    <meta name="msapplication-navbutton-color" content="#00ab15">
+    <meta name="msapplication-navbutton-color" content="#593c97">
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-status-bar-style" content="#00ab15">
-
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css"/>
     <link rel="shortcut icon" href="{{  asset('site/images/Logo250px.png')  }}" type="image/x-icon">
     <link rel="icon" href="{{  asset('site/images/Logo250px.png')  }}" type="image/x-icon">
 
@@ -39,6 +39,17 @@
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
     <link href="{{asset('site/css/osama.css')  }}" rel="stylesheet">
+
+    <style>
+        .mobile-menu{
+            left: auto;
+            right: 0;
+        }
+        body {
+            font-family: 'Droid Arabic Kufi';
+        }
+    </style>
+
 </head>
 <body>
 
@@ -127,7 +138,7 @@
 
                             <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
-                                    <li :class="['dropdown' , {'shop_dropdown':(currentPage=='shop'|| currentPage=='my_orders'
+                                    <li :class="['dropdown' , {'shop_drown':(currentPage=='shop'|| currentPage=='my_orders'
                                      || currentPage=='CategoryProducts' || currentPage=='home' || currentPage=='home2' || currentPage=='shop_search'|| currentPage=='course_details'||
                                      currentPage=='shop_like' ||currentPage=='cart')},{'current':currentPage=='shop'}]">
                                         <router-link @click.native="scrollToTop()"  to="/shop">
@@ -141,7 +152,7 @@
                                             </li>
                                             <li :class="['shop_element_item',{'current':currentPage=='my_orders'}]">
                                                 <router-link @click.native="scrollToTop()"
-                                                             to="/my_orders">
+                                                             to="/my_orders" v-if="isLoggedIn">
                                                     طلباتي
                                                 </router-link>
                                             </li>
@@ -153,12 +164,12 @@
                                             </li>
                                             <li :class="['shop_element_item',{'current':currentPage=='shop_like'}]">
                                                 <router-link @click.native="scrollToTop()"
-                                                             to="/shop_like">
+                                                             to="/shop_like" v-if="isLoggedIn">
                                                     المفضلة
                                                 </router-link>
                                             </li>
                                             <li :class="['shop_element_item',{'current':currentPage=='cart'}]">
-                                                <router-link @click.native="scrollToTop()" to="/cart">
+                                                <router-link @click.native="scrollToTop()" to="/cart" v-if="isLoggedIn">
                                                     السلة
                                                 </router-link>
                                             </li>
@@ -255,11 +266,11 @@
         <div class="content">
             <h2>هل انت على استعداد للبدء؟</h2>
             <div class="text">يمكنك الان عرض واخذ المواد التدريبة
-                و <br>نشر و عرض الاستشارات .
+                و <br>نشر و عرض الاستشارات  وتصفح منتجات نساء اتحاد اليمن و وشراء هذا المنتجات .
             </div>
             <div class="buttons-box">
-                <router-link class="theme-btn btn-style-one" @click.native="scrollToTop()" to="/courses">
-                     <span class="txt">المواد التدريبة <i
+                <router-link class="theme-btn btn-style-one" @click.native="scrollToTop()" to="/shop">
+                     <span class="txt"> تسوق الان  <i
                              class="fa fa-angle-left"></i></span>
                 </router-link>
                 <router-link class="theme-btn btn-style-two" @click.native="scrollToTop()" to="/consultant">

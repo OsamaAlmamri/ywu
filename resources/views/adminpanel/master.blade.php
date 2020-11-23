@@ -14,8 +14,9 @@
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!--<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>-->
 
-{{--    <link href="{{  asset('vendors/bootstrap/dist/css/bootstrap.min.css')  }}" rel="stylesheet">--}}
+    {{--    <link href="{{  asset('vendors/bootstrap/dist/css/bootstrap.min.css')  }}" rel="stylesheet">--}}
     <link href="{{  asset('vendors/bootstrap-rtl/dist/css/bootstrap-rtl.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="{{ asset('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
@@ -42,9 +43,9 @@
     </script>
     <!-- datatable -->
     {{--    <link rel="stylesheet" href="js/dataTables.bootstrap.min.css"/>--}}
-    <link href="{!! asset('js/dataTables.bootstrap.min.css') !!}" media="all" rel="stylesheet"
-    <link href="{!! asset('newLibs/data-table/css/buttons.dataTables.min.css') !!}" media="all" rel="stylesheet"
-    <link href="{!! asset('newLibs/data-table/css/buttons.dataTables.min.css') !!}" media="all" rel="stylesheet"
+    <link href="{!! asset('js/dataTables.bootstrap.min.css') !!}" media="all" rel="stylesheet">
+    <link href="{!! asset('newLibs/data-table/css/buttons.dataTables.min.css') !!}" media="all" rel="stylesheet">
+    <link href="{!! asset('newLibs/data-table/css/buttons.dataTables.min.css') !!}" media="all" rel="stylesheet">
           type="text/css"/>
     <link href="{!! asset('newLibs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') !!}"
           media="all" rel="stylesheet" type="text/css"/>
@@ -55,6 +56,8 @@
     <link href="{!! asset('new_admin/css/custom.css') !!}" media="all" rel="stylesheet" type="text/css"/>
     <link href="{!! asset('new_admin/css/styles.css') !!}" media="all" rel="stylesheet" type="text/css"/>
     <link href="{!! asset('newLibs\toastr\toastr.css') !!}" media="all" rel="stylesheet" type="text/css"/>
+    <script src="https://cdn.tiny.cloud/1/ldt6r8rxr9v18fsljk2n08p2tc1sjecegs1z8j9ssv2ya90d/tinymce/5/tinymce.min.js"></script>
+
 </head>
 <!-- /header content -->
 

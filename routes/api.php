@@ -40,8 +40,9 @@ Route::post('login', 'Api\Users\UserController@login');
 Route::post('register', 'Api\Users\UserController@register');
 
 ######### employee login and register
-Route::post('get_gov', 'Api\Shop\ZoneController@get_gov');
+Route::post('upload_image', 'Api\Shop\ZoneController@upload_image');
 Route::post('get_district', 'Api\Shop\ZoneController@get_district');
+Route::post('get_gov', 'Api\Shop\ZoneController@get_gov');
 Route::post('shop/all_categories', 'Api\Shop\CategoreisController@all_categories');
 Route::post('shop/get_product_by_categories', 'Api\Shop\CategoreisController@get_product_by_categories');
 Route::post('shop/get_product_by_categories22', 'Api\Shop\CategoreisController@get_product_by_categories22');

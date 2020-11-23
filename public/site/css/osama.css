@@ -40,29 +40,33 @@
     visibility: visible;
     opacity: 1;
     border-top: 0px !important;
-    width: 1500%;
+    width: 700%;
     -moz-transform: rotateX(0deg);
     -webkit-transform: rotateX(0deg);
     -ms-transform: rotateX(0deg);
     -o-transform: rotateX(0deg);
     transform: rotateX(0deg);
 }
+
 .main-menu .navigation > li > ul > li.current > a {
     color: #ffffff;
     padding-right: 30px;
-    background: #ec6a23;
+    background: #9d84bd;
 }
 
-
+.usres_types_taps {
+    padding: 8px 26px 10px !important
+}
 
 @media only screen and (min-width: 768px) {
     .shop_element_item {
-        width: 6% !important;
-        float: right;
+        /*width: 6% !important;*/
+        /*float: right;*/
     }
+
     .main-menu .navigation > li:hover > a, .main-menu .navigation > li.current > a {
         opacity: 1;
-        color: #ec6a23;
+        color: #9d84bd;
     }
 }
 
@@ -219,7 +223,7 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
     font-weight: 600;
     margin-right: 2px;
     margin-left: 0px;
-    border-color: #68a15d;
+    border-color: #593c97;
 }
 
 .category_image_box {
@@ -249,7 +253,7 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
 }
 
 .cart_icon {
-    background: #68a15d;
+    background: #593c97;
     margin: -1px;
     color: white;
 }
@@ -270,13 +274,13 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
 }
 
 .progress-bar {
-    background-color: #ec6a23;
+    background-color: #9d84bd;
 }
 
 .btn-primary:hover {
     color: #fff;
-    background-color: #ec6a23;
-    border-color: #ec6a23;
+    background-color: #9d84bd;
+    border-color: #9d84bd;
 }
 
 /*fieldset.scheduler-border {*/
@@ -304,8 +308,8 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
 
 .btn-info {
     color: #fff;
-    background-color: #ec6a23;
-    border-color: #ec6a23;
+    background-color: #9d84bd;
+    border-color: #9d84bd;
 }
 
 .student-profile-section .profile-tabs .tab-btns .tab-btn {
@@ -347,7 +351,7 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
 }
 
 .main-header.fixed-header li.current a {
-    color: #ec6a23;
+    color: #9d84bd;
 }
 
 .main-header.fixed-header .logo_box_a {
@@ -360,12 +364,12 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
 
 .btn-primary {
     color: #fff;
-    background-color: #ec6a23;
-    border-color: #ec6a23;
+    background-color: #9d84bd;
+    border-color: #9d84bd;
 }
 
 .tap_count_label {
-    color: #68a15d;
+    color: #593c97;
 
 }
 
@@ -468,6 +472,7 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
 .divClass {
     background-repeat: no-repeat;
     background-size: cover;
+    background-position:center ;
     /*width: 402px;*/
     width: 100%;
     height: 223px;
@@ -568,7 +573,7 @@ footer address, footer .social-icon {
 }
 
 .contact-list li i {
-    color: #1b8c03;
+    color: #593c97;
 }
 
 .contact-list li a {
@@ -624,7 +629,7 @@ footer address, footer .social-icon {
 
 .footer_menu_copyright a:hover {
     text-decoration: none;
-    color: #1b8c03;
+    color: #593c97;
 }
 
 .footer_menu_copyright p {
@@ -651,7 +656,7 @@ footer address, footer .social-icon {
 }
 
 .footer_menu li a {
-    color: #1b8c03;
+    color: #593c97;
     outline: none;
     padding: 0 18px;
     display: block
@@ -659,7 +664,7 @@ footer address, footer .social-icon {
 
 .footer_menu li a:hover {
     text-decoration: none;
-    color: #1b8c03;
+    color: #593c97;
 }
 
 .last_footer .developer {
@@ -670,7 +675,7 @@ footer address, footer .social-icon {
 .contact-info-section .info-column .icon,
 .contact-info-section .info-column:nth-child(2) .icon {
 
-    color: #00ab15;
+    color: #593c97;
     font-size: 30px;
 
 }

@@ -33,11 +33,11 @@ class AuthAdminController extends Controller
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if (Auth::guard('admin')->attempt(
-            ['email' => $request->email,
-                'password' => $request->password,
-                'status' => 1
-            ]
-        ) or
+                ['email' => $request->email,
+                    'password' => $request->password,
+                    'status' => 1
+                ]
+            ) or
             Auth::guard('admin')->attempt(
                 ['phone' => $request->email,
                     'password' => $request->password,
@@ -52,9 +52,10 @@ class AuthAdminController extends Controller
                 'device_token' => $request->device_token,
                 'device_type' => 'web',
             );
-            if(Auth::guard('admin')->user()->type=="seller")
+            if (Auth::guard('admin')->user()->type == "seller")
                 Auth::guard('admin')->user()->syncRoles(["Seller"]);
-            setFirBaseToken($data);
+            if (isset($request->device_token) and $request->device_token != null)
+                setFirBaseToken($data);
             return redirect()->intended('/admin/home');
         } elseif ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();

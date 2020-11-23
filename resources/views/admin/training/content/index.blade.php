@@ -1,4 +1,5 @@
 @extends('adminpanel.dataTableLayout')
+@extends('adminpanel.dataTableLayout')
 @section('card_header')
     <div class="card-header">
         <br/>

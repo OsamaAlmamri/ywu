@@ -2,7 +2,7 @@
     <div>
         <loading :active.sync="isLoading"
                  :can-cancel=false
-                 :color="'#00ab15'"
+                 :color="'#593c97'"
                  :loader="'dots'"
                  :background-color="'#f8f9fa'"
                  :height='200'
@@ -63,7 +63,7 @@
                             <div class="options-view">
                                 <div class="clearfix" v-if="section.products.length>0">
                                     <div class="pull-right">
-                                        <h3 style="    background: #68a15d;
+                                        <h3 style="    background: #593c97;
     padding: 5px 50px;
     color: white;">{{section.name}}</h3>
                                     </div>

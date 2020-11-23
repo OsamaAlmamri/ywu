@@ -28,6 +28,17 @@ class ZoneController extends Controller
     }
 
     public
+    function upload_image(Request $request)
+    {
+        try {
+            $image = saveImage('images/sellers/', $request->file('file'));
+            return $this->GetDateResponse('data', $image);
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
+    public
     function get_district(Request $request)
     {
         $data = Zone::where('parent', $request->gov_id)->get(['id', 'name_en', 'name_ar']);

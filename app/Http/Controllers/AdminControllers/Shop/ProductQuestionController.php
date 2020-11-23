@@ -18,10 +18,10 @@ class ProductQuestionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('permission:show products_questions', ['only' => ['filter2','index','show_replies']]);
-        $this->middleware('permission:manage products_questions', ['only' => ['replay_product_questions','delete_replay','edit_product_questions',
-            'changeOrder','filter2','active']]);
-        $this->middleware('permission:active products_questions', ['only' => ['active']]);
+//        $this->middleware('permission:show products_questions', ['only' => ['filter2','index','show_replies']]);
+//        $this->middleware('permission:manage products_questions', ['only' => ['replay_product_questions','delete_replay','edit_product_questions',
+//            'changeOrder','filter2','active']]);
+//        $this->middleware('permission:active products_questions', ['only' => ['active']]);
     }
 
     public function index()

@@ -256,7 +256,7 @@
                     <h4 class="modal-title"
                         id="deleteLanguagesModalLabel">{{ trans('labels.replayToQuestion') }}</h4>
                 </div>
-                <input type="hidden" id="ques_ques_id" value="{{$productQuestion->product_id}}">
+                <input type="hidden" id="ques_ques_id" value="{{$productQuestion->id}}">
                 <input type="hidden" id="ques_ques_replay_id" value="0">
                 <div class="modal-body">
                     <div class="form-group">
