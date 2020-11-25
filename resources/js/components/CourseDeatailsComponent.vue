@@ -125,7 +125,9 @@
 
                                                         <div
                                                             :class="['acc-content',{'current':title_key==active_lession}]">
-                                                            <h3 v-if="title.contents.length==0" style="margin-right: 90px"> سيتم اضافة المحتوى قريبا</h3>
+                                                            <h3 v-if="title.contents.length==0"
+                                                                style="margin-right: 90px"> سيتم اضافة المحتوى
+                                                                قريبا</h3>
                                                             <div v-for="(content,content_key) in title.contents"
                                                                  class="content">
                                                                 <div class="clearfix">
@@ -305,9 +307,16 @@
                     <!-- Video Column -->
                     <div class="video-column col-lg-4 col-md-12 col-sm-12">
                         <div class="inner-column sticky-top">
-                            <div class="intro-video"
-                                 v-bind:style="{ backgroundImage: 'url('+BaseImagePath + training.thumbnail + ')' }">
-
+                            <div class="">
+                                <div class="thumbnail">
+                                    <div class="thumb">
+                                        <a v-bind:href="BaseImagePath + training.thumbnail"
+                                           data-lightbox="1" data-title="">
+                                            <img v-bind:src="BaseImagePath + training.thumbnail"
+                                                width="100%" alt="" class="img-fluid img-thumbnail">
+                                        </a>
+                                    </div>
+                                </div>
 
                                 <!--                            <clazy-load class="wrapper intro-video" :src="'assets/images/' + training.thumbnail">-->
                                 <!--                                <transition name="fade">-->
@@ -499,7 +508,7 @@
                 return this.activeContent;
             },
             showRegisterButton() {
-                return ((this.training.can_register==1)&& this.training.is_begin_training  == false);
+                return ((this.training.can_register == 1) && this.training.is_begin_training == false);
             },
             hav_prev() {
                 return this.activeContent_key > 0;
@@ -509,7 +518,8 @@
                 // return this.activeContent;
             },
             current_content_length() {
-                return this.training.titles[this.activeContent_title_key].contents.length;
+                if (this.training.titles.length > 0)
+                    return this.training.titles[this.activeContent_title_key].contents.length;
 
                 // return this.activeContent;
             },
@@ -601,7 +611,7 @@
             },
             registerInCourse() {
                 if (localStorage.token) {
-                    if (this.training.is_register!=null && this.training.is_begin_training  == false) {
+                    if (this.training.is_register != null && this.training.is_begin_training == false) {
                         this.training.is_begin_training = true;
                     } else {
                         axios({

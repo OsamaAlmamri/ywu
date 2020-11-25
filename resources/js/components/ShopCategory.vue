@@ -1,10 +1,12 @@
 <template>
-    <div class="sidebar-page-container" style="margin-bottom: -30px;">
+    <div  style="margin-top: 30px;">
         <div class="row clearfix" style="text-align: center">
             <div class="content-side col-lg-12 col-md-12 col-sm-12"
                  style="text-align: center">
                 <flickity ref="flickity_categories" :options="flickityOptions">
-                    <router-link :to="{ name: 'CategoryProducts', params: { id: category.id}}" @click.native="scrollToTop()"  v-for="category in categories"
+                    <router-link :to="{ name: 'CategoryProducts', params: { id: category.id}}" @click.native="scrollToTop()"
+                                 v-for="(category,key) in categories"
+                                 :key="key"
                                  class="col-4 col-sm-3 col-md-2 col-lg-1">
                         <div class="category_image_box">
                             <img class=" img-fluid category_image"

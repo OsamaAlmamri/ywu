@@ -86,7 +86,7 @@
  ***/
 
 body {
-    font-family: 'Droid Arabic Kufi', sans-serif;
+    font-family: 'Droid Arabic Kufi';
 
     font-size: 14px;
     color: #777777;
@@ -119,7 +119,6 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0px;
     background: none;
     line-height: 1.6em;
-    font-family: 'Poppins', sans-serif;
 }
 
 /* Typography */
@@ -229,7 +228,6 @@ img {
     top: 2px;
     color: #2196f3;
     font-size: 20px;
-    font-family: "Flaticon";
 }
 
 /* Btn Style One */
@@ -247,7 +245,6 @@ img {
     border-radius: 50px;
     background-color: #9d84bd;
     text-transform: capitalize;
-    font-family: 'Poppins', sans-serif;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.10);
 }
 
@@ -303,7 +300,6 @@ img {
     border-radius: 50px;
     background-color: #ffffff;
     text-transform: capitalize;
-    font-family: 'Poppins', sans-serif;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.10);
 }
 
@@ -359,7 +355,6 @@ img {
     border-radius: 50px;
     background-color: #9d84bd;
     text-transform: capitalize;
-    font-family: 'Poppins', sans-serif;
     -webkit-box-shadow: 0 10px 30px rgba(0, 171, 21, 0.10);
     -moz-box-shadow: 0 10px 30px rgba(0, 171, 21, 0.10);
     -ms-box-shadow: 0 10px 30px rgba(0, 171, 21, 0.10);
@@ -429,7 +424,6 @@ img {
     border-radius: 2px;
     background-color: #ff5773;
     text-transform: capitalize;
-    font-family: 'Poppins', sans-serif;
     -webkit-box-shadow: 0 10px 30px rgba(255, 98, 98, 0.10);
     -moz-box-shadow: 0 10px 30px rgba(255, 98, 98, 0.10);
     -ms-box-shadow: 0 10px 30px rgba(255, 98, 98, 0.10);
@@ -498,7 +492,6 @@ img {
     border-radius: 2px;
     background-color: #ffffff;
     text-transform: capitalize;
-    font-family: 'Poppins', sans-serif;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.10);
 }
 
@@ -554,7 +547,7 @@ img {
     border-radius: 2px;
     background-color: #ff5773;
     text-transform: capitalize;
-    font-family: 'Poppins', sans-serif;
+    /*font-family: 'Poppins', sans-serif;*/
     -webkit-box-shadow: 0 10px 30px rgba(255, 98, 98, 0.10);
     -moz-box-shadow: 0 10px 30px rgba(255, 98, 98, 0.10);
     -ms-box-shadow: 0 10px 30px rgba(255, 98, 98, 0.10);
@@ -673,7 +666,7 @@ img {
     border-radius: 50px;
     border: 1px solid #9d84bd;
     text-transform: capitalize;
-    font-family: 'Poppins', sans-serif;
+    /*font-family: 'Poppins', sans-serif;*/
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.10);
 }
 
@@ -900,7 +893,7 @@ img {
 /* Style Two */
 
 .sec-title.style-two h2 {
-    font-family: 'Roboto Condensed', sans-serif;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
 }
 
 .sec-title.style-two .text {
@@ -974,7 +967,7 @@ img {
     -o-transition: all 300ms ease;
     -moz-transition: all 300ms ease;
     transition: all 300ms ease;
-    font-family: 'Titillium Web', sans-serif;
+    /*font-family: 'Titillium Web', sans-serif;*/
 }
 
 .main-header .header-top .info-list li a:hover {
@@ -3466,7 +3459,7 @@ img {
     text-align: center;
     margin-top: 20px;
     font-style: italic;
-    font-family: 'Poppins', sans-serif;
+    /*font-family: 'Poppins', sans-serif;*/
 }
 
 .call-to-action-section-two {
@@ -3696,7 +3689,7 @@ img {
     font-weight: 700;
     margin-bottom: 40px;
     text-align: center;
-    font-family: 'Roboto Condensed', sans-serif;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
 }
 
 .main-footer .upper-box .subscribe-form {
@@ -3775,7 +3768,7 @@ img {
 
 .main-footer.style-two .footer-widget h4 {
     color: #fefefe;
-    font-family: 'Roboto Condensed', sans-serif;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
 }
 
 .main-footer.style-two .footer-widget h4:before {
@@ -3825,7 +3818,7 @@ img {
     -ms-transition: all 1000ms ease;
     -o-transition: all 1000ms ease;
     transition: all 1000ms ease;
-    font-family: 'Roboto Condensed', sans-serif;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
 }
 
 .slider-section .active .content-column h1 {
@@ -3906,7 +3899,7 @@ img {
     opacity: 0;
     transform: scaleX(0);
     transform-origin: center top;
-    font-family: "Playfair Display", serif;
+    /*font-family: "Playfair Display", serif;*/
     -webkit-transition: all 1000ms ease;
     -moz-transition: all 100ms ease;
     -ms-transition: all 1000ms ease;
@@ -3948,7 +3941,7 @@ img {
     line-height: 126px;
     display: inline-block;
     background-color: rgb(247, 184, 45);
-    font-family: "Playfair Display", serif;
+    /*font-family: "Playfair Display", serif;*/
     border-radius: 50%;
 }
 
@@ -3999,7 +3992,7 @@ img {
     color: #252841;
     line-height: 1.2em;
     font-weight: 700;
-    font-family: 'Roboto Condensed', sans-serif;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
 }
 
 .education-section-two .content-column .text {
@@ -4057,7 +4050,7 @@ img {
     margin-top: 20px;
     z-index: 1;
     margin-bottom: 15px;
-    font-family: 'Roboto Condensed', sans-serif;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
 }
 
 .institution-block .inner-box h4 a {
@@ -4227,7 +4220,7 @@ img {
     color: #252841;
     line-height: 1.2em;
     font-weight: 700;
-    font-family: 'Roboto Condensed', sans-serif;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
 }
 
 .program-section .content-column .text {
@@ -4352,7 +4345,7 @@ img {
     margin-top: 20px;
     color: #ffffff;
     margin-bottom: 12px;
-    font-family: 'Roboto Condensed', sans-serif;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
 }
 
 .fact-counter-two .column .inner .icon-box {
@@ -4601,7 +4594,7 @@ img {
     -webkit-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
-    font-family: 'Roboto Condensed', sans-serif;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
 }
 
 .event-block-two .inner-box h4 a:hover {
@@ -4743,7 +4736,7 @@ img {
     font-weight: 700;
     line-height: 1.3em;
     margin-top: 30px;
-    font-family: 'Roboto Condensed', sans-serif;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
 }
 
 .price-block .inner-box .text {
@@ -4861,7 +4854,7 @@ img {
     -ms-transition: all 1000ms ease;
     -o-transition: all 1000ms ease;
     transition: all 1000ms ease;
-    font-family: 'Roboto Condensed', sans-serif;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
 }
 
 .slider-section-two .active .content-column h1 {
@@ -5368,7 +5361,7 @@ img {
     color: #03382e;
     font-weight: 600;
     line-height: 1.3em;
-    font-family: 'Roboto Condensed', sans-serif;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
 }
 
 .institute-block-two .inner-box .lower-content h4 a {
@@ -5479,7 +5472,7 @@ img {
     color: #03382e;
     line-height: 1.2em;
     font-weight: 700;
-    font-family: 'Roboto Condensed', sans-serif;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
 }
 
 .education-section-four .content-column .text {
@@ -5589,7 +5582,7 @@ img {
     color: #ffffff;
     line-height: 1.3em;
     margin-bottom: 12px;
-    font-family: 'Roboto Condensed', sans-serif;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
 }
 
 .fact-counter-three .column:nth-child(2) .inner .count-outer {
@@ -5741,7 +5734,7 @@ img {
     color: #252841;
     font-weight: 700;
     line-height: 1.3em;
-    font-family: 'Roboto Condensed', sans-serif;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
 }
 
 .price-block-two .inner-box .text {
@@ -5936,7 +5929,7 @@ img {
     color: #252841;
     font-weight: 700;
     margin-top: 20px;
-    font-family: 'Roboto Condensed', sans-serif;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
 }
 
 .testimonial-block-two .inner-box .text {
@@ -5954,7 +5947,7 @@ img {
     font-weight: 700;
     margin-top: 20px;
     font-size: 24px;
-    font-family: 'Roboto Condensed', sans-serif;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
 }
 
 /***
@@ -6238,7 +6231,7 @@ img {
     color: #626262;
     font-size: 16px;
     text-align: center;
-    font-family: 'Poppins', sans-serif;
+    /*font-family: 'Poppins', sans-serif;*/
 }
 
 .styled-form .form-group .users a {
@@ -6257,7 +6250,7 @@ img {
 }
 
 .styled-form .form-group .check-box label {
-    font-family: 'Roboto Condensed';
+    /*font-family: 'Roboto Condensed';*/
     color: #2b2b2b;
 }
 
@@ -6279,7 +6272,7 @@ img {
     -ms-transition: all 300ms ease;
     -o-transition: all 300ms ease;
     transition: all 300ms ease;
-    font-family: 'Poppins', sans-serif;
+    /*font-family: 'Poppins', sans-serif;*/
 }
 
 .styled-form .form-group .check-box input[type="checkbox"]:checked + label {
@@ -6353,7 +6346,7 @@ img {
 }
 
 .styled-form .form-group .radio-box label {
-    font-family: 'Roboto Condensed';
+    /*font-family: 'Roboto Condensed';*/
     color: #2b2b2b;
 }
 
@@ -6371,7 +6364,7 @@ img {
     color: #626262;
     cursor: pointer;
     margin-bottom: 0;
-    font-family: 'Poppins', sans-serif;
+    /*font-family: 'Poppins', sans-serif;*/
     -webkit-transition: all 300ms ease;
     -moz-transition: all 300ms ease;
     -ms-transition: all 300ms ease;
@@ -6449,7 +6442,7 @@ img {
     margin-top: 10px;
     display: inline-block;
     text-decoration: underline;
-    font-family: 'Poppins', sans-serif;
+    /*font-family: 'Poppins', sans-serif;*/
 }
 
 .styled-form .theme-btn {
@@ -7208,7 +7201,7 @@ img {
     color: #626262;
     cursor: pointer;
     margin-bottom: 0;
-    font-family: 'Poppins', sans-serif;
+    /*font-family: 'Poppins', sans-serif;*/
     -webkit-transition: all 300ms ease;
     -moz-transition: all 300ms ease;
     -ms-transition: all 300ms ease;
@@ -7318,7 +7311,7 @@ img {
     color: #626262;
     cursor: pointer;
     margin-bottom: 0;
-    font-family: 'Poppins', sans-serif;
+    /*font-family: 'Poppins', sans-serif;*/
     -webkit-transition: all 300ms ease;
     -moz-transition: all 300ms ease;
     -ms-transition: all 300ms ease;
@@ -7366,7 +7359,7 @@ img {
     overflow: hidden;
     background: transparent;
     text-align: center;
-    font-family: 'FontAwesome';
+    /*font-family: 'FontAwesome';*/
     -webkit-transition: max-width 500ms ease;
     -moz-transition: max-width 500ms ease;
     -ms-transition: max-width 500ms ease;
@@ -7427,7 +7420,7 @@ img {
     color: #626262;
     cursor: pointer;
     margin-bottom: 0;
-    font-family: 'Poppins', sans-serif;
+    /*font-family: 'Poppins', sans-serif;*/
     -webkit-transition: all 300ms ease;
     -moz-transition: all 300ms ease;
     -ms-transition: all 300ms ease;
@@ -8411,7 +8404,7 @@ img {
     color: #9d84bd;
     font-size: 14px;
     line-height: 1em;
-    font-family: "Flaticon";
+    /*font-family: "Flaticon";*/
 }
 
 .course-overview .inner-box .review-list li:last-child {
@@ -9994,7 +9987,7 @@ img {
     padding: 25px 25px;
     padding-bottom: 18px;
     text-transform: capitalize;
-    font-family: 'Poppins', sans-serif;
+    /*font-family: 'Poppins', sans-serif;*/
     border-bottom: 1px solid #eff4fa;
 }
 
@@ -10052,7 +10045,7 @@ img {
     color: #03382e;
     line-height: 1.4em;
     text-transform: capitalize;
-    font-family: 'Poppins', sans-serif;
+    /*font-family: 'Poppins', sans-serif;*/
 }
 
 .sidebar .popular-posts .post .text a {

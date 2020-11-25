@@ -4,22 +4,11 @@
         <div class="image">
 
             <router-link @click.native="$scrollToTop" :to="{ name: 'course_details', params: { id: training.id}}">
-                <clazy-load class="wrapper" :src="BaseImagePath +training.thumbnail">
+                <clazy-load class="wrapper" :src="training.thumbnail">
                     <transition name="fade">
                         <div class="divClass"
-                            v-bind:style="{ backgroundImage: 'url('+BaseImagePath +training.thumbnail+')' }">
+                             v-bind:style="{ backgroundImage: 'url('+BaseImagePath +training.thumbnail+')' }">
                         </div>
-<!--                        <div>-->
-<!--                            <div class="thumbnail">-->
-<!--                                <div class="thumb">-->
-<!--                                    <a v-bind:href="BaseImagePath + training.thumbnail"-->
-<!--                                       data-lightbox="1" data-title="My caption 1">-->
-<!--                                        <img v-bind:src="BaseImagePath + training.thumbnail"-->
-<!--                                             width="100%" alt="" class="img-fluid img-thumbnail">-->
-<!--                                    </a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
                     </transition>
                     <transition name="fade" slot="placeholder">
                         <div class="vue_preloader">
@@ -48,8 +37,7 @@
                 </router-link>
             </h6>
 
-<!--            <h6 v-show="training.instructor!=null">-->
-            <h6>
+            <h6 v-show="training.instructor!=null">
                 <img src="site/images/instructor.png" style="width: 9%">
                 {{training.instructor}}
             </h6>

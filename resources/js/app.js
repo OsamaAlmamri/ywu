@@ -1,13 +1,13 @@
 require('./bootstrap');
 import router from './routes';
 import VueClazyLoad from 'vue-clazy-load' ;
-import VueLazyload from 'vue-lazyload'
-
-Vue.use(VueLazyload)
 
 window.Vue = require('vue');
 Vue.use(VueClazyLoad);
 
+import VueLazyLoad from 'vue-lazyload'
+
+Vue.use(VueLazyLoad)
 Vue.component('course-component', require('./components/CourseComponent.vue').default);
 Vue.component('search-filed', require('./components/SearchField.vue').default);
 Vue.component('course-questions', require('./components/Question.vue').default);
@@ -39,16 +39,17 @@ if (token) {
     Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
 }
 Vue.prototype.$scrollToTop = () => window.scrollTo(0, 0);
-if (process.env.MIX_ENV_MODE === 'production') {
-    Vue.config.devtools = false;
-    Vue.config.debug = false;
-    Vue.config.silent = true;
-}
+// if (process.env.MIX_ENV_MODE === 'production') {
+//     Vue.config.devtools = false;
+//     Vue.config.debug = false;
+//     Vue.config.silent = true;
+// }
 
 Vue.mixin({
     data() {
         return {
-            BaseImagePath: 'assets//images//'
+            BaseImagePath: ''
+            // BaseImagePath: '/assets/images/'
         };
     },
     methods: {
@@ -72,16 +73,16 @@ Vue.mixin({
         getImageType: function (type) {
             switch (type) {
                 case 1:
-                    return "site/images/fam.png";
+                    return "site/images/t/phsycho.png";
                     break;
                 case 2:
-                    return "site/images/physc.png";
+                    return "site/images/t/issue.png";
                     break;
                 case 3:
-                    return "site/images/law.jpg";
+                    return "site/images/t/law.png";
                     break;
                 default :
-                    return "site/images/ph6.png";
+                    return "site/images/t/phsycho.png";
 
             }
         }

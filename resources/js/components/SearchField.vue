@@ -124,7 +124,7 @@
                         break;
 
                     case 'women_details' :
-                        return "تفاصيل حقوق المرأة";
+                        return "تفاصيل شؤون المرأة";
                         break;
 
                     case 'courses' :

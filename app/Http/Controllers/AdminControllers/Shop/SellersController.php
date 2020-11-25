@@ -33,7 +33,7 @@ class SellersController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $post = Admin::with('seller')->where('type', 'seller')->get();
+            $post = Admin::with('seller')->where('type', 'seller')->get()->sortBy('id');
             if ($post) {
                 return datatables()->of($post)
                     ->addColumn('action', function ($row) {

@@ -233,7 +233,6 @@
     @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700");
 
     #ques_body {
-        font-family: "Open Sans", sans-serif;
         font-size: 14px;
         height: 100vh;
         background: #CFD8DC;
@@ -262,7 +261,6 @@
 
     .title,
     .subtitle {
-        font-family: Montserrat, sans-serif;
         font-weight: normal;
     }
 

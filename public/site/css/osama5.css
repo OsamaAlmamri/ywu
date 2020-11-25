@@ -27,7 +27,7 @@
 }
 
 .cart_product_details {
-    padding: 0px 25px;
+    padding: 0 25px;
     line-height: 1;
 }
 
@@ -82,7 +82,7 @@
 }
 
 .select-control::before {
-    font-family: "Font Awesome 5 Free";
+    /*font-family: "Font Awesome 5 Free";*/
     font-weight: 900;
     content: "\F107";
     position: absolute;
@@ -473,11 +473,24 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
 
 .divClass {
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     /*width: 402px;*/
     width: 100%;
     height: 223px;
+}
+
+@media only screen and (max-width: 1023px) {
+    .books-detail-section, .intro-section-two, .privacy-section, .price-page-section, .topics-section, .books-page-section, .profile-section,
+    .contact-page-section, .student-profile-section, .sidebar-page-container {
+    padding-top: 0px;
+}
+}
+
+.sidebar-page-container {
+    position: relative;
+    padding: 0;
+    background-color: #f0f5fb;
 }
 
 .cource-block-two .inner-box .lower-content .hours {
@@ -502,6 +515,7 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
 
     background-color: #673AB7;
 }
+
 .main-footer .footer-widget h4 {
     color: #593c97;
 }
@@ -509,6 +523,7 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
 .main-footer .links-widget li a {
     color: #ffffff;
 }
+
 .main-footer .footer-widget .social-box .fa {
 
 
@@ -545,6 +560,11 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
     width: 100px;
 }
 
+.main-footer {
+    position: relative;
+    background-color: #000000;
+}
+
 .cource-block-three .inner-box {
 
     padding: 35px 300px 30px 30px;
@@ -557,11 +577,11 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
 
 .register-profile-section {
     position: relative;
-    padding: 140px 0px 90px;
+    padding: 140px 0 90px;
     background-color: #f0f5fb;
 }
 
-.about-us, copy_right {
+.about-us, .copy_right {
     background: transparent;
     border: 0;
     margin: 0;
@@ -622,7 +642,7 @@ footer address, footer .social-icon {
     padding: 25px 0;
 }
 
-.about-us, copy_right
+.about-us, .copy_right
 .footer_menu_copyright p {
     font-size: 16px;
 }

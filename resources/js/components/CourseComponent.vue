@@ -37,10 +37,14 @@
                             <div class="row clearfix">
                                 <div class="cource-block-two col-lg-3 col-md-4 col-sm-6 col-xs-12"
                                      v-for="training in section.trainings">
+<!--                                    <course-gide-item-->
+<!--                                -->
+<!--                                    ></course-gide-item>-->
                                     <course-gide-item
                                         :training="training"
-                                        @toggled="onToggle"
-                                    ></course-gide-item>
+                                        @toggled="onToggle">
+
+                                    </course-gide-item>
                                 </div>
                             </div>
                         </div>

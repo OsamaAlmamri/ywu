@@ -27,7 +27,7 @@ class Training extends Model
     protected $with = ['is_like'];
 
 
-    protected $appends = ['published', 'can_register',
+    protected $appends = ['published','thumbnail2', 'can_register',
         'is_begin_training', 'average_rating', 'count_rating', 'percent_rating', 'rating_details'];
 
     public function getPublishedAttribute()
@@ -37,6 +37,10 @@ class Training extends Model
     function getPercentRatingAttribute()
     {
         return $this->ratingPercent();
+    }
+    function getThumbnail2Attribute()
+    {
+        return $this->attributes['thumbnail'];
     }
     public function averageRating()
     {

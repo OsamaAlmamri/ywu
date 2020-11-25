@@ -1,177 +1,175 @@
 <template>
     <!--Sidebar Page Container-->
     <div>
-        <search-filed  v-on:search_result="setSearchResult"></search-filed>
+        <search-filed v-on:search_result="setSearchResult"></search-filed>
 
         <div class="sidebar-page-container">
 
-        <loading :active.sync="isLoading"
-                 :can-cancel=false
-                 :color="'#593c97'"
-                 :loader="'dots'"
-                 :background-color="'#f8f9fa'"
-                 :height='200'
-                 :width='140'
-                 :on-cancel="onCancel()"
-                 :is-full-page="fullPage">
-        </loading>
-        <div class="add_post_button" @click="openNewPostModal()"
-             style="display: block;">
-            <span class="fa fa-comment" v-show="authUser"></span>
+            <loading :active.sync="isLoading"
+                     :can-cancel=false
+                     :color="'#593c97'"
+                     :loader="'dots'"
+                     :background-color="'#f8f9fa'"
+                     :height='200'
+                     :width='140'
+                     :on-cancel="onCancel()"
+                     :is-full-page="fullPage">
+            </loading>
+            <div class="add_post_button" @click="openNewPostModal()"
+                 style="display: block;">
+                <span class="fa fa-comment" v-show="authUser"></span>
+            </div>
+            <sweet-modal :title="'اضافة استشارة جديدة'"
+                         :blocking=true :enable-mobile-fullscreen=true
+                         :pulse-on-block=true
+                         :overlay-theme="'dark'" ref="modal">
+                <div class="row clearfix">
+
+                    <div class="form-group" style="width: 100%">
+                        <fieldset class="the-fieldset">
+                            <legend class="the-legend">عنوان الاستشارة *</legend>
+                            <input style="width: 100%" type="text" v-model="newPostData.title" required="">
+                        </fieldset>
+                    </div>
+                    <div class="form-group" style="width: 100%">
+                        <fieldset class="the-fieldset">
+                            <legend class="the-legend">نص الاستشارة</legend>
+                            <textarea style="width: 100%" rows="4" class="" v-model="newPostData.body"></textarea>
+                        </fieldset>
+                    </div>
+                    <h5>نوع الاستشارة </h5>
+                    <section class="student-profile-section">
+                        <div class="inner-column">
+                            <div class="profile-info-tabs">
+                                <div class="profile-tabs tabs-box">
+                                    <ul class="tab-btns tab-buttons clearfix">
+
+                                        <li v-for="(category,key) in categories"
+                                            @click="changeCategoryType(category.id)"
+                                            :class="['user_type_tap', 'tab-btn',{'active-btn':(newPostData.category_id==category.id)}]">
+                                            {{category.name}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+                <div slot="button">
+                    <button class="btn btn-info" @click.prevent="(edit==false)?savePost():updatePost()">تم</button>
+                </div>
+
+            </sweet-modal>
+
+            <div class="patern-layer-one paroller" data-paroller-factor="0.40" data-paroller-factor-lg="0.20"
+                 data-paroller-type="foreground" data-paroller-direction="vertical"
+                 style="background-image: url(site/images/icons/icon-1.png)"></div>
+            <div class="patern-layer-two paroller" data-paroller-factor="0.40" data-paroller-factor-lg="-0.20"
+                 data-paroller-type="foreground" data-paroller-direction="vertical"
+                 style="background-image: url(site/images/icons/icon-2.png)"></div>
+            <div class="circle-one"></div>
+            <div class="circle-two"></div>
+            <div class="auto-container">
+                <div class="row clearfix" v-if="is_search==true">
+
+                    <!-- Content Side -->
+                    <div class="content-side  col-md-12 col-sm-12">
+                        <div class="our-courses">
+                            <!-- Options View -->
+                            <div class="options-view">
+                                <div class="clearfix">
+                                    <div class="pull-right">
+                                        <h3> نتائج البحث عن "{{search_data}}"</h3>
+                                    </div>
+                                    <div class="pull-left">
+                                        <button class="btn btn-info" @click="is_search=false">اغلاق نتائج البحث</button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <div class="cource-block-two  col-sm-12 col-xs-12"
+                                     v-for="(post,key) in search_result">
+                                    <consultant-item
+                                        v-on:edit_post="edit_post"
+                                        v-on:delete_post="delete_post"
+                                        :key="key"
+                                        :post="post"
+
+                                        @toggled="onToggle"
+                                    ></consultant-item>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row clearfix" v-if="is_search==false">
+
+                    <!-- Content Side -->
+                    <div class="content-side col-lg-8 col-md-12 col-sm-12">
+                        <div class="our-courses">
+
+                            <!-- Options View -->
+                            <div class="options-view">
+                                <div class="clearfix">
+                                    <div class="pull-right">
+                                        <h3>الاستشارات </h3>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--                        v-for="post in consultant_data.data" :key="post.id"-->
+                            <!--                        res.data.Posts.data;-->
+
+                            <div class="row clearfix">
+                                <div class="cource-block-two  col-sm-12 col-xs-12"
+                                     v-for="(post,key) in consultant_data.data">
+                                    <cons
+                                        v-on:edit_post="edit_post"
+                                        :key="key"
+                                        :post="post"
+                                        @toggled="onToggle"
+                                    ></cons>
+                                </div>
+
+                            </div>
+                            <div class="styled-pagination">
+                                <pagination
+                                    :align="'right'"
+                                    :show-disabled=true
+                                    @pagination-change-page="get_consultant_data"
+                                    :data="consultant_data">
+                                    <span slot="prev-nav">&lt;&lt; </span>
+                                    <span slot="next-nav"> &gt;&gt;</span>
+                                </pagination>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Sidebar Side -->
+                    <div class="sidebar-side style-two col-lg-4 col-md-12 col-sm-12">
+                        <recent-posts name="اخر الاستشارات" type="posts"></recent-posts>
+                    </div>
+
+                </div>
+
+
+            </div>
         </div>
-        <sweet-modal :title="'اضافة استشارة جديدة'"
-                     :blocking=true :enable-mobile-fullscreen=true
-                     :pulse-on-block=true
-                     :overlay-theme="'dark'" ref="modal">
-            <div class="row clearfix">
-
-                <div class="form-group" style="width: 100%">
-                    <fieldset class="the-fieldset">
-                        <legend class="the-legend">عنوان الاستشارة *</legend>
-                        <input style="width: 100%" type="text" v-model="newPostData.title" required="">
-                    </fieldset>
-                </div>
-                <div class="form-group" style="width: 100%">
-                    <fieldset class="the-fieldset">
-                        <legend class="the-legend">نص الاستشارة</legend>
-                        <textarea style="width: 100%" rows="4" class="" v-model="newPostData.body"></textarea>
-                    </fieldset>
-                </div>
-                <h5>نوع الاستشارة </h5>
-                <section class="student-profile-section">
-                    <div class="inner-column">
-                        <div class="profile-info-tabs">
-                            <div class="profile-tabs tabs-box">
-                                <ul class="tab-btns tab-buttons clearfix">
-
-                                    <li v-for="(category,key) in categories"
-                                        @click="changeCategoryType(category.id)"
-                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(newPostData.category_id==category.id)}]">
-                                        {{category.name}}
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-            </div>
-            <div slot="button">
-                <button class="btn btn-info" @click.prevent="(edit==false)?savePost():updatePost()">تم</button>
-            </div>
-
-        </sweet-modal>
-
-        <div class="patern-layer-one paroller" data-paroller-factor="0.40" data-paroller-factor-lg="0.20"
-             data-paroller-type="foreground" data-paroller-direction="vertical"
-             style="background-image: url(site/images/icons/icon-1.png)"></div>
-        <div class="patern-layer-two paroller" data-paroller-factor="0.40" data-paroller-factor-lg="-0.20"
-             data-paroller-type="foreground" data-paroller-direction="vertical"
-             style="background-image: url(site/images/icons/icon-2.png)"></div>
-        <div class="circle-one"></div>
-        <div class="circle-two"></div>
-        <div class="auto-container">
-            <div class="row clearfix"  v-if="is_search==true">
-
-                <!-- Content Side -->
-                <div class="content-side  col-md-12 col-sm-12">
-                    <div class="our-courses">
-                        <!-- Options View -->
-                        <div class="options-view">
-                            <div class="clearfix" >
-                                <div class="pull-right">
-                                    <h3> نتائج البحث عن "{{search_data}}"</h3>
-                                </div>
-                                <div class="pull-left">
-                                    <button class="btn btn-info" @click="is_search=false">اغلاق نتائج البحث</button>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="row clearfix">
-                            <div class="cource-block-two  col-sm-12 col-xs-12"
-                                 v-for="(post,key) in search_result">
-                                <consultant-item
-                                    v-on:edit_post="edit_post"
-                                    v-on:delete_post="delete_post"
-                                    :key="key"
-                                    :post="post"
-
-                                    @toggled="onToggle"
-                                ></consultant-item>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="row clearfix"  v-if="is_search==false">
-
-                <!-- Content Side -->
-                <div class="content-side col-lg-8 col-md-12 col-sm-12">
-                    <div class="our-courses">
-
-                        <!-- Options View -->
-                        <div class="options-view">
-                            <div class="clearfix">
-                                <div class="pull-right">
-                                    <h3>الاستشارات </h3>
-                                </div>
-
-                            </div>
-                        </div>
-                        <!--                        v-for="post in consultant_data.data" :key="post.id"-->
-                        <!--                        res.data.Posts.data;-->
-
-                        <div class="row clearfix">
-                            <div class="cource-block-two  col-sm-12 col-xs-12"
-                                 v-for="(post,key) in consultant_data.data">
-                                <consultant-item
-                                    v-on:edit_post="edit_post"
-                                    v-on:delete_post="delete_post"
-                                    :key="key"
-                                    :_key="key"
-                                    :post="post"
-
-                                    @toggled="onToggle"
-                                ></consultant-item>
-                            </div>
-
-                        </div>
-                        <div class="styled-pagination">
-                            <pagination
-                                :align="'right'"
-                                :show-disabled=true
-                                @pagination-change-page="get_consultant_data"
-                                :data="consultant_data">
-                                <span slot="prev-nav">&lt;&lt; </span>
-                                <span slot="next-nav"> &gt;&gt;</span>
-                            </pagination>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- Sidebar Side -->
-                <div class="sidebar-side style-two col-lg-4 col-md-12 col-sm-12">
-                    <recent-posts name="اخر الاستشارات" type="posts"></recent-posts>
-                </div>
-
-            </div>
-
-
-        </div>
-    </div>
     </div>
 </template>
 
 <script>
     import ConsultantItem from "./ConsultantItem";
+    import cons from "./cons";
     import Loading from 'vue-loading-overlay';
     // Import stylesheet
     import 'vue-loading-overlay/dist/vue-loading.css';
@@ -180,7 +178,7 @@
 
     export default {
         props: ['items'],
-        components: {ConsultantItem, Loading},
+        components: {ConsultantItem, cons, Loading},
 
         data() {
             return {
@@ -300,9 +298,9 @@
             },
             setSearchResult(data) {
 
-                this.is_search=true;
-                this.search_data=data.title;
-                this.search_result=data.data;
+                this.is_search = true;
+                this.search_data = data.title;
+                this.search_result = data.data;
             },
             changeCategoryType(key) {
                 this.newPostData.category_id = key;
