@@ -179,7 +179,7 @@
 
                         name: 'image',
                         render: function (data, type, full, meta) {
-                            return "<img src={{ URL::to('/') }}/assets/images/" + data + " width='70' class='img-thumbnail' />";
+                            return "<img src={{ URL::to('/') }}/" + data + " width='70' class='img-thumbnail' />";
                         },
                         orderable: false
                     },

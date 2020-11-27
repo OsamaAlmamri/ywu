@@ -14,9 +14,26 @@
                 <div class="modal-body">
                     <span id="form_show"></span>
                     <div id="show_description" class="row">
-
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div id="confirmModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title">حذف التاجؤ</h2>
+                </div>
+                <div class="modal-body">
+                    <h4 align="center" style="margin:0;">هل انت متاكد من الحذف؟</h4>
+                    <p>ستم حذف جميع المنتجات و الطلبات المرتبطة بهذا التاجر ولن تستطيع استعادها مرة اخرى بعد الحذف </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">نعم</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">الغاء</button>
                 </div>
             </div>
         </div>
@@ -136,6 +153,27 @@
                     @endif
                 ]
             });
+        });
+
+        var deleted_id = 0;
+        $(document).on('click', '.delete', function () {
+            deleted_id = $(this).attr('id');
+            $('#ok_button').text('حذف');
+            $('#confirmModal').modal('show');
+        });
+        $('#ok_button').click(function () {
+            $.ajax({
+                url: "{{URL::to('')}}/admin/shop/sellers/destroy/" + deleted_id,
+                beforeSend: function () {
+                    $('#ok_button').text('جاري الحذف...');
+                },
+                success: function (data) {
+                    setTimeout(function () {
+                        $('#confirmModal').modal('hide');
+                        $('#user_table').DataTable().ajax.reload();
+                    }, 2000);
+                }
+            })
         });
     </script>
 @endsection

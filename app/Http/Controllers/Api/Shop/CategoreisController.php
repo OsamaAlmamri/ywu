@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Shop;
 
+use App\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Shop\Product;
 use App\Models\Shop\ShopCategory;
@@ -22,10 +23,12 @@ class CategoreisController extends Controller
 
     public function product_details(Request $request)
     {
-        $data = Product::with(['ratings','defaults_attributes', 'images', 'product_questions' => function ($q) {
-            $q->with('replies');
-        }])
-            ->where('id', $request->product_id)->first()->append(['product_options']);
+        $data = Product::with(['ratings', 'defaults_attributes',
+            'images', 'product_questions' => function ($q) {
+                $q->with('replies');
+            }])
+            ->where('id', $request->product_id)
+            ->first()->append(['product_options']);
         return $this->GetDateResponse('data', $data);
     }
 
@@ -34,16 +37,34 @@ class CategoreisController extends Controller
     {
         if (isset($request->gov_id) and $request->gov_id > 0)
             $data = Seller::with(['admin:id,name,email,phone,created_at'])
+                ->whereIn('admin_id', function ($query) use ($request) {
+                    $query->select('id')
+                        ->from(with(new Admin())->getTable())
+                        ->where('status', 1)
+                        ->where('deleted_at', null);
+                })
                 ->where('gov_id', $request->gov_id)->get();
         else
-            $data = Seller::with(['admin:id,name,email,phone,created_at'])->get();
+            $data = Seller::with(['admin:id,name,email,phone,created_at'])
+                ->whereIn('admin_id', function ($query) use ($request) {
+                    $query->select('id')
+                        ->from(with(new Admin())->getTable())
+                        ->where('status', 1)
+                        ->where('deleted_at', null);
+                })->get();
         return $this->GetDateResponse('data', $data);
     }
 
 
     public function gov_sellers(Request $request)
     {
-            $data = Seller::whereIn('gov_id', $request->govs)->get();
+        $data = Seller::whereIn('gov_id', $request->govs)
+            ->whereIn('admin_id', function ($query) use ($request) {
+                $query->select('id')
+                    ->from(with(new Admin())->getTable())
+                    ->where('deleted_at', null)
+                    ->where('status', '=', 1);
+            })->get();
         return $this->GetDateResponse('data', $data);
     }
 
@@ -53,7 +74,7 @@ class CategoreisController extends Controller
         $has_categories = false;
         $has_govs = false;
         $has_seller = false;
-        if (isset($request->seller_id) and count($request->seller_id)  > 0)
+        if (isset($request->seller_id) and count($request->seller_id) > 0)
             $has_seller = true;
         if (isset($request->govs) and count($request->govs) > 0)
             $has_govs = true;
@@ -160,7 +181,13 @@ class CategoreisController extends Controller
             if (isset($request->govs) and count($request->govs) > 0)
                 $has_govs = true;
             $data = Product::where('status', 1)
-                ->where('category_id', $request->category_id);
+                ->where('category_id', $request->category_id)
+                ->whereIn('admin_id', function ($query) use ($request) {
+                    $query->select('id')
+                        ->from(with(new Admin())->getTable())
+                        ->where('deleted_at', null)
+                        ->where('status', '=', 1);
+                });
             if ($has_govs) {
                 $data = $data->whereIn('admin_id', function ($query) use ($request) {
                     $query->select('admin_id')

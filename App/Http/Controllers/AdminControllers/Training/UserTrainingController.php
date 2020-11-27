@@ -18,7 +18,8 @@ class UserTrainingController extends Controller
     public function index($id = 0)
     {
         if (request()->ajax()) {
-            $post = UserTraining::with(['training', 'user'])->where('status','0');
+            $post = UserTraining::with(['training', 'user']);
+//                ->where('status','0');
             if (\request()->id > 0)
                 $post = $post->where('training_id', $id)->get();
             else

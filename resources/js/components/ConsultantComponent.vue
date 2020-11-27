@@ -130,12 +130,12 @@
                             <div class="row clearfix">
                                 <div class="cource-block-two  col-sm-12 col-xs-12"
                                      v-for="(post,key) in consultant_data.data">
-                                    <cons
+                                    <consultant-item
                                         v-on:edit_post="edit_post"
                                         :key="key"
                                         :post="post"
                                         @toggled="onToggle"
-                                    ></cons>
+                                    ></consultant-item>
                                 </div>
 
                             </div>
@@ -169,7 +169,6 @@
 
 <script>
     import ConsultantItem from "./ConsultantItem";
-    import cons from "./cons";
     import Loading from 'vue-loading-overlay';
     // Import stylesheet
     import 'vue-loading-overlay/dist/vue-loading.css';
@@ -178,7 +177,7 @@
 
     export default {
         props: ['items'],
-        components: {ConsultantItem, cons, Loading},
+        components: {ConsultantItem,  Loading},
 
         data() {
             return {

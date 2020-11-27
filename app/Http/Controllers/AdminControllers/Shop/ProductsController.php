@@ -10,10 +10,12 @@ use App\Models\Shop\ShopCategory;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+
 class ProductsController extends Controller
 {
     use JsonTrait;
@@ -22,7 +24,7 @@ class ProductsController extends Controller
     public function __construct(Product $products)
     {
         $this->products = $products;
-        $this->middleware('permission:show products', ['only' => ['index','active', 'attributes']]);
+        $this->middleware('permission:show products', ['only' => ['index', 'active', 'attributes']]);
         $this->middleware('permission:manage products',
             ['only' => ['changeOrder', 'addnewdefaultattribute', 'showoptions',
                 'updatedefaultattribute', 'deletedefaultattributemodal',
@@ -37,10 +39,21 @@ class ProductsController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            if (request()->category_id == 0)
-                $data = Product::all()->where('admin_id', auth()->id());
-            else
-                $data = Product::where('category_id', 1)->where('admin_id', auth()->id())->get();
+            if ((Auth::user()->can('show products') == true) and (auth()->user()->type == 'admin')) {
+                if (request()->category_id == 0 and request()->admin_id == 0)
+                    $data = Product::all();
+                elseif (request()->category_id == 0 and request()->admin_id > 0)
+                    $data = Product::where('admin_id', request()->admin_id)->get();
+                elseif (request()->category_id > 0 and request()->admin_id == 0)
+                    $data = Product::where('category_id', request()->category_id)->get();
+                else
+                    $data = Product::where('category_id', request()->category_id)->where('admin_id', request()->admin_id)->get();
+            } else {
+                if (request()->category_id == 0)
+                    $data = Product::all()->where('admin_id', auth()->id());
+                else
+                    $data = Product::where('category_id', request()->category_id)->where('admin_id', auth()->id())->get();
+            }
             if ($data) {
                 return datatables()->of($data)
                     ->addColumn('action', 'admin.shop.products.btn.action')

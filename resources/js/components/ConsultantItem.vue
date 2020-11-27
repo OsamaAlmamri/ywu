@@ -10,8 +10,10 @@
                         <i class="fa fa-comment"> </i>
                     </div>
                     <div class="col-xs-4 pull-right" style="margin: 15px 15px 0 0">
-                        <ul style="display: inline-block; list-style: none" class="">
-                            <li><i v-if="comment.is_consonant==1" class="fa fa-user"> </i>
+                        <ul style="display: inline-block; list-style: none"
+                            :class="{condultant_comment:comment.is_consonant==1}">
+                            <li>
+                                <span v-if="comment.is_consonant==1">  الاستشاري : </span>
                                 {{comment.user.name}}
                             </li>
                             <li> {{comment.published}}</li>

@@ -5,7 +5,21 @@
         <h3 align="right"> المنتجات </h3>
         <br/>
         <div class="row">
-            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                @if ((Auth::user()->can('show products') == true) and (auth()->user()->type=='admin'))
+                    <div class="form-group">
+                        <select name="filter_seller" id="filter_seller" class="form-control" required>
+                            <option value="0">الكل</option>
+                            @foreach(sellers() as $c)
+                                <option value="{{ $c->admin_id }}">{{ $c->sale_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                @else
+                    <option value="0">الكل</option>
+                @endif
+
+            </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <select name="filter_country" id="filter_country" class="form-control" required>
@@ -200,7 +214,10 @@
                     ],
                     ajax: {
                         url: "{{route('admin.shop.products.index')}}",
-                        data: {category_id: $("#filter_country").val()}
+                        data: {
+                            admin_id: $("#filter_seller").val(),
+                            category_id: $("#filter_country").val()
+                        }
                     },
                     columns: [
                             @if ((Auth::user()->can('manage products') == true))
@@ -209,7 +226,7 @@
                             data: 'btn_sort',
                             name: 'btn_sort'
                         },
-                        @endif
+                            @endif
                         {
                             title: 'المحافظة ',
                             name: 'zone',

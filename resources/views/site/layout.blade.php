@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title> Yemen Women Union Developments</title>
+    <title> YWP</title>
     <!-- Stylesheets -->
 
     <link href="{{  asset('site/css/bootstrap.css')  }}" rel="stylesheet">
@@ -63,11 +63,67 @@
             width: 50%;
             float: left;
         }
-        .wrapper {
-            flex: 1 0 33.333%;
-            position: relative;
-            height: 124px;
-            padding-bottom: 0;
+        /*.wrapper {*/
+        /*    flex: 1 0 33.333%;*/
+        /*    position: relative;*/
+        /*    height: 124px;*/
+        /*    padding-bottom: 0;*/
+        /*}*/
+        .row{
+            margin-right: 0;
+            margin-left: 0;
+        }
+        h1 {
+            font-size: 38px;
+        }
+        h2 {
+            font-size: 32px;
+        }
+        @media only screen and (max-width: 1023px){
+        .page-title {
+            padding: 30px 0px;
+        }
+        }
+        .main-header .header-top .login-nav li a {
+
+            font-size: 11px;
+        }
+        @media only screen and (max-width: 767px){
+        .sec-title h2, .page-title h1 {
+            font-size: 26px;
+        }
+        }
+
+        @media only screen and (max-width: 1023px) {
+            constructed stylesheet
+            .main-header .nav-outer {
+                width: 90%;
+                margin-top: 4px;
+            }
+        }
+
+
+        @media only screen and (max-width: 1140px) {
+            .main-header .nav-outer {
+
+                width: 90%;
+            }
+        }
+        .main-header .nav-outer {
+
+            width: 90%;
+        }
+        .auto-container {
+            position: static;
+            max-width: 1200px;
+            padding: 10px 15px;
+            margin: 0 auto;
+        }
+        .condultant_comment
+        {
+            color: #9C27B0;
+            font-size: 16px;
+            font-weight: 800;
         }
     </style>
 

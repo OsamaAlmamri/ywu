@@ -64,19 +64,18 @@ class SellersController extends Controller
     public
     function destroy($id)
     {
-        $data = Admin::findOrFail($id);
-        $data->status = 1;
-        $data->update();
-        if ($data) {
-            $data->delete();
-        }
+        $admin = Admin::findOrFail($id);
+        $admin->delete();
+        $admin->save();
+
+
     }
 
     public function showImages($id)
     {
         $data = Seller::where('admin_id', $id)->get()->first();
 
-        $images = explode(',',json_decode( $data->images));
+        $images = explode(',', json_decode($data->images));
 //        $images = explode(',', $data->images);
 
         $images_view = view('admin.shop.sellers.images')->with('images', $images);

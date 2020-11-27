@@ -213,11 +213,11 @@ class ProductsController extends Controller
                 return $this->ReturnErorrRespons('0000', $validator->errors());
             }
             if (auth()->user() != null) {
-             $r=   QuestionReplay::create(array_merge($request->all(), [
+                $r = QuestionReplay::create(array_merge($request->all(), [
                     'replay_user_id' => auth()->user()->id,
                     'replay_user_type' => 'customer',
                 ]));
-             $reply=QuestionReplay::find($r->id);
+                $reply = QuestionReplay::find($r->id);
 
                 return $this->GetDateResponse("data", $r, 'تم اضافة الرد  بنجاح');
             }

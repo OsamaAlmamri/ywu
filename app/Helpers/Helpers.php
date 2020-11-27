@@ -1,11 +1,13 @@
 <?php
 
+use App\Admin;
 use App\Device;
 use App\Models\Images;
 use App\Models\Shop\ProductsOption;
 use App\Models\Shop\ShopCategory;
 use App\Models\Shop\Zone;
 use App\PaymentStatus;
+use App\Seller;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -235,6 +237,17 @@ function categories()
     $data = ShopCategory::where('status', 1)->get();
     return $data;
 }
+
+function sellers()
+{
+    $data = Seller::whereIn('admin_id', function ($query) {
+        $query->select('id')
+            ->from(with(new Admin())->getTable())
+            ->where('deleted_at', null);
+    })->get();
+    return $data;
+}
+
 
 function getAllRole()
 {
