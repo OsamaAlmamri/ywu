@@ -156,7 +156,8 @@ class PermissionsController extends Controller
         if (auth()->user()->getRoleNames()->first() === 'Developer')
             $roles = Role::all();
         else
-            $roles = Role::all()->where('name', '<>', 'Developer');
+            $roles = Role::all()->where('name', '<>', 'Developer')
+                ->where('name', '<>', 'Seller');
 
         return view('admin.dashboard.permissions.index')
             ->with('roles', $roles);

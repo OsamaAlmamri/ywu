@@ -28,7 +28,7 @@
                     <div class="content-side col-lg-12 col-md-12 col-sm-12">
                         <div class="our-courses row">
                             <!-- Options View -->
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-6" v-for="product in products">
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="product in products">
                                 <shop-gide-item
                                     :product="product"
                                     @toggled="onToggle">

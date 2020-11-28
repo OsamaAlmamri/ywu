@@ -1,6 +1,6 @@
 <template>
 
-    <div class="inner-box">
+    <div class="inner-box" style="margin-bottom: 10px">
         <div class="image">
 
             <clazy-load class="wrapper" :src="product.image">

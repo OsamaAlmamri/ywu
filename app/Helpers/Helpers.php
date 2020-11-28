@@ -247,7 +247,36 @@ function sellers()
     })->get();
     return $data;
 }
+function getZones($governorate_id = 0)
+{
+    if ($governorate_id == 0) {
+        $governorate = Zone::where('parent', '=', '0')->first();
+        if ($governorate != null)
+            $governorate_id = $governorate->id;
+        else
+            return [];
+    }
+    $allZones =Zone::all()->where('parent', '=', $governorate_id);
 
+    $zones = [];
+    foreach ($allZones as $zone) {
+        $zones[($zone->id)] = $zone->name_ar;
+    }
+    return $zones;
+
+}
+
+
+function getGovernorates()
+{
+    $allGovernorate = Zone::all()->where('parent', '=', 0);
+    $governorates = [];
+    foreach ($allGovernorate as $governorate) {
+        $governorates[$governorate->id] = $governorate->name_ar;
+    }
+
+    return $governorates;
+}
 
 function getAllRole()
 {

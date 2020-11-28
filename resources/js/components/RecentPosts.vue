@@ -14,9 +14,9 @@
                         <div class="post-inner">
                             <figure class="post-thumb">
                                 <router-link :to="{ name: post_url, params: { id: post.id}}">
-                                    <img style="width: 70px; border-radius: 49%;" :src="BaseImagePath + post.image" alt="" v-if="type!='posts'">
+                                    <img  style="width: 82px; height: 82px;"  :src="BaseImagePath + post.image" alt="" v-if="type!='posts'">
 <!--                                    <img :src="'assets/images/' + post.image" alt="" v-if="type=='posts'">-->
-                                    <img v-if="type=='posts'" style="width: 70px; border-radius: 49%;" :src="getImageType(post.category.id)">
+                                    <img v-if="type=='posts'" style="width: 82px; height: 82px;" :src="getImageType(post.category.id)">
 
                                 </router-link>
                             </figure>

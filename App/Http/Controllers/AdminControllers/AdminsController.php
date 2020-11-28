@@ -27,16 +27,18 @@ class AdminsController extends Controller
     {
         return redirect()->route('home');
     }
+
     public function __construct()
     {
-        $this->middleware('permission:show admins', ['only' => ['index','show','Update_Admin_Details','Admin_update']]);
-        $this->middleware('permission:manage admins', ['only' => ['Update_Admin_Details','Admin_update','restore_post','force','changeOrder','destroy','edit','store','update','active']]);
+        $this->middleware('permission:show admins', ['only' => ['index', 'show', 'Update_Admin_Details', 'Admin_update']]);
+        $this->middleware('permission:manage admins', ['only' => ['Update_Admin_Details', 'Admin_update', 'restore_post', 'force', 'changeOrder', 'destroy', 'edit', 'store', 'update', 'active']]);
         $this->middleware('permission:active admins', ['only' => ['active']]);
     }
+
     public function index()
     {
         if (request()->ajax()) {
-            $post = Admin::where('type', 'admin')->get();
+            $post = Admin::withTrashed()->where('type', 'admin')->get();
             $data = DB::table('admins')
                 ->leftJoin('model_has_roles', 'model_has_roles.model_id', '=', 'admins.id')
                 ->leftJoin('roles', 'model_has_roles.role_id', '=', 'roles.id')
@@ -72,8 +74,8 @@ class AdminsController extends Controller
     {
         $rules = [
             "name" => "required",
-            'email' => ['required', 'string', 'email', ($type == 'create') ? Rule::unique('users', 'email') : Rule::unique('users', 'email')->ignore($request->hidden_id)],
-            'phone' => ['required', 'numeric', 'digits:9', 'starts_with:77,73,74,70,71', ($type == 'create') ? Rule::unique('users', 'phone') : Rule::unique('users', 'phone')->ignore($request->hidden_id)],
+            'email' => ['required', 'string', 'email', ($type == 'create') ? Rule::unique('admins', 'email') : Rule::unique('admins', 'email')->ignore($request->hidden_id)],
+            'phone' => ['required', 'numeric', 'digits:9', 'starts_with:77,73,74,70,71', ($type == 'create') ? Rule::unique('admins', 'phone') : Rule::unique('admins', 'phone')->ignore($request->hidden_id)],
             'password' => [($type == 'create') ? 'required' : 'nullable'],
 
         ];
@@ -160,57 +162,9 @@ class AdminsController extends Controller
         $data->status = 1;
         $data->update();
         if ($data) {
-            $data->delete();
+            $data->forceDelete();
         }
     }
 
 
-    public function Update_Admin_Details()
-    {
-        $admin = Admin::all();
-        return view('auth.update', compact('admin'));
-    }
-
-    public function Admin_update(Request $request)
-    {
-        $rules = [
-            'name' => 'required',
-            'email' => 'required|email',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg',
-        ];
-        $messages = [
-            'name.required' => 'قم بكتابة اسم المستخدم',
-            'email.required' => 'يرجى كتابة الايميل',
-        ];
-
-        $validator = Validator::make($request->all(), $rules, $messages);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-        $Admin = Admin::where('id', $request->id)->first();
-        if ($Admin) {
-            if ($request->image != null) {
-                $Admin->update([
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'image' => $this->Post_update($request, 'image', "IMG-", 'assets/images/', $Admin->image)
-                ]);
-                if ($Admin) {
-                    return redirect()->route('home');
-                } else {
-                    return redirect()->back()->withErrors($Admin)->withInput();
-                }
-            } else {
-                $Admin->update([
-                    'name' => $request->name,
-                    'email' => $request->email,
-                ]);
-                if ($Admin) {
-                    return redirect()->route('home');
-                } else {
-                    return redirect()->back()->withErrors($Admin)->withInput();
-                }
-            }
-        }
-    }
 }

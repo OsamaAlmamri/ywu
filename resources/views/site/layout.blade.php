@@ -125,6 +125,41 @@
             font-size: 16px;
             font-weight: 800;
         }
+
+        h5 {
+            font-size: 13px;
+        }
+        .cource-block-two .inner-box .lower-content .text {
+        font-size: 13px;
+        }
+        .popular-posts .post .text {
+
+            font-size: 10px;
+        }
+        .sidebar .popular-posts .post-info {
+            font-size: 10px;
+        }
+        .sidebar .popular-posts .post .post-thumb {
+            position: relative;
+            width: 86px;
+            float: right;
+            margin: -6px -21px 0 0;
+        }
+
+        .sidebar .popular-posts .post .post-inner {
+            position: relative;
+            padding-right: 0;
+             padding-top: 8px;
+        }
+        .sidebar .popular-posts .post .text {
+            font-size: 13px;
+        }
+
+
+            .sidebar-page-container .sidebar-side {
+                margin-top: 119px;
+            }
+
     </style>
 
 </head>

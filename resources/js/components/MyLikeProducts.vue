@@ -27,20 +27,20 @@
                     <div class="content-side col-lg-12 col-md-12 col-sm-12">
                         <div class="our-courses row" v-show="products.length>0">
                             <!-- Options View -->
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-6" v-for="product in products">
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="product in products">
                                 <shop-gide-item
                                     :product="product"
                                     @toggled="onToggle">
                                 </shop-gide-item>
                             </div>
                         </div>
-
-                        <div style="text-align: center" v-show="products.length<1">
+                        <div style="text-align: center ;" v-show="products.length<1">
                             <img style="width: 35%;margin-top: -150px;"  src="site/images/img-no-products.png">
                             <h4>
-                      لم تقم باضافة اي منتج حتى الان الى المفضلة
+                                لم تقم باضافة اي منتج حتى الان الى المفضلة
                             </h4>
                         </div>
+
                     </div>
                 </div>
             </div>

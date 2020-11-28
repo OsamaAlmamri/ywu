@@ -88,6 +88,11 @@
                 },
                 columns: [
                     {
+                        title: ' الرقم',
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
                         title: 'اسم المستخدم',
                         data: 'name',
                         name: 'name'

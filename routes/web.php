@@ -9,11 +9,12 @@ Route::group(['prefix' => 'admin/', 'namespace' => 'AdminControllers'], function
     Route::post('/forget_check', 'AuthAdminController@Admin_forget_check')->name('admin.forget_check');
     Route::any('/check_login', 'AuthAdminController@adminLoginCheck')->name('login_admin');
 });
-
+Route::group(['middleware' => ('auth:admin')], function () {
+    Route::get('/admin/edit', 'HomeController@Update_Admin_Details')->name('Admin_Edit');
+    Route::post('/admin/update', 'HomeController@Admin_update')->name('Admin_Update');
+});
 Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers'], function () {
     Route::get('/admin', 'AdminsController@Admin')->name('Admin');
-    Route::get('/admin/edit', 'AdminsController@Update_Admin_Details')->name('Admin_Edit');
-    Route::post('/admin/update', 'AdminsController@Admin_update')->name('Admin_Update');
     Route::get('/admin_logout', 'AuthAdminController@LogoutAdmin')->name('Admin_logout');
 
     Route::group(['as' => 'admin.permissions.'], function () {
@@ -377,3 +378,4 @@ Route::get('/login', 'HomeController@register')->name('site.login');
 //Route::get('/{any?}', function () {
 //    return view('welcome');
 //})->where('any', '^(?!api\/)[\/\w\.-]*');
+Route::post('zones/getZones', 'HomeController@getZones')->name('zones.getZones');

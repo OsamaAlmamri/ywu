@@ -39,7 +39,7 @@
                             </div>
                             <flickity v-if="section.products.length>=4" :ref="'flickity'+section.id"
                                       :options="flickityOptions_products">
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-6" v-for="product in section.products">
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="product in section.products">
                                     <shop-gide-item
                                         :product="product"
                                         @toggled="onToggle">
@@ -49,7 +49,7 @@
                             </flickity>
 
                             <div class="row" v-if="section.products.length<4">
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-6" v-for="product in section.products">
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="product in section.products">
                                     <shop-gide-item
                                         :product="product"
                                         @toggled="onToggle"

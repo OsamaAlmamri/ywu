@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
+use App\Models\Shop\Zone;
 use App\Models\TrainingContents\SubjectCategory;
 use App\Models\TrainingContents\Training;
+use App\Traits\PostTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
+    use PostTrait;
     /**
      * Create a new controller instance.
      *
@@ -104,4 +110,86 @@ class HomeController extends Controller
             ->with('training', $training)
             ->with('page_title', ' تفاصيل الدورة التدريبية');
     }
+
+
+    public function getZones(Request $request)
+    {
+//       return $request['id'];
+
+        $allZones = Zone::all()->where('parent', $request['id']);
+        $zones = '';
+        if ($allZones != null)
+            foreach ($allZones as $zone) {
+                $zones .= '<option value="' . $zone->id . '"> ' . $zone->name_ar . '</option>';
+
+            }
+        return response(['data' => $zones], 200);
+
+    }
+
+
+    public function Update_Admin_Details()
+    {
+        $admin = Admin::find(\auth()->id());
+        return view('auth.update', compact('admin'));
+    }
+
+    public function Admin_update(Request $request)
+    {
+        $rules = [
+            'name' => 'required',
+            'email' => 'required|email',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg',
+            'ssn_image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg',
+            "district_id" => "required_if:userType,seller|numeric",
+            "gov_id" => "required_if:userType,seller|numeric",
+            "sale_name" => "required_if:userType,seller",
+
+        ];
+        $messages = [
+            'name.required' => 'قم بكتابة اسم المستخدم',
+            'email.required' => 'يرجى كتابة الايميل',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $Admin = Admin::where('id', $request->id)->first();
+
+        if ($Admin) {
+            if ($request->password == '') {
+                $Admin->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+
+                    'image' => $this->Post_update($request, 'image', "IMG-", 'assets/images/', $Admin->image)
+                ]);
+            } else {
+                $request['password'] = Hash::make($request->password);
+                $Admin->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'image' => $this->Post_update($request, 'image', "IMG-", 'assets/images/', $Admin->image)
+                ]);
+
+            }
+            if ($Admin->type == 'seller') {
+                $Admin->seller->update([
+                    'sale_name' => $request->sale_name,
+                    'gov_id' => $request->gov_id,
+                    'district_id' => $request->district_id,
+                    'ssn_image' => $this->Post_update($request, 'ssn_image', "IMG-", 'assets/images/', $Admin->seller->ssn_image)
+                ]);
+            }
+
+            if ($Admin) {
+                return redirect()->route('home');
+            } else {
+                return redirect()->back()->withErrors($Admin)->withInput();
+            }
+        }
+}
+
 }

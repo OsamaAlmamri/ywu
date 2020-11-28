@@ -33,9 +33,14 @@ class SellersController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $post = Admin::with('seller')->where('type', 'seller')->get()->sortBy('id');
+            $post = Admin::with(['seller'=>function($q){
+                $q->orderBy('admin_id', 'desc');
+            }])->where('type', 'seller')->orderBy('id', 'desc')
+                ->get();
+
             if ($post) {
                 return datatables()->of($post)
+                    ->addIndexColumn()
                     ->addColumn('action', function ($row) {
                         return view('admin.shop.sellers.btn.action')->with('id', $row->id)
                             ->with('images', $row->seller->images);
