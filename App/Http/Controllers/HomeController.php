@@ -166,7 +166,6 @@ class HomeController extends Controller
                     'image' => $this->Post_update($request, 'image', "IMG-", 'assets/images/', $Admin->image)
                 ]);
             } else {
-                $request['password'] = Hash::make($request->password);
                 $Admin->update([
                     'name' => $request->name,
                     'email' => $request->email,
