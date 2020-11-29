@@ -16,7 +16,7 @@
     <link href="{{  asset('site/css/responsive.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/css/mcq.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/vue/loading.css')  }}" rel="stylesheet">
-{{--    <link href="{{  asset('css/app.css')  }}" rel="stylesheet">--}}
+    {{--    <link href="{{  asset('css/app.css')  }}" rel="stylesheet">--}}
     <link href="{{  asset('css/toastr.css')  }}" rel="stylesheet">
 
     <meta name="theme-color" content="#593c97">
@@ -63,35 +63,41 @@
             width: 50%;
             float: left;
         }
+
         /*.wrapper {*/
         /*    flex: 1 0 33.333%;*/
         /*    position: relative;*/
         /*    height: 124px;*/
         /*    padding-bottom: 0;*/
         /*}*/
-        .row{
+        .row {
             margin-right: 0;
             margin-left: 0;
         }
+
         h1 {
             font-size: 38px;
         }
+
         h2 {
             font-size: 32px;
         }
-        @media only screen and (max-width: 1023px){
-        .page-title {
-            padding: 30px 0px;
+
+        @media only screen and (max-width: 1023px) {
+            .page-title {
+                padding: 30px 0px;
+            }
         }
-        }
+
         .main-header .header-top .login-nav li a {
 
             font-size: 11px;
         }
-        @media only screen and (max-width: 767px){
-        .sec-title h2, .page-title h1 {
-            font-size: 26px;
-        }
+
+        @media only screen and (max-width: 767px) {
+            .sec-title h2, .page-title h1 {
+                font-size: 26px;
+            }
         }
 
         @media only screen and (max-width: 1023px) {
@@ -109,18 +115,20 @@
                 width: 90%;
             }
         }
+
         .main-header .nav-outer {
 
             width: 90%;
         }
+
         .auto-container {
             position: static;
             max-width: 1200px;
             padding: 10px 15px;
             margin: 0 auto;
         }
-        .condultant_comment
-        {
+
+        .condultant_comment {
             color: #9C27B0;
             font-size: 16px;
             font-weight: 800;
@@ -129,16 +137,20 @@
         h5 {
             font-size: 13px;
         }
+
         .cource-block-two .inner-box .lower-content .text {
-        font-size: 13px;
+            font-size: 13px;
         }
+
         .popular-posts .post .text {
 
             font-size: 10px;
         }
+
         .sidebar .popular-posts .post-info {
             font-size: 10px;
         }
+
         .sidebar .popular-posts .post .post-thumb {
             position: relative;
             width: 86px;
@@ -149,16 +161,17 @@
         .sidebar .popular-posts .post .post-inner {
             position: relative;
             padding-right: 0;
-             padding-top: 8px;
+            padding-top: 8px;
         }
+
         .sidebar .popular-posts .post .text {
             font-size: 13px;
         }
 
 
-            .sidebar-page-container .sidebar-side {
-                margin-top: 119px;
-            }
+        .sidebar-page-container .sidebar-side {
+            margin-top: 119px;
+        }
 
     </style>
 
@@ -180,7 +193,7 @@
 
                         <!-- Info List -->
                         <ul class="info-list">
-                            <li><span>خط الاستشارات :</span><a href="tel:8000999"> 8000999 01</a></li>
+                            <li><span> للمساعدة والدعم :</span><a style="font-size: 19px" href="tel:+967778998366"> 778998366 967+</a></li>
                         </ul>
                         <!--                            <router-link to="/">Home</router-link>-->
                         <!--                            |-->

@@ -75,6 +75,7 @@
     Dropzone.options.myDropzone = {
         paramName: 'file',
         maxFilesize: 5, // MB
+        timeout: 720000,
         maxFiles: 20,
         acceptedFiles: ".jpeg,.jpg,.png,.gif",
         init: function () {

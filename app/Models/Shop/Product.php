@@ -379,8 +379,8 @@ class Product extends Model
 
     function getImageAttribute()
     {
-        $im = $this->image_category_th();
-        return ($im != null) ? $this->image_category_th()->path : null;
+        $im = $this->image_category_act();
+        return ($im != null) ? $this->image_category_act()->path : null;
     }
 
     function getZoneAttribute()

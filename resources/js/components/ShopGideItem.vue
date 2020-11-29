@@ -49,21 +49,20 @@
 
                 <div class="detail_product_item">
 
-                    <p>
-                        <img style="width: 31px;
-    border-radius: 50px;" :src="product.sell_icon">
-                        <span>
-                      {{product.sell_name}}
-                    </span>
-                    </p>
+<!--                    <p>-->
+<!--                        <img style="width: 31px;border-radius: 50px;" :src="product.sell_icon">-->
+<!--                        <span>-->
+<!--                      {{product.sell_name}}-->
+<!--                    </span>-->
+<!--                    </p>-->
 
                     <p>
                         <i class="fa fa-map-marker "></i>
-                        {{product.zone}}/ {{product.space}}/
+                        {{product.zone}}/ {{product.space}}
                     </p>
 
                     <rating-stars system="5"
-                                  :rating="4">
+                                  :rating="product.average_rating">
                         <span slot="after">({{product.average_rating}}) </span>
                     </rating-stars>
                 </div>

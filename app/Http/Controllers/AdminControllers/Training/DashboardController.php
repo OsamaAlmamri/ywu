@@ -41,7 +41,7 @@ class DashboardController extends Controller
             /*****************/
             $products = Product::all()->count();
             $shopCategory = ShopCategory::all()->count();
-            $seller = Seller::all()->count();
+            $seller = Admin::all()->where('type','seller')->count();
             $all_orders = Order::all()->count();
             $all_payment_orders = Order::all()->where('payment_status',1)->count();
             $all_no_payment_orders = Order::all()->where('payment_status',0)->count();

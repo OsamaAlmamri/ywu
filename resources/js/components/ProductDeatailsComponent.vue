@@ -91,8 +91,13 @@
                                                                 <h3>{{product.name}}</h3>
                                                                 <p><strong>السعر </strong> {{calculatePrice}} ر.ي</p>
                                                                 <p>
+                                                                    <img style="width: 31px;border-radius: 50px;"
+                                                                         :src="product.sell_icon">
+                                                                    <span>  {{product.sell_name}}    </span>
+                                                                </p>
+                                                                <p>
                                                                     <i class="fa fa-map-marker "></i>
-                                                                    {{product.zone}}/ {{product.space}}/
+                                                                    {{product.zone}}/ {{product.space}}
                                                                 </p>
                                                             </div>
                                                             <div class="pro-options row">
@@ -173,12 +178,13 @@
                                                     </fieldset>
                                                 </div>
 
-                                                <product-question v-for="(product_question,key) in  product.product_questions"
-                                                                  v-on:edit_question="edit_question"
-                                                                  v-on:delete_question="delete_question"
-                                                                  :_key="key"
-                                                                  :key="key"
-                                                                  :product_question="product_question">
+                                                <product-question
+                                                    v-for="(product_question,key) in  product.product_questions"
+                                                    v-on:edit_question="edit_question"
+                                                    v-on:delete_question="delete_question"
+                                                    :_key="key"
+                                                    :key="key"
+                                                    :product_question="product_question">
                                                 </product-question>
 
                                             </div>
@@ -473,7 +479,7 @@
                             if (resp.data.status == false) {
                                 toastStack('   خطاء ', resp.data.msg, 'error');
                             } else {
-                                toastStack( resp.data.msg,'', 'success');
+                                toastStack(resp.data.msg, '', 'success');
                                 this.product.product_questions[this.edit_question_data.key].text = this.edit_question_data.text;
                                 this.$refs.edit_ques.close();
                             }
