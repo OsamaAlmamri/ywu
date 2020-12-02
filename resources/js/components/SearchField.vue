@@ -138,7 +138,7 @@
                         break;
 
                     case 'privacy' :
-                        return "سياية الخصوصية";
+                        return "سياسة الخصوصية";
                         break;
 
                     case 'concatUs' :

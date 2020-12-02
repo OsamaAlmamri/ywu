@@ -102,7 +102,7 @@
 
         @media only screen and (max-width: 1023px) {
             .main-header .nav-outer {
-                width: 90%;
+                width: 80%;
                 margin-top: 4px;
             }
         }
@@ -111,13 +111,13 @@
         @media only screen and (max-width: 1140px) {
             .main-header .nav-outer {
 
-                width: 90%;
+                width: 80%;
             }
         }
 
         .main-header .nav-outer {
 
-            width: 90%;
+            width: 80%;
         }
 
         .auto-container {
@@ -177,21 +177,50 @@
             padding: 0;
             background-color: #f0f5fb;
         }
-        .privacy-section li
-        {
+
+        .privacy-section li {
             list-style: disc;
             line-height: 2.5em;
         }
+
         .auto-container {
 
             padding: 25px 44px;
         }
-        .search-box button{
+
+        .search-box button {
             margin-top: 31px;
         }
-        .multiselect__option--highlight,.multiselect__tag
-        {
+
+        .multiselect__option--highlight, .multiselect__tag {
             background: #9d84bd !important;
+        }
+
+        .auto-container {
+            padding: 0px 2px;
+        }
+
+        @media only screen and (max-width: 767px) {
+            .main-header .header-upper .logo-box {
+                padding: 1px 0px 1px;
+                z-index: 20;
+            }
+
+            .nav-outer .mobile-nav-toggler {
+
+                padding: 1px 0px;
+            }
+        }
+        .category_image_box img{
+            max-width:50%;
+        }
+        .category_name
+        {
+            font-size: 10px;
+        }
+        .privacy-section .auto-container
+        {
+            padding: 1px 29px;
         }
     </style>
 
@@ -511,7 +540,7 @@
                                 <ul class="links-widget" style="    margin-top: 1px;">
                                     <li>
                                         <a href="{{route('download_app') }}" target="_blank">
-{{--                                        <a href="https://play.google.com/store/apps/" target="_blank">--}}
+                                            {{--                                        <a href="https://play.google.com/store/apps/" target="_blank">--}}
                                             <img
                                                 src="site/images/google-play-img.png" alt=""></a>
                                         {{--                                            <a href="https://play.google.com/store/apps/details?id=com.sahltaxi.passenger" target="_blank"><img src="assets/img/google-play-img.png" alt=""></a>--}}

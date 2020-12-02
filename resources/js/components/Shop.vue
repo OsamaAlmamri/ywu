@@ -28,8 +28,8 @@
                     <div class="search-box row">
                         <div class=" col-6 col-md-3">
                             <label class="typo__label">المحافظات</label>
-                            <multiselect v-model="value" tag-placeholder="Add this as new tag"
-                                         placeholder="Search or add a tag" label="name_ar" track-by="id"
+                            <multiselect v-model="value" tag-placeholder="اضافة هذالمحافظة"
+                                         placeholder="المحافظات" label="name_ar" track-by="id"
                                          @select="add_gov"
                                          @remove="remove_gov"
                                          :hide-selected="true" :options="govs" :multiple="true"></multiselect>
@@ -37,14 +37,14 @@
                         <div class=" col-6 col-md-3">
                             <label class="typo__label">البائعون</label>
                             <multiselect
-                                v-model="seller_value" tag-placeholder="Add this as new tag"
-                                placeholder="Search or add a tag" label="sale_name" track-by="admin_id"
+                                v-model="seller_value" tag-placeholder="اضافة هذاالبائع"
+                                placeholder="البائعون" label="sale_name" track-by="admin_id"
                                 :hide-selected="true" :options="sellers" :multiple="true"></multiselect>
                         </div>
                         <div class=" col-6 col-md-3">
                             <label class="typo__label">الاصناف</label>
-                            <multiselect v-model="categiries_value" tag-placeholder="اضافةبائع جديد"
-                                         placeholder="بحث" label="name" track-by="id"
+                            <multiselect v-model="categiries_value" tag-placeholder="اضافة  هذا الصنف"
+                                         placeholder="الاصناف" label="name" track-by="id"
                                          :hide-selected="true" :options="categories" :multiple="true"></multiselect>
                         </div>
                         <div class=" col-6 col-md-3 ">

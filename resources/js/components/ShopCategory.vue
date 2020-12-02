@@ -1,5 +1,5 @@
 <template>
-    <div  style="margin-top: 30px;">
+    <div  style="margin-top: 15px;">
         <div class="row clearfix" style="text-align: center">
             <div class="content-side col-lg-12 col-md-12 col-sm-12"
                  style="text-align: center">
