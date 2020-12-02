@@ -1,6 +1,6 @@
 <template>
     <div>
-        <search-filed v-on:search_result="setSearchResult"></search-filed>
+        <search-filed v-if="this.$route.name !='shop_search'"></search-filed>
         <loading :active.sync="isLoading"
                  :can-cancel=false
                  :color="'#593c97'"
@@ -24,20 +24,58 @@
             <div class="circle-one"></div>
             <div class="circle-two"></div>
             <div class="auto-container">
+                <div class="search-boxed">
+                    <div class="search-box row">
+                        <div class=" col-6 col-md-3">
+                            <label class="typo__label">المحافظات</label>
+                            <multiselect v-model="value" tag-placeholder="Add this as new tag"
+                                         placeholder="Search or add a tag" label="name_ar" track-by="id"
+                                         @select="add_gov"
+                                         @remove="remove_gov"
+                                         :hide-selected="true" :options="govs" :multiple="true"></multiselect>
+                        </div>
+                        <div class=" col-6 col-md-3">
+                            <label class="typo__label">البائعون</label>
+                            <multiselect
+                                v-model="seller_value" tag-placeholder="Add this as new tag"
+                                placeholder="Search or add a tag" label="sale_name" track-by="admin_id"
+                                :hide-selected="true" :options="sellers" :multiple="true"></multiselect>
+                        </div>
+                        <div class=" col-6 col-md-3">
+                            <label class="typo__label">الاصناف</label>
+                            <multiselect v-model="categiries_value" tag-placeholder="اضافةبائع جديد"
+                                         placeholder="بحث" label="name" track-by="id"
+                                         :hide-selected="true" :options="categories" :multiple="true"></multiselect>
+                        </div>
+                        <div class=" col-6 col-md-3 ">
+                            <div class="input-group-append" style="margin-top: 30px;">
+                                <button class="btn btn-primary" style="padding: 7px 58px;"
+                                        @click.prevent="get_product_by_categories22()"> بحث
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
                 <div class="row clearfix">
                     <div class="content-side col-lg-12 col-md-12 col-sm-12">
-                        <div v-if="is_search==false" class="our-courses" v-for="section in sections">
+                        <div class="our-courses" v-for="section in sections">
                             <!-- Options View -->
                             <div class="options-view">
                                 <div class="clearfix" v-if="section.products.length>0">
                                     <div class="pull-right">
-                                        <h3 style="    background: #593c97;
+                                        <router-link :to="{ name: 'CategoryProducts', params: { id: section.id}}"
+                                                     @click.native="scrollToTop()">
+                                            <h3 style="    background: #593c97;
     padding: 5px 50px;
     color: white;">{{section.name}}</h3>
+                                        </router-link>
+
+
                                     </div>
                                 </div>
                             </div>
-                            <flickity v-if="section.products.length>=4" :ref="'flickity'+section.id"
+                            <flickity :ref="'flickity'+section.id"
                                       :options="flickityOptions_products">
                                 <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="product in section.products">
                                     <shop-gide-item
@@ -48,36 +86,6 @@
                                 </div>
                             </flickity>
 
-                            <div class="row" v-if="section.products.length<4">
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="product in section.products">
-                                    <shop-gide-item
-                                        :product="product"
-                                        @toggled="onToggle"
-                                    ></shop-gide-item>
-                                </div>
-                            </div>
-                        </div>
-                        <div v-if="is_search==true" class="our-courses">
-                            <!-- Options View -->
-                            <div class="options-view">
-                                <div class="clearfix">
-                                    <div class="pull-right">
-                                        <h3> نتائج البحث عن "{{search_data}}"</h3>
-                                    </div>
-                                    <div class="pull-left">
-                                        <button class="btn btn-info" @click="is_search=false">اغلاق نتائج البحث</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix">
-                                <div class="cource-block-two col-lg-3 col-md-4 col-sm-6 col-xs-12"
-                                     v-for="training in search_result">
-                                    <shop-gide-item
-                                        :training="training"
-                                        @toggled="onToggle"
-                                    ></shop-gide-item>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -88,6 +96,8 @@
 
 <script>
     import CourseGideItem from './CourseGideItem.vue';
+    import Multiselect from 'vue-multiselect'
+
     import Loading from 'vue-loading-overlay';
     // Import stylesheet
     import 'vue-loading-overlay/dist/vue-loading.css';
@@ -97,223 +107,147 @@
 
     export default {
         props: ['items'],
-        components: {CourseGideItem, ShopGideItem, Loading, Flickity},
+        components: {Multiselect, ShopGideItem, Loading, Flickity},
         data() {
             return {
-                flickityOptions: {
-                    initialIndex: 0,
+                flickityOptions_products: {
+                    initialIndex: 2,
                     // rightToLeft: true,
-                    // groupCells: 1,
-                    // rightToLeft: true,
-                    // freeScroll: true,
-                    cellAlign: 'center',
-                    // contain: true,
+                    groupCells: 1,
                     freeScroll: true,
-                    // contain: true,
+                    contain: true,
                     lazyLoad: true,
-                    autoPlay: 5000,
+                    // autoPlay: 5000,
                     resize: true,
                     prevNextButtons: true,
-                    groupCells: true,
+                    // groupCells: true,
                     pageDots: false,
                     // wrapAround: true
 
                     // any options from Flickity can be used
                 },
-                flickityOptions_products: {
-                    initialIndex: 0,
-                    // rightToLeft: true,
-                    // groupCells: 1,
-                    freeScroll: true,
-                    // contain: true,
-                    lazyLoad: true,
-                    autoPlay: 5000,
-                    resize: true,
-                    prevNextButtons: true,
-                    groupCells: true,
-                    pageDots: false,
-                    wrapAround: true
-
-                    // any options from Flickity can be used
-                },
-                categories:[],
                 isLoading: false,
                 fullPage: true,
                 activeIndex: null,
-                sections: [
-                    // {
-                    //     id: 1,
-                    //     name: 'اشغال يدوية',
-                    //     image: 'site/images/categories/handsewing.png',
-                    //     products: [
-                    //         {
-                    //             id: 1,
-                    //             price: 10000,
-                    //             rating_avg: 2,
-                    //             name: "بالطو تشكيلة جديدة وجودة عالية",
-                    //             image: 'site/images/products/i8.jpg',
-                    //             is_like: false,
-                    //         },
-                    //         {
-                    //             id: 2,
-                    //             price: 10000,
-                    //             rating_avg: 5,
-                    //             name: "بالطو  جديد تشكيلة هندي ",
-                    //             image: 'site/images/products/i5.jpg',
-                    //             is_like: false,
-                    //         }]
-                    // },
-                    // {
-                    //     id: 2,
-                    //     name: ' ملابس نسائية ',
-                    //     image: 'site/images/categories/womencoat.png',
-                    //     products: [
-                    //         {
-                    //             id: 1,
-                    //             price: 10000,
-                    //             rating_avg: 2,
-                    //             name: "بالطو تشكيلة جديدة وجودة عالية",
-                    //             image: 'site/images/products/i8.jpg',
-                    //             is_like: false,
-                    //         },
-                    //         {
-                    //             id: 2,
-                    //             price: 10000,
-                    //             rating_avg: 5,
-                    //             name: "بالطو  جديد تشكيلة هندي ",
-                    //             image: 'site/images/products/i5.jpg',
-                    //             is_like: false,
-                    //         },
-                    //         {
-                    //             id: 1,
-                    //             price: 10000,
-                    //             rating_avg: 2,
-                    //             name: "بالطو تشكيلة جديدة وجودة عالية",
-                    //             image: 'site/images/products/i8.jpg',
-                    //             is_like: false,
-                    //         },
-                    //         {
-                    //             id: 2,
-                    //             price: 10000,
-                    //             rating_avg: 5,
-                    //             name: "بالطو  جديد تشكيلة هندي ",
-                    //             image: 'site/images/products/i5.jpg',
-                    //             is_like: false,
-                    //         },
-                    //         {
-                    //             id: 3,
-                    //             price: 10000,
-                    //             rating_avg: 2,
-                    //             name: "بالطو تشكيلة جديدة وجودة عالية",
-                    //             image: 'site/images/products/i8.jpg',
-                    //             is_like: false,
-                    //         },
-                    //         {
-                    //             id: 4,
-                    //             price: 10000,
-                    //             rating_avg: 5,
-                    //             name: "بالطو  جديد تشكيلة هندي ",
-                    //             image: 'site/images/products/i5.jpg',
-                    //             is_like: false,
-                    //         },
-                    //
-                    //     ]
-                    // },
-                    // {
-                    //     id: 3,
-                    //     name: '  ازياء شعبية ',
-                    //     image: 'site/images/categories/myanmar.png',
-                    //     products: [
-                    //         {
-                    //             id: 1,
-                    //             price: 10000,
-                    //             rating_avg: 2,
-                    //             name: "زي صنعاني نسائي لون اسود",
-                    //             image: 'site/images/products/i4.jpeg',
-                    //             is_like: false,
-                    //         },
-                    //         {
-                    //             id: 2,
-                    //             price: 10000,
-                    //             rating_avg: 5,
-                    //             name: "زي صنعاني نسائي لون احمر",
-                    //             image: 'site/images/products/i2.jpeg',
-                    //             is_like: false,
-                    //         }, {
-                    //             id: 3,
-                    //             price: 10000,
-                    //             rating_avg: 2,
-                    //             name: "زي تهامي للاعراس",
-                    //             image: 'site/images/products/i3.jpeg',
-                    //             is_like: false,
-                    //         },
-                    //         {
-                    //             id: 4,
-                    //             price: 10000,
-                    //             rating_avg: 5,
-                    //             name: "بالطو  جديد تشكيلة هندي ",
-                    //             image: 'site/images/products/i5.jpg',
-                    //             is_like: false,
-                    //         },
-                    //
-                    //     ]
-                    // },
-                ],
+                categories: [],
                 is_search: false,
                 search_data: '',
                 search_result: [],
+                sections: [],
                 course_id: '',
                 pagination: {},
-                edit: false
+                edit: false,
+                govs: [],
+                value: [],
+                seller_value: [],
+                sellers: [],
+                form: {
+                    "categories": [],
+                    "seller_id": [],
+                    "govs": []
+                },
+                categiries_value: [],
+                options: []
             }
         },
         created() {
-            // this.fetchArticles();
-            this.get_product_by_categories();
+            this.get_gov();
+            this.gov_sellers();
             this.all_categories();
+            if (this.$route.name != 'shop_search')
+                this.get_product_by_categories22();
         },
         methods: {
-            next(c_flickity) {
-                this.refs[c_flickity].next();
+            remove(array, element) {
+                const index = array.indexOf(element);
+                array.splice(index, 1);
             },
+            add_gov(gov) {
 
-            previous(c_flickity) {
-                this.refs[c_flickity].previous();
+                this.form.govs.push(gov.id);
+                this.gov_sellers();
             },
-            onToggle(index) {
-                if (this.activeIndex == index) {
-                    return (this.activeIndex = null);
+            remove_gov(gov) {
+                this.remove(this.form.govs, gov.id);
+                this.gov_sellers();
+                for (let i = 0; i < this.seller_value.length; i++) {
+                    let obj = this.seller_value.find(x => x.id == gov.id);
+                    let index = this.seller_value.indexOf(obj);
+                    this.seller_value.splice(index, 1);
                 }
-                this.activeIndex = index;
-            },
-            setSearchResult(data) {
 
-                this.is_search = true;
-                this.search_data = data.title;
-                this.search_result = data.data;
             },
-
-            get_product_by_categories() {
-                axios({url: '/api/shop/get_product_by_categories', method: 'POST'})
-                    .then(resp => {
-                        this.sections = (resp.data.data);
-                    })
-                    .catch(err => {
-                        console.log(err)
-                    })
+            addTag(newTag) {
+                const tag = {
+                    name: newTag,
+                    code: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
+                }
+                this.options.push(tag)
+                this.value.push(tag)
             },
             all_categories() {
                 axios({url: '/api/shop/all_categories', method: 'POST'})
                     .then(resp => {
                         this.categories = (resp.data.data);
-                    }).then(response => {
-                    this.$nextTick(function () { // the magic
-                        this.$refs.flickity_categories.rerender()
                     })
-                })
                     .catch(err => {
                         console.log(err)
                     })
+            },
+            gov_sellers() {
+                axios({url: '/api/shop/gov_sellers', data: {govs: this.form.govs}, method: 'POST'})
+                    .then(resp => {
+                        this.sellers = (resp.data.data);
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            },
+
+            get_gov() {
+                axios({url: '/api/get_gov', method: 'POST'})
+                    .then(resp => {
+                        this.govs = (resp.data.data);
+                        // this.form.gov_id = this.govs[0].id;
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            },
+            get_product_by_categories22() {
+                this.form.seller_id = [];
+                this.form.categories = [];
+                for (let i = 0; i < this.seller_value.length; i++) {
+                    this.form.seller_id.push(this.seller_value[i].admin_id);
+                }
+                for (let i = 0; i < this.categiries_value.length; i++) {
+                    this.form.categories.push(this.categiries_value[i].id);
+                }
+                if (this.is_search == false) {
+                    this.is_search = true;
+                    this.isLoading = true;
+                    axios({
+                        url: '/api/shop/get_product_by_categories22',
+                        data: this.form,
+                        method: 'POST'
+                    })
+                        .then(resp => {
+                            this.sections = (resp.data.data);
+                            this.isLoading = false;
+                            this.is_search = false;
+                        }).then(response => {
+                        this.$nextTick(function () { // the magic
+                            // this.$refs.flickity_categories.rerender()
+                            for (var i = 0; i < this.sections.length; i++)
+                                this.refs["flickity" + this.sections[i].id].rerender();
+                        })
+                    }).catch(err => {
+                        this.isLoading = false;
+                        this.is_search = false;
+                        console.log(err)
+                    })
+                }
+
             },
             onCancel() {
                 console.log('User cancelled the loader.')
@@ -327,11 +261,11 @@
 
     }
 </script>
-
-
 <style>
     .flickity-button:disabled {
         display: none;
     }
 
 </style>
+
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

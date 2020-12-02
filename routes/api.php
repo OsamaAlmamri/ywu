@@ -179,6 +179,7 @@ Route::post('getTrainingQuestions2', 'Api\Trainings\TrainingController@getTraini
 Route::post('getLastPosts', 'Api\Trainings\TrainingController@getLastPosts');
 Route::post('search', 'Api\Trainings\TrainingController@search');
 Route::post('getTrainingDetails', 'Api\Trainings\TrainingController@getTrainingDetails');
+Route::post('concatUs', 'Api\Trainings\TrainingController@concatUs');
 
 
 //Route::post('ShowContentId/{id}', 'Api\Trainings\ContentController@show');

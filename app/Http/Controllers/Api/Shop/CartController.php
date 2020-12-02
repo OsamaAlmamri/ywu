@@ -49,7 +49,7 @@ class CartController extends Controller
 
     public function add_to_cart(Request $request)
     {
-        return $this->ReturnErorrRespons("0000", " التسوق يبدا يوم الثلاثاء الموافق 1 ديسمبر .");
+//        return $this->ReturnErorrRespons("0000", " التسوق يبدا يوم الثلاثاء الموافق 1 ديسمبر .");
 
         $this->customer = Auth::user();
         try {

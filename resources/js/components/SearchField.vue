@@ -104,7 +104,7 @@
                         return "منتجاتي المفضلة";
                         break;
 
-                    case 'ShopCategory' :
+                    case 'CategoryProducts' :
                         return "منتجات الصنف ";
                         break;
 

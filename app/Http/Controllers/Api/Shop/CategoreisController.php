@@ -58,13 +58,23 @@ class CategoreisController extends Controller
 
     public function gov_sellers(Request $request)
     {
-        $data = Seller::whereIn('gov_id', $request->govs)
-            ->whereIn('admin_id', function ($query) use ($request) {
-                $query->select('id')
-                    ->from(with(new Admin())->getTable())
-                    ->where('deleted_at', null)
-                    ->where('status', '=', 1);
-            })->get();
+        if (count($request->govs)>0) {
+            $data = Seller::whereIn('gov_id', $request->govs)
+                ->whereIn('admin_id', function ($query) use ($request) {
+                    $query->select('id')
+                        ->from(with(new Admin())->getTable())
+                        ->where('deleted_at', null)
+                        ->where('status', '=', 1);
+                })->get();
+        }
+        else
+            $data = Seller::whereIn('admin_id', function ($query) use ($request) {
+                    $query->select('id')
+                        ->from(with(new Admin())->getTable())
+                        ->where('deleted_at', null)
+                        ->where('status', '=', 1);
+                })->get();
+
         return $this->GetDateResponse('data', $data);
     }
 
@@ -94,6 +104,8 @@ class CategoreisController extends Controller
                 if ($has_seller) {
                     $q->whereIn('admin_id', $request->seller_id);
                 }
+//                $q->limit(10)->get()
+
             }]);
             if ($has_categories) {
                 $data = $data->whereIn('id', $request->categories);
@@ -134,7 +146,7 @@ class CategoreisController extends Controller
 
         try {
             $data = ShopCategory::with(['products' => function ($q) use ($has_seller, $has_govs, $request) {
-                $q->where('status', 1);
+                $q->inRandomOrder()->where('status', 1);
                 if ($has_govs) {
                     $q->whereIn('admin_id', function ($query) use ($request) {
                         $query->select('admin_id')
@@ -145,6 +157,7 @@ class CategoreisController extends Controller
                 if ($has_seller) {
                     $q->where('admin_id', $request->seller_id);
                 }
+//                $q->latest()->limit(1);
             }]);
             if ($has_categories) {
                 $data = $data->where('id', $request->categories);

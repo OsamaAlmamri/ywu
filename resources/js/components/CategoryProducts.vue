@@ -1,6 +1,5 @@
 <template>
     <div>
-        <search-filed v-on:search_result="setSearchResult"></search-filed>
         <loading :active.sync="isLoading"
                  :can-cancel=false
                  :color="'#593c97'"
@@ -28,15 +27,23 @@
                     <div class="content-side col-lg-12 col-md-12 col-sm-12">
                         <div class="our-courses row">
                             <!-- Options View -->
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="product in products">
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="product in products.data">
                                 <shop-gide-item
-                                    :product="product"
-                                    @toggled="onToggle">
+                                    :product="product">
                                 </shop-gide-item>
                             </div>
                         </div>
-
-                        <div style="text-align: center" v-show="products.length<1">
+                        <div class="styled-pagination">
+                            <pagination
+                                :align="'right'"
+                                :show-disabled=true
+                                @pagination-change-page="get_category_products"
+                                :data="products">
+                                <span slot="prev-nav">&lt;&lt; </span>
+                                <span slot="next-nav"> &gt;&gt;</span>
+                            </pagination>
+                        </div>
+                        <div style="text-align: center" v-show="products.data.length<1">
                             <img style="width: 35%;margin-top: -150px;"  src="site/images/img-no-products.png">
                             <h4>
                               ليس هناك اي منتجات بهذ التصنيف
@@ -67,7 +74,7 @@
                 isLoading: false,
                 fullPage: true,
                 activeIndex: null,
-                products: [],
+                products: {},
                 is_search: false,
                 search_data: '',
                 search_result: [],
@@ -88,19 +95,23 @@
                 this.search_result = data.data;
             },
 
-            get_category_products() {
+            get_category_products(page = 1) {
+                this.isLoading = true;
                 axios({
-                    url: '/api/shop/get_category_products',
+                    url: '/api/shop/get_category_products?page=' + page,
                     data: {category_id: this.$route.params.id},
                     method: 'POST'
                 })
                     .then(resp => {
-                        this.products = (resp.data.data.data);
+                        this.products = (resp.data.data);
+                        this.isLoading = false;
                     })
                     .catch(err => {
                         console.log(err)
+                        this.isLoading = false;
                     })
             },
+
             onCancel() {
                 console.log('User cancelled the loader.')
             }

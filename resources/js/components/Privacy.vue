@@ -1,57 +1,98 @@
 <template>
     <!-- Privacy Section -->
     <section class="privacy-section">
-        <div class="auto-container">
+        <div class="auto-container" style="background: #ffffff">
             <!-- Privacy Content -->
-            <div class="privacy-content">
-                <h2>Privacy Policy</h2>
-                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of There are many variations.</p>
-                <div class="date">Updated January 6, 2020</div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at nisl ligula. Suspendisse vitae ex fermentum, suscipit sem id, dapibus orci. Cras efficitur mi augue, ut sodales felis rhoncus bibendum. Fusce sagittis nibh orci, id vestibulum tortor aliquet ut. Vivamus maximus felis ac nisl luctus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at nisl ligula. Suspendisse vitae ex fermentum, suscipit sem id, dapibus orci. Cras efficitur mi augue, ut sodales felis rhoncus bibendum. Fusce sagittis nibh orci, id vestibulum tortor aliquet ut. Vivamus maximus felis ac nisl luctus.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at nisl ligula. Suspendisse vitae ex fermentum, suscipit sem id, dapibus orci. Cras efficitur mi augue Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at nisl ligula. Suspendisse vitae ex fermentum, suscipit sem id, dapibus orci. Cras efficitur mi augue.</p>
-                <h2>Overview</h2>
-                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>
-            </div>
-            <!-- Privacy Content -->
-            <div class="privacy-content">
-                <h4>The standard chunk of Lorem Ipsum used since the 1500s is <br> reproduced below for those interested.</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at nisl ligula. Suspendisse vitae ex fermentum, suscipit sem id, dapibus orci. Cras efficitur mi augue, ut sodales felis rhoncus bibendum. Fusce sagittis nibh orci, id vestibulum tortor aliquet ut. Vivamus maximus felis ac nisl luctus, ut aliquet massa suscipit. Sed scelerisque quam justo, sed volutpat neque tempor porta. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam consequat tellus id risus condimentum fringilla. Etiam maximus porttitor magna sit amet consectetur. Integer eget ante scelerisque tortor sodales aliquet. Integer in vestibulum leo, vitae tristique orci. Etiam tortor sem, porttitor at pellentesque sit amet, fringilla nec massa. Nunc nec magna sed metus tristique ornare vitae ut nisl. Mauris lacus enim, posuere et tincidunt condimentum, sodales ac elit.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at nisl ligula. Suspendisse vitae ex fermentum, suscipit sem id, dapibus orci. Cras efficitur mi augue, ut sodales felis rhoncus bibendum. Fusce sagittis nibh orci, id vestibulum tortor aliquet ut.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at nisl ligula. Suspendisse vitae ex fermentum, suscipit sem id, dapibus orci. Cras efficitur mi augue, ut sodales felis rhoncus bibendum. Fusce sagittis nibh orci, id vestibulum tortor aliquet ut. Vivamus maximus felis ac nisl luctus, ut aliquet massa suscipit. Sed scelerisque quam justo, sed volutpat neque tempor porta. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam consequat tellus id risus condimentum fringilla. Etiam maximus porttitor magna sit amet consectetur. Integer eget ante scelerisque tortor sodales aliquet. Integer in vestibulum leo, vitae tristique orci. Etiam tortor </p>
-            </div>
-            <!-- Privacy Content -->
-            <div class="privacy-content">
-                <h4>The standard chunk of Lorem Ipsum used since the 1500s is <br> reproduced below for those interested.</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at nisl ligula. Suspendisse vitae ex fermentum, suscipit sem id, dapibus orci. Cras efficitur mi augue, ut sodales felis rhoncus bibendum. Fusce sagittis nibh orci, id vestibulum tortor aliquet ut. Vivamus maximus felis ac nisl luctus, ut aliquet massa suscipit. Sed scelerisque quam justo, sed volutpat neque tempor porta. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam consequat tellus id risus condimentum fringilla.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at nisl ligula. Suspendisse vitae ex fermentum, suscipit sem id, dapibus orci. Cras efficitur mi augue, ut sodales felis rhoncus bibendum. Fusce sagittis nibh orci, id vestibulum tortor aliquet ut.</p>
-                <ul class="privacy-list">
-                    <li>Randomised words which don't look even slightly believable.</li>
-                    <li>By providing personal information to us and by retaining us to provide you with the Services.</li>
-                    <li>Voluntarily consent to the collection, use and disclosure of such personal information as specified in this Privacy Policy. </li>
-                    <li>The legal bases for our processing of personal information are primarily that the processing is necessary for providing the Services and that the processing is carried out in our legitimate interests, which are further explained below.</li>
-                    <li>Without limiting the foregoing, we may on occasion ask you to consent when we collect.</li>
-                </ul>
-            </div>
-
-            <!-- Privacy Content -->
-            <div class="privacy-content">
-                <h4>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for <br> those interested.</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at nisl ligula. Suspendisse vitae ex fermentum, suscipit sem id, dapibus orci. Cras efficitur mi augue, ut sodales felis rhoncus bibendum. Fusce sagittis nibh orci, id vestibulum tortor aliquet ut. Vivamus maximus felis ac nisl luctus, ut aliquet massa suscipit. Sed scelerisque quam justo, sed volutpat neque tempor porta. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam consequat tellus id risus condimentum fringilla. Etiam maximus porttitor magna sit amet consectetur. Integer eget ante scelerisque tortor sodales aliquet. Integer in vestibulum leo, vitae tristique orci. Etiam tortor sem, porttitor at pellentesque sit amet, fringilla nec massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at nisl ligula. Suspendisse vitae ex fermentum, suscipit sem id, dapibus orci.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at nisl ligula. Suspendisse vitae ex fermentum, suscipit sem id, dapibus orci. Cras efficitur mi augue, ut sodales felis rhoncus bibendum.</p>
-            </div>
-
-            <!-- Privacy Content -->
-            <div class="privacy-content">
-                <h2>Security and Retention</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at nisl ligula. Suspendisse vitae ex fermentum, suscipit sem id, dapibus orci. Cras efficitur mi augue, ut sodales felis rhoncus bibendum. Fusce sagittis nibh orci, id vestibulum tortor aliquet ut. Vivamus maximus felis ac nisl luctus, ut aliquet massa suscipit. Sed scelerisque quam justo, sed volutpat neque tempor porta. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam consequat tellus id risus condimentum fringilla.</p>
-            </div>
-
-            <!-- Privacy Content -->
-            <div class="privacy-content">
-                <h2>Contact Us</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at nisl ligula. Suspendisse vitae ex fermentum, suscipit sem id, dapibus orci. Cras efficitur mi augue, ut sodales felis rhoncus bibendum. Fusce sagittis nibh orci, id vestibulum tortor aliquet ut. Vivamus maximus felis ac nisl luctus, ut aliquet massa suscipit. Sed scelerisque quam justo, sed volutpat neque tempor porta. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam consequat tellus id risus condimentum fringilla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at nisl ligula.</p>
-            </div>
-
+            <p><strong>سياسة الخصوصية</strong></p>
+            <p>تصف سياسة الخصوصية هذه كيفية قيام موقع &nbsp;<a href="https://ywudevlopment.com/">https://ywudevlopment.com</a> وتطبيق موبايل&nbsp; ("YWP"، "منصة نساء اليمن") بجمع واستخدام ومشاركة المعلومات الخاصة بك من خلال موقع اتحاد نساء اليمن للتطوير. لا تنطبق سياسة الخصوصية هذه على أنشطة جمع البيانات الخاصة بنا دون الاتصال بالإنترنت أو خارج خدماتنا (مالم يذكر خلاف ذلك). وباستخدامك خدماتنا، أنت توافق على شروط الاستخدام الخاصة بنا</p>
+            <p><strong>البيانات التي نجمعها</strong><strong>&nbsp;</strong></p>
+            <p>:عندما تقوم بالتسجيل وتصبح مستخدماً لدينا، قد يُطلب منك تزويدنا ببيانات ومعلومات شخصية عنك، ويتم جمع هذه المعلومات بالوسائل التالية</p>
+            <ul>
+                <li>معلومات التسجيل: مثل اسمك وعنوان بريدك الإلكتروني واسم المستخدم وكلمة المرور وأي معلومات أخرى تُطلب أثناء التسجيل</li>
+                <li>معلومات من نشاطك: تتضمن هذه المعلومات، عناوين بروتوكول الإنترنت IP المستخدم لربط جهاز الكمبيوتر الخاص بك بشبكة الإنترنت، نوع المتصفح واللغة، صفحات الإحالة والخروج وعناوين URL، التاريخ والوقت، مدة الزيارات إلى صفحات معينة، ومعلومات تسجيل الدخول الخاصة بك</li>
+                <li>معلومات من ملفات تعريف الارتباط: نقوم بجمع المعلومات من خلال ملفات تعريف الارتباط المخزنة بواسطة مواقع الويب على محرك الأقراص الثابت الخاص بك</li>
+                <li>معلومات زودتنا بها: قد تقدم لنا طوعًا معلومات إضافية عن نفسك لا تحدد هويتك الشخصية، بما في ذلك على سبيل المثال لا الحصر الاسم، العنوان، الجنس، البلد، وتفضيلات الخدمة، وغيرها من المعلومات التى زودتنا بها من خلال ملء النماذج المتوفّرة على منصتنا أو من خلال التواصل معنا عبر الهاتف، أو البريد الإلكتروني، أو أيّ وسيلة أخرى</li>
+                <li>المعلومات التي تقدمها لنا عند الاتصال بنا للحصول على المساعدة</li>
+            </ul>
+            <p>لذا يتوجب عليك الالتزام بتقديم معلومات كاملة وصحيحة ودقيقة والإلتزام بالحفاظ على سرية معلومات حسابك وكلمة المرور الخاصة بك، وتحديد الأشخاص المسموح لهم بالوصول إلى حسابك واستخدامه. وإلا ستكون مسئولاً عن أي أضرار تنتج عن عدم دقة هذه البيانات أو عدم تحديثها بمجرد تغييرها. ويجوز لنا مشاركة المعلومات المذكورة مع أطراف ثالثة لغرض تصميم الإعلانات وتحليلها وإدارتها وتقديم التقارير وتحسينها على الموقع وغيرها.</p>
+            <p><strong>استخدام البيانات الشخصية</strong></p>
+            <p>:يجوز لنا استخدام البيانات الشخصية التي نجمعها طبقاً لأحكام قانون حماية البيانات فيما يلي</p>
+            <ul>
+                <li>للتحقق من هويتك&nbsp;</li>
+                <li>لتقديم خدمة أفضل لعملائنا، لتقييم وتحسين وتطوير خدماتنا وإخطارك بهذه التغييرات&nbsp;</li>
+                <li>لاستخدامها لأغراض ترويجية وإعلامية، بما فيها من القيام بعملية التسويق المباشر، وأبحاث السوق والدراسات الاستقصائية&nbsp;</li>
+                <li>لضمان تزويدك بالمعلومات الأكثر ملاءمة لك ولاهتماماتك، ولإرسال الرسائل التسويقية إليك&nbsp;</li>
+                <li>لأغراض أعمالنا ومصلحتنا المشروعة، مثل تحليل البيانات، ومراجعة الحسابات، ومراقبة وتقليل الاحتيال والقرصنة البرمجية والوقاية منه&nbsp;</li>
+                <li>لتمييز أو تعزيز تجربتكم في استخدام الموقع والخدمات&nbsp;</li>
+                <li>&nbsp;للمساعدة في الحفاظ على سلامة وأمن المتجر والأنظمة والخدمات&nbsp;</li>
+                <li>لتوفير خدمات الدفع والخدمات المرتبطة في المتجر&nbsp;</li>
+                <li>لقياس فعالية الإعلانات المقدمة على الموقع وتقديم الإعلانات التي تناسبكم، والتي قد تعتمد على نشاطكم على المتجر&nbsp;</li>
+                <li>لأي استخدام آخر بعد الحصول على موافقتك، في حال رغبنا باستخدام المعلومات الشخصية الخاصة بك لأغراض أخرى غير تلك التي كنت قد وافقت عليها سابقاً&nbsp;</li>
+            </ul>
+            <p>&nbsp;</p>
+            <p><strong>مشاركة المعلومات</strong></p>
+            <p>&nbsp;</p>
+            <p>&nbsp;:قد نشارك معلومات عنك -حسب الضرورة -للأغراض التالية</p>
+            <p>قد نقوم أيضاً بمشاركة المعلومات إلى طرف ثالث فيما يتعلق بأي عملية إعادة تنظيم أو دمج أو مشروع مشترك أو تنازل أو تحويل أو أي تصرف آخر لكل أو جزء من أعمالنا أو أصولنا أثناء المفاوضات</p>
+            <p>عندما يشارك موقع <a href="https://ywudevlopment.com">https://ywudevlopment.com</a> وتطبيق موبايل&nbsp; مع مقدمي الخدمات من الجهات الخارجية، ويكون الكشف عن المعلومات الشخصية لمقدمي هذه الخدمات ضرورياً لتوفير مثل هذه الخدمة، فإن موقع <a href="https://ywudevlopment.com">https://ywudevlopment.com</a> وتطبيق موبايل&nbsp; يضمن بأن مقدمي الخدمة هؤلاء يقوموا بحماية المعلومات الشخصية بطريقة تتفق مع سياسة الخصوصية هذه</p>
+            <p>&nbsp;</p>
+            <p><strong>تخزين البيانات الشخصية</strong></p>
+            <p>&nbsp;</p>
+            <p>نحن نقوم فقط بتخزين بياناتك الشخصية طالما أنها ضرورية للأغراض التي تتم بها أو من خلالها معالجة البيانات الشخصية والخاصة بها. كما أننا نحتفظ بالحق في إعادة النظر في سياسة الخصوصية الحالية، وعليك بمراجعة هذه السياسة من وقت لآخر</p>
+            <p>&nbsp;</p>
+            <p><strong>حماية بياناتك الشخصية</strong></p>
+            <p>&nbsp;</p>
+            <p>تلتزم منصة نساء اليمن بالتعامل مع معلومات الحساب الخاص بك بمستوى عالٍ من الأمن وحماية البيانات الشخصية ضد الوصول غير المصرح به أو الاستخدام أو الإفصاح عنه. يتم تخزين المعلومات الشخصية فقط في نموذج محمية على أجهزة الكمبيوتر الغير متصلة بالإنترنت</p>
+            <p>ومع ذلك، يمكن لهذا المستوى من الحماية ألا يكون فعال بنسبة 100% إلا إذا كنت تتبع سياسات أمنية خاصة بك. يجب عليك ألا تشارك بيانات حسابك مع أي شخص. وإذا كنت تشعر بالقلق بأن أي من بياناتك الشخصية قد كشفت، يجب عليك تغييرها على الفور بعد تسجيل الدخول على حسابك</p>
+            <p>&nbsp;</p>
+            <p><strong>معالجة البيانات</strong></p>
+            <p>&nbsp;</p>
+            <ul>
+                <li>تهدف منصة نساء اليمن إلى معالجة البيانات الشخصية الصحيحة والمحدثة فقط. لذا يحق لك الحصول على تصحيح لبياناتك الشخصية غير الدقيقة والمتعلقة بك</li>
+                <li>تحق منصة نساء اليمن حذف البيانات الشخصية غير الضرورية فيما يتعلق بالأغراض التي تم تجميعها أو معالجتها بطريقة أخرى</li>
+                <li>تستخدم منصة نساء اليمن فقط معالجات البيانات التي توفر ضمانات كافية لتنفيذ التدابير الفنية والتنظيمية المناسبة بطريقة تجعل المعالجة تلبي وتكفل حماية حقوق جميع موضوعات البيانات المعنية</li>
+            </ul>
+            <p>&nbsp;</p>
+            <p><strong>الروابط الخاصة بمواقع الكترونية خارجية</strong></p>
+            <p>&nbsp;</p>
+            <p>قد تحتوي منصة نساء اليمن على روابط تحيل المستخدم أو الزائر إلى تطبيقات أو روابط أو مواقع الكترونية خارجية والتي من شأنها أن تقوم بجمع معلومات عنك والإفصاح عنها بطريقة مختلفة عن موقعنا</p>
+            <p>لا تتحكم منصة نساء اليمن في ممارسات الخصوصية للتطبيقات والمواقع الخارجية، ونحن لسنا مسؤولين عن المحتوى أو سياسات الخصوصية لتلك التطبيقات والمواقع الخارجية. ويجب عليك مراجعة سياسة الخصوصية وشروط الاستخدام الخاصة بالطرف الثالث المطبقة والمعمول بها عند زيارة أي من التطبيقات أو المواقع الخارجية</p>
+            <p>نحن لا نتحمل مسؤولية جمع أو استخدام أو الإفصاح عن أية معلومات يقوم بها تطبيق أو موقع الكتروني آخر له رابط في الموقع الخاص بنا. ونوصي مستخدمي الموقع بقراءة سياسة الخصوصية الخاصة بكل تطبيق أوموقع آخر</p>
+            <p>الامتثال للإجراءات القانونية، والاستجابة للطلبات المقدمة من السلطات العامة والحكومية&nbsp;</p>
+            <p>تنفيذ الشروط والأحكام الخاصة بنا&nbsp;&nbsp;</p>
+            <p>حماية حقوقنا وخصوصيتنا وسلامتنا وممتلكاتنا و/ أو حقوقك أو الآخرين</p>
+            <p>للحد أو التقليل من الأضرار التي قد نتحملها</p>
+            <p>يجوز لنا أيضاً مشاركة المعلومات مع الشركات التابعة لنا لأغراض تجارية داخلية. على سبيل المثال</p>
+            <p>معالجة وتنفيذ طلباتك</p>
+            <p>توفير خدمة العملاء</p>
+            <p>تحسين خدماتنا</p>
+            <p>&nbsp;</p>
+            <p><strong>التغييرات في سياسة الخصوصية</strong></p>
+            <p>&nbsp;</p>
+            <p>-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;يجوز لمنصة نساء اليمن تعديل أو تبديل أو تغيير هذه السياسة كليًا أو جزئيًا في أي وقت دون إرسال إشعار مسبق. يرجى التنويه بأننا لسنا مسؤولين عن عدم مراجعتك لهذه السياسة قبل أو بعد أي إجراء يتم عليها، إذا كنت لا توافق على أي تغيير أجريناه على هذه السياسة، فإن الحل الوحيد هو إنهاء استخدامك للتطبيق، يرجى التنويه بأننا لسنا مسؤولين عن عدم مراجعتك لهذه السياسة قبل استخدام وتصفح الموقع وأن قراءة هذه السياسة من قبل مستخدمي ومتصفحي الموقع هو إقرار كامل واعتراف منهم بكل ما ورد بهذه السياسة واتفاق على جميع ما ورد فيها</p>
+            <p>&nbsp;</p>
+            <p><strong>اتفاقية ملفات تعريف الارتباط</strong></p>
+            <p>&nbsp;</p>
+            <p>عندما تقوم بزيارة منصة نساء اليمن يقوم الموقع بحفظ ملفات تعريف الارتباط في متصفح الويب الخاص بك، سواء كان جهاز كمبيوتر أو جهاز محمول، وملفات تعريف الارتباط هي ملفات نصية صغيرة ترسلها مواقع الويب ويتم تخزينها على جهاز الكمبيوتر أو الجهاز اللوحي أو الهاتف الذكي أو أي جهاز محمول آخر ويتم استخدامها في أحد الأغراض التالية</p>
+            <ul>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; للتعرف عليك عند العودة لزيارة الموقع مرة أخرى</li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; لتخزين المعلومات الشخصية التي تسجلها على الموقع، من أجل توفيرها عند الطلب مثل اسمك، البريد الإلكتروني</li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; لمساعدتك في الحصول على الرسائل أو الخدمات في أسرع وقت وفقًا لتفضيلاتك السابقة</li>
+            </ul>
+            <p>لا تقوم منصة نساء اليمن بالكشف عن ملفات تعريف الارتباط الخاصة بالمستخدم أو الزائر لأي طرف ثالث باستثناء تلك المذكورة في سياسة الخصوصية، ما لم يكن هناك إجراء قضائي مطلوب، مثل أمر تفتيش، أو أمر محكمة، أو أمر قانوني</p>
+            <p>ملفات تعريف الارتباط ليست ملفات قابلة للتنفيذ، فهي مجرد ملفات نصية؛ ملفات تعريف الارتباط ليست برامج تجسس ولا هي فيروسات</p>
+            <p>&nbsp;</p>
+            <p><strong>ملفات تعريف ارتباط الطرف الثالث</strong></p>
+            <p>&nbsp;</p>
+            <p>قد يتم وضع ملفات تعريف الارتباط الخاصة بموقع ويب تابع لجهة خارجية بواسطة خدمات تظهر على موقع الجهة الخارجية. لا تملك منصة نساء اليمن أي سيطرة على هذه الملفات. قد تكون على سبيل المثال، ملفات تعريف الارتباط التي تضعها Google أو Facebook أو Twitter. لمزيد من المعلومات حول ملفات تعريف الارتباط للجهات الخارجية، نوصيك بزيارة مواقع الويب الخاصة بهذه الجهات الخارجية</p>
+            <p>&nbsp;</p>
+            <p><strong>قبول السياسة</strong></p>
+            <p>&nbsp;</p>
+            <p>أنت تٌقر بأنك قد قرأت سياسة الخصوصية هذه وتوافق على جميع بنودها وشروطها. واستمرارك في استخدام موقع منصة نساء اليمن أو خدماته يعني موافقتك على الالتزام بهذه السياسة. إذا كنت لا توافق على الالتزام ببنود هذه السياسة، فأنت غير مٌخول لاستخدام أو الدخول إلى موقع او متجر منصة نساء اليمن وخدماته</p>
+            <p>&nbsp;</p>
+            <p><strong>معلومات الاتصال</strong></p>
+            <p>&nbsp;</p>
+            <p>إذا كان لديك أي أسئلة أو شكاوى أو استفسارات حول هذه الشروط والأحكام أو الموقع أو الخدمات أو المعلومات، لاتتردد في <a href="https://ywudevlopment.com/#/concatUs">التواصل معنا</a></p>
         </div>
     </section>
     <!-- End Privacy Section -->
@@ -59,8 +100,5 @@
 
 </template>
 <script>
-export default {
-
-
-}
+    export default {}
 </script>

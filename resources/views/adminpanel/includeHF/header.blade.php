@@ -140,6 +140,9 @@
                             </a>
                         </li>
                     @endif
+                    <li><a href="{{route('admin.shop.contacts.index')}}"><i class="fa fa-fax"></i> تواصل معنا
+                        </a>
+                    </li>
                     @if (
                     (Auth::user()->can('show employees') == true) or
                     (Auth::user()->can('show employees_jobs') == true) or
@@ -225,9 +228,10 @@
                             <img src="{{asset('assets/images/'.auth()->user()->image)}}" alt="">{{auth()->user()->name}}
                         @else
 
-                            <img src="{{url(auth()->user()->seller->ssn_image)}}" alt="">{{auth()->user()->seller->sale_name}}
+                            <img src="{{url(auth()->user()->seller->ssn_image)}}"
+                                 alt="">{{auth()->user()->seller->sale_name}}
                         @endif
-{{--                        <img src="{{asset('assets/images/'.auth()->user()->image)}}" alt="">{{auth()->user()->name}}--}}
+                        {{--                        <img src="{{asset('assets/images/'.auth()->user()->image)}}" alt="">{{auth()->user()->name}}--}}
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">

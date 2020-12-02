@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ShopCategory extends Model
 {
     //
+    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
     protected $fillable = ['name', 'status', 'sort', 'image_id'];
     protected $appends = ['image', 'image_actual'];
 

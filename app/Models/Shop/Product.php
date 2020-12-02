@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 class Product extends Model
 {
     //
+    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
     use  Rateable;
 
     protected $fillable = ['admin_id', 'category_id', 'name', 'description', 'image_id', 'price', 'has_attribute', 'available', 'sort', 'status'];

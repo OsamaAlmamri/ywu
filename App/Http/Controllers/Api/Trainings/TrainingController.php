@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Trainings;
 
+use App\ContactU;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FireBaseController;
 use App\Http\Resources\LastPosts;
@@ -623,4 +624,41 @@ class TrainingController extends Controller
         }])->where('id', $course_id)->get()->first();
         return $training;
     }
+
+
+    function concatUs(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(),
+                [
+                    //   'name',  'email', 'phone', 'message','gov'
+                    'name' => 'required',
+                    "phone" => "required|numeric|digits:9|starts_with:77,73,70,71",
+                    "email" => "nullable|email",
+                    'message' => 'required',
+                ],
+                [
+                    "name.required" => "يرجى  كتابة اسمك",
+                    "phone.required" => "يرجى كتابة رقم الهاتف",
+                    "phone.numeric" => "رقم الهاتف يجب ان يكون ارقام فقط ",
+                    "phone.digits" => "يجب ان يكون رقم الهاتف 9 ارقام",
+                    "phone.starts_with" => "قم بكتابة رقم هاتفك الشخصي ",
+                    "message.required" => "يرجى كتابة نص الرسالة ",
+                ]);
+            if ($validator->fails()) {
+//                return $this->ReturnErorrRespons('0000', $validator->errors());
+                $code = $this->returnCodeAccordingToInput($validator);
+                return $this->returnValidationError($code, $validator);
+            }
+            $training = ContactU::create($request->all());
+            return $this->GetDateResponse("data", 1, "تم الارسال  بنجاح  ");
+
+        } catch (Exception $ex) {
+            return $this->ReturnErorrRespons('0000', $ex->getMessage());
+
+        }
+
+
+    }
+
 }

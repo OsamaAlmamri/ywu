@@ -151,6 +151,10 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
             Route::get('/index/{type?}', 'PaymentController@index')->name('index');
             Route::post('/change_status', 'PaymentController@change_status')->name('change_status');
         });
+        Route::group(['prefix' => 'contacts', 'as' => 'admin.shop.contacts.'], function () {
+            Route::get('/index', 'ContactController@index')->name('index');
+            Route::get('/destroy/{id}', 'ContactController@destroy')->name('destroy');
+        });
 
     });
     Route::group(['middleware' => ('auth:admin'), 'namespace' => 'Training'], function () {
@@ -379,3 +383,17 @@ Route::get('/login', 'HomeController@register')->name('site.login');
 //    return view('welcome');
 //})->where('any', '^(?!api\/)[\/\w\.-]*');
 Route::post('zones/getZones', 'HomeController@getZones')->name('zones.getZones');
+
+
+Route::get('download_app', function () {
+    $id=setting('app_link');
+    $headers = [
+        'Content-Type:' => 'application/apk',
+    ];;
+    $path = 'ywp-app v1.apk' ;
+    $pathToFile = public_path($path);
+//        $file_name = ($file_name = $ass->originalName);
+    return response()->download($pathToFile, Str::ascii($id, 'en'), $headers);
+
+
+})->name('download_app');

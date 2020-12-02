@@ -51,7 +51,7 @@
             font-family: 'Droid Arabic Kufi';
         }
 
-        main-footer .footer-widget h4 {
+        .main-footer .footer-widget h4 {
 
             padding-bottom: 10px;
             margin-bottom: -5px;
@@ -101,7 +101,6 @@
         }
 
         @media only screen and (max-width: 1023px) {
-            constructed stylesheet
             .main-header .nav-outer {
                 width: 90%;
                 margin-top: 4px;
@@ -173,6 +172,27 @@
             margin-top: 119px;
         }
 
+        .privacy-section {
+            position: relative;
+            padding: 0;
+            background-color: #f0f5fb;
+        }
+        .privacy-section li
+        {
+            list-style: disc;
+            line-height: 2.5em;
+        }
+        .auto-container {
+
+            padding: 25px 44px;
+        }
+        .search-box button{
+            margin-top: 31px;
+        }
+        .multiselect__option--highlight,.multiselect__tag
+        {
+            background: #9d84bd !important;
+        }
     </style>
 
 </head>
@@ -193,7 +213,8 @@
 
                         <!-- Info List -->
                         <ul class="info-list">
-                            <li><span> للمساعدة والدعم :</span><a style="font-size: 19px" href="tel:+967778998366"> 778998366 967+</a></li>
+                            <li><span> للمساعدة والدعم :</span><a style="font-size: 19px" href="tel:+967778998366">
+                                    778998366 967+</a></li>
                         </ul>
                         <!--                            <router-link to="/">Home</router-link>-->
                         <!--                            |-->
@@ -320,10 +341,10 @@
                                         <router-link @click.native="scrollToTop()" to="/women"> شؤون المرأة
                                         </router-link>
                                     </li>
-                                    {{--                                    <li :class="[{'current':currentPage=='privacy'}]">--}}
-                                    {{--                                        <router-link @click.native="scrollToTop()" to="/privacy"> سياية الخصوصية--}}
-                                    {{--                                        </router-link>--}}
-                                    {{--                                    </li>--}}
+                                    <li :class="[{'current':currentPage=='privacy'}]">
+                                        <router-link @click.native="scrollToTop()" to="/privacy"> سياية الخصوصية
+                                        </router-link>
+                                    </li>
                                     <li :class="[{'current':currentPage=='concatUs'}]">
                                         <router-link @click.native="scrollToTop()" to="/concatUs"> تواصل معنا
                                         </router-link>
@@ -487,11 +508,14 @@
                             <div class="footer-widget links-widget">
                                 <h4> تنزيل التطبيقات</h4>
 
-                                <ul class="links-widget" style="    margin-top: -23px;">
+                                <ul class="links-widget" style="    margin-top: 1px;">
                                     <li>
-                                        <a href="https://play.google.com/store/apps/" target="_blank"><img
+                                        <a href="{{route('download_app') }}" target="_blank">
+{{--                                        <a href="https://play.google.com/store/apps/" target="_blank">--}}
+                                            <img
                                                 src="site/images/google-play-img.png" alt=""></a>
                                         {{--                                            <a href="https://play.google.com/store/apps/details?id=com.sahltaxi.passenger" target="_blank"><img src="assets/img/google-play-img.png" alt=""></a>--}}
+
                                     </li>
                                     <li>
 

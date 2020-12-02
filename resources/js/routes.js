@@ -12,7 +12,6 @@ import LogoutComponent from './components/Logout';
 import Profile from './components/Profile';
 import women from './components/WomenComponent';
 import shop from './components/Shop';
-import shop_search from './components/ShopSearch';
 import my_orders from './components/MyOrders';
 import shop_like from './components/MyLikeProducts';
 import cart from './components/CartComponent';
@@ -42,7 +41,7 @@ const routes = [
     },
     {
         path: '/shop_search',
-        component: shop_search,
+        component: shop,
         name: "shop_search",
         meta: {
             requiresAuth: false
