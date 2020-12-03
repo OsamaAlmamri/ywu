@@ -70,25 +70,56 @@
     padding: 5px 50px;
     color: white;">{{section.name}}</h3>
                                         </router-link>
-
-
                                     </div>
                                 </div>
                             </div>
-                            <flickity :ref="'flickity'+section.id"
+                            <flickity class="all_cat_products" :ref="'flickity'+section.id"
                                       :options="flickityOptions_products">
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="product in section.products">
-                                    <shop-gide-item
+                                <div class="one_product" v-for="product in section.products">
+                                    <shop-gide-item2
                                         :product="product"
                                         @toggled="onToggle">
 
-                                    </shop-gide-item>
+                                    </shop-gide-item2>
                                 </div>
                             </flickity>
-
                         </div>
+
+
                     </div>
                 </div>
+<!--                <div class="row clearfix">-->
+<!--                    <div class="content-side col-lg-12 col-md-12 col-sm-12">-->
+<!--                        <div class="our-courses" v-for="section in sections">-->
+<!--                            &lt;!&ndash; Options View &ndash;&gt;-->
+<!--                            <div class="options-view">-->
+<!--                                <div class="clearfix" v-if="section.products.length>0">-->
+<!--                                    <div class="pull-right">-->
+<!--                                        <router-link :to="{ name: 'CategoryProducts', params: { id: section.id}}"-->
+<!--                                                     @click.native="scrollToTop()">-->
+<!--                                            <h3 style="    background: #593c97;-->
+<!--    padding: 5px 50px;-->
+<!--    color: white;">{{section.name}}</h3>-->
+<!--                                        </router-link>-->
+
+
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <flickity :ref="'flickity'+section.id"-->
+<!--                                      :options="flickityOptions_products">-->
+<!--                                <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="product in section.products">-->
+<!--                                    <shop-gide-item-->
+<!--                                        :product="product"-->
+<!--                                        @toggled="onToggle">-->
+
+<!--                                    </shop-gide-item>-->
+<!--                                </div>-->
+<!--                            </flickity>-->
+
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
         </div>
     </div>
@@ -103,11 +134,12 @@
     import 'vue-loading-overlay/dist/vue-loading.css';
     import Flickity from 'vue-flickity';
     import ShopGideItem from './ShopGideItem';
+    import ShopGideItem2 from './ShopGideItem2';
     import axios from "axios";
 
     export default {
         props: ['items'],
-        components: {Multiselect, ShopGideItem, Loading, Flickity},
+        components: {Multiselect, ShopGideItem2,ShopGideItem, Loading, Flickity},
         data() {
             return {
                 flickityOptions_products: {

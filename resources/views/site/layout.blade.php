@@ -15,7 +15,7 @@
     <link href="{{asset('site/css/main5.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/css/responsive.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/css/mcq.css')  }}" rel="stylesheet">
-    <link href="{{  asset('site/vue/loading.css')  }}" rel="stylesheet">
+    <link href="{{  asset('site/vue/loading2.css')  }}" rel="stylesheet">
     {{--    <link href="{{  asset('css/app.css')  }}" rel="stylesheet">--}}
     <link href="{{  asset('css/toastr.css')  }}" rel="stylesheet">
 
@@ -39,7 +39,7 @@
 
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
-    <link href="{{asset('site/css/osama5.css')  }}" rel="stylesheet">
+    <link href="{{asset('site/css/osama2.css')  }}" rel="stylesheet">
 
     <style>
         .mobile-menu {
@@ -222,6 +222,163 @@
         {
             padding: 1px 29px;
         }
+        .like_product_button {
+            margin-top: -187px;}
+    </style>
+    <style>
+
+
+        .all_cat_products {
+            /*padding: 10px;*/
+            background-color: rgb(241, 244, 253);
+        }
+
+        .one_product {
+            display: grid;
+            grid-auto-flow: column;
+            gap: 10px;
+            overflow-x: auto;
+        }
+
+        .product_countainer {
+            width: 166px;
+            margin: 5px;
+            background-color: rgb(255, 255, 255);
+        }
+
+        @media only screen and (min-width: 360px) {
+            .product_countainer {
+                width: 144px;
+            }
+        }
+
+        .product_countainer_link {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            -webkit-box-pack: justify;
+            justify-content: space-between;
+            height: 100%;
+            background-color: rgb(255, 255, 255);
+            padding: 10px;
+
+        }
+
+        .product_image_box {
+            position: relative;
+        }
+
+        .product_image_box .productImage {
+            margin: -12px -12px 0px;
+            overflow: hidden;
+        }
+
+        .product_image_inner_box {
+            position: relative;
+            background-color: transparent;
+            transition: background-color 0.25s ease 0s;
+            padding-bottom: 136.375%;
+        }
+
+        .image_box {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+
+        .image_box img:not(.zoomImage) {
+            display: block;
+            max-width: 100%;
+        }
+
+        .image_break {
+            position: absolute;
+            padding: 4px;
+            top: -12px;
+            left: -12px;
+            right: -12px;
+            display: flex;
+            -webkit-box-pack: end;
+            justify-content: flex-end;
+        }
+
+        .image_break .tagContainer {
+            flex: 1 1 0%;
+            margin-left: 4px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product_info_box {
+            /*padding-top: 15px;*/
+            flex: 1 1 0%;
+            margin: 0px -10px -26px  -10px;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product_name_box {
+            font-size: 0.875rem;
+            background-color: #f3f0fa;
+            min-height: 31.2px;
+            color: black;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .one_product_name {
+            position: relative;
+            line-height: 1.4rem;
+            height: calc(1.8rem);
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .product_inner_name {
+            margin-left: 5px;
+        }
+
+        /*.one_product_name::after {*/
+        /*    content: "";*/
+        /*    text-align: left;*/
+        /*    position: absolute;*/
+        /*    bottom: 0px;*/
+        /*    left: 0px;*/
+        /*    width: 25%;*/
+        /*    height: 1.4rem;*/
+        /*    background: linear-gradient(to left, rgba(255, 255, 255, 0), rgb(255, 255, 255) 50%);*/
+        /*}*/
+
+        .product_price_box {
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .inner_price_box {
+            line-height: 1;
+            padding: 0px 8px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .inner_currancy {
+            /*display: flex;*/
+            color: rgb(64, 69, 83);
+            margin-left: 4px;
+        }
+
+        .inner_currancy .currency {
+            -webkit-box-align: unset;
+            align-items: unset;
+            font-weight: bold;
+        }
+
+        .inner_currancy strong {
+            margin-right: 4px;
+        }
+
     </style>
 
 </head>

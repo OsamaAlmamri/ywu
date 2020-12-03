@@ -3,16 +3,16 @@
 .wrapper {
   flex: 1 0 33.333%;
   position: relative;
-  height: 223px;
+  height: 190px;
   /*padding-bottom: 33.333vw;*/
 }
 
-.wrapper img {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  transition: all 250ms ease-out;
-}
+/*.wrapper img {*/
+/*  position: absolute;*/
+/*  width: 100%;*/
+/*  height: 100%;*/
+/*  transition: all 250ms ease-out;*/
+/*}*/
 
 .fade-enter,
 .fade-leave-to {
