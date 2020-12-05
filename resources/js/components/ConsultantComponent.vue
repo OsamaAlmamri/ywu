@@ -96,6 +96,7 @@
                                         v-on:edit_post="edit_post"
                                         v-on:delete_post="delete_post"
                                         :key="key"
+                                        :_key="key"
                                         :post="post"
 
                                         @toggled="onToggle"
@@ -132,7 +133,9 @@
                                      v-for="(post,key) in consultant_data.data">
                                     <consultant-item
                                         v-on:edit_post="edit_post"
+                                        v-on:delete_post="delete_post"
                                         :key="key"
+                                        :_key="key"
                                         :post="post"
                                         @toggled="onToggle"
                                     ></consultant-item>

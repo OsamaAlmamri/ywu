@@ -109,8 +109,13 @@
                         class="fa fa-comments"></i></div>
                 </div>
                 <div class="pull-left" style="padding-left: 3em">
-                    <like-button type="posts" :key="post.id" :count-likes="post.likes_count" has-count="1"
-                                 :liked_id="post.id" :is_liked="post.user_like"></like-button>
+                    <like-button type="posts"
+                                 :key="post.id"
+                                 :count-likes="post.likes_count"
+                                 has-count="1"
+                                 :liked_id="post.id"
+                                 :is_liked="post.user_like"
+                    ></like-button>
                 </div>
             </div>
         </div>
@@ -155,6 +160,9 @@
             deletePost() {
                 this.$emit('delete_post', this._key)
 
+            },
+            change_like_count(c) {
+                this.post.likes_count += c;
             },
             editPost() {
                 this.is_active_dropdown = false;

@@ -11,8 +11,8 @@
                  :is-full-page="fullPage">
         </loading>
         <i
-            :class="['fa', {'fa-heart-o':(like_description==0)}, {'fa-heart':(like_description==1)}]"></i>
-        <span style="padding: 0 5px" v-show="hasCount==1">{{like_description_count}}</span>
+            :class="['fa', {'fa-heart-o':(like==0)}, {'fa-heart':(like==1)}]"></i>
+        <span style="padding: 0 5px" v-show="hasCount==1">{{countLikes}}</span>
     </div>
 </template>
 
@@ -34,15 +34,6 @@
                 likeCount: 0
             }
         },
-        computed: {
-            like_description() {
-                return this.like;
-            },
-            like_description_count() {
-                return this.countLikes;
-            }
-
-        },
         created() {
             this.like = (this.is_liked != null);
         },
@@ -62,12 +53,15 @@
                                 toastStack('   خطاء ', resp.data.msg, 'error');
                             } else {
                                 this.like = resp.data.data;
-                                if (resp.data.data == 1)
-                                    this.likeCount++;
-                                else
-                                    this.likeCount--;
+                                if (resp.data.data == 1) {
+                                    this.countLikes++;
+                                    this.$emit('like', 1);
+                                } else {
+                                    this.countLikes--;
+                                    this.$emit('like', -1);
+                                }
                             }
-                            this.$emit('like', resp.data.data);
+
                         })
                         .catch(err => {
                             console.log(err)

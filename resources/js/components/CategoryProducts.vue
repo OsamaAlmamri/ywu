@@ -25,13 +25,13 @@
             <div class="auto-container">
                 <div class="row clearfix">
                     <div class="content-side col-lg-12 col-md-12 col-sm-12">
-                        <div class="our-courses row">
+                        <div class="our-courses all_cat_products">
                             <!-- Options View -->
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="product in products.data">
-                                <shop-gide-item
-                                    :product="product">
-                                </shop-gide-item>
-                            </div>
+                            <shop-gide-item2 v-for="product in products.data"
+                                             :product="product">
+                            </shop-gide-item2>
+
+
                         </div>
                         <div class="styled-pagination">
                             <pagination
@@ -44,9 +44,9 @@
                             </pagination>
                         </div>
                         <div style="text-align: center" v-show="products.data.length<1">
-                            <img style="width: 35%;margin-top: -150px;"  src="site/images/img-no-products.png">
+                            <img style="width: 35%;margin-top: -150px;" src="site/images/img-no-products.png">
                             <h4>
-                              ليس هناك اي منتجات بهذ التصنيف
+                                ليس هناك اي منتجات بهذ التصنيف
                             </h4>
                         </div>
                     </div>
@@ -62,12 +62,12 @@
     // Import stylesheet
     import 'vue-loading-overlay/dist/vue-loading.css';
     import Flickity from 'vue-flickity';
-    import ShopGideItem from './ShopGideItem';
+    import ShopGideItem2 from './ShopGideItem2';
     import axios from "axios";
 
     export default {
         props: ['items'],
-        components: {ShopGideItem, Loading},
+        components: {ShopGideItem2, Loading},
         data() {
             return {
 
