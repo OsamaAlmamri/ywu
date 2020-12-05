@@ -27,7 +27,7 @@
 @endsection
 @section('custom_js')
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
 
             $('#user_table').DataTable({
                 processing: true,
@@ -45,17 +45,36 @@
                 language: lang,
                 dom: 'Brfltip',
                 lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
-                buttons: [
-                ],
+                buttons: [],
                 ajax: {
                     url: "{{ route('user',$id) }}",
-{{--                    url: "{{route('questions.index',$id)}}",--}}
+                    {{--                    url: "{{route('questions.index',$id)}}",--}}
                 },
                 columns: [
+                    {
+                        title: ' #',
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
                     {
                         title: 'اسم المستخدم',
                         data: 'name',
                         name: 'name'
+                    },
+                    {
+                        title: 'نوع المستخدم',
+                        data: 'type',
+                        name: 'type'
+                    },
+                    {
+                        title: ' المحافظة',
+                        data: 'gov',
+                        name: 'gov'
+                    },
+                    {
+                        title: ' المديرية',
+                        data: 'district',
+                        name: 'district'
                     },
                     {
                         title: ' الهاتف',
@@ -74,7 +93,7 @@
                         data: 'status',
                         name: 'status'
                     },
-                    @endif
+                        @endif
                     {
                         title: 'تاريخ إنشاء الحساب',
                         data: 'published',
@@ -94,20 +113,19 @@
 
             var user_id;
 
-            $(document).on('click', '.delete', function(){
+            $(document).on('click', '.delete', function () {
                 user_id = $(this).attr('id');
                 $('#confirmModal').modal('show');
             });
 
-            $('#ok_button').click(function(){
+            $('#ok_button').click(function () {
                 $.ajax({
-                    url:"{{URL::to('')}}/user/destroy/"+user_id,
-                    beforeSend:function(){
+                    url: "{{URL::to('')}}/user/destroy/" + user_id,
+                    beforeSend: function () {
                         $('#ok_button').text('جاري توقيف الحساب...');
                     },
-                    success:function(data)
-                    {
-                        setTimeout(function(){
+                    success: function (data) {
+                        setTimeout(function () {
                             $('#confirmModal').modal('hide');
                             $('#user_table').DataTable().ajax.reload();
                         }, 2000);

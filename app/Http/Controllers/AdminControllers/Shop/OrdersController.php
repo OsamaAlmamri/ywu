@@ -43,12 +43,16 @@ class OrdersController extends Controller
             if ($data) {
                 if ($type == 'main')
                     return datatables()->of($data)
+                        ->addIndexColumn()
+
                         ->addColumn('action', 'admin.shop.orders.btn.action_main')
                         ->addColumn('btn_status', 'admin.shop.orders.btn.status')
                         ->rawColumns(['action', 'btn_status'])
                         ->make(true);
                 else
                     return datatables()->of($data)
+                        ->addIndexColumn()
+
                         ->addColumn('action', 'admin.shop.orders.btn.action')
                         ->addColumn('btn_status', 'admin.shop.orders.btn.status')
                         ->rawColumns(['action', 'btn_status'])

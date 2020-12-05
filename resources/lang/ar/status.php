@@ -22,6 +22,12 @@ return [
     'payment_0' => 'لم يتم  الدفع',
     'payment_1' => 'تم الدفع',
 
+    'coupons_used_0' => 'لم يتم  الاستخدام',
+    'coupons_used_1' => 'تم الاستخدام',
+
+    'coupons_end_0' => ' منتهي الصلاحية  ',
+    'coupons_end_1' => 'صالح الاستخدام ',
+
     'confirm_payment_0' => 'لم يتم الارسال   ',
     'confirm_payment_1' => 'قيد  المراجعة ',
     'confirm_payment_2' => 'تم المراجعة ',

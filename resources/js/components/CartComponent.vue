@@ -101,53 +101,42 @@
                 <div class="row clearfix">
                     <div class="content-column col-md-12 col-sm-12">
                         <div class="inner-column">
-                            <div v-show="cart_items.length>0" class="course-overview">
-                                <div class="inner-box product-page">
-                                    <form name="attributes" id="add-Product-form" method="post">
-                                        <div class="pro-options row cart_item_box"
-                                             v-for="(cart_item,key) in cart_items">
-                                            <div class=" col-xs-3 box">
-                                                <img :src="cart_item.product.image">
-                                            </div>
-                                            <div class="cart_product_details  col-xs-6 box">
-                                                <p>{{cart_item.product.name}} </p>
-                                                <p v-if="cart_item.product_attributes_descriptions.length>0">
-                                                    <strong> {</strong>
-                                                    <span v-for="op in cart_item.product_attributes_descriptions">
-                                                        ( {{op.products_options_name}},{{op.products_options_values_name}})
-                                                    </span>
-                                                    <strong> }</strong>
-                                                </p>
-                                                <p>
-                                                    <i class="fa fa-map-marker "></i>
-                                                    {{cart_item.product.zone}}/ {{cart_item.product.space}}
-                                                </p>
-                                                <p>
-                                                    <strong> سعر الوحدة</strong>
-                                                    {{cart_item.price}}
-                                                </p>
-                                                <p>
-                                                    <strong> السعر الاجمالي</strong>
-                                                    {{cart_item.price*cart_item.quantity}}
-                                                </p>
-                                            </div>
-                                            <div class=" col-xs-3 box">
-                                                <p>
 
-                                                    <span
-                                                        @click="delete_fromCart(cart_item.id,key)">
-                                                        حذف من السلة
-                                                        <i class="fa fa-trash"></i>
-                                                    </span>
-                                                </p>
-                                                <div class="pro-counter">
-                                                    <div class="input-group item-quantity">
-                                                        <h4>الكمية : </h4>
-                                                        <input type="number" name="quantity"
-                                                               class="form-control qty"
-                                                               min="1"
-                                                               v-model="cart_item.quantity">
-                                                        <span class="input-group-btn">
+                            <div v-show="cart_items.length>0" class="container pb-5 mb-2">
+
+                                <div class="cart-item d-md-flex justify-content-between"
+                                     v-for="(cart_item,key) in cart_items">
+
+
+                                    <span class="remove-item" @click="delete_fromCart(cart_item.id,key)">
+                                        <i class="fa fa-times"></i></span>
+                                    <div class="px-3 my-3">
+                                        <a class="cart-item-product" href="#">
+                                            <div class="cart-item-product-thumb"><img
+                                                :src="cart_item.product.image" alt="Product">
+                                            </div>
+                                            <div class="cart-item-product-info">
+                                                <h4 class="cart-item-product-title">{{cart_item.product.name}}</h4>
+                                                <span v-for="op in cart_item.product_attributes_descriptions">
+                                                    <strong> {{op.products_options_name}}:</strong> {{op.products_options_values_name}}
+                                                </span>
+                                                <span><strong><i class="fa fa-map-marker "></i>:</strong> {{cart_item.product.zone}}</span>
+                                                <span><img style="width: 31px;border-radius: 50px;"
+                                                           :src="cart_item.product.sell_icon"> {{cart_item.product.sell_name}}  </span>
+
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="px-3 my-3 text-center">
+                                        <div class="cart-item-label">الكمية</div>
+                                        <div class="count-input">
+                                            <div class="pro-counter">
+                                                <div class="input-group item-quantity ">
+                                                    <input type="number" name="quantity"
+                                                           class="form-control qty"
+                                                           min="1"
+                                                           v-model="cart_item.quantity">
+                                                    <span class="input-group-btn">
                                                                         <button type="button"
                                                                                 class="quantity-plus1 btn qtyplus"
                                                                                 @click="change_quantity('+',key)"><i
@@ -156,38 +145,83 @@
                                                                                 class="quantity-minus1 btn qtyminus"
                                                                                 @click="change_quantity('-',key)"><i
                                                                             class="fa fa-minus"></i></button></span>
-                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
 
-
-                                    </form>
-                                    <hr>
-                                    <P class="cart_total"><STRONG>مجموع السلة </STRONG> {{calculatePrice}}</P>
-
-                                    <button
-                                        @click="updateCart()"
-                                        class="btn btn-secondary btn-lg swipe-to-top  add-to-Cart stock-cart"
-                                        type="button" products_id="3">
-                                        تحديث السلة
-                                    </button>
-
-                                    <button v-if="cart_items.length>0"
-                                            @click="openModal()"
-                                            class="btn btn-danger btn btn-lg swipe-to-top  stock-out-cart"
-                                            type="button">تاكيد الطلب
-                                    </button>
+                                    <div class="px-3 my-3 text-center">
+                                        <div class="cart-item-label">سعر الوحدة</div>
+                                        <span class="text-xl font-weight-medium">{{cart_item.price}}</span>
+                                    </div>
+                                    <div class="px-3 my-3 text-center">
+                                        <div class="cart-item-label"> السعر الاجمالي</div>
+                                        <span
+                                            class="text-xl font-weight-medium">{{cart_item.price*cart_item.quantity}}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div style="text-align: center">
-                                <img v-show="cart_items.length<1" src="site/images/empty-cart.png">
+
+                                <!-- Coupon + Subtotal-->
+                                <div
+                                    class="d-sm-flex justify-content-between align-items-center text-center text-sm-left">
+                                    <form class="form-inline py-2">
+                                        <label class="sr-only"> كوود الكوبون</label>
+                                        <input class="form-control form-control-sm my-2 mr-3" type="text"
+                                               v-model="coupon"
+                                               placeholder="الكود " required="">
+                                        <button @click="apply_my_coupon()"
+                                                class="btn btn-style-1 btn-secondary btn-sm my-2 mx-auto mx-sm-0"
+                                                type="button">تطبيق الكوبون
+                                        </button>
+                                    </form>
+                                    <div class="py-2"><span
+                                        class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">مجموع السلة :</span>
+                                        <span v-if="apply_coupon==null"
+                                              class="d-inline-block align-middle text-xl font-weight-medium">{{calculatePrice}}</span>
+                                        <span v-if="apply_coupon!=null"
+                                              class="d-inline-block align-middle text-xl font-weight-medium old_price"
+                                              >{{calculatePrice}}</span>
+                                        <span v-if="apply_coupon!=null"
+                                              class="d-inline-block  new_price align-middle text-xl font-weight-medium">{{calculatePrice-apply_coupon.amount}}</span>
+
+                                        <span v-if="apply_coupon!=null"
+                                              @click="delete_coupon()"
+                                              class="d-inline-block align-middle text-xl font-weight-medium">
+                                            <i class="fa fa-trash" title="حذف الكوبون"> </i></span>
+                                    </div>
+
+                                </div>
+                                <!-- Buttons-->
+                                <hr class="my-2">
+                                <div class="row pt-3 pb-5 mb-2">
+                                    <div class="col-sm-6 mb-3">
+                                        <button class="btn btn-style-1 btn-secondary btn-block"
+                                                @click="updateCart()"
+                                        ><i class="fe-icon-refresh-ccw"></i>&nbsp;
+                                            تحديث السلة
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-6 mb-3">
+                                        <button v-if="cart_items.length>0" @click="openModal()"
+                                                class="btn btn-style-1 btn-primary btn-block"
+                                        ><i
+                                            class="fe-icon-credit-card"></i>&nbsp;تاكيد الطلب
+                                        </button>
+                                    </div>
+                                </div>
+
 
                             </div>
+                        </div>
+                        <div style="text-align: center">
+                            <img v-show="cart_items.length<1" src="site/images/empty-cart.png">
+
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
         </div>
     </section>
@@ -206,6 +240,8 @@
             return {
                 isLoading: false,
                 fullPage: true,
+                coupon: "",
+                apply_coupon: null,
                 attributes_price: 0,
                 cart_items: [],
                 is_active_dropdown: false,
@@ -251,19 +287,54 @@
         methods: {
             fetchTraining() {
                 this.isLoading = true;
-                axios({url: '/api/shop/my_cart', method: 'POST'})
+                axios({url: '/api/shop/my_cart2', method: 'POST'})
                     .then(resp => {
                         this.isLoading = false;
                         if (resp.data.status == false) {
                             toastStack('   خطاء ', resp.data.msg, 'error');
                         } else {
-                            this.cart_items = resp.data.data;
+                            this.cart_items = resp.data.data.cart;
+                            this.apply_coupon = resp.data.data.coupon;
                         }
                     })
                     .catch(err => {
                         this.isLoading = false;
                         localStorage.removeItem('token')
                         localStorage.removeItem('user')
+                        reject(err)
+                    })
+            },
+            delete_coupon() {
+                this.isLoading = true;
+                axios({url: '/api/shop/delete_coupon', data: {id: this.apply_coupon.id}, method: 'POST'})
+                    .then(resp => {
+                        this.isLoading = false;
+                        if (resp.data.status == false) {
+                            toastStack('   خطاء ', resp.data.msg, 'error');
+                        } else {
+                            this.apply_coupon = null;
+                            toastStack('    ', resp.data.msg, 'success');
+                        }
+                    })
+                    .catch(err => {
+                        this.isLoading = false;
+                        reject(err)
+                    })
+            },
+            apply_my_coupon() {
+                this.isLoading = true;
+                axios({url: '/api/shop/apply_coupon', data: {coupon: this.coupon}, method: 'POST'})
+                    .then(resp => {
+                        this.isLoading = false;
+                        if (resp.data.status == false) {
+                            toastStack('   خطاء ', resp.data.msg, 'error');
+                        } else {
+                            this.apply_coupon = resp.data.data;
+                            toastStack('    ', resp.data.msg, 'success');
+                        }
+                    })
+                    .catch(err => {
+                        this.isLoading = false;
                         reject(err)
                     })
             },

@@ -38,8 +38,16 @@
                         <div class="col-xs-4 col-sm-4 invoice-col">
                             <span>رقم الطلب <b dir="ltr">#{{$order->id}}</b></span>
                             <br>
+                            @if($order->coupon_discount>0)
+                                <b> الكوبون :</b> {{$order->coupon_discount}}
+                                <b>تخفيض الكوبون :</b> {{$order->coupon_discount}}
+
+                            @endif
                             <br>
                             <b>تكلفة الطلب :</b> {{$order->price}}
+                            @if($order->coupon_discount>0)
+                                <b>بعد التخفيض :</b> {{$order->price-$order->coupon_discount}}
+                            @endif
                             <br>
                             <b>حالة الطلب :</b> {{trans('status.payment_'.$order->payment_status)}}
 

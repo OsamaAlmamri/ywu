@@ -35,13 +35,15 @@ class UserController extends Controller
 
         if (request()->ajax()) {
             if (request()->id == 0)
-                $post = User::where('type', 'visitor')->get();
+                $post = User::whereIn('type', ['visitor','customer'])->orderBy('id','desc' )->get();
             else {
-                $post = User::where('type', 'visitor')->where('id', request()->id)->get();
+                $post = User::where('type', ['visitor','customer'])
+                    ->where('id', request()->id)->get();
 
             }
 
             return datatables()->of($post)
+                ->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     $button = '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"style="float: right">توقيف الحساب</button>';
                     return $button;

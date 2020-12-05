@@ -140,6 +140,11 @@
 
                     },
                     columns: [
+                        {
+                            title: ' الرقم',
+                            data: 'DT_RowIndex',
+                            name: 'DT_RowIndex'
+                        },
                             @if ($type=="main")
                         {
                             title: 'العميل',

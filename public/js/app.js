@@ -2130,6 +2130,40 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2143,6 +2177,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       isLoading: false,
       fullPage: true,
+      coupon: "",
+      apply_coupon: null,
       attributes_price: 0,
       cart_items: [],
       is_active_dropdown: false,
@@ -2193,7 +2229,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.isLoading = true;
       axios__WEBPACK_IMPORTED_MODULE_0___default()({
-        url: '/api/shop/my_cart',
+        url: '/api/shop/my_cart2',
         method: 'POST'
       }).then(function (resp) {
         _this.isLoading = false;
@@ -2201,7 +2237,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (resp.data.status == false) {
           toastStack('   خطاء ', resp.data.msg, 'error');
         } else {
-          _this.cart_items = resp.data.data;
+          _this.cart_items = resp.data.data.cart;
+          _this.apply_coupon = resp.data.data.coupon;
         }
       })["catch"](function (err) {
         _this.isLoading = false;
@@ -2210,8 +2247,56 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         reject(err);
       });
     },
-    delete_fromCart: function delete_fromCart(id, key) {
+    delete_coupon: function delete_coupon() {
       var _this2 = this;
+
+      this.isLoading = true;
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
+        url: '/api/shop/delete_coupon',
+        data: {
+          id: this.apply_coupon.id
+        },
+        method: 'POST'
+      }).then(function (resp) {
+        _this2.isLoading = false;
+
+        if (resp.data.status == false) {
+          toastStack('   خطاء ', resp.data.msg, 'error');
+        } else {
+          _this2.apply_coupon = null;
+          toastStack('   خطاء ', resp.data.msg, 'success');
+        }
+      })["catch"](function (err) {
+        _this2.isLoading = false;
+        reject(err);
+      });
+    },
+    apply_my_coupon: function apply_my_coupon() {
+      var _this3 = this;
+
+      this.isLoading = true;
+      axios__WEBPACK_IMPORTED_MODULE_0___default()({
+        url: '/api/shop/apply_coupon',
+        data: {
+          coupon: this.coupon
+        },
+        method: 'POST'
+      }).then(function (resp) {
+        _this3.isLoading = false;
+
+        if (resp.data.status == false) {
+          toastStack('   خطاء ', resp.data.msg, 'error');
+        } else {
+          _this3.apply_coupon = resp.data.data;
+          toastStack('   خطاء ', resp.data.msg, 'success');
+        }
+      })["catch"](function (err) {
+        _this3.isLoading = false;
+        reject(err);
+      });
+    },
+    delete_fromCart: function delete_fromCart(id, key) {
+      var _this4 = this;
 
       this.isLoading = true;
       axios__WEBPACK_IMPORTED_MODULE_0___default()({
@@ -2221,16 +2306,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         },
         method: 'POST'
       }).then(function (resp) {
-        _this2.isLoading = false;
+        _this4.isLoading = false;
 
         if (resp.data.status == false) {
           toastStack('   خطاء ', resp.data.msg, 'error');
         } else {
-          _this2.cart_items.splice(key, 1); // this.cart_items[key]
+          _this4.cart_items.splice(key, 1); // this.cart_items[key]
 
         }
       })["catch"](function (err) {
-        _this2.isLoading = false;
+        _this4.isLoading = false;
         reject(err);
       });
     },
@@ -2270,7 +2355,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     confirm_order: function confirm_order() {
-      var _this3 = this;
+      var _this5 = this;
 
       if (localStorage.token) {
         axios__WEBPACK_IMPORTED_MODULE_0___default()({
@@ -2283,9 +2368,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           } else {
             {
               toastStack('تم  تاكيد الطلب  بنجاح', '', 'success');
-              _this3.cart_items = [];
+              _this5.cart_items = [];
 
-              _this3.$refs.comments.close();
+              _this5.$refs.comments.close();
             }
           }
         })["catch"](function (err) {
@@ -2302,7 +2387,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       console.log('User cancelled the loader.');
     },
     get_district: function get_district() {
-      var _this4 = this;
+      var _this6 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default()({
         url: '/api/get_district',
@@ -2311,23 +2396,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         },
         method: 'POST'
       }).then(function (resp) {
-        _this4.districts = resp.data.data;
-        _this4.form.district_id = _this4.districts[0].id;
+        _this6.districts = resp.data.data;
+        _this6.form.district_id = _this6.districts[0].id;
       })["catch"](function (err) {
         console.log(err);
       });
     },
     get_gov: function get_gov() {
-      var _this5 = this;
+      var _this7 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default()({
         url: '/api/get_gov',
         method: 'POST'
       }).then(function (resp) {
-        _this5.govs = resp.data.data;
-        _this5.form.gov_id = _this5.govs[0].id;
+        _this7.govs = resp.data.data;
+        _this7.form.gov_id = _this7.govs[0].id;
 
-        _this5.get_district();
+        _this7.get_district();
       })["catch"](function (err) {
         console.log(err);
       });
@@ -9591,26 +9676,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _RatingStars__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RatingStars */ "./resources/js/components/RatingStars.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -66570,254 +66635,386 @@ var render = function() {
                         expression: "cart_items.length>0"
                       }
                     ],
-                    staticClass: "course-overview"
+                    staticClass: "container pb-5 mb-2"
                   },
                   [
-                    _c(
-                      "div",
-                      { staticClass: "inner-box product-page" },
-                      [
-                        _c(
-                          "form",
-                          {
-                            attrs: {
-                              name: "attributes",
-                              id: "add-Product-form",
-                              method: "post"
-                            }
-                          },
-                          _vm._l(_vm.cart_items, function(cart_item, key) {
-                            return _c(
-                              "div",
-                              { staticClass: "pro-options row cart_item_box" },
+                    _vm._l(_vm.cart_items, function(cart_item, key) {
+                      return _c(
+                        "div",
+                        {
+                          staticClass:
+                            "cart-item d-md-flex justify-content-between"
+                        },
+                        [
+                          _c(
+                            "span",
+                            {
+                              staticClass: "remove-item",
+                              on: {
+                                click: function($event) {
+                                  return _vm.delete_fromCart(cart_item.id, key)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fa fa-times" })]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "px-3 my-3" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "cart-item-product",
+                                attrs: { href: "#" }
+                              },
                               [
-                                _c("div", { staticClass: " col-xs-3 box" }, [
-                                  _c("img", {
-                                    attrs: { src: cart_item.product.image }
-                                  })
-                                ]),
-                                _vm._v(" "),
                                 _c(
                                   "div",
-                                  {
-                                    staticClass:
-                                      "cart_product_details  col-xs-6 box"
-                                  },
+                                  { staticClass: "cart-item-product-thumb" },
                                   [
-                                    _c("p", [
-                                      _vm._v(
-                                        _vm._s(cart_item.product.name) + " "
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    cart_item.product_attributes_descriptions
-                                      .length > 0
-                                      ? _c(
-                                          "p",
-                                          [
-                                            _c("strong", [_vm._v(" {")]),
-                                            _vm._v(" "),
-                                            _vm._l(
-                                              cart_item.product_attributes_descriptions,
-                                              function(op) {
-                                                return _c("span", [
-                                                  _vm._v(
-                                                    "\n                                                    ( " +
-                                                      _vm._s(
-                                                        op.products_options_name
-                                                      ) +
-                                                      "," +
-                                                      _vm._s(
-                                                        op.products_options_values_name
-                                                      ) +
-                                                      ")\n                                                "
-                                                  )
-                                                ])
-                                              }
-                                            ),
-                                            _vm._v(" "),
-                                            _c("strong", [_vm._v(" }")])
-                                          ],
-                                          2
-                                        )
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _c("p", [
-                                      _c("i", {
-                                        staticClass: "fa fa-map-marker "
-                                      }),
-                                      _vm._v(
-                                        "\n                                                " +
-                                          _vm._s(cart_item.product.zone) +
-                                          "/ " +
-                                          _vm._s(cart_item.product.space) +
-                                          "\n                                            "
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("p", [
-                                      _c("strong", [_vm._v(" سعر الوحدة")]),
-                                      _vm._v(
-                                        "\n                                                " +
-                                          _vm._s(cart_item.price) +
-                                          "\n                                            "
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("p", [
-                                      _c("strong", [_vm._v(" السعر الاجمالي")]),
-                                      _vm._v(
-                                        "\n                                                " +
-                                          _vm._s(
-                                            cart_item.price * cart_item.quantity
-                                          ) +
-                                          "\n                                            "
-                                      )
-                                    ])
+                                    _c("img", {
+                                      attrs: {
+                                        src: cart_item.product.image,
+                                        alt: "Product"
+                                      }
+                                    })
                                   ]
                                 ),
                                 _vm._v(" "),
-                                _c("div", { staticClass: " col-xs-3 box" }, [
-                                  _c("p", [
+                                _c(
+                                  "div",
+                                  { staticClass: "cart-item-product-info" },
+                                  [
+                                    _c(
+                                      "h4",
+                                      {
+                                        staticClass: "cart-item-product-title"
+                                      },
+                                      [_vm._v(_vm._s(cart_item.product.name))]
+                                    ),
+                                    _vm._v(" "),
+                                    _vm._l(
+                                      cart_item.product_attributes_descriptions,
+                                      function(op) {
+                                        return _c("span", [
+                                          _c("strong", [
+                                            _vm._v(
+                                              " " +
+                                                _vm._s(
+                                                  op.products_options_name
+                                                ) +
+                                                ":"
+                                            )
+                                          ]),
+                                          _vm._v(
+                                            " " +
+                                              _vm._s(
+                                                op.products_options_values_name
+                                              ) +
+                                              "\n                                            "
+                                          )
+                                        ])
+                                      }
+                                    ),
+                                    _vm._v(" "),
+                                    _c("span", [
+                                      _vm._m(0, true),
+                                      _vm._v(
+                                        " " + _vm._s(cart_item.product.zone)
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("span", [
+                                      _c("img", {
+                                        staticStyle: {
+                                          width: "31px",
+                                          "border-radius": "50px"
+                                        },
+                                        attrs: {
+                                          src: cart_item.product.sell_icon
+                                        }
+                                      }),
+                                      _vm._v(
+                                        " " +
+                                          _vm._s(cart_item.product.sell_name) +
+                                          "  "
+                                      )
+                                    ])
+                                  ],
+                                  2
+                                )
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "px-3 my-3 text-center" }, [
+                            _c("div", { staticClass: "cart-item-label" }, [
+                              _vm._v("الكمية")
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "count-input" }, [
+                              _c("div", { staticClass: "pro-counter" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "input-group item-quantity " },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: cart_item.quantity,
+                                          expression: "cart_item.quantity"
+                                        }
+                                      ],
+                                      staticClass: "form-control qty",
+                                      attrs: {
+                                        type: "number",
+                                        name: "quantity",
+                                        min: "1"
+                                      },
+                                      domProps: { value: cart_item.quantity },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            cart_item,
+                                            "quantity",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
                                     _c(
                                       "span",
-                                      {
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.delete_fromCart(
-                                              cart_item.id,
-                                              key
-                                            )
-                                          }
-                                        }
-                                      },
+                                      { staticClass: "input-group-btn" },
                                       [
-                                        _vm._v(
-                                          "\n                                                    حذف من السلة\n                                                    "
-                                        ),
-                                        _c("i", { staticClass: "fa fa-trash" })
-                                      ]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "pro-counter" }, [
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass: "input-group item-quantity"
-                                      },
-                                      [
-                                        _c("h4", [_vm._v("الكمية : ")]),
-                                        _vm._v(" "),
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value: cart_item.quantity,
-                                              expression: "cart_item.quantity"
-                                            }
-                                          ],
-                                          staticClass: "form-control qty",
-                                          attrs: {
-                                            type: "number",
-                                            name: "quantity",
-                                            min: "1"
-                                          },
-                                          domProps: {
-                                            value: cart_item.quantity
-                                          },
-                                          on: {
-                                            input: function($event) {
-                                              if ($event.target.composing) {
-                                                return
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "quantity-plus1 btn qtyplus",
+                                            attrs: { type: "button" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.change_quantity(
+                                                  "+",
+                                                  key
+                                                )
                                               }
-                                              _vm.$set(
-                                                cart_item,
-                                                "quantity",
-                                                $event.target.value
-                                              )
                                             }
-                                          }
-                                        }),
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fa fa-plus"
+                                            })
+                                          ]
+                                        ),
                                         _vm._v(" "),
                                         _c(
-                                          "span",
-                                          { staticClass: "input-group-btn" },
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "quantity-minus1 btn qtyminus",
+                                            attrs: { type: "button" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.change_quantity(
+                                                  "-",
+                                                  key
+                                                )
+                                              }
+                                            }
+                                          },
                                           [
-                                            _c(
-                                              "button",
-                                              {
-                                                staticClass:
-                                                  "quantity-plus1 btn qtyplus",
-                                                attrs: { type: "button" },
-                                                on: {
-                                                  click: function($event) {
-                                                    return _vm.change_quantity(
-                                                      "+",
-                                                      key
-                                                    )
-                                                  }
-                                                }
-                                              },
-                                              [
-                                                _c("i", {
-                                                  staticClass: "fa fa-plus"
-                                                })
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "button",
-                                              {
-                                                staticClass:
-                                                  "quantity-minus1 btn qtyminus",
-                                                attrs: { type: "button" },
-                                                on: {
-                                                  click: function($event) {
-                                                    return _vm.change_quantity(
-                                                      "-",
-                                                      key
-                                                    )
-                                                  }
-                                                }
-                                              },
-                                              [
-                                                _c("i", {
-                                                  staticClass: "fa fa-minus"
-                                                })
-                                              ]
-                                            )
+                                            _c("i", {
+                                              staticClass: "fa fa-minus"
+                                            })
                                           ]
                                         )
                                       ]
                                     )
-                                  ])
-                                ])
+                                  ]
+                                )
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "px-3 my-3 text-center" }, [
+                            _c("div", { staticClass: "cart-item-label" }, [
+                              _vm._v("سعر الوحدة")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              { staticClass: "text-xl font-weight-medium" },
+                              [_vm._v(_vm._s(cart_item.price))]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "px-3 my-3 text-center" }, [
+                            _c("div", { staticClass: "cart-item-label" }, [
+                              _vm._v(" السعر الاجمالي")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              { staticClass: "text-xl font-weight-medium" },
+                              [
+                                _vm._v(
+                                  _vm._s(cart_item.price * cart_item.quantity)
+                                )
                               ]
                             )
+                          ])
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-sm-flex justify-content-between align-items-center text-center text-sm-left"
+                      },
+                      [
+                        _c("form", { staticClass: "form-inline py-2" }, [
+                          _c("label", { staticClass: "sr-only" }, [
+                            _vm._v(" كوود الكوبون")
+                          ]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.coupon,
+                                expression: "coupon"
+                              }
+                            ],
+                            staticClass:
+                              "form-control form-control-sm my-2 mr-3",
+                            attrs: {
+                              type: "text",
+                              placeholder: "الكود ",
+                              required: ""
+                            },
+                            domProps: { value: _vm.coupon },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.coupon = $event.target.value
+                              }
+                            }
                           }),
-                          0
-                        ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-style-1 btn-secondary btn-sm my-2 mx-auto mx-sm-0",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.apply_my_coupon()
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "تطبيق الكوبون\n                                    "
+                              )
+                            ]
+                          )
+                        ]),
                         _vm._v(" "),
-                        _c("hr"),
-                        _vm._v(" "),
-                        _c(
-                          "P",
-                          { staticClass: "cart_total" },
-                          [
-                            _c("STRONG", [_vm._v("مجموع السلة ")]),
-                            _vm._v(" " + _vm._s(_vm.calculatePrice))
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
+                        _c("div", { staticClass: "py-2" }, [
+                          _c(
+                            "span",
+                            {
+                              staticClass:
+                                "d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2"
+                            },
+                            [_vm._v("مجموع السلة :")]
+                          ),
+                          _vm._v(" "),
+                          _vm.apply_coupon == null
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "d-inline-block align-middle text-xl font-weight-medium"
+                                },
+                                [_vm._v(_vm._s(_vm.calculatePrice))]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.apply_coupon != null
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "d-inline-block align-middle text-xl font-weight-medium old_price"
+                                },
+                                [_vm._v(_vm._s(_vm.calculatePrice))]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.apply_coupon != null
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "d-inline-block  new_price align-middle text-xl font-weight-medium"
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.calculatePrice -
+                                        _vm.apply_coupon.amount
+                                    )
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.apply_coupon != null
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "d-inline-block align-middle text-xl font-weight-medium",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.delete_coupon()
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fa fa-trash",
+                                    attrs: { title: "حذف الكوبون" }
+                                  })
+                                ]
+                              )
+                            : _vm._e()
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("hr", { staticClass: "my-2" }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row pt-3 pb-5 mb-2" }, [
+                      _c("div", { staticClass: "col-sm-6 mb-3" }, [
                         _c(
                           "button",
                           {
                             staticClass:
-                              "btn btn-secondary btn-lg swipe-to-top  add-to-Cart stock-cart",
-                            attrs: { type: "button", products_id: "3" },
+                              "btn btn-style-1 btn-secondary btn-block",
                             on: {
                               click: function($event) {
                                 return _vm.updateCart()
@@ -66825,19 +67022,21 @@ var render = function() {
                             }
                           },
                           [
+                            _c("i", { staticClass: "fe-icon-refresh-ccw" }),
                             _vm._v(
-                              "\n                                    تحديث السلة\n                                "
+                              " \n                                        تحديث السلة\n                                    "
                             )
                           ]
-                        ),
-                        _vm._v(" "),
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-sm-6 mb-3" }, [
                         _vm.cart_items.length > 0
                           ? _c(
                               "button",
                               {
                                 staticClass:
-                                  "btn btn-danger btn btn-lg swipe-to-top  stock-out-cart",
-                                attrs: { type: "button" },
+                                  "btn btn-style-1 btn-primary btn-block",
                                 on: {
                                   click: function($event) {
                                     return _vm.openModal()
@@ -66845,31 +67044,32 @@ var render = function() {
                                 }
                               },
                               [
+                                _c("i", { staticClass: "fe-icon-credit-card" }),
                                 _vm._v(
-                                  "تاكيد الطلب\n                                "
+                                  " تاكيد الطلب\n                                    "
                                 )
                               ]
                             )
                           : _vm._e()
-                      ],
-                      1
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticStyle: { "text-align": "center" } }, [
-                  _c("img", {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.cart_items.length < 1,
-                        expression: "cart_items.length<1"
-                      }
-                    ],
-                    attrs: { src: "site/images/empty-cart.png" }
-                  })
-                ])
+                      ])
+                    ])
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticStyle: { "text-align": "center" } }, [
+                _c("img", {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.cart_items.length < 1,
+                      expression: "cart_items.length<1"
+                    }
+                  ],
+                  attrs: { src: "site/images/empty-cart.png" }
+                })
               ])
             ])
           ])
@@ -66879,7 +67079,17 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("strong", [
+      _c("i", { staticClass: "fa fa-map-marker " }),
+      _vm._v(":")
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -77974,106 +78184,108 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "product_countainer" },
-    [
-      _c(
-        "router-link",
-        {
-          staticClass: "product_countainer_link",
-          attrs: {
-            to: { name: "product_details", params: { id: _vm.product.id } }
-          },
-          nativeOn: {
-            click: function($event) {
-              return _vm.$scrollToTop($event)
-            }
-          }
-        },
-        [
-          _c("div", { staticClass: "product_image_box" }, [
-            _c(
-              "div",
-              {
-                staticClass: "productImage",
-                attrs: {
-                  "data-qa-id":
-                    "productImagePLP_غلاية من الاستانلس ستيل سعة 1.5 لتر بقوة 1800 وات "
-                }
-              },
-              [
-                _c(
-                  "clazy-load",
-                  { staticClass: "wrapper", attrs: { src: _vm.product.image } },
-                  [
-                    _c("transition", { attrs: { name: "fade" } }, [
-                      _c("div", {
-                        staticClass: "divClass",
-                        style: {
-                          backgroundImage: "url(" + _vm.product.image + ")"
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "transition",
-                      {
-                        attrs: { slot: "placeholder", name: "fade" },
-                        slot: "placeholder"
-                      },
-                      [
-                        _c("div", { staticClass: "vue_preloader" }, [
-                          _c("div", { staticClass: "circle" }, [
-                            _c("div", { staticClass: "circle-inner" })
-                          ])
+  return _c("div", { staticClass: "product_countainer" }, [
+    _c(
+      "div",
+      { staticClass: "product_countainer_link" },
+      [
+        _c("div", { staticClass: "product_image_box" }, [
+          _c(
+            "div",
+            {
+              staticClass: "productImage",
+              attrs: {
+                "data-qa-id":
+                  "productImagePLP_غلاية من الاستانلس ستيل سعة 1.5 لتر بقوة 1800 وات "
+              }
+            },
+            [
+              _c(
+                "clazy-load",
+                { staticClass: "wrapper", attrs: { src: _vm.product.image } },
+                [
+                  _c("transition", { attrs: { name: "fade" } }, [
+                    _c("div", { staticClass: " product_image_inner_box" }, [
+                      _c("div", { staticClass: "image_box" }, [
+                        _c("img", {
+                          attrs: { src: _vm.product.image, alt: "" }
+                        })
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "transition",
+                    {
+                      attrs: { slot: "placeholder", name: "fade" },
+                      slot: "placeholder"
+                    },
+                    [
+                      _c("div", { staticClass: "vue_preloader" }, [
+                        _c("div", { staticClass: "circle" }, [
+                          _c("div", { staticClass: "circle-inner" })
                         ])
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "pull-left",
-                staticStyle: { "padding-left": "2em" }
-              },
-              [
-                _c("like-button", {
-                  key: _vm.product.id,
-                  staticClass: "like_product_button",
-                  attrs: {
-                    type: "product",
-                    "count-likes": "0",
-                    "has-count": "0",
-                    liked_id: _vm.product.id,
-                    is_liked: _vm.product.is_like
-                  }
-                })
-              ],
-              1
-            )
-          ]),
+                      ])
+                    ]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: " product_info_box" }, [
+          _c(
+            "div",
+            {
+              staticClass: "pull-left",
+              staticStyle: { "padding-left": "2em" }
+            },
+            [
+              _c("like-button", {
+                key: _vm.product.id,
+                staticClass: "like_product_button",
+                attrs: {
+                  type: "product",
+                  "count-likes": "0",
+                  "has-count": "0",
+                  liked_id: _vm.product.id,
+                  is_liked: _vm.product.is_like
+                }
+              })
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "router-link",
+          {
+            staticClass: "product_info_box",
+            attrs: {
+              to: { name: "product_details", params: { id: _vm.product.id } }
+            },
+            nativeOn: {
+              click: function($event) {
+                return _vm.$scrollToTop($event)
+              }
+            }
+          },
+          [
             _c("div", { staticClass: " product_name_box" }, [
               _c("div", { staticClass: " one_product_name" }, [
                 _c("span", { staticClass: "product_inner_name" }, [
                   _vm._v(
-                    "\n                           " +
+                    "\n                       " +
                       _vm._s(_vm.product.name) +
-                      "\n                        "
+                      "\n                    "
                   )
                 ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "inner_currancy regular" }, [
                 _c("strong", [_vm._v(_vm._s(_vm.product.price))]),
+                _vm._v("."),
                 _c("span", { staticClass: "currency" }, [_vm._v("ر.ي")])
               ])
             ]),
@@ -78098,21 +78310,21 @@ var render = function() {
                   _c("p", [
                     _c("i", { staticClass: "fa fa-map-marker " }),
                     _vm._v(
-                      "\n                                " +
+                      "\n                        " +
                         _vm._s(_vm.product.zone) +
-                        "\n                            "
+                        "\n                    "
                     )
                   ])
                 ],
                 1
               )
             ])
-          ])
-        ]
-      )
-    ],
-    1
-  )
+          ]
+        )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -98071,7 +98283,7 @@ Vue.prototype.$http = axios__WEBPACK_IMPORTED_MODULE_3___default.a;
 
 
 Vue.use(sweet_modal_vue_src_plugin_js__WEBPACK_IMPORTED_MODULE_5__["default"]);
-var api_url = "https://ywudevlopment.com";
+var api_url = "http://127.0.0.1:8000";
 axios__WEBPACK_IMPORTED_MODULE_3___default.a.defaults.baseURL = api_url;
 axios__WEBPACK_IMPORTED_MODULE_3___default.a.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 var token = localStorage.getItem('token');

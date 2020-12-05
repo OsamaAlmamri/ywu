@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Shop;
 
+use App\Coupon;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FireBaseController;
 use App\Http\Resources\LastPosts;
@@ -113,11 +114,94 @@ class CartController extends Controller
         }
     }
 
+    public function apply_coupon(Request $request)
+    {
+        try {
+            $c = Coupon::where('coupon', $request->coupon)->get()->last();
+            $c2 = Coupon::where('id', $request->id)
+                ->where('user_id', \auth()->id())
+                ->where('used', 0)
+                ->where('coupon', "!=", $request->coupon)
+                ->where('order_id', null)
+                ->get()->first();
+            if ($c2 != null)
+                $c2->update(['user_id' => null]);
+
+            if ($c == null)
+                return $this->ReturnErorrRespons('0000', "الكوبون مستخدم من قبل او منتهي الصلاحية");
+            elseif ($c->used == 1 or $c->ended == 1)
+                return $this->ReturnErorrRespons('0000', "الكوبون مستخدم من قبل او منتهي الصلاحية");
+            elseif ($c->user_id != null and $c->user_id != \auth()->id())
+                return $this->ReturnErorrRespons('0000', "هذا الكوبون مطبق من قبل احد العملاء");
+            elseif ($c->user_id == \auth()->id())
+                return $this->ReturnErorrRespons('0000', "انت مستخدم هذا الكويون بالفعل");
+            else {
+                $carts = Cart::where('user_id', \auth()->id())->get();
+                $total = 0;
+                foreach ($carts as $cart) {
+                    $gov_id = $cart->product->seller->seller->gov_id;
+                    $p = $cart->product;
+                    if ($gov_id == \auth()->user()->gov_id) {
+                        $total += $cart->quantity * $cart->price;
+                    }
+                }
+                if ($total > $c->amount) {
+                    $c->update(['user_id' => \auth()->id()]);
+                    return $this->GetDateResponse('data', $c, 'تم تطبيق الكوبون بنجاح');
+
+                } else
+                    return $this->ReturnErorrRespons('0000',
+                        "يجب ان يكون مجموع السلة للمنتجات من محافظة " . auth()->user()->gov . " اكبر من " . $c->amount);
+
+            }
+
+
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
+    public function delete_coupon(Request $request)
+    {
+        try {
+            $c = Coupon::where('id', $request->id)
+                ->where('user_id', \auth()->id())
+                ->where('used', 0)
+                ->where('order_id', null)
+                ->get()->last();
+            if ($c == null)
+                return $this->ReturnErorrRespons('0000', "لا يمكن حذف هذا الكوبون ");
+            else {
+                $c->update(['used' => 0, 'user_id' => null]);
+                return $this->GetDateResponse('data', $c, 'تم تطبيق الكوبون بنجاح');
+            }
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
     public function my_cart(Request $request)
     {
         try {
             $data = Cart::where('user_id', '=', \auth()->id())->get();
             return $this->GetDateResponse('data', $data);
+
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
+
+    public function my_cart2(Request $request)
+    {
+        try {
+            $data = Cart::where('user_id', '=', \auth()->id())->get();
+            $coupon = Coupon::where('user_id', \auth()->id())
+                ->where('used', 0)
+                ->where('order_id', null)
+                ->get()->last();
+
+            return $this->GetDateResponse('data', ["coupon" => ($coupon != null and $coupon->end == 0) ? $coupon : null, "cart" => $data]);
 
         } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
@@ -257,18 +341,27 @@ class CartController extends Controller
             if (count($cart_items) == 0)
                 return $this->ReturnErorrRespons("0000", "ليس هناك عناصر بالسلة");
             else {
+
                 $total_order_price = 0;
+                $coupon = Coupon::where('user_id', \auth()->id())
+                    ->where('used', 0)
+                    ->where('order_id', null)
+                    ->get()->last();
+
                 $order = Order::create(
                     [
                         'user_id' => auth()->id(),
                         'gov_id' => $request->gov_id,
                         'district_id' => $request->district_id,
                         'more_address_info' => $request->more_address_info,
-                        'price' => 0,
+                        'coupon' => ($coupon != null and $coupon->end == 0) ? $coupon->coupon : 0,
+                        'coupon_discount' => ($coupon != null and $coupon->end == 0) ? $coupon->amount : null,
                         'phone' => isset($request->phone) ? $request->phone : auth()->user()->phone,
                         'customer_name' => isset($request->customer_name) ? $request->customer_name : auth()->user()->name,
                     ]);
-                $total = 0;
+                $coupon->update(['used' => 1, 'order_id'=> $order->id]);
+                if ($coupon != null and $coupon->end == 0)
+                    $total = 0;
                 $sellersOrders = [];
                 $order_seller_id = [];
                 foreach ($cart_items as $cart_item) {

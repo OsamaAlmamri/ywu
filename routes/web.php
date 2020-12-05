@@ -59,6 +59,14 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
                 ]
             ])->except('update');
         });
+        Route::group(['as' => 'admin.shop.coupons.'], function () {
+            Route::post('coupons/update', 'CouponsController@update')->name('update');
+            Route::post('coupons/update_selected', 'CouponsController@update_selected')->name('update_selected');
+            Route::post('coupons/delete_selected', 'CouponsController@delete_selected')->name('delete_selected');
+            Route::post('coupons/store', 'CouponsController@store')->name('store');
+            Route::get('coupons/destroy/{id}', 'CouponsController@destroy')->name('destroy');
+            Route::get('coupons/index', 'CouponsController@index')->name('index');
+        });
 #################################################### sliders
         Route::group(['as' => 'admin.shop.spaces.'], function () {
             Route::post('spaces/update', 'SpacesController@update')->name('update');
@@ -386,11 +394,11 @@ Route::post('zones/getZones', 'HomeController@getZones')->name('zones.getZones')
 
 
 Route::get('download_app', function () {
-    $id=setting('app_link');
+    $id = setting('app_link');
     $headers = [
         'Content-Type:' => 'application/apk',
     ];;
-    $path = 'ywp-app v1.apk' ;
+    $path = 'ywp-app v1.apk';
     $pathToFile = public_path($path);
 //        $file_name = ($file_name = $ass->originalName);
     return response()->download($pathToFile, Str::ascii($id, 'en'), $headers);

@@ -24,6 +24,8 @@ class CreateOrdersTable extends Migration
             $table->enum('payment_method', ['on_delivery', 'transfer'])->default('transfer');
             $table->smallInteger('payment_status')->default(0);
             $table->decimal('price', 10);
+            $table->string('coupon')->nullable();
+            $table->integer('coupon_discount')->default(0);
             $table->decimal('shipping_cost', 10)->default(0);
             $table->timestamps();
         });

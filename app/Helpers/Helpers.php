@@ -189,6 +189,37 @@ function paymentStatus($status = 'all')
     return $s[$status];
 }
 
+function CouponUsedStatus($status = 'all')
+{
+    $s = array(
+        'all' => "الكل",
+        '0' => trans('status.coupons_used_0'),
+        '1' => trans('status.coupons_used_1'),
+
+    );
+    if ($status != 0)
+        return $s[$status];
+    else {
+        return $s;
+    }
+    return $s[$status];
+}
+function CouponEndStatus($status = 'all')
+{
+    $s = array(
+        'all' => "الكل",
+        '0' => trans('status.coupons_end_1'),
+        '1' => trans('status.coupons_end_0'),
+
+    );
+    if ($status != 0)
+        return $s[$status];
+    else {
+        return $s;
+    }
+    return $s[$status];
+}
+
 function confirm_paymentStatus($status = 'all')
 {
 

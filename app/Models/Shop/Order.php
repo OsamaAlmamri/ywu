@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     //
-    protected $fillable = ['price', 'payment_method', 'payment_status', 'user_id', 'gov_id', 'district_id', 'more_address_info', 'phone', 'customer_name'];
+    protected $fillable = ['coupon','coupon_discount','price', 'payment_method', 'payment_status', 'user_id', 'gov_id', 'district_id', 'more_address_info', 'phone', 'customer_name'];
     protected $appends = ['published', 'district', 'gov', 'user_name', 'payment_status_name'];
 
 
