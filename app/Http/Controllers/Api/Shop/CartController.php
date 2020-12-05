@@ -118,8 +118,7 @@ class CartController extends Controller
     {
         try {
             $c = Coupon::where('coupon', $request->coupon)->get()->last();
-            $c2 = Coupon::where('id', $request->id)
-                ->where('user_id', \auth()->id())
+            $c2 = Coupon::where('user_id', \auth()->id())
                 ->where('used', 0)
                 ->where('coupon', "!=", $request->coupon)
                 ->where('order_id', null)
@@ -359,7 +358,7 @@ class CartController extends Controller
                         'phone' => isset($request->phone) ? $request->phone : auth()->user()->phone,
                         'customer_name' => isset($request->customer_name) ? $request->customer_name : auth()->user()->name,
                     ]);
-                $coupon->update(['used' => 1, 'order_id'=> $order->id]);
+                $coupon->update(['used' => 1, 'order_id' => $order->id]);
                 if ($coupon != null and $coupon->end == 0)
                     $total = 0;
                 $sellersOrders = [];

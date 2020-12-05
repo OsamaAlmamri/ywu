@@ -66,8 +66,8 @@ Route::group(['middleware' => 'CheckAdminT:api'], function () {
     Route::post('shop/update_cart', 'Api\Shop\CartController@update_cart');
     Route::post('shop/apply_coupon', 'Api\Shop\CartController@apply_coupon');
     Route::post('shop/delete_coupon', 'Api\Shop\CartController@delete_coupon');
-    Route::post('shop/my_cart', 'Api\Shop\CartController@my_cart');
     Route::post('shop/my_cart2', 'Api\Shop\CartController@my_cart2');
+    Route::post('shop/my_cart', 'Api\Shop\CartController@my_cart');
     Route::post('shop/my_orders', 'Api\Shop\CartController@my_orders');
     Route::post('shop/add_payment', 'Api\Shop\CartController@add_payment');
     Route::post('shop/confirm_order', 'Api\Shop\CartController@confirm_order');

@@ -45,6 +45,59 @@
         .search-box button {
             margin-top: 0;
         }
+
+        .wrapper {
+            height: 130px;
+        }
+
+        .image_box img:not(.zoomImage) {
+
+            height: 130px;
+            width: 150px;
+        }
+
+        .lower-content h6:first-child {
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .cource-block-two .inner-box .lower-content {
+            position: relative;
+            padding: 5px 6px;
+            font-size: 0.875rem;
+        }
+
+        .product_price_box {
+
+            font-size: 9px;
+        }
+
+        .product_name_box {
+            font-size: 9px;
+            font-weight: 600;
+        }
+
+        .inner_currancy {
+
+            font-size: 11px;
+        }
+
+        .multiselect__option, .multiselect__tag {
+
+            font-size: 9px;
+        }
+
+        .page-title h1 {
+            padding-bottom: 5px;
+            margin-top: -20px;
+        }
+        .like_product_button {
+            margin-top: -127px;
+        }
+        .product_countainer {
+
+            box-shadow: 0 3px 7px 0 rgb(0 ,0 ,0, 0.5);
+        }
     </style>
 </head>
 <body>
@@ -250,9 +303,6 @@
                  body="{{ session('stack-body')??$stackTitle??'' }}"></toast-stack>
 
     <search-filed title="courses" v-if="ShowPublickSearchFiled"></search-filed>
-
-
-    <button @click="show=!show"></button>
     <router-view :key="$route.fullPath"></router-view>
     <!-- Call To Action Section Two -->
 
