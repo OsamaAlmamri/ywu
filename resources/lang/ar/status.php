@@ -28,6 +28,13 @@ return [
     'coupons_end_0' => ' منتهي الصلاحية  ',
     'coupons_end_1' => 'صالح الاستخدام ',
 
+    'payment_method' => [
+        'on_delivery' => ' عند التسليم ',
+        'transfer' => 'حوالة  ',
+
+    ],
+
+
     'confirm_payment_0' => 'لم يتم الارسال   ',
     'confirm_payment_1' => 'قيد  المراجعة ',
     'confirm_payment_2' => 'تم المراجعة ',

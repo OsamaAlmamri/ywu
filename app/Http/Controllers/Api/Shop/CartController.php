@@ -13,6 +13,7 @@ use App\Models\Shop\Order;
 use App\Models\Shop\OrderPayment;
 use App\Models\Shop\OrderProduct;
 use App\Models\Shop\OrderSeller;
+use App\Models\Shop\OrderTiming;
 use App\Models\Shop\Product;
 use App\Models\Shop\ProductsAttribute;
 use App\Models\TrainingContents\SubjectCategory;
@@ -105,22 +106,30 @@ class CartController extends Controller
     public function delete_from_cart(Request $request)
     {
         try {
-            DB::table('carts')->where([['id', '=', $request->id],
-                ['user_id', '=', \auth()->id()]])->delete();
-            return $this->GetDateResponse('data', '', 'تم الحذف بنجاح');
+
+
+            $data = Cart::where([['id', '=', $request->id], ['user_id', '=', \auth()->id()]])->get()->first();
+            if ($data != null) {
+                $data->delete();
+                return $this->GetDateResponse('data', $data, 'تم الحذف بنجاح');
+            } else {
+                return $this->ReturnErorrRespons('00000', $data);
+
+            }
 
         } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
         }
     }
 
-    public function apply_coupon(Request $request)
+    public function apply_coupon(Request $request, $check = 1, $co = 0)
     {
         try {
-            $c = Coupon::where('coupon', $request->coupon)->get()->last();
+            $coupon_code = ($check == 1) ? $request->coupon : $co;
+            $c = Coupon::where('coupon', $coupon_code)->get()->last();
             $c2 = Coupon::where('user_id', \auth()->id())
                 ->where('used', 0)
-                ->where('coupon', "!=", $request->coupon)
+                ->where('coupon', "!=", $coupon_code)
                 ->where('order_id', null)
                 ->get()->first();
             if ($c2 != null)
@@ -132,25 +141,37 @@ class CartController extends Controller
                 return $this->ReturnErorrRespons('0000', "الكوبون مستخدم من قبل او منتهي الصلاحية");
             elseif ($c->user_id != null and $c->user_id != \auth()->id())
                 return $this->ReturnErorrRespons('0000', "هذا الكوبون مطبق من قبل احد العملاء");
-            elseif ($c->user_id == \auth()->id())
+            elseif ($c->user_id == \auth()->id() and $check == 1)
                 return $this->ReturnErorrRespons('0000', "انت مستخدم هذا الكويون بالفعل");
             else {
                 $carts = Cart::where('user_id', \auth()->id())->get();
+                $total_orders = [];
+                $total_sellers = [];
                 $total = 0;
-                foreach ($carts as $cart) {
+                foreach ($carts as $k => $cart) {
                     $gov_id = $cart->product->seller->seller->gov_id;
                     $p = $cart->product;
                     if ($gov_id == \auth()->user()->gov_id) {
-                        $total += $cart->quantity * $cart->price;
+                        if (array_key_exists($p->admin_id, $total_sellers))
+                            $total_sellers[$p->admin_id] += $cart->quantity * $cart->price;
+                        else {
+                            $total_sellers[$p->admin_id] = $cart->quantity * $cart->price;
+                        }
                     }
                 }
-                if ($total > $c->amount) {
-                    $c->update(['user_id' => \auth()->id()]);
-                    return $this->GetDateResponse('data', $c, 'تم تطبيق الكوبون بنجاح');
+                foreach ($total_sellers as $k => $total)
+                    if ($total > $c->amount) {
+                        $c->update(['user_id' => \auth()->id()]);
+                        if ($check == 1)
+                            return $this->GetDateResponse('data', $c, 'تم تطبيق الكوبون بنجاح');
+                        else {
+                            return $this->GetDateResponse('data', $k, 'تم تطبيق الكوبون بنجاح');
 
-                } else
-                    return $this->ReturnErorrRespons('0000',
-                        "يجب ان يكون مجموع السلة للمنتجات من محافظة " . auth()->user()->gov . " اكبر من " . $c->amount);
+                        }
+
+                    }
+                return $this->ReturnErorrRespons('0000',
+                    "يجب ان يكون مجموع السلة لمنتجات  احد تجار محافظة " . auth()->user()->gov . " اكبر من " . $c->amount);
 
             }
 
@@ -159,6 +180,7 @@ class CartController extends Controller
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
         }
     }
+
 
     public function delete_coupon(Request $request)
     {
@@ -229,7 +251,7 @@ class CartController extends Controller
                 return $this->ReturnErorrRespons('0000', $validator->errors());
             }
             $data = OrderPayment::create(array_merge($request->all(), ['status' => 1, 'user_id' => auth()->id()]));
-            $o = Order::find($request->order_id);
+            $o = OrderSeller::find($request->order_id);
             $o->payment_status = 1;
             $o->save();
             $message = ' تم اضافة تكاليف الطلب رقم ' . $request->order_id . '  من العميل  ' . \auth()->user()->name;
@@ -243,13 +265,15 @@ class CartController extends Controller
                 'date' => $data->created_at
             );
             try {
+
                 $admins_id = [];
                 $admins = getAdminsOrderNotifucation('new_payment');
                 foreach ($admins as $admin) {
                     $admins_id[] = $admin->id;
                     $admin->notify(new AppNotification($dataToNotification));
                 }
-                $tokens = getNotifiableUsers(0, $admins_id);
+                $o->admin->notify(new AppNotification($dataToNotification));
+                $tokens = getNotifiableUsers(0, array_merge([$o->admin->id], $admins_id));
                 $this->firbaseContoller->multi($tokens, $dataToNotification);
                 return $this->GetDateResponse('data', $data);
             } catch (\Exception $ex) {
@@ -346,7 +370,18 @@ class CartController extends Controller
                     ->where('used', 0)
                     ->where('order_id', null)
                     ->get()->last();
+                $seller_coupon = 0;
+                if ($coupon != null) {
+                    $ch = ($this->apply_coupon($request, 0, $coupon->coupon));
 
+                    if ($ch->original['status'] !== true)
+//                        return $ch;
+                        return $this->ReturnErorrRespons("0000", $ch->original['msg'] . "              قم بالغاء الكوبون او شراء ب اكثر من 5000 من نفس محافظتك                ");
+
+                    else
+                        $seller_coupon = $ch->original['data'];
+
+                }
                 $order = Order::create(
                     [
                         'user_id' => auth()->id(),
@@ -354,13 +389,13 @@ class CartController extends Controller
                         'district_id' => $request->district_id,
                         'more_address_info' => $request->more_address_info,
                         'coupon' => ($coupon != null and $coupon->end == 0) ? $coupon->coupon : 0,
-                        'coupon_discount' => ($coupon != null and $coupon->end == 0) ? $coupon->amount : null,
+                        'coupon_discount' => ($coupon != null and $coupon->end == 0) ? $coupon->amount : 0,
                         'phone' => isset($request->phone) ? $request->phone : auth()->user()->phone,
                         'customer_name' => isset($request->customer_name) ? $request->customer_name : auth()->user()->name,
                     ]);
-                $coupon->update(['used' => 1, 'order_id' => $order->id]);
-                if ($coupon != null and $coupon->end == 0)
-                    $total = 0;
+
+
+                $total = 0;
                 $sellersOrders = [];
                 $order_seller_id = [];
                 foreach ($cart_items as $cart_item) {
@@ -375,8 +410,12 @@ class CartController extends Controller
                             ['seller_id' => $product->admin_id,
                                 'order_id' => $order->id,
                                 'price' => 0,
+                                'coupon' => ($coupon != null and $coupon->end == 0 and $seller_coupon == $product->admin_id) ? $coupon->coupon : 0,
+                                'coupon_discount' => ($coupon != null and $coupon->end == 0 and $seller_coupon == $product->admin_id) ? $coupon->amount : 0,
                             ]);
                         $order_seller_id[$product->admin_id] = $seller->id;
+                        if ($coupon != null and $coupon->end == 0 and $seller_coupon == $product->admin_id)
+                            $coupon->update(['used' => 1, 'order_id' => $seller->id]);
 
                     }
                     $order_product = OrderProduct::create(
@@ -389,19 +428,23 @@ class CartController extends Controller
                         ]);
                     foreach ($cart_item->product_attributes_descriptions as $att) {
                         $att = OrderProductAttribute::create(
-                            [
-                                'order_product_id' => $order_product->id,
+                            ['order_product_id' => $order_product->id,
                                 'option_name' => $att->products_options_name,
                                 'option_value_name' => $att->products_options_values_name,
                             ]);
                     }
                     foreach ($sellersOrders as $k => $val) {
                         $s = OrderSeller::find($order_seller_id[$k]);
+                        $message = 'طلب جديد برقم ' . $s->id . '  من العميل  ' . \auth()->user()->name;
                         $s->update([
                             'price' => $val,
                             'shipping_cost' => 0,
                         ]);
-                        $message = 'طلب جديد برقم ' . $s->id . '  من العميل  ' . \auth()->user()->name;
+                        $time = OrderTiming::create(['order_seller_id' => $s->id,
+                            'status' => 'new',
+                            'description' => $message,
+                            'type' => 'order_status'
+                        ]);
                         $dataToNotification = array(
                             'sender_name' => auth()->user()->name,
                             'order_id' => $s->id,

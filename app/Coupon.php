@@ -16,7 +16,7 @@ class Coupon extends Model
     protected $fillable = ['coupon', 'amount', 'used', 'user_id', 'order_id', 'end_date'];
 
 
-    protected $appends = ['ended', 'gov'];
+    protected $appends = ['ended', 'user_name', 'gov','phone'];
 
     function getGovAttribute()
     {
@@ -24,9 +24,26 @@ class Coupon extends Model
         return ($im != null) ? $im->gov : null;
     }
 
+    function getUserNameAttribute()
+    {
+        $im = $this->user()->get()->first();
+        return ($im != null) ? $im->name : null;
+    }
+
+    function getPhoneAttribute()
+    {
+        $im = $this->user()->get()->first();
+        return ($im != null) ? $im->phone : null;
+    }
+
     public function order()
     {
         return $this->belongsTo(Order::class, 'order_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function getEndedAttribute()

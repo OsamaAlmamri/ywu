@@ -188,6 +188,7 @@
                 },
                 success: function (data) {
                     $('#confirm_multi_Modal').modal('hide');
+                    toastr.info(data.success);
                     $('#user_table').DataTable().ajax.reload();
                 },
                 error: function (jqXhr, status) {
@@ -233,6 +234,7 @@
                             data: {ids: idsArr, type: type},
                             success: function (data) {
                                 $('#user_table').DataTable().ajax.reload();
+                                toastr.info(data.success);
                             },
                             error: function (data) {
                                 alert(data.responseText);
@@ -325,6 +327,15 @@
                             title: ' المبلغ '
                         },
                         {
+                            data: 'user',
+                            name: 'user',
+                            title: ' المستخدم '
+                        }, {
+                            data: 'phone',
+                            name: 'phone',
+                            title: ' رقم الهاتف '
+                        },
+                        {
                             data: 'end_date',
                             name: 'end_date',
                             title: ' تاريخ الانتتهاء '
@@ -395,6 +406,7 @@
                     success: function (data) {
                         var html = '';
                         $('#sample_form')[0].reset();
+                        toastr.info(data.success);
                         $('#user_table').DataTable().ajax.reload();
                         $("#formModal .print-error-msg").html('');
                         $('#formModal').modal('hide');
@@ -457,6 +469,7 @@
                     success: function (data) {
                         setTimeout(function () {
                             $('#confirmModal').modal('hide');
+                            toastr.info(data.success);
                             $('#user_table').DataTable().ajax.reload();
                         }, 2000);
                     }

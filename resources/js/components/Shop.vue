@@ -75,8 +75,7 @@
                                       :options="flickityOptions_products">
                                 <div class="one_product" v-for="product in section.products">
                                     <shop-gide-item2
-                                        :product="product"
-                                        @toggled="onToggle">
+                                        :product="product">
 
                                     </shop-gide-item2>
                                 </div>
@@ -142,7 +141,7 @@
             return {
                 flickityOptions_products: {
                     initialIndex: 1,
-                    rightToLeft: true,
+                    // rightToLeft: true,
                     // groupCells: 1,
                     accessibility: true,
                     freeScroll: true,
@@ -153,8 +152,8 @@
                     prevNextButtons: true,
                     // groupCells: true,
                     pageDots: false,
-                    // wrapAround: true,
-                    draggable: '>1',
+                    wrapAround: true,
+                    draggable: '>2',
                     // enables dragging & flicking
                     // if at least 2 cells
 

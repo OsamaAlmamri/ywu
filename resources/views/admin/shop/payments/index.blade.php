@@ -102,6 +102,11 @@
                     },
                     columns: [
                         {
+                            title: ' #',
+                            data: 'DT_RowIndex',
+                            name: 'DT_RowIndex'
+                        },
+                        {
                             title: 'العميل',
                             data: 'user_name',
                             name: 'user_name',
@@ -128,7 +133,7 @@
                         },
                         {
                             title: 'تاريخ الحوالة ',
-                            data: 'order.created_at',
+                            data: 'created_at',
                         },
                             @if ((Auth::user()->can('manage payment') == true))
                         {

@@ -6,7 +6,7 @@
     <!-- Stylesheets -->
 
     <link href="{{  asset('site/css/bootstrap.min.css')  }}" rel="stylesheet">
-{{--    <!--	<link rel="stylesheet" href="css/bootstrap-rtl.min.css">-->--}}
+    {{--    <!--	<link rel="stylesheet" href="css/bootstrap-rtl.min.css">-->--}}
     <link rel="stylesheet" href="{{  asset('site/css/rtl/bootstrap-rtl.css')  }}">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -92,12 +92,14 @@
             padding-bottom: 5px;
             margin-top: -20px;
         }
+
         .like_product_button {
             margin-top: -127px;
         }
+
         .product_countainer {
 
-            box-shadow: 0 3px 7px 0 rgb(0 ,0 ,0, 0.5);
+            box-shadow: 0 3px 7px 0 rgb(0, 0, 0, 0.5);
         }
     </style>
 </head>

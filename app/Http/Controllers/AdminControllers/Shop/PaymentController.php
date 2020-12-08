@@ -18,14 +18,16 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+
 class PaymentController extends Controller
 
 {
     public function __construct()
     {
         $this->middleware('permission:show payment', ['only' => ['index',]]);
-        $this->middleware('permission:manage payment', ['only' => ['change_status','destroy','edit','store','update','active']]);
+        $this->middleware('permission:manage payment', ['only' => ['change_status', 'destroy', 'edit', 'store', 'update', 'active']]);
     }
+
     public function index()
     {
         if (request()->ajax()) {
@@ -34,6 +36,7 @@ class PaymentController extends Controller
             $to = (request()->to_date == null) ? date('9999-01-01') : date(request()->to_date);
             $data = $this->getData($payment_status, $from, $to);
             return datatables()->of($data)
+                ->addIndexColumn()
                 ->addColumn('action', 'admin.shop.payments.btn.action')
                 ->addColumn('btn_status', 'admin.shop.payments.btn.status')
                 ->addColumn('btn_order_status', 'admin.shop.payments.btn.order_status')
@@ -45,25 +48,22 @@ class PaymentController extends Controller
         return view('admin.shop.payments.index');
     }
 
-
     public function getData($payment_status, $from_date = '1970-01-01', $to_date = '9999-09-09')
     {
-
         $data = OrderPayment::with('order')
             ->whereBetween('created_at', [$from_date, $to_date]);
 
         if ($payment_status != "all") {
             $data = $data->where('status', $payment_status);
         }
-        return $data->get();
+        return $data->orderByDesc('id')->get();
     }
 
     public
     function change_status(Request $request)
     {
-
         if ($request->type == "change_order_payment") {
-            $order = Order::find($request->type_id);
+            $order = OrderSeller::find($request->type_id);
             $order->payment_status = 2;
             $order->save();
         } else {
@@ -73,7 +73,7 @@ class PaymentController extends Controller
 
             $order_payment->save();
             if ($request->with_order == 1) {
-                $order = Order::find($order_payment->order_id);
+                $order = OrderSeller::find($order_payment->order_id);
                 $order->payment_status = 2;
                 $order->save();
             }

@@ -37,11 +37,10 @@ class UserController extends Controller
             if (request()->id == 0)
                 $post = User::whereIn('type', ['visitor','customer'])->orderBy('id','desc' )->get();
             else {
-                $post = User::where('type', ['visitor','customer'])
-                    ->where('id', request()->id)->get();
+                $post = User::where('id',request()->id )->get();
 
             }
-
+//          return  $post;
             return datatables()->of($post)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {

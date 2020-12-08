@@ -21,6 +21,12 @@ class CreateOrderSellersTable extends Migration
             $table->decimal('price', 10);
             $table->decimal('shipping_cost', 10)->default(0);
             $table->string('shipping_method', 100)->nullable();
+            $table->enum('payment_method', ['on_delivery', 'transfer'])->default('transfer');
+            $table->smallInteger('payment_status')->default(0);
+            $table->string('new_delivery_location');
+            $table->string('coupon')->nullable();
+            $table->integer('coupon_discount')->default(0);
+           
         });
     }
 

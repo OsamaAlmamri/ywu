@@ -6,10 +6,13 @@ use App\Admin;
 use App\Coupon;
 use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\FireBaseController;
 use App\Models\Shop\Order;
 use App\Models\Shop\Zone;
+use App\Notifications\AppNotification;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,11 +21,18 @@ class CouponsController extends Controller
     use JsonTrait;
     use PostTrait;
 
-    public function __construct()
+//    public function __construct()
+//    {
+////        $this->middleware('permission:show coupons', ['only' => ['index','show']]);
+////        $this->middleware('permission:manage coupons', ['only' => ['changeOrder','destroy','edit','store','update','active']]);
+////        $this->middleware('permission:active coupons', ['only' => ['active']]);
+//    }
+    public function __construct(FireBaseController $firbaseContoller)
     {
-//        $this->middleware('permission:show coupons', ['only' => ['index','show']]);
-//        $this->middleware('permission:manage coupons', ['only' => ['changeOrder','destroy','edit','store','update','active']]);
-//        $this->middleware('permission:active coupons', ['only' => ['active']]);
+        $this->middleware('permission:show coupons', ['only' => ['index', 'show']]);
+
+        $this->middleware('permission:manage coupons', ['only' => ['store','delete_selected','destroy','update','update_selected']]);
+        $this->firbaseContoller = $firbaseContoller;
     }
 
 
@@ -68,7 +78,8 @@ class CouponsController extends Controller
                     ->addIndexColumn()
                     ->addColumn('action', 'admin.shop.coupons.btn.action')
                     ->addColumn('check', 'admin.shop.coupons.btn.check')
-                    ->rawColumns(['action', 'check'])
+                    ->addColumn('user', 'admin.shop.coupons.btn.user')
+                    ->rawColumns(['action', 'check','user'])
                     ->make(true);
             }
         }
@@ -112,16 +123,40 @@ class CouponsController extends Controller
                 'errors' => $error->errors(),
             ], 422);
         }
-        for ($i = 0; $i < $request->number; $i++) {
-            $categoty = Coupon::create(array_merge($request->all(),
+        $users = User::inRandomOrder()->whereIn('type', ['customer','visitor'])
+            ->whereNotIn('id', function ($query) use ($request) {
+                $query->select('user_id')
+                    ->from(with(new Coupon())->getTable());
+//                    ->where('used', 1)
+//                    ->orWhere('end_date', '>', now());
+            })->limit($request->number)->get();
+        foreach ($users as $user) {
+            $c = Coupon::create(array_merge($request->all(),
                 [
+                    'user_id' => $user->id,
                     'used' => 0,
                     'coupon' => $this->getUniquId()
                 ]));
+            $message = ' لقد حصلت على كوبون تخفيض برقم  ' . $c->coupon . '  يستخدم في متاجر محافظة  ' . $user->gov;
+            $dataToNotification = array(
+                'sender_name' => "اتحاد نساء اليمن",
+                'order_id' => $c->id,
+                'notification_type' => "new_coupon",
+                'user_id' => \auth()->id(),
+                'sender_image' => url('site/images/Logo250px.png'),
+                'message' => $message,
+                'date' => $c->created_at
+            );
+            try {
+                $user->notify(new AppNotification($dataToNotification));
+                $tokens = getNotifiableUsers($user->id, []);
+                $this->firbaseContoller->multi($tokens, $dataToNotification);
+            } catch (\Exception $ex) {
+
+            }
+
         }
-
-
-        return response()->json(['success' => 'تم الاضافة  بنجاح']);
+        return response()->json(['success' => 'تم اضافة ' . count($users) . ' كوبون بنجاح']);
     }
 
     public function update(Request $request)
@@ -152,6 +187,8 @@ class CouponsController extends Controller
     public function delete_selected(Request $request)
     {
         $data = Coupon::whereIn('id', $request->ids)->where('used', '0')->delete();
+        return response()->json(['success' => 'تم الحذف  بنجاح']);
+
     }
 
     public function update_selected(Request $request)
@@ -165,6 +202,7 @@ class CouponsController extends Controller
         }
         $data = Coupon::whereIn('id', $request->ids)->where('used', '0')
             ->update(['end_date' => $request->end_date, 'amount' => $request->amount]);
+        return response()->json(['success' => 'تم التعديل  بنجاح']);
 
     }
 }

@@ -141,9 +141,14 @@
                     },
                     columns: [
                         {
-                            title: ' الرقم',
+                            title: ' #',
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
+                        },
+                        {
+                            title: ' رقم الطلب ',
+                            data: 'id',
+                            name: 'id'
                         },
                             @if ($type=="main")
                         {
@@ -173,7 +178,7 @@
                         {
                             title: 'تاريخ الطلب ',
                             data: 'created_at',
-                        },     {
+                        }, {
                             title: 'طريقة الدفع ',
                             data: 'payment_method',
                         },
@@ -215,8 +220,8 @@
                             title: 'حالة الطلب ',
                             data: 'order_status_name',
                         },
-                            @endif
-                            @if ((Auth::user()->can('manage orders') == true))
+                        @endif
+                        @if ((Auth::user()->can('manage orders') == true))
 
                         // {
                         //     title: 'الحالة',

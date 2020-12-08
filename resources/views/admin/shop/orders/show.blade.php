@@ -17,7 +17,8 @@
                             صاحب الطلب
                             <address>
                                 <strong> {{$order_seller->order->user->name}}.</strong>
-                             <br>  {{$order_seller->order->user->gov}},{{$order_seller->order->user->district}},{{$order_seller->order->user->more_address_info}}
+                                <br> {{$order_seller->order->user->gov}},{{$order_seller->order->user->district}}
+                                ,{{$order_seller->order->user->more_address_info}}
                                 <br> رقم النلفون : {{$order_seller->order->user->phone}}
                             </address>
                         </div>
@@ -32,11 +33,27 @@
                         </div>
                         <div class="col-xs-4 col-sm-4 invoice-col">
                             <span>رقم الطلب <b dir="ltr">#{{$order_seller->id}}</b></span>
+                            @if (auth()->user()->type=='admin')
+
+                                <span>رقم الطلب الاساسي <b dir="ltr">#
+                               <a href="{{route('admin.shop.orders.show_main_order',$order_seller->id)}}"> {{$order_seller->id}} </a></b></span>
+                            @endif
                             <br>
-                            <br>
+                            @if($order_seller->coupon_discount>0)
+                                <b> الكوبون :</b> {{$order_seller->coupon}}
+                                <b>تخفيض الكوبون :</b> {{$order_seller->coupon_discount}}
+                                <br>
+                            @endif
+
                             <b>تكلفة الطلب :</b> {{$order_seller->price}}
+                            @if($order_seller->coupon_discount>0)
+                                <b> على العميل :</b> {{$order_seller->price-$order_seller->coupon_discount}}
+                            @endif
                             <br>
+
                             <b>حالة الطلب :</b> <span id="status_name_label">{{$order_seller->order_status_name}}</span>
+                            <br> <b>طريقة الدفع :</b> {{trans("status.payment_method.".$order_seller->payment_method)}}
+                            <b> حالة الدفع :</b> {{$order_seller->payment_status_name}}
 
                         </div>
                     </div>

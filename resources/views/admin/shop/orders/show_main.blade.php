@@ -37,9 +37,10 @@
                         <!-- /.col -->
                         <div class="col-xs-4 col-sm-4 invoice-col">
                             <span>رقم الطلب <b dir="ltr">#{{$order->id}}</b></span>
+
                             <br>
                             @if($order->coupon_discount>0)
-                                <b> الكوبون :</b> {{$order->coupon_discount}}
+                                <b> الكوبون :</b> {{$order->coupon}}
                                 <b>تخفيض الكوبون :</b> {{$order->coupon_discount}}
 
                             @endif
@@ -75,12 +76,25 @@
                                 <!-- /.col -->
                                 <!-- /.col -->
                                 <div class="col-xs-6  invoice-col">
-                                    <span>رقم الطلب <b dir="ltr">#{{$order_seller->id}}</b></span>
+                                    <span>رقم الطلب <b dir="ltr">#
+                                            <a href="{{route('admin.shop.orders.show_seller_order',$order_seller->id)}}"> {{$order_seller->id}} </a></b></span>
                                     <br>
+                                    @if($order_seller->coupon_discount>0)
+                                        <b> الكوبون :</b> {{$order_seller->coupon}}
+                                        <b>تخفيض الكوبون :</b> {{$order_seller->coupon_discount}}
+                                    @endif
+
                                     <br>
                                     <b>تكلفة الطلب :</b> {{$order_seller->price}}
+                                    @if($order_seller->coupon_discount>0)
+                                        <b> على العميل :</b> {{$order_seller->price-$order_seller->coupon_discount}}
+                                    @endif
+
+                                    <br>
+                                    <b>طريقة الدفع :</b> {{trans("status.payment_method.".$order_seller->payment_method)}}
                                     <br>
                                     <b> حالة الطلب :</b> {{$order_seller->order_status_name}}
+                                    <b> حالة الدفع :</b> {{$order_seller->payment_status_name}}
                                     {{--                            <br>--}}
                                     {{--                            <b>پرداخت هزینه:</b> 1396/09/12--}}
                                     {{--                            <br>--}}
