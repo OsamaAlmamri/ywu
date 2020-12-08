@@ -20,7 +20,9 @@ class Product extends Model
 
     protected $fillable = ['admin_id', 'category_id', 'name', 'description', 'image_id', 'price', 'has_attribute', 'available', 'sort', 'status'];
 
-    protected $appends = ['sell_icon','sell_name','in_cart', 'image', 'image_actual', 'zone', 'category', 'space', 'published', 'average_rating', 'count_rating', 'percent_rating', 'rating_details'];
+    protected $appends = ['sell_icon', 'sell_name', 'in_cart', 'image',
+        'image_actual', 'zone', 'category', 'space', 'published', 'average_rating',
+        'count_rating', 'percent_rating', 'rating_details'];
 
     protected $with = ['is_like', 'is_rating'];
 
@@ -380,31 +382,40 @@ class Product extends Model
 
     function getImageAttribute()
     {
-        $im = $this->image_category_act();
-        return ($im != null) ? $this->image_category_act()->path : null;
+        $im = $this->image_category_lrg();
+        if ($im != null)
+            return $this->image_category_lrg()->path;
+
+        else {
+            $im = $this->image_category_th();
+            return ($im != null) ? $this->image_category_th()->path : $this->image_category_act()->path;
+
+        }
+
     }
 
     function getZoneAttribute()
     {
         $im = $this->seller()->get()->first();
-        return ($im != null) ?$im->seller->gov . ' , ' .$im->seller->district : null;
+        return ($im != null) ? $im->seller->gov . ' , ' . $im->seller->district : null;
     }
 
     function getSellIconAttribute()
     {
         $im = $this->seller()->get()->first();
-        return ($im != null) ?url( $im->seller->ssn_image ): null;
+        return ($im != null) ? url($im->seller->ssn_image) : null;
     }
+
     function getSellNameAttribute()
     {
         $im = $this->seller()->get()->first();
-        return ($im != null) ?( $im->seller->sale_name ): null;
+        return ($im != null) ? ($im->seller->sale_name) : null;
     }
 
     function getSpaceAttribute()
     {
         $im = $this->seller()->get()->first();
-        return ($im != null) ?( $im->seller->more_address_info ): null ;
+        return ($im != null) ? ($im->seller->more_address_info) : null;
 
     }
 
@@ -419,11 +430,11 @@ class Product extends Model
         return $this->hasOne(Seller::class, 'admin_id', 'id')
             ->first();
     }
+
     public function seller()
     {
         return $this->belongsTo(Admin::class, 'admin_id', 'id');
     }
-
 
 
     public function category()
@@ -481,6 +492,18 @@ class Product extends Model
             ->where(function ($query) {
                 $query->where('image_categories.image_type', '=', 'THUMBNAIL');
             })->first();
+
+
+    }
+
+    public function image_category_lrg()
+    {
+        return $this->belongsTo(ImageCategory::class, 'image_id', 'image_id')
+            ->where(function ($query) {
+                $query->where('image_categories.image_type', '=', 'LARGE');
+            })->first();
+
+
     }
 
     public function image_category_act()

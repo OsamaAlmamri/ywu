@@ -66,9 +66,7 @@
                                     <div class="pull-right">
                                         <router-link :to="{ name: 'CategoryProducts', params: { id: section.id}}"
                                                      @click.native="scrollToTop()">
-                                            <h3 style="    background: #593c97;
-    padding: 5px 50px;
-    color: white;">{{section.name}}</h3>
+                                            <h3 style="padding: 5px 50px;">{{section.name}}</h3>
                                         </router-link>
                                     </div>
                                 </div>
@@ -88,38 +86,38 @@
 
                     </div>
                 </div>
-<!--                <div class="row clearfix">-->
-<!--                    <div class="content-side col-lg-12 col-md-12 col-sm-12">-->
-<!--                        <div class="our-courses" v-for="section in sections">-->
-<!--                            &lt;!&ndash; Options View &ndash;&gt;-->
-<!--                            <div class="options-view">-->
-<!--                                <div class="clearfix" v-if="section.products.length>0">-->
-<!--                                    <div class="pull-right">-->
-<!--                                        <router-link :to="{ name: 'CategoryProducts', params: { id: section.id}}"-->
-<!--                                                     @click.native="scrollToTop()">-->
-<!--                                            <h3 style="    background: #593c97;-->
-<!--    padding: 5px 50px;-->
-<!--    color: white;">{{section.name}}</h3>-->
-<!--                                        </router-link>-->
+                <!--                <div class="row clearfix">-->
+                <!--                    <div class="content-side col-lg-12 col-md-12 col-sm-12">-->
+                <!--                        <div class="our-courses" v-for="section in sections">-->
+                <!--                            &lt;!&ndash; Options View &ndash;&gt;-->
+                <!--                            <div class="options-view">-->
+                <!--                                <div class="clearfix" v-if="section.products.length>0">-->
+                <!--                                    <div class="pull-right">-->
+                <!--                                        <router-link :to="{ name: 'CategoryProducts', params: { id: section.id}}"-->
+                <!--                                                     @click.native="scrollToTop()">-->
+                <!--                                            <h3 style="    background: #593c97;-->
+                <!--    padding: 5px 50px;-->
+                <!--    color: white;">{{section.name}}</h3>-->
+                <!--                                        </router-link>-->
 
 
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <flickity :ref="'flickity'+section.id"-->
-<!--                                      :options="flickityOptions_products">-->
-<!--                                <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="product in section.products">-->
-<!--                                    <shop-gide-item-->
-<!--                                        :product="product"-->
-<!--                                        @toggled="onToggle">-->
+                <!--                                    </div>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                            <flickity :ref="'flickity'+section.id"-->
+                <!--                                      :options="flickityOptions_products">-->
+                <!--                                <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="product in section.products">-->
+                <!--                                    <shop-gide-item-->
+                <!--                                        :product="product"-->
+                <!--                                        @toggled="onToggle">-->
 
-<!--                                    </shop-gide-item>-->
-<!--                                </div>-->
-<!--                            </flickity>-->
+                <!--                                    </shop-gide-item>-->
+                <!--                                </div>-->
+                <!--                            </flickity>-->
 
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
             </div>
         </div>
     </div>
@@ -139,13 +137,14 @@
 
     export default {
         props: ['items'],
-        components: {Multiselect, ShopGideItem2,ShopGideItem, Loading, Flickity},
+        components: {Multiselect, ShopGideItem2, ShopGideItem, Loading, Flickity},
         data() {
             return {
                 flickityOptions_products: {
-                    initialIndex: 2,
-                    // rightToLeft: true,
-                    groupCells: 1,
+                    initialIndex: 1,
+                    rightToLeft: true,
+                    // groupCells: 1,
+                    accessibility: true,
                     freeScroll: true,
                     contain: true,
                     lazyLoad: true,
@@ -154,9 +153,15 @@
                     prevNextButtons: true,
                     // groupCells: true,
                     pageDots: false,
-                    // wrapAround: true
+                    // wrapAround: true,
+                    draggable: '>1',
+                    // enables dragging & flicking
+                    // if at least 2 cells
 
+                    dragThreshold: 9,
                     // any options from Flickity can be used
+
+                    touchVerticalScroll: true,
                 },
                 isLoading: false,
                 fullPage: true,

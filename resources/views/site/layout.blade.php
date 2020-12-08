@@ -5,8 +5,8 @@
     <title> YWP</title>
     <!-- Stylesheets -->
 
-    <link href="{{  asset('site/css/bootstrap.css')  }}" rel="stylesheet">
-    <!--	<link rel="stylesheet" href="css/bootstrap-rtl.min.css">-->
+    <link href="{{  asset('site/css/bootstrap.min.css')  }}" rel="stylesheet">
+{{--    <!--	<link rel="stylesheet" href="css/bootstrap-rtl.min.css">-->--}}
     <link rel="stylesheet" href="{{  asset('site/css/rtl/bootstrap-rtl.css')  }}">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -70,6 +70,7 @@
         .product_price_box {
 
             font-size: 9px;
+            color: black;
         }
 
         .product_name_box {
@@ -475,27 +476,27 @@
 <script src="{!! asset('site/js/jquery.scrollTo.js') !!}"></script>
 <script src="{!! asset('site/js/bootstrap.min.js') !!}"></script>
 <script src="{!! asset('site/js/jquery.mCustomScrollbar.concat.min.js') !!}"></script>
-<script src="{!! asset('site/js/jquery.fancybox.js') !!}"></script>
+{{--<script src="{!! asset('site/js/jquery.fancybox.js') !!}"></script>--}}
 <script src="{!! asset('site/js/appear.js') !!}"></script>
-<script src="{!! asset('site/js/swiper.min.js') !!}"></script>
-<script src="{!! asset('site/js/element-in-view.js') !!}"></script>
-<script src="{!! asset('site/js/jquery.paroller.min.js') !!}"></script>
+{{--<script src="{!! asset('site/js/swiper.min.js') !!}"></script>--}}
+{{--<script src="{!! asset('site/js/element-in-view.js') !!}"></script>--}}
+{{--<script src="{!! asset('site/js/jquery.paroller.min.js') !!}"></script>--}}
 
-<script src="{!! asset('site/js/validate.js') !!}"></script>
+{{--<script src="{!! asset('site/js/validate.js') !!}"></script>--}}
 
-<script src="{!! asset('site/js/parallax.min.js') !!}"></script>
-<script src="{!! asset('site/js/tilt.jquery.min.js') !!}"></script>
+{{--<script src="{!! asset('site/js/parallax.min.js') !!}"></script>--}}
+{{--<script src="{!! asset('site/js/tilt.jquery.min.js') !!}"></script>--}}
 <!--Master Slider-->
-<script src="{!! asset('site/js/jquery.easing.min.js') !!}"></script>
-<script src="{!! asset('site/js/owl.js') !!}"></script>
-<script src="{!! asset('site/js/wow.js') !!}"></script>
-<script src="{!! asset('site/js/jquery-ui.js') !!}"></script>
+{{--<script src="{!! asset('site/js/jquery.easing.min.js') !!}"></script>--}}
+{{--<script src="{!! asset('site/js/owl.js') !!}"></script>--}}
+{{--<script src="{!! asset('site/js/wow.js') !!}"></script>--}}
+{{--<script src="{!! asset('site/js/jquery-ui.js') !!}"></script>--}}
 <script src="{!! asset('site/js/script.js') !!}"></script>
 
 <script src="{{asset('firebase\firebase-app.js')}}"></script>
 <script src="{{asset('firebase\firebase-messaging.js')}}"></script>
-<script src="{{asset('firebase\firebase-firestore.js')}}"></script>
-<script src="{{asset('firebase\firebase-analytics.js')}}"></script>
+{{--<script src="{{asset('firebase\firebase-firestore.js')}}"></script>--}}
+{{--<script src="{{asset('firebase\firebase-analytics.js')}}"></script>--}}
 
 <script>
 
