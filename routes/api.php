@@ -44,6 +44,7 @@ Route::post('upload_image', 'Api\Shop\ZoneController@upload_image');
 Route::post('get_district', 'Api\Shop\ZoneController@get_district');
 Route::post('get_gov', 'Api\Shop\ZoneController@get_gov');
 Route::post('shop/all_categories', 'Api\Shop\CategoreisController@all_categories');
+Route::post('shop/seller_name', 'Api\Shop\CategoreisController@seller_name');
 Route::post('shop/get_product_by_categories', 'Api\Shop\CategoreisController@get_product_by_categories');
 Route::post('shop/get_product_by_categories22', 'Api\Shop\CategoreisController@get_product_by_categories22');
 Route::post('shop/get_category_products', 'Api\Shop\CategoreisController@get_category_products');
@@ -71,6 +72,7 @@ Route::group(['middleware' => 'CheckAdminT:api'], function () {
     Route::post('shop/my_orders', 'Api\Shop\CartController@my_orders');
     Route::post('shop/add_payment', 'Api\Shop\CartController@add_payment');
     Route::post('shop/confirm_order', 'Api\Shop\CartController@confirm_order');
+    Route::post('shop/cancel_order', 'Api\Shop\CartController@cancel_order');
     Route::post('shop/product_rate', 'Api\Shop\ProductsController@product_rate');
     Route::post('shop/product_rate2', 'Api\Shop\ProductsController@rate2');
 

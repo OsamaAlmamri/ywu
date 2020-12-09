@@ -13,7 +13,8 @@
 
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!--<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>-->
 
     {{--    <link href="{{  asset('vendors/bootstrap/dist/css/bootstrap.min.css')  }}" rel="stylesheet">--}}
@@ -46,7 +47,7 @@
     <link href="{!! asset('js/dataTables.bootstrap.min.css') !!}" media="all" rel="stylesheet">
     <link href="{!! asset('newLibs/data-table/css/buttons.dataTables.min.css') !!}" media="all" rel="stylesheet">
     <link href="{!! asset('newLibs/data-table/css/buttons.dataTables.min.css') !!}" media="all" rel="stylesheet">
-          type="text/css"/>
+    type="text/css"/>
     <link href="{!! asset('newLibs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') !!}"
           media="all" rel="stylesheet" type="text/css"/>
     <link href="{!! asset('newLibs/data-table/extensions/responsive/css/responsive.dataTables.css') !!}"
@@ -56,8 +57,36 @@
     <link href="{!! asset('new_admin/css/custom.css') !!}" media="all" rel="stylesheet" type="text/css"/>
     <link href="{!! asset('new_admin/css/styles.css') !!}" media="all" rel="stylesheet" type="text/css"/>
     <link href="{!! asset('newLibs\toastr\toastr.css') !!}" media="all" rel="stylesheet" type="text/css"/>
-    <script src="https://cdn.tiny.cloud/1/ldt6r8rxr9v18fsljk2n08p2tc1sjecegs1z8j9ssv2ya90d/tinymce/5/tinymce.min.js"></script>
+    <script
+        src="https://cdn.tiny.cloud/1/ldt6r8rxr9v18fsljk2n08p2tc1sjecegs1z8j9ssv2ya90d/tinymce/5/tinymce.min.js"></script>
 
+    <style>
+
+        #social-links {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        #social-links ul {
+            list-style: none;
+            display: inline-block;
+        }
+
+        #social-links ul li {
+            font-size: 20px;
+            float: right;
+            padding: 6px;
+        }
+
+        #social-links span.fa {
+            display: block;
+        }
+
+        .my_store_url {
+            font-size: 17px;
+            color: blue;
+        }
+    </style>
 </head>
 <!-- /header content -->
 
@@ -74,6 +103,36 @@
     <!-- /page content -->
 
         <!-- footer content -->
+        {{--        @if (auth()->user()->type=="seller")--}}
+        <div id="my_store_link" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">مشاركة الرابط الخاص بمتجري </h4>
+
+
+                    </div>
+                    <div class="modal-body">
+                        <a class="my_store_url" href="https://ywudevlopment.com/shop/seller/{{auth()->id()}}"
+                           target="_blank">
+                            فتح متجري
+                        </a>
+                        {!! Share::page("https://ywudevlopment.com/shop/seller/".auth()->id(), null, ['class' => 'my_store_links' ])
+                                        ->facebook()
+                                        ->whatsapp()
+                                        ->twitter()
+
+                                        ->telegram()
+                                        ->linkedin()
+                                   !!}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {{--   @endif--}}
 
     @include('adminpanel.includeHF.footer')
     <!-- /footer content -->
@@ -114,7 +173,6 @@
 
 /***************************/
 <script src="{!! asset('new_admin/js/dropzone.js') !!}"></script>
-<script src="{!! asset('new_admin/js/image-picker.js') !!}"></script>
 <script src="{!! asset('new_admin/js/image-picker.min.js') !!}"></script>
 /***************************/
 <script src="{!! asset('newLibs/datatables.net/js/jquery.dataTables.min.js') !!}"></script>
@@ -132,7 +190,13 @@
 <script src="{{asset('firebase\firebase-firestore.js')}}"></script>
 <script src="{{asset('firebase\firebase-analytics.js')}}"></script>
 
+<script src="{{ asset('js/share.js') }}"></script>
 <script>
+
+    $(document).on('click', '#open_my_store', function (e) {
+        $('#my_store_link').modal('show');
+    });
+
 
     $(document).ready(function () {
         // Your web app's Firebase configuration

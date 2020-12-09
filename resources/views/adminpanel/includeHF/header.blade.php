@@ -39,6 +39,10 @@
                                 <li><a href="{{route('admin.shop.sellers.index')}}"> البائعين </a></li>
                             @endif
 
+                            {{--                            @if ((Auth::user()->type=="seller") == true))--}}
+                            <li><a href="#" id="open_my_store"> رابط متجري </a></li>
+                            {{--                            @endif--}}
+
                             <li><a><i class="fa fa-picture-o"></i> الصور <span
                                         class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
@@ -53,7 +57,7 @@
                             @endif
                             @if ((Auth::user()->can('show coupons') == true))
 
-                                <li><a href="{{route('admin.shop.coupons.index')}}">  كوبونات التسوق </a>
+                                <li><a href="{{route('admin.shop.coupons.index')}}"> كوبونات التسوق </a>
                                 </li>
                             @endif
                             {{--                            <li><a href="{{route('admin.shop.spaces.index')}}"> ادارة المساحات </a></li>--}}
@@ -276,3 +280,6 @@
         </nav>
     </div>
 </div>
+
+
+

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\FireBaseController;
 use App\Models\Shop\Order;
 use App\Models\Shop\OrderSeller;
+use App\Models\Shop\OrderTiming;
 use App\Models\Shop\Product;
 use App\Models\Shop\ProductQuestion;
 use App\Models\Shop\ProductsOption;
@@ -15,6 +16,7 @@ use App\Notifications\AppNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -44,7 +46,6 @@ class OrdersController extends Controller
                 if ($type == 'main')
                     return datatables()->of($data)
                         ->addIndexColumn()
-
                         ->addColumn('action', 'admin.shop.orders.btn.action_main')
                         ->addColumn('btn_status', 'admin.shop.orders.btn.status')
                         ->rawColumns(['action', 'btn_status'])
@@ -52,7 +53,6 @@ class OrdersController extends Controller
                 else
                     return datatables()->of($data)
                         ->addIndexColumn()
-
                         ->addColumn('action', 'admin.shop.orders.btn.action')
                         ->addColumn('btn_status', 'admin.shop.orders.btn.status')
                         ->rawColumns(['action', 'btn_status'])
@@ -111,14 +111,38 @@ class OrdersController extends Controller
 
     public function change_sub_status(Request $request)
     {
+        $rules = [
+            "status" => "required",
+            'description' => 'required_if:status,cancel_by_seller,min:10',
+        ];
+        $messages = [
+            "description.required_if" => "يرجى تحديد سبب اللغاء",
+            "description.min" => "يرجى تحديد سبب اللغاء",
+//            "image.mimes" => "يجب ان يكون امتداد الصورة: jpg,png,jpeg,gif,svg",
+
+        ];
+        $error = Validator::make($request->all(), $rules, $messages);
+        if ($error->fails()) {
+            return response()->json([
+                'errors' => $error->errors(),
+            ], 422);
+        }
 
         $order_seller = OrderSeller::find($request->order_id);
         $order_seller->status = $request->status;
         $order_seller->save();
+        if ($request->status == 'cancel_by_seller')
+            $message = '  تم الغاء  الطلب رقم  ' . $order_seller->id . '  من قبل متجر   ' . $order_seller->seller_name;
+        else
+            $message = '  تم تغيير حالة الطلب رقم  ' . $order_seller->id . '  من قبل متجر   ' . $order_seller->seller_name;
+        $time = OrderTiming::create(['order_seller_id' => auth()->id(),
+            'status' => 'new',
+            'description' => $message,
+            'type' => 'order_status'
+        ]);
 
-        $message = '  تم تغيير حالة الطلب رقم  ' . $order_seller->id . '  من قبل متجر   ' . $order_seller->seller_name;
         $dataToNotification = array(
-            'sender_name' => auth()->user()->name,
+            'sender_name' => auth()->user()->seller->sale_name,
             'order_id' => $order_seller->id,
             'notification_type' => "sub_order",
             'user_id' => \auth()->id(),
@@ -126,9 +150,53 @@ class OrdersController extends Controller
             'message' => $message,
             'date' => now()
         );
-        $order_seller->order->user->notify(new AppNotification($dataToNotification));
-        $tokens = getNotifiableUsers(0, [$order_seller->order->user->id]);
-        $this->firbaseContoller->multi($tokens, $dataToNotification);
+        try {
+            $order_seller->order->user->notify(new AppNotification($dataToNotification));
+            $tokens = getNotifiableUsers(0, [$order_seller->order->user->id]);
+            $this->firbaseContoller->multi($tokens, $dataToNotification);
+        } catch (\Exception $ex) {
+        }
+
+        return response($order_seller, 200);
+    }
+
+    public function new_delivery_location(Request $request)
+    {
+        $rules = [
+            'new_delivery_location' => 'required|min:10',
+        ];
+        $messages = [
+            "new_delivery_location.required" => "يرجى تحديد مكان التسليم",
+            "new_delivery_location.min" => "يرجى تحديد مكان التسليم",
+//            "image.mimes" => "يجب ان يكون امتداد الصورة: jpg,png,jpeg,gif,svg",
+
+        ];
+        $error = Validator::make($request->all(), $rules, $messages);
+        if ($error->fails()) {
+            return response()->json([
+                'errors' => $error->errors(),
+            ], 422);
+        }
+
+        $order_seller = OrderSeller::find($request->order_id);
+        $order_seller->new_delivery_location = $request->new_delivery_location;
+        $order_seller->save();
+        $message = '  تم تحديد مكان تسليم  الطلب رقم  ' . $order_seller->id . '  من قبل متجر   ' . $order_seller->seller_name;
+        $dataToNotification = array(
+            'sender_name' => auth()->user()->seller->sale_name,
+            'order_id' => $order_seller->id,
+            'notification_type' => "sub_order",
+            'user_id' => \auth()->id(),
+            'sender_image' => url('site/images/Logo250px.png'),
+            'message' => $message,
+            'date' => now()
+        );
+        try {
+            $order_seller->order->user->notify(new AppNotification($dataToNotification));
+            $tokens = getNotifiableUsers(0, [$order_seller->order->user->id]);
+            $this->firbaseContoller->multi($tokens, $dataToNotification);
+        } catch (\Exception $ex) {
+        }
 
         return response($order_seller, 200);
     }

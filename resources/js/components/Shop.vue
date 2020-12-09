@@ -1,6 +1,7 @@
 <template>
     <div>
-        <search-filed v-if="this.$route.name !='shop_search'"></search-filed>
+        <search-filed :append_name="append_name"></search-filed>
+
         <loading :active.sync="isLoading"
                  :can-cancel=false
                  :color="'#593c97'"
@@ -24,7 +25,7 @@
             <div class="circle-one"></div>
             <div class="circle-two"></div>
             <div class="auto-container">
-                <div class="search-boxed">
+                <div class="search-boxed" v-if="(this.$route.name != 'shop_seller')">
                     <div class="search-box row">
                         <div class=" col-6 col-md-3">
                             <label class="typo__label">المحافظات</label>
@@ -168,6 +169,7 @@
                 categories: [],
                 is_search: false,
                 search_data: '',
+                append_name: null,
                 search_result: [],
                 sections: [],
                 course_id: '',
@@ -187,12 +189,19 @@
             }
         },
         created() {
-            this.get_gov();
-            this.gov_sellers();
-            this.all_categories();
+
             if (this.$route.name != 'shop_search')
                 this.get_product_by_categories22();
+            if (this.$route.name == 'shop_seller')
+                this.get_seller_name();
+            else {
+                this.get_gov();
+                this.gov_sellers();
+                this.all_categories();
+            }
+
         },
+        computed: {},
         methods: {
             remove(array, element) {
                 const index = array.indexOf(element);
@@ -250,6 +259,19 @@
                         console.log(err)
                     })
             },
+            get_seller_name() {
+                axios({url: '/api/shop/seller_name', data: {id: this.$route.params.id}, method: 'POST'})
+                    .then(resp => {
+                            if (resp.data.status == false)
+                                toastStack('   خطاء ', resp.data.msg, 'error');
+                            else
+                                this.append_name = (resp.data.data.sale_name);
+                        }
+                    )
+                    .catch(err => {
+                        console.log(err)
+                    })
+            },
             get_product_by_categories22() {
                 this.form.seller_id = [];
                 this.form.categories = [];
@@ -259,6 +281,9 @@
                 for (let i = 0; i < this.categiries_value.length; i++) {
                     this.form.categories.push(this.categiries_value[i].id);
                 }
+                if (this.$route.name == 'shop_seller')
+                    this.form.seller_id.push(this.$route.params.id);
+
                 if (this.is_search == false) {
                     this.is_search = true;
                     this.isLoading = true;

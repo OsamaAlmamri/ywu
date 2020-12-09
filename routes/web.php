@@ -153,6 +153,7 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
             Route::get('/show_main_order/{id}', 'OrdersController@show_main_order')->name('show_main_order');
             Route::post('/active', 'OrdersController@active')->name('active');
             Route::post('/change_sub_status', 'OrdersController@change_sub_status')->name('change_sub_status');
+            Route::post('/new_delivery_location', 'OrdersController@new_delivery_location')->name('new_delivery_location');
         });
 
         Route::group(['prefix' => 'payment', 'as' => 'admin.shop.payments.'], function () {
@@ -376,6 +377,7 @@ Route::get('/home', 'HomeController@index')->name('site.home');
 Route::get('/training', 'HomeController@index')->name('site.training');
 Route::get('/courses/{type?}', 'HomeController@courses')->name('site.courses');
 Route::get('/consultant', 'HomeController@consultant')->name('site.consultant');
+Route::get('/shop/seller/{id}', 'HomeController@consultant');
 Route::get('/women', 'HomeController@women')->name('site.women');
 Route::get('/privacy', 'HomeController@privacy')->name('site.privacy');
 Route::get('/concatUs', 'HomeController@concatUs')->name('site.concatUs');
@@ -387,12 +389,7 @@ Route::get('/myProfile', 'HomeController@myProfile')->name('site.myProfile');
 Route::get('/site_login', 'HomeController@login')->name('site.login');
 Route::get('/register', 'HomeController@register')->name('site.register');
 Route::get('/login', 'HomeController@register')->name('site.login');
-//Route::get('/{any?}', function () {
-//    return view('welcome');
-//})->where('any', '^(?!api\/)[\/\w\.-]*');
 Route::post('zones/getZones', 'HomeController@getZones')->name('zones.getZones');
-
-
 Route::get('download_app', function () {
     $id = setting('app_link');
     $headers = [
@@ -405,3 +402,6 @@ Route::get('download_app', function () {
 
 
 })->name('download_app');
+
+Route::get('/{any?}','HomeController@index' )->where('any', '^(?!api\/)[\/\w\.-]*');
+

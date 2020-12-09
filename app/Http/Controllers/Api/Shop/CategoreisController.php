@@ -21,6 +21,17 @@ class CategoreisController extends Controller
         return $this->GetDateResponse('data', $data);
     }
 
+    public function seller_name(Request $request)
+    {
+        $data = Seller::where('admin_id', $request->id)->get()->first();
+        if ($data != null) {
+
+            return $this->GetDateResponse('data', $data);
+        }
+        return $this->ReturnErorrRespons("0000", "لايوجد متجر بهذ الرقم");
+
+    }
+
     public function product_details(Request $request)
     {
         $data = Product::with(['ratings', 'defaults_attributes',

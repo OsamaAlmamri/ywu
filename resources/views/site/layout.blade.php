@@ -60,26 +60,21 @@
             text-align: center;
             font-size: 14px;
         }
-
         .cource-block-two .inner-box .lower-content {
             position: relative;
             padding: 5px 6px;
             font-size: 0.875rem;
         }
-
         .product_price_box {
-
             font-size: 9px;
             color: black;
         }
-
         .product_name_box {
             font-size: 9px;
             font-weight: 600;
         }
 
         .inner_currancy {
-
             font-size: 11px;
         }
 
@@ -100,6 +95,17 @@
         .product_countainer {
 
             box-shadow: 0 3px 7px 0 rgb(0, 0, 0, 0.5);
+        }
+
+
+
+        .one_seller_box {
+            margin-right: -30px;
+            margin-left: -30px;
+            font-size: 13px;
+            border: 1px solid;
+            margin-bottom: 5px;
+
         }
     </style>
 </head>

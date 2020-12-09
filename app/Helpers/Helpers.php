@@ -49,13 +49,15 @@ function notification_type($id, $type)
         case 'new_training_user':
             return route('user_trainings');
             break;
+        case 'cancel_order':
+            return route('admin.shop.orders.show_seller_order', $id);
+            break;
         default:
             return '/admin/home';
     }
 
-    //
-//
-    '';
+
+
 }
 
 if (!function_exists('getAdminsOrderNotifucation')) {
@@ -133,11 +135,12 @@ function getSpesificStatus($status = 0)
     $s = array(
         'new' => trans('status.order_new'),
         'cancel_by_seller' => trans('status.order_cancel_by_seller'),
-        'new_cancel_by_user' => trans('status.order_new_cancel_by_user'),
+        'cancel_by_user' => trans('status.order_cancel_by_user'),
         'in_progress' => trans('status.order_in_progress'),
         'shipping' => trans('status.order_shipping'),
         'delivery' => trans('status.order_delivery'),
     );
+
     if ($status != 0)
         return $s[$status];
     else {
@@ -205,6 +208,7 @@ function CouponUsedStatus($status = 'all')
     }
     return $s[$status];
 }
+
 function CouponEndStatus($status = 'all')
 {
     $s = array(
@@ -279,6 +283,7 @@ function sellers()
     })->get();
     return $data;
 }
+
 function getZones($governorate_id = 0)
 {
     if ($governorate_id == 0) {
@@ -288,7 +293,7 @@ function getZones($governorate_id = 0)
         else
             return [];
     }
-    $allZones =Zone::all()->where('parent', '=', $governorate_id);
+    $allZones = Zone::all()->where('parent', '=', $governorate_id);
 
     $zones = [];
     foreach ($allZones as $zone) {

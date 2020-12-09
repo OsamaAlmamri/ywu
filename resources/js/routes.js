@@ -48,6 +48,14 @@ const routes = [
         }
     },
     {
+        path: '/shop/seller/:id',
+        component: shop,
+        name: "shop_seller",
+        meta: {
+            requiresAuth: false
+        }
+    },
+    {
         path: '/cart',
         component: cart,
         name: "cart",
@@ -225,15 +233,16 @@ const routes = [
 
 ];
 const router = new VueRouter({
+    mode: 'history',
     routes
 })
 
 
 router.beforeEach((to, from, next) => {
     window.scrollTo(0, 0);
-    var div =  document.querySelector('body');
+    var div = document.querySelector('body');
     div.classList.remove('mobile-menu-visible');
-    if(to.matched.some(record => record.meta.requiresAuth)) {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
         if (store.getters.isLoggedIn) {
             next()
             return

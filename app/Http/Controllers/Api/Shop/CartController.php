@@ -5,9 +5,6 @@ namespace App\Http\Controllers\Api\Shop;
 use App\Coupon;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FireBaseController;
-use App\Http\Resources\LastPosts;
-use App\Like;
-use App\Models\Rateable\Rating;
 use App\Models\Shop\Cart;
 use App\Models\Shop\Order;
 use App\Models\Shop\OrderPayment;
@@ -16,21 +13,12 @@ use App\Models\Shop\OrderSeller;
 use App\Models\Shop\OrderTiming;
 use App\Models\Shop\Product;
 use App\Models\Shop\ProductsAttribute;
-use App\Models\TrainingContents\SubjectCategory;
-use App\Models\TrainingContents\TitleContent;
-use App\Models\TrainingContents\Training;
-use App\Models\TrainingContents\TrainingTitle;
-use App\Models\UserContents\Post;
-use App\Models\WomenContents\WomenPosts;
 use App\Models\Shop\OrderProductAttribute;
 use App\Notifications\AppNotification;
 use App\Notifications\OrderNotification;
-use App\Question;
-use App\Result;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
-use App\UserTraining;
-use App\UserTrainingTiltle;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -181,7 +169,6 @@ class CartController extends Controller
         }
     }
 
-
     public function delete_coupon(Request $request)
     {
         try {
@@ -212,7 +199,6 @@ class CartController extends Controller
         }
     }
 
-
     public function my_cart2(Request $request)
     {
         try {
@@ -229,6 +215,65 @@ class CartController extends Controller
         }
     }
 
+    public function cancel_order(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(),
+                [
+                    'order_id' => 'required|exists:order_sellers,id',
+                    'description' => 'required',
+                ],
+                [
+                    'order_id.required' => 'يرجى تحديد رقم الطلب ',
+                    'description.required' => 'يرجى تحديد سبب الالغاء',
+                ]);
+            if ($validator->fails()) {
+                return $this->ReturnErorrRespons('0000', $validator->errors());
+            }
+            $order = OrderSeller::where('id', $request->order_id)
+                ->whereExists(function ($query) {
+                    $query->select("orders.id")
+                        ->from('orders')
+                        ->where('user_id', '=', \auth()->id())
+                        ->whereRaw('order_sellers.order_id = orders.id');
+                })
+                ->whereNotIn('status', ['shipping', 'in_progress'])
+                ->get()->first();
+//            $coupon= Coupon::where()
+            if ($order == null)
+                return $this->ReturnErorrRespons("0000", "لا يمكن الغاء هذا الطلب الا من قبل التاجر");
+            else {
+                $order->status = 'cancel_by_user';
+                $order->save();
+                $message = ' تم الغاء الطلب رقم ' . $order->id . '  من العميل  ' . \auth()->user()->name;
+                $time = OrderTiming::create(['order_seller_id' => $order->id,
+                    'status' => 'cancel_by_user',
+                    'description' => $request->description,
+                    'type' => 'order_status'
+                ]);
+                $dataToNotification = array(
+                    'sender_name' => auth()->user()->name,
+                    'order_id' => $order->id,
+                    'notification_type' => "cancel_order",
+                    'user_id' => \auth()->id(),
+                    'sender_image' => url('site/images/Logo250px.png'),
+                    'message' => $message,
+                    'date' => $time->created_at
+                );
+                try {
+                    $order->admin->notify(new AppNotification($dataToNotification));
+                    $tokens = getNotifiableUsers(0, [$order->admin->id]);
+                    $this->firbaseContoller->multi($tokens, $dataToNotification);
+                } catch (\Exception $ex) {
+                }
+                return $this->GetDateResponse('data', $order, 'تم الالغاء بنجاح');
+            }
+        } catch
+        (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
     public function add_payment(Request $request)
     {
         try {
@@ -238,7 +283,7 @@ class CartController extends Controller
 
             $validator = Validator::make($request->all(),
                 [
-                    'order_id' => 'required|exists:orders,id',
+                    'order_id' => 'required|exists:order_sellers,id',
                     'invoice_number' => 'required|numeric',
                     'amount' => 'required|numeric',
                 ],
@@ -275,10 +320,11 @@ class CartController extends Controller
                 $o->admin->notify(new AppNotification($dataToNotification));
                 $tokens = getNotifiableUsers(0, array_merge([$o->admin->id], $admins_id));
                 $this->firbaseContoller->multi($tokens, $dataToNotification);
-                return $this->GetDateResponse('data', $data);
             } catch (\Exception $ex) {
 
             }
+            return $this->GetDateResponse('data', $data);
+
         } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
         }
@@ -289,6 +335,7 @@ class CartController extends Controller
         try {
             $data = Order::with(['sellers'])
                 ->where('user_id', '=', \auth()->id())
+                ->orderByDesc('id')
                 ->paginate(100);
             return $this->GetDateResponse('data', $data);
 

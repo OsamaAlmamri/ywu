@@ -91,9 +91,13 @@
                                                                 <h3>{{product.name}}</h3>
                                                                 <p><strong>السعر </strong> {{calculatePrice}} ر.ي</p>
                                                                 <p>
-                                                                    <img style="width: 31px;border-radius: 50px;"
-                                                                         :src="product.sell_icon">
-                                                                    <span>  {{product.sell_name}}    </span>
+                                                                    <router-link @click.native="$scrollToTop"
+                                                                                 :to="{ name: 'shop_seller', params: { id: product.admin_id}}">
+
+                                                                        <img style="width: 31px;border-radius: 50px;"
+                                                                             :src="product.sell_icon">
+                                                                        <span>  {{product.sell_name}}    </span>
+                                                                    </router-link>
                                                                 </p>
                                                                 <p>
                                                                     <i class="fa fa-map-marker "></i>

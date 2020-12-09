@@ -2,7 +2,7 @@
     <!-- Page Title -->
     <section class="page-title">
         <div class="auto-container">
-            <h1> {{pageName}}</h1>
+            <h1> {{pageName}} <span v-if="this.append_name!=null">({{this.append_name}})</span></h1>
             <!-- Search Boxed -->
             <div v-if="showSearchFiled==true" class="search-boxed">
                 <div class="search-box">
@@ -34,7 +34,11 @@
                 searchData: '',
             }
         },
-        props: ['title'],
+        props: {
+            'title': String,
+            'append_name': {default: null, type: String},
+
+        },
         methods: {
 
             search() {
@@ -98,6 +102,10 @@
 
                     case 'shop_search' :
                         return "البحث عن منتجات محددة";
+                        break;
+
+                    case 'shop_seller' :
+                        return "منتجات متجر ";
                         break;
 
                     case 'shop_like' :
