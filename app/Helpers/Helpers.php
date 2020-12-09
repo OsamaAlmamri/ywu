@@ -106,7 +106,8 @@ function setFirBaseToken($data)
 
 function get_devic_mac()
 {
-    return substr(exec('getmac'), 0, 17);
+//    return substr(exec('getmac'), 0, 17);
+    return 1;
 }
 
 function set_users_decices($request)

@@ -56,6 +56,13 @@ class PaymentController extends Controller
         if ($payment_status != "all") {
             $data = $data->where('status', $payment_status);
         }
+        if (auth()->user()->type == "seller") {
+            $data = $data->whereIn('order_id', function ($query) {
+                $query->select('id')
+                    ->from(with(new OrderSeller())->getTable())
+                    ->where('seller_id', auth()->id())->get();
+            });
+        }
         return $data->orderByDesc('id')->get();
     }
 
