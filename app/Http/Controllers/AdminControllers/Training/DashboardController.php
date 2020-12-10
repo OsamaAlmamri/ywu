@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AdminControllers\Training;
 
+use App\Coupon;
 use App\Http\Controllers\Controller;
 
 use App\Admin;
@@ -41,16 +42,20 @@ class DashboardController extends Controller
             /*****************/
             $products = Product::all()->count();
             $shopCategory = ShopCategory::all()->count();
-            $seller = Admin::all()->where('type','seller')->count();
+            $seller = Admin::all()->where('type', 'seller')->count();
             $all_orders = Order::all()->count();
-            $all_payment_orders = Order::all()->where('payment_status',1)->count();
-            $all_no_payment_orders = Order::all()->where('payment_status',0)->count();
+            $all_payment_orders = Order::all()->where('payment_status', 1)->count();
+            $all_no_payment_orders = Order::all()->where('payment_status', 0)->count();
             $all__no_payment_orders = OrderSeller::all()->count();
             $new_orders = OrderSeller::all()->where('status', "new")->count();
             $deliver_orders = OrderSeller::all()->where('status', "delivery")->count();
+            $cancel_orders = OrderSeller::all()->whereIn('status', ['cancel_by_seller', 'cancel_by_user'])->count();
+            $coupons = Coupon::all()->count();
+            $coupons_used = Coupon::all()->where('used', 1)->count();
+            $coupons_not_used = Coupon::all()->where('used', 0)->count();
 
-            return view('admin.training.asking.index', compact(['products','new_orders','deliver_orders','shopCategory','seller','all_orders','all_payment_orders','all_no_payment_orders'
-,'shareduser', 'admin', 'trainings', 'subjects', 'posts', 'soft_delete', 'pos_agree', 'users', 'pos', 'employees', 'women']));
+            return view('admin.training.asking.index', compact(['products', 'new_orders', 'deliver_orders', 'shopCategory', 'seller', 'all_orders', 'all_payment_orders', 'all_no_payment_orders'
+             ,"cancel_orders","coupons","coupons_used","coupons_not_used" , 'shareduser', 'admin', 'trainings', 'subjects', 'posts', 'soft_delete', 'pos_agree', 'users', 'pos', 'employees', 'women']));
         } else {
 
             $admin_id = auth()->id();

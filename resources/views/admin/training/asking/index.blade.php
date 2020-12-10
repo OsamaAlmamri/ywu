@@ -161,6 +161,43 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #265a88;">
+                <div class="card">
+                    <div class="card-block">
+                <span class="count_top" style="font-weight: bold"><i class="fa fa-question-circle"
+                                                                     style="font-size: 20px"></i> عدد  الطلبات الملغية </span>
+                        <div class="count">{{$cancel_orders}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #6B6464;">
+                <div class="card">
+                    <div class="card-block">
+                <span class="count_top" style="font-weight: bold"><i class="fa fa-id-card"
+                                                                     style="font-size: 20px"></i>  عدد الكوبونات  </span>
+                        <div class="count">{{$coupons}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #82ad2b;">
+                <div class="card">
+                    <div class="card-block">
+                <span class="count_top" style="font-weight: bold"><i class="fa fa-check-circle"
+                                                                     style="font-size: 20px"></i> عدد الكوبونات  المستخدمة </span>
+                        <div class="count">{{$coupons_used}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #dd0066;">
+                <div class="card">
+                    <div class="card-block">
+                        <span class="count_top" style="font-weight: bold"><i class="fa fa-close"
+                                                                             style="font-size: 20px"></i>  عدد الكوبونات غير المستخدمة </span>
+                        <div class="count">{{$coupons_not_used}}</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         @if ((Auth::user()->can('manage consultant') == true))
