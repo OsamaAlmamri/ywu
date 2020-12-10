@@ -3,11 +3,11 @@
     <div class="inner-box" style="margin-bottom: 10px">
         <div class="image">
 
-            <clazy-load class="wrapper" :src="product.image">
+            <clazy-load class="wrapper" :src="BaseImagePath+product.image">
                 <transition name="fade">
 
                     <div class="divClass"
-                         v-bind:style="{ backgroundImage: 'url('+ product.image + ')' }">
+                         v-bind:style="{ backgroundImage: 'url('+BaseImagePath+ product.image + ')' }">
 
 
                         <!--                        <a :href=" product.image_actual" data-lightbox="1" data-title="">-->

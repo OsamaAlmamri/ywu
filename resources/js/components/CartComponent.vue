@@ -113,7 +113,7 @@
                                     <div class="px-3 my-3">
                                         <a class="cart-item-product" href="#">
                                             <div class="cart-item-product-thumb"><img
-                                                :src="cart_item.product.image" alt="Product">
+                                                :src="BaseImagePath+cart_item.product.image" alt="Product">
                                             </div>
                                             <div class="cart-item-product-info">
                                                 <h4 class="cart-item-product-title">{{cart_item.product.name}}</h4>
@@ -122,7 +122,7 @@
                                                 </span>
                                                 <span><strong><i class="fa fa-map-marker "></i>:</strong> {{cart_item.product.zone}}</span>
                                                 <span><img style="width: 31px;border-radius: 50px;"
-                                                           :src="cart_item.product.sell_icon"> {{cart_item.product.sell_name}}  </span>
+                                                           :src="BaseImagePath+cart_item.product.sell_icon"> {{cart_item.product.sell_name}}  </span>
 
                                             </div>
                                         </a>
@@ -215,7 +215,7 @@
                             </div>
                         </div>
                         <div style="text-align: center">
-                            <img v-show="cart_items.length<1" src="site/images/empty-cart.png">
+                            <img v-show="cart_items.length<1" src="/site/images/empty-cart.png">
 
                         </div>
                     </div>

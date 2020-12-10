@@ -44,7 +44,7 @@
                             </pagination>
                         </div>
                         <div style="text-align: center" v-show="products.data.length<1">
-                            <img style="width: 35%;margin-top: -150px;" src="site/images/img-no-products.png">
+                            <img style="width: 35%;margin-top: -150px;" src="/site/images/img-no-products.png">
                             <h4>
                                 ليس هناك اي منتجات بهذ التصنيف
                             </h4>

@@ -10,8 +10,8 @@
                                  class="col-4 col-sm-3 col-md-2 col-lg-1">
                         <div class="category_image_box">
                             <img class=" img-fluid category_image"
-                                 :data-flickity-lazyload="category.image"
-                                 :src="category.image">
+                                 :data-flickity-lazyload="BaseImagePath+category.image"
+                                 :src="BaseImagePath+category.image">
                         </div>
                         <p class="category_name"> {{category.name}} </p>
                     </router-link>

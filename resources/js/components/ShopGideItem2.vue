@@ -6,7 +6,7 @@
             <div class="product_image_box">
                 <div class="productImage"
                      data-qa-id="productImagePLP_غلاية من الاستانلس ستيل سعة 1.5 لتر بقوة 1800 وات ">
-                    <clazy-load class="wrapper" :src="product.image">
+                    <clazy-load class="wrapper" :src="BaseImagePath+product.image">
                         <transition name="fade">
                             <!--                                <div class="divClass"-->
                             <!--                                     v-bind:style="{ backgroundImage: 'url('+ product.image + ')' }">-->
@@ -18,7 +18,7 @@
                             <!--                                </div>-->
                             <div class=" product_image_inner_box">
                                 <div class="image_box"><img
-                                    :src="product.image"
+                                    :src="BaseImagePath+product.image"
                                     alt=""></div>
                             </div>
                         </transition>

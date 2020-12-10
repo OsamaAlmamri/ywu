@@ -107,6 +107,14 @@
             margin-bottom: 5px;
 
         }
+        /*.cource-block-two .wrapper*/
+        /*{*/
+        /*    height: 200px;*/
+        /*}*/
+        /*.cource-block-two .divClass*/
+        /*{*/
+        /*    height: 163px;*/
+        /*}*/
     </style>
 </head>
 <body>
@@ -404,7 +412,7 @@
                                     <div class="logo">
                                         <a href="/">
                                             <router-link @click.native="scrollToTop()" to="/home"></router-link>
-                                            <img style="width: 80%" src="site/images/footer/3.png" alt=""></a>
+                                            <img style="width: 80%" src="/site/images/footer/3.png" alt=""></a>
                                     </div>
 
                                 </div>
@@ -423,14 +431,14 @@
                                         <a href="{{route('download_app') }}" target="_blank">
                                             {{--                                        <a href="https://play.google.com/store/apps/" target="_blank">--}}
                                             <img
-                                                src="site/images/google-play-img.png" alt=""></a>
+                                                src="/site/images/google-play-img.png" alt=""></a>
                                         {{--                                            <a href="https://play.google.com/store/apps/details?id=com.sahltaxi.passenger" target="_blank"><img src="assets/img/google-play-img.png" alt=""></a>--}}
 
                                     </li>
                                     <li>
 
                                         <a href="https://itunes.apple.com" target="_blank"><img
-                                                src="site/images/app-stor-img.png" alt=""></a>
+                                                src="/site/images/app-stor-img.png" alt=""></a>
                                         {{--                                            <a href="https://itunes.apple.com/qa/app/sahl-taxi/id1455325390?mt=8" target="_blank"><img src="assets/img/app-stor-img.png" alt=""></a>--}}
                                     </li>
                                 </ul>

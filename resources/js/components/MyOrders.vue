@@ -262,7 +262,7 @@
                                     </div>
                                 </div>
                                 <div style="text-align: center" v-show="order_items.length<1">
-                                    <img style="width: 20%" src="site/images/no_order.png">
+                                    <img style="width: 20%" src="/site/images/no_order.png">
                                     <h4>
                                         لم تقم باضافة اي طلب من قبل
                                     </h4>

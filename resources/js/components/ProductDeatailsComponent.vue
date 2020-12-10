@@ -313,8 +313,8 @@
                                                 <a v-bind:href="product.image_actual"
                                                    data-lightbox="1" data-title="">
                                                     <img class="img-thumbnail img-fluid category_image"
-                                                         :data-flickity-lazyload="product.image_actual"
-                                                         :src="product.image_actual">
+                                                         :data-flickity-lazyload="BaseImagePath+product.image_actual"
+                                                         :src="BaseImagePath+product.image_actual">
                                                 </a>
                                             </div>
                                         </div>
@@ -323,8 +323,8 @@
                                 <div v-for="image in product.images" class="col-12">
                                     <div class="category_image_box">
                                         <img class=" img-fluid category_image"
-                                             :data-flickity-lazyload="image.image_actual"
-                                             :src="image.image_actual">
+                                             :data-flickity-lazyload="BaseImagePath+image.image_actual"
+                                             :src="BaseImagePath+image.image_actual">
                                     </div>
                                 </div>
                             </flickity>

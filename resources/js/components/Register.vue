@@ -206,7 +206,7 @@
                                            v-on:change="onFileChange()">
                                 </div>
                                 <div v-else>
-                                    <img id="slected_image" :src="image"/>
+                                    <img id="slected_image" :src="BaseImagePath+image"/>
                                     <button class="btn btn-warning" id="slected_image_button" @click="removeImage()">حذف
                                         الصورة
                                     </button>

@@ -4,7 +4,7 @@
         <div class="image">
 
             <router-link @click.native="$scrollToTop" :to="{ name: 'course_details', params: { id: training.id}}">
-                <clazy-load class="wrapper" :src="training.thumbnail">
+                <clazy-load class="wrapper" :src="BaseImagePath+training.thumbnail">
                     <transition name="fade">
                         <div class="divClass"
                              v-bind:style="{ backgroundImage: 'url('+BaseImagePath +training.thumbnail+')' }">
@@ -38,7 +38,7 @@
             </h6>
 
             <h6 v-show="training.instructor!=null">
-                <img src="site/images/instructor.png" style="width: 9%">
+                <img src="/site/images/instructor.png" style="width: 9%">
                 {{training.instructor}}
             </h6>
 

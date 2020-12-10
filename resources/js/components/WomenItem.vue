@@ -2,10 +2,10 @@
     <div class="inner-box">
         <div class="image">
             <router-link  @click.native="$scrollToTop"  :to="{ name: 'women_details', params: { id: women_post.id}}">
-                <clazy-load class="wrapper" :src="women_post.image">
+                <clazy-load class="wrapper" :src="BaseImagePath+women_post.image">
                     <transition name="fade">
                         <div class="divClass"
-                             v-bind:style="{ backgroundImage: 'url('+women_post.image+')' }">
+                             v-bind:style="{ backgroundImage: 'url('+BaseImagePath+women_post.image+')' }">
                         </div>
                     </transition>
                     <transition name="fade" slot="placeholder">

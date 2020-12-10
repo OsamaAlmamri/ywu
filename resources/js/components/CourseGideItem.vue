@@ -50,7 +50,7 @@
 
 <!--            <h6 v-show="training.instructor!=null">-->
             <h6>
-                <img src="site/images/instructor.png" style="width: 9%">
+                <img src="/site/images/instructor.png" style="width: 9%">
                 {{training.instructor}}
             </h6>
 
