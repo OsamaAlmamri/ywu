@@ -1,55 +1,71 @@
 <template>
-    <div  style="margin-top: 15px;">
+    <div style="margin-top: 15px;">
         <div class="row clearfix" style="text-align: center">
             <div class="content-side col-lg-12 col-md-12 col-sm-12"
                  style="text-align: center">
-                <flickity ref="flickity_categories" :options="flickityOptions">
-                    <router-link :to="{ name: 'CategoryProducts', params: { id: category.id}}" @click.native="scrollToTop()"
-                                 v-for="(category,key) in categories"
-                                 :key="key"
-                                 class="col-4 col-sm-3 col-md-2 col-lg-1">
-                        <div class="category_image_box">
-                            <img class=" img-fluid category_image"
-                                 :data-flickity-lazyload="BaseImagePath+category.image"
-                                 :src="BaseImagePath+category.image">
-                        </div>
-                        <p class="category_name"> {{category.name}} </p>
-                    </router-link>
-                </flickity>
+                <swiper ref="flickity_categories" :options="swiperOption">
+                    <swiper-slide class="swiper-slide" v-for="(category,key) in categories"
+                                  :key="key">
+                        <router-link :to="{ name: 'CategoryProducts', params: { id: category.id}}"
+                                     @click.native="scrollToTop()">
+                            <div class="category_image_box">
+                                <img class=" img-fluid category_image"
+                                     :data-flickity-lazyload="BaseImagePath+category.image"
+                                     :src="BaseImagePath+category.image">
+                            </div>
+                            <p class="category_name"> {{category.name}} </p>
+                        </router-link>
+                        <div class="swiper-button-prev" slot="button-prev"></div>
+                        <div class="swiper-button-next" slot="button-next"></div>
+                    </swiper-slide>
+                </swiper>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import 'vue-loading-overlay/dist/vue-loading.css';
-    import Flickity from 'vue-flickity';
-    import axios from "axios";
+
+    import {Swiper, SwiperSlide} from "vue-awesome-swiper";
 
     export default {
-        components: {Flickity},
+        components: {Swiper, SwiperSlide,},
         data() {
             return {
-                flickityOptions: {
-                    initialIndex: 0,
-                    // rightToLeft: true,
-                    // groupCells: 1,
-                    // rightToLeft: true,
-                    // freeScroll: true,
-                    cellAlign: 'center',
-                    // contain: true,
-                    freeScroll: true,
-                    // contain: true,
-                    lazyLoad: true,
-                    autoPlay: 5000,
-                    resize: true,
-                    prevNextButtons: true,
-                    groupCells: true,
-                    pageDots: false,
-                    // wrapAround: true
+                swiperOption: {
+                    slidesPerView: 8,
+                    spaceBetween: 5,
+                    grabCursor: true,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                        type: 'fraction'
+                    },
+                    autoplay: {
+                        delay: 3000,
+                        disableOnInteraction: false
+                    },
+                    breakpoints: {
+                        1024: {
+                            slidesPerView: 10,
+                            spaceBetween: 5
+                        },
+                        768: {
+                            slidesPerView: 7,
+                            spaceBetween: 5
+                        },
+                        640: {
+                            slidesPerView: 5,
+                            spaceBetween: 5
+                        },
+                        320: {
+                            slidesPerView: 3,
+                            spaceBetween: 5
+                        }
+                    },
 
-                    // any options from Flickity can be used
                 },
+
                 categories: [],
                 isLoading: false,
                 fullPage: true,
@@ -68,7 +84,7 @@
                         this.categories = (resp.data.data);
                     }).then(response => {
                     this.$nextTick(function () { // the magic
-                        this.$refs.flickity_categories.rerender()
+                        // this.$refs.flickity_categories.$swiper.slideTo(1, 1000, false)
                     })
                 })
                     .catch(err => {

@@ -120,7 +120,7 @@
                             <div class="options-view">
                                 <div class="clearfix">
                                     <div class="pull-right">
-                                        <h3>الاستشارات </h3>
+                                        <h3>الإستشارات </h3>
                                     </div>
 
                                 </div>
@@ -159,7 +159,7 @@
 
                     <!-- Sidebar Side -->
                     <div class="sidebar-side style-two col-lg-4 col-md-12 col-sm-12">
-                        <recent-posts name="اخر الاستشارات" type="posts"></recent-posts>
+                        <recent-posts name="اخر الإستشارات" type="posts"></recent-posts>
                     </div>
 
                 </div>

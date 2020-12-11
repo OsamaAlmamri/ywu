@@ -989,7 +989,7 @@ return [
     'AdminFirstName' => 'الاسم الاول',
     'AdminFirstNameText' => 'يرجى ادخال الاسم الاول . ',
     'Success' => 'نجاح!',
-    'EmailPasswordIncorrectText' => 'البريد الالكتروني او كلمة المرور غير صحيحة!',
+    'EmailPasswordIncorrectText' => 'البريد الإلكتروني او كلمة المرور غير صحيحة!',
     'AdminEmailText' => '   البريد الإلكتروني . ',
     'AdminPasswordText' => '  كلمة المرور   . ',
     'Braintree' => 'Braintree',

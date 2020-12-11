@@ -72,19 +72,52 @@
                                     </div>
                                 </div>
                             </div>
-                            <swiper :ref="'flickity'+section.id" :options="swiperOption">
-                                <swiper-slide class="swiper-slide" v-for="product in section.products">
+                            <flickity class="all_cat_products" :ref="'flickity'+section.id"
+                                      :options="flickityOptions_products">
+                                <div class="one_product" v-for="product in section.products">
                                     <shop-gide-item2
                                         :product="product">
+
                                     </shop-gide-item2>
-                                </swiper-slide>
-                            </swiper>
+                                </div>
+                            </flickity>
                         </div>
 
 
                     </div>
                 </div>
+                <!--                <div class="row clearfix">-->
+                <!--                    <div class="content-side col-lg-12 col-md-12 col-sm-12">-->
+                <!--                        <div class="our-courses" v-for="section in sections">-->
+                <!--                            &lt;!&ndash; Options View &ndash;&gt;-->
+                <!--                            <div class="options-view">-->
+                <!--                                <div class="clearfix" v-if="section.products.length>0">-->
+                <!--                                    <div class="pull-right">-->
+                <!--                                        <router-link :to="{ name: 'CategoryProducts', params: { id: section.id}}"-->
+                <!--                                                     @click.native="scrollToTop()">-->
+                <!--                                            <h3 style="    background: #593c97;-->
+                <!--    padding: 5px 50px;-->
+                <!--    color: white;">{{section.name}}</h3>-->
+                <!--                                        </router-link>-->
 
+
+                <!--                                    </div>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                            <flickity :ref="'flickity'+section.id"-->
+                <!--                                      :options="flickityOptions_products">-->
+                <!--                                <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-for="product in section.products">-->
+                <!--                                    <shop-gide-item-->
+                <!--                                        :product="product"-->
+                <!--                                        @toggled="onToggle">-->
+
+                <!--                                    </shop-gide-item>-->
+                <!--                                </div>-->
+                <!--                            </flickity>-->
+
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
             </div>
         </div>
     </div>
@@ -93,53 +126,48 @@
 <script>
     import CourseGideItem from './CourseGideItem.vue';
     import Multiselect from 'vue-multiselect'
-    import {Swiper, SwiperSlide, directive} from 'vue-awesome-swiper'
 
-    // import style (>= Swiper 6.x)
-    import 'swiper/swiper-bundle.css'
 
     import Loading from 'vue-loading-overlay';
+    // Import stylesheet
     import 'vue-loading-overlay/dist/vue-loading.css';
-
+    import Flickity from 'vue-flickity';
+    import ShopGideItem from './ShopGideItem';
     import ShopGideItem2 from './ShopGideItem2';
+    import axios from "axios";
 
     export default {
         props: ['items'],
-        components: {
-            Swiper, SwiperSlide, Multiselect, ShopGideItem2, Loading
-        },
+        components: { Multiselect, ShopGideItem2, ShopGideItem, Loading, Flickity},
 
         data() {
             return {
-                swiperOption: {
-                    slidesPerView: 7,
-                    spaceBetween: 5,
-                    grabCursor: true,
-                    // centeredSlides: true,
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev'
-                    },
+                flickityOptions_products: {
+                    initialIndex: 1,
+                    // rightToLeft: true,
+                    // groupCells: 1,
+                    fullscreen: true,
+                    accessibility: true,
+                    // freeScroll: true,
+                    contain: true,
+                    lazyLoad: true,
+                    cellAlign: 'center',
+                    // autoPlay: 5000,
+                    resize: true,
+                    prevNextButtons: true,
+                    groupCells: 1,
+                    pageDots: false,
+                    wrapAround: true,
+                    draggable: '>2',
+                    // enables dragging & flicking
+                    // if at least 2 cells
 
-                    breakpoints: {
-                        1024: {
-                            slidesPerView: 7,
-                            spaceBetween: 5
-                        },
-                        768: {
-                            slidesPerView: 5,
-                            spaceBetween: 5
-                        },
-                        640: {
-                            slidesPerView: 4,
-                            spaceBetween: 5
-                        },
-                        320: {
-                            slidesPerView: 2,
-                            spaceBetween: 5
-                        }
-                    },
+                    dragThreshold: 1,
+                    selectedAttraction: 0.01,
+                    friction: 0.15,
+                    // any options from Flickity can be used
 
+                    touchVerticalScroll: true,
                 },
                 isLoading: false,
                 fullPage: true,
@@ -277,9 +305,8 @@
                         }).then(response => {
                         this.$nextTick(function () { // the magic
                             // this.$refs.flickity_categories.rerender()
-                            // for (var i = 0; i < this.sections.length; i++)
-                                // this.refs["flickity" + this.sections[i].id].rerender();
-                                // this.refs["flickity" + this.sections[i].id].$swiper.slideTo(3, 1000, false)
+                            for (var i = 0; i < this.sections.length; i++)
+                                this.refs["flickity" + this.sections[i].id].rerender();
                         })
                     }).catch(err => {
                         this.isLoading = false;
@@ -290,16 +317,22 @@
 
             },
             onCancel() {
+                console.log('User cancelled the loader.')
             }
 
         },
         mounted() {
+            console.log('Component mounted.')
         },
 
 
     }
 </script>
+<style>
+    .flickity-button:disabled {
+        display: none;
+    }
 
+</style>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
-

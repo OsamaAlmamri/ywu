@@ -10,7 +10,6 @@ use App\User;
 use App\Http\Controllers\Controller;
 
 
-
 class UserController extends Controller
 {
     use JsonTrait;
@@ -19,8 +18,8 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('permission:show users', ['only' => ['index','show','changeType','index_trashed']]);
-        $this->middleware('permission:manage users', ['only' => ['index_trashed','restore_post','force','changeType','changeOrder','destroy','edit','store','update','active']]);
+        $this->middleware('permission:show users', ['only' => ['index', 'show', 'changeType', 'index_trashed']]);
+        $this->middleware('permission:manage users', ['only' => ['index_trashed', 'restore_post', 'force', 'changeType', 'changeOrder', 'destroy', 'edit', 'store', 'update', 'active']]);
         $this->middleware('permission:active users', ['only' => ['active']]);
     }
 
@@ -35,9 +34,9 @@ class UserController extends Controller
 
         if (request()->ajax()) {
             if (request()->id == 0)
-                $post = User::whereIn('type', ['visitor','customer'])->orderBy('id','desc' )->get();
+                $post = User::whereIn('type', ['visitor', 'customers'])->orderBy('id', 'desc')->get();
             else {
-                $post = User::where('id',request()->id )->get();
+                $post = User::where('id', request()->id)->get();
 
             }
 //          return  $post;
@@ -74,9 +73,9 @@ class UserController extends Controller
     }
 
 ################################################################### deleted posts
-    public function index_trashed($id=0)
+    public function index_trashed($id = 0)
     {
-        $user=User::onlyTrashed()->where('id', request()->id)->first();
+        $user = User::onlyTrashed()->where('id', request()->id)->first();
         if ($id > 0 and $user->type == 'employees')
             return redirect(route('employee-trashed', $id));
         elseif ($id > 0 and $user->type == 'share_users')
@@ -101,7 +100,7 @@ class UserController extends Controller
                 ->make(true);
         }
         $admin = Admin::where('id', 1)->first();
-        return view('admin.training.user.trashed', compact('admin','id'));
+        return view('admin.training.user.trashed', compact('admin', 'id'));
     }
 
     public function edit_trashed($id)

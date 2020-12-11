@@ -134,8 +134,8 @@
                         <li><a><i class="fa fa-edit"></i>
                                 الإستشارات <span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">
-                                <li><a href="{{route('showPosts')}}">عرض محتوى الاستشارات</a></li>
-                                <li><a href="{{route('deleted_Post')}}">الاستشارات المرفوضة</a></li>
+                                <li><a href="{{route('showPosts')}}">عرض محتوى الإستشارات</a></li>
+                                <li><a href="{{route('deleted_Post')}}">الإستشارات المرفوضة</a></li>
                             </ul>
                         </li>
                     @endif

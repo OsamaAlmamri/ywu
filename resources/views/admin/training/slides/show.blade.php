@@ -22,7 +22,7 @@
                             <div class="col-sm-8">
                                 <select class="form-control" id="action_type" name="action_type">
                                     <option value="">غير محدد</option>
-                                    <option value="posts"> الاستشارات</option>
+                                    <option value="posts"> الإستشارات</option>
                                     <option value="trainings"> المواد التدريبية</option>
                                     <option value="women"> شؤون المراة</option>
                                 </select>

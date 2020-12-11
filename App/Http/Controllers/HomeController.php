@@ -41,7 +41,7 @@ class HomeController extends Controller
 
     public function consultant()
     {
-        return view('site.consultant')->with('page_title', ' الاستشارات');
+        return view('site.consultant')->with('page_title', ' الإستشارات');
     }
 
     public function login()

@@ -12,10 +12,17 @@ class FrontSharedUserController extends Controller
     public function index($id = 0)
     {
         if (request()->ajax()) {
-            if (request()->id == 0)
-                $post = User::with('share_user')->where('type', 'share_users')->get();
+            if (request()->id == 0 or $id == 0)
+                $post = User::with('share_user')
+                    ->where('type', 'share_users')
+                    ->where('status', 0)
+
+                    ->get();
             else {
-                $post = User::with('share_user')->where('type', 'share_users')->where('id', request()->id)->get();
+                $post = User::with('share_user')
+                    ->where('type', 'share_users')
+                    ->where('status', 1)
+                    ->where('id', request()->id)->get();
             }
             return datatables()->of($post)
                 ->addColumn('action', function ($data) {

@@ -115,15 +115,14 @@
 
                     </div>
                     <div class="modal-body">
-                        <a class="my_store_url" href="https://ywudevlopment.com/shop/seller/{{auth()->id()}}"
+                        <a class="my_store_url" href="https://https://yemenwe.com/shop/seller/{{auth()->id()}}"
                            target="_blank">
                             فتح متجري
                         </a>
-                        {!! Share::page("https://ywudevlopment.com/shop/seller/".auth()->id(), null, ['class' => 'my_store_links' ])
+                        {!! Share::page("https://yemenwe.com/shop/seller/".auth()->id(), null, ['class' => 'my_store_links' ])
                                         ->facebook()
                                         ->whatsapp()
                                         ->twitter()
-
                                         ->telegram()
                                         ->linkedin()
                                    !!}

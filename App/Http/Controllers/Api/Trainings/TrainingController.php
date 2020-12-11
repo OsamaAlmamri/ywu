@@ -369,7 +369,7 @@ class TrainingController extends Controller
 
                 return $this->GetDateResponse('data', $l, "تم التسجيل بالدورة" . $m);
             } else if ($user_training > 0) {
-                return $this->GetDateResponse('data', $likes, 'لا يمكن اللغاء التسجيل بعد البدء بالتدريب ');
+                return $this->GetDateResponse('data', $likes, 'لا يمكن الغاء التسجيل بعد البدء بالتدريب ');
             }
 //            else if ($likes->status == 1 and  ) {
 //                return $this->GetDateResponse('data', $likes, 'لا يمكن اللغاء التسجيل بعد الموافة على التسجيل');

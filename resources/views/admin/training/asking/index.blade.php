@@ -51,7 +51,7 @@
                 <div class="card">
                     <div class="card-block">
                 <span class="count_top" style="font-weight: bold"><i class="fa fa-question-circle"
-                                                                     style="font-size: 20px"></i> منشورات الاستشارات</span>
+                                                                     style="font-size: 20px"></i> منشورات الإستشارات</span>
                         <div class="count">{{$pos}}</div>
                     </div>
                 </div>
@@ -205,7 +205,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>طلبات نشر الاستشارات</h2>
+                        <h2>طلبات نشر الإستشارات</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>

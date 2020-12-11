@@ -48,7 +48,7 @@ Vue.prototype.$scrollToTop = () => window.scrollTo(0, 0);
 Vue.mixin({
     data() {
         return {
-            BaseImagePath: 'https://ywudevlopment.com/'
+            BaseImagePath: 'https://yemenwe.com/'
             // BaseImagePath: '/assets/images/'
         };
     },

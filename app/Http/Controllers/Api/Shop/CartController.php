@@ -225,7 +225,7 @@ class CartController extends Controller
                 ],
                 [
                     'order_id.required' => 'يرجى تحديد رقم الطلب ',
-                    'description.required' => 'يرجى تحديد سبب الالغاء',
+                    'description.required' => 'يرجى تحديد سبب الغاء الطلب',
                 ]);
             if ($validator->fails()) {
                 return $this->ReturnErorrRespons('0000', $validator->errors());
@@ -266,7 +266,7 @@ class CartController extends Controller
                     $this->firbaseContoller->multi($tokens, $dataToNotification);
                 } catch (\Exception $ex) {
                 }
-                return $this->GetDateResponse('data', $order, 'تم الالغاء بنجاح');
+                return $this->GetDateResponse('data', $order, 'تم الغاء الطلب  بنجاح');
             }
         } catch
         (\Exception $ex) {

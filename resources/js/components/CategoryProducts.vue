@@ -33,6 +33,7 @@
 
 
                         </div>
+
                         <div class="styled-pagination">
                             <pagination
                                 :align="'right'"

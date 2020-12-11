@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title> YWP</title>
+    <title> YemenWe</title>
     <!-- Stylesheets -->
 
     <link href="{{  asset('site/css/bootstrap.min.css')  }}" rel="stylesheet">
@@ -60,15 +60,18 @@
             text-align: center;
             font-size: 14px;
         }
+
         .cource-block-two .inner-box .lower-content {
             position: relative;
             padding: 5px 6px;
             font-size: 0.875rem;
         }
+
         .product_price_box {
             font-size: 9px;
             color: black;
         }
+
         .product_name_box {
             font-size: 9px;
             font-weight: 600;
@@ -98,7 +101,6 @@
         }
 
 
-
         .one_seller_box {
             margin-right: -30px;
             margin-left: -30px;
@@ -107,6 +109,7 @@
             margin-bottom: 5px;
 
         }
+
         /*.cource-block-two .wrapper*/
         /*{*/
         /*    height: 200px;*/
@@ -211,7 +214,7 @@
                                      || currentPage=='CategoryProducts' || currentPage=='home' || currentPage=='home2' || currentPage=='shop_search'|| currentPage=='course_details'||
                                      currentPage=='shop_like' ||currentPage=='cart')},{'current':currentPage=='shop'}]">
                                         <a href="#">
-                                            السوق الالكتروني
+                                            السوق الإلكتروني
                                         </a>
                                         <ul>
                                             <li :class="['shop_element_item',{'current':currentPage=='shop'}]">
@@ -255,7 +258,7 @@
                                     </li>
 
                                     <li :class="[{'current':currentPage=='consultant'}]">
-                                        <router-link @click.native="scrollToTop()" to="/consultant"> الاستشارات
+                                        <router-link @click.native="scrollToTop()" to="/consultant"> الإستشارات
                                         </router-link>
                                     </li>
                                     <li :class="[{'current':currentPage=='women'}]">
@@ -263,7 +266,7 @@
                                         </router-link>
                                     </li>
                                     <li :class="[{'current':currentPage=='privacy'}]">
-                                        <router-link @click.native="scrollToTop()" to="/privacy"> سياية الخصوصية
+                                        <router-link @click.native="scrollToTop()" to="/privacy"> سياسة الخصوصية
                                         </router-link>
                                     </li>
                                     <li :class="[{'current':currentPage=='concatUs'}]">
@@ -324,7 +327,7 @@
     <!-- Call To Action Section Two -->
 
     <section class="call-to-action-section-two"
-             style="background-image:url('site/images/background/4.png')">
+        style="background-image:url('{{asset('site/images/background/4.png')}}')">
         <div class="auto-container">
 
         </div>
@@ -332,16 +335,16 @@
         <div class="content">
             <h2>هل انت على استعداد للبدء؟</h2>
             <div class="text">يمكنك الان تصفح وشراء المنتجات و اخذ الدورات التدريبية
-                و <br>نشر و عرض الاستشارات بكل سهولة .
+                و <br>نشر و عرض الإستشارات بكل سهولة .
             </div>
             <div class="buttons-box">
                 <router-link class="theme-btn btn-style-one" @click.native="scrollToTop()" to="/shop">
-                     <span class="txt"> تسوق الان  <i
+                     <span class="txt"> تسوق الآن  <i
                              class="fa fa-angle-left"></i></span>
                 </router-link>
                 <router-link class="theme-btn btn-style-two" @click.native="scrollToTop()" to="/consultant">
 
-                    <span class="txt">الاستشارات <i
+                    <span class="txt">الإستشارات <i
                             class="fa fa-angle-left"></i></span>
                 </router-link>
 
@@ -353,7 +356,10 @@
         <!-- Pattern Layer -->
         <div class="pattern-layer paroller" data-paroller-factor="0.60" data-paroller-factor-lg="0.20"
              data-paroller-type="foreground" data-paroller-direction="vertical"
-             style="background-image:url('{{asset('site/images/icons/icon-1.png')}}')"></div>
+             style="background-image:url('{{asset('site/images/icons/icon-1.png')}}')">
+
+
+        </div>
         {{--        <div class="pattern-layer-two" data-paroller-factor="0.60"--}}
         {{--             data-paroller-factor-lg="0.20" data-paroller-type="foreground"--}}
         {{--             data-paroller-direction="vertical"--}}

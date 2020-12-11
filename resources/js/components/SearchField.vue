@@ -93,7 +93,7 @@
 
                 switch (this.$route.name) {
                     case 'home' :
-                        return "السوق الالكتروني";
+                        return "السوق الإلكتروني";
                         break;
 
                     case 'my_orders' :
@@ -117,7 +117,7 @@
                         break;
 
                     case 'shop' :
-                        return "السوق الالكتروني";
+                        return "السوق الإلكتروني";
                         break;
 
                     case 'product_details' :
@@ -128,7 +128,7 @@
                         break;
 
                     case 'home2' :
-                        return "السوق الالكتروني";
+                        return "السوق الإلكتروني";
                         break;
 
                     case 'women_details' :
@@ -159,7 +159,7 @@
                         return "الصفحة الشخصية ";
                         break;
                     case 'consultant' :
-                        return " الاستشارات ";
+                        return " الإستشارات ";
                         break;
                     case 'register' :
                         return "انشاء حساب جديد";

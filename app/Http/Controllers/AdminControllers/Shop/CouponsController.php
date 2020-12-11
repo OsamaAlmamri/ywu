@@ -123,7 +123,7 @@ class CouponsController extends Controller
                 'errors' => $error->errors(),
             ], 422);
         }
-        $users = User::inRandomOrder()->whereIn('type', ['customer','visitor'])
+        $users = User::inRandomOrder()->whereIn('type', ['customers','visitor'])
             ->whereNotIn('id', function ($query) use ($request) {
                 $query->select('user_id')
                     ->from(with(new Coupon())->getTable());

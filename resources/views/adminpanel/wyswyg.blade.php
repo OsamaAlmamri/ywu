@@ -33,7 +33,7 @@
         // automatic_uploads: true,
         remove_script_host: false,
         relative_urls: false,
-        document_base_url: "https://halaalmadi.com/ywu2/public/assets/images/",
+        document_base_url: "https://yemenwe.com/assets/images/",
         images_upload_handler: function (blobInfo, success, failure) {
             var xhr, formData;
             xhr = new XMLHttpRequest();

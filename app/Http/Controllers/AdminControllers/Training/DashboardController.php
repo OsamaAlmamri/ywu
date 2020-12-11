@@ -29,7 +29,7 @@ class DashboardController extends Controller
         if (auth()->user()->type == "admin") {
             $shareduser = User::all()->where('type', 'share_users')->where('status', 1)->count();
             $admin = Admin::where('id', 1)->first();
-            $users = User::all()->where('type', 'visitor')->count();
+            $users = User::all()->whereIn('type', ['customers','visitor'])->count();
             $employees = Employee::all()->count();
             $subjects = Subject::all()->count();
             $trainings = Training::all()->count();

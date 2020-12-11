@@ -353,11 +353,11 @@
 {{--                                                                            </ul>--}}
 {{--                                                                        </li>--}}
                                     <li class=" @if(Request::segment(1)=='consultant' ) current @endif"><a
-                                            href="{{route('site.consultant')}}">الاستشارات</a></li>
+                                            href="{{route('site.consultant')}}">الإستشارات</a></li>
                                     <li class=" @if(Request::segment(1)=='women') current @endif"><a
                                             href="{{route('site.women')}}">شوؤن المرأة</a></li>
                                     <li class=" @if(Request::segment(1)=='privacy' ) current @endif"><a
-                                            href="{{route('site.privacy')}}""> سياية الخصوصية</a> </li>
+                                            href="{{route('site.privacy')}}""> سياسة الخصوصية</a> </li>
                                     {{--                                    <li class=" @if(Request::segment(1)=='about' ) current @endif"><a--}}
                                     {{--                                            href="{{route('site.about')}}"> عنا</a></li>--}}
                                     <li class=" @if(Request::segment(1)=='concatUs' ) current @endif"><a
@@ -487,12 +487,12 @@
             <div class="content">
                 <h2>هل انت على استعداد للبدء؟</h2>
                 <div class="text">يمكنك الان عرض واخذ المواد التدريبة
-                    و <br>نشر و عرض الاستشارات .
+                    و <br>نشر و عرض الإستشارات .
                 </div>
                 <div class="buttons-box">
                     <a href="{{route('site.courses')}}" class="theme-btn btn-style-one"><span class="txt">المواد التدريبة <i
                                 class="fa fa-angle-left"></i></span></a>
-                    <a href="{{route('site.consultant')}}" class="theme-btn btn-style-two"><span class="txt">الاستشارات <i
+                    <a href="{{route('site.consultant')}}" class="theme-btn btn-style-two"><span class="txt">الإستشارات <i
                                 class="fa fa-angle-left"></i></span></a>
                 </div>
             </div>

@@ -114,7 +114,7 @@ class CategoreisController extends Controller
                 if ($has_seller) {
                     $q->whereIn('admin_id', $request->seller_id);
                 }
-                $q->limit(30)->get();
+                $q->limit(50)->get();
 
             }]);
             if ($has_categories) {
@@ -222,7 +222,7 @@ class CategoreisController extends Controller
                 }
 
             }
-            $data = $data->orderBy('sort')->paginate(20);
+            $data = $data->orderBy('sort')->paginate(100);
             if (!$data) {
                 return $this->ReturnErorrRespons('0000', 'لايوجد اصناف');
             } else {

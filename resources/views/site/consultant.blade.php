@@ -19,7 +19,7 @@
                         <div class="options-view">
                             <div class="clearfix">
                                 <div class="pull-right">
-                                    <h3>  الاستشارات الحديثة</h3>
+                                    <h3>  الإستشارات الحديثة</h3>
                                 </div>
                             </div>
                         </div>

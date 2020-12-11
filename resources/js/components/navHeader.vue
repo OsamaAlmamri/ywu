@@ -82,7 +82,7 @@
 
 
                                         <li>
-                                            <router-link to="/consultant"> الاستشارات</router-link>
+                                            <router-link to="/consultant"> الإستشارات</router-link>
                                         </li>
                                         <li>
                                             <router-link to="/women"> شوؤن المرأة</router-link>

@@ -75,7 +75,7 @@ class PostController extends Controller
                 ->orderBy('id', 'desc')->paginate(5);
 
             if (!$posts) {
-                return $this->ReturnErorrRespons('0000', 'لايوجد استشارات');
+                return $this->ReturnErorrRespons('0000', 'لايوجد إستشارات');
             } else {
                 return $this->GetDateResponse('data', $posts);
             }
@@ -89,7 +89,7 @@ class PostController extends Controller
     {
         $post = $this->user->posts()->find($id);
         if (!$post) {
-            return $this->ReturnErorrRespons('0000', 'لاتمتلك صلاحية لرؤية هذا المنشور');
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لرؤية هذا المنشور');
         } else {
             return $this->GetDateResponse('Post', $post);
         }
