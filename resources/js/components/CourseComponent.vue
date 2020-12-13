@@ -25,6 +25,7 @@
             <div class="auto-container">
                 <div class="row clearfix">
                     <div class="content-side col-lg-12 col-md-12 col-sm-12">
+
                         <div v-if="is_search==false" class="our-courses" v-for="section in sections">
                             <!-- Options View -->
                             <div class="options-view">
@@ -139,17 +140,13 @@
                     .catch(err => {
                         this.isLoading = false;
                         console.log(err)
-                    });
-            },
+                    });},
             onCancel() {
                 console.log('User cancelled the loader.')
             }
-
         },
         mounted() {
             console.log('Component mounted.')
         },
-
-
     }
 </script>

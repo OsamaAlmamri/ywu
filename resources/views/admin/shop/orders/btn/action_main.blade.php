@@ -1,4 +1,4 @@
-@if (auth()->user()->type=='admin')
+@if (auth()->user()->type=='admin' and (Auth::user()->can('delete orders') == true))
     <button type="button" name="delete" id="{{$id}}" class="delete btn btn-danger btn-sm" style="float: right"><span
             class='glyphicon glyphicon-trash'> </span></button>
 

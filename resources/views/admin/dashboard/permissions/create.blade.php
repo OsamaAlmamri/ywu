@@ -70,6 +70,7 @@
                                                                                 or ($permission->name=="manage products_questions")
                                                                                 or ($permission->name=="show products_questions")
                                                                                 or ($permission->name=="show products")
+                                                                                or ($permission->name=="delete orders")
                                                                                  )
                                                                                 )
                                                                             @if  (auth()->user()->getRoleNames()->first() === 'Developer')

@@ -95,13 +95,52 @@
             </div>
         </div>
     </div>
+    <div id="confirmDeleteModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title">حذف الطلب</h2>
+                </div>
+                <div class="modal-body">
+                    <h4 align="center" style="margin:0;">هل انت متاكد من حذف الطلب؟</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" name="ok_button" id="ok_delete_button" class="btn btn-danger">نعم</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">الغاء</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 @section('custom_js')
     @include('adminpanel.active')
     <script>
         Active('{{route('admin.shop.orders.active')}}');
+
         $(document).ready(function () {
+            var user_id = 0;
+            $(document).on('click', '.delete', function () {
+                user_id = $(this).attr('id');
+                $('.modal-title').text("حذف الصنف");
+                $('#ok_delete_button').text('حذف');
+                $('#confirmDeleteModal').modal('show');
+            });
+            $('#ok_delete_button').click(function () {
+                $.ajax({
+                    url: "{{URL::to('')}}/admin/shop/orders/destroy/" + user_id,
+                    beforeSend: function () {
+                        $('#ok_button').text('جاري الحذف...');
+                    },
+                    success: function (data) {
+                        setTimeout(function () {
+                            $('#confirmDeleteModal').modal('hide');
+                            $('#user_table').DataTable().ajax.reload();
+                        }, 2000);
+                    }
+                })
+            });
             fill_datatable();
 
             function fill_datatable() {

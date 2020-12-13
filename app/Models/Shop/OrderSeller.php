@@ -5,11 +5,14 @@ namespace App\Models\Shop;
 
 use App\Admin;
 use Illuminate\Database\Eloquent\Model;
+use \Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrderSeller extends Model
 {
     //
     public $timestamps = false;
+    use SoftDeletes;
+
 
     protected $fillable = ['order_id', 'seller_id', 'status', 'price', 'shipping_cost', 'shipping_method'
         , 'coupon_discount', 'coupon', 'new_delivery_location',

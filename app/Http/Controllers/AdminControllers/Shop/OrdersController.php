@@ -12,6 +12,7 @@ use App\Models\Shop\Product;
 use App\Models\Shop\ProductQuestion;
 use App\Models\Shop\ProductsOption;
 use App\Models\Shop\QuestionReplay;
+use App\Notification;
 use App\Notifications\AppNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -98,6 +99,8 @@ class OrdersController extends Controller
     public function show_seller_order($id)
     {
         $order_seller = OrderSeller::find($id);
+        if ($order_seller == null)
+            return redirect()->back();
         return view('admin.shop.orders.show')->with('type', 'sub_order')->with('order_seller', $order_seller);
 
     }
@@ -105,6 +108,8 @@ class OrdersController extends Controller
     public function show_main_order($id)
     {
         $order = Order::find($id);
+        if ($order == null)
+            return redirect()->back();
         return view('admin.shop.orders.show_main')->with('type', 'order')->with('order', $order);
 
     }
@@ -201,5 +206,22 @@ class OrdersController extends Controller
         return response($order_seller, 200);
     }
 
+    public function destroy($id)
+    {
+        $order = Order::findOrFail($id);
+        {
+            foreach ($order->sellers as $seller) {
+
+                $result = Notification::where('data->order_id', $seller->id)->delete();
+            }
+        }
+
+//        $order->sellers->delete();
+        OrderSeller::where('order_id', $id)->delete();
+        $result = Notification::where('data->order_id', $order->id)->delete();
+        $order->delete();
+
+
+    }
 
 }

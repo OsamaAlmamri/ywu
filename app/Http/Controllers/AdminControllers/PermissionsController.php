@@ -122,6 +122,7 @@ class PermissionsController extends Controller
         /********************* order_statuses  *********************/
         $permission = Permission::create(['name' => 'show orders']);
         $permission = Permission::create(['name' => 'manage orders']);//add ,update , delete
+        $permission = Permission::create(['name' => 'delete orders']);//add ,update , delete
 
         /********************* order_statuses  *********************/
         $permission = Permission::create(['name' => 'show payment']);
@@ -153,6 +154,7 @@ class PermissionsController extends Controller
 //        $permission = Permission::create(['name' => 'show payment']);
 //        $permission = Permission::create(['name' => 'manage payment']);//add ,update , delete
 
+//        $permission = Permission::create(['name' => 'delete orders']);//add ,update , delete
 
         /********************* coupons  *********************/
 //        $permission = Permission::create(['name' => 'show coupons']);

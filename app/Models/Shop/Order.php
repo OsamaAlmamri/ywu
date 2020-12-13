@@ -5,10 +5,11 @@ namespace App\Models\Shop;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-
+use \Illuminate\Database\Eloquent\SoftDeletes;
 class Order extends Model
 {
     //
+    use SoftDeletes;
     protected $fillable = ['coupon','coupon_discount','price', 'payment_method', 'payment_status', 'user_id', 'gov_id', 'district_id', 'more_address_info', 'phone', 'customer_name'];
     protected $appends = ['published', 'district', 'gov', 'user_name', 'payment_status_name'];
 
