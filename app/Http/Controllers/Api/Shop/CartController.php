@@ -94,8 +94,6 @@ class CartController extends Controller
     public function delete_from_cart(Request $request)
     {
         try {
-
-
             $data = Cart::where([['id', '=', $request->id], ['user_id', '=', \auth()->id()]])->get()->first();
             if ($data != null) {
                 $data->delete();
@@ -177,11 +175,11 @@ class CartController extends Controller
                 ->where('used', 0)
                 ->where('order_id', null)
                 ->get()->last();
-            if ($c == null)
+            if ($c == null or $c->ended == 0)
                 return $this->ReturnErorrRespons('0000', "لا يمكن حذف هذا الكوبون ");
             else {
                 $c->update(['used' => 0, 'user_id' => null]);
-                return $this->GetDateResponse('data', $c, 'تم تطبيق الكوبون بنجاح');
+                return $this->GetDateResponse('data', $c, 'تم حذف الكوبون بنجاح');
             }
         } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());

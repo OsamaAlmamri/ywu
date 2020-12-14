@@ -60,9 +60,15 @@ class PaymentController extends Controller
             $data = $data->whereIn('order_id', function ($query) {
                 $query->select('id')
                     ->from(with(new OrderSeller())->getTable())
-                    ->where('seller_id', auth()->id())->get();
+                    ->where('seller_id', auth()->id())->get()
+                    ->whereNull('deleted_at')->get();
             });
         }
+        $data =  $data->whereIn('order_id', function ($query) {
+            $query->select('id')
+                ->from(with(new OrderSeller())->getTable())
+                ->whereNull('deleted_at')->get();
+        });
         return $data->orderByDesc('id')->get();
     }
 

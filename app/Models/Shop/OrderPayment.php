@@ -26,8 +26,8 @@ class OrderPayment extends Model
 
     public function getUserNameAttribute()
     {
-        $s = $this->user()->get()->first();
-        return $s->name;
+        $s = $this->admin()->get()->first();
+        return ($s != null) ? $s->name : "تم حذف العميل";
     }
 
 
