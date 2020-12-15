@@ -403,5 +403,5 @@ Route::get('download_app', function () {
 
 })->name('download_app');
 
-Route::get('/{any?}','HomeController@index' )->where('any', '^(?!api\/)[\/\w\.-]*');
+Route::get('/{any?}', 'HomeController@index')->where('any', '^(?!api\/)[\/\w\.-]*');
 

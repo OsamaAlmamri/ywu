@@ -229,13 +229,15 @@
                             @endif
                         {
                             title: 'المحافظة ',
-                            name: 'zone',
-                            data: 'zone',
+                            name: 'gov',
+                            data: 'gov',
+                            searchable:false,
                         },
                         {
                             title: 'المساحة ',
                             name: 'space',
                             data: 'space',
+                            searchable:false,
                         },
                         {
                             title: ' الاسم ',
@@ -245,12 +247,14 @@
                         {
                             title: ' الصنف ',
                             data: 'category',
-                            name: 'category'
+                            name: 'category',
+                            searchable:false,
                         },
                         {
                             title: ' السعر ',
                             data: 'price',
-                            name: 'price'
+                            name: 'price',
+                            searchable:false,
                         },
 
                         {
@@ -263,28 +267,34 @@
                         {
                             title: 'تاريخ الاضافة ',
                             data: 'published',
+                            searchable:false,
                         },
                         {
                             title: 'متوفر',
                             data: 'btn_available',
                             name: 'btn_available',
+                            searchable:false,
+
                         },
                         {
                             title: 'التقييم',
                             data: 'btn_rating',
                             name: 'btn_rating',
+                            searchable:false,
                         },
                             @if ((Auth::user()->can('manage products') == true))
                         {
                             title: 'الحالة',
                             data: 'btn_status',
                             name: 'btn_status',
+                            searchable:false,
                         },
                         {
                             title: 'عمليات',
                             data: 'action',
                             name: 'action',
-                            orderable: false
+                            orderable: false,
+                            searchable:false,
                         },
                         @endif
                     ],

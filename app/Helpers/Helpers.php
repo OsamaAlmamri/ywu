@@ -23,7 +23,11 @@ if (!function_exists('getViewCustomDate')) {
         return '';
     }
 }
+function getDBCustomDate()
+{
 
+    return '%Y-%m-%d %h:%i:%s %p';
+}
 
 function notification_type($id, $type)
 {

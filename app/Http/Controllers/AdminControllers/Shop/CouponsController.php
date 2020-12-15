@@ -31,7 +31,7 @@ class CouponsController extends Controller
     {
         $this->middleware('permission:show coupons', ['only' => ['index', 'show']]);
 
-        $this->middleware('permission:manage coupons', ['only' => ['store','delete_selected','destroy','update','update_selected']]);
+        $this->middleware('permission:manage coupons', ['only' => ['store', 'delete_selected', 'destroy', 'update', 'update_selected']]);
         $this->firbaseContoller = $firbaseContoller;
     }
 
@@ -71,7 +71,7 @@ class CouponsController extends Controller
                         ->where('gov_id', $request->gov_id)->get();
                 });
             }
-            $data = $data->get();
+            $data = $data->orderBy("id","DESC" )->get();
 
             if ($data) {
                 return datatables()->of($data)
@@ -79,7 +79,7 @@ class CouponsController extends Controller
                     ->addColumn('action', 'admin.shop.coupons.btn.action')
                     ->addColumn('check', 'admin.shop.coupons.btn.check')
                     ->addColumn('user', 'admin.shop.coupons.btn.user')
-                    ->rawColumns(['action', 'check','user'])
+                    ->rawColumns(['action', 'check', 'user'])
                     ->make(true);
             }
         }
@@ -123,36 +123,46 @@ class CouponsController extends Controller
                 'errors' => $error->errors(),
             ], 422);
         }
-        $users = User::inRandomOrder()->whereIn('type', ['customers','visitor'])
+        $users = User::inRandomOrder()->whereIn('type', ['customers', 'visitor'])
             ->whereNotIn('id', function ($query) use ($request) {
                 $query->select('user_id')
                     ->from(with(new Coupon())->getTable());
 //                    ->where('used', 1)
 //                    ->orWhere('end_date', '>', now());
             })->limit($request->number)->get();
+        if ($users->count() == 0)
+            $users = User::whereIn('type', ['customers', 'visitor'])
+                ->whereNotIn('id', function ($query) use ($request) {
+                    $query->select('user_id')
+                        ->from(with(new Coupon())->getTable());
+//                    ->where('used', 1)
+//                    ->orWhere('end_date', '>', now());
+                })->limit($request->number)->get();
         foreach ($users as $user) {
-            $c = Coupon::create(array_merge($request->all(),
-                [
-                    'user_id' => $user->id,
-                    'used' => 0,
-                    'coupon' => $this->getUniquId()
-                ]));
-            $message = ' لقد حصلت على كوبون تخفيض برقم  ' . $c->coupon . '  يستخدم في متاجر محافظة  ' . $user->gov;
-            $dataToNotification = array(
-                'sender_name' => "اتحاد نساء اليمن",
-                'order_id' => $c->id,
-                'notification_type' => "new_coupon",
-                'user_id' => \auth()->id(),
-                'sender_image' => url('site/images/Logo250px.png'),
-                'message' => $message,
-                'date' => $c->created_at
-            );
-            try {
-                $user->notify(new AppNotification($dataToNotification));
-                $tokens = getNotifiableUsers($user->id, []);
-                $this->firbaseContoller->multi($tokens, $dataToNotification);
-            } catch (\Exception $ex) {
+            if (isset($user->id)) {
+                $c = Coupon::create(array_merge($request->all(),
+                    [
+                        'user_id' => $user->id,
+                        'used' => 0,
+                        'coupon' => $this->getUniquId()
+                    ]));
+                $message = ' لقد حصلت على كوبون تخفيض برقم  ' . $c->coupon . '  يستخدم في متاجر محافظة  ' . $user->gov;
+                $dataToNotification = array(
+                    'sender_name' => "اتحاد نساء اليمن",
+                    'order_id' => $c->id,
+                    'notification_type' => "new_coupon",
+                    'user_id' => \auth()->id(),
+                    'sender_image' => url('site/images/Logo250px.png'),
+                    'message' => $message,
+                    'date' => $c->created_at
+                );
+                try {
+                    $user->notify(new AppNotification($dataToNotification));
+                    $tokens = getNotifiableUsers($user->id, []);
+                    $this->firbaseContoller->multi($tokens, $dataToNotification);
+                } catch (\Exception $ex) {
 
+                }
             }
 
         }

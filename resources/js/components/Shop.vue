@@ -63,7 +63,7 @@
                         <div class="our-courses" v-for="section in sections">
                             <!-- Options View -->
                             <div class="options-view">
-                                <div class="clearfix" v-if="section.products.length>0">
+                                <div class="clearfix" v-if="section.products2.length>0">
                                     <div class="pull-right">
                                         <router-link :to="{ name: 'CategoryProducts', params: { id: section.id}}"
                                                      @click.native="scrollToTop()">
@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                             <swiper :ref="'flickity'+section.id" :options="swiperOption">
-                                <swiper-slide class="swiper-slide" v-for="product in section.products">
+                                <swiper-slide class="swiper-slide" v-for="product in section.products2">
                                     <shop-gide-item2
                                         :product="product">
                                     </shop-gide-item2>
@@ -266,7 +266,7 @@
                     this.is_search = true;
                     this.isLoading = true;
                     axios({
-                        url: '/api/shop/get_product_by_categories22',
+                        url: '/api/shop/get_product_by_categories33',
                         data: this.form,
                         method: 'POST'
                     })

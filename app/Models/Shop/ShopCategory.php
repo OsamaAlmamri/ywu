@@ -51,4 +51,14 @@ class ShopCategory extends Model
                     ->where('status', '=', 1);
             });
     }
+    public function products2()
+    {
+        return $this->hasMany(Product2::class, 'category_id', 'id')
+            ->whereIn('products.admin_id', function ($query) {
+                $query->select('id')
+                    ->from(with(new Admin())->getTable())
+                    ->where('deleted_at', null)
+                    ->where('status', '=', 1);
+            });
+    }
 }

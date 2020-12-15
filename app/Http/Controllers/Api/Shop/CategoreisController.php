@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Api\Shop;
 use App\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Shop\Product;
+use App\Models\Shop\Product2;
 use App\Models\Shop\ShopCategory;
 use App\Seller;
 use App\Traits\JsonTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoreisController extends Controller
 {
@@ -114,7 +116,7 @@ class CategoreisController extends Controller
                 if ($has_seller) {
                     $q->whereIn('admin_id', $request->seller_id);
                 }
-                $q->limit(50)->get();
+                $q->limit(30)->get();
 
             }]);
             if ($has_categories) {
@@ -124,6 +126,71 @@ class CategoreisController extends Controller
             $data = $data
                 ->whereExists(function ($query) use ($has_seller, $request) {
 
+                    $query->select("products.id")
+                        ->from('products')
+                        ->whereRaw('products.category_id = shop_categories.id');
+                    if ($has_seller) {
+                        $query->where('products.admin_id', $request->seller_id);
+                    }
+                })
+                ->orderBy('sort')->get();
+            if (!$data) {
+                return $this->ReturnErorrRespons('0000', 'لايوجد اصناف');
+            } else {
+                return $this->GetDateResponse('data', $data);
+            }
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
+    public function get_product_by_categories33(Request $request)
+    {
+        $has_categories = false;
+        $has_govs = false;
+        $has_seller = false;
+        if (isset($request->seller_id) and count($request->seller_id) > 0)
+            $has_seller = true;
+        if (isset($request->govs) and count($request->govs) > 0)
+            $has_govs = true;
+        if (isset($request->categories) and count($request->categories) > 0)
+            $has_categories = true;
+
+        try {
+            $data = ShopCategory::with(['products2' => function ($q) use ($has_seller, $has_govs, $request) {
+                $q->where('products.id', '>', 0)
+                    ->leftJoin('categories', 'categories.id', '=', 'products.category_id')
+                    ->leftJoin('admins', 'admins.id', '=', 'products.admin_id')
+                    ->leftJoin('sellers', 'admins.id', '=', 'sellers.admin_id')
+                    ->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
+                    ->leftJoin('zones as dis', 'sellers.district_id', '=', 'dis.id')
+                    ->select(['products.*',
+                        DB::raw("(SELECT COALESCE(AVG(rating),0) FROM ratings WHERE rateable_id=products.id  ) as average_rating"),
+                        DB::raw("(SELECT count(rating) FROM ratings WHERE rateable_id=products.id) as count_rating"),
+                        DB::raw("DATE_FORMAT( products.created_at,'" . getDBCustomDate() . "') AS published"),
+                        'dis.name_ar as district', 'govs.name_ar as gov',
+                        'sellers.sale_name as space', 'categories.name as category'])
+//                    ->select()
+                ->inRandomOrder()
+                    ->where('products.status', 1);
+                if ($has_govs) {
+                    $q->whereIn('products.admin_id', function ($query) use ($request) {
+                        $query->select('admin_id')
+                            ->from(with(new Seller())->getTable())
+                            ->whereIn('products.gov_id', $request->govs);
+                    });
+                }
+                if ($has_seller) {
+                    $q->whereIn('products.admin_id', $request->seller_id);
+                }
+                $q->limit(30);
+
+            }]);
+            if ($has_categories) {
+                $data = $data->whereIn('id', $request->categories);
+            }
+            $data = $data
+                ->whereExists(function ($query) use ($has_seller, $request) {
                     $query->select("products.id")
                         ->from('products')
                         ->whereRaw('products.category_id = shop_categories.id');
@@ -168,6 +235,8 @@ class CategoreisController extends Controller
                     $q->where('admin_id', $request->seller_id);
                 }
 //                $q->latest()->limit(1);
+                $q->limit(30)->get();
+
             }]);
             if ($has_categories) {
                 $data = $data->where('id', $request->categories);
