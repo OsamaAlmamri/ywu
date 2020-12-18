@@ -1,33 +1,25 @@
 require('./bootstrap');
+import Axios from 'axios'
 import router from './routes';
 import VueClazyLoad from 'vue-clazy-load' ;
-
+import store from "./store";
+import SweetModal from 'sweet-modal-vue/src/plugin.js'
+import VueLazyLoad from 'vue-lazyload'
 window.Vue = require('vue');
 Vue.use(VueClazyLoad);
-
-import VueLazyLoad from 'vue-lazyload'
-
 Vue.use(VueLazyLoad)
 Vue.component('course-component', require('./components/CourseComponent.vue').default);
 Vue.component('search-filed', require('./components/SearchField.vue').default);
 Vue.component('course-questions', require('./components/Question.vue').default);
-Vue.component('nav-header', require('./components/navHeader.vue').default);
-Vue.component('toast-success', require('./components/ToastSuccess.vue').default);
-Vue.component('toast-error', require('./components/ToastError.vue').default);
 Vue.component('toast-stack', require('./components/ToastStack.vue').default);
 Vue.component('recent-posts', require('./components/RecentPosts.vue').default);
 Vue.component('dropdown', require('./components/dropdown.vue').default);
 Vue.component('ShopCategory', require('./components/ShopCategory.vue').default);
-
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 
-import Axios from 'axios'
 
 Vue.prototype.$http = Axios;
-import store from "./store";
-import SweetModal from 'sweet-modal-vue/src/plugin.js'
-
 Vue.use(SweetModal)
 
 var api_url = process.env.MIX_APP_URL;
@@ -110,7 +102,7 @@ const MyPlugin = {
 }
 Vue.use(MyPlugin)
 const app = new Vue({
-    el: '#app',
+    el: '#my_site_app',
 
     computed: {
         isLoggedIn: function () {

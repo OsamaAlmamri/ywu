@@ -144,7 +144,7 @@
 </head>
 <body>
 
-<div class="page-wrapper" id="app">
+<div class="page-wrapper" id="my_site_app">
     <input type="hidden" name="" id="device_token" value="">
     {{--    <nav-header></nav-header>--}}
     <header class="main-header header-style-one">
@@ -162,6 +162,7 @@
                             <li><span> للمساعدة والدعم :</span><a style="font-size: 19px" href="tel:+967778998366">
                                     778998366 967+</a></li>
                         </ul>
+
                         <!--                            <router-link to="/">Home</router-link>-->
                         <!--                            |-->
                         <!--                            <router-link to="/about">About</router-link>-->
@@ -335,11 +336,6 @@
         <!-- End Mobile Menu -->
 
     </header>
-
-    <toast-success title="{{ session('success-title')??$successTitle??'' }}"
-                   body="{{ session('success-body')??$successBody??'' }} "></toast-success>
-    <toast-error title="{{ session('error-title')??$errorTitle??'' }}"
-                 body="{{ session('error-body')??$errorBody??'' }}"></toast-error>
 
     <toast-stack title="{{ session('stack-title')??$stackTitle??'' }}"
                  body="{{ session('stack-body')??$stackTitle??'' }}"></toast-stack>

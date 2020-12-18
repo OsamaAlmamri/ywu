@@ -24,15 +24,6 @@ window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.events = new Vue();
-window.toastSuccess = function(title, body) {
-    window.events.$emit('toast-success', title, body);
-};
-
-window.toastError = function(title, body) {
-    window.events.$emit('toast-error', title, body);
-};
-
-
 window.toastStack = function(title, body,type) {
     window.events.$emit('toast-stack', title, body,type);
 };

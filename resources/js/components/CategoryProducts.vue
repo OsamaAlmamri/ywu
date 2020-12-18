@@ -58,11 +58,9 @@
 </template>
 
 <script>
-    import CourseGideItem from './CourseGideItem.vue';
     import Loading from 'vue-loading-overlay';
     // Import stylesheet
     import 'vue-loading-overlay/dist/vue-loading.css';
-    import Flickity from 'vue-flickity';
     import ShopGideItem2 from './ShopGideItem2';
     import axios from "axios";
 
@@ -125,9 +123,3 @@
 
     }
 </script>
-<style>
-    .flickity-button:disabled {
-        display: none;
-    }
-
-</style>

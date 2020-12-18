@@ -8,11 +8,6 @@
 
                     <div class="divClass"
                          v-bind:style="{ backgroundImage: 'url('+BaseImagePath+ product.image + ')' }">
-
-
-                        <!--                        <a :href=" product.image_actual" data-lightbox="1" data-title="">-->
-                        <!--                            <img :src=" product.image_actual" width="100" alt="" class="img-fluid img-thumbnail">-->
-                        <!--                        </a>-->
                     </div>
                 </transition>
                 <transition name="fade" slot="placeholder">

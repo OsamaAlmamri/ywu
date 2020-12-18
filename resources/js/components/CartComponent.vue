@@ -215,7 +215,8 @@
                             </div>
                         </div>
                         <div style="text-align: center">
-                            <img v-show="cart_items.length<1" src="/site/images/empty-cart.png">
+                            <img v-show="cart_items.length<1" :src="BaseImagePath+'site/images/empty-cart.png'">
+
 
                         </div>
                     </div>

@@ -34,10 +34,8 @@
 
                         </div>
                         <div style="text-align: center ;" v-show="products.length<1">
-                            <img style="width: 35%;margin-top: -150px;"  src="/site/images/img-no-products.png">
-                            <h4>
-                                لم تقم باضافة اي منتج حتى الان الى المفضلة
-                            </h4>
+                            <img  src="/site/images/img-no-products.png">
+
                         </div>
 
                     </div>
@@ -52,7 +50,6 @@
     import Loading from 'vue-loading-overlay';
     // Import stylesheet
     import 'vue-loading-overlay/dist/vue-loading.css';
-    import Flickity from 'vue-flickity';
     import ShopGideItem2 from './ShopGideItem2';
     import axios from "axios";
 
@@ -111,9 +108,3 @@
 
     }
 </script>
-<style>
-    .flickity-button:disabled {
-        display: none;
-    }
-
-</style>

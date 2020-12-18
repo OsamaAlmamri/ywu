@@ -1,8 +1,5 @@
-import Home from './components/Home';
-import About from './components/About';
 import Register from './components/Register';
 import Login from './components/Login';
-import Dashboard from './components/Dashboard';
 import NotFound from './components/NotFound';
 import Course from './components/CourseComponent';
 import concatUs from './components/ConcatUs';
@@ -174,15 +171,7 @@ const routes = [
             requiresAuth: false
         }
     },
-    {
-        path: '/about',
-        component: About,
-        name: "about",
 
-        meta: {
-            requiresAuth: false
-        }
-    },
     {
         path: '/register',
         name: 'register',
@@ -220,16 +209,7 @@ const routes = [
         }
 
     },
-    {
-        path: "/dashboard",
-        name: "Dashboard",
 
-        component: Dashboard,
-        meta: {
-            requiresAuth: {roles: 2, redirect: {name: 'login'}, forbiddenRedirect: '/403'}
-        }
-
-    }
 
 ];
 const router = new VueRouter({

@@ -304,30 +304,40 @@
                     <!-- Video Column -->
                     <div class="video-column col-lg-4 col-md-12 col-sm-12">
                         <div class="inner-column sticky-top">
-                            <flickity :ref="'flickity_product_detail'" :options="flickity_product_detail">
-
-                                <div class="col-12">
+                            <swiper ref="flickity_categories" :options="swiperOption">
+                                <swiper-slide :key="0">
+                                        <div class="category_image_box">
+                                            <div class="thumbnail">
+                                                <div class="thumb">
+                                                    <a v-bind:href="BaseImagePath+product.image_actual"
+                                                       data-lightbox="1" data-title="">
+                                                        <img class="img-thumbnail img-fluid category_image"
+                                                             :data-flickity-lazyload="BaseImagePath+product.image_actual"
+                                                             :src="BaseImagePath+product.image_actual">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </swiper-slide>
+                                <swiper-slide class="swiper-slide"  v-for="(image,key) in product.images"
+                                              :key="key+1">
                                     <div class="category_image_box">
                                         <div class="thumbnail">
                                             <div class="thumb">
-                                                <a v-bind:href="product.image_actual"
+                                                <a v-bind:href="BaseImagePath+image.image_actual"
                                                    data-lightbox="1" data-title="">
                                                     <img class="img-thumbnail img-fluid category_image"
-                                                         :data-flickity-lazyload="BaseImagePath+product.image_actual"
-                                                         :src="BaseImagePath+product.image_actual">
+                                                         :data-flickity-lazyload="BaseImagePath+image.image_actual"
+                                                         :src="BaseImagePath+image.image_actual">
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div v-for="image in product.images" class="col-12">
-                                    <div class="category_image_box">
-                                        <img class=" img-fluid category_image"
-                                             :data-flickity-lazyload="BaseImagePath+image.image_actual"
-                                             :src="BaseImagePath+image.image_actual">
-                                    </div>
-                                </div>
-                            </flickity>
+                                </swiper-slide>
+                                <div class="swiper-pagination" slot="pagination"></div>
+                                <div class="swiper-button-prev" slot="button-prev"></div>
+                                <div class="swiper-button-next" slot="button-next"></div>
+                            </swiper>
 
                             <button @click="likePost()"
                                     class="theme-btn btn-style-three" style="margin-top"><span
@@ -355,30 +365,29 @@
     import RatingStars2 from "./RatingStars2";
     import ProductQuestion from "./ProductQuestion";
     import LikeButton from "./LikeButton";
-    import Flickity from "vue-flickity";
+    import {Swiper, SwiperSlide} from "vue-awesome-swiper";
+    // import 'swiper/css/swiper.css'
+    import 'swiper/swiper-bundle.css'
 
     export default {
         props: ['items'],
         // components: {question},
-        components: {RatingStars2, Loading, RatingStars, LikeButton, Flickity, ProductQuestion},
+        components: {Swiper, SwiperSlide,RatingStars2, Loading, RatingStars, LikeButton,  ProductQuestion},
 
         data() {
             return {
-                flickity_product_detail: {
-                    initialIndex: 0,
-                    // rightToLeft: true,
-                    // groupCells: 1,
-                    freeScroll: true,
-                    // contain: true,
-                    lazyLoad: true,
-                    autoPlay: 5000,
-                    resize: true,
-                    prevNextButtons: true,
-                    groupCells: true,
-                    pageDots: false,
-                    wrapAround: true
+                swiperOption: {
 
-                    // any options from Flickity can be used
+                    spaceBetween: 30,
+                    effect: 'fade',
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev'
+                    }
                 },
                 isLoading: false,
                 edit_rate: false,
@@ -724,12 +733,4 @@
         },
     }
 </script>
-<style>
-    .dropdown_animation {
-        position: absolute;
-        transform: translate3d(0px, 38px, 0px);
-        top: 0px;
-        left: 0px;
-        will-change: transform;
-    }
-</style>
+
