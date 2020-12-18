@@ -431,6 +431,7 @@ class CartController extends Controller
                     [
                         'user_id' => auth()->id(),
                         'gov_id' => $request->gov_id,
+                        'payment_method' => ($request->payment_method=="transfer")?"transfer":"on_delivery",
                         'district_id' => $request->district_id,
                         'more_address_info' => $request->more_address_info,
                         'coupon' => ($coupon != null and $coupon->end == 0) ? $coupon->coupon : 0,

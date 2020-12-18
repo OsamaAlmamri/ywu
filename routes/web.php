@@ -395,7 +395,7 @@ Route::get('download_app', function () {
     $headers = [
         'Content-Type:' => 'application/apk',
     ];;
-    $path = 'ywp-app v1.apk';
+    $path = 'YemenWE.apk';
     $pathToFile = public_path($path);
 //        $file_name = ($file_name = $ass->originalName);
     return response()->download($pathToFile, Str::ascii($id, 'en'), $headers);
