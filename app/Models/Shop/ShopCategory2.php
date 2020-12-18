@@ -5,10 +5,12 @@ namespace App\Models\Shop;
 use App\Admin;
 use Illuminate\Database\Eloquent\Model;
 
-class ShopCategory extends Model
+class ShopCategory2 extends Model
 {
     //
     use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
+
+    protected $table = 'shop_categories';
     protected $fillable = ['name', 'status', 'sort', 'image_id'];
     protected $appends = ['image'];
 
@@ -42,16 +44,6 @@ class ShopCategory extends Model
 
 
     public function products()
-    {
-        return $this->hasMany(Product::class, 'category_id', 'id')
-            ->whereIn('admin_id', function ($query) {
-                $query->select('id')
-                    ->from(with(new Admin())->getTable())
-                    ->where('deleted_at', null)
-                    ->where('status', '=', 1);
-            });
-    }
-    public function products2()
     {
         return $this->hasMany(Product2::class, 'category_id', 'id')
             ->whereIn('products.admin_id', function ($query) {

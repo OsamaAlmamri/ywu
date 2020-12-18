@@ -6,9 +6,13 @@ use App\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Shop\Product;
 use App\Models\Shop\Product2;
+use App\Models\Shop\Seller2;
 use App\Models\Shop\ShopCategory;
+use App\Models\Shop\ShopCategory2;
+use App\Models\Shop\Zone;
 use App\Seller;
 use App\Traits\JsonTrait;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -42,7 +46,14 @@ class CategoreisController extends Controller
             }])
             ->where('id', $request->product_id)
             ->first()->append(['product_options']);
+        $u = User::all();
+        foreach ($u as $user) {
+            $user->update(['gov_id' => Zone::find($user->district_id)->parent]);
+
+        }
         return $this->GetDateResponse('data', $data);
+
+
     }
 
 
@@ -71,78 +82,19 @@ class CategoreisController extends Controller
 
     public function gov_sellers(Request $request)
     {
-        if (count($request->govs) > 0) {
-            $data = Seller::whereIn('gov_id', $request->govs)
-                ->whereIn('admin_id', function ($query) use ($request) {
-                    $query->select('id')
-                        ->from(with(new Admin())->getTable())
-                        ->where('deleted_at', null)
-                        ->where('status', '=', 1);
-                })->get();
-        } else
-            $data = Seller::whereIn('admin_id', function ($query) use ($request) {
-                $query->select('id')
-                    ->from(with(new Admin())->getTable())
-                    ->where('deleted_at', null)
-                    ->where('status', '=', 1);
-            })->get();
-
-        return $this->GetDateResponse('data', $data);
+        $data = Seller2::whereIn('sellers.admin_id', function ($query) use ($request) {
+            $query->select('id')
+                ->from(with(new Admin())->getTable())
+                ->where('deleted_at', null)
+                ->where('status', '=', 1);
+        })->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
+            ->leftJoin('zones as dis', 'sellers.district_id', '=', 'dis.id')
+            ->select(['sellers.*', 'dis.name_ar as district', 'govs.name_ar as gov']);
+        if (count($request->govs) > 0)
+            $data = $data->whereIn('gov_id', $request->govs);
+        return $this->GetDateResponse('data', $data->get());
     }
 
-
-    public function get_product_by_categories22(Request $request)
-    {
-        $has_categories = false;
-        $has_govs = false;
-        $has_seller = false;
-        if (isset($request->seller_id) and count($request->seller_id) > 0)
-            $has_seller = true;
-        if (isset($request->govs) and count($request->govs) > 0)
-            $has_govs = true;
-        if (isset($request->categories) and count($request->categories) > 0)
-            $has_categories = true;
-
-        try {
-            $data = ShopCategory::with(['products' => function ($q) use ($has_seller, $has_govs, $request) {
-                $q->inRandomOrder()->where('status', 1);
-                if ($has_govs) {
-                    $q->whereIn('admin_id', function ($query) use ($request) {
-                        $query->select('admin_id')
-                            ->from(with(new Seller())->getTable())
-                            ->whereIn('gov_id', $request->govs);
-                    });
-                }
-                if ($has_seller) {
-                    $q->whereIn('admin_id', $request->seller_id);
-                }
-                $q->limit(30)->get();
-
-            }]);
-            if ($has_categories) {
-                $data = $data->whereIn('id', $request->categories);
-            }
-
-            $data = $data
-                ->whereExists(function ($query) use ($has_seller, $request) {
-
-                    $query->select("products.id")
-                        ->from('products')
-                        ->whereRaw('products.category_id = shop_categories.id');
-                    if ($has_seller) {
-                        $query->where('products.admin_id', $request->seller_id);
-                    }
-                })
-                ->orderBy('sort')->get();
-            if (!$data) {
-                return $this->ReturnErorrRespons('0000', 'لايوجد اصناف');
-            } else {
-                return $this->GetDateResponse('data', $data);
-            }
-        } catch (\Exception $ex) {
-            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
-        }
-    }
 
     public function get_product_by_categories33(Request $request)
     {
@@ -169,15 +121,16 @@ class CategoreisController extends Controller
                         DB::raw("(SELECT count(rating) FROM ratings WHERE rateable_id=products.id) as count_rating"),
                         DB::raw("DATE_FORMAT( products.created_at,'" . getDBCustomDate() . "') AS published"),
                         'dis.name_ar as district', 'govs.name_ar as gov',
+                        DB::raw("CONCAT(COALESCE(govs.name_ar,'') , ' / ' ,COALESCE(dis.name_ar,'')) AS zone"),
                         'sellers.sale_name as space', 'categories.name as category'])
 //                    ->select()
-                ->inRandomOrder()
+                    ->inRandomOrder()
                     ->where('products.status', 1);
                 if ($has_govs) {
                     $q->whereIn('products.admin_id', function ($query) use ($request) {
                         $query->select('admin_id')
                             ->from(with(new Seller())->getTable())
-                            ->whereIn('products.gov_id', $request->govs);
+                            ->whereIn('gov_id', $request->govs);
                     });
                 }
                 if ($has_seller) {
@@ -222,29 +175,42 @@ class CategoreisController extends Controller
             $has_categories = true;
 
         try {
-            $data = ShopCategory::with(['products' => function ($q) use ($has_seller, $has_govs, $request) {
-                $q->inRandomOrder()->where('status', 1);
+            $data = ShopCategory2::with(['products' => function ($q) use ($has_seller, $has_govs, $request) {
+                $q->where('products.id', '>', 0)
+                    ->leftJoin('categories', 'categories.id', '=', 'products.category_id')
+                    ->leftJoin('admins', 'admins.id', '=', 'products.admin_id')
+                    ->leftJoin('sellers', 'admins.id', '=', 'sellers.admin_id')
+                    ->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
+                    ->leftJoin('zones as dis', 'sellers.district_id', '=', 'dis.id')
+                    ->select(['products.*',
+                        DB::raw("(SELECT COALESCE(AVG(rating),0) FROM ratings WHERE rateable_id=products.id  ) as average_rating"),
+                        DB::raw("(SELECT count(rating) FROM ratings WHERE rateable_id=products.id) as count_rating"),
+                        DB::raw("DATE_FORMAT( products.created_at,'" . getDBCustomDate() . "') AS published"),
+                        'dis.name_ar as district', 'govs.name_ar as gov',
+                        DB::raw("CONCAT(COALESCE(govs.name_ar,'') , ' / ' ,COALESCE(dis.name_ar,'')) AS zone"),
+                        'sellers.sale_name as space', 'categories.name as category'])
+//                    ->select()
+                    ->inRandomOrder()
+                    ->where('products.status', 1);
+
                 if ($has_govs) {
-                    $q->whereIn('admin_id', function ($query) use ($request) {
+                    $q->whereIn('products.admin_id', function ($query) use ($request) {
                         $query->select('admin_id')
                             ->from(with(new Seller())->getTable())
                             ->where('gov_id', $request->govs);
                     });
                 }
                 if ($has_seller) {
-                    $q->where('admin_id', $request->seller_id);
+                    $q->where('products.admin_id', $request->seller_id);
                 }
-//                $q->latest()->limit(1);
-                $q->limit(30)->get();
+                $q->limit(30);
 
             }]);
             if ($has_categories) {
                 $data = $data->where('id', $request->categories);
             }
-
             $data = $data
                 ->whereExists(function ($query) use ($has_seller, $request) {
-
                     $query->select("products.id")
                         ->from('products')
                         ->whereRaw('products.category_id = shop_categories.id');
@@ -272,26 +238,39 @@ class CategoreisController extends Controller
             $has_govs = false;
             if (isset($request->govs) and count($request->govs) > 0)
                 $has_govs = true;
-            $data = Product::where('status', 1)
-                ->where('category_id', $request->category_id)
-                ->whereIn('admin_id', function ($query) use ($request) {
+            $data = Product2::where('products.category_id', $request->category_id)
+                ->whereIn('products.admin_id', function ($query) use ($request) {
                     $query->select('id')
                         ->from(with(new Admin())->getTable())
                         ->where('deleted_at', null)
                         ->where('status', '=', 1);
-                });
+                })->leftJoin('categories', 'categories.id', '=', 'products.category_id')
+                ->leftJoin('admins', 'admins.id', '=', 'products.admin_id')
+                ->leftJoin('sellers', 'admins.id', '=', 'sellers.admin_id')
+                ->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
+                ->leftJoin('zones as dis', 'sellers.district_id', '=', 'dis.id')
+                ->select(['products.*',
+                    DB::raw("(SELECT COALESCE(AVG(rating),0) FROM ratings WHERE rateable_id=products.id  ) as average_rating"),
+                    DB::raw("(SELECT count(rating) FROM ratings WHERE rateable_id=products.id) as count_rating"),
+                    DB::raw("DATE_FORMAT( products.created_at,'" . getDBCustomDate() . "') AS published"),
+                    'dis.name_ar as district', 'govs.name_ar as gov',
+                    DB::raw("CONCAT(COALESCE(govs.name_ar,'') , ' / ' ,COALESCE(dis.name_ar,'')) AS zone"),
+                    'sellers.sale_name as space', 'categories.name as category'])
+//                    ->select()
+                ->inRandomOrder()
+                ->where('products.status', 1);
             if ($has_govs) {
-                $data = $data->whereIn('admin_id', function ($query) use ($request) {
-                    $query->select('admin_id')
+                $data = $data->whereIn('products.admin_id', function ($query) use ($request) {
+                    $query->select('products.admin_id')
                         ->from(with(new Seller())->getTable())
                         ->whereIn('gov_id', $request->govs);
                 });;
                 if ($has_seller) {
-                    $data = $data->where('admin_id', $request->seller_id);
+                    $data = $data->where('products.admin_id', $request->seller_id);
                 }
 
             }
-            $data = $data->orderBy('sort')->paginate(100);
+            $data = $data->paginate(100);
             if (!$data) {
                 return $this->ReturnErorrRespons('0000', 'لايوجد اصناف');
             } else {

@@ -46,7 +46,7 @@
                             <br>
                             <p v-if="order_seller.coupon_discount>0">
                                 <b>المبلغ المتوجب دفعة :</b>
-                                {{order_seller.shipping_cost+order_seller.price-order_seller.coupon_discount}}
+                                {{parseInt(order_seller.shipping_cost)+parseInt(order_seller.price)-parseInt(order_seller.coupon_discount)}}
                             </p>
                             <span v-if="order_seller.coupon_discount<1">
                                 <b>المبلغ المتوجب دفعة :</b> {{order_seller.shipping_cost+order_seller.price-order_seller.coupon_discount}}

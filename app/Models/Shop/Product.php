@@ -403,7 +403,7 @@ class Product extends Model
     function getSellIconAttribute()
     {
         $im = $this->seller()->get()->first();
-        return ($im != null) ? url($im->seller->ssn_image) : null;
+        return ($im != null) ? ($im->seller->ssn_image) : null;
     }
 
     function getSellNameAttribute()

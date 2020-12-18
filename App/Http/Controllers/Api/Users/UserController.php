@@ -328,6 +328,9 @@ class UserController extends Controller
             $user->name = request()->name;
             $user->phone = request()->phone;
             $user->email = request()->email;
+            $user->gov_id = request()->gov_id;
+            $user->more_address_info = request()->more_address_info;
+            $user->district_id = request()->district_id;
             $user->update();
             return $this->GetDateResponse('user', $user);
         } else {

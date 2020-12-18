@@ -9,7 +9,7 @@
             <div class="profile_pic">
                 @if (auth()->user()->type=='admin')
 
-                    <img src="{{asset('assets/images/'.auth()->user()->image)}}" alt="..."
+                    <img src="{{asset(auth()->user()->image)}}" alt="..."
                          class="img-circle profile_img">
                 @else
                     <img src="{{url(auth()->user()->seller->ssn_image)}}" alt="..."
@@ -234,7 +234,7 @@
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                        aria-expanded="false">
                         @if (auth()->user()->type=='admin')
-                            <img src="{{asset('assets/images/'.auth()->user()->image)}}" alt="">{{auth()->user()->name}}
+                            <img src="{{asset(auth()->user()->image)}}" alt="">{{auth()->user()->name}}
                         @else
 
                             <img src="{{url(auth()->user()->seller->ssn_image)}}"

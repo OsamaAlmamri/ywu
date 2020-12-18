@@ -21,7 +21,7 @@
                             صاحب الطلب
                             <address>
                                 <strong> {{$order->user_name}}.</strong>
-                                <br>{{$order->user->gov}},{{$order->district}},{{$order->user->more_address_info}}
+                                <br>{{$order->user->gov}},{{$order->user->district}},{{$order->user->more_address_info}}
                                 <br> رقم النلفون : {{$order->user->phone}}
                             </address>
                         </div>

@@ -149,8 +149,6 @@
 
                             <!-- Form Group -->
                             <div class="form-group col-lg-6 col-md-12 col-sm-12">
-                                <!--                                 v-show="form.userType=='customer' ||form.userType=='seller'">-->
-
                                 <label> المحافظة </label>
                                 <select @change="get_district()" class="form-control" id="sel1" v-model="form.gov_id">
                                     <option v-for="gov in govs " :value="gov.id"> {{gov.name_ar}}</option>
@@ -159,12 +157,10 @@
 
                             <!-- Form Group -->
                             <div class="form-group col-lg-6 col-md-12 col-sm-12">
-                                <!--                                 v-show="form.userType=='customer' || form.userType=='seller'">-->
                                 <label> المديرية </label>
                                 <select class="form-control" id="sel2" v-model="form.district_id">
                                     <option v-for="dist in districts " :value="dist.id"> {{dist.name_ar}}</option>
                                 </select>
-
                             </div>
 
                             <!-- Form Group -->

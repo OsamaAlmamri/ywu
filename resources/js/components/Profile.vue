@@ -148,7 +148,9 @@
                                         <!-- Sec Title -->
                                         <div class="content">
                                             <div class="row clearfix">
-                                                <h4 style="margin: 25%"  v-if="my_complete_trainings_data.data.length==0">لم تقم باخذ  اي كورس تدريبي حتى الان
+                                                <h4 style="margin: 25%"
+                                                    v-if="my_complete_trainings_data.data.length==0">لم تقم باخذ اي كورس
+                                                    تدريبي حتى الان
                                                 </h4>
                                                 <div class="cource-block-two col-lg-4 col-md-6 col-sm-12 col-xs-12"
                                                      v-for="(training,key) in my_complete_trainings_data.data">
@@ -180,7 +182,8 @@
                                         <!-- Sec Title -->
                                         <div class="content">
                                             <div class="row clearfix">
-                                                <h4 style="margin: 25%"  v-if="my_trainings_data.data.length==0">لم تقم باخذ  اي كورس تدريبي حتى الان
+                                                <h4 style="margin: 25%" v-if="my_trainings_data.data.length==0">لم تقم
+                                                    باخذ اي كورس تدريبي حتى الان
                                                 </h4>
                                                 <div class="cource-block-two col-lg-4 col-md-6 col-sm-12 col-xs-12"
                                                      v-for="(training,key) in my_trainings_data.data">
@@ -210,8 +213,9 @@
                                     <div :class="['tab', {'active-tab':(activeTap=='prod-bookmark')}]">
                                         <div class="content">
                                             <div class="row clearfix">
-                                                <h4 style="margin: 25%"  v-if="my_consultantData.data.length==0">لم تقم باضافة اي استشارة
-                                                      </h4>
+                                                <h4 style="margin: 25%" v-if="my_consultantData.data.length==0">لم تقم
+                                                    باضافة اي استشارة
+                                                </h4>
                                                 <div class="cource-block-two  col-sm-12 col-xs-12"
                                                      v-for="(post,key) in my_consultantData.data">
                                                     <consultant-item
@@ -243,7 +247,8 @@
                                     <div :class="['tab', {'active-tab':(activeTap=='prod-fav')}]">
                                         <div class="content">
                                             <div class="row clearfix">
-                                                <h4 style="margin: 25%" v-if="my_like_trainings.data.length==0">لم تقم باضافة اي مادة
+                                                <h4 style="margin: 25%" v-if="my_like_trainings.data.length==0">لم تقم
+                                                    باضافة اي مادة
                                                     تدريبية للمفضلة </h4>
                                                 <div class="cource-block-two col-lg-4 col-md-6 col-sm-12 col-xs-12"
                                                      v-for="(training,key) in my_like_trainings.data">
@@ -303,6 +308,36 @@
                                                                    placeholder="رقم الهاتف"
                                                                    required="">
                                                             <span class="icon flaticon-edit-1"></span>
+                                                        </div>
+                                                        <!-- Form Group -->
+                                                        <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                                                            <label> المحافظة </label>
+                                                            <select @change="get_district()" class="form-control"
+                                                                    id="sel1" v-model="profile_info.gov_id">
+                                                                <option v-for="gov in govs " :value="gov.id">
+                                                                    {{gov.name_ar}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+
+                                                        <!-- Form Group -->
+                                                        <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                                                            <label> المديرية </label>
+                                                            <select class="form-control" id="sel2"
+                                                                    v-model="profile_info.district_id">
+                                                                <option v-for="dist in districts " :value="dist.id">
+                                                                    {{dist.name_ar}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <!-- Form Group -->
+                                                        <div class="form-group col-md-6 col-sm-12">
+                                                            <!--                                 v-show="form.userType=='customer' ||form.userType=='seller'">-->
+                                                            <label> معلومات اضافية عن مكان التواجد </label>
+                                                            <input type="text" name=""
+                                                                   v-model="profile_info.more_address_info"
+                                                                   id="form_more_address_info"
+                                                                   value="">
                                                         </div>
                                                         <div
                                                             class="col-lg-12 col-md-12 col-sm-12 form-group text-right">
@@ -394,10 +429,16 @@
         data() {
             return {
                 isLoading: false,
+                district_id: 0,
+                govs: [],
+                districts: [],
                 profile_info: {
                     "name": store.getters.authUser.name,
                     "email": store.getters.authUser.email,
-                    "phone": store.getters.authUser.phone
+                    "phone": store.getters.authUser.phone,
+                    "more_address_info": store.getters.authUser.more_address_info,
+                    "gov_id": store.getters.authUser.gov_id,
+                    "district_id": store.getters.authUser.district_id
                 },
                 password: {
                     'current_password': '',
@@ -405,7 +446,7 @@
                 },
                 categories: [],
                 my_consultantData: {
-                    data:[]
+                    data: []
                 },
                 newPostData: {
                     'id': 0,
@@ -414,17 +455,17 @@
                     'category_id': '1',
                 },
                 my_favData: {
-                    data:[]
+                    data: []
                 },
                 // my_favData: {},
                 my_trainings_data: {
-                    data:[]
+                    data: []
                 },
                 my_like_trainings: {
-                    data:[]
+                    data: []
                 },
                 my_complete_trainings_data: {
-                    data:[]
+                    data: []
                 },
                 fullPage: false,
                 activeIndex: null,
@@ -450,6 +491,7 @@
             //     this.myConsultant();
             //
             // }
+            // this.get_gov();
         },
         methods: {
             changeActive(index) {
@@ -518,6 +560,9 @@
                             user.name = this.profile_info.name;
                             user.email = this.profile_info.email;
                             user.phone = this.profile_info.phone;
+                            user.more_address_info = this.profile_info.more_address_info;
+                            user.gov_id = this.profile_info.gov_id;
+                            user.district_id = this.profile_info.district_id;
                             localStorage.setItem('user', JSON.stringify(user));
                             toastStack(resp.data.msg, '', 'success');
                         }
@@ -578,7 +623,7 @@
                     });
             },
             my_complete_trainings(page = 1) {
-                axios({url: 'api/myTraining?page=' + page,  data: {type: 'complete'},method: 'POST'})
+                axios({url: 'api/myTraining?page=' + page, data: {type: 'complete'}, method: 'POST'})
                     .then(response => {
                         this.my_complete_trainings_data = response.data.Trainings;
                     });
@@ -588,6 +633,27 @@
                     .then(response => {
                         this.my_consultantData = response.data.data;
                     });
+            },
+            get_district() {
+                axios({url: '/api/get_district', data: {"gov_id": this.profile_info.gov_id}, method: 'POST'})
+                    .then(resp => {
+                        this.districts = (resp.data.data);
+                        // this.profile_info.district_id = this.districts[0].id;
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            },
+            get_gov() {
+                axios({url: '/api/get_gov', method: 'POST'})
+                    .then(resp => {
+                        this.govs = (resp.data.data);
+                        // this.profile_info.gov_id = this.govs[0].id;
+                        this.get_district()
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
             },
             savePost() {
                 if (localStorage.token) {
@@ -650,6 +716,7 @@
             this.fav_trainings();
             this.myConsultant();
             this.my_trainings();
+            this.get_gov();
             this.fetchCategories();
 
         },

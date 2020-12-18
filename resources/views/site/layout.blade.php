@@ -97,7 +97,7 @@
 
         .product_countainer {
 
-            box-shadow: 0 3px 7px 0 rgb(0, 0, 0, 0.5);
+            box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.5);
         }
 
 
@@ -118,6 +118,28 @@
         /*{*/
         /*    height: 163px;*/
         /*}*/
+        select.form-control:not([size]):not([multiple]) {
+            height: auto;
+        }
+        .profile-form .form-group input[type="text"],
+        .profile-form .form-group input[type="password"], .profile-form .form-group input[type="tel"],
+        .profile-form .form-group input[type="email"], .profile-form .form-group select {
+            border-radius: 5px;
+            background: #f5f0ff;
+        }
+        .sweet-content-content
+        {
+            width: 100%;
+        }
+
+        .table {
+            width: 100%;
+            overflow-y: scroll;
+        }
+        .one_seller_box .table
+        {
+            font-size:10px;
+        }
     </style>
 </head>
 <body>

@@ -301,7 +301,6 @@
 
                 });
             }
-
             $(document).on('click', '.create_record', function () {
                 $('.modal-title').text("إ إنشاء منتج  جديدة");
                 $('#action_button').val("حفظ");

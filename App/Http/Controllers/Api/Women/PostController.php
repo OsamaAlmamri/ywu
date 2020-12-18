@@ -21,7 +21,8 @@ class PostController extends Controller
 
     public function index()
     {
-        $limit=(request()->limit != null)?request()->limit:10;
+        // $limit=(request()->limit != null)?request()->limit:20;
+        $limit=20;
 
         $post = WomenPosts::with(['user_like'])
             ->orderByDesc('id')->paginate($limit);
