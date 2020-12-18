@@ -17,15 +17,14 @@
     <link href="{{  asset('site/css/mcq.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/vue/loading2.css')  }}" rel="stylesheet">
     {{--    <link href="{{  asset('css/app.css')  }}" rel="stylesheet">--}}
-    <link href="{{  asset('css/toastr.css')  }}" rel="stylesheet">
+{{--    <link href="{{  asset('css/toastr.css')  }}" rel="stylesheet">--}}
 
     <meta name="theme-color" content="#593c97">
     <!-- Windows Phone -->
     <meta name="msapplication-navbutton-color" content="#593c97">
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-status-bar-style" content="#00ab15">
-    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css"/>
-    <link rel="shortcut icon" href="{{  asset('site/images/logo_white.png')  }}" type="image/x-icon">
+{{--    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css"/>--}}
     <link rel="icon" href="{{  asset('site/images/logo_white.png')  }}" type="image/x-icon">
 
     <link
@@ -38,7 +37,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
     <!--[if lt IE 9]>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>--><![endif]-->
     <link href="{{asset('site/css/osama3.css')  }}" rel="stylesheet">
 
     <style>
@@ -512,12 +511,12 @@
 
 
 <script src="{!! asset('site/js/jquery.js') !!}"></script>
-<script src="{!! asset('site/js/popper.min.js') !!}"></script>
+{{--<script src="{!! asset('site/js/popper.min.js') !!}"></script>--}}
 <script src="{!! asset('site/js/jquery.scrollTo.js') !!}"></script>
-<script src="{!! asset('site/js/bootstrap.min.js') !!}"></script>
+{{--<script src="{!! asset('site/js/bootstrap.min.js') !!}"></script>--}}
 <script src="{!! asset('site/js/jquery.mCustomScrollbar.concat.min.js') !!}"></script>
 {{--<script src="{!! asset('site/js/jquery.fancybox.js') !!}"></script>--}}
-<script src="{!! asset('site/js/appear.js') !!}"></script>
+{{--<script src="{!! asset('site/js/appear.js') !!}"></script>--}}
 {{--<script src="{!! asset('site/js/swiper.min.js') !!}"></script>--}}
 {{--<script src="{!! asset('site/js/element-in-view.js') !!}"></script>--}}
 {{--<script src="{!! asset('site/js/jquery.paroller.min.js') !!}"></script>--}}
