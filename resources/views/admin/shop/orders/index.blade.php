@@ -15,13 +15,14 @@
                 <div class="row">
                     <div class="input-group col-sm-3">
                         <span class="input-group-addon">الى محافظة </span>
-                        <?php $getGovernorate = getCities(); $getGovernorate['all'] = 'all'; ?>
+                        <?php $getGovernorate = getCities(); $getGovernorate['all'] = 'الكل'; ?>
                         {!!Form ::select('to_zone', array_reverse($getGovernorate,true),'',['class' => 'select2 form-control', 'id' => 'to_zone'])!!}
                     </div>
                     @if($type!='main')
                         <div class="input-group col-sm-3">
                             <span class="input-group-addon">حالة الطلب</span>
-                            {!!Form ::select('status', getSpesificStatus(0),'',['class' => 'select2 form-control', 'id' => 'filter_status'])!!}
+                            <?php $getGovernorate = getSpesificStatus(0); $getGovernorate['all'] = 'الكل'; ?>
+                            {!!Form ::select('status',  array_reverse($getGovernorate,true),'',['class' => 'select2 form-control', 'id' => 'filter_status'])!!}
                         </div>
                         {{--                    @endif--}}
                     @else
@@ -33,25 +34,41 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-group col-sm-4">
-                        <span class="input-group-addon">من تاريخ</span>
-                        <input type="date" class="form-control" name="start" value="{{isset($start)?$start:''}}"
-                               id="from_date">
-                    </div>
-                    <div class="input-group col-sm-4">
-                        <span class="input-group-addon">الى تاريخ</span>
-                        <input type="date" class="form-control" name="end" value="{{isset($end)?$end:''}}" required
-                               id="to_date">
-                    </div>
 
-                    <div class="input-group col-sm-2">
-                        <button type="button" name="filter" id="filter"
-                                class="btn btn-primary btn-ms waves-effect waves-light">فرز<i
+                    @if($type!='main' and (auth()->user()->type=='admin'))
+                        <div class="input-group col-sm-3">
+                            <span class="input-group-addon">البائع </span>
+                            <select name="filter_seller" id="filter_seller" class="form-control" required>
+                                <option value="all">الكل</option>
+                                @foreach(sellers() as $c)
+                                    <option value="{{ $c->admin_id }}">{{ $c->sale_name }}</option>
+                            @endforeach
+                        </div>
+                    @else
+                        <option value="all">الكل</option>
+                        @endif
+                        </select>
+                </div>
+
+                <div class="input-group col-sm-3">
+                    <span class="input-group-addon">من تاريخ</span>
+                    <input type="date" class="form-control" name="start" value="{{isset($start)?$start:''}}"
+                           id="from_date">
+                </div>
+                <div class="input-group col-sm-3">
+                    <span class="input-group-addon">الى تاريخ</span>
+                    <input type="date" class="form-control" name="end" value="{{isset($end)?$end:''}}" required
+                           id="to_date">
+                </div>
+
+                <div class="input-group col-sm-2">
+                    <button type="button" name="filter" id="filter"
+                            class="btn btn-primary btn-ms waves-effect waves-light">فرز<i
                                 class="fa fa-filter"></i></button>
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
     </div>
 @endsection
@@ -172,6 +189,7 @@
                             to_zone: $('#to_zone').val(),
                             from_date: $('#from_date').val(),
                             to_date: $('#to_date').val(),
+                            filter_seller: $('#filter_seller').val(),
                             filter_status: $('#filter_status').val(),
                             payment_status: $('#filter_payment_status').val(),
                             type: '{{$type}}',
@@ -229,23 +247,23 @@
                         },
                         {
                             title: 'العميل',
-                            data: 'order.user_name',
-                            name: 'order.user_name',
+                            data: 'user_name',
+                            name: 'user_name',
                         },
                         {
                             title: ' المحافظة',
-                            data: 'order.gov',
-                            name: 'order.gov',
+                            data: 'gov',
+                            name: 'gov',
                         },
                         {
                             title: ' المديرية',
-                            data: 'order.district',
-                            name: 'order.district',
+                            data: 'district',
+                            name: 'district',
                         },
                         {
                             title: ' معلومات اخرى',
-                            data: 'order.more_address_info',
-                            name: 'order.more_address_info',
+                            data: 'more_address_info',
+                            name: 'more_address_info',
                         },
                         {
                             title: ' اجمالي تكلفة الطلب ',
@@ -254,10 +272,15 @@
                         },
                         {
                             title: 'تاريخ الطلب ',
-                            data: 'order.created_at',
-                        }, {
+                            data: 'published',
+                        },
+                        {
                             title: 'حالة الطلب ',
                             data: 'order_status_name',
+                        },
+                        {
+                            title: 'حالة الدفع ',
+                            data: 'payment_status_name',
                         },
                         @endif
                         @if ((Auth::user()->can('manage orders') == true))
@@ -296,7 +319,7 @@
             if (actionType == "change_payment") {
                 $('.modal-title').text("تاكيد مراجعة الطلب");
             }
-                // else if (type_id == "delete_payment")
+            // else if (type_id == "delete_payment")
             //     $('.modal-title').text("حذف الصنف");
             else {
                 $('.modal-title').text("تاكيد دفع الطلب");

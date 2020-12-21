@@ -456,6 +456,7 @@ class CartController extends Controller
                             ['seller_id' => $product->admin_id,
                                 'order_id' => $order->id,
                                 'price' => 0,
+                                'payment_method' => ($request->payment_method=="transfer")?"transfer":"on_delivery",
                                 'coupon' => ($coupon != null and $coupon->end == 0 and $seller_coupon == $product->admin_id) ? $coupon->coupon : 0,
                                 'coupon_discount' => ($coupon != null and $coupon->end == 0 and $seller_coupon == $product->admin_id) ? $coupon->amount : 0,
                             ]);

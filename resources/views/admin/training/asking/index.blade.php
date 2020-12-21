@@ -36,11 +36,11 @@
                 </div>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #AA22FF;">
-                <div class="card">
+                <div class="card"    >
                     <div class="card-block">
                         <div class="count_top" style="font-weight: bold"><i class="fa fa-female"
                                                                             style="font-size: 20px"></i>
-                            منشورات حقوق المراءة
+                            منشورات شؤون المراءة
                         </div>
                         <div class="count">{{$women}}</div>
                     </div>

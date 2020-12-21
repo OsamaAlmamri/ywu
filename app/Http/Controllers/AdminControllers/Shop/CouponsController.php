@@ -124,21 +124,32 @@ class CouponsController extends Controller
             ], 422);
         }
         $users = User::inRandomOrder()->whereIn('type', ['customers', 'visitor'])
-            ->whereNotIn('id', function ($query) use ($request) {
-                $query->select('user_id')
-                    ->from(with(new Coupon())->getTable());
-//                    ->where('used', 1)
-//                    ->orWhere('end_date', '>', now());
-            })->limit($request->number)->get();
-        if ($users->count() == 0)
-            $users = User::whereIn('type', ['customers', 'visitor'])
-                ->whereNotIn('id', function ($query) use ($request) {
-                    $query->select('user_id')
-                        ->from(with(new Coupon())->getTable());
-//                    ->where('used', 1)
-//                    ->orWhere('end_date', '>', now());
-                })->limit($request->number)->get();
+
+                ->whereNotExists(function ($query) {
+                    $query->select("coupons.user_id")
+                        ->from('coupons')
+                        ->whereRaw('users.id = coupons.user_id');
+                })
+                    ->limit($request->number)->get();
+
+//                if ($users->count() == 0)
+//            $users = User::whereIn('type', ['customers', 'visitor'])
+////                ->whereNotIn('id', function ($query) use ($request) {
+////                    $query->select('user_id')
+////                        ->from(with(new Coupon())->getTable());
+//////                    ->where('used', 1)
+//////                    ->orWhere('end_date', '>', now());
+////                })
+//                ->whereNotExists(function ($query) {
+//                    $query->select("coupons.user_id")
+//                        ->from('coupons')
+//                        ->whereRaw('users.id = coupons.user_id');
+//                })
+//                ->limit($request->number)->get();
+
+//        return $users;
         foreach ($users as $user) {
+
             if (isset($user->id)) {
                 $c = Coupon::create(array_merge($request->all(),
                     [
