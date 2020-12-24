@@ -283,7 +283,7 @@ function sellers()
     $data = Seller::whereIn('admin_id', function ($query) {
         $query->select('id')
             ->from(with(new Admin())->getTable())
-            ->where('deleted_at', null);
+            ->where('admins.deleted_at', null);
     })->get();
     return $data;
 }

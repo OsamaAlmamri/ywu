@@ -3,6 +3,8 @@
 namespace App;
 
 use App\Models\Shop\Order;
+use App\Models\Shop\OrderSeller;
+use App\Models\Shop\OrderSeller2;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,12 +18,18 @@ class Coupon extends Model
     protected $fillable = ['coupon', 'amount', 'used', 'user_id', 'order_id', 'end_date'];
 
 
-    protected $appends = ['ended', 'user_name', 'gov','phone'];
+    protected $appends = ['ended'];
 
     function getGovAttribute()
     {
         $im = $this->order()->get()->first();
         return ($im != null) ? $im->gov : null;
+    }
+
+    function getOrderStatusAttribute()
+    {
+        $im = $this->order()->get()->first();
+        return ($im != null) ? trans('status.order_' . $im->status) : null;
     }
 
     function getUserNameAttribute()
@@ -38,7 +46,7 @@ class Coupon extends Model
 
     public function order()
     {
-        return $this->belongsTo(Order::class, 'order_id', 'id');
+        return $this->belongsTo(OrderSeller::class, 'order_id', 'id');
     }
 
     public function user()

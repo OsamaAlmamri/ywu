@@ -3,17 +3,21 @@
 namespace App\Http\Controllers\AdminControllers\Shop;
 
 use App\Admin;
+use App\Coupon;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FireBaseController;
 use App\Models\Shop\Order;
 use App\Models\Shop\OrderSeller;
+use App\Models\Shop\OrderSeller2;
 use App\Models\Shop\OrderTiming;
 use App\Models\Shop\Product;
 use App\Models\Shop\ProductQuestion;
 use App\Models\Shop\ProductsOption;
 use App\Models\Shop\QuestionReplay;
+use App\Models\Shop\ShopCategory2;
 use App\Notification;
 use App\Notifications\AppNotification;
+use App\Seller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
@@ -38,11 +42,12 @@ class OrdersController extends Controller
         if (request()->ajax()) {
             $type = request()->type;
             $to_zone = request()->to_zone;
-            $status = request()->status;
+            $status = request()->filter_status;
+            $seller_id = isset(request()->filter_seller) ? request()->filter_seller : "all";
             $payment_status = request()->payment_status;
             $from = (request()->from_date == null) ? date('1974-01-01') : date(request()->from_date);
             $to = (request()->to_date == null) ? date('9999-01-01') : date(request()->to_date);
-            $data = $this->getData($type, $to_zone, $status, $payment_status, $from, $to);
+            $data = $this->getData($type, $to_zone, $status, $payment_status, $seller_id, $from, $to);
             if ($data) {
                 if ($type == 'main')
                     return datatables()->of($data)
@@ -65,7 +70,7 @@ class OrdersController extends Controller
         return view('admin.shop.orders.index', compact('type'));
     }
 
-    public function getData($type, $to_zone, $status, $payment_status, $from_date = '1970-01-01', $to_date = '9999-09-09')
+    public function getData($type, $to_zone, $status, $payment_status, $seller_id = "all", $from_date = '1970-01-01', $to_date = '9999-09-09')
     {
         if ($type == 'main') {
 
@@ -77,19 +82,45 @@ class OrdersController extends Controller
 
 
         } else {
-            $data = OrderSeller::with('order')
-                ->whereIn('order_id', function ($query) use ($status, $payment_status, $from_date, $to_date, $to_zone) {
+//            $data = OrderSeller::with('order')
+//                ->whereIn('order_id', function ($query) use ($status, $payment_status, $from_date, $to_date, $to_zone) {
+//                    $query->select('id')
+//                        ->from(with(new Order())->getTable())
+//                        ->whereBetween('created_at', [$from_date, $to_date]);
+//                    if ($to_zone != 'all')
+//                        $query->where('gov_id', $to_zone);
+//                    if ($payment_status != 'all')
+//                        $query->where('payment_status', $payment_status);
+//
+//                });
+            $data = OrderSeller2::leftJoin('admins', 'admins.id', '=', 'order_sellers.seller_id')
+                ->leftJoin('sellers', 'admins.id', '=', 'sellers.admin_id')
+                ->leftJoin('orders', 'orders.id', '=', 'order_sellers.order_id')
+                ->leftJoin('users', 'orders.user_id', '=', 'users.id')
+                ->leftJoin('zones as govs', 'orders.gov_id', '=', 'govs.id')
+                ->leftJoin('zones as dis', 'orders.district_id', '=', 'dis.id')
+                ->select(['order_sellers.*', 'sellers.sale_name as  seller_name', 'users.name as user_name', 'orders.more_address_info',
+                    'dis.name_ar as district', 'govs.name_ar as gov',
+                    DB::raw("DATE_FORMAT( orders.created_at,'" . getDBCustomDate() . "') AS published")])
+                ->whereIn('order_sellers.order_id', function ($query) use ($status, $payment_status, $from_date, $to_date, $to_zone) {
                     $query->select('id')
                         ->from(with(new Order())->getTable())
                         ->whereBetween('created_at', [$from_date, $to_date]);
                     if ($to_zone != 'all')
                         $query->where('gov_id', $to_zone);
-                    if ($payment_status != 'all')
-                        $query->where('payment_status', $payment_status);
+                });
+//
+            if ($payment_status != 'all')
+                $data = $data->where('order_sellers.payment_status', $payment_status);
+            if ($status != 'all')
+                $data = $data->where('order_sellers.status', $status);
+            if (auth()->user()->type == "admin" and $seller_id != 'all')
+                $data = $data->where('seller_id', $seller_id);
+            if (auth()->user()->type == "admin")
+                $data = $data->orderByDesc('id');
+            else
+                $data = $data->where('seller_id', auth()->id())->orderByDesc('id');
 
-                })->where('seller_id', auth()->id())->orderByDesc('id');
-//            if ($status != 'all')
-//                $data = $data->where('status', $status);
 
         }
         $data = $data->orderByDesc('id')->get();
@@ -135,10 +166,13 @@ class OrdersController extends Controller
 
         $order_seller = OrderSeller::find($request->order_id);
         $order_seller->status = $request->status;
-        $order_seller->save();
-        if ($request->status == 'cancel_by_seller')
+        if ($order_seller->status != 'cancel_by_user' or $order_seller->status != 'cancel_by_seller')
+            $order_seller->save();
+        if ($request->status == 'cancel_by_seller') {
+            $co = Coupon::where('coupon', $order_seller->coupon)->update(['used' => 0]);
+
             $message = '  تم الغاء  الطلب رقم  ' . $order_seller->id . '  من قبل متجر   ' . $order_seller->seller_name;
-        else
+        } else
             $message = '  تم تغيير حالة الطلب رقم  ' . $order_seller->id . '  من قبل متجر   ' . $order_seller->seller_name;
         $time = OrderTiming::create(['order_seller_id' => auth()->id(),
             'status' => 'new',

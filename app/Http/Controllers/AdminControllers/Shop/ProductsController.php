@@ -44,7 +44,7 @@ class ProductsController extends Controller
             $btn_avg_Rating = "(SELECT COALESCE(AVG(rating),0) FROM ratings WHERE rateable_id=products.id  ) as average_rating";
             $btn_count_Rating = "(SELECT count(rating) FROM ratings WHERE rateable_id=products.id) as count_rating";
             $data = Product2::where('products.id','>',0)
-                ->leftJoin('categories', 'categories.id', '=', 'products.category_id')
+                ->leftJoin('shop_categories', 'shop_categories.id', '=', 'products.category_id')
                 ->leftJoin('admins', 'admins.id', '=', 'products.admin_id')
                 ->leftJoin('sellers', 'admins.id', '=', 'sellers.admin_id')
                 ->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
@@ -61,7 +61,7 @@ class ProductsController extends Controller
                     DB::raw("DATE_FORMAT( products.created_at,'".getDBCustomDate()."') AS published"),
 //                    'image_categories.path as image',
                     'dis.name_ar as district' ,'govs.name_ar as gov',
-                    'sellers.sale_name as space', 'categories.name as category');
+                    'sellers.sale_name as space', 'shop_categories.name as category');
 
             if ((Auth::user()->can('show products') == true) and (auth()->user()->type == 'admin')) {
                 if (request()->category_id == 0 and request()->admin_id == 0)
@@ -74,7 +74,7 @@ class ProductsController extends Controller
                     $data =$data->where('products.category_id', request()->category_id)->where('products.admin_id', request()->admin_id)->get();
             } else {
                 if (request()->category_id == 0)
-                    $data =$data->all()->where('products.admin_id', auth()->id());
+                    $data =$data->where('products.admin_id', auth()->id());
                 else
                     $data =$data->where('products.category_id', request()->category_id)->where('admin_id', auth()->id())->get();
             }

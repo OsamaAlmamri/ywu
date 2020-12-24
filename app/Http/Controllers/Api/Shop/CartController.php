@@ -146,7 +146,7 @@ class CartController extends Controller
                     }
                 }
                 foreach ($total_sellers as $k => $total)
-                    if ($total > $c->amount) {
+                    if ($total >= $c->amount) {
                         $c->update(['user_id' => \auth()->id()]);
                         if ($check == 1)
                             return $this->GetDateResponse('data', $c, 'تم تطبيق الكوبون بنجاح');
@@ -203,7 +203,7 @@ class CartController extends Controller
             $data = Cart::where('user_id', '=', \auth()->id())->get();
             $coupon = Coupon::where('user_id', \auth()->id())
                 ->where('used', 0)
-                ->where('order_id', null)
+//                ->where('order_id', null)
                 ->get()->last();
 
             return $this->GetDateResponse('data', ["coupon" => ($coupon != null and $coupon->end == 0) ? $coupon : null, "cart" => $data]);
@@ -243,6 +243,7 @@ class CartController extends Controller
             else {
                 $order->status = 'cancel_by_user';
                 $order->save();
+                $co = Coupon::where('coupon', $order->coupon)->update(['used' => 0]);
                 $message = ' تم الغاء الطلب رقم ' . $order->id . '  من العميل  ' . \auth()->user()->name;
                 $time = OrderTiming::create(['order_seller_id' => $order->id,
                     'status' => 'cancel_by_user',
@@ -413,7 +414,7 @@ class CartController extends Controller
                 $total_order_price = 0;
                 $coupon = Coupon::where('user_id', \auth()->id())
                     ->where('used', 0)
-                    ->where('order_id', null)
+//                    ->where('order_id', null)
                     ->get()->last();
                 $seller_coupon = 0;
                 if ($coupon != null) {
@@ -431,7 +432,7 @@ class CartController extends Controller
                     [
                         'user_id' => auth()->id(),
                         'gov_id' => $request->gov_id,
-                        'payment_method' => ($request->payment_method=="transfer")?"transfer":"on_delivery",
+                        'payment_method' => ($request->payment_method == "transfer") ? "transfer" : "on_delivery",
                         'district_id' => $request->district_id,
                         'more_address_info' => $request->more_address_info,
                         'coupon' => ($coupon != null and $coupon->end == 0) ? $coupon->coupon : 0,
@@ -456,7 +457,7 @@ class CartController extends Controller
                             ['seller_id' => $product->admin_id,
                                 'order_id' => $order->id,
                                 'price' => 0,
-                                'payment_method' => ($request->payment_method=="transfer")?"transfer":"on_delivery",
+                                'payment_method' => ($request->payment_method == "transfer") ? "transfer" : "on_delivery",
                                 'coupon' => ($coupon != null and $coupon->end == 0 and $seller_coupon == $product->admin_id) ? $coupon->coupon : 0,
                                 'coupon_discount' => ($coupon != null and $coupon->end == 0 and $seller_coupon == $product->admin_id) ? $coupon->amount : 0,
                             ]);

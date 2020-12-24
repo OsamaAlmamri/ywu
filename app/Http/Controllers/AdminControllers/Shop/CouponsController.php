@@ -14,6 +14,7 @@ use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class CouponsController extends Controller
@@ -54,7 +55,11 @@ class CouponsController extends Controller
             if (isset($request->coupon_end) and ($request->coupon_end) != "all")
                 $has_coupon_end = true;
 
-            $data = Coupon::where('id', '>', 0);
+            $data = Coupon::leftJoin('order_sellers', 'order_sellers.id', '=', 'coupons.order_id')
+                ->leftJoin('orders', 'orders.id', '=', 'order_sellers.order_id')
+                ->leftJoin('users', 'users.id', '=', 'coupons.user_id')
+                ->leftJoin('zones as govs', 'orders.gov_id', '=', 'govs.id')
+                ->select(['coupons.*', 'govs.name_ar as gov', 'order_sellers.status as order_s', 'users.phone as phone', 'users.name as user_name']);
             if ($has_coupon_used) {
                 $data = $data->where('used', $request->coupon_used);
             }
@@ -65,13 +70,13 @@ class CouponsController extends Controller
                     $data = $data->where('end_date', '>', now());
             }
             if ($has_gov_id) {
-                $data = $data->whereIn('order_id', function ($query) use ($request) {
-                    $query->select('id')
+                $data = $data->whereIn('coupons.order_id', function ($query) use ($request) {
+                    $query->select('orders.id')
                         ->from(with(new Order())->getTable())
-                        ->where('gov_id', $request->gov_id)->get();
+                        ->where('orders.gov_id', $request->gov_id)->get();
                 });
             }
-            $data = $data->orderBy("id","DESC" )->get();
+            $data = $data->orderBy("coupons.id", "DESC")->get();
 
             if ($data) {
                 return datatables()->of($data)
@@ -79,11 +84,27 @@ class CouponsController extends Controller
                     ->addColumn('action', 'admin.shop.coupons.btn.action')
                     ->addColumn('check', 'admin.shop.coupons.btn.check')
                     ->addColumn('user', 'admin.shop.coupons.btn.user')
+                    ->addColumn('order_status', function ($row) {
+                        return ($row->order_s != null) ? trans('status.order_' . $row->order_s) : null;
+                    })
                     ->rawColumns(['action', 'check', 'user'])
                     ->make(true);
             }
         }
-        return view('admin.shop.coupons.show');
+
+        $sum_all = Coupon::all()->sum('amount');
+        $sum_used = Coupon::all()->where('used', '1')->sum('amount');
+        $sum_unend = Coupon::all()->where('used', '0')->where('ended', 0)->sum('amount');
+        $sum_end = Coupon::all()->where('used', '0')->where('ended', 1)->sum('amount');
+
+        $count_all = Coupon::all()->count();
+        $count_used = Coupon::all()->where('used', '1')->count();
+        $count_unend = Coupon::all()->where('used', '0')->where('ended', 0)->count();
+        $count_end = Coupon::all()->where('used', '0')->where('ended', 1)->count();
+
+
+        return view('admin.shop.coupons.show', compact(['sum_all', 'sum_end', 'sum_unend', 'sum_used',
+            'count_all', 'count_end', 'count_unend', 'count_used']));
     }
 
     private function check_inputes($request)
@@ -124,13 +145,12 @@ class CouponsController extends Controller
             ], 422);
         }
         $users = User::inRandomOrder()->whereIn('type', ['customers', 'visitor'])
-
-                ->whereNotExists(function ($query) {
-                    $query->select("coupons.user_id")
-                        ->from('coupons')
-                        ->whereRaw('users.id = coupons.user_id');
-                })
-                    ->limit($request->number)->get();
+            ->whereNotExists(function ($query) {
+                $query->select("coupons.user_id")
+                    ->from('coupons')
+                    ->whereRaw('users.id = coupons.user_id');
+            })
+            ->limit($request->number)->get();
 
 //                if ($users->count() == 0)
 //            $users = User::whereIn('type', ['customers', 'visitor'])
