@@ -416,8 +416,8 @@
                             title: ' تاريخ الانتتهاء '
                         },
                         {
-                            data: 'gov',
-                            name: 'gov',
+                            data: 'gov1',
+                            name: 'gov1',
                             title: ' المحافظة المستخدم فيها  '
                         },
                         {

@@ -59,7 +59,9 @@ class CouponsController extends Controller
                 ->leftJoin('orders', 'orders.id', '=', 'order_sellers.order_id')
                 ->leftJoin('users', 'users.id', '=', 'coupons.user_id')
                 ->leftJoin('zones as govs', 'orders.gov_id', '=', 'govs.id')
-                ->select(['coupons.*', 'govs.name_ar as gov', 'order_sellers.status as order_s', 'users.phone as phone', 'users.name as user_name']);
+                ->select(['coupons.*','coupons.order_id as n_order_id',
+                    'govs.name_ar as gov', 'govs.name_ar as gov1', 'orders.gov_id as gvv', 'order_sellers.status as order_s',
+                    'users.phone as phone', 'users.name as user_name']);
             if ($has_coupon_used) {
                 $data = $data->where('used', $request->coupon_used);
             }
@@ -87,7 +89,13 @@ class CouponsController extends Controller
                     ->addColumn('order_status', function ($row) {
                         return ($row->order_s != null) ? trans('status.order_' . $row->order_s) : null;
                     })
-                    ->rawColumns(['action', 'check', 'user'])
+                    ->editColumn('order_id', function ($row) {
+                        return ( $row->n_order_id==null)?'':"<a class=\"btn btn-info btn-sm\" href=\"" . route('admin.shop.orders.show_seller_order', $row->n_order_id) . "\"
+   style=\" margin-left: 10px;\">
+    " . $row->n_order_id . "
+</a>";
+                    })
+                    ->rawColumns(['action', 'check', 'user', 'order_id'])
                     ->make(true);
             }
         }
