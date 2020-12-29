@@ -4,6 +4,8 @@ namespace App\Http\Controllers\AdminControllers\Shop;
 
 use App\Admin;
 use App\Http\Controllers\Controller;
+use App\Models\Shop\OrderProduct;
+use App\Models\Shop\Product;
 use App\Models\Shop\ShopCategory;
 
 use App\Traits\JsonTrait;
@@ -15,15 +17,63 @@ class CategoriesController extends Controller
 {
     use JsonTrait;
     use PostTrait;
+
     public function __construct()
     {
-        $this->middleware('permission:show categories', ['only' => ['index','show']]);
-        $this->middleware('permission:manage categories', ['only' => ['changeOrder','destroy','edit','store','update','active']]);
+        $this->middleware('permission:show categories', ['only' => ['index', 'show']]);
+        $this->middleware('permission:manage categories', ['only' => ['changeOrder', 'destroy', 'edit', 'store', 'update', 'active']]);
         $this->middleware('permission:active categories', ['only' => ['active']]);
     }
 
     public function index()
     {
+
+
+//        $pr = OrderProduct::create(['price' => 2000, 'quantity' => 1, 'product_id' => 768, 'order_seller_id' => 121, 'order_id' => 121]);
+//        $pr2 = OrderProduct::create(['price' => 3000, 'quantity' => 1, 'product_id' => 767, 'order_seller_id' => 121, 'order_id' => 121]);
+//
+//        $pr3 = OrderProduct::create(['price' => 4000, 'quantity' => 1, 'product_id' => 770, 'order_seller_id' => 115, 'order_id' => 115]);
+//        $pr4 = OrderProduct::create(['price' => 2500, 'quantity' => 1, 'product_id' => 768, 'order_seller_id' => 115, 'order_id' => 115]);
+//
+//
+//        $pr5 = OrderProduct::create(['price' => 2000, 'quantity' => 1, 'product_id' => 768, 'order_seller_id' => 109, 'order_id' => 109]);
+//        $pr6 = OrderProduct::create(['price' => 2500, 'quantity' => 1, 'product_id' => 769, 'order_seller_id' => 109, 'order_id' => 109]);
+//
+//
+//        $pr7 = OrderProduct::create(['price' => 4000, 'quantity' => 1, 'product_id' => 770, 'order_seller_id' => 101, 'order_id' => 101]);
+//        $pr8 = OrderProduct::create(['price' => 2000, 'quantity' => 1, 'product_id' => 768, 'order_seller_id' => 101, 'order_id' => 101]);
+//
+//        $pr9 = OrderProduct::create(['price' => 3000, 'quantity' => 1, 'product_id' => 767, 'order_seller_id' => 87, 'order_id' => 87]);
+//
+//        $pr10 = OrderProduct::create(['price' => 3000, 'quantity' => 1, 'product_id' => 767, 'order_seller_id' => 55, 'order_id' => 55]);
+//
+//        $pr11 = OrderProduct::create(['price' => 3000, 'quantity' => 1, 'product_id' => 767, 'order_seller_id' => 142, 'order_id' => 142]);
+//        $pr3 = OrderProduct::create(['price' => 4000, 'quantity' => 1, 'product_id' => 770, 'order_seller_id' => 142, 'order_id' => 142]);
+//        $pr4 = OrderProduct::create(['price' => 2500, 'quantity' => 1, 'product_id' => 768, 'order_seller_id' => 142, 'order_id' => 142]);
+//        /*////*/
+//
+//        $pr = OrderProduct::create(['price' => 2000, 'quantity' => 1, 'product_id' => 768, 'order_seller_id' => 129, 'order_id' => 129]);
+//        $pr2 = OrderProduct::create(['price' => 3000, 'quantity' => 1, 'product_id' => 767, 'order_seller_id' => 129, 'order_id' => 129]);
+//
+//
+//        $pr = OrderProduct::create(['price' => 2000, 'quantity' => 1, 'product_id' => 768, 'order_seller_id' => 118, 'order_id' => 118]);
+//        $pr2 = OrderProduct::create(['price' => 3000, 'quantity' => 1, 'product_id' => 767, 'order_seller_id' => 118, 'order_id' => 118]);
+//
+//        $pr3 = OrderProduct::create(['price' => 4000, 'quantity' => 1, 'product_id' => 770, 'order_seller_id' => 116, 'order_id' => 116]);
+//        $pr4 = OrderProduct::create(['price' => 2500, 'quantity' => 1, 'product_id' => 768, 'order_seller_id' => 116, 'order_id' => 116]);
+//
+//        $pr3 = OrderProduct::create(['price' => 4000, 'quantity' => 1, 'product_id' => 770, 'order_seller_id' => 113, 'order_id' => 113]);
+//
+//
+//        $pr7 = OrderProduct::create(['price' => 4000, 'quantity' => 1, 'product_id' => 770, 'order_seller_id' => 110, 'order_id' => 110]);
+//        $pr8 = OrderProduct::create(['price' => 2000, 'quantity' => 1, 'product_id' => 768, 'order_seller_id' => 110, 'order_id' => 110]);
+//
+//
+//        $pr2 = OrderProduct::create(['price' => 3000, 'quantity' => 1, 'product_id' => 767, 'order_seller_id' => 123, 'order_id' => 123]);
+//
+//        $pr3 = OrderProduct::create(['price' => 4000, 'quantity' => 1, 'product_id' => 770, 'order_seller_id' => 123, 'order_id' => 123]);
+//        $pr4 = OrderProduct::create(['price' => 2500, 'quantity' => 1, 'product_id' => 768, 'order_seller_id' => 123, 'order_id' => 123]);
+
         if (request()->ajax()) {
             $data = ShopCategory::orderBy('sort')->get();
             if ($data) {
@@ -55,6 +105,7 @@ class CategoriesController extends Controller
         }
         return response('Update Successfully.', 200);
     }
+
     public function show()
     {
 
@@ -134,6 +185,12 @@ class CategoriesController extends Controller
     public function destroy($id)
     {
         $data = ShopCategory::findOrFail($id);
-        $data->delete();
+        $c = Product::all()->where('category_id', $id)->count();
+        if ($c == 0) {
+            $data->delete();
+            return response()->json(['success' => 'تم الحذف  بنجاح']);
+
+        } else
+            return response()->json(['success' => 'لا يمكن حذف هذا المنتج لوجود منتجات  مرتبطة بة ']);
     }
 }

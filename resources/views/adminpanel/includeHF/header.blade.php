@@ -59,6 +59,8 @@
 
                                 <li><a href="{{route('admin.shop.coupons.index')}}"> كوبونات التسوق </a>
                                 </li>
+                                <li><a href="{{route('admin.shop.coupons.statistics')}}"> احصائيات كوبونات التسوق </a>
+                                </li>
                             @endif
                             {{--                            <li><a href="{{route('admin.shop.spaces.index')}}"> ادارة المساحات </a></li>--}}
                             @if ((Auth::user()->can('show categories') == true))

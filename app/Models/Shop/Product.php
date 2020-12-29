@@ -10,6 +10,7 @@ use App\Models\TrainingContents\Training;
 use App\Seller;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
 class Product extends Model
@@ -17,6 +18,7 @@ class Product extends Model
     //
     use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
     use  Rateable;
+    use SoftDeletes;
 
     protected $fillable = ['admin_id', 'category_id', 'name', 'description', 'image_id', 'price', 'has_attribute', 'available', 'sort', 'status'];
 

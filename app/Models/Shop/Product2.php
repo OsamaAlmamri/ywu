@@ -10,12 +10,13 @@ use App\Models\TrainingContents\Training;
 use App\Seller;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
 class Product2 extends Model
 {
     //
-
+    use SoftDeletes;
     protected $table = 'products';
     use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
     use  Rateable;
@@ -91,6 +92,7 @@ class Product2 extends Model
     {
         return $this->hasMany(ProductImage::class, 'product_id', 'id');
     }
+
     function getImageAttribute()
     {
         $im = $this->image_category_lrg();

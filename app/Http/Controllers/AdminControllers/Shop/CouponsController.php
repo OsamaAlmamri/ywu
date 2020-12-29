@@ -10,6 +10,7 @@ use App\Http\Controllers\FireBaseController;
 use App\Models\Shop\Order;
 use App\Models\Shop\Zone;
 use App\Notifications\AppNotification;
+use App\Seller;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
 use App\User;
@@ -54,12 +55,11 @@ class CouponsController extends Controller
 
             if (isset($request->coupon_end) and ($request->coupon_end) != "all")
                 $has_coupon_end = true;
-
             $data = Coupon::leftJoin('order_sellers', 'order_sellers.id', '=', 'coupons.order_id')
                 ->leftJoin('orders', 'orders.id', '=', 'order_sellers.order_id')
                 ->leftJoin('users', 'users.id', '=', 'coupons.user_id')
                 ->leftJoin('zones as govs', 'orders.gov_id', '=', 'govs.id')
-                ->select(['coupons.*','coupons.order_id as n_order_id',
+                ->select(['coupons.*', 'coupons.order_id as n_order_id',
                     'govs.name_ar as gov', 'govs.name_ar as gov1', 'orders.gov_id as gvv', 'order_sellers.status as order_s',
                     'users.phone as phone', 'users.name as user_name']);
             if ($has_coupon_used) {
@@ -90,7 +90,7 @@ class CouponsController extends Controller
                         return ($row->order_s != null) ? trans('status.order_' . $row->order_s) : null;
                     })
                     ->editColumn('order_id', function ($row) {
-                        return ( $row->n_order_id==null)?'':"<a class=\"btn btn-info btn-sm\" href=\"" . route('admin.shop.orders.show_seller_order', $row->n_order_id) . "\"
+                        return ($row->n_order_id == null) ? '' : "<a class=\"btn btn-info btn-sm\" href=\"" . route('admin.shop.orders.show_seller_order', $row->n_order_id) . "\"
    style=\" margin-left: 10px;\">
     " . $row->n_order_id . "
 </a>";
@@ -112,6 +112,74 @@ class CouponsController extends Controller
 
 
         return view('admin.shop.coupons.show', compact(['sum_all', 'sum_end', 'sum_unend', 'sum_used',
+            'count_all', 'count_end', 'count_unend', 'count_used']));
+    }
+
+    public function statistics()
+
+    {
+        if (request()->ajax()) {
+            $data = Admin::leftJoin('sellers', 'admins.id', '=', 'sellers.admin_id')
+                ->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
+                ->whereIn('admins.id',function ($q) {
+                    $q->select('order_sellers.seller_id')->from('coupons')
+                        ->leftJoin('order_sellers', 'coupons.order_id', '=', 'order_sellers.id');
+
+//                    $q->select('order_sellers.seller_id')->from('order_sellers')
+//                        ->leftJoin('coupons', 'coupons.order_id', '=', 'order_sellers.id');
+                })
+                ->select(['admins.*', 'sellers.sale_name', 'govs.name_ar as gov1',
+                    DB::raw("(SELECT count(coupons.id) FROM coupons
+                                   INNER JOIN order_sellers ON order_sellers.id=coupons.order_id
+                                   WHERE
+                                   order_sellers.seller_id=admins.id and coupons.used=1 and 
+                                   order_sellers.status not like 'cancel_by_seller' and
+                                   order_sellers.status  not like 'cancel_by_user' 
+                                   ) as count_all_coupons"),
+                    DB::raw("(SELECT sum(coupons.amount) FROM coupons
+                                   INNER JOIN order_sellers ON order_sellers.id=coupons.order_id
+                                   WHERE
+                                   order_sellers.seller_id=admins.id and coupons.used=1 and 
+                                   order_sellers.status not like 'cancel_by_seller' and
+                                   order_sellers.status  not like 'cancel_by_user' 
+                                   ) as sum_all_coupons"),
+
+                    DB::raw("(SELECT count(coupons.id) FROM coupons
+                                   INNER JOIN order_sellers ON order_sellers.id=coupons.order_id
+                                   WHERE
+                                   order_sellers.seller_id=admins.id and coupons.used=1 and 
+                                   order_sellers.status  like 'delivery' 
+                                   ) as count_delivery_coupons"),
+                    DB::raw("(SELECT sum(coupons.amount) FROM coupons
+                                   INNER JOIN order_sellers ON order_sellers.id=coupons.order_id
+                                   WHERE
+                                   order_sellers.seller_id=admins.id and coupons.used=1 and 
+                                   order_sellers.status   like 'delivery' 
+                                   ) as  sum_delivery_coupons"),
+                ])
+
+                ->get();
+            if ($data) {
+                return datatables()->of($data)
+                    ->addIndexColumn()
+                    ->make(true);
+            }
+        }
+
+        $sum_all = Coupon::all()->sum('amount');
+        $sum_used = Coupon::all()->where('used', '1')->sum('amount');
+        $sum_unend = Coupon::all()->where('used', '0')->where('ended', 0)->sum('amount');
+        $sum_end = Coupon::all()->where('used', '0')->where('ended', 1)->sum('amount');
+
+        $count_all = Coupon::all()->count();
+        $count_used = Coupon::all()->where('used', '1')->count();
+        $count_unend = Coupon::all()->where('used', '0')->where('ended', 0)->count();
+        $count_end = Coupon::all()->where('used', '0')->where('ended', 1)->count();
+
+
+
+
+        return view('admin.shop.coupons.statistics', compact(['sum_all', 'sum_end', 'sum_unend', 'sum_used',
             'count_all', 'count_end', 'count_unend', 'count_used']));
     }
 
@@ -230,7 +298,7 @@ class CouponsController extends Controller
     public function destroy($id)
     {
         $data = Coupon::findOrFail($id);
-        $data->delete();
+        //$data->delete();
     }
 
     public function delete_selected(Request $request)

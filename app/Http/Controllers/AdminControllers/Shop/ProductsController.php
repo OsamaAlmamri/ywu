@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminControllers\Shop;
 
 use App\Admin;
 use App\Http\Controllers\Controller;
+use App\Models\Shop\OrderProduct;
 use App\Models\Shop\Product;
 use App\Models\Shop\Product2;
 use App\Models\Shop\ProductsAttribute;
@@ -43,7 +44,7 @@ class ProductsController extends Controller
         if (request()->ajax()) {
             $btn_avg_Rating = "(SELECT COALESCE(AVG(rating),0) FROM ratings WHERE rateable_id=products.id  ) as average_rating";
             $btn_count_Rating = "(SELECT count(rating) FROM ratings WHERE rateable_id=products.id) as count_rating";
-            $data = Product2::where('products.id','>',0)
+            $data = Product2::where('products.id', '>', 0)
                 ->leftJoin('shop_categories', 'shop_categories.id', '=', 'products.category_id')
                 ->leftJoin('admins', 'admins.id', '=', 'products.admin_id')
                 ->leftJoin('sellers', 'admins.id', '=', 'sellers.admin_id')
@@ -55,31 +56,32 @@ class ProductsController extends Controller
 //                            $query->where('image_categories.image_type', '=', 'THUMBNAIL');
 //                        });
 //                })
-                ->select('products.*','products.id',
+                ->select('products.*', 'products.id',
                     DB::raw($btn_avg_Rating),
                     DB::raw($btn_count_Rating),
-                    DB::raw("DATE_FORMAT( products.created_at,'".getDBCustomDate()."') AS published"),
+                    DB::raw("DATE_FORMAT( products.created_at,'" . getDBCustomDate() . "') AS published"),
 //                    'image_categories.path as image',
-                    'dis.name_ar as district' ,'govs.name_ar as gov',
+                    'dis.name_ar as district', 'govs.name_ar as gov',
                     'sellers.sale_name as space', 'shop_categories.name as category');
 
             if ((Auth::user()->can('show products') == true) and (auth()->user()->type == 'admin')) {
                 if (request()->category_id == 0 and request()->admin_id == 0)
                     $data = $data;
                 elseif (request()->category_id == 0 and request()->admin_id > 0)
-                    $data =$data->where('products.admin_id', request()->admin_id)->get();
+                    $data = $data->where('products.admin_id', request()->admin_id)->get();
                 elseif (request()->category_id > 0 and request()->admin_id == 0)
-                    $data =$data->where('products.category_id', request()->category_id)->get();
+                    $data = $data->where('products.category_id', request()->category_id)->get();
                 else
-                    $data =$data->where('products.category_id', request()->category_id)->where('products.admin_id', request()->admin_id)->get();
+                    $data = $data->where('products.category_id', request()->category_id)->where('products.admin_id', request()->admin_id)->get();
             } else {
                 if (request()->category_id == 0)
-                    $data =$data->where('products.admin_id', auth()->id());
+                    $data = $data->where('products.admin_id', auth()->id());
                 else
-                    $data =$data->where('products.category_id', request()->category_id)->where('admin_id', auth()->id())->get();
+                    $data = $data->where('products.category_id', request()->category_id)->where('admin_id', auth()->id())->get();
             }
             if ($data) {
                 return datatables()->of($data)
+                    ->addIndexColumn()
                     ->addColumn('action', 'admin.shop.products.btn.action')
                     ->addColumn('btn_image', 'admin.shop.products.btn.image')
                     ->addColumn('btn_sort', 'sortFiles.btn_sort')
@@ -295,6 +297,13 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         $data = Product::findOrFail($id);
-        $data->delete();
+
+        $c = OrderProduct::all()->where('product_id', $id)->count();
+        if ($c == 0) {
+            $data->delete();
+            return response()->json(['success' => 'تم الحذف  بنجاح']);
+
+        } else
+            return response()->json(['success' => 'لا يمكن حذف هذا المنتج لوجود طلبات مرتبطة بة ']);
     }
 }

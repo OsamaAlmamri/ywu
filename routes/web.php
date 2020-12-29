@@ -66,6 +66,7 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
             Route::post('coupons/store', 'CouponsController@store')->name('store');
             Route::get('coupons/destroy/{id}', 'CouponsController@destroy')->name('destroy');
             Route::get('coupons/index', 'CouponsController@index')->name('index');
+            Route::get('coupons/statistics', 'CouponsController@statistics')->name('statistics');
         });
 #################################################### sliders
         Route::group(['as' => 'admin.shop.spaces.'], function () {
