@@ -38,7 +38,7 @@
                             @if (auth()->user()->type=='admin')
 
                                 <span>رقم الطلب الاساسي <b dir="ltr">#
-                               <a href="{{route('admin.shop.orders.show_main_order',$order_seller->id)}}"> {{$order_seller->id}} </a></b></span>
+                               <a href="{{route('admin.shop.orders.show_main_order',$order_seller->order_id)}}"> {{$order_seller->order_id}} </a></b></span>
                             @endif
                             <br>
                             @if($order_seller->coupon_discount>0)

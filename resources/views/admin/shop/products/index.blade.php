@@ -220,13 +220,16 @@
                         }
                     },
                     columns: [
+
                             @if ((Auth::user()->can('manage products') == true))
                         {
                             title: '  ترتيب العرض ',
                             data: 'btn_sort',
-                            name: 'btn_sort'
+                            name: 'btn_sort',
+
                         },
                             @endif
+
                         {
                             title: 'المحافظة ',
                             name: 'gov',
