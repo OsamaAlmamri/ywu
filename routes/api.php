@@ -129,9 +129,9 @@ Route::group(['middleware' => 'CheckAdminT:api'], function () {
     Route::post('ShowTrainings', 'Api\Trainings\TrainingController@index');
 //    Route::post('getTrainingDetails', 'Api\Trainings\TrainingController@getTrainingDetails');
     Route::post('getTrainingQuestions', 'Api\Trainings\TrainingController@getTrainingQuestions');
+    Route::post('set_result', 'Api\Trainings\TrainingController@set_result');
 //    Route::post('showTrainingByCategory', 'Api\Trainings\TrainingController@showTrainingByCategory');
     Route::post('complete_content', 'Api\Trainings\TrainingController@complete_content');
-    Route::post('set_result', 'Api\Trainings\TrainingController@set_result');
     Route::post('like', 'Api\Trainings\TrainingController@like');
     Route::post('my_likes', 'Api\Trainings\TrainingController@my_likes');
     Route::post('my_likes_page', 'Api\Trainings\TrainingController@my_likes_page');

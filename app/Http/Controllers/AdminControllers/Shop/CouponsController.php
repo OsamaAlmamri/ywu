@@ -45,6 +45,7 @@ class CouponsController extends Controller
 //coupon_end: all
             $has_gov_id = false;
             $has_coupon_used = false;
+            $has_seller = false;
             $has_coupon_end = false;
             $request = request();
             if (isset($request->gov_id) and ($request->gov_id) != "all")
@@ -52,6 +53,9 @@ class CouponsController extends Controller
 
             if (isset($request->coupon_used) and ($request->coupon_used) != "all")
                 $has_coupon_used = true;
+
+            if (isset($request->seller_id) and ($request->seller_id) != "all")
+                $has_seller = true;
 
             if (isset($request->coupon_end) and ($request->coupon_end) != "all")
                 $has_coupon_end = true;
@@ -73,11 +77,21 @@ class CouponsController extends Controller
             }
             if ($has_gov_id) {
                 $data = $data->whereIn('coupons.order_id', function ($query) use ($request) {
-                    $query->select('orders.id')
+                    $query->select('order_sellers.id')
                         ->from(with(new Order())->getTable())
+                        ->from('order_sellers')
+                        ->leftJoin('orders', 'order_sellers.order_id', '=', 'order_sellers.id')
                         ->where('orders.gov_id', $request->gov_id)->get();
                 });
             }
+            if ($has_seller) {
+                $data = $data->whereIn('coupons.order_id', function ($query) use ($request) {
+                    $query->select('order_sellers.id')
+                        ->from('order_sellers')
+                        ->where('order_sellers.seller_id', $request->seller_id)->get();
+                });
+            }
+
             $data = $data->orderBy("coupons.id", "DESC")->get();
 
             if ($data) {
@@ -121,7 +135,7 @@ class CouponsController extends Controller
         if (request()->ajax()) {
             $data = Admin::leftJoin('sellers', 'admins.id', '=', 'sellers.admin_id')
                 ->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
-                ->whereIn('admins.id',function ($q) {
+                ->whereIn('admins.id', function ($q) {
                     $q->select('order_sellers.seller_id')->from('coupons')
                         ->leftJoin('order_sellers', 'coupons.order_id', '=', 'order_sellers.id');
 
@@ -157,7 +171,6 @@ class CouponsController extends Controller
                                    order_sellers.status   like 'delivery' 
                                    ) as  sum_delivery_coupons"),
                 ])
-
                 ->get();
             if ($data) {
                 return datatables()->of($data)
@@ -175,8 +188,6 @@ class CouponsController extends Controller
         $count_used = Coupon::all()->where('used', '1')->count();
         $count_unend = Coupon::all()->where('used', '0')->where('ended', 0)->count();
         $count_end = Coupon::all()->where('used', '0')->where('ended', 1)->count();
-
-
 
 
         return view('admin.shop.coupons.statistics', compact(['sum_all', 'sum_end', 'sum_unend', 'sum_used',

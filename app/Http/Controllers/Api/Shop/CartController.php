@@ -61,7 +61,6 @@ class CartController extends Controller
                 } else {
                     $add = 1;
                 }
-
             }
             if ($add == 1)
                 return $this->GetDateResponse('data', 0, ' هذا المنتج مضاف مسبقا');

@@ -94,6 +94,15 @@
                         {!!Form ::select('gov_id', array_reverse($getGovernorate,true),'',['class' => 'select2 form-control', 'id' => 'gov_id'])!!}
                     </div>
                     <div class="input-group col-sm-3">
+                        <span class="input-group-addon"> البائع </span>
+                        <select name="filter_seller" id="filter_seller" class="form-control" required>
+                            <option value="all">الكل</option>
+                            @foreach(sellers() as $c)
+                                <option value="{{ $c->admin_id }}">{{ $c->sale_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="input-group col-sm-3">
                         <span class="input-group-addon">استخدام الكوبون</span>
                         {!!Form ::select('status', CouponUsedStatus(),'',['class' => 'select2 form-control', 'id' => 'coupon_used'])!!}
                     </div>
@@ -105,7 +114,7 @@
                     <div class="input-group col-sm-2">
                         <button type="button" name="filter" id="filter"
                                 class="btn btn-primary btn-ms waves-effect waves-light">فرز<i
-                                class="fa fa-filter"></i></button>
+                                    class="fa fa-filter"></i></button>
                     </div>
                 </div>
 
@@ -354,6 +363,17 @@
                     dom: 'Brfltip',
                     lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
                     buttons: [
+                        {
+                            extend: 'excelHtml5',
+                            text: '<i class="fa fa-file-excel-o" ></i> Excel',
+                            className: 'btn btn-info '
+                        },
+
+                        {
+                            extend: 'print',
+                            text: '<i class="fa fa-print" ></i> Print',
+                            className: 'btn btn-info '
+                        },
                             @if ((Auth::user()->can('manage coupons') == true))
                         {
                             text: '<i class="fa fa-plus" ></i>   إنشاء كوبونات جديد  ',
@@ -373,6 +393,7 @@
                         url: "{{route('admin.shop.coupons.index')}}",
                         data: {
                             gov_id: $('#gov_id').val(),
+                            seller_id: $('#filter_seller').val(),
                             coupon_used: $('#coupon_used').val(),
                             coupon_end: $('#filter_coupon_end').val(),
                         }
