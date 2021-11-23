@@ -26,6 +26,13 @@
                         </div>
 
                         <div class="form-group">
+                            <label class="control-label col-md-4">العنوان EN: </label>
+                            <div class="col-md-8">
+                                <input type="text" name="title_en" id="title_en" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="control-label col-md-4">نشر صورة : </label>
                             <div class="col-md-8">
                                 <input type="file" name="image" id="image"/>
@@ -69,6 +76,12 @@
                                 <textarea type="text" name="body" id="body" class="form-control description"></textarea>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">المحتوى EN: </label>
+                            <div class="col-md-12">
+                                <textarea type="text" name="body_en" id="body_en" class="form-control description"></textarea>
+                            </div>
+                        </div>
                         <br/>
                         <div class="form-group" align="center">
                             <input type="hidden" name="action" id="action"/>
@@ -82,7 +95,7 @@
         </div>
     </div>
     <div id="formShow" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -92,7 +105,19 @@
                     <span id="form_show"></span>
                     <div id="show_title"></div>
                     <br>
+                    --------------------------------------------------------------
+                    <br> <div id="show_title_en"></div>
+                    <br>
+                    --------------------------------------------------------------
+                    <br>
                     <div id="show_body"></div>
+                    <br>
+                    --------------------------------------------------------------
+                    <br>
+
+                    <div id="show_body_en"></div>
+                    <br>
+                    --------------------------------------------------------------
                     <br>
                     <div id="show_book"></div>
                     <br>
@@ -284,9 +309,11 @@
                     dataType: "json",
                     success: function (html) {
                         $('#title').val(html.data.title);
+                        $('#title_en').val(html.data.title_en);
                         $('#video').val(html.data.video_url);
                         // $('#body').val(html.data.body);
                         tinyMCE.get("body").setContent((html.data.body==null?'':html.data.body));
+                        tinyMCE.get("body_en").setContent((html.data.body_en==null?'':html.data.body_en));
 
                         $('#store_image').html("<img src={{ URL::to('/') }}/assets/images/" + html.data.image + " width='70' class='img-thumbnail' />");
                         $('#store_image').append("<input type='hidden' name='hidden_image' value='" + html.data.image + "' />");
@@ -319,7 +346,9 @@
                     dataType: "json",
                     success: function (html) {
                         $('#show_title').html("<h4><b>" + html.data.title + "</b></h4>");
+                        $('#show_title_en').html("<h4><b>" + html.data.title_en + "</b></h4>");
                         $('#show_body').html("<b>" + html.data.body + "</b>");
+                        $('#show_body_en').html("<b>" + html.data.body_en + "</b>");
 
                         if (html.data.book != null) {
                             $('#show_book').html("<b>" + html.data.book + " <span class='fa fa-file-pdf-o'></span></b>");

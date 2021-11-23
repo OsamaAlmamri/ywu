@@ -13,6 +13,7 @@ class CreateWomenPostsTable extends Migration
      */
     public function up()
     {
+
         // شئون المراة
         Schema::create('women_posts', function (Blueprint $table) {
             $table->id();

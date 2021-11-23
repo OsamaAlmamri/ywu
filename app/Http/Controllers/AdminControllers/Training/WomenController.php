@@ -20,13 +20,24 @@ class WomenController extends Controller
 
     public function __construct()
     {
-        $this->middleware('permission:show women', ['only' => ['index','show','index_trashed']]);
-        $this->middleware('permission:manage activates', ['only' => ['index_trashed','edit_trashed','restore_post','force','changeOrder','destroy','edit','store','update','active']]);
+        $this->middleware('permission:show women', ['only' => ['index', 'show', 'index_trashed']]);
+        $this->middleware('permission:manage activates', ['only' => ['index_trashed', 'edit_trashed', 'restore_post', 'force', 'changeOrder', 'destroy', 'edit', 'store', 'update', 'active']]);
         $this->middleware('permission:active activates', ['only' => ['active']]);
     }
 
     public function index()
     {
+//
+//        $p = WomenPosts::all();
+//
+//        foreach ($p as $post) {
+//            $post->title = (['ar' => $post->title, 'en' => $post->title]);
+//            $post->body = (['ar' => $post->body, 'en' => $post->body]);
+//            $post->save();
+//
+//        }
+
+
         if (request()->ajax()) {
             $post = WomenPosts::latest()->get();
             return datatables()->of($post)
@@ -47,6 +58,7 @@ class WomenController extends Controller
     {
         //
     }
+
     private function checkInputes($request, $type = 'create')
     {
         $rules = [
@@ -54,10 +66,10 @@ class WomenController extends Controller
             "body" => "required",
 //            "category_id" => "required|integer",
             //"sound"=>"mimetypes:application/octet-stream,audio/mpeg",
-            'image' => [($type == 'create') ? 'required' : 'nullable','image'],
+            'image' => [($type == 'create') ? 'required' : 'nullable', 'image'],
 //            "image" => "nullable|image|mimes:jpg,png,jpeg,gif,svg",
             "book_external_link" => "required_if:book_type,book_external",
-            "book" =>  [($type == 'create') ? 'required_if:book_type,book_internal' : 'file', ($type!='created' and $request->hidden_book==null)?'required_if:book_type,book_internal':'file','mimes:pdf,doc'],
+            "book" => [($type == 'create') ? 'required_if:book_type,book_internal' : 'file', ($type != 'created' and $request->hidden_book == null) ? 'required_if:book_type,book_internal' : 'file', 'mimes:pdf,doc'],
 
         ];
         $messages = [
@@ -74,17 +86,20 @@ class WomenController extends Controller
         ];
         return Validator::make($request->all(), $rules, $messages);
     }
+
     public function store(Request $request)
     {
         $rules = $this->Post_Rules();
         $messages = $this->Post_Messages();
-        $error = $this->checkInputes($request,'create');
+        $error = $this->checkInputes($request, 'create');
         if ($error->fails()) {
             return response()->json(['errors' => $error->errors()->all()]);
         }
         $post = new WomenPosts();
         $post->title = $request->title;
         $post->body = $request->body;
+        $post->title_en = $request->title_en;
+        $post->body_en = $request->body_en;
         $post->image = $this->Post_Save($request, 'image', "IMG-", 'assets/images');
         if ($request->book_type == 'book_internal')
             $post->book = $this->Post_Save($request, 'book', "BOK-", 'assets/books');
@@ -120,7 +135,7 @@ class WomenController extends Controller
     public function update(Request $request)
     {
 
-        $error = $this->checkInputes($request,'update');
+        $error = $this->checkInputes($request, 'update');
         if ($error->fails()) {
             return response()->json(['errors' => $error->errors()->all()]);
         }
@@ -128,6 +143,8 @@ class WomenController extends Controller
         if ($post) {
             $post->title = $request->title;
             $post->body = $request->body;
+            $post->title_en = $request->title_en;
+            $post->body_en = $request->body_en;
 
             $post->image = $this->Post_update($request, 'image', "IMG-", 'assets/images', $post->image);
             $post->book = $this->Post_update($request, 'book', "BOK-", 'assets/books', $post->book);
