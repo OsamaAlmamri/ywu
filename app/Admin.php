@@ -10,8 +10,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Admin extends Authenticatable
+class Admin extends Authenticatable  implements JWTSubject
 {
     use Notifiable;
     use HasRoles;
@@ -22,6 +23,24 @@ class Admin extends Authenticatable
      *
      * @var array
      */
+    protected $guarded='admin_api';
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+
     protected $fillable = [
         'name', 'type', 'status', 'phone', 'email', 'image', 'password'
     ];

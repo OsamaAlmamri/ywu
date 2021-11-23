@@ -73,8 +73,8 @@
                                 </div>
                             </div>
                             <swiper :ref="'flickity'+section.id" :options="swiperOption">
-                                <swiper-slide class="swiper-slide" v-for="product in section.products2">
-                                    <shop-gide-item2
+                                <swiper-slide class="swiper-slide"  v-for="product in section.products2">
+                                    <shop-gide-item2 :key="'shp-'+product.id"
                                         :product="product">
                                     </shop-gide-item2>
                                 </swiper-slide>

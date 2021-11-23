@@ -21,6 +21,7 @@ class MediaController extends Controller
 
     }
 
+
     public function refresh()
     {
         $Images = new Images();
@@ -126,6 +127,8 @@ class MediaController extends Controller
                 //                $storeLargeImage = $Images->Largerecord($filename,$Path,$width,$height);
                 //                $storeMediumImage = $Images->Mediumrecord($filename,$Path,$width,$height);
             }
+
+            return $tuhmbnail;
 
         } else {
             return "Invalid Image";

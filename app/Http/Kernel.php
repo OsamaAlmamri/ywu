@@ -54,6 +54,8 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
+        'assign.guard' => \App\Http\Middleware\AssignGuard::class,
+
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
@@ -68,6 +70,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'CheckPass' => \App\Http\Middleware\CheckPassword::class,
+        'CheckUserT' => \App\Http\Middleware\CheckUserToken::class,
         'CheckAdminT' => \App\Http\Middleware\CheckAdminToken::class,
     ];
 }

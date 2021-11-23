@@ -1,5 +1,5 @@
 <template>
-    <div class="product_countainer">
+    <div class="product_countainer" >
         <!--        <a href="electric-stainless-steel-kettle-1-5l-1800w-white/N31981366A/p?o=c9d13846b27902cb"-->
         <!--           >-->
         <div class="product_countainer_link">

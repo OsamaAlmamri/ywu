@@ -16,6 +16,7 @@ use App\Traits\JsonTrait;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use mysql_xdevapi\Exception;
@@ -205,12 +206,17 @@ class UserController extends Controller
             $credential_email_S = ['status' => 1, 'email' => $request->phone, 'password' => $request->password];
             $credential_phone_S = ['status' => 1, 'phone' => $request->phone, 'password' => $request->password];
             if ($request->userType == 'seller') {
-                if (Auth::guard('admin')->attempt($credential_phone) or Auth::guard('admin')->attempt($credential_email)) { // return redirect()->intended('/admin');
-                    if (Auth::guard('admin')->attempt($credential_phone_S) or Auth::guard('admin')->attempt($credential_email_S))  // return redirect()->intended('/admin');
-                        return $this->GetDateResponse('data', 'seller');
-                    else
+                Config::set('auth.defaults.guard', "admin");
+                if ($jwt_token = JWTAuth::attempt($credential_phone) or $jwt_token = JWTAuth::attempt($credential_email)) { // return redirect()->intended('/admin');
+                    if ($jwt_token = JWTAuth::attempt($credential_phone_S) or $jwt_token = JWTAuth::attempt($credential_email_S))  // return redirect()->intended('/admin');
+                    {
+                        $user = JWTAuth::user();
+                        return $this->GetDateResponse('data', ['token' => $jwt_token, 'userData' => $user]);
+
+                    } else
                         return $this->ReturnErorrRespons('0000', 'لا يمكن تسجيل الدخول  الا  بعد  تفعيل حسابك من قبل ادارة النظام  ');
                 } else
+                    //   return $this->GetDateResponse('data', Config::get('auth.guards.web.provider'));
                     return $this->ReturnErorrRespons('0000', 'تاكد من كلمة المرور');
 
             }

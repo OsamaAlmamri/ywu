@@ -234,7 +234,6 @@ class ProductsController extends Controller
             "category_id" => 'required',
             "price" => 'required',
             "image_id" => [($request->action == 'Edit') ? 'nullable' : 'required'],
-
         ];
         $messages = [
             "name.required" => "يرجى اضافة اسم الصنف",
@@ -251,7 +250,6 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         $error = $this->check_inputes($request);
-
         if ($error->fails()) {
             return response()->json([
                 'errors' => $error->errors(),
@@ -261,7 +259,6 @@ class ProductsController extends Controller
         $categoty = Product::create(array_merge($request->all(),
             [
                 'admin_id' => auth()->id(),
-
             ]));
         return response()->json(['success' => 'تم الاضافة  بنجاح']);
     }

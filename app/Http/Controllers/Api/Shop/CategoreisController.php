@@ -136,7 +136,7 @@ class CategoreisController extends Controller
                 if ($has_seller) {
                     $q->whereIn('products.admin_id', $request->seller_id);
                 }
-                $q->limit(30);
+                $q->limit(12);
 
             }]);
             if ($has_categories) {

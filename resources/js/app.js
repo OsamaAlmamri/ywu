@@ -5,6 +5,7 @@ import VueClazyLoad from 'vue-clazy-load' ;
 import store from "./store";
 import SweetModal from 'sweet-modal-vue/src/plugin.js'
 import VueLazyLoad from 'vue-lazyload'
+
 window.Vue = require('vue');
 Vue.use(VueClazyLoad);
 Vue.use(VueLazyLoad)
@@ -18,11 +19,11 @@ Vue.component('ShopCategory', require('./components/ShopCategory.vue').default);
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 
+var api_url = process.env.MIX_APP_URL;
 
 Vue.prototype.$http = Axios;
 Vue.use(SweetModal)
 
-var api_url = process.env.MIX_APP_URL;
 Axios.defaults.baseURL = api_url;
 Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 

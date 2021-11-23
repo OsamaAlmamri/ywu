@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Traits\JsonTrait;
 use Closure;
+use Illuminate\Support\Facades\Config;
 use Tymon\JWTAuth\Facades\JWTAuth;
 class CheckAdminToken
 {
@@ -17,6 +18,10 @@ class CheckAdminToken
     use JsonTrait;
     public function handle($request, Closure $next)
     {
+
+     //   return $request;
+        Config::set('auth.defaults.guard', "admin");
+
 
         $user = null;
         try {

@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title> YemenWe</title>
     <!-- Stylesheets -->
+    <link rel="manifest" href="{{  asset('manifest.json')}}" />
 
     <link href="{{  asset('site/css/bootstrap.min.css')  }}" rel="stylesheet">
     {{--    <!--	<link rel="stylesheet" href="css/bootstrap-rtl.min.css">-->--}}
@@ -538,7 +539,11 @@
 {{--<script src="{{asset('firebase\firebase-analytics.js')}}"></script>--}}
 
 <script>
-
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js');
+        });
+    }
     $(document).ready(function () {
         // Your web app's Firebase configuration
         var notificattions = $('#admin_notification');

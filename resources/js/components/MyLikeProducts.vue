@@ -28,6 +28,7 @@
                         <div class="our-courses all_cat_products">
                             <!-- Options View -->
                             <shop-gide-item2 v-for="product in products"
+                                             :key="'sh-'+product.id"
                                              :product="product">
                             </shop-gide-item2>
 

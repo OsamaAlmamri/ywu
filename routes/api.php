@@ -60,8 +60,30 @@ Route::post('slides', 'Api\Users\ActivatesController@slides');
 Route::post('AllCategories', 'Api\Users\PostController@all_category');
 Route::post('showTrainingByCategory', 'Api\Trainings\TrainingController@showTrainingByCategory');
 
+Route::group(['prefix' => 'admin', 'middleware' => ['assign.guard:admins', 'jwt.auth']], function () {
+    Route::get('/demo', 'AdminController@demo');
+});
 
-Route::group(['middleware' => 'CheckAdminT:api'], function () {
+
+Route::group(['middleware' => 'CheckAdminT:api', 'prefix' => 'seller'], function () {
+
+    Route::group(['prefix' => 'products'], function () {
+        Route::post('/', 'Api\Seller\CategoreisController@get_products');
+        Route::post('/add', 'Api\Seller\ProductsController@store');
+        Route::post('/update', 'Api\Seller\ProductsController@update');
+        Route::post('/delete', 'Api\Seller\ProductsController@destroy');
+    });
+
+    Route::post('/deleteQuestion', 'Api\Seller\ProductsController@deleteQuestion');
+    Route::post('/addReplay', 'Api\Seller\ProductsController@addReplay');
+    Route::post('/updateReplay', 'Api\Seller\ProductsController@updateReplay');
+    Route::post('/deleteReplay', 'Api\Seller\ProductsController@deleteReplay');
+});
+
+
+Route::group(['middleware' => 'CheckUserT:api'], function () {
+
+    Route::post('seller/add_to_cart', 'Api\Shop\CartController@add_to_cart');
 
     Route::post('shop/add_to_cart', 'Api\Shop\CartController@add_to_cart');
     Route::post('shop/delete_from_cart', 'Api\Shop\CartController@delete_from_cart');
