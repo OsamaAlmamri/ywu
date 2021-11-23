@@ -138,7 +138,6 @@
       <path value="$PROJECT_DIR$/vendor/firebase/php-jwt" />
       <path value="$PROJECT_DIR$/vendor/staudenmeir/eloquent-eager-limit" />
       <path value="$PROJECT_DIR$/vendor/jorenvanhocht/laravel-share" />
-      <path value="$PROJECT_DIR$/vendor/spatie/laravel-translatable" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

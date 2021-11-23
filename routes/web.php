@@ -3,6 +3,14 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/migrate', 'ArtisanCommandsController@migrate');
+Route::get('/role_seed', 'ArtisanCommandsController@role_seed');
+Route::get('/clear', 'ArtisanCommandsController@clearCache');
+Route::get('/optimize', 'ArtisanCommandsController@optimizeCache');
+Route::get('/rout_cache', 'ArtisanCommandsController@routeCache');
+Route::get('/clear_compiled', 'ArtisanCommandsController@clearCompiled');
+Route::get('/storage_link', 'ArtisanCommandsController@storageLnk');
+
 Route::group(['prefix' => 'admin/', 'namespace' => 'AdminControllers'], function () {
     Route::get('/login', 'AuthAdminController@Admin_login')->name('admin.login');
     Route::get('/forget', 'AuthAdminController@Admin_forget')->name('admin.forget');
