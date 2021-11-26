@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Users;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\FireBaseController;
 use App\Models\UserContents\Category;
 use App\Models\UserContents\Comment;
 use App\Models\UserContents\Post;
@@ -17,7 +18,10 @@ class PostController extends Controller
 {
     protected $user;
     use JsonTrait;
-
+    public function __construct(FireBaseController $firbaseContoller)
+    {
+        $this->firbaseContoller = $firbaseContoller;
+    }
 
     public function index()
     {
