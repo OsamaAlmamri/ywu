@@ -1,0 +1,13 @@
+Category
+Comment
+ConsultantPost
+
+
+php artisan make:resource Consultant/ConsultantPostResource
+php artisan make:resource Consultant/CommentsConsultantPostResource
+php artisan make:resource Consultant/CategoryConsultantPostResource\
+
+
+
+php artisan make:resource General/UsesResource
+php artisan make:resource General/UserSelectResource

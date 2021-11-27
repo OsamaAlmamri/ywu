@@ -1,37 +1,21 @@
 <?php
 
-namespace App\Models\UserContents;
+namespace App\Models\V2\UserContents;
 
+use anlutro\LaravelSettings\ArrayUtil;
 use App\Like;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Post extends Model
+class Consultant extends Model
 {
     use SoftDeletes;
 
     protected $table = 'posts';
     protected $guarded = [];
 
-    protected $appends = ['published', 'comments_count', 'likes_count'];
-
-    public function getPublishedAttribute()
-    {
-        return Carbon::createFromTimestamp(strtotime($this->attributes['created_at']))->diffForHumans();
-    }
-
-    function getLikesCountAttribute()
-    {
-        return $this->likes()->count();
-
-    }
-
-    function getCommentsCountAttribute()
-    {
-        return $this->comments()->count();
-    }
 
     protected $dates = ['deleted_at'];
     protected $hidden = [
@@ -72,9 +56,32 @@ class Post extends Model
             ->where('type', 'posts');
     }
 
+    public function scopeOfCategory($query, $cat)
+    {
+        if ($cat == 1)
+            return $query->whereIn('category_id', [1, 2]);
+        else if ($cat == 2)
+            return $query->whereIn('category_id', [3]);
+        else if ($cat > 2)
+            return $query->whereIn('category_id', $cat);
+        else return $query;
+    }
 
+    public function scopeOfType($query, $type)
+    {
+        $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
+        if ($type == "fav")
+            return $query->whereIn('id', function ($q) use ($user_id) {
+                $q->select('liked_id')
+                    ->from(with(new Like())->getTable())
+                    ->where('type', 'posts')
+                    ->where('user_id', $user_id);;
+            });
+        else if ($type == "my")
+            return $query->where('user_id', $user_id);
 
-
+        else return $query;
+    }
 
 
 }

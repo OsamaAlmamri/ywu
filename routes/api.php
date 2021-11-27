@@ -172,6 +172,12 @@ Route::group(['middleware' => 'CheckUserT:api'], function () {
     Route::post('DeleteTraining/{id}', 'Api\Trainings\TrainingController@destroy');
 });
 
+Route::group(['prefix' => 'v2'], function () {
+
+    Route::post('consultants', 'Api2\Consultants\ConsultantController@index');
+});
+
+
 ######################################## women part
 Route::post('ShowP', 'Api\Women\PostController@index');
 Route::post('ShowPId/{id}', 'Api\Women\PostController@show');
