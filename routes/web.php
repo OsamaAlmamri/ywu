@@ -382,6 +382,7 @@ Auth::routes();
 ///////////////////////////
 ///
 Route::get('/', 'HomeController@index');
+Route::get('/login', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('site.home');
 Route::get('/training', 'HomeController@index')->name('site.training');
 Route::get('/courses/{type?}', 'HomeController@index')->name('site.courses');
@@ -397,7 +398,7 @@ Route::get('/product_details/{id?}', 'HomeController@index')->name('site.product
 Route::get('/myProfile', 'HomeController@index')->name('site.myProfile');
 Route::get('/site_login', 'HomeController@login')->name('site.login');
 Route::get('/register', 'HomeController@register')->name('site.register');
-Route::get('/login', 'HomeController@register')->name('site.login');
+//Route::get('/login', 'HomeController@register')->name('site.login');
 Route::post('zones/getZones', 'HomeController@getZones')->name('zones.getZones');
 Route::get('download_app', function () {
     $id = setting('app_link');

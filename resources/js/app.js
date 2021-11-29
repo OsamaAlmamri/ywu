@@ -5,6 +5,7 @@ import VueClazyLoad from 'vue-clazy-load' ;
 import store from "./store";
 import SweetModal from 'sweet-modal-vue/src/plugin.js'
 import VueLazyLoad from 'vue-lazyload'
+import i18n from "./plugins/vue-i18n";
 
 window.Vue = require('vue');
 Vue.use(VueClazyLoad);
@@ -152,6 +153,6 @@ const app = new Vue({
     //             });
     //     }
     // },
-
+    i18n,
     router
 });

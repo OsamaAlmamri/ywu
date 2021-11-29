@@ -37,8 +37,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-    <!--[if lt IE 9]>
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>--><![endif]-->
     <link href="{{asset('site/css/osama3.css')  }}" rel="stylesheet">
 
     <style>
@@ -238,6 +236,7 @@
                                      currentPage=='shop_like' ||currentPage=='cart')},{'current':currentPage=='shop'}]">
                                         <a href="#">
                                             السوق الإلكتروني
+                                           
                                         </a>
                                         <ul>
                                             <li :class="['shop_element_item',{'current':currentPage=='shop'}]">
@@ -327,7 +326,7 @@
                     <img
                         style="width: 130px;    margin-bottom: -30px;" src="site/images/logo_white.png"
                         alt=""
-                        title=""></a></div>
+                        title=""></div>
                 <div class="menu-outer">
                     <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
                 </div>

@@ -17,6 +17,7 @@
 
                 <div class="title-box">
                     <h2>انشاء حساب جديد</h2>
+                    <h2> {{ $t("MENU.NEW") }} </h2>
                     <div class="text"><span class="theme_color">مرحبــا!</span>
                         قم بإنشاء حساب للاستفاد بشكل اكبر من
                         الخدمات الذي يقدمها الموقع

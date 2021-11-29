@@ -18,6 +18,7 @@
                 <!-- Title Box -->
                 <div class="title-box">
                     <h2>تسجيل الدخول </h2>
+
                     <div class="text"><span class="theme_color">مرحبــا!</span> قم بتسجيل الدخول للاستفادة بشكل اكبر من
                         الخدمات الذي يقدمها الموقع
                     </div>
