@@ -3,19 +3,15 @@
 namespace App\Http\Controllers\AdminControllers\Training;
 
 use App\Admin;
-use App\Models\WomenContents\WomenCategory;
 use App\Models\WomenContents\WomenPosts;
-use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 
 
 class WomenController extends Controller
 {
-    use JsonTrait;
     use PostTrait;
 
     public function __construct()
@@ -62,8 +58,11 @@ class WomenController extends Controller
     private function checkInputes($request, $type = 'create')
     {
         $rules = [
-            "title" => "required",
-            "body" => "required",
+            "title" => "required_if:lang_type,both|required_if:lang_type,ar",
+            "title_en" => "required_if:lang_type,both|required_if:lang_type,en",
+            "body" => "required_if:lang_type,both|required_if:lang_type,ar",
+            "body_en" => "required_if:lang_type,both|required_if:lang_type,en",
+
 //            "category_id" => "required|integer",
             //"sound"=>"mimetypes:application/octet-stream,audio/mpeg",
             'image' => [($type == 'create') ? 'required' : 'nullable', 'image'],
@@ -96,10 +95,12 @@ class WomenController extends Controller
             return response()->json(['errors' => $error->errors()->all()]);
         }
         $post = new WomenPosts();
-        $post->title = $request->title;
-        $post->body = $request->body;
-        $post->title_en = $request->title_en;
-        $post->body_en = $request->body_en;
+        $post->lang_type =  $request->lang_type;
+        $post->title = isset($request->title) ? $request->title : "";
+        $post->title_en = isset($request->title_en) ? $request->title_en : "";
+        $post->body = isset($request->body) ? $request->body : "";
+        $post->body_en = isset($request->body_en) ? $request->body_en : "";
+
         $post->image = $this->Post_Save($request, 'image', "IMG-", 'assets/images');
         if ($request->book_type == 'book_internal')
             $post->book = $this->Post_Save($request, 'book', "BOK-", 'assets/books');
@@ -141,10 +142,11 @@ class WomenController extends Controller
         }
         $post = WomenPosts::whereId($request->hidden_id)->first();
         if ($post) {
-            $post->title = $request->title;
-            $post->body = $request->body;
-            $post->title_en = $request->title_en;
-            $post->body_en = $request->body_en;
+            $post->title = isset($request->title) ? $request->title : "";
+            $post->title_en = isset($request->title_en) ? $request->title_en : "";
+            $post->body = isset($request->body) ? $request->body : "";
+            $post->body_en = isset($request->body_en) ? $request->body_en : "";
+            $post->lang_type =  $request->lang_type;
 
             $post->image = $this->Post_update($request, 'image', "IMG-", 'assets/images', $post->image);
             $post->book = $this->Post_update($request, 'book', "BOK-", 'assets/books', $post->book);

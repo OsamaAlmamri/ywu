@@ -18,14 +18,25 @@
                     <span id="form_result"></span>
                     <form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
                         @csrf
+
                         <div class="form-group">
+                            <label class="control-label col-sm-4">لغة المنشور :</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="lang_type" name="lang_type">
+                                    <option value="both">لغتين</option>
+                                    <option value="ar">عربي</option>
+                                    <option value="en">انجليزي</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" id="title_dev">
                             <label class="control-label col-md-4">العنوان : </label>
                             <div class="col-md-8">
                                 <input type="text" name="title" id="title" class="form-control"/>
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" id="title_en_dev">
                             <label class="control-label col-md-4">العنوان EN: </label>
                             <div class="col-md-8">
                                 <input type="text" name="title_en" id="title_en" class="form-control"/>
@@ -70,16 +81,17 @@
                                 <input type="text" name="video" id="video" class="form-control"/>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id="body_dev">
                             <label class="control-label col-md-4">المحتوى : </label>
                             <div class="col-md-12">
                                 <textarea type="text" name="body" id="body" class="form-control description"></textarea>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id="body_en_dev">
                             <label class="control-label col-md-4">المحتوى EN: </label>
                             <div class="col-md-12">
-                                <textarea type="text" name="body_en" id="body_en" class="form-control description"></textarea>
+                                <textarea type="text" name="body_en" id="body_en"
+                                          class="form-control description"></textarea>
                             </div>
                         </div>
                         <br/>
@@ -106,7 +118,8 @@
                     <div id="show_title"></div>
                     <br>
                     --------------------------------------------------------------
-                    <br> <div id="show_title_en"></div>
+                    <br>
+                    <div id="show_title_en"></div>
                     <br>
                     --------------------------------------------------------------
                     <br>
@@ -157,7 +170,6 @@
 
         $(document).ready(function () {
 
-
             $('#user_table').DataTable({
                 processing: true,
                 serverSide: true,
@@ -192,11 +204,11 @@
                         data: 'title',
                         name: 'title'
                     },
-                    // {
-                    //     data: 'body',
-                    //     title: 'الوصف',
-                    //     name: 'body'
-                    // },
+                    {
+                        data: 'lang_type',
+                        title: 'اللغة',
+                        name: 'lang_type'
+                    },
 
                     {
                         data: 'image',
@@ -227,7 +239,6 @@
                     @endif
                 ]
             });
-
             $('.create_record').click(function () {
                 $('.modal-title').text("إضافة منشور جديد");
                 $('#sample_form')[0].reset();
@@ -237,7 +248,6 @@
                 $('#action').val("Add");
                 $('#formModal').modal('show');
             });
-
             $('#sample_form').on('submit', function (event) {
                 event.preventDefault();
                 if ($('#action').val() == 'Add') {
@@ -298,7 +308,6 @@
                     });
                 }
             });
-
             $(document).on('click', '.edit_post', function () {
                 var id = $(this).attr('id');
                 $('#form_result').html('');
@@ -312,8 +321,8 @@
                         $('#title_en').val(html.data.title_en);
                         $('#video').val(html.data.video_url);
                         // $('#body').val(html.data.body);
-                        tinyMCE.get("body").setContent((html.data.body==null?'':html.data.body));
-                        tinyMCE.get("body_en").setContent((html.data.body_en==null?'':html.data.body_en));
+                        tinyMCE.get("body").setContent((html.data.body == null ? '' : html.data.body));
+                        tinyMCE.get("body_en").setContent((html.data.body_en == null ? '' : html.data.body_en));
 
                         $('#store_image').html("<img src={{ URL::to('/') }}/assets/images/" + html.data.image + " width='70' class='img-thumbnail' />");
                         $('#store_image').append("<input type='hidden' name='hidden_image' value='" + html.data.image + "' />");
@@ -327,6 +336,7 @@
                             $('#book_type').val('none').change();
                         }
 
+                        $('#lang_type').val(html.data.lang_type).change();
 
                         // $('#book_type').trigger('change');
                         $('#hidden_id').val(html.data.id);
@@ -376,16 +386,13 @@
                     }
                 })
             });
-
             var user_id;
-
             $(document).on('click', '.delete_post', function () {
                 user_id = $(this).attr('id');
                 $('.modal-title').text("حذف المنشور");
                 $('#ok_button').text('حذف');
                 $('#confirmModal').modal('show');
             });
-
             $('#book_type').change(function () {
                 var type = $(this).val();
                 if (type == 'book_internal') {
@@ -394,13 +401,29 @@
                 } else if (type == 'book_external') {
                     $('#book_external').show();
                     $('#book_internal').hide();
-
                 } else {
                     $('#book_external').hide();
                     $('#book_internal').hide();
-
                 }
-
+            });
+            $('#lang_type').change(function () {
+                var type = $(this).val();
+                if (type == 'both') {
+                    $('#title_dev').show();
+                    $('#title_en_dev').show();
+                    $('#body_en_dev').show();
+                    $('#body_dev').show();
+                } else if (type == 'ar') {
+                    $('#title_dev').show();
+                    $('#title_en_dev').hide();
+                    $('#body_en_dev').hide();
+                    $('#body_dev').show();
+                } else {
+                    $('#title_dev').hide();
+                    $('#title_en_dev').show();
+                    $('#body_en_dev').show();
+                    $('#body_dev').hide();
+                }
             });
 
             $('#ok_button').click(function () {

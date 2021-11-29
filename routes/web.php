@@ -23,6 +23,7 @@ Route::group(['middleware' => ('auth:admin')], function () {
 });
 Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers'], function () {
     Route::get('/admin', 'AdminsController@Admin')->name('Admin');
+    Route::get('/admin', 'AdminsController@Admin')->name('admin.home');
     Route::get('/admin_logout', 'AuthAdminController@LogoutAdmin')->name('Admin_logout');
 
     Route::group(['as' => 'admin.permissions.'], function () {
