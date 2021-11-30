@@ -14,6 +14,7 @@ Vue.component('course-component', require('./components/CourseComponent.vue').de
 Vue.component('search-filed', require('./components/SearchField.vue').default);
 Vue.component('course-questions', require('./components/Question.vue').default);
 Vue.component('toast-stack', require('./components/ToastStack.vue').default);
+Vue.component('vue-header', require('./layout/Header.vue').default);
 Vue.component('recent-posts', require('./components/RecentPosts.vue').default);
 Vue.component('dropdown', require('./components/dropdown.vue').default);
 Vue.component('ShopCategory', require('./components/ShopCategory.vue').default);
@@ -39,6 +40,8 @@ Vue.prototype.$scrollToTop = () => window.scrollTo(0, 0);
 //     Vue.config.silent = true;
 // }
 
+
+
 Vue.mixin({
     data() {
         return {
@@ -47,6 +50,9 @@ Vue.mixin({
         };
     },
     methods: {
+        trans: function (text){
+            return (i18n.t(text));
+        },
         countWords: function (text, no_words) {
             var str = text.replace(/(^\s*)|(\s*$)/gi, "");
             str = str.replace(/[ ]{2,}/gi, " ");

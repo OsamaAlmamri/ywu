@@ -22,7 +22,7 @@
                 <div class="inner-container">
                     <!-- Sec Title -->
                     <div class="sec-title centered">
-                        <h2><a href="http://idioms.in/in-touch/">راسلنا</a></h2>
+                        <h2><a href="http://idioms.in/in-touch/"> {{ $t("concatUs.concatUs") }}</a></h2>
                     </div>
                     <!-- Contact Form -->
                     <div class="contact-form">
@@ -31,34 +31,35 @@
                             <div class="row clearfix">
 
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                    <input type="text" v-model="form.name" name="username" placeholder="الاسم *"
+                                    <input type="text" v-model="form.name" name="username"
+                                           :placeholder="$t('concatUs.name') +'*'"
                                            required="">
                                 </div>
 
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                    <input type="text" name="lastname" v-model="form.gov" placeholder=" المنظمة *"
+                                    <input type="text" name="lastname" v-model="form.gov" :placeholder="$t('concatUs.gov') +'*'"
                                            required="">
                                 </div>
 
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                    <input type="email" v-model="form.email" name="email" placeholder="الايميل *"
+                                    <input type="email" v-model="form.email" name="email" :placeholder="$t('concatUs.email') +'*'"
                                            required="">
                                 </div>
 
                                 <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                    <input type="text" v-model="form.phone" name="phone" placeholder="رقم الهاتف *"
+                                    <input type="text" v-model="form.phone" name="phone" :placeholder="$t('concatUs.phone') +'*'"
                                            required="">
                                 </div>
 
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group">
                                     <textarea class="" v-model="form.message" name="message"
-                                              placeholder="الرسالة"></textarea>
+                                              :placeholder="$t('concatUs.message') +'*'"></textarea>
                                 </div>
 
                                 <div class="col-lg-12 col-md-12 col-sm-12 form-group text-left">
                                     <button class="theme-btn btn-style-three" @click="sendConcat()" type="button"
                                             name="submit-form"><span
-                                        class="txt">ارسال  <i class="fa fa-angle-left"></i></span></button>
+                                        class="txt">{{ $t('concatUs.submit') }}  <i class="fa fa-angle-left"></i></span></button>
                                 </div>
 
                             </div>
@@ -71,7 +72,7 @@
                 <!-- Contact Info Section -->
                 <div class="contact-info-section">
                     <div class="title-box">
-                        <h2>معلومات التواصل</h2>
+                        <h2> {{ $t("concatUs.concatInfo") }}</h2>
                         <div class="text">
                         </div>
                     </div>
@@ -82,7 +83,7 @@
                         <div class="info-column col-lg-4 col-md-6 col-sm-12">
                             <div class="info-inner">
                                 <div class="icon fa fa-phone"></div>
-                                <strong> معلومات التواصل</strong>
+                                <strong>   {{ $t("concatUs.concatInfo") }}  </strong>
                                 <ul>
                                     <li><a href="tel:+96701480489">+967 01 480489</a></li>
                                     <li><a href="mailto:info@yourcompany.com">info@yourcompany.com</a></li>
@@ -95,11 +96,12 @@
                         <div class="info-column col-lg-4 col-md-6 col-sm-12">
                             <div class="info-inner">
                                 <div class="icon fa fa-clock-o"></div>
-                                <strong>ساعات الدوام</strong>
+                                <strong>   {{ $t("concatUs.workHour") }} </strong>
 
                                 <ul>
-                                    <li>السبت - الاربعاء
-                                        9:00 صباحاً - 2:00 ظهراً
+                                    <li>
+                                        {{ $t("concatUs.workHourInfo") }}
+
                                     </li>
                                 </ul>
                             </div>
@@ -109,10 +111,11 @@
                         <div class="info-column col-lg-4 col-md-6 col-sm-12">
                             <div class="info-inner">
                                 <div class="icon fa fa-map-marker"></div>
-                                <strong>العنوان</strong>
+                                <strong>  {{ $t("concatUs.Location") }} </strong>
                                 <ul>
-                                    <li>المكتب التنفيذي
-                                        صنعاء - التحرير خلف البنك المركزي
+                                    <li>
+                                        {{ $t("concatUs.LocationInfo") }}
+
                                     </li>
                                 </ul>
                             </div>

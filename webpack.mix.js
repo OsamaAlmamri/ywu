@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const path = require("path");
 
 /*
  |--------------------------------------------------------------------------
@@ -13,7 +14,26 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
-    .sass('resources/sass/toastr.scss', 'public/css');
+    .sass('resources/sass/toastr.scss', 'public/css')
+
+    .webpackConfig({
+        resolve: {
+            alias: {
+                '@': path.resolve(__dirname, 'resources/js/')
+            }
+        },
+        // optimization: {
+        //     splitChunks: {
+        //         minSize: 10000,
+        //         maxSize: 25000,
+        //
+        //     },
+        //
+        // },
+
+    })
+
+;
 
 
 /*

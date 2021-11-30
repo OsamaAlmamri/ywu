@@ -2,7 +2,7 @@
     <!-- Page Title -->
     <section class="page-title">
         <div class="auto-container">
-            <h1> {{pageName}} <span v-if="this.append_name!=null">({{this.append_name}})</span></h1>
+            <h1> {{$t('MENU.'+$route.name)}} <span v-if="this.append_name!=null">({{this.append_name}})</span></h1>
             <!-- Search Boxed -->
             <div v-if="showSearchFiled==true" class="search-boxed">
                 <div class="search-box">
@@ -93,7 +93,7 @@
 
                 switch (this.$route.name) {
                     case 'home' :
-                        return "السوق الإلكتروني";
+                        return trans('home');
                         break;
 
                     case 'my_orders' :

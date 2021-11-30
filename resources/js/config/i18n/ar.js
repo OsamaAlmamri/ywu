@@ -1,102 +1,42 @@
 // USA
 export const locale = {
-  TRANSLATOR: {
-    SELECT: "Select your language"
-  },
-  MENU: {
-    NEW: "جدبد",
-    ACTIONS: "Actions",
-    CREATE_POST: "Create New Post",
-    PAGES: "Pages",
-    FEATURES: "Features",
-    APPS: "Apps",
-    DASHBOARD: "Dashboard"
-  },
-  AUTH: {
-    GENERAL: {
-      OR: "Or",
-      SUBMIT_BUTTON: "Submit",
-      NO_ACCOUNT: "Don't have an account?",
-      SIGNUP_BUTTON: "Sign Up",
-      FORGOT_BUTTON: "Forgot Password",
-      BACK_BUTTON: "Back",
-      PRIVACY: "Privacy",
-      LEGAL: "Legal",
-      CONTACT: "Contact"
+    MENU: {
+        shop: "السوق الإلكتروني",
+        home: "الرئيسية",
+        my_orders: "طلباتي",
+        concatUs: "تواصل معنا",
+        privacy: " سياسة الخصوصية",
+        women: " شؤون المرأة",
+        consultant: "   الإستشارات",
+        courses: "التدريب",
+        cart: "السلة",
+        shop_search: "بحث",
+        shop_like: "المفضلة",
+        profile: "الصفحة الشخصية",
+        logout: " تسجيل الخروج",
+        register: "انشاء حساب",
+        login: "تسجيل الدخول",
+        for_help: " للمساعدة والدعم",
+
     },
-    LOGIN: {
-      TITLE: "Login Account",
-      BUTTON: "Sign In"
-    },
-    FORGOT: {
-      TITLE: "Forgot Password?",
-      DESC: "Enter your email to reset your password",
-      SUCCESS: "Your account has been successfully reset."
-    },
-    REGISTER: {
-      TITLE: "Sign Up",
-      DESC: "Enter your details to create your account",
-      SUCCESS: "Your account has been successfuly registered."
-    },
-    INPUT: {
-      EMAIL: "Email",
-      FULLNAME: "Fullname",
-      PASSWORD: "Password",
-      CONFIRM_PASSWORD: "Confirm Password",
-      USERNAME: "Username"
-    },
-    VALIDATION: {
-      INVALID: "{{name}} is not valid",
-      REQUIRED: "{{name}} is required",
-      MIN_LENGTH: "{{name}} minimum length is {{min}}",
-      AGREEMENT_REQUIRED: "Accepting terms & conditions are required",
-      NOT_FOUND: "The requested {{name}} is not found",
-      INVALID_LOGIN: "The login detail is incorrect",
-      REQUIRED_FIELD: "Required field",
-      MIN_LENGTH_FIELD: "Minimum field length:",
-      MAX_LENGTH_FIELD: "Maximum field length:",
-      INVALID_FIELD: "Field is not valid"
+    concatUs:{
+
+        concatUs:"راسلنا",
+        name:"الاسم",
+        gov:"المنظمة",
+        email:"الايميل",
+        phone:"رقم الهاتف ",
+        message:"الرسالة",
+        submit:"ارسال",
+        concatInfo:"معلومات التواصل ",
+        workHour:"ساعات الدوام",
+        workHourInfo:" السبت - الاربعاء\n" +
+            "  9:00 صباحاً - 2:00 ظهراً",
+        Location:"العنوان",
+        LocationInfo:"المكتب التنفيذي\n" +
+            "  صنعاء - التحرير خلف البنك المركزي",
+        username:"",
+
     }
-  },
-  ECOMMERCE: {
-    COMMON: {
-      SELECTED_RECORDS_COUNT: "Selected records count: ",
-      ALL: "All",
-      SUSPENDED: "Suspended",
-      ACTIVE: "Active",
-      FILTER: "Filter",
-      BY_STATUS: "by Status",
-      BY_TYPE: "by Type",
-      BUSINESS: "Business",
-      INDIVIDUAL: "Individual",
-      SEARCH: "Search",
-      IN_ALL_FIELDS: "in all fields"
-    },
-    ECOMMERCE: "eCommerce",
-    CUSTOMERS: {
-      CUSTOMERS: "Customers",
-      CUSTOMERS_LIST: "Customers list",
-      NEW_CUSTOMER: "New Customer",
-      DELETE_CUSTOMER_SIMPLE: {
-        TITLE: "Customer Delete",
-        DESCRIPTION: "Are you sure to permanently delete this customer?",
-        WAIT_DESCRIPTION: "Customer is deleting...",
-        MESSAGE: "Customer has been deleted"
-      },
-      DELETE_CUSTOMER_MULTY: {
-        TITLE: "Customers Delete",
-        DESCRIPTION: "Are you sure to permanently delete selected customers?",
-        WAIT_DESCRIPTION: "Customers are deleting...",
-        MESSAGE: "Selected customers have been deleted"
-      },
-      UPDATE_STATUS: {
-        TITLE: "Status has been updated for selected customers",
-        MESSAGE: "Selected customers status have successfully been updated"
-      },
-      EDIT: {
-        UPDATE_MESSAGE: "Customer has been updated",
-        ADD_MESSAGE: "Customer has been created"
-      }
-    }
-  }
+
 };

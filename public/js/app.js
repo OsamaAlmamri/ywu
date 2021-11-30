@@ -2712,6 +2712,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -8721,7 +8724,7 @@ __webpack_require__.r(__webpack_exports__);
     pageName: function pageName() {
       switch (this.$route.name) {
         case 'home':
-          return "السوق الإلكتروني";
+          return trans('home');
           break;
 
         case 'my_orders':
@@ -9900,6 +9903,356 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.is_active = this.is_active_dropdown;
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/layout/DropdownLanguage.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/layout/DropdownLanguage.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _services_i18n_service_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/services/i18n.service.js */ "./resources/js/services/i18n.service.js");
+/* harmony import */ var _plugins_vue_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/plugins/vue-i18n */ "./resources/js/plugins/vue-i18n.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "KTDropdownLanguage",
+  data: function data() {
+    return {
+      lang: _services_i18n_service_js__WEBPACK_IMPORTED_MODULE_0__["default"].getActiveLanguage(),
+      clang: _plugins_vue_i18n__WEBPACK_IMPORTED_MODULE_1__["default"],
+      languages: _services_i18n_service_js__WEBPACK_IMPORTED_MODULE_0__["default"].languages
+    };
+  },
+  methods: {
+    selectedLanguage: function selectedLanguage(lang) {
+      this.lang = lang;
+      _plugins_vue_i18n__WEBPACK_IMPORTED_MODULE_1__["default"].locale = lang;
+      localStorage.setItem("lang", lang); // window.location.reload();
+
+      var href = "";
+      var body_style = "direction: rtl";
+      var dir = "rtl";
+
+      if (lang == 'ar') {
+        href = '/site/css/main5.css';
+        body_style = body_style;
+      } else {
+        body_style = "direction: ltr";
+        href = '/site/css/main_en.css';
+        dir = "ltr";
+      } // document.head.appendChild(file);
+
+
+      document.getElementById("style_lang").setAttribute("href", href);
+      var body = document.getElementsByTagName("body")[0];
+      body.style = body_style;
+      body.setAttribute("dir", dir);
+      body.setAttribute("direction", dir);
+      document.cookie = "style_lang=" + lang + "; path=/";
+    },
+    isActiveLanguage: function isActiveLanguage(current) {
+      return this.activeLanguage === current;
+    }
+  },
+  computed: {
+    activeLanguage: function activeLanguage() {
+      return _services_i18n_service_js__WEBPACK_IMPORTED_MODULE_0__["default"].getActiveLanguage();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/layout/Header.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/layout/Header.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DropdownLanguage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DropdownLanguage */ "./resources/js/layout/DropdownLanguage.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store */ "./resources/js/store.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Header",
+  components: {
+    DropdownLanguage: _DropdownLanguage__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  computed: {
+    isLoggedIn: function isLoggedIn() {
+      return _store__WEBPACK_IMPORTED_MODULE_1__["default"].getters.isLoggedIn;
+    },
+    authUser: function authUser() {
+      return _store__WEBPACK_IMPORTED_MODULE_1__["default"].getters.authUser;
+    },
+    currentPage: function currentPage() {
+      return this.$route.name;
+    }
+  },
+  methods: {
+    // scrollToTop: function () {
+    //     window.scrollTo(0, 0);
+    //     const div =  document.querySelector('body');
+    //     div.classList.remove('mobile-menu-visible');
+    //
+    // },
+    logout: function logout() {
+      var _this = this;
+
+      this.$store.dispatch('logout').then(function () {
+        _this.$router.push('/home');
+      });
+    }
   }
 });
 
@@ -14337,7 +14690,7 @@ exports = module.exports = __webpack_require__(/*! ../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "@-webkit-keyframes animateSuccessTip {\n0% {\n    width: 0;\n    left: 1px;\n    top: 19px;\n}\n54% {\n    width: 0;\n    left: 1px;\n    top: 19px;\n}\n70% {\n    width: 50px;\n    left: -8px;\n    top: 37px;\n}\n84% {\n    width: 17px;\n    left: 21px;\n    top: 48px;\n}\n100% {\n    width: 25px;\n    left: 14px;\n    top: 45px;\n}\n}\n@keyframes animateSuccessTip {\n0% {\n    width: 0;\n    left: 1px;\n    top: 19px;\n}\n54% {\n    width: 0;\n    left: 1px;\n    top: 19px;\n}\n70% {\n    width: 50px;\n    left: -8px;\n    top: 37px;\n}\n84% {\n    width: 17px;\n    left: 21px;\n    top: 48px;\n}\n100% {\n    width: 25px;\n    left: 14px;\n    top: 45px;\n}\n}\n@-webkit-keyframes animateSuccessLong {\n0% {\n    width: 0;\n    right: 46px;\n    top: 54px;\n}\n65% {\n    width: 0;\n    right: 46px;\n    top: 54px;\n}\n84% {\n    width: 55px;\n    right: 0px;\n    top: 35px;\n}\n100% {\n    width: 47px;\n    right: 8px;\n    top: 38px;\n}\n}\n@keyframes animateSuccessLong {\n0% {\n    width: 0;\n    right: 46px;\n    top: 54px;\n}\n65% {\n    width: 0;\n    right: 46px;\n    top: 54px;\n}\n84% {\n    width: 55px;\n    right: 0px;\n    top: 35px;\n}\n100% {\n    width: 47px;\n    right: 8px;\n    top: 38px;\n}\n}\n@-webkit-keyframes rotatePlaceholder {\n0% {\n    transform: rotate(-45deg);\n}\n5% {\n    transform: rotate(-45deg);\n}\n12% {\n    transform: rotate(-405deg);\n}\n100% {\n    transform: rotate(-405deg);\n}\n}\n@keyframes rotatePlaceholder {\n0% {\n    transform: rotate(-45deg);\n}\n5% {\n    transform: rotate(-45deg);\n}\n12% {\n    transform: rotate(-405deg);\n}\n100% {\n    transform: rotate(-405deg);\n}\n}\n.animateSuccessTip {\n  -webkit-animation: animateSuccessTip 0.75s;\n          animation: animateSuccessTip 0.75s;\n}\n.animateSuccessLong {\n  -webkit-animation: animateSuccessLong 0.75s;\n          animation: animateSuccessLong 0.75s;\n}\n.sweet-modal-icon.sweet-modal-success.animate::after {\n  -webkit-animation: rotatePlaceholder 4.25s ease-in;\n          animation: rotatePlaceholder 4.25s ease-in;\n}\n\n/* Error Icon */\n@-webkit-keyframes animateErrorIcon {\n0% {\n    transform: rotateX(100deg);\n    opacity: 0;\n}\n100% {\n    transform: rotateX(0deg);\n    opacity: 1;\n}\n}\n@keyframes animateErrorIcon {\n0% {\n    transform: rotateX(100deg);\n    opacity: 0;\n}\n100% {\n    transform: rotateX(0deg);\n    opacity: 1;\n}\n}\n.animateErrorIcon {\n  -webkit-animation: animateErrorIcon 0.5s;\n          animation: animateErrorIcon 0.5s;\n}\n@-webkit-keyframes animateXMark {\n0% {\n    transform: scale(0.4);\n    margin-top: 26px;\n    opacity: 0;\n}\n50% {\n    transform: scale(0.4);\n    margin-top: 26px;\n    opacity: 0;\n}\n80% {\n    transform: scale(1.15);\n    margin-top: -6px;\n}\n100% {\n    transform: scale(1);\n    margin-top: 0;\n    opacity: 1;\n}\n}\n@keyframes animateXMark {\n0% {\n    transform: scale(0.4);\n    margin-top: 26px;\n    opacity: 0;\n}\n50% {\n    transform: scale(0.4);\n    margin-top: 26px;\n    opacity: 0;\n}\n80% {\n    transform: scale(1.15);\n    margin-top: -6px;\n}\n100% {\n    transform: scale(1);\n    margin-top: 0;\n    opacity: 1;\n}\n}\n.animateXMark {\n  -webkit-animation: animateXMark 0.5s;\n          animation: animateXMark 0.5s;\n}\n@-webkit-keyframes pulseWarning {\n0% {\n    border-color: #F8D486;\n}\n100% {\n    border-color: #F8BB86;\n}\n}\n@keyframes pulseWarning {\n0% {\n    border-color: #F8D486;\n}\n100% {\n    border-color: #F8BB86;\n}\n}\n.pulseWarning {\n  -webkit-animation: pulseWarning 0.75s infinite alternate;\n          animation: pulseWarning 0.75s infinite alternate;\n}\n@-webkit-keyframes pulseWarningIns {\n0% {\n    background-color: #F8D486;\n}\n100% {\n    background-color: #F8BB86;\n}\n}\n@keyframes pulseWarningIns {\n0% {\n    background-color: #F8D486;\n}\n100% {\n    background-color: #F8BB86;\n}\n}\n.pulseWarningIns {\n  -webkit-animation: pulseWarningIns 0.75s infinite alternate;\n          animation: pulseWarningIns 0.75s infinite alternate;\n}\n@-webkit-keyframes rotate-loading {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(360deg);\n}\n}\n@keyframes rotate-loading {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(360deg);\n}\n}\n.sweet-modal-icon {\n  position: relative;\n  width: 80px;\n  height: 80px;\n  border: 4px solid gray;\n  border-radius: 50%;\n  margin: auto;\n  padding: 0;\n  box-sizing: content-box;\n}\n.sweet-modal-icon.sweet-modal-error {\n  border-color: #F44336;\n}\n.sweet-modal-icon.sweet-modal-error .sweet-modal-x-mark {\n  position: relative;\n  display: block;\n}\n.sweet-modal-icon.sweet-modal-error .sweet-modal-line {\n  display: block;\n  position: absolute;\n  top: 37px;\n  height: 5px;\n  width: 47px;\n  background-color: #F44336;\n  border-radius: 2px;\n}\n.sweet-modal-icon.sweet-modal-error .sweet-modal-line.sweet-modal-left {\n  transform: rotate(45deg);\n  left: 17px;\n}\n.sweet-modal-icon.sweet-modal-error .sweet-modal-line.sweet-modal-right {\n  transform: rotate(-45deg);\n  right: 16px;\n}\n.sweet-modal-icon.sweet-modal-warning {\n  border-color: #FF9800;\n}\n.sweet-modal-icon.sweet-modal-warning .sweet-modal-body {\n  position: absolute;\n  width: 5px;\n  height: 47px;\n  left: 50%;\n  top: 10px;\n  margin-left: -2px;\n  border-radius: 2px;\n  background-color: #FF9800;\n}\n.sweet-modal-icon.sweet-modal-warning .sweet-modal-dot {\n  position: absolute;\n  left: 50%;\n  bottom: 10px;\n  width: 7px;\n  height: 7px;\n  margin-left: -3px;\n  border-radius: 50%;\n  background-color: #FF9800;\n}\n.sweet-modal-icon.sweet-modal-info {\n  border-color: #039BE5;\n}\n.sweet-modal-icon.sweet-modal-info::before {\n  content: \"\";\n  position: absolute;\n  width: 5px;\n  height: 29px;\n  left: 50%;\n  bottom: 17px;\n  margin-left: -2px;\n  border-radius: 2px;\n  background-color: #039BE5;\n}\n.sweet-modal-icon.sweet-modal-info::after {\n  content: \"\";\n  position: absolute;\n  width: 7px;\n  height: 7px;\n  top: 19px;\n  margin-left: -3px;\n  border-radius: 50%;\n  background-color: #039BE5;\n}\n.sweet-modal-icon.sweet-modal-success {\n  border-color: #4CAF50;\n}\n.sweet-modal-icon.sweet-modal-success::before, .sweet-modal-icon.sweet-modal-success::after {\n  content: \"\";\n  position: absolute;\n  border-radius: 40px;\n  width: 60px;\n  height: 120px;\n  background: white;\n  transform: rotate(45deg);\n}\n.sweet-modal-icon.sweet-modal-success::before {\n  border-radius: 120px 0 0 120px;\n  top: -7px;\n  left: -33px;\n  transform: rotate(-45deg);\n  transform-origin: 60px 60px;\n}\n.sweet-modal-icon.sweet-modal-success::after {\n  border-radius: 0 120px 120px 0;\n  top: -11px;\n  left: 30px;\n  transform: rotate(-45deg);\n  transform-origin: 0px 60px;\n}\n.sweet-modal-icon.sweet-modal-success .sweet-modal-placeholder {\n  box-sizing: content-box;\n  position: absolute;\n  left: -4px;\n  top: -4px;\n  z-index: 2;\n  width: 80px;\n  height: 80px;\n  border: 4px solid rgba(76, 175, 80, 0.2);\n  border-radius: 50%;\n}\n.sweet-modal-icon.sweet-modal-success .sweet-modal-fix {\n  position: absolute;\n  left: 28px;\n  top: 8px;\n  z-index: 1;\n  width: 7px;\n  height: 90px;\n  background-color: white;\n  transform: rotate(-45deg);\n}\n.sweet-modal-icon.sweet-modal-success .sweet-modal-line {\n  display: block;\n  position: absolute;\n  z-index: 2;\n  height: 5px;\n  background-color: #4CAF50;\n  border-radius: 2px;\n}\n.sweet-modal-icon.sweet-modal-success .sweet-modal-line.sweet-modal-tip {\n  width: 25px;\n  left: 14px;\n  top: 46px;\n  transform: rotate(45deg);\n}\n.sweet-modal-icon.sweet-modal-success .sweet-modal-line.sweet-modal-long {\n  width: 47px;\n  right: 8px;\n  top: 38px;\n  transform: rotate(-45deg);\n}\n.sweet-modal-icon.sweet-modal-custom {\n  border-radius: 0;\n  border: none;\n  background-size: contain;\n  background-position: center center;\n  background-repeat: no-repeat;\n}\n.sweet-modal.theme-dark .sweet-modal-icon.sweet-modal-success::before, .sweet-modal.theme-dark .sweet-modal-icon.sweet-modal-success::after,\n.sweet-modal.theme-dark .sweet-modal-icon.sweet-modal-success .sweet-modal-fix {\n  background-color: #182028;\n}\n.sweet-modal-overlay {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  z-index: 9001;\n  font-size: 14px;\n  -webkit-font-smoothing: antialiased;\n  background: rgba(255, 255, 255, 0.9);\n  opacity: 0;\n  transition: opacity 0.3s;\n  transform: translate3D(0, 0, 0);\n  -webkit-perspective: 500px;\n}\n.sweet-modal-overlay.theme-dark {\n  background: rgba(24, 32, 40, 0.94);\n}\n.sweet-modal-overlay.is-visible {\n  opacity: 1;\n}\n.sweet-modal {\n  box-sizing: border-box;\n  background: #fff;\n  box-shadow: 0px 8px 46px rgba(0, 0, 0, 0.08), 0px 2px 6px rgba(0, 0, 0, 0.03);\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 80%;\n  max-width: 640px;\n  max-height: 100vh;\n  overflow-y: auto;\n  border-radius: 2px;\n  transform: scale(0.9) translate(calc(-50% - 32px), -50%);\n  opacity: 0;\n  transition-property: transform, opacity;\n  transition-duration: 0.3s;\n  transition-delay: 0.05s;\n  transition-timing-function: cubic-bezier(0.52, 0.02, 0.19, 1.02);\n}\n.sweet-modal .sweet-box-actions {\n  position: absolute;\n  top: 12px;\n  right: 12px;\n}\n.sweet-modal .sweet-box-actions .sweet-action-close {\n  display: inline-block;\n  cursor: pointer;\n  color: #222C38;\n  text-align: center;\n  width: 42px;\n  height: 42px;\n  line-height: 42px;\n  border-radius: 50%;\n}\n.sweet-modal .sweet-box-actions .sweet-action-close svg {\n  width: 24px;\n  height: 24px;\n  vertical-align: middle;\n  margin-top: -2px;\n}\n.sweet-modal .sweet-box-actions .sweet-action-close svg path,\n.sweet-modal .sweet-box-actions .sweet-action-close svg polygon,\n.sweet-modal .sweet-box-actions .sweet-action-close svg rect,\n.sweet-modal .sweet-box-actions .sweet-action-close svg circle {\n  fill: currentColor;\n}\n.sweet-modal .sweet-box-actions .sweet-action-close svg {\n  fill: currentColor;\n}\n.sweet-modal .sweet-box-actions .sweet-action-close:hover {\n  background: #039BE5;\n  color: #fff;\n}\n.sweet-modal .sweet-title {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden;\n  height: 64px;\n  line-height: 64px;\n  border-bottom: 1px solid #eaeaea;\n  padding-left: 32px;\n  padding-right: 64px;\n}\n.sweet-modal .sweet-title > h2 {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden;\n  margin: 0;\n  padding: 0;\n  font-weight: 500;\n  font-size: 22px;\n}\n.sweet-modal ul.sweet-modal-tabs {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n  display: flex;\n  align-items: center;\n  width: calc(100% + 32px);\n  height: 100%;\n  margin-left: -32px;\n  overflow-x: auto;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab {\n  display: block;\n  height: 100%;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden;\n  display: flex;\n  align-items: center;\n  padding-left: 20px;\n  padding-right: 20px;\n  color: #222C38;\n  text-decoration: none;\n  text-align: center;\n  height: 100%;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-title {\n  display: block;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon {\n  display: block;\n  line-height: 1;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon svg, .sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon img {\n  width: 16px;\n  height: 16px;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon svg path,\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon svg polygon,\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon svg rect,\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon svg circle, .sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon img path,\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon img polygon,\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon img rect,\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon img circle {\n  fill: currentColor;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon svg, .sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon img {\n  fill: currentColor;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon + span.sweet-modal-tab-title {\n  line-height: 1;\n  margin-top: 8px;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab:first-child a {\n  padding-left: 32px;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab.active a {\n  font-weight: 600;\n  color: #039BE5;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab.disabled a {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n      user-select: none;\n  cursor: default;\n  pointer-events: none;\n  color: #999;\n}\n.sweet-modal.has-tabs:not(.has-title) .sweet-title {\n  height: 84px;\n  line-height: 84px;\n}\n.sweet-modal.has-tabs.has-title ul.sweet-modal-tabs {\n  width: 100%;\n  height: 48px;\n  margin: 0;\n  border-bottom: 1px solid #eaeaea;\n}\n.sweet-modal.has-tabs.has-title ul.sweet-modal-tabs li.sweet-modal-tab a {\n  margin-top: -4px;\n}\n.sweet-modal.has-tabs.has-title ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon {\n  display: inline-block;\n}\n.sweet-modal.has-tabs.has-title ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon svg, .sweet-modal.has-tabs.has-title ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon img {\n  vertical-align: middle;\n  margin-top: -2px;\n  margin-right: 8px;\n}\n.sweet-modal.has-tabs.has-title ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-title {\n  display: inline-block;\n}\n.sweet-modal .sweet-content {\n  display: flex;\n  align-items: center;\n  padding-left: 32px;\n  padding-right: 32px;\n  padding-top: 24px;\n  padding-bottom: 24px;\n  line-height: 1.5;\n}\n.sweet-modal .sweet-content .sweet-content-content {\n  flex-grow: 1;\n}\n.sweet-modal .sweet-content .sweet-modal-tab:not(.active) {\n  display: none;\n}\n.sweet-modal .sweet-content .sweet-modal-icon {\n  margin-bottom: 36px;\n}\n.sweet-modal .sweet-buttons {\n  text-align: right;\n  padding-left: 20px;\n  padding-right: 20px;\n  padding-top: 12px;\n  padding-bottom: 12px;\n}\n.sweet-modal .sweet-content + .sweet-buttons {\n  border-top: 1px solid #eaeaea;\n}\n.sweet-modal.is-alert .sweet-content {\n  display: block;\n  text-align: center;\n  font-size: 16px;\n  padding-top: 64px;\n  padding-bottom: 64px;\n}\n.sweet-modal.has-tabs.has-icon .sweet-content {\n  padding-top: 32px;\n  padding-bottom: 32px;\n}\n.sweet-modal.has-tabs.has-icon .sweet-content .sweet-content-content {\n  padding-left: 32px;\n}\n.sweet-modal.has-tabs.has-icon .sweet-content .sweet-modal-icon {\n  margin-bottom: 0;\n}\n.sweet-modal:not(.has-content) .sweet-modal-icon {\n  margin-bottom: 0;\n}\n.sweet-modal.theme-dark {\n  background: #182028;\n  color: #fff;\n}\n.sweet-modal.theme-dark .sweet-box-actions .sweet-action-close {\n  color: #fff;\n}\n.sweet-modal.theme-dark .sweet-title {\n  border-bottom-color: #090c0f;\n  box-shadow: 0px 1px 0px #273442;\n}\n.sweet-modal.theme-dark ul.sweet-modal-tabs li a {\n  color: #fff;\n}\n.sweet-modal.theme-dark ul.sweet-modal-tabs li.active a {\n  color: #039BE5;\n}\n.sweet-modal.theme-dark ul.sweet-modal-tabs li.disabled a {\n  color: #3e5368;\n}\n.sweet-modal.theme-dark.has-tabs.has-title ul.sweet-modal-tabs {\n  border-bottom-color: #090c0f;\n  box-shadow: 0px 1px 0px #273442;\n}\n.sweet-modal.theme-dark .sweet-content + .sweet-buttons {\n  border-top-color: #273442;\n  box-shadow: 0px -1px 0px #090c0f;\n}\n.sweet-modal .sweet-buttons,\n.sweet-modal .sweet-content {\n  opacity: 0;\n  transition-property: transform, opacity;\n  transition-duration: 0.3s;\n  transition-delay: 0.09s;\n  transition-timing-function: cubic-bezier(0.52, 0.02, 0.19, 1.02);\n}\n.sweet-modal .sweet-content {\n  transform: translateY(-8px);\n}\n.sweet-modal .sweet-buttons {\n  transform: translateY(16px);\n}\n.sweet-modal.is-visible {\n  transform: translate(-50%, -50%);\n  opacity: 1;\n}\n.sweet-modal.is-visible .sweet-buttons,\n.sweet-modal.is-visible .sweet-content {\n  transform: none;\n  opacity: 1;\n}\n.sweet-modal.bounce {\n  -webkit-animation-name: bounce;\n          animation-name: bounce;\n  -webkit-animation-duration: 0.3s;\n          animation-duration: 0.3s;\n  -webkit-animation-iteration-count: 2;\n          animation-iteration-count: 2;\n  -webkit-animation-direction: alternate;\n          animation-direction: alternate;\n}\n@media screen and (min-width: 601px) {\n@-webkit-keyframes bounce {\n0% {\n      transform: scale(1) translate(-50%, -50%);\n}\n50% {\n      transform: scale(1.02) translate(calc(-50% + 8px), -50%);\n}\n100% {\n      transform: scale(1) translate(-50%, -50%);\n}\n}\n@keyframes bounce {\n0% {\n      transform: scale(1) translate(-50%, -50%);\n}\n50% {\n      transform: scale(1.02) translate(calc(-50% + 8px), -50%);\n}\n100% {\n      transform: scale(1) translate(-50%, -50%);\n}\n}\n}\n@media screen and (max-width: 600px) {\n.sweet-modal.is-mobile-fullscreen {\n    width: 100%;\n    height: 100vh;\n    left: 0;\n    top: 0;\n    transform: scale(0.9);\n}\n.sweet-modal.is-mobile-fullscreen.is-visible {\n    transform: none;\n}\n.sweet-modal.is-mobile-fullscreen .sweet-buttons {\n    box-sizing: border-box;\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    width: 100%;\n}\n}", ""]);
+exports.push([module.i, "@-webkit-keyframes animateSuccessTip {\n0% {\n    width: 0;\n    left: 1px;\n    top: 19px;\n}\n54% {\n    width: 0;\n    left: 1px;\n    top: 19px;\n}\n70% {\n    width: 50px;\n    left: -8px;\n    top: 37px;\n}\n84% {\n    width: 17px;\n    left: 21px;\n    top: 48px;\n}\n100% {\n    width: 25px;\n    left: 14px;\n    top: 45px;\n}\n}\n@keyframes animateSuccessTip {\n0% {\n    width: 0;\n    left: 1px;\n    top: 19px;\n}\n54% {\n    width: 0;\n    left: 1px;\n    top: 19px;\n}\n70% {\n    width: 50px;\n    left: -8px;\n    top: 37px;\n}\n84% {\n    width: 17px;\n    left: 21px;\n    top: 48px;\n}\n100% {\n    width: 25px;\n    left: 14px;\n    top: 45px;\n}\n}\n@-webkit-keyframes animateSuccessLong {\n0% {\n    width: 0;\n    right: 46px;\n    top: 54px;\n}\n65% {\n    width: 0;\n    right: 46px;\n    top: 54px;\n}\n84% {\n    width: 55px;\n    right: 0px;\n    top: 35px;\n}\n100% {\n    width: 47px;\n    right: 8px;\n    top: 38px;\n}\n}\n@keyframes animateSuccessLong {\n0% {\n    width: 0;\n    right: 46px;\n    top: 54px;\n}\n65% {\n    width: 0;\n    right: 46px;\n    top: 54px;\n}\n84% {\n    width: 55px;\n    right: 0px;\n    top: 35px;\n}\n100% {\n    width: 47px;\n    right: 8px;\n    top: 38px;\n}\n}\n@-webkit-keyframes rotatePlaceholder {\n0% {\n    -webkit-transform: rotate(-45deg);\n            transform: rotate(-45deg);\n}\n5% {\n    -webkit-transform: rotate(-45deg);\n            transform: rotate(-45deg);\n}\n12% {\n    -webkit-transform: rotate(-405deg);\n            transform: rotate(-405deg);\n}\n100% {\n    -webkit-transform: rotate(-405deg);\n            transform: rotate(-405deg);\n}\n}\n@keyframes rotatePlaceholder {\n0% {\n    -webkit-transform: rotate(-45deg);\n            transform: rotate(-45deg);\n}\n5% {\n    -webkit-transform: rotate(-45deg);\n            transform: rotate(-45deg);\n}\n12% {\n    -webkit-transform: rotate(-405deg);\n            transform: rotate(-405deg);\n}\n100% {\n    -webkit-transform: rotate(-405deg);\n            transform: rotate(-405deg);\n}\n}\n.animateSuccessTip {\n  -webkit-animation: animateSuccessTip 0.75s;\n          animation: animateSuccessTip 0.75s;\n}\n.animateSuccessLong {\n  -webkit-animation: animateSuccessLong 0.75s;\n          animation: animateSuccessLong 0.75s;\n}\n.sweet-modal-icon.sweet-modal-success.animate::after {\n  -webkit-animation: rotatePlaceholder 4.25s ease-in;\n          animation: rotatePlaceholder 4.25s ease-in;\n}\n\n/* Error Icon */\n@-webkit-keyframes animateErrorIcon {\n0% {\n    -webkit-transform: rotateX(100deg);\n            transform: rotateX(100deg);\n    opacity: 0;\n}\n100% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    opacity: 1;\n}\n}\n@keyframes animateErrorIcon {\n0% {\n    -webkit-transform: rotateX(100deg);\n            transform: rotateX(100deg);\n    opacity: 0;\n}\n100% {\n    -webkit-transform: rotateX(0deg);\n            transform: rotateX(0deg);\n    opacity: 1;\n}\n}\n.animateErrorIcon {\n  -webkit-animation: animateErrorIcon 0.5s;\n          animation: animateErrorIcon 0.5s;\n}\n@-webkit-keyframes animateXMark {\n0% {\n    -webkit-transform: scale(0.4);\n            transform: scale(0.4);\n    margin-top: 26px;\n    opacity: 0;\n}\n50% {\n    -webkit-transform: scale(0.4);\n            transform: scale(0.4);\n    margin-top: 26px;\n    opacity: 0;\n}\n80% {\n    -webkit-transform: scale(1.15);\n            transform: scale(1.15);\n    margin-top: -6px;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    margin-top: 0;\n    opacity: 1;\n}\n}\n@keyframes animateXMark {\n0% {\n    -webkit-transform: scale(0.4);\n            transform: scale(0.4);\n    margin-top: 26px;\n    opacity: 0;\n}\n50% {\n    -webkit-transform: scale(0.4);\n            transform: scale(0.4);\n    margin-top: 26px;\n    opacity: 0;\n}\n80% {\n    -webkit-transform: scale(1.15);\n            transform: scale(1.15);\n    margin-top: -6px;\n}\n100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    margin-top: 0;\n    opacity: 1;\n}\n}\n.animateXMark {\n  -webkit-animation: animateXMark 0.5s;\n          animation: animateXMark 0.5s;\n}\n@-webkit-keyframes pulseWarning {\n0% {\n    border-color: #F8D486;\n}\n100% {\n    border-color: #F8BB86;\n}\n}\n@keyframes pulseWarning {\n0% {\n    border-color: #F8D486;\n}\n100% {\n    border-color: #F8BB86;\n}\n}\n.pulseWarning {\n  -webkit-animation: pulseWarning 0.75s infinite alternate;\n          animation: pulseWarning 0.75s infinite alternate;\n}\n@-webkit-keyframes pulseWarningIns {\n0% {\n    background-color: #F8D486;\n}\n100% {\n    background-color: #F8BB86;\n}\n}\n@keyframes pulseWarningIns {\n0% {\n    background-color: #F8D486;\n}\n100% {\n    background-color: #F8BB86;\n}\n}\n.pulseWarningIns {\n  -webkit-animation: pulseWarningIns 0.75s infinite alternate;\n          animation: pulseWarningIns 0.75s infinite alternate;\n}\n@-webkit-keyframes rotate-loading {\n0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n}\n100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n}\n}\n@keyframes rotate-loading {\n0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n}\n100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n}\n}\n.sweet-modal-icon {\n  position: relative;\n  width: 80px;\n  height: 80px;\n  border: 4px solid gray;\n  border-radius: 50%;\n  margin: auto;\n  padding: 0;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n}\n.sweet-modal-icon.sweet-modal-error {\n  border-color: #F44336;\n}\n.sweet-modal-icon.sweet-modal-error .sweet-modal-x-mark {\n  position: relative;\n  display: block;\n}\n.sweet-modal-icon.sweet-modal-error .sweet-modal-line {\n  display: block;\n  position: absolute;\n  top: 37px;\n  height: 5px;\n  width: 47px;\n  background-color: #F44336;\n  border-radius: 2px;\n}\n.sweet-modal-icon.sweet-modal-error .sweet-modal-line.sweet-modal-left {\n  -webkit-transform: rotate(45deg);\n          transform: rotate(45deg);\n  left: 17px;\n}\n.sweet-modal-icon.sweet-modal-error .sweet-modal-line.sweet-modal-right {\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n  right: 16px;\n}\n.sweet-modal-icon.sweet-modal-warning {\n  border-color: #FF9800;\n}\n.sweet-modal-icon.sweet-modal-warning .sweet-modal-body {\n  position: absolute;\n  width: 5px;\n  height: 47px;\n  left: 50%;\n  top: 10px;\n  margin-left: -2px;\n  border-radius: 2px;\n  background-color: #FF9800;\n}\n.sweet-modal-icon.sweet-modal-warning .sweet-modal-dot {\n  position: absolute;\n  left: 50%;\n  bottom: 10px;\n  width: 7px;\n  height: 7px;\n  margin-left: -3px;\n  border-radius: 50%;\n  background-color: #FF9800;\n}\n.sweet-modal-icon.sweet-modal-info {\n  border-color: #039BE5;\n}\n.sweet-modal-icon.sweet-modal-info::before {\n  content: \"\";\n  position: absolute;\n  width: 5px;\n  height: 29px;\n  left: 50%;\n  bottom: 17px;\n  margin-left: -2px;\n  border-radius: 2px;\n  background-color: #039BE5;\n}\n.sweet-modal-icon.sweet-modal-info::after {\n  content: \"\";\n  position: absolute;\n  width: 7px;\n  height: 7px;\n  top: 19px;\n  margin-left: -3px;\n  border-radius: 50%;\n  background-color: #039BE5;\n}\n.sweet-modal-icon.sweet-modal-success {\n  border-color: #4CAF50;\n}\n.sweet-modal-icon.sweet-modal-success::before, .sweet-modal-icon.sweet-modal-success::after {\n  content: \"\";\n  position: absolute;\n  border-radius: 40px;\n  width: 60px;\n  height: 120px;\n  background: white;\n  -webkit-transform: rotate(45deg);\n          transform: rotate(45deg);\n}\n.sweet-modal-icon.sweet-modal-success::before {\n  border-radius: 120px 0 0 120px;\n  top: -7px;\n  left: -33px;\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n  -webkit-transform-origin: 60px 60px;\n  transform-origin: 60px 60px;\n}\n.sweet-modal-icon.sweet-modal-success::after {\n  border-radius: 0 120px 120px 0;\n  top: -11px;\n  left: 30px;\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n  -webkit-transform-origin: 0px 60px;\n  transform-origin: 0px 60px;\n}\n.sweet-modal-icon.sweet-modal-success .sweet-modal-placeholder {\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n  position: absolute;\n  left: -4px;\n  top: -4px;\n  z-index: 2;\n  width: 80px;\n  height: 80px;\n  border: 4px solid rgba(76, 175, 80, 0.2);\n  border-radius: 50%;\n}\n.sweet-modal-icon.sweet-modal-success .sweet-modal-fix {\n  position: absolute;\n  left: 28px;\n  top: 8px;\n  z-index: 1;\n  width: 7px;\n  height: 90px;\n  background-color: white;\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n}\n.sweet-modal-icon.sweet-modal-success .sweet-modal-line {\n  display: block;\n  position: absolute;\n  z-index: 2;\n  height: 5px;\n  background-color: #4CAF50;\n  border-radius: 2px;\n}\n.sweet-modal-icon.sweet-modal-success .sweet-modal-line.sweet-modal-tip {\n  width: 25px;\n  left: 14px;\n  top: 46px;\n  -webkit-transform: rotate(45deg);\n          transform: rotate(45deg);\n}\n.sweet-modal-icon.sweet-modal-success .sweet-modal-line.sweet-modal-long {\n  width: 47px;\n  right: 8px;\n  top: 38px;\n  -webkit-transform: rotate(-45deg);\n          transform: rotate(-45deg);\n}\n.sweet-modal-icon.sweet-modal-custom {\n  border-radius: 0;\n  border: none;\n  background-size: contain;\n  background-position: center center;\n  background-repeat: no-repeat;\n}\n.sweet-modal.theme-dark .sweet-modal-icon.sweet-modal-success::before, .sweet-modal.theme-dark .sweet-modal-icon.sweet-modal-success::after,\n.sweet-modal.theme-dark .sweet-modal-icon.sweet-modal-success .sweet-modal-fix {\n  background-color: #182028;\n}\n.sweet-modal-overlay {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100vw;\n  height: 100vh;\n  z-index: 9001;\n  font-size: 14px;\n  -webkit-font-smoothing: antialiased;\n  background: rgba(255, 255, 255, 0.9);\n  opacity: 0;\n  -webkit-transition: opacity 0.3s;\n  transition: opacity 0.3s;\n  -webkit-transform: translate3D(0, 0, 0);\n          transform: translate3D(0, 0, 0);\n  -webkit-perspective: 500px;\n}\n.sweet-modal-overlay.theme-dark {\n  background: rgba(24, 32, 40, 0.94);\n}\n.sweet-modal-overlay.is-visible {\n  opacity: 1;\n}\n.sweet-modal {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  background: #fff;\n  -webkit-box-shadow: 0px 8px 46px rgba(0, 0, 0, 0.08), 0px 2px 6px rgba(0, 0, 0, 0.03);\n          box-shadow: 0px 8px 46px rgba(0, 0, 0, 0.08), 0px 2px 6px rgba(0, 0, 0, 0.03);\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  width: 80%;\n  max-width: 640px;\n  max-height: 100vh;\n  overflow-y: auto;\n  border-radius: 2px;\n  -webkit-transform: scale(0.9) translate(calc(-50% - 32px), -50%);\n          transform: scale(0.9) translate(calc(-50% - 32px), -50%);\n  opacity: 0;\n  -webkit-transition-property: opacity, -webkit-transform;\n  transition-property: opacity, -webkit-transform;\n  transition-property: transform, opacity;\n  transition-property: transform, opacity, -webkit-transform;\n  -webkit-transition-duration: 0.3s;\n          transition-duration: 0.3s;\n  -webkit-transition-delay: 0.05s;\n          transition-delay: 0.05s;\n  -webkit-transition-timing-function: cubic-bezier(0.52, 0.02, 0.19, 1.02);\n          transition-timing-function: cubic-bezier(0.52, 0.02, 0.19, 1.02);\n}\n.sweet-modal .sweet-box-actions {\n  position: absolute;\n  top: 12px;\n  right: 12px;\n}\n.sweet-modal .sweet-box-actions .sweet-action-close {\n  display: inline-block;\n  cursor: pointer;\n  color: #222C38;\n  text-align: center;\n  width: 42px;\n  height: 42px;\n  line-height: 42px;\n  border-radius: 50%;\n}\n.sweet-modal .sweet-box-actions .sweet-action-close svg {\n  width: 24px;\n  height: 24px;\n  vertical-align: middle;\n  margin-top: -2px;\n}\n.sweet-modal .sweet-box-actions .sweet-action-close svg path,\n.sweet-modal .sweet-box-actions .sweet-action-close svg polygon,\n.sweet-modal .sweet-box-actions .sweet-action-close svg rect,\n.sweet-modal .sweet-box-actions .sweet-action-close svg circle {\n  fill: currentColor;\n}\n.sweet-modal .sweet-box-actions .sweet-action-close svg {\n  fill: currentColor;\n}\n.sweet-modal .sweet-box-actions .sweet-action-close:hover {\n  background: #039BE5;\n  color: #fff;\n}\n.sweet-modal .sweet-title {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden;\n  height: 64px;\n  line-height: 64px;\n  border-bottom: 1px solid #eaeaea;\n  padding-left: 32px;\n  padding-right: 64px;\n}\n.sweet-modal .sweet-title > h2 {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden;\n  margin: 0;\n  padding: 0;\n  font-weight: 500;\n  font-size: 22px;\n}\n.sweet-modal ul.sweet-modal-tabs {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  width: calc(100% + 32px);\n  height: 100%;\n  margin-left: -32px;\n  overflow-x: auto;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab {\n  display: block;\n  height: 100%;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a {\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  overflow: hidden;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding-left: 20px;\n  padding-right: 20px;\n  color: #222C38;\n  text-decoration: none;\n  text-align: center;\n  height: 100%;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-title {\n  display: block;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon {\n  display: block;\n  line-height: 1;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon svg, .sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon img {\n  width: 16px;\n  height: 16px;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon svg path,\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon svg polygon,\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon svg rect,\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon svg circle, .sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon img path,\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon img polygon,\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon img rect,\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon img circle {\n  fill: currentColor;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon svg, .sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon img {\n  fill: currentColor;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon + span.sweet-modal-tab-title {\n  line-height: 1;\n  margin-top: 8px;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab:first-child a {\n  padding-left: 32px;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab.active a {\n  font-weight: 600;\n  color: #039BE5;\n}\n.sweet-modal ul.sweet-modal-tabs li.sweet-modal-tab.disabled a {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n      user-select: none;\n  cursor: default;\n  pointer-events: none;\n  color: #999;\n}\n.sweet-modal.has-tabs:not(.has-title) .sweet-title {\n  height: 84px;\n  line-height: 84px;\n}\n.sweet-modal.has-tabs.has-title ul.sweet-modal-tabs {\n  width: 100%;\n  height: 48px;\n  margin: 0;\n  border-bottom: 1px solid #eaeaea;\n}\n.sweet-modal.has-tabs.has-title ul.sweet-modal-tabs li.sweet-modal-tab a {\n  margin-top: -4px;\n}\n.sweet-modal.has-tabs.has-title ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon {\n  display: inline-block;\n}\n.sweet-modal.has-tabs.has-title ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon svg, .sweet-modal.has-tabs.has-title ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-icon img {\n  vertical-align: middle;\n  margin-top: -2px;\n  margin-right: 8px;\n}\n.sweet-modal.has-tabs.has-title ul.sweet-modal-tabs li.sweet-modal-tab a span.sweet-modal-tab-title {\n  display: inline-block;\n}\n.sweet-modal .sweet-content {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding-left: 32px;\n  padding-right: 32px;\n  padding-top: 24px;\n  padding-bottom: 24px;\n  line-height: 1.5;\n}\n.sweet-modal .sweet-content .sweet-content-content {\n  -webkit-box-flex: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n}\n.sweet-modal .sweet-content .sweet-modal-tab:not(.active) {\n  display: none;\n}\n.sweet-modal .sweet-content .sweet-modal-icon {\n  margin-bottom: 36px;\n}\n.sweet-modal .sweet-buttons {\n  text-align: right;\n  padding-left: 20px;\n  padding-right: 20px;\n  padding-top: 12px;\n  padding-bottom: 12px;\n}\n.sweet-modal .sweet-content + .sweet-buttons {\n  border-top: 1px solid #eaeaea;\n}\n.sweet-modal.is-alert .sweet-content {\n  display: block;\n  text-align: center;\n  font-size: 16px;\n  padding-top: 64px;\n  padding-bottom: 64px;\n}\n.sweet-modal.has-tabs.has-icon .sweet-content {\n  padding-top: 32px;\n  padding-bottom: 32px;\n}\n.sweet-modal.has-tabs.has-icon .sweet-content .sweet-content-content {\n  padding-left: 32px;\n}\n.sweet-modal.has-tabs.has-icon .sweet-content .sweet-modal-icon {\n  margin-bottom: 0;\n}\n.sweet-modal:not(.has-content) .sweet-modal-icon {\n  margin-bottom: 0;\n}\n.sweet-modal.theme-dark {\n  background: #182028;\n  color: #fff;\n}\n.sweet-modal.theme-dark .sweet-box-actions .sweet-action-close {\n  color: #fff;\n}\n.sweet-modal.theme-dark .sweet-title {\n  border-bottom-color: #090c0f;\n  -webkit-box-shadow: 0px 1px 0px #273442;\n          box-shadow: 0px 1px 0px #273442;\n}\n.sweet-modal.theme-dark ul.sweet-modal-tabs li a {\n  color: #fff;\n}\n.sweet-modal.theme-dark ul.sweet-modal-tabs li.active a {\n  color: #039BE5;\n}\n.sweet-modal.theme-dark ul.sweet-modal-tabs li.disabled a {\n  color: #3e5368;\n}\n.sweet-modal.theme-dark.has-tabs.has-title ul.sweet-modal-tabs {\n  border-bottom-color: #090c0f;\n  -webkit-box-shadow: 0px 1px 0px #273442;\n          box-shadow: 0px 1px 0px #273442;\n}\n.sweet-modal.theme-dark .sweet-content + .sweet-buttons {\n  border-top-color: #273442;\n  -webkit-box-shadow: 0px -1px 0px #090c0f;\n          box-shadow: 0px -1px 0px #090c0f;\n}\n.sweet-modal .sweet-buttons,\n.sweet-modal .sweet-content {\n  opacity: 0;\n  -webkit-transition-property: opacity, -webkit-transform;\n  transition-property: opacity, -webkit-transform;\n  transition-property: transform, opacity;\n  transition-property: transform, opacity, -webkit-transform;\n  -webkit-transition-duration: 0.3s;\n          transition-duration: 0.3s;\n  -webkit-transition-delay: 0.09s;\n          transition-delay: 0.09s;\n  -webkit-transition-timing-function: cubic-bezier(0.52, 0.02, 0.19, 1.02);\n          transition-timing-function: cubic-bezier(0.52, 0.02, 0.19, 1.02);\n}\n.sweet-modal .sweet-content {\n  -webkit-transform: translateY(-8px);\n          transform: translateY(-8px);\n}\n.sweet-modal .sweet-buttons {\n  -webkit-transform: translateY(16px);\n          transform: translateY(16px);\n}\n.sweet-modal.is-visible {\n  -webkit-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%);\n  opacity: 1;\n}\n.sweet-modal.is-visible .sweet-buttons,\n.sweet-modal.is-visible .sweet-content {\n  -webkit-transform: none;\n          transform: none;\n  opacity: 1;\n}\n.sweet-modal.bounce {\n  -webkit-animation-name: bounce;\n          animation-name: bounce;\n  -webkit-animation-duration: 0.3s;\n          animation-duration: 0.3s;\n  -webkit-animation-iteration-count: 2;\n          animation-iteration-count: 2;\n  -webkit-animation-direction: alternate;\n          animation-direction: alternate;\n}\n@media screen and (min-width: 601px) {\n@-webkit-keyframes bounce {\n0% {\n      -webkit-transform: scale(1) translate(-50%, -50%);\n              transform: scale(1) translate(-50%, -50%);\n}\n50% {\n      -webkit-transform: scale(1.02) translate(calc(-50% + 8px), -50%);\n              transform: scale(1.02) translate(calc(-50% + 8px), -50%);\n}\n100% {\n      -webkit-transform: scale(1) translate(-50%, -50%);\n              transform: scale(1) translate(-50%, -50%);\n}\n}\n@keyframes bounce {\n0% {\n      -webkit-transform: scale(1) translate(-50%, -50%);\n              transform: scale(1) translate(-50%, -50%);\n}\n50% {\n      -webkit-transform: scale(1.02) translate(calc(-50% + 8px), -50%);\n              transform: scale(1.02) translate(calc(-50% + 8px), -50%);\n}\n100% {\n      -webkit-transform: scale(1) translate(-50%, -50%);\n              transform: scale(1) translate(-50%, -50%);\n}\n}\n}\n@media screen and (max-width: 600px) {\n.sweet-modal.is-mobile-fullscreen {\n    width: 100%;\n    height: 100vh;\n    left: 0;\n    top: 0;\n    -webkit-transform: scale(0.9);\n            transform: scale(0.9);\n}\n.sweet-modal.is-mobile-fullscreen.is-visible {\n    -webkit-transform: none;\n            transform: none;\n}\n.sweet-modal.is-mobile-fullscreen .sweet-buttons {\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box;\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    width: 100%;\n}\n}", ""]);
 
 // exports
 
@@ -14356,7 +14709,7 @@ exports = module.exports = __webpack_require__(/*! ../css-loader/lib/css-base.js
 
 
 // module
-exports.push([module.i, "/**\n * Swiper 6.4.1\n * Most modern mobile touch slider and framework with hardware accelerated transitions\n * https://swiperjs.com\n *\n * Copyright 2014-2020 Vladimir Kharlampidi\n *\n * Released under the MIT License\n *\n * Released on: December 9, 2020\n */\n\n@font-face {\n  font-family: 'swiper-icons';\n  src: url('data:application/font-woff;charset=utf-8;base64, d09GRgABAAAAAAZgABAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAAGRAAAABoAAAAci6qHkUdERUYAAAWgAAAAIwAAACQAYABXR1BPUwAABhQAAAAuAAAANuAY7+xHU1VCAAAFxAAAAFAAAABm2fPczU9TLzIAAAHcAAAASgAAAGBP9V5RY21hcAAAAkQAAACIAAABYt6F0cBjdnQgAAACzAAAAAQAAAAEABEBRGdhc3AAAAWYAAAACAAAAAj//wADZ2x5ZgAAAywAAADMAAAD2MHtryVoZWFkAAABbAAAADAAAAA2E2+eoWhoZWEAAAGcAAAAHwAAACQC9gDzaG10eAAAAigAAAAZAAAArgJkABFsb2NhAAAC0AAAAFoAAABaFQAUGG1heHAAAAG8AAAAHwAAACAAcABAbmFtZQAAA/gAAAE5AAACXvFdBwlwb3N0AAAFNAAAAGIAAACE5s74hXjaY2BkYGAAYpf5Hu/j+W2+MnAzMYDAzaX6QjD6/4//Bxj5GA8AuRwMYGkAPywL13jaY2BkYGA88P8Agx4j+/8fQDYfA1AEBWgDAIB2BOoAeNpjYGRgYNBh4GdgYgABEMnIABJzYNADCQAACWgAsQB42mNgYfzCOIGBlYGB0YcxjYGBwR1Kf2WQZGhhYGBiYGVmgAFGBiQQkOaawtDAoMBQxXjg/wEGPcYDDA4wNUA2CCgwsAAAO4EL6gAAeNpj2M0gyAACqxgGNWBkZ2D4/wMA+xkDdgAAAHjaY2BgYGaAYBkGRgYQiAHyGMF8FgYHIM3DwMHABGQrMOgyWDLEM1T9/w8UBfEMgLzE////P/5//f/V/xv+r4eaAAeMbAxwIUYmIMHEgKYAYjUcsDAwsLKxc3BycfPw8jEQA/gZBASFhEVExcQlJKWkZWTl5BUUlZRVVNXUNTQZBgMAAMR+E+gAEQFEAAAAKgAqACoANAA+AEgAUgBcAGYAcAB6AIQAjgCYAKIArAC2AMAAygDUAN4A6ADyAPwBBgEQARoBJAEuATgBQgFMAVYBYAFqAXQBfgGIAZIBnAGmAbIBzgHsAAB42u2NMQ6CUAyGW568x9AneYYgm4MJbhKFaExIOAVX8ApewSt4Bic4AfeAid3VOBixDxfPYEza5O+Xfi04YADggiUIULCuEJK8VhO4bSvpdnktHI5QCYtdi2sl8ZnXaHlqUrNKzdKcT8cjlq+rwZSvIVczNiezsfnP/uznmfPFBNODM2K7MTQ45YEAZqGP81AmGGcF3iPqOop0r1SPTaTbVkfUe4HXj97wYE+yNwWYxwWu4v1ugWHgo3S1XdZEVqWM7ET0cfnLGxWfkgR42o2PvWrDMBSFj/IHLaF0zKjRgdiVMwScNRAoWUoH78Y2icB/yIY09An6AH2Bdu/UB+yxopYshQiEvnvu0dURgDt8QeC8PDw7Fpji3fEA4z/PEJ6YOB5hKh4dj3EvXhxPqH/SKUY3rJ7srZ4FZnh1PMAtPhwP6fl2PMJMPDgeQ4rY8YT6Gzao0eAEA409DuggmTnFnOcSCiEiLMgxCiTI6Cq5DZUd3Qmp10vO0LaLTd2cjN4fOumlc7lUYbSQcZFkutRG7g6JKZKy0RmdLY680CDnEJ+UMkpFFe1RN7nxdVpXrC4aTtnaurOnYercZg2YVmLN/d/gczfEimrE/fs/bOuq29Zmn8tloORaXgZgGa78yO9/cnXm2BpaGvq25Dv9S4E9+5SIc9PqupJKhYFSSl47+Qcr1mYNAAAAeNptw0cKwkAAAMDZJA8Q7OUJvkLsPfZ6zFVERPy8qHh2YER+3i/BP83vIBLLySsoKimrqKqpa2hp6+jq6RsYGhmbmJqZSy0sraxtbO3sHRydnEMU4uR6yx7JJXveP7WrDycAAAAAAAH//wACeNpjYGRgYOABYhkgZgJCZgZNBkYGLQZtIJsFLMYAAAw3ALgAeNolizEKgDAQBCchRbC2sFER0YD6qVQiBCv/H9ezGI6Z5XBAw8CBK/m5iQQVauVbXLnOrMZv2oLdKFa8Pjuru2hJzGabmOSLzNMzvutpB3N42mNgZGBg4GKQYzBhYMxJLMlj4GBgAYow/P/PAJJhLM6sSoWKfWCAAwDAjgbRAAB42mNgYGBkAIIbCZo5IPrmUn0hGA0AO8EFTQAA') format('woff');\n  font-weight: 400;\n  font-style: normal;\n}\n:root {\n  --swiper-theme-color: #007aff;\n}\n.swiper-container {\n  margin-left: auto;\n  margin-right: auto;\n  position: relative;\n  overflow: hidden;\n  list-style: none;\n  padding: 0;\n  /* Fix of Webkit flickering */\n  z-index: 1;\n}\n.swiper-container-vertical > .swiper-wrapper {\n  flex-direction: column;\n}\n.swiper-wrapper {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  z-index: 1;\n  display: flex;\n  transition-property: transform;\n  box-sizing: content-box;\n}\n.swiper-container-android .swiper-slide,\n.swiper-wrapper {\n  transform: translate3d(0px, 0, 0);\n}\n.swiper-container-multirow > .swiper-wrapper {\n  flex-wrap: wrap;\n}\n.swiper-container-multirow-column > .swiper-wrapper {\n  flex-wrap: wrap;\n  flex-direction: column;\n}\n.swiper-container-free-mode > .swiper-wrapper {\n  transition-timing-function: ease-out;\n  margin: 0 auto;\n}\n.swiper-slide {\n  flex-shrink: 0;\n  width: 100%;\n  height: 100%;\n  position: relative;\n  transition-property: transform;\n}\n.swiper-slide-invisible-blank {\n  visibility: hidden;\n}\n/* Auto Height */\n.swiper-container-autoheight,\n.swiper-container-autoheight .swiper-slide {\n  height: auto;\n}\n.swiper-container-autoheight .swiper-wrapper {\n  align-items: flex-start;\n  transition-property: transform, height;\n}\n/* 3D Effects */\n.swiper-container-3d {\n  perspective: 1200px;\n}\n.swiper-container-3d .swiper-wrapper,\n.swiper-container-3d .swiper-slide,\n.swiper-container-3d .swiper-slide-shadow-left,\n.swiper-container-3d .swiper-slide-shadow-right,\n.swiper-container-3d .swiper-slide-shadow-top,\n.swiper-container-3d .swiper-slide-shadow-bottom,\n.swiper-container-3d .swiper-cube-shadow {\n  transform-style: preserve-3d;\n}\n.swiper-container-3d .swiper-slide-shadow-left,\n.swiper-container-3d .swiper-slide-shadow-right,\n.swiper-container-3d .swiper-slide-shadow-top,\n.swiper-container-3d .swiper-slide-shadow-bottom {\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  pointer-events: none;\n  z-index: 10;\n}\n.swiper-container-3d .swiper-slide-shadow-left {\n  background-image: linear-gradient(to left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));\n}\n.swiper-container-3d .swiper-slide-shadow-right {\n  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));\n}\n.swiper-container-3d .swiper-slide-shadow-top {\n  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));\n}\n.swiper-container-3d .swiper-slide-shadow-bottom {\n  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));\n}\n/* CSS Mode */\n.swiper-container-css-mode > .swiper-wrapper {\n  overflow: auto;\n  scrollbar-width: none;\n  /* For Firefox */\n  -ms-overflow-style: none;\n  /* For Internet Explorer and Edge */\n}\n.swiper-container-css-mode > .swiper-wrapper::-webkit-scrollbar {\n  display: none;\n}\n.swiper-container-css-mode > .swiper-wrapper > .swiper-slide {\n  scroll-snap-align: start start;\n}\n.swiper-container-horizontal.swiper-container-css-mode > .swiper-wrapper {\n  -ms-scroll-snap-type: x mandatory;\n      scroll-snap-type: x mandatory;\n}\n.swiper-container-vertical.swiper-container-css-mode > .swiper-wrapper {\n  -ms-scroll-snap-type: y mandatory;\n      scroll-snap-type: y mandatory;\n}\n:root {\n  --swiper-navigation-size: 44px;\n  /*\n  --swiper-navigation-color: var(--swiper-theme-color);\n  */\n}\n.swiper-button-prev,\n.swiper-button-next {\n  position: absolute;\n  top: 50%;\n  width: calc(var(--swiper-navigation-size) / 44 * 27);\n  height: var(--swiper-navigation-size);\n  margin-top: calc(-1 * var(--swiper-navigation-size) / 2);\n  z-index: 10;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: var(--swiper-navigation-color, var(--swiper-theme-color));\n}\n.swiper-button-prev.swiper-button-disabled,\n.swiper-button-next.swiper-button-disabled {\n  opacity: 0.35;\n  cursor: auto;\n  pointer-events: none;\n}\n.swiper-button-prev:after,\n.swiper-button-next:after {\n  font-family: swiper-icons;\n  font-size: var(--swiper-navigation-size);\n  text-transform: none !important;\n  letter-spacing: 0;\n  text-transform: none;\n  font-variant: initial;\n  line-height: 1;\n}\n.swiper-button-prev,\n.swiper-container-rtl .swiper-button-next {\n  left: 10px;\n  right: auto;\n}\n.swiper-button-prev:after,\n.swiper-container-rtl .swiper-button-next:after {\n  content: 'prev';\n}\n.swiper-button-next,\n.swiper-container-rtl .swiper-button-prev {\n  right: 10px;\n  left: auto;\n}\n.swiper-button-next:after,\n.swiper-container-rtl .swiper-button-prev:after {\n  content: 'next';\n}\n.swiper-button-prev.swiper-button-white,\n.swiper-button-next.swiper-button-white {\n  --swiper-navigation-color: #ffffff;\n}\n.swiper-button-prev.swiper-button-black,\n.swiper-button-next.swiper-button-black {\n  --swiper-navigation-color: #000000;\n}\n.swiper-button-lock {\n  display: none;\n}\n:root {\n  /*\n  --swiper-pagination-color: var(--swiper-theme-color);\n  */\n}\n.swiper-pagination {\n  position: absolute;\n  text-align: center;\n  transition: 300ms opacity;\n  transform: translate3d(0, 0, 0);\n  z-index: 10;\n}\n.swiper-pagination.swiper-pagination-hidden {\n  opacity: 0;\n}\n/* Common Styles */\n.swiper-pagination-fraction,\n.swiper-pagination-custom,\n.swiper-container-horizontal > .swiper-pagination-bullets {\n  bottom: 10px;\n  left: 0;\n  width: 100%;\n}\n/* Bullets */\n.swiper-pagination-bullets-dynamic {\n  overflow: hidden;\n  font-size: 0;\n}\n.swiper-pagination-bullets-dynamic .swiper-pagination-bullet {\n  transform: scale(0.33);\n  position: relative;\n}\n.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active {\n  transform: scale(1);\n}\n.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-main {\n  transform: scale(1);\n}\n.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev {\n  transform: scale(0.66);\n}\n.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev-prev {\n  transform: scale(0.33);\n}\n.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next {\n  transform: scale(0.66);\n}\n.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next-next {\n  transform: scale(0.33);\n}\n.swiper-pagination-bullet {\n  width: 8px;\n  height: 8px;\n  display: inline-block;\n  border-radius: 100%;\n  background: #000;\n  opacity: 0.2;\n}\nbutton.swiper-pagination-bullet {\n  border: none;\n  margin: 0;\n  padding: 0;\n  box-shadow: none;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n}\n.swiper-pagination-clickable .swiper-pagination-bullet {\n  cursor: pointer;\n}\n.swiper-pagination-bullet-active {\n  opacity: 1;\n  background: var(--swiper-pagination-color, var(--swiper-theme-color));\n}\n.swiper-container-vertical > .swiper-pagination-bullets {\n  right: 10px;\n  top: 50%;\n  transform: translate3d(0px, -50%, 0);\n}\n.swiper-container-vertical > .swiper-pagination-bullets .swiper-pagination-bullet {\n  margin: 6px 0;\n  display: block;\n}\n.swiper-container-vertical > .swiper-pagination-bullets.swiper-pagination-bullets-dynamic {\n  top: 50%;\n  transform: translateY(-50%);\n  width: 8px;\n}\n.swiper-container-vertical > .swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet {\n  display: inline-block;\n  transition: 200ms transform, 200ms top;\n}\n.swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet {\n  margin: 0 4px;\n}\n.swiper-container-horizontal > .swiper-pagination-bullets.swiper-pagination-bullets-dynamic {\n  left: 50%;\n  transform: translateX(-50%);\n  white-space: nowrap;\n}\n.swiper-container-horizontal > .swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet {\n  transition: 200ms transform, 200ms left;\n}\n.swiper-container-horizontal.swiper-container-rtl > .swiper-pagination-bullets-dynamic .swiper-pagination-bullet {\n  transition: 200ms transform, 200ms right;\n}\n/* Progress */\n.swiper-pagination-progressbar {\n  background: rgba(0, 0, 0, 0.25);\n  position: absolute;\n}\n.swiper-pagination-progressbar .swiper-pagination-progressbar-fill {\n  background: var(--swiper-pagination-color, var(--swiper-theme-color));\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  transform: scale(0);\n  transform-origin: left top;\n}\n.swiper-container-rtl .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {\n  transform-origin: right top;\n}\n.swiper-container-horizontal > .swiper-pagination-progressbar,\n.swiper-container-vertical > .swiper-pagination-progressbar.swiper-pagination-progressbar-opposite {\n  width: 100%;\n  height: 4px;\n  left: 0;\n  top: 0;\n}\n.swiper-container-vertical > .swiper-pagination-progressbar,\n.swiper-container-horizontal > .swiper-pagination-progressbar.swiper-pagination-progressbar-opposite {\n  width: 4px;\n  height: 100%;\n  left: 0;\n  top: 0;\n}\n.swiper-pagination-white {\n  --swiper-pagination-color: #ffffff;\n}\n.swiper-pagination-black {\n  --swiper-pagination-color: #000000;\n}\n.swiper-pagination-lock {\n  display: none;\n}\n/* Scrollbar */\n.swiper-scrollbar {\n  border-radius: 10px;\n  position: relative;\n  -ms-touch-action: none;\n  background: rgba(0, 0, 0, 0.1);\n}\n.swiper-container-horizontal > .swiper-scrollbar {\n  position: absolute;\n  left: 1%;\n  bottom: 3px;\n  z-index: 50;\n  height: 5px;\n  width: 98%;\n}\n.swiper-container-vertical > .swiper-scrollbar {\n  position: absolute;\n  right: 3px;\n  top: 1%;\n  z-index: 50;\n  width: 5px;\n  height: 98%;\n}\n.swiper-scrollbar-drag {\n  height: 100%;\n  width: 100%;\n  position: relative;\n  background: rgba(0, 0, 0, 0.5);\n  border-radius: 10px;\n  left: 0;\n  top: 0;\n}\n.swiper-scrollbar-cursor-drag {\n  cursor: move;\n}\n.swiper-scrollbar-lock {\n  display: none;\n}\n.swiper-zoom-container {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  text-align: center;\n}\n.swiper-zoom-container > img,\n.swiper-zoom-container > svg,\n.swiper-zoom-container > canvas {\n  max-width: 100%;\n  max-height: 100%;\n  -o-object-fit: contain;\n     object-fit: contain;\n}\n.swiper-slide-zoomed {\n  cursor: move;\n}\n/* Preloader */\n:root {\n  /*\n  --swiper-preloader-color: var(--swiper-theme-color);\n  */\n}\n.swiper-lazy-preloader {\n  width: 42px;\n  height: 42px;\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  margin-left: -21px;\n  margin-top: -21px;\n  z-index: 10;\n  transform-origin: 50%;\n  -webkit-animation: swiper-preloader-spin 1s infinite linear;\n          animation: swiper-preloader-spin 1s infinite linear;\n  box-sizing: border-box;\n  border: 4px solid var(--swiper-preloader-color, var(--swiper-theme-color));\n  border-radius: 50%;\n  border-top-color: transparent;\n}\n.swiper-lazy-preloader-white {\n  --swiper-preloader-color: #fff;\n}\n.swiper-lazy-preloader-black {\n  --swiper-preloader-color: #000;\n}\n@-webkit-keyframes swiper-preloader-spin {\n  100% {\n    transform: rotate(360deg);\n  }\n}\n@keyframes swiper-preloader-spin {\n  100% {\n    transform: rotate(360deg);\n  }\n}\n/* a11y */\n.swiper-container .swiper-notification {\n  position: absolute;\n  left: 0;\n  top: 0;\n  pointer-events: none;\n  opacity: 0;\n  z-index: -1000;\n}\n.swiper-container-fade.swiper-container-free-mode .swiper-slide {\n  transition-timing-function: ease-out;\n}\n.swiper-container-fade .swiper-slide {\n  pointer-events: none;\n  transition-property: opacity;\n}\n.swiper-container-fade .swiper-slide .swiper-slide {\n  pointer-events: none;\n}\n.swiper-container-fade .swiper-slide-active,\n.swiper-container-fade .swiper-slide-active .swiper-slide-active {\n  pointer-events: auto;\n}\n.swiper-container-cube {\n  overflow: visible;\n}\n.swiper-container-cube .swiper-slide {\n  pointer-events: none;\n  -webkit-backface-visibility: hidden;\n          backface-visibility: hidden;\n  z-index: 1;\n  visibility: hidden;\n  transform-origin: 0 0;\n  width: 100%;\n  height: 100%;\n}\n.swiper-container-cube .swiper-slide .swiper-slide {\n  pointer-events: none;\n}\n.swiper-container-cube.swiper-container-rtl .swiper-slide {\n  transform-origin: 100% 0;\n}\n.swiper-container-cube .swiper-slide-active,\n.swiper-container-cube .swiper-slide-active .swiper-slide-active {\n  pointer-events: auto;\n}\n.swiper-container-cube .swiper-slide-active,\n.swiper-container-cube .swiper-slide-next,\n.swiper-container-cube .swiper-slide-prev,\n.swiper-container-cube .swiper-slide-next + .swiper-slide {\n  pointer-events: auto;\n  visibility: visible;\n}\n.swiper-container-cube .swiper-slide-shadow-top,\n.swiper-container-cube .swiper-slide-shadow-bottom,\n.swiper-container-cube .swiper-slide-shadow-left,\n.swiper-container-cube .swiper-slide-shadow-right {\n  z-index: 0;\n  -webkit-backface-visibility: hidden;\n          backface-visibility: hidden;\n}\n.swiper-container-cube .swiper-cube-shadow {\n  position: absolute;\n  left: 0;\n  bottom: 0px;\n  width: 100%;\n  height: 100%;\n  background: #000;\n  opacity: 0.6;\n  -webkit-filter: blur(50px);\n  filter: blur(50px);\n  z-index: 0;\n}\n.swiper-container-flip {\n  overflow: visible;\n}\n.swiper-container-flip .swiper-slide {\n  pointer-events: none;\n  -webkit-backface-visibility: hidden;\n          backface-visibility: hidden;\n  z-index: 1;\n}\n.swiper-container-flip .swiper-slide .swiper-slide {\n  pointer-events: none;\n}\n.swiper-container-flip .swiper-slide-active,\n.swiper-container-flip .swiper-slide-active .swiper-slide-active {\n  pointer-events: auto;\n}\n.swiper-container-flip .swiper-slide-shadow-top,\n.swiper-container-flip .swiper-slide-shadow-bottom,\n.swiper-container-flip .swiper-slide-shadow-left,\n.swiper-container-flip .swiper-slide-shadow-right {\n  z-index: 0;\n  -webkit-backface-visibility: hidden;\n          backface-visibility: hidden;\n}\n", ""]);
+exports.push([module.i, "/**\n * Swiper 6.4.1\n * Most modern mobile touch slider and framework with hardware accelerated transitions\n * https://swiperjs.com\n *\n * Copyright 2014-2020 Vladimir Kharlampidi\n *\n * Released under the MIT License\n *\n * Released on: December 9, 2020\n */\n\n@font-face {\n  font-family: 'swiper-icons';\n  src: url('data:application/font-woff;charset=utf-8;base64, d09GRgABAAAAAAZgABAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAAGRAAAABoAAAAci6qHkUdERUYAAAWgAAAAIwAAACQAYABXR1BPUwAABhQAAAAuAAAANuAY7+xHU1VCAAAFxAAAAFAAAABm2fPczU9TLzIAAAHcAAAASgAAAGBP9V5RY21hcAAAAkQAAACIAAABYt6F0cBjdnQgAAACzAAAAAQAAAAEABEBRGdhc3AAAAWYAAAACAAAAAj//wADZ2x5ZgAAAywAAADMAAAD2MHtryVoZWFkAAABbAAAADAAAAA2E2+eoWhoZWEAAAGcAAAAHwAAACQC9gDzaG10eAAAAigAAAAZAAAArgJkABFsb2NhAAAC0AAAAFoAAABaFQAUGG1heHAAAAG8AAAAHwAAACAAcABAbmFtZQAAA/gAAAE5AAACXvFdBwlwb3N0AAAFNAAAAGIAAACE5s74hXjaY2BkYGAAYpf5Hu/j+W2+MnAzMYDAzaX6QjD6/4//Bxj5GA8AuRwMYGkAPywL13jaY2BkYGA88P8Agx4j+/8fQDYfA1AEBWgDAIB2BOoAeNpjYGRgYNBh4GdgYgABEMnIABJzYNADCQAACWgAsQB42mNgYfzCOIGBlYGB0YcxjYGBwR1Kf2WQZGhhYGBiYGVmgAFGBiQQkOaawtDAoMBQxXjg/wEGPcYDDA4wNUA2CCgwsAAAO4EL6gAAeNpj2M0gyAACqxgGNWBkZ2D4/wMA+xkDdgAAAHjaY2BgYGaAYBkGRgYQiAHyGMF8FgYHIM3DwMHABGQrMOgyWDLEM1T9/w8UBfEMgLzE////P/5//f/V/xv+r4eaAAeMbAxwIUYmIMHEgKYAYjUcsDAwsLKxc3BycfPw8jEQA/gZBASFhEVExcQlJKWkZWTl5BUUlZRVVNXUNTQZBgMAAMR+E+gAEQFEAAAAKgAqACoANAA+AEgAUgBcAGYAcAB6AIQAjgCYAKIArAC2AMAAygDUAN4A6ADyAPwBBgEQARoBJAEuATgBQgFMAVYBYAFqAXQBfgGIAZIBnAGmAbIBzgHsAAB42u2NMQ6CUAyGW568x9AneYYgm4MJbhKFaExIOAVX8ApewSt4Bic4AfeAid3VOBixDxfPYEza5O+Xfi04YADggiUIULCuEJK8VhO4bSvpdnktHI5QCYtdi2sl8ZnXaHlqUrNKzdKcT8cjlq+rwZSvIVczNiezsfnP/uznmfPFBNODM2K7MTQ45YEAZqGP81AmGGcF3iPqOop0r1SPTaTbVkfUe4HXj97wYE+yNwWYxwWu4v1ugWHgo3S1XdZEVqWM7ET0cfnLGxWfkgR42o2PvWrDMBSFj/IHLaF0zKjRgdiVMwScNRAoWUoH78Y2icB/yIY09An6AH2Bdu/UB+yxopYshQiEvnvu0dURgDt8QeC8PDw7Fpji3fEA4z/PEJ6YOB5hKh4dj3EvXhxPqH/SKUY3rJ7srZ4FZnh1PMAtPhwP6fl2PMJMPDgeQ4rY8YT6Gzao0eAEA409DuggmTnFnOcSCiEiLMgxCiTI6Cq5DZUd3Qmp10vO0LaLTd2cjN4fOumlc7lUYbSQcZFkutRG7g6JKZKy0RmdLY680CDnEJ+UMkpFFe1RN7nxdVpXrC4aTtnaurOnYercZg2YVmLN/d/gczfEimrE/fs/bOuq29Zmn8tloORaXgZgGa78yO9/cnXm2BpaGvq25Dv9S4E9+5SIc9PqupJKhYFSSl47+Qcr1mYNAAAAeNptw0cKwkAAAMDZJA8Q7OUJvkLsPfZ6zFVERPy8qHh2YER+3i/BP83vIBLLySsoKimrqKqpa2hp6+jq6RsYGhmbmJqZSy0sraxtbO3sHRydnEMU4uR6yx7JJXveP7WrDycAAAAAAAH//wACeNpjYGRgYOABYhkgZgJCZgZNBkYGLQZtIJsFLMYAAAw3ALgAeNolizEKgDAQBCchRbC2sFER0YD6qVQiBCv/H9ezGI6Z5XBAw8CBK/m5iQQVauVbXLnOrMZv2oLdKFa8Pjuru2hJzGabmOSLzNMzvutpB3N42mNgZGBg4GKQYzBhYMxJLMlj4GBgAYow/P/PAJJhLM6sSoWKfWCAAwDAjgbRAAB42mNgYGBkAIIbCZo5IPrmUn0hGA0AO8EFTQAA') format('woff');\n  font-weight: 400;\n  font-style: normal;\n}\n:root {\n  --swiper-theme-color: #007aff;\n}\n.swiper-container {\n  margin-left: auto;\n  margin-right: auto;\n  position: relative;\n  overflow: hidden;\n  list-style: none;\n  padding: 0;\n  /* Fix of Webkit flickering */\n  z-index: 1;\n}\n.swiper-container-vertical > .swiper-wrapper {\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.swiper-wrapper {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  z-index: 1;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-transition-property: -webkit-transform;\n  transition-property: -webkit-transform;\n  transition-property: transform;\n  transition-property: transform, -webkit-transform;\n  -webkit-box-sizing: content-box;\n          box-sizing: content-box;\n}\n.swiper-container-android .swiper-slide,\n.swiper-wrapper {\n  -webkit-transform: translate3d(0px, 0, 0);\n          transform: translate3d(0px, 0, 0);\n}\n.swiper-container-multirow > .swiper-wrapper {\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n}\n.swiper-container-multirow-column > .swiper-wrapper {\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.swiper-container-free-mode > .swiper-wrapper {\n  -webkit-transition-timing-function: ease-out;\n          transition-timing-function: ease-out;\n  margin: 0 auto;\n}\n.swiper-slide {\n  -ms-flex-negative: 0;\n      flex-shrink: 0;\n  width: 100%;\n  height: 100%;\n  position: relative;\n  -webkit-transition-property: -webkit-transform;\n  transition-property: -webkit-transform;\n  transition-property: transform;\n  transition-property: transform, -webkit-transform;\n}\n.swiper-slide-invisible-blank {\n  visibility: hidden;\n}\n/* Auto Height */\n.swiper-container-autoheight,\n.swiper-container-autoheight .swiper-slide {\n  height: auto;\n}\n.swiper-container-autoheight .swiper-wrapper {\n  -webkit-box-align: start;\n      -ms-flex-align: start;\n          align-items: flex-start;\n  -webkit-transition-property: height, -webkit-transform;\n  transition-property: height, -webkit-transform;\n  transition-property: transform, height;\n  transition-property: transform, height, -webkit-transform;\n}\n/* 3D Effects */\n.swiper-container-3d {\n  -webkit-perspective: 1200px;\n          perspective: 1200px;\n}\n.swiper-container-3d .swiper-wrapper,\n.swiper-container-3d .swiper-slide,\n.swiper-container-3d .swiper-slide-shadow-left,\n.swiper-container-3d .swiper-slide-shadow-right,\n.swiper-container-3d .swiper-slide-shadow-top,\n.swiper-container-3d .swiper-slide-shadow-bottom,\n.swiper-container-3d .swiper-cube-shadow {\n  -webkit-transform-style: preserve-3d;\n          transform-style: preserve-3d;\n}\n.swiper-container-3d .swiper-slide-shadow-left,\n.swiper-container-3d .swiper-slide-shadow-right,\n.swiper-container-3d .swiper-slide-shadow-top,\n.swiper-container-3d .swiper-slide-shadow-bottom {\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  pointer-events: none;\n  z-index: 10;\n}\n.swiper-container-3d .swiper-slide-shadow-left {\n  background-image: -webkit-gradient(linear, right top, left top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0)));\n  background-image: linear-gradient(to left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));\n}\n.swiper-container-3d .swiper-slide-shadow-right {\n  background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0)));\n  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));\n}\n.swiper-container-3d .swiper-slide-shadow-top {\n  background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0)));\n  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));\n}\n.swiper-container-3d .swiper-slide-shadow-bottom {\n  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0)));\n  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));\n}\n/* CSS Mode */\n.swiper-container-css-mode > .swiper-wrapper {\n  overflow: auto;\n  scrollbar-width: none;\n  /* For Firefox */\n  -ms-overflow-style: none;\n  /* For Internet Explorer and Edge */\n}\n.swiper-container-css-mode > .swiper-wrapper::-webkit-scrollbar {\n  display: none;\n}\n.swiper-container-css-mode > .swiper-wrapper > .swiper-slide {\n  scroll-snap-align: start start;\n}\n.swiper-container-horizontal.swiper-container-css-mode > .swiper-wrapper {\n  -ms-scroll-snap-type: x mandatory;\n      scroll-snap-type: x mandatory;\n}\n.swiper-container-vertical.swiper-container-css-mode > .swiper-wrapper {\n  -ms-scroll-snap-type: y mandatory;\n      scroll-snap-type: y mandatory;\n}\n:root {\n  --swiper-navigation-size: 44px;\n  /*\n  --swiper-navigation-color: var(--swiper-theme-color);\n  */\n}\n.swiper-button-prev,\n.swiper-button-next {\n  position: absolute;\n  top: 50%;\n  width: calc(var(--swiper-navigation-size) / 44 * 27);\n  height: var(--swiper-navigation-size);\n  margin-top: calc(-1 * var(--swiper-navigation-size) / 2);\n  z-index: 10;\n  cursor: pointer;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  color: var(--swiper-navigation-color, var(--swiper-theme-color));\n}\n.swiper-button-prev.swiper-button-disabled,\n.swiper-button-next.swiper-button-disabled {\n  opacity: 0.35;\n  cursor: auto;\n  pointer-events: none;\n}\n.swiper-button-prev:after,\n.swiper-button-next:after {\n  font-family: swiper-icons;\n  font-size: var(--swiper-navigation-size);\n  text-transform: none !important;\n  letter-spacing: 0;\n  text-transform: none;\n  font-variant: initial;\n  line-height: 1;\n}\n.swiper-button-prev,\n.swiper-container-rtl .swiper-button-next {\n  left: 10px;\n  right: auto;\n}\n.swiper-button-prev:after,\n.swiper-container-rtl .swiper-button-next:after {\n  content: 'prev';\n}\n.swiper-button-next,\n.swiper-container-rtl .swiper-button-prev {\n  right: 10px;\n  left: auto;\n}\n.swiper-button-next:after,\n.swiper-container-rtl .swiper-button-prev:after {\n  content: 'next';\n}\n.swiper-button-prev.swiper-button-white,\n.swiper-button-next.swiper-button-white {\n  --swiper-navigation-color: #ffffff;\n}\n.swiper-button-prev.swiper-button-black,\n.swiper-button-next.swiper-button-black {\n  --swiper-navigation-color: #000000;\n}\n.swiper-button-lock {\n  display: none;\n}\n:root {\n  /*\n  --swiper-pagination-color: var(--swiper-theme-color);\n  */\n}\n.swiper-pagination {\n  position: absolute;\n  text-align: center;\n  -webkit-transition: 300ms opacity;\n  transition: 300ms opacity;\n  -webkit-transform: translate3d(0, 0, 0);\n          transform: translate3d(0, 0, 0);\n  z-index: 10;\n}\n.swiper-pagination.swiper-pagination-hidden {\n  opacity: 0;\n}\n/* Common Styles */\n.swiper-pagination-fraction,\n.swiper-pagination-custom,\n.swiper-container-horizontal > .swiper-pagination-bullets {\n  bottom: 10px;\n  left: 0;\n  width: 100%;\n}\n/* Bullets */\n.swiper-pagination-bullets-dynamic {\n  overflow: hidden;\n  font-size: 0;\n}\n.swiper-pagination-bullets-dynamic .swiper-pagination-bullet {\n  -webkit-transform: scale(0.33);\n          transform: scale(0.33);\n  position: relative;\n}\n.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active {\n  -webkit-transform: scale(1);\n          transform: scale(1);\n}\n.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-main {\n  -webkit-transform: scale(1);\n          transform: scale(1);\n}\n.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev {\n  -webkit-transform: scale(0.66);\n          transform: scale(0.66);\n}\n.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev-prev {\n  -webkit-transform: scale(0.33);\n          transform: scale(0.33);\n}\n.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next {\n  -webkit-transform: scale(0.66);\n          transform: scale(0.66);\n}\n.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next-next {\n  -webkit-transform: scale(0.33);\n          transform: scale(0.33);\n}\n.swiper-pagination-bullet {\n  width: 8px;\n  height: 8px;\n  display: inline-block;\n  border-radius: 100%;\n  background: #000;\n  opacity: 0.2;\n}\nbutton.swiper-pagination-bullet {\n  border: none;\n  margin: 0;\n  padding: 0;\n  -webkit-box-shadow: none;\n          box-shadow: none;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n}\n.swiper-pagination-clickable .swiper-pagination-bullet {\n  cursor: pointer;\n}\n.swiper-pagination-bullet-active {\n  opacity: 1;\n  background: var(--swiper-pagination-color, var(--swiper-theme-color));\n}\n.swiper-container-vertical > .swiper-pagination-bullets {\n  right: 10px;\n  top: 50%;\n  -webkit-transform: translate3d(0px, -50%, 0);\n          transform: translate3d(0px, -50%, 0);\n}\n.swiper-container-vertical > .swiper-pagination-bullets .swiper-pagination-bullet {\n  margin: 6px 0;\n  display: block;\n}\n.swiper-container-vertical > .swiper-pagination-bullets.swiper-pagination-bullets-dynamic {\n  top: 50%;\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n  width: 8px;\n}\n.swiper-container-vertical > .swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet {\n  display: inline-block;\n  -webkit-transition: 200ms top, 200ms -webkit-transform;\n  transition: 200ms top, 200ms -webkit-transform;\n  transition: 200ms transform, 200ms top;\n  transition: 200ms transform, 200ms top, 200ms -webkit-transform;\n}\n.swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet {\n  margin: 0 4px;\n}\n.swiper-container-horizontal > .swiper-pagination-bullets.swiper-pagination-bullets-dynamic {\n  left: 50%;\n  -webkit-transform: translateX(-50%);\n          transform: translateX(-50%);\n  white-space: nowrap;\n}\n.swiper-container-horizontal > .swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet {\n  -webkit-transition: 200ms left, 200ms -webkit-transform;\n  transition: 200ms left, 200ms -webkit-transform;\n  transition: 200ms transform, 200ms left;\n  transition: 200ms transform, 200ms left, 200ms -webkit-transform;\n}\n.swiper-container-horizontal.swiper-container-rtl > .swiper-pagination-bullets-dynamic .swiper-pagination-bullet {\n  -webkit-transition: 200ms right, 200ms -webkit-transform;\n  transition: 200ms right, 200ms -webkit-transform;\n  transition: 200ms transform, 200ms right;\n  transition: 200ms transform, 200ms right, 200ms -webkit-transform;\n}\n/* Progress */\n.swiper-pagination-progressbar {\n  background: rgba(0, 0, 0, 0.25);\n  position: absolute;\n}\n.swiper-pagination-progressbar .swiper-pagination-progressbar-fill {\n  background: var(--swiper-pagination-color, var(--swiper-theme-color));\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  -webkit-transform: scale(0);\n          transform: scale(0);\n  -webkit-transform-origin: left top;\n          transform-origin: left top;\n}\n.swiper-container-rtl .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {\n  -webkit-transform-origin: right top;\n          transform-origin: right top;\n}\n.swiper-container-horizontal > .swiper-pagination-progressbar,\n.swiper-container-vertical > .swiper-pagination-progressbar.swiper-pagination-progressbar-opposite {\n  width: 100%;\n  height: 4px;\n  left: 0;\n  top: 0;\n}\n.swiper-container-vertical > .swiper-pagination-progressbar,\n.swiper-container-horizontal > .swiper-pagination-progressbar.swiper-pagination-progressbar-opposite {\n  width: 4px;\n  height: 100%;\n  left: 0;\n  top: 0;\n}\n.swiper-pagination-white {\n  --swiper-pagination-color: #ffffff;\n}\n.swiper-pagination-black {\n  --swiper-pagination-color: #000000;\n}\n.swiper-pagination-lock {\n  display: none;\n}\n/* Scrollbar */\n.swiper-scrollbar {\n  border-radius: 10px;\n  position: relative;\n  -ms-touch-action: none;\n  background: rgba(0, 0, 0, 0.1);\n}\n.swiper-container-horizontal > .swiper-scrollbar {\n  position: absolute;\n  left: 1%;\n  bottom: 3px;\n  z-index: 50;\n  height: 5px;\n  width: 98%;\n}\n.swiper-container-vertical > .swiper-scrollbar {\n  position: absolute;\n  right: 3px;\n  top: 1%;\n  z-index: 50;\n  width: 5px;\n  height: 98%;\n}\n.swiper-scrollbar-drag {\n  height: 100%;\n  width: 100%;\n  position: relative;\n  background: rgba(0, 0, 0, 0.5);\n  border-radius: 10px;\n  left: 0;\n  top: 0;\n}\n.swiper-scrollbar-cursor-drag {\n  cursor: move;\n}\n.swiper-scrollbar-lock {\n  display: none;\n}\n.swiper-zoom-container {\n  width: 100%;\n  height: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  text-align: center;\n}\n.swiper-zoom-container > img,\n.swiper-zoom-container > svg,\n.swiper-zoom-container > canvas {\n  max-width: 100%;\n  max-height: 100%;\n  -o-object-fit: contain;\n     object-fit: contain;\n}\n.swiper-slide-zoomed {\n  cursor: move;\n}\n/* Preloader */\n:root {\n  /*\n  --swiper-preloader-color: var(--swiper-theme-color);\n  */\n}\n.swiper-lazy-preloader {\n  width: 42px;\n  height: 42px;\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  margin-left: -21px;\n  margin-top: -21px;\n  z-index: 10;\n  -webkit-transform-origin: 50%;\n          transform-origin: 50%;\n  -webkit-animation: swiper-preloader-spin 1s infinite linear;\n          animation: swiper-preloader-spin 1s infinite linear;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  border: 4px solid var(--swiper-preloader-color, var(--swiper-theme-color));\n  border-radius: 50%;\n  border-top-color: transparent;\n}\n.swiper-lazy-preloader-white {\n  --swiper-preloader-color: #fff;\n}\n.swiper-lazy-preloader-black {\n  --swiper-preloader-color: #000;\n}\n@-webkit-keyframes swiper-preloader-spin {\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n@keyframes swiper-preloader-spin {\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n/* a11y */\n.swiper-container .swiper-notification {\n  position: absolute;\n  left: 0;\n  top: 0;\n  pointer-events: none;\n  opacity: 0;\n  z-index: -1000;\n}\n.swiper-container-fade.swiper-container-free-mode .swiper-slide {\n  -webkit-transition-timing-function: ease-out;\n          transition-timing-function: ease-out;\n}\n.swiper-container-fade .swiper-slide {\n  pointer-events: none;\n  -webkit-transition-property: opacity;\n  transition-property: opacity;\n}\n.swiper-container-fade .swiper-slide .swiper-slide {\n  pointer-events: none;\n}\n.swiper-container-fade .swiper-slide-active,\n.swiper-container-fade .swiper-slide-active .swiper-slide-active {\n  pointer-events: auto;\n}\n.swiper-container-cube {\n  overflow: visible;\n}\n.swiper-container-cube .swiper-slide {\n  pointer-events: none;\n  -webkit-backface-visibility: hidden;\n          backface-visibility: hidden;\n  z-index: 1;\n  visibility: hidden;\n  -webkit-transform-origin: 0 0;\n          transform-origin: 0 0;\n  width: 100%;\n  height: 100%;\n}\n.swiper-container-cube .swiper-slide .swiper-slide {\n  pointer-events: none;\n}\n.swiper-container-cube.swiper-container-rtl .swiper-slide {\n  -webkit-transform-origin: 100% 0;\n          transform-origin: 100% 0;\n}\n.swiper-container-cube .swiper-slide-active,\n.swiper-container-cube .swiper-slide-active .swiper-slide-active {\n  pointer-events: auto;\n}\n.swiper-container-cube .swiper-slide-active,\n.swiper-container-cube .swiper-slide-next,\n.swiper-container-cube .swiper-slide-prev,\n.swiper-container-cube .swiper-slide-next + .swiper-slide {\n  pointer-events: auto;\n  visibility: visible;\n}\n.swiper-container-cube .swiper-slide-shadow-top,\n.swiper-container-cube .swiper-slide-shadow-bottom,\n.swiper-container-cube .swiper-slide-shadow-left,\n.swiper-container-cube .swiper-slide-shadow-right {\n  z-index: 0;\n  -webkit-backface-visibility: hidden;\n          backface-visibility: hidden;\n}\n.swiper-container-cube .swiper-cube-shadow {\n  position: absolute;\n  left: 0;\n  bottom: 0px;\n  width: 100%;\n  height: 100%;\n  background: #000;\n  opacity: 0.6;\n  -webkit-filter: blur(50px);\n  filter: blur(50px);\n  z-index: 0;\n}\n.swiper-container-flip {\n  overflow: visible;\n}\n.swiper-container-flip .swiper-slide {\n  pointer-events: none;\n  -webkit-backface-visibility: hidden;\n          backface-visibility: hidden;\n  z-index: 1;\n}\n.swiper-container-flip .swiper-slide .swiper-slide {\n  pointer-events: none;\n}\n.swiper-container-flip .swiper-slide-active,\n.swiper-container-flip .swiper-slide-active .swiper-slide-active {\n  pointer-events: auto;\n}\n.swiper-container-flip .swiper-slide-shadow-top,\n.swiper-container-flip .swiper-slide-shadow-bottom,\n.swiper-container-flip .swiper-slide-shadow-left,\n.swiper-container-flip .swiper-slide-shadow-right {\n  z-index: 0;\n  -webkit-backface-visibility: hidden;\n          backface-visibility: hidden;\n}\n", ""]);
 
 // exports
 
@@ -14394,7 +14747,7 @@ exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base
 
 
 // module
-exports.push([module.i, ".vld-shown {\n  overflow: hidden;\n}\n\n.vld-overlay {\n  bottom: 0;\n  left: 0;\n  position: absolute;\n  right: 0;\n  top: 0;\n  align-items: center;\n  display: none;\n  justify-content: center;\n  overflow: hidden;\n  z-index: 9999;\n}\n\n.vld-overlay.is-active {\n  display: flex;\n}\n\n.vld-overlay.is-full-page {\n  z-index: 9999;\n  position: fixed;\n}\n\n.vld-overlay .vld-background {\n  bottom: 0;\n  left: 0;\n  position: absolute;\n  right: 0;\n  top: 0;\n  background: #fff;\n  opacity: 0.5;\n}\n\n.vld-overlay .vld-icon, .vld-parent {\n  position: relative;\n}\n\n", ""]);
+exports.push([module.i, ".vld-shown {\n  overflow: hidden;\n}\n\n.vld-overlay {\n  bottom: 0;\n  left: 0;\n  position: absolute;\n  right: 0;\n  top: 0;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  display: none;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  overflow: hidden;\n  z-index: 9999;\n}\n\n.vld-overlay.is-active {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n\n.vld-overlay.is-full-page {\n  z-index: 9999;\n  position: fixed;\n}\n\n.vld-overlay .vld-background {\n  bottom: 0;\n  left: 0;\n  position: absolute;\n  right: 0;\n  top: 0;\n  background: #fff;\n  opacity: 0.5;\n}\n\n.vld-overlay .vld-icon, .vld-parent {\n  position: relative;\n}\n\n", ""]);
 
 // exports
 
@@ -14413,7 +14766,7 @@ exports = module.exports = __webpack_require__(/*! ../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "\n.popper {\n  width: auto;\n  background-color: #fafafa;\n  color: #212121;\n  text-align: center;\n  padding: 2px;\n  display: inline-block;\n  border-radius: 3px;\n  position: absolute;\n  font-size: 14px;\n  font-weight: normal;\n  border: 1px #ebebeb solid;\n  z-index: 200000;\n  box-shadow: rgb(58, 58, 58) 0 0 6px 0;\n}\n\n.popper .popper__arrow {\n  width: 0;\n  height: 0;\n  border-style: solid;\n  position: absolute;\n  margin: 5px;\n}\n\n.popper[x-placement^=\"top\"] {\n  margin-bottom: 5px;\n}\n\n.popper[x-placement^=\"top\"] .popper__arrow {\n  border-width: 5px 5px 0 5px;\n  border-color: #fafafa transparent transparent transparent;\n  bottom: -5px;\n  left: calc(50% - 5px);\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.popper[x-placement^=\"bottom\"] {\n  margin-top: 5px;\n}\n\n.popper[x-placement^=\"bottom\"] .popper__arrow {\n  border-width: 0 5px 5px 5px;\n  border-color: transparent transparent #fafafa transparent;\n  top: -5px;\n  left: calc(50% - 5px);\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.popper[x-placement^=\"right\"] {\n  margin-left: 5px;\n}\n\n.popper[x-placement^=\"right\"] .popper__arrow {\n  border-width: 5px 5px 5px 0;\n  border-color: transparent #fafafa transparent transparent;\n  left: -5px;\n  top: calc(50% - 5px);\n  margin-left: 0;\n  margin-right: 0;\n}\n\n.popper[x-placement^=\"left\"] {\n  margin-right: 5px;\n}\n\n.popper[x-placement^=\"left\"] .popper__arrow {\n  border-width: 5px 0 5px 5px;\n  border-color: transparent transparent transparent #fafafa;\n  right: -5px;\n  top: calc(50% - 5px);\n  margin-left: 0;\n  margin-right: 0;\n}\n\n", ""]);
+exports.push([module.i, "\n.popper {\n  width: auto;\n  background-color: #fafafa;\n  color: #212121;\n  text-align: center;\n  padding: 2px;\n  display: inline-block;\n  border-radius: 3px;\n  position: absolute;\n  font-size: 14px;\n  font-weight: normal;\n  border: 1px #ebebeb solid;\n  z-index: 200000;\n  -webkit-box-shadow: rgb(58, 58, 58) 0 0 6px 0;\n  box-shadow: rgb(58, 58, 58) 0 0 6px 0;\n}\n\n.popper .popper__arrow {\n  width: 0;\n  height: 0;\n  border-style: solid;\n  position: absolute;\n  margin: 5px;\n}\n\n.popper[x-placement^=\"top\"] {\n  margin-bottom: 5px;\n}\n\n.popper[x-placement^=\"top\"] .popper__arrow {\n  border-width: 5px 5px 0 5px;\n  border-color: #fafafa transparent transparent transparent;\n  bottom: -5px;\n  left: calc(50% - 5px);\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.popper[x-placement^=\"bottom\"] {\n  margin-top: 5px;\n}\n\n.popper[x-placement^=\"bottom\"] .popper__arrow {\n  border-width: 0 5px 5px 5px;\n  border-color: transparent transparent #fafafa transparent;\n  top: -5px;\n  left: calc(50% - 5px);\n  margin-top: 0;\n  margin-bottom: 0;\n}\n\n.popper[x-placement^=\"right\"] {\n  margin-left: 5px;\n}\n\n.popper[x-placement^=\"right\"] .popper__arrow {\n  border-width: 5px 5px 5px 0;\n  border-color: transparent #fafafa transparent transparent;\n  left: -5px;\n  top: calc(50% - 5px);\n  margin-left: 0;\n  margin-right: 0;\n}\n\n.popper[x-placement^=\"left\"] {\n  margin-right: 5px;\n}\n\n.popper[x-placement^=\"left\"] .popper__arrow {\n  border-width: 5px 0 5px 5px;\n  border-color: transparent transparent transparent #fafafa;\n  right: -5px;\n  top: calc(50% - 5px);\n  margin-left: 0;\n  margin-right: 0;\n}\n\n", ""]);
 
 // exports
 
@@ -14527,7 +14880,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.dropdown_animation {\n    position: absolute;\n    transform: translate3d(0px, 38px, 0px);\n    top: 0px;\n    left: 0px;\n    will-change: transform;\n}\n", ""]);
+exports.push([module.i, "\n.dropdown_animation {\n    position: absolute;\n    -webkit-transform: translate3d(0px, 38px, 0px);\n            transform: translate3d(0px, 38px, 0px);\n    top: 0px;\n    left: 0px;\n    will-change: transform;\n}\n", ""]);
 
 // exports
 
@@ -14566,7 +14919,7 @@ exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Mon
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700);", ""]);
 
 // module
-exports.push([module.i, "\n#ques_body {\n    font-size: 14px;\n    height: 100vh;\n    background: #CFD8DC;\n    /* mocking native UI */\n    cursor: default !important;\n    /* remove text selection cursor */\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    /* remove text selection */\n    user-drag: none;\n    /* disbale element dragging */\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n.button {\n    transition: 0.3s;\n}\n.title,\n.subtitle {\n    font-weight: normal;\n}\n.animated {\n    transition-duration: 0.15s;\n}\n.questionBox {\n    max-width: 30rem;\n    width: 30rem;\n    min-height: 30rem;\n    background: #FAFAFA;\n    position: relative;\n    display: flex;\n    border-radius: 0.5rem;\n    overflow: hidden;\n    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);\n}\n.questionBox header {\n    background: rgba(0, 0, 0, 0.025);\n    padding: 1.5rem;\n    text-align: center;\n    border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n.questionBox header h1 {\n    font-weight: bold;\n    margin-bottom: 1rem !important;\n}\n.questionBox header .progressContainer {\n    width: 60%;\n    margin: 0 auto;\n}\n.questionBox header .progressContainer > progress {\n    margin: 0;\n    border-radius: 5rem;\n    overflow: hidden;\n    border: none;\n    color: #593c97;\n}\n.questionBox header .progressContainer > progress::-moz-progress-bar {\n    background: #593c97;\n}\n.questionBox header .progressContainer > progress::-webkit-progress-value {\n    background: #593c97;\n}\n.questionBox header .progressContainer > p {\n    margin: 0;\n    margin-top: 0.5rem;\n}\n.questionBox .titleContainer {\n    text-align: center;\n    margin: 0 auto;\n    padding: 1.5rem;\n}\n.questionBox .quizForm {\n    display: block;\n    white-space: normal;\n    height: 100%;\n    width: 100%;\n}\n.questionBox .quizForm .quizFormContainer {\n    height: 100%;\n    margin: 15px 18px;\n}\n.questionBox .quizForm .quizFormContainer .field-label {\n    text-align: left;\n    margin-bottom: 0.5rem;\n}\n.questionBox .quizCompleted {\n    width: 100%;\n    padding: 1rem;\n    text-align: center;\n}\n.questionBox .quizCompleted > .icon {\n    color: #FF5252;\n    font-size: 5rem;\n}\n.questionBox .quizCompleted > .icon .is-active {\n    color: #593c97;\n}\n.questionBox .questionContainer {\n    white-space: normal;\n    height: 100%;\n    width: 100%;\n}\n.questionBox .questionContainer .optionContainer {\n    margin-top: 12px;\n    flex-grow: 1;\n}\n.questionBox .questionContainer .optionContainer .option {\n    border-radius: 290486px;\n    padding: 9px 18px;\n    margin: 0 18px;\n    margin-bottom: 12px;\n    transition: 0.3s;\n    cursor: pointer;\n    background-color: rgba(0, 0, 0, 0.05);\n    color: rgba(0, 0, 0, 0.85);\n    border: transparent 1px solid;\n}\n.questionBox .questionContainer .optionContainer .option.is-selected {\n    border-color: rgba(0, 0, 0, 0.25);\n    background-color: #593c97;\n}\n.questionBox .questionContainer .optionContainer .option:hover {\n    background-color: rgba(0, 0, 0, 0.1);\n}\n.questionBox .questionContainer .optionContainer .option:active {\n    transform: scaleX(0.9);\n}\n.questionBox .questionContainer .questionFooter {\n    background: rgba(0, 0, 0, 0.025);\n    border-top: 1px solid rgba(0, 0, 0, 0.1);\n    width: 100%;\n    align-self: flex-end;\n}\n.questionBox .questionContainer .questionFooter .pagination {\n    margin: 15px 25px;\n}\n.pagination {\n    display: flex;\n    justify-content: space-between;\n}\n.button {\n    padding: 0.5rem 1rem;\n    border: 1px solid rgba(0, 0, 0, 0.25);\n    border-radius: 5rem;\n    margin: 0 0.25rem;\n    transition: 0.3s;\n}\n.button:hover {\n    cursor: pointer;\n    background: #ECEFF1;\n    border-color: rgba(0, 0, 0, 0.25);\n}\n.button.is-active {\n    background: #593c97;\n    color: white !important;;\n    border-color: transparent;\n}\n.button.is-active:hover {\n    background: #593c97;\n}\n@media screen and (min-width: 769px) {\n.questionBox {\n        align-items: center;\n        justify-content: center;\n}\n.questionBox .questionContainer {\n        display: flex;\n        flex-direction: column;\n}\n}\n@media screen and (max-width: 768px) {\n.sidebar {\n        height: auto !important;\n        border-radius: 6px 6px 0px 0px;\n}\n}\n", ""]);
+exports.push([module.i, "\n#ques_body {\n    font-size: 14px;\n    height: 100vh;\n    background: #CFD8DC;\n    /* mocking native UI */\n    cursor: default !important;\n    /* remove text selection cursor */\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    /* remove text selection */\n    user-drag: none;\n    /* disbale element dragging */\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-align: center;\n    -ms-flex-align: center;\n        align-items: center;\n    -webkit-box-pack: center;\n    -ms-flex-pack: center;\n        justify-content: center;\n}\n.button {\n    -webkit-transition: 0.3s;\n    transition: 0.3s;\n}\n.title,\n.subtitle {\n    font-weight: normal;\n}\n.animated {\n    -webkit-transition-duration: 0.15s;\n    transition-duration: 0.15s;\n}\n.questionBox {\n    max-width: 30rem;\n    width: 30rem;\n    min-height: 30rem;\n    background: #FAFAFA;\n    position: relative;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    border-radius: 0.5rem;\n    overflow: hidden;\n    -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);\n            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);\n}\n.questionBox header {\n    background: rgba(0, 0, 0, 0.025);\n    padding: 1.5rem;\n    text-align: center;\n    border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n.questionBox header h1 {\n    font-weight: bold;\n    margin-bottom: 1rem !important;\n}\n.questionBox header .progressContainer {\n    width: 60%;\n    margin: 0 auto;\n}\n.questionBox header .progressContainer > progress {\n    margin: 0;\n    border-radius: 5rem;\n    overflow: hidden;\n    border: none;\n    color: #593c97;\n}\n.questionBox header .progressContainer > progress::-moz-progress-bar {\n    background: #593c97;\n}\n.questionBox header .progressContainer > progress::-webkit-progress-value {\n    background: #593c97;\n}\n.questionBox header .progressContainer > p {\n    margin: 0;\n    margin-top: 0.5rem;\n}\n.questionBox .titleContainer {\n    text-align: center;\n    margin: 0 auto;\n    padding: 1.5rem;\n}\n.questionBox .quizForm {\n    display: block;\n    white-space: normal;\n    height: 100%;\n    width: 100%;\n}\n.questionBox .quizForm .quizFormContainer {\n    height: 100%;\n    margin: 15px 18px;\n}\n.questionBox .quizForm .quizFormContainer .field-label {\n    text-align: left;\n    margin-bottom: 0.5rem;\n}\n.questionBox .quizCompleted {\n    width: 100%;\n    padding: 1rem;\n    text-align: center;\n}\n.questionBox .quizCompleted > .icon {\n    color: #FF5252;\n    font-size: 5rem;\n}\n.questionBox .quizCompleted > .icon .is-active {\n    color: #593c97;\n}\n.questionBox .questionContainer {\n    white-space: normal;\n    height: 100%;\n    width: 100%;\n}\n.questionBox .questionContainer .optionContainer {\n    margin-top: 12px;\n    -webkit-box-flex: 1;\n    -ms-flex-positive: 1;\n        flex-grow: 1;\n}\n.questionBox .questionContainer .optionContainer .option {\n    border-radius: 290486px;\n    padding: 9px 18px;\n    margin: 0 18px;\n    margin-bottom: 12px;\n    -webkit-transition: 0.3s;\n    transition: 0.3s;\n    cursor: pointer;\n    background-color: rgba(0, 0, 0, 0.05);\n    color: rgba(0, 0, 0, 0.85);\n    border: transparent 1px solid;\n}\n.questionBox .questionContainer .optionContainer .option.is-selected {\n    border-color: rgba(0, 0, 0, 0.25);\n    background-color: #593c97;\n}\n.questionBox .questionContainer .optionContainer .option:hover {\n    background-color: rgba(0, 0, 0, 0.1);\n}\n.questionBox .questionContainer .optionContainer .option:active {\n    -webkit-transform: scaleX(0.9);\n    transform: scaleX(0.9);\n}\n.questionBox .questionContainer .questionFooter {\n    background: rgba(0, 0, 0, 0.025);\n    border-top: 1px solid rgba(0, 0, 0, 0.1);\n    width: 100%;\n    -ms-flex-item-align: end;\n        align-self: flex-end;\n}\n.questionBox .questionContainer .questionFooter .pagination {\n    margin: 15px 25px;\n}\n.pagination {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n    -ms-flex-pack: justify;\n        justify-content: space-between;\n}\n.button {\n    padding: 0.5rem 1rem;\n    border: 1px solid rgba(0, 0, 0, 0.25);\n    border-radius: 5rem;\n    margin: 0 0.25rem;\n    -webkit-transition: 0.3s;\n    transition: 0.3s;\n}\n.button:hover {\n    cursor: pointer;\n    background: #ECEFF1;\n    border-color: rgba(0, 0, 0, 0.25);\n}\n.button.is-active {\n    background: #593c97;\n    color: white !important;;\n    border-color: transparent;\n}\n.button.is-active:hover {\n    background: #593c97;\n}\n@media screen and (min-width: 769px) {\n.questionBox {\n        -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n        -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n}\n.questionBox .questionContainer {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-orient: vertical;\n        -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n}\n}\n@media screen and (max-width: 768px) {\n.sidebar {\n        height: auto !important;\n        border-radius: 6px 6px 0px 0px;\n}\n}\n", ""]);
 
 // exports
 
@@ -14585,7 +14938,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.star-rating__checkbox {\n    position: absolute;\n    overflow: hidden;\n    clip: rect(0 0 0 0);\n    height: 1px;\n    width: 1px;\n    margin: -1px;\n    padding: 0;\n    border: 0;\n}\n.star-rating__star {\n    display: inline-block;\n    padding: 3px;\n    vertical-align: middle;\n    line-height: 1;\n    font-size: 1.5em;\n    color: #ababab;\n    transition: color 0.2s ease-out;\n}\n.star-rating__star:hover {\n    cursor: pointer;\n}\n.star-rating__star.is-selected {\n    color: #ffd700;\n}\n.star-rating__star.is-disabled:hover {\n    cursor: default;\n}\n\n", ""]);
+exports.push([module.i, "\n.star-rating__checkbox {\n    position: absolute;\n    overflow: hidden;\n    clip: rect(0 0 0 0);\n    height: 1px;\n    width: 1px;\n    margin: -1px;\n    padding: 0;\n    border: 0;\n}\n.star-rating__star {\n    display: inline-block;\n    padding: 3px;\n    vertical-align: middle;\n    line-height: 1;\n    font-size: 1.5em;\n    color: #ababab;\n    -webkit-transition: color 0.2s ease-out;\n    transition: color 0.2s ease-out;\n}\n.star-rating__star:hover {\n    cursor: pointer;\n}\n.star-rating__star.is-selected {\n    color: #ffd700;\n}\n.star-rating__star.is-disabled:hover {\n    cursor: default;\n}\n\n", ""]);
 
 // exports
 
@@ -14661,7 +15014,7 @@ exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base
 
 
 // module
-exports.push([module.i, "fieldset[disabled] .multiselect{pointer-events:none}.multiselect__spinner{position:absolute;right:1px;top:1px;width:48px;height:35px;background:#fff;display:block}.multiselect__spinner:after,.multiselect__spinner:before{position:absolute;content:\"\";top:50%;left:50%;margin:-8px 0 0 -8px;width:16px;height:16px;border-radius:100%;border:2px solid transparent;border-top-color:#41b883;box-shadow:0 0 0 1px transparent}.multiselect__spinner:before{-webkit-animation:spinning 2.4s cubic-bezier(.41,.26,.2,.62);animation:spinning 2.4s cubic-bezier(.41,.26,.2,.62);-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite}.multiselect__spinner:after{-webkit-animation:spinning 2.4s cubic-bezier(.51,.09,.21,.8);animation:spinning 2.4s cubic-bezier(.51,.09,.21,.8);-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite}.multiselect__loading-enter-active,.multiselect__loading-leave-active{transition:opacity .4s ease-in-out;opacity:1}.multiselect__loading-enter,.multiselect__loading-leave-active{opacity:0}.multiselect,.multiselect__input,.multiselect__single{font-family:inherit;font-size:16px;touch-action:manipulation}.multiselect{box-sizing:content-box;display:block;position:relative;width:100%;min-height:40px;text-align:left;color:#35495e}.multiselect *{box-sizing:border-box}.multiselect:focus{outline:none}.multiselect--disabled{background:#ededed;pointer-events:none;opacity:.6}.multiselect--active{z-index:50}.multiselect--active:not(.multiselect--above) .multiselect__current,.multiselect--active:not(.multiselect--above) .multiselect__input,.multiselect--active:not(.multiselect--above) .multiselect__tags{border-bottom-left-radius:0;border-bottom-right-radius:0}.multiselect--active .multiselect__select{transform:rotate(180deg)}.multiselect--above.multiselect--active .multiselect__current,.multiselect--above.multiselect--active .multiselect__input,.multiselect--above.multiselect--active .multiselect__tags{border-top-left-radius:0;border-top-right-radius:0}.multiselect__input,.multiselect__single{position:relative;display:inline-block;min-height:20px;line-height:20px;border:none;border-radius:5px;background:#fff;padding:0 0 0 5px;width:100%;transition:border .1s ease;box-sizing:border-box;margin-bottom:8px;vertical-align:top}.multiselect__input:-ms-input-placeholder{color:#35495e}.multiselect__input::-moz-placeholder{color:#35495e}.multiselect__input::-ms-input-placeholder{color:#35495e}.multiselect__input::placeholder{color:#35495e}.multiselect__tag~.multiselect__input,.multiselect__tag~.multiselect__single{width:auto}.multiselect__input:hover,.multiselect__single:hover{border-color:#cfcfcf}.multiselect__input:focus,.multiselect__single:focus{border-color:#a8a8a8;outline:none}.multiselect__single{padding-left:5px;margin-bottom:8px}.multiselect__tags-wrap{display:inline}.multiselect__tags{min-height:40px;display:block;padding:8px 40px 0 8px;border-radius:5px;border:1px solid #e8e8e8;background:#fff;font-size:14px}.multiselect__tag{position:relative;display:inline-block;padding:4px 26px 4px 10px;border-radius:5px;margin-right:10px;color:#fff;line-height:1;background:#41b883;margin-bottom:5px;white-space:nowrap;overflow:hidden;max-width:100%;text-overflow:ellipsis}.multiselect__tag-icon{cursor:pointer;margin-left:7px;position:absolute;right:0;top:0;bottom:0;font-weight:700;font-style:normal;width:22px;text-align:center;line-height:22px;transition:all .2s ease;border-radius:5px}.multiselect__tag-icon:after{content:\"\\D7\";color:#266d4d;font-size:14px}.multiselect__tag-icon:focus,.multiselect__tag-icon:hover{background:#369a6e}.multiselect__tag-icon:focus:after,.multiselect__tag-icon:hover:after{color:#fff}.multiselect__current{min-height:40px;overflow:hidden;padding:8px 30px 0 12px;white-space:nowrap;border-radius:5px;border:1px solid #e8e8e8}.multiselect__current,.multiselect__select{line-height:16px;box-sizing:border-box;display:block;margin:0;text-decoration:none;cursor:pointer}.multiselect__select{position:absolute;width:40px;height:38px;right:1px;top:1px;padding:4px 8px;text-align:center;transition:transform .2s ease}.multiselect__select:before{position:relative;right:0;top:65%;color:#999;margin-top:4px;border-color:#999 transparent transparent;border-style:solid;border-width:5px 5px 0;content:\"\"}.multiselect__placeholder{color:#adadad;display:inline-block;margin-bottom:10px;padding-top:2px}.multiselect--active .multiselect__placeholder{display:none}.multiselect__content-wrapper{position:absolute;display:block;background:#fff;width:100%;max-height:240px;overflow:auto;border:1px solid #e8e8e8;border-top:none;border-bottom-left-radius:5px;border-bottom-right-radius:5px;z-index:50;-webkit-overflow-scrolling:touch}.multiselect__content{list-style:none;display:inline-block;padding:0;margin:0;min-width:100%;vertical-align:top}.multiselect--above .multiselect__content-wrapper{bottom:100%;border-bottom-left-radius:0;border-bottom-right-radius:0;border-top-left-radius:5px;border-top-right-radius:5px;border-bottom:none;border-top:1px solid #e8e8e8}.multiselect__content::webkit-scrollbar{display:none}.multiselect__element{display:block}.multiselect__option{display:block;padding:12px;min-height:40px;line-height:16px;text-decoration:none;text-transform:none;vertical-align:middle;position:relative;cursor:pointer;white-space:nowrap}.multiselect__option:after{top:0;right:0;position:absolute;line-height:40px;padding-right:12px;padding-left:20px;font-size:13px}.multiselect__option--highlight{background:#41b883;outline:none;color:#fff}.multiselect__option--highlight:after{content:attr(data-select);background:#41b883;color:#fff}.multiselect__option--selected{background:#f3f3f3;color:#35495e;font-weight:700}.multiselect__option--selected:after{content:attr(data-selected);color:silver}.multiselect__option--selected.multiselect__option--highlight{background:#ff6a6a;color:#fff}.multiselect__option--selected.multiselect__option--highlight:after{background:#ff6a6a;content:attr(data-deselect);color:#fff}.multiselect--disabled .multiselect__current,.multiselect--disabled .multiselect__select{background:#ededed;color:#a6a6a6}.multiselect__option--disabled{background:#ededed!important;color:#a6a6a6!important;cursor:text;pointer-events:none}.multiselect__option--group{background:#ededed;color:#35495e}.multiselect__option--group.multiselect__option--highlight{background:#35495e;color:#fff}.multiselect__option--group.multiselect__option--highlight:after{background:#35495e}.multiselect__option--disabled.multiselect__option--highlight{background:#dedede}.multiselect__option--group-selected.multiselect__option--highlight{background:#ff6a6a;color:#fff}.multiselect__option--group-selected.multiselect__option--highlight:after{background:#ff6a6a;content:attr(data-deselect);color:#fff}.multiselect-enter-active,.multiselect-leave-active{transition:all .15s ease}.multiselect-enter,.multiselect-leave-active{opacity:0}.multiselect__strong{margin-bottom:8px;line-height:20px;display:inline-block;vertical-align:top}[dir=rtl] .multiselect{text-align:right}[dir=rtl] .multiselect__select{right:auto;left:1px}[dir=rtl] .multiselect__tags{padding:8px 8px 0 40px}[dir=rtl] .multiselect__content{text-align:right}[dir=rtl] .multiselect__option:after{right:auto;left:0}[dir=rtl] .multiselect__clear{right:auto;left:12px}[dir=rtl] .multiselect__spinner{right:auto;left:1px}@-webkit-keyframes spinning{0%{transform:rotate(0)}to{transform:rotate(2turn)}}@keyframes spinning{0%{transform:rotate(0)}to{transform:rotate(2turn)}}", ""]);
+exports.push([module.i, "fieldset[disabled] .multiselect{pointer-events:none}.multiselect__spinner{position:absolute;right:1px;top:1px;width:48px;height:35px;background:#fff;display:block}.multiselect__spinner:after,.multiselect__spinner:before{position:absolute;content:\"\";top:50%;left:50%;margin:-8px 0 0 -8px;width:16px;height:16px;border-radius:100%;border:2px solid transparent;border-top-color:#41b883;-webkit-box-shadow:0 0 0 1px transparent;box-shadow:0 0 0 1px transparent}.multiselect__spinner:before{-webkit-animation:spinning 2.4s cubic-bezier(.41,.26,.2,.62);animation:spinning 2.4s cubic-bezier(.41,.26,.2,.62);-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite}.multiselect__spinner:after{-webkit-animation:spinning 2.4s cubic-bezier(.51,.09,.21,.8);animation:spinning 2.4s cubic-bezier(.51,.09,.21,.8);-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite}.multiselect__loading-enter-active,.multiselect__loading-leave-active{-webkit-transition:opacity .4s ease-in-out;transition:opacity .4s ease-in-out;opacity:1}.multiselect__loading-enter,.multiselect__loading-leave-active{opacity:0}.multiselect,.multiselect__input,.multiselect__single{font-family:inherit;font-size:16px;-ms-touch-action:manipulation;touch-action:manipulation}.multiselect{-webkit-box-sizing:content-box;box-sizing:content-box;display:block;position:relative;width:100%;min-height:40px;text-align:left;color:#35495e}.multiselect *{-webkit-box-sizing:border-box;box-sizing:border-box}.multiselect:focus{outline:none}.multiselect--disabled{background:#ededed;pointer-events:none;opacity:.6}.multiselect--active{z-index:50}.multiselect--active:not(.multiselect--above) .multiselect__current,.multiselect--active:not(.multiselect--above) .multiselect__input,.multiselect--active:not(.multiselect--above) .multiselect__tags{border-bottom-left-radius:0;border-bottom-right-radius:0}.multiselect--active .multiselect__select{-webkit-transform:rotate(180deg);transform:rotate(180deg)}.multiselect--above.multiselect--active .multiselect__current,.multiselect--above.multiselect--active .multiselect__input,.multiselect--above.multiselect--active .multiselect__tags{border-top-left-radius:0;border-top-right-radius:0}.multiselect__input,.multiselect__single{position:relative;display:inline-block;min-height:20px;line-height:20px;border:none;border-radius:5px;background:#fff;padding:0 0 0 5px;width:100%;-webkit-transition:border .1s ease;transition:border .1s ease;-webkit-box-sizing:border-box;box-sizing:border-box;margin-bottom:8px;vertical-align:top}.multiselect__input:-ms-input-placeholder{color:#35495e}.multiselect__input::-webkit-input-placeholder{color:#35495e}.multiselect__input::-moz-placeholder{color:#35495e}.multiselect__input::-ms-input-placeholder{color:#35495e}.multiselect__input::placeholder{color:#35495e}.multiselect__tag~.multiselect__input,.multiselect__tag~.multiselect__single{width:auto}.multiselect__input:hover,.multiselect__single:hover{border-color:#cfcfcf}.multiselect__input:focus,.multiselect__single:focus{border-color:#a8a8a8;outline:none}.multiselect__single{padding-left:5px;margin-bottom:8px}.multiselect__tags-wrap{display:inline}.multiselect__tags{min-height:40px;display:block;padding:8px 40px 0 8px;border-radius:5px;border:1px solid #e8e8e8;background:#fff;font-size:14px}.multiselect__tag{position:relative;display:inline-block;padding:4px 26px 4px 10px;border-radius:5px;margin-right:10px;color:#fff;line-height:1;background:#41b883;margin-bottom:5px;white-space:nowrap;overflow:hidden;max-width:100%;text-overflow:ellipsis}.multiselect__tag-icon{cursor:pointer;margin-left:7px;position:absolute;right:0;top:0;bottom:0;font-weight:700;font-style:normal;width:22px;text-align:center;line-height:22px;-webkit-transition:all .2s ease;transition:all .2s ease;border-radius:5px}.multiselect__tag-icon:after{content:\"\\D7\";color:#266d4d;font-size:14px}.multiselect__tag-icon:focus,.multiselect__tag-icon:hover{background:#369a6e}.multiselect__tag-icon:focus:after,.multiselect__tag-icon:hover:after{color:#fff}.multiselect__current{min-height:40px;overflow:hidden;padding:8px 30px 0 12px;white-space:nowrap;border-radius:5px;border:1px solid #e8e8e8}.multiselect__current,.multiselect__select{line-height:16px;-webkit-box-sizing:border-box;box-sizing:border-box;display:block;margin:0;text-decoration:none;cursor:pointer}.multiselect__select{position:absolute;width:40px;height:38px;right:1px;top:1px;padding:4px 8px;text-align:center;-webkit-transition:-webkit-transform .2s ease;transition:-webkit-transform .2s ease;transition:transform .2s ease;transition:transform .2s ease, -webkit-transform .2s ease}.multiselect__select:before{position:relative;right:0;top:65%;color:#999;margin-top:4px;border-color:#999 transparent transparent;border-style:solid;border-width:5px 5px 0;content:\"\"}.multiselect__placeholder{color:#adadad;display:inline-block;margin-bottom:10px;padding-top:2px}.multiselect--active .multiselect__placeholder{display:none}.multiselect__content-wrapper{position:absolute;display:block;background:#fff;width:100%;max-height:240px;overflow:auto;border:1px solid #e8e8e8;border-top:none;border-bottom-left-radius:5px;border-bottom-right-radius:5px;z-index:50;-webkit-overflow-scrolling:touch}.multiselect__content{list-style:none;display:inline-block;padding:0;margin:0;min-width:100%;vertical-align:top}.multiselect--above .multiselect__content-wrapper{bottom:100%;border-bottom-left-radius:0;border-bottom-right-radius:0;border-top-left-radius:5px;border-top-right-radius:5px;border-bottom:none;border-top:1px solid #e8e8e8}.multiselect__content::webkit-scrollbar{display:none}.multiselect__element{display:block}.multiselect__option{display:block;padding:12px;min-height:40px;line-height:16px;text-decoration:none;text-transform:none;vertical-align:middle;position:relative;cursor:pointer;white-space:nowrap}.multiselect__option:after{top:0;right:0;position:absolute;line-height:40px;padding-right:12px;padding-left:20px;font-size:13px}.multiselect__option--highlight{background:#41b883;outline:none;color:#fff}.multiselect__option--highlight:after{content:attr(data-select);background:#41b883;color:#fff}.multiselect__option--selected{background:#f3f3f3;color:#35495e;font-weight:700}.multiselect__option--selected:after{content:attr(data-selected);color:silver}.multiselect__option--selected.multiselect__option--highlight{background:#ff6a6a;color:#fff}.multiselect__option--selected.multiselect__option--highlight:after{background:#ff6a6a;content:attr(data-deselect);color:#fff}.multiselect--disabled .multiselect__current,.multiselect--disabled .multiselect__select{background:#ededed;color:#a6a6a6}.multiselect__option--disabled{background:#ededed!important;color:#a6a6a6!important;cursor:text;pointer-events:none}.multiselect__option--group{background:#ededed;color:#35495e}.multiselect__option--group.multiselect__option--highlight{background:#35495e;color:#fff}.multiselect__option--group.multiselect__option--highlight:after{background:#35495e}.multiselect__option--disabled.multiselect__option--highlight{background:#dedede}.multiselect__option--group-selected.multiselect__option--highlight{background:#ff6a6a;color:#fff}.multiselect__option--group-selected.multiselect__option--highlight:after{background:#ff6a6a;content:attr(data-deselect);color:#fff}.multiselect-enter-active,.multiselect-leave-active{-webkit-transition:all .15s ease;transition:all .15s ease}.multiselect-enter,.multiselect-leave-active{opacity:0}.multiselect__strong{margin-bottom:8px;line-height:20px;display:inline-block;vertical-align:top}[dir=rtl] .multiselect{text-align:right}[dir=rtl] .multiselect__select{right:auto;left:1px}[dir=rtl] .multiselect__tags{padding:8px 8px 0 40px}[dir=rtl] .multiselect__content{text-align:right}[dir=rtl] .multiselect__option:after{right:auto;left:0}[dir=rtl] .multiselect__clear{right:auto;left:12px}[dir=rtl] .multiselect__spinner{right:auto;left:1px}@-webkit-keyframes spinning{0%{-webkit-transform:rotate(0);transform:rotate(0)}to{-webkit-transform:rotate(2turn);transform:rotate(2turn)}}@keyframes spinning{0%{-webkit-transform:rotate(0);transform:rotate(0)}to{-webkit-transform:rotate(2turn);transform:rotate(2turn)}}", ""]);
 
 // exports
 
@@ -76580,7 +76933,13 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "auto-container" }, [
           _c("div", { staticClass: "inner-container" }, [
-            _vm._m(0),
+            _c("div", { staticClass: "sec-title centered" }, [
+              _c("h2", [
+                _c("a", { attrs: { href: "http://idioms.in/in-touch/" } }, [
+                  _vm._v(" " + _vm._s(_vm.$t("concatUs.concatUs")))
+                ])
+              ])
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "contact-form" }, [
               _c(
@@ -76610,7 +76969,7 @@ var render = function() {
                           attrs: {
                             type: "text",
                             name: "username",
-                            placeholder: "الاسم *",
+                            placeholder: _vm.$t("concatUs.name") + "*",
                             required: ""
                           },
                           domProps: { value: _vm.form.name },
@@ -76642,7 +77001,7 @@ var render = function() {
                           attrs: {
                             type: "text",
                             name: "lastname",
-                            placeholder: " المنظمة *",
+                            placeholder: _vm.$t("concatUs.gov") + "*",
                             required: ""
                           },
                           domProps: { value: _vm.form.gov },
@@ -76674,7 +77033,7 @@ var render = function() {
                           attrs: {
                             type: "email",
                             name: "email",
-                            placeholder: "الايميل *",
+                            placeholder: _vm.$t("concatUs.email") + "*",
                             required: ""
                           },
                           domProps: { value: _vm.form.email },
@@ -76706,7 +77065,7 @@ var render = function() {
                           attrs: {
                             type: "text",
                             name: "phone",
-                            placeholder: "رقم الهاتف *",
+                            placeholder: _vm.$t("concatUs.phone") + "*",
                             required: ""
                           },
                           domProps: { value: _vm.form.phone },
@@ -76737,7 +77096,10 @@ var render = function() {
                               expression: "form.message"
                             }
                           ],
-                          attrs: { name: "message", placeholder: "الرسالة" },
+                          attrs: {
+                            name: "message",
+                            placeholder: _vm.$t("concatUs.message") + "*"
+                          },
                           domProps: { value: _vm.form.message },
                           on: {
                             input: function($event) {
@@ -76769,7 +77131,12 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._m(1)]
+                          [
+                            _c("span", { staticClass: "txt" }, [
+                              _vm._v(_vm._s(_vm.$t("concatUs.submit")) + "  "),
+                              _c("i", { staticClass: "fa fa-angle-left" })
+                            ])
+                          ]
                         )
                       ]
                     )
@@ -76779,11 +77146,85 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(2)
+          _c("div", { staticClass: "contact-info-section" }, [
+            _c("div", { staticClass: "title-box" }, [
+              _c("h2", [_vm._v(" " + _vm._s(_vm.$t("concatUs.concatInfo")))]),
+              _vm._v(" "),
+              _c("div", { staticClass: "text" })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row clearfix" }, [
+              _c(
+                "div",
+                { staticClass: "info-column col-lg-4 col-md-6 col-sm-12" },
+                [
+                  _c("div", { staticClass: "info-inner" }, [
+                    _c("div", { staticClass: "icon fa fa-phone" }),
+                    _vm._v(" "),
+                    _c("strong", [
+                      _vm._v(
+                        "   " + _vm._s(_vm.$t("concatUs.concatInfo")) + "  "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "info-column col-lg-4 col-md-6 col-sm-12" },
+                [
+                  _c("div", { staticClass: "info-inner" }, [
+                    _c("div", { staticClass: "icon fa fa-clock-o" }),
+                    _vm._v(" "),
+                    _c("strong", [
+                      _vm._v("   " + _vm._s(_vm.$t("concatUs.workHour")) + " ")
+                    ]),
+                    _vm._v(" "),
+                    _c("ul", [
+                      _c("li", [
+                        _vm._v(
+                          "\n                                    " +
+                            _vm._s(_vm.$t("concatUs.workHourInfo")) +
+                            "\n\n                                "
+                        )
+                      ])
+                    ])
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "info-column col-lg-4 col-md-6 col-sm-12" },
+                [
+                  _c("div", { staticClass: "info-inner" }, [
+                    _c("div", { staticClass: "icon fa fa-map-marker" }),
+                    _vm._v(" "),
+                    _c("strong", [
+                      _vm._v("  " + _vm._s(_vm.$t("concatUs.Location")) + " ")
+                    ]),
+                    _vm._v(" "),
+                    _c("ul", [
+                      _c("li", [
+                        _vm._v(
+                          "\n                                    " +
+                            _vm._s(_vm.$t("concatUs.LocationInfo")) +
+                            "\n\n                                "
+                        )
+                      ])
+                    ])
+                  ])
+                ]
+              )
+            ])
+          ])
         ])
       ]),
       _vm._v(" "),
-      _vm._m(3)
+      _vm._m(1)
     ],
     1
   )
@@ -76793,87 +77234,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "sec-title centered" }, [
-      _c("h2", [
-        _c("a", { attrs: { href: "http://idioms.in/in-touch/" } }, [
-          _vm._v("راسلنا")
+    return _c("ul", [
+      _c("li", [
+        _c("a", { attrs: { href: "tel:+96701480489" } }, [
+          _vm._v("+967 01 480489")
         ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "txt" }, [
-      _vm._v("ارسال  "),
-      _c("i", { staticClass: "fa fa-angle-left" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "contact-info-section" }, [
-      _c("div", { staticClass: "title-box" }, [
-        _c("h2", [_vm._v("معلومات التواصل")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "text" })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "row clearfix" }, [
-        _c("div", { staticClass: "info-column col-lg-4 col-md-6 col-sm-12" }, [
-          _c("div", { staticClass: "info-inner" }, [
-            _c("div", { staticClass: "icon fa fa-phone" }),
-            _vm._v(" "),
-            _c("strong", [_vm._v(" معلومات التواصل")]),
-            _vm._v(" "),
-            _c("ul", [
-              _c("li", [
-                _c("a", { attrs: { href: "tel:+96701480489" } }, [
-                  _vm._v("+967 01 480489")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { attrs: { href: "mailto:info@yourcompany.com" } }, [
-                  _vm._v("info@yourcompany.com")
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "info-column col-lg-4 col-md-6 col-sm-12" }, [
-          _c("div", { staticClass: "info-inner" }, [
-            _c("div", { staticClass: "icon fa fa-clock-o" }),
-            _vm._v(" "),
-            _c("strong", [_vm._v("ساعات الدوام")]),
-            _vm._v(" "),
-            _c("ul", [
-              _c("li", [
-                _vm._v(
-                  "السبت - الاربعاء\n                                    9:00 صباحاً - 2:00 ظهراً\n                                "
-                )
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "info-column col-lg-4 col-md-6 col-sm-12" }, [
-          _c("div", { staticClass: "info-inner" }, [
-            _c("div", { staticClass: "icon fa fa-map-marker" }),
-            _vm._v(" "),
-            _c("strong", [_vm._v("العنوان")]),
-            _vm._v(" "),
-            _c("ul", [
-              _c("li", [
-                _vm._v(
-                  "المكتب التنفيذي\n                                    صنعاء - التحرير خلف البنك المركزي\n                                "
-                )
-              ])
-            ])
-          ])
+      _c("li", [
+        _c("a", { attrs: { href: "mailto:info@yourcompany.com" } }, [
+          _vm._v("info@yourcompany.com")
         ])
       ])
     ])
@@ -86331,7 +86701,7 @@ var render = function() {
   return _c("section", { staticClass: "page-title" }, [
     _c("div", { staticClass: "auto-container" }, [
       _c("h1", [
-        _vm._v(" " + _vm._s(_vm.pageName) + " "),
+        _vm._v(" " + _vm._s(_vm.$t("MENU." + _vm.$route.name)) + " "),
         this.append_name != null
           ? _c("span", [_vm._v("(" + _vm._s(this.append_name) + ")")])
           : _vm._e()
@@ -86660,7 +87030,7 @@ var render = function() {
                         _vm._l(section.products2, function(product) {
                           return _c(
                             "swiper-slide",
-                            { staticClass: "swiper-slide" },
+                            { key: product.id, staticClass: "swiper-slide" },
                             [
                               _c("shop-gide-item2", {
                                 key: "shp-" + product.id,
@@ -87626,6 +87996,719 @@ var render = function() {
   )
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/layout/DropdownLanguage.vue?vue&type=template&id=3e3fcc40&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/layout/DropdownLanguage.vue?vue&type=template&id=3e3fcc40& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.lang == "ar"
+    ? _c(
+        "li",
+        {
+          staticClass: "navi-item",
+          class: { "navi-item-active": _vm.isActiveLanguage("ar") }
+        },
+        [
+          _c(
+            "a",
+            {
+              staticClass: "navi-link",
+              attrs: { href: "#", "data-lang": "en" },
+              on: {
+                click: function($event) {
+                  return _vm.selectedLanguage("en")
+                }
+              }
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("span", { staticClass: "navi-text" }, [_vm._v("En")])
+            ]
+          )
+        ]
+      )
+    : _c(
+        "li",
+        {
+          staticClass: "navi-item",
+          class: { "navi-item-active": _vm.isActiveLanguage("en") }
+        },
+        [
+          _c(
+            "a",
+            {
+              staticClass: "navi-link",
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  return _vm.selectedLanguage("ar")
+                }
+              }
+            },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("span", { staticClass: "navi-text" }, [_vm._v("Ar")])
+            ]
+          )
+        ]
+      )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "symbol symbol-20" }, [
+      _c("img", {
+        staticStyle: { width: "15px" },
+        attrs: { src: "/flags/226-united-states.svg", alt: "" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "symbol symbol-20 " }, [
+      _c("img", {
+        staticStyle: { width: "15px" },
+        attrs: { src: "/flags/232-yemen.svg", alt: "" }
+      })
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/layout/Header.vue?vue&type=template&id=a55d1ab8&":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/layout/Header.vue?vue&type=template&id=a55d1ab8& ***!
+  \*****************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("header", { staticClass: "main-header header-style-one" }, [
+    _c("div", { staticClass: "header-top" }, [
+      _c("div", { staticClass: "auto-container" }, [
+        _c("div", { staticClass: "clearfix" }, [
+          _c("div", { staticClass: "top-right pull-right clearfix" }, [
+            _c("ul", { staticClass: "info-list" }, [
+              _c("li", [
+                _c("span", [
+                  _vm._v(
+                    "\n                                " +
+                      _vm._s(_vm.$t("MENU.for_help")) +
+                      "\n                           :"
+                  )
+                ]),
+                _c(
+                  "a",
+                  {
+                    staticStyle: { "font-size": "19px" },
+                    attrs: { href: "tel:+967778998366" }
+                  },
+                  [_vm._v("\n                            778998366 967+")]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "top-left pull-left clearfix" }, [
+            _c(
+              "ul",
+              { staticClass: "login-nav" },
+              [
+                !_vm.isLoggedIn
+                  ? _c(
+                      "li",
+                      {
+                        class: [
+                          { "login-nav_active": _vm.currentPage != "register" }
+                        ],
+                        on: { click: _vm.$scrollToTop }
+                      },
+                      [
+                        _c("router-link", { attrs: { to: "/login" } }, [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.$t("MENU.login")) +
+                              "\n                                "
+                          )
+                        ])
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                !_vm.isLoggedIn
+                  ? _c(
+                      "li",
+                      {
+                        class: [
+                          { "login-nav_active": _vm.currentPage == "register" }
+                        ],
+                        on: { click: _vm.$scrollToTop }
+                      },
+                      [
+                        _c("router-link", { attrs: { to: "/register" } }, [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.$t("MENU.register")) +
+                              "\n                                "
+                          )
+                        ])
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  [
+                    _vm.isLoggedIn
+                      ? _c("router-link", {
+                          attrs: { to: "/profile" },
+                          nativeOn: {
+                            click: function($event) {
+                              return _vm.scrollToTop()
+                            }
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.isLoggedIn
+                  ? _c(
+                      "li",
+                      {
+                        class: [
+                          { "login-nav_active": _vm.currentPage != "profile" }
+                        ],
+                        on: { click: _vm.$scrollToTop }
+                      },
+                      [
+                        _c("router-link", { attrs: { to: "/logout" } }, [
+                          _vm._v(
+                            "    " +
+                              _vm._s(_vm.$t("MENU.logout")) +
+                              "\n                               "
+                          )
+                        ])
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.isLoggedIn
+                  ? _c(
+                      "li",
+                      {
+                        class: [
+                          { "login-nav_active": _vm.currentPage == "profile" }
+                        ],
+                        on: { click: _vm.$scrollToTop }
+                      },
+                      [
+                        _c("router-link", { attrs: { to: "/profile" } }, [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.$t("MENU.profile")) +
+                              "\n                                "
+                          )
+                        ])
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("dropdown-language")
+              ],
+              1
+            )
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "header-upper" }, [
+      _c("div", { staticClass: "auto-container" }, [
+        _c("div", { staticClass: "clearfix" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "nav-outer clearfix" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("nav", { staticClass: "main-menu show navbar-expand-md" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "navbar-collapse collapse clearfix",
+                  attrs: { id: "navbarSupportedContent" }
+                },
+                [
+                  _c("ul", { staticClass: "navigation clearfix" }, [
+                    _c(
+                      "li",
+                      {
+                        class: [
+                          "dropdown",
+                          {
+                            shop_drown:
+                              _vm.currentPage == "shop" ||
+                              _vm.currentPage == "my_orders" ||
+                              _vm.currentPage == "CategoryProducts" ||
+                              _vm.currentPage == "home" ||
+                              _vm.currentPage == "home2" ||
+                              _vm.currentPage == "shop_search" ||
+                              _vm.currentPage == "course_details" ||
+                              _vm.currentPage == "shop_like" ||
+                              _vm.currentPage == "cart"
+                          },
+                          { current: _vm.currentPage == "shop" }
+                        ]
+                      },
+                      [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v(
+                            "\n                                        " +
+                              _vm._s(_vm.$t("MENU.shop")) +
+                              "\n\n                                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("ul", [
+                          _c(
+                            "li",
+                            {
+                              class: [
+                                "shop_element_item",
+                                { current: _vm.currentPage == "shop" }
+                              ]
+                            },
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  attrs: { to: "/shop" },
+                                  nativeOn: {
+                                    click: function($event) {
+                                      return _vm.scrollToTop()
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n\n                                                " +
+                                      _vm._s(_vm.$t("MENU.home")) +
+                                      "\n                                            "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              class: [
+                                "shop_element_item",
+                                { current: _vm.currentPage == "my_orders" }
+                              ]
+                            },
+                            [
+                              _vm.isLoggedIn
+                                ? _c(
+                                    "router-link",
+                                    {
+                                      attrs: { to: "/my_orders" },
+                                      nativeOn: {
+                                        click: function($event) {
+                                          return _vm.scrollToTop()
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n\n                                                " +
+                                          _vm._s(_vm.$t("MENU.my_orders")) +
+                                          "\n                                            "
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              class: [
+                                "shop_element_item",
+                                { current: _vm.currentPage == "shop_search" }
+                              ]
+                            },
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  attrs: { to: "/shop_search" },
+                                  nativeOn: {
+                                    click: function($event) {
+                                      return _vm.scrollToTop()
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n\n                                                " +
+                                      _vm._s(_vm.$t("MENU.shop_search")) +
+                                      "\n                                            "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              class: [
+                                "shop_element_item",
+                                { current: _vm.currentPage == "shop_like" }
+                              ]
+                            },
+                            [
+                              _vm.isLoggedIn
+                                ? _c(
+                                    "router-link",
+                                    {
+                                      attrs: { to: "/shop_like" },
+                                      nativeOn: {
+                                        click: function($event) {
+                                          return _vm.scrollToTop()
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n\n                                                " +
+                                          _vm._s(_vm.$t("MENU.shop_like")) +
+                                          "\n                                            "
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "li",
+                            {
+                              class: [
+                                "shop_element_item",
+                                { current: _vm.currentPage == "cart" }
+                              ]
+                            },
+                            [
+                              _vm.isLoggedIn
+                                ? _c(
+                                    "router-link",
+                                    {
+                                      attrs: { to: "/cart" },
+                                      nativeOn: {
+                                        click: function($event) {
+                                          return _vm.scrollToTop()
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n\n                                                " +
+                                          _vm._s(_vm.$t("MENU.cart")) +
+                                          "\n                                            "
+                                      )
+                                    ]
+                                  )
+                                : _vm._e()
+                            ],
+                            1
+                          )
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      { class: [{ current: _vm.currentPage == "courses" }] },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            attrs: { to: "/courses" },
+                            nativeOn: {
+                              click: function($event) {
+                                return _vm.scrollToTop()
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(_vm.$t("MENU.courses")) +
+                                "\n                                        "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      { class: [{ current: _vm.currentPage == "consultant" }] },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            attrs: { to: "/consultant" },
+                            nativeOn: {
+                              click: function($event) {
+                                return _vm.scrollToTop()
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(_vm.$t("MENU.consultant")) +
+                                "\n\n                                    "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      { class: [{ current: _vm.currentPage == "women" }] },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            attrs: { to: "/women" },
+                            nativeOn: {
+                              click: function($event) {
+                                return _vm.scrollToTop()
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(_vm.$t("MENU.women")) +
+                                "\n\n                                    "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      { class: [{ current: _vm.currentPage == "privacy" }] },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            attrs: { to: "/privacy" },
+                            nativeOn: {
+                              click: function($event) {
+                                return _vm.scrollToTop()
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(_vm.$t("MENU.privacy")) +
+                                "\n\n                                    "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      { class: [{ current: _vm.currentPage == "concatUs" }] },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            attrs: { to: "/concatUs" },
+                            nativeOn: {
+                              click: function($event) {
+                                return _vm.scrollToTop()
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(_vm.$t("MENU.concatUs")) +
+                                "\n                                    "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                ]
+              )
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "mobile-menu" }, [
+      _c("div", { staticClass: "menu-backdrop" }),
+      _vm._v(" "),
+      _vm._m(3),
+      _vm._v(" "),
+      _c("nav", { staticClass: "menu-box" }, [
+        _c(
+          "div",
+          { staticClass: "nav-logo", staticStyle: { "text-align": "center" } },
+          [
+            _c("router-link", {
+              attrs: { to: "/home" },
+              nativeOn: {
+                click: function($event) {
+                  return _vm.scrollToTop()
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("img", {
+              staticStyle: { width: "130px", "margin-bottom": "-30px" },
+              attrs: { src: "site/images/logo_white.png", alt: "", title: "" }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "menu-outer" })
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "pull-right logo-box" }, [
+      _c("div", { staticClass: "logo" }, [
+        _c("a", { attrs: { href: "#" } }, [
+          _c("img", {
+            attrs: {
+              width: "50",
+              src: "site/images/logo_white.png",
+              alt: "",
+              title: " Yemen Women Union Developments"
+            }
+          })
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "mobile-nav-toggler" }, [
+      _c("span", { staticClass: "icon flaticon-menu" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "navbar-header" }, [
+      _c(
+        "button",
+        {
+          staticClass: "navbar-toggler",
+          attrs: {
+            type: "button",
+            "data-toggle": "collapse",
+            "data-target": "#navbarSupportedContent",
+            "aria-controls": "navbarSupportedContent",
+            "aria-expanded": "false",
+            "aria-label": "Toggle navigation"
+          }
+        },
+        [
+          _c("span", { staticClass: "icon-bar" }),
+          _vm._v(" "),
+          _c("span", { staticClass: "icon-bar" }),
+          _vm._v(" "),
+          _c("span", { staticClass: "icon-bar" })
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "close-btn" }, [
+      _c("span", { staticClass: "icon flaticon-multiply" })
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -106531,6 +107614,7 @@ Vue.component('course-component', __webpack_require__(/*! ./components/CourseCom
 Vue.component('search-filed', __webpack_require__(/*! ./components/SearchField.vue */ "./resources/js/components/SearchField.vue")["default"]);
 Vue.component('course-questions', __webpack_require__(/*! ./components/Question.vue */ "./resources/js/components/Question.vue")["default"]);
 Vue.component('toast-stack', __webpack_require__(/*! ./components/ToastStack.vue */ "./resources/js/components/ToastStack.vue")["default"]);
+Vue.component('vue-header', __webpack_require__(/*! ./layout/Header.vue */ "./resources/js/layout/Header.vue")["default"]);
 Vue.component('recent-posts', __webpack_require__(/*! ./components/RecentPosts.vue */ "./resources/js/components/RecentPosts.vue")["default"]);
 Vue.component('dropdown', __webpack_require__(/*! ./components/dropdown.vue */ "./resources/js/components/dropdown.vue")["default"]);
 Vue.component('ShopCategory', __webpack_require__(/*! ./components/ShopCategory.vue */ "./resources/js/components/ShopCategory.vue")["default"]);
@@ -106563,6 +107647,9 @@ Vue.mixin({
     };
   },
   methods: {
+    trans: function trans(text) {
+      return _plugins_vue_i18n__WEBPACK_IMPORTED_MODULE_6__["default"].t(text);
+    },
     countWords: function countWords(text, no_words) {
       var str = text.replace(/(^\s*)|(\s*$)/gi, "");
       str = str.replace(/[ ]{2,}/gi, " ");
@@ -109106,104 +110193,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "locale", function() { return locale; });
 // USA
 var locale = {
-  TRANSLATOR: {
-    SELECT: "Select your language"
-  },
   MENU: {
-    NEW: "جدبد",
-    ACTIONS: "Actions",
-    CREATE_POST: "Create New Post",
-    PAGES: "Pages",
-    FEATURES: "Features",
-    APPS: "Apps",
-    DASHBOARD: "Dashboard"
+    shop: "السوق الإلكتروني",
+    home: "الرئيسية",
+    my_orders: "طلباتي",
+    concatUs: "تواصل معنا",
+    privacy: " سياسة الخصوصية",
+    women: " شؤون المرأة",
+    consultant: "   الإستشارات",
+    courses: "التدريب",
+    cart: "السلة",
+    shop_search: "بحث",
+    shop_like: "المفضلة",
+    profile: "الصفحة الشخصية",
+    logout: " تسجيل الخروج",
+    register: "انشاء حساب",
+    login: "تسجيل الدخول",
+    for_help: " للمساعدة والدعم"
   },
-  AUTH: {
-    GENERAL: {
-      OR: "Or",
-      SUBMIT_BUTTON: "Submit",
-      NO_ACCOUNT: "Don't have an account?",
-      SIGNUP_BUTTON: "Sign Up",
-      FORGOT_BUTTON: "Forgot Password",
-      BACK_BUTTON: "Back",
-      PRIVACY: "Privacy",
-      LEGAL: "Legal",
-      CONTACT: "Contact"
-    },
-    LOGIN: {
-      TITLE: "Login Account",
-      BUTTON: "Sign In"
-    },
-    FORGOT: {
-      TITLE: "Forgot Password?",
-      DESC: "Enter your email to reset your password",
-      SUCCESS: "Your account has been successfully reset."
-    },
-    REGISTER: {
-      TITLE: "Sign Up",
-      DESC: "Enter your details to create your account",
-      SUCCESS: "Your account has been successfuly registered."
-    },
-    INPUT: {
-      EMAIL: "Email",
-      FULLNAME: "Fullname",
-      PASSWORD: "Password",
-      CONFIRM_PASSWORD: "Confirm Password",
-      USERNAME: "Username"
-    },
-    VALIDATION: {
-      INVALID: "{{name}} is not valid",
-      REQUIRED: "{{name}} is required",
-      MIN_LENGTH: "{{name}} minimum length is {{min}}",
-      AGREEMENT_REQUIRED: "Accepting terms & conditions are required",
-      NOT_FOUND: "The requested {{name}} is not found",
-      INVALID_LOGIN: "The login detail is incorrect",
-      REQUIRED_FIELD: "Required field",
-      MIN_LENGTH_FIELD: "Minimum field length:",
-      MAX_LENGTH_FIELD: "Maximum field length:",
-      INVALID_FIELD: "Field is not valid"
-    }
-  },
-  ECOMMERCE: {
-    COMMON: {
-      SELECTED_RECORDS_COUNT: "Selected records count: ",
-      ALL: "All",
-      SUSPENDED: "Suspended",
-      ACTIVE: "Active",
-      FILTER: "Filter",
-      BY_STATUS: "by Status",
-      BY_TYPE: "by Type",
-      BUSINESS: "Business",
-      INDIVIDUAL: "Individual",
-      SEARCH: "Search",
-      IN_ALL_FIELDS: "in all fields"
-    },
-    ECOMMERCE: "eCommerce",
-    CUSTOMERS: {
-      CUSTOMERS: "Customers",
-      CUSTOMERS_LIST: "Customers list",
-      NEW_CUSTOMER: "New Customer",
-      DELETE_CUSTOMER_SIMPLE: {
-        TITLE: "Customer Delete",
-        DESCRIPTION: "Are you sure to permanently delete this customer?",
-        WAIT_DESCRIPTION: "Customer is deleting...",
-        MESSAGE: "Customer has been deleted"
-      },
-      DELETE_CUSTOMER_MULTY: {
-        TITLE: "Customers Delete",
-        DESCRIPTION: "Are you sure to permanently delete selected customers?",
-        WAIT_DESCRIPTION: "Customers are deleting...",
-        MESSAGE: "Selected customers have been deleted"
-      },
-      UPDATE_STATUS: {
-        TITLE: "Status has been updated for selected customers",
-        MESSAGE: "Selected customers status have successfully been updated"
-      },
-      EDIT: {
-        UPDATE_MESSAGE: "Customer has been updated",
-        ADD_MESSAGE: "Customer has been created"
-      }
-    }
+  concatUs: {
+    concatUs: "راسلنا",
+    name: "الاسم",
+    gov: "المنظمة",
+    email: "الايميل",
+    phone: "رقم الهاتف ",
+    message: "الرسالة",
+    submit: "ارسال",
+    concatInfo: "معلومات التواصل ",
+    workHour: "ساعات الدوام",
+    workHourInfo: " السبت - الاربعاء\n" + "  9:00 صباحاً - 2:00 ظهراً",
+    Location: "العنوان",
+    LocationInfo: "المكتب التنفيذي\n" + "  صنعاء - التحرير خلف البنك المركزي",
+    username: ""
   }
 };
 
@@ -109221,106 +110242,178 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "locale", function() { return locale; });
 // USA
 var locale = {
-  TRANSLATOR: {
-    SELECT: "Select your language"
-  },
   MENU: {
-    NEW: "new",
-    ACTIONS: "Actions",
-    CREATE_POST: "Create New Post",
-    PAGES: "Pages",
-    FEATURES: "Features",
-    APPS: "Apps",
-    DASHBOARD: "Dashboard"
+    shop: "Shop ",
+    home: "Home",
+    my_orders: "My Orders",
+    concatUs: "Concat Us",
+    privacy: "Privacy",
+    women: " Women ",
+    consultant: "Consultant",
+    courses: "Training",
+    cart: "Cart",
+    shop_search: "Search",
+    shop_like: "Favourite",
+    profile: "Profile ",
+    logout: " Logout ",
+    register: "Register ",
+    login: "Login",
+    for_help: "For Help "
   },
-  AUTH: {
-    GENERAL: {
-      OR: "Or",
-      SUBMIT_BUTTON: "Submit",
-      NO_ACCOUNT: "Don't have an account?",
-      SIGNUP_BUTTON: "Sign Up",
-      FORGOT_BUTTON: "Forgot Password",
-      BACK_BUTTON: "Back",
-      PRIVACY: "Privacy",
-      LEGAL: "Legal",
-      CONTACT: "Contact"
-    },
-    LOGIN: {
-      TITLE: "Login Account",
-      BUTTON: "Sign In"
-    },
-    FORGOT: {
-      TITLE: "Forgot Password?",
-      DESC: "Enter your email to reset your password",
-      SUCCESS: "Your account has been successfully reset."
-    },
-    REGISTER: {
-      TITLE: "Sign Up",
-      DESC: "Enter your details to create your account",
-      SUCCESS: "Your account has been successfuly registered."
-    },
-    INPUT: {
-      EMAIL: "Email",
-      FULLNAME: "Fullname",
-      PASSWORD: "Password",
-      CONFIRM_PASSWORD: "Confirm Password",
-      USERNAME: "Username"
-    },
-    VALIDATION: {
-      INVALID: "{{name}} is not valid",
-      REQUIRED: "{{name}} is required",
-      MIN_LENGTH: "{{name}} minimum length is {{min}}",
-      AGREEMENT_REQUIRED: "Accepting terms & conditions are required",
-      NOT_FOUND: "The requested {{name}} is not found",
-      INVALID_LOGIN: "The login detail is incorrect",
-      REQUIRED_FIELD: "Required field",
-      MIN_LENGTH_FIELD: "Minimum field length:",
-      MAX_LENGTH_FIELD: "Maximum field length:",
-      INVALID_FIELD: "Field is not valid"
-    }
-  },
-  ECOMMERCE: {
-    COMMON: {
-      SELECTED_RECORDS_COUNT: "Selected records count: ",
-      ALL: "All",
-      SUSPENDED: "Suspended",
-      ACTIVE: "Active",
-      FILTER: "Filter",
-      BY_STATUS: "by Status",
-      BY_TYPE: "by Type",
-      BUSINESS: "Business",
-      INDIVIDUAL: "Individual",
-      SEARCH: "Search",
-      IN_ALL_FIELDS: "in all fields"
-    },
-    ECOMMERCE: "eCommerce",
-    CUSTOMERS: {
-      CUSTOMERS: "Customers",
-      CUSTOMERS_LIST: "Customers list",
-      NEW_CUSTOMER: "New Customer",
-      DELETE_CUSTOMER_SIMPLE: {
-        TITLE: "Customer Delete",
-        DESCRIPTION: "Are you sure to permanently delete this customer?",
-        WAIT_DESCRIPTION: "Customer is deleting...",
-        MESSAGE: "Customer has been deleted"
-      },
-      DELETE_CUSTOMER_MULTY: {
-        TITLE: "Customers Delete",
-        DESCRIPTION: "Are you sure to permanently delete selected customers?",
-        WAIT_DESCRIPTION: "Customers are deleting...",
-        MESSAGE: "Selected customers have been deleted"
-      },
-      UPDATE_STATUS: {
-        TITLE: "Status has been updated for selected customers",
-        MESSAGE: "Selected customers status have successfully been updated"
-      },
-      EDIT: {
-        UPDATE_MESSAGE: "Customer has been updated",
-        ADD_MESSAGE: "Customer has been created"
-      }
-    }
+  concatUs: {
+    concatUs: "concatUs",
+    name: "name",
+    gov: "gov",
+    email: "email",
+    phone: "phone  ",
+    message: "message",
+    submit: "submit",
+    concatInfo: "concat Info  ",
+    workHour: "work Hour ",
+    workHourInfo: " Saturday - Wednesday\n" + "  9:00 AM - 2:00 PM",
+    Location: "Location",
+    LocationInfo: "Executive Office Sanaa - Tahrir behind the Central Bank",
+    username: ""
   }
 };
+
+/***/ }),
+
+/***/ "./resources/js/layout/DropdownLanguage.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/layout/DropdownLanguage.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DropdownLanguage_vue_vue_type_template_id_3e3fcc40___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DropdownLanguage.vue?vue&type=template&id=3e3fcc40& */ "./resources/js/layout/DropdownLanguage.vue?vue&type=template&id=3e3fcc40&");
+/* harmony import */ var _DropdownLanguage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DropdownLanguage.vue?vue&type=script&lang=js& */ "./resources/js/layout/DropdownLanguage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _DropdownLanguage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DropdownLanguage_vue_vue_type_template_id_3e3fcc40___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _DropdownLanguage_vue_vue_type_template_id_3e3fcc40___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/layout/DropdownLanguage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/layout/DropdownLanguage.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/layout/DropdownLanguage.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DropdownLanguage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./DropdownLanguage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/layout/DropdownLanguage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DropdownLanguage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/layout/DropdownLanguage.vue?vue&type=template&id=3e3fcc40&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/layout/DropdownLanguage.vue?vue&type=template&id=3e3fcc40& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DropdownLanguage_vue_vue_type_template_id_3e3fcc40___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./DropdownLanguage.vue?vue&type=template&id=3e3fcc40& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/layout/DropdownLanguage.vue?vue&type=template&id=3e3fcc40&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DropdownLanguage_vue_vue_type_template_id_3e3fcc40___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DropdownLanguage_vue_vue_type_template_id_3e3fcc40___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/layout/Header.vue":
+/*!****************************************!*\
+  !*** ./resources/js/layout/Header.vue ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Header_vue_vue_type_template_id_a55d1ab8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Header.vue?vue&type=template&id=a55d1ab8& */ "./resources/js/layout/Header.vue?vue&type=template&id=a55d1ab8&");
+/* harmony import */ var _Header_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Header.vue?vue&type=script&lang=js& */ "./resources/js/layout/Header.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Header_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Header_vue_vue_type_template_id_a55d1ab8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Header_vue_vue_type_template_id_a55d1ab8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/layout/Header.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/layout/Header.vue?vue&type=script&lang=js&":
+/*!*****************************************************************!*\
+  !*** ./resources/js/layout/Header.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Header.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/layout/Header.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/layout/Header.vue?vue&type=template&id=a55d1ab8&":
+/*!***********************************************************************!*\
+  !*** ./resources/js/layout/Header.vue?vue&type=template&id=a55d1ab8& ***!
+  \***********************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_template_id_a55d1ab8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Header.vue?vue&type=template&id=a55d1ab8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/layout/Header.vue?vue&type=template&id=a55d1ab8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_template_id_a55d1ab8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_template_id_a55d1ab8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
@@ -109603,6 +110696,47 @@ router.beforeEach(function (to, from, next) {
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
+
+/***/ }),
+
+/***/ "./resources/js/services/i18n.service.js":
+/*!***********************************************!*\
+  !*** ./resources/js/services/i18n.service.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var i18nService = {
+  defaultLanguage: "ar",
+  languages: [{
+    lang: "en",
+    name: "English",
+    flag: "/flags/226-united-states.svg"
+  }, {
+    lang: "ar",
+    name: "Arabic",
+    flag: "/flags/232-yemen.svg"
+  }],
+
+  /**
+   * Keep the active language in the localStorage
+   * @param lang
+   */
+  setActiveLanguage: function setActiveLanguage(lang) {
+    localStorage.setItem("lang", lang);
+  },
+
+  /**
+   * Get the current active language
+   * @returns {string | string}
+   */
+  getActiveLanguage: function getActiveLanguage() {
+    return localStorage.getItem("lang") || this.defaultLanguage;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (i18nService);
 
 /***/ }),
 
