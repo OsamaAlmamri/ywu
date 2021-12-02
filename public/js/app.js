@@ -3342,6 +3342,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -8632,6 +8636,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
 //
 //
 //
@@ -77353,7 +77358,7 @@ var render = function() {
             {
               ref: "modal",
               attrs: {
-                title: "اضافة استشارة جديدة",
+                title: _vm.$t("consultants.add"),
                 blocking: true,
                 "enable-mobile-fullscreen": true,
                 "pulse-on-block": true,
@@ -77368,7 +77373,7 @@ var render = function() {
                   [
                     _c("fieldset", { staticClass: "the-fieldset" }, [
                       _c("legend", { staticClass: "the-legend" }, [
-                        _vm._v("عنوان الاستشارة *")
+                        _vm._v(_vm._s(_vm.$t("consultants.title")) + " *")
                       ]),
                       _vm._v(" "),
                       _c("input", {
@@ -77406,7 +77411,7 @@ var render = function() {
                   [
                     _c("fieldset", { staticClass: "the-fieldset" }, [
                       _c("legend", { staticClass: "the-legend" }, [
-                        _vm._v("نص الاستشارة")
+                        _vm._v(" " + _vm._s(_vm.$t("consultants.body")) + "  ")
                       ]),
                       _vm._v(" "),
                       _c("textarea", {
@@ -77438,7 +77443,9 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _c("h5", [_vm._v("نوع الاستشارة ")]),
+                _c("h5", [
+                  _vm._v(" " + _vm._s(_vm.$t("consultants.category")) + " ")
+                ]),
                 _vm._v(" "),
                 _c("section", { staticClass: "student-profile-section" }, [
                   _c("div", { staticClass: "inner-column" }, [
@@ -77467,8 +77474,13 @@ var render = function() {
                               },
                               [
                                 _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(category.name) +
+                                  "\n\n                                        " +
+                                    _vm._s(
+                                      _vm.oneLang(
+                                        category.name,
+                                        category.name_en
+                                      )
+                                    ) +
                                     "\n                                    "
                                 )
                               ]
@@ -77494,7 +77506,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("تم")]
+                  [_vm._v(_vm._s(_vm.$t("done")))]
                 )
               ])
             ]
@@ -77543,7 +77555,9 @@ var render = function() {
                             _c("div", { staticClass: "pull-right" }, [
                               _c("h3", [
                                 _vm._v(
-                                  ' نتائج البحث عن "' +
+                                  " " +
+                                    _vm._s(_vm.$t("search.result")) +
+                                    ' "' +
                                     _vm._s(_vm.search_data) +
                                     '"'
                                 )
@@ -77561,7 +77575,13 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_vm._v("اغلاق نتائج البحث")]
+                                [
+                                  _vm._v(
+                                    " " +
+                                      _vm._s(_vm.$t("search.close")) +
+                                      "\n                                        "
+                                  )
+                                ]
                               )
                             ])
                           ])
@@ -77608,7 +77628,15 @@ var render = function() {
                     },
                     [
                       _c("div", { staticClass: "our-courses" }, [
-                        _vm._m(0),
+                        _c("div", { staticClass: "options-view" }, [
+                          _c("div", { staticClass: "clearfix" }, [
+                            _c("div", { staticClass: "pull-right" }, [
+                              _c("h3", [
+                                _vm._v(_vm._s(_vm.$t("MENU.consultant")) + " ")
+                              ])
+                            ])
+                          ])
+                        ]),
                         _vm._v(" "),
                         _c(
                           "div",
@@ -77689,7 +77717,10 @@ var render = function() {
                     },
                     [
                       _c("recent-posts", {
-                        attrs: { name: "اخر الإستشارات", type: "posts" }
+                        attrs: {
+                          name: _vm.$t("consultants.last"),
+                          type: "posts"
+                        }
                       })
                     ],
                     1
@@ -77704,20 +77735,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "options-view" }, [
-      _c("div", { staticClass: "clearfix" }, [
-        _c("div", { staticClass: "pull-right" }, [
-          _c("h3", [_vm._v("الإستشارات ")])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -77789,7 +77807,13 @@ var render = function() {
                       [
                         _c("li", [
                           comment.is_consonant == 1
-                            ? _c("span", [_vm._v("  الاستشاري : ")])
+                            ? _c("span", [
+                                _vm._v(
+                                  "  " +
+                                    _vm._s(_vm.$t("consultants.consonant")) +
+                                    " : "
+                                )
+                              ])
                             : _vm._e(),
                           _vm._v(
                             "\n                            " +
@@ -77832,7 +77856,7 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_vm._v("تعديل")]
+                                [_vm._v(_vm._s(_vm.$t("edit")))]
                               ),
                               _vm._v(" "),
                               _c(
@@ -77847,7 +77871,7 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_vm._v(" حذف ")]
+                                [_vm._v(" " + _vm._s(_vm.$t("delete")) + " ")]
                               )
                             ]
                           )
@@ -77883,7 +77907,7 @@ var render = function() {
               [
                 _c("fieldset", { staticClass: "the-fieldset" }, [
                   _c("legend", { staticClass: "the-legend" }, [
-                    _vm._v(" اضاافة تعليق")
+                    _vm._v(" " + _vm._s(_vm.$t("add_comment")))
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "input-group mb-3" }, [
@@ -77928,8 +77952,8 @@ var render = function() {
                             "\n                                " +
                               _vm._s(
                                 _vm.edit == false
-                                  ? "اضافة التعليق"
-                                  : "حفظ التعديل"
+                                  ? _vm.$t("save")
+                                  : _vm.$t("edit")
                               ) +
                               "\n                            "
                           )
@@ -77952,7 +77976,9 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "الغاء التعديل\n                            "
+                                "\n\n\n                                " +
+                                  _vm._s(_vm.$t("cancel")) +
+                                  "\n                            "
                               )
                             ]
                           )
@@ -77997,12 +78023,22 @@ var render = function() {
                 staticStyle: { display: "inline-block", "list-style": "none" }
               },
               [
-                _c("li", [_vm._v(" " + _vm._s(_vm.post.category.name))]),
+                _c("li", [
+                  _vm._v(
+                    " " +
+                      _vm._s(
+                        _vm.oneLang(
+                          _vm.post.category.name,
+                          _vm.post.category.name_en
+                        )
+                      )
+                  )
+                ]),
                 _vm._v(" "),
                 _c("li", [
                   _c("i", { staticClass: "fa fa-clock-o" }),
                   _vm._v(
-                    "\n                    " +
+                    "\n\n                    " +
                       _vm._s(_vm.post.published) +
                       "\n                "
                   )
@@ -78034,7 +78070,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("تعديل")]
+                      [_vm._v(_vm._s(_vm.$t("edit")))]
                     ),
                     _vm._v(" "),
                     _c(
@@ -78049,7 +78085,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v(" حذف ")]
+                      [_vm._v(" " + _vm._s(_vm.$t("delete")) + " ")]
                     )
                   ])
                 ])
@@ -78106,7 +78142,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("( عرض المزيد) ")]
+                [_vm._v(" (" + _vm._s(_vm.$t("more")) + ")")]
               )
             : _vm._e(),
           _vm._v(" "),
@@ -78120,7 +78156,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v(" (عرض اقل)  ")]
+                [_vm._v(" (" + _vm._s(_vm.$t("less")) + ")  ")]
               )
             : _vm._e(),
           _vm._v(" "),
@@ -86727,7 +86763,7 @@ var render = function() {
                       attrs: {
                         type: "search",
                         value: "",
-                        placeholder: " هل تبحث عن شيء ؟",
+                        placeholder: _vm.$t("search.description"),
                         required: ""
                       },
                       domProps: { value: _vm.searchData },
@@ -87896,7 +87932,9 @@ var render = function() {
             [
               _vm._v(
                 "\n\n                " +
-                  _vm._s(_vm.women_post.title) +
+                  _vm._s(
+                    _vm.oneLang(_vm.women_post.title, _vm.women_post.title_en)
+                  ) +
                   "\n            "
               )
             ]
@@ -87907,7 +87945,13 @@ var render = function() {
       _vm._v(" "),
       _c("div", {
         staticClass: "text",
-        domProps: { innerHTML: _vm._s(_vm.getFirst20Word(_vm.women_post.body)) }
+        domProps: {
+          innerHTML: _vm._s(
+            _vm.getFirst20Word(
+              _vm.oneLang(_vm.women_post.body, _vm.women_post.body_en)
+            )
+          )
+        }
       }),
       _vm._v(" "),
       _c("div", { staticClass: "clearfix" }, [
@@ -107647,6 +107691,9 @@ Vue.mixin({
     };
   },
   methods: {
+    oneLang: function oneLang(txt_ar, txt_en) {
+      return localStorage.getItem("lang") == 'en' ? txt_en : txt_ar;
+    },
     trans: function trans(text) {
       return _plugins_vue_i18n__WEBPACK_IMPORTED_MODULE_6__["default"].t(text);
     },
@@ -110225,7 +110272,28 @@ var locale = {
     Location: "العنوان",
     LocationInfo: "المكتب التنفيذي\n" + "  صنعاء - التحرير خلف البنك المركزي",
     username: ""
-  }
+  },
+  consultants: {
+    "add": "اضافة استشارة جديدة",
+    "title": "عنوان الاستشارة",
+    "category": "نوع الاستشارة",
+    "body": "نص الاستشارة  ",
+    "last": "اخر الإستشارات",
+    consonant: "الاستشاري"
+  },
+  search: {
+    result: "نتائج البحث عن ",
+    close: "اغلاق نتائج البحث ",
+    description: "  هل تبحث عن شيء ؟ "
+  },
+  done: "تم",
+  edit: "تعديل",
+  "delete": "حذف",
+  cancel: "الغاء",
+  save: "حفظ",
+  add_comment: "اضافة تعليق",
+  more: "عرض المزيد ",
+  less: "عرض اقل  "
 };
 
 /***/ }),

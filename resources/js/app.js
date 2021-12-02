@@ -50,7 +50,9 @@ Vue.mixin({
         };
     },
     methods: {
-        trans: function (text){
+        oneLang: function (txt_ar,txt_en){
+            return (localStorage.getItem("lang")=='en')?txt_en:txt_ar;
+        },  trans: function (text){
             return (i18n.t(text));
         },
         countWords: function (text, no_words) {

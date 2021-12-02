@@ -22,11 +22,11 @@
             <h5>
                 <router-link  @click.native="$scrollToTop"  :to="{ name: 'women_details', params: { id: women_post.id}}">
 
-                    {{women_post.title}}
+                    {{oneLang(women_post.title,women_post.title_en)}}
                 </router-link>
             </h5>
 
-            <div class="text" v-html="getFirst20Word(women_post.body)"></div>
+            <div class="text" v-html="getFirst20Word(oneLang(women_post.body,women_post.body_en))"></div>
 
             <div class="clearfix">
                 <div class="pull-right">

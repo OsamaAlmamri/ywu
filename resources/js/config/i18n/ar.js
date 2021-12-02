@@ -19,24 +19,46 @@ export const locale = {
         for_help: " للمساعدة والدعم",
 
     },
-    concatUs:{
+    concatUs: {
 
-        concatUs:"راسلنا",
-        name:"الاسم",
-        gov:"المنظمة",
-        email:"الايميل",
-        phone:"رقم الهاتف ",
-        message:"الرسالة",
-        submit:"ارسال",
-        concatInfo:"معلومات التواصل ",
-        workHour:"ساعات الدوام",
-        workHourInfo:" السبت - الاربعاء\n" +
+        concatUs: "راسلنا",
+        name: "الاسم",
+        gov: "المنظمة",
+        email: "الايميل",
+        phone: "رقم الهاتف ",
+        message: "الرسالة",
+        submit: "ارسال",
+        concatInfo: "معلومات التواصل ",
+        workHour: "ساعات الدوام",
+        workHourInfo: " السبت - الاربعاء\n" +
             "  9:00 صباحاً - 2:00 ظهراً",
-        Location:"العنوان",
-        LocationInfo:"المكتب التنفيذي\n" +
+        Location: "العنوان",
+        LocationInfo: "المكتب التنفيذي\n" +
             "  صنعاء - التحرير خلف البنك المركزي",
-        username:"",
+        username: "",
 
-    }
+    },
+    consultants: {
+        "add": "اضافة استشارة جديدة",
+        "title": "عنوان الاستشارة",
+        "category": "نوع الاستشارة",
+        "body": "نص الاستشارة  ",
+        "last": "اخر الإستشارات",
+        consonant :"الاستشاري"
+    },
+    search:
+        {
+            result: "نتائج البحث عن ",
+            close: "اغلاق نتائج البحث ",
+            description: "  هل تبحث عن شيء ؟ "
+        },
+    done: "تم",
+    edit: "تعديل",
+    delete: "حذف",
+    cancel: "الغاء",
+    save: "حفظ",
+    add_comment: "اضافة تعليق",
+    more: "عرض المزيد ",
+    less: "عرض اقل  ",
 
 };

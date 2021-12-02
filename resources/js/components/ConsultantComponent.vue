@@ -19,7 +19,7 @@
                  style="display: block;">
                 <span class="fa fa-comment" v-show="authUser"></span>
             </div>
-            <sweet-modal :title="'اضافة استشارة جديدة'"
+            <sweet-modal :title="$t('consultants.add')"
                          :blocking=true :enable-mobile-fullscreen=true
                          :pulse-on-block=true
                          :overlay-theme="'dark'" ref="modal">
@@ -27,27 +27,27 @@
 
                     <div class="form-group" style="width: 100%">
                         <fieldset class="the-fieldset">
-                            <legend class="the-legend">عنوان الاستشارة *</legend>
+                            <legend class="the-legend">{{$t("consultants.title")}} *</legend>
                             <input style="width: 100%" type="text" v-model="newPostData.title" required="">
                         </fieldset>
                     </div>
                     <div class="form-group" style="width: 100%">
                         <fieldset class="the-fieldset">
-                            <legend class="the-legend">نص الاستشارة</legend>
+                            <legend class="the-legend"> {{$t("consultants.body")}}  </legend>
                             <textarea style="width: 100%" rows="4" class="" v-model="newPostData.body"></textarea>
                         </fieldset>
                     </div>
-                    <h5>نوع الاستشارة </h5>
+                    <h5> {{$t("consultants.category")}} </h5>
                     <section class="student-profile-section">
                         <div class="inner-column">
                             <div class="profile-info-tabs">
                                 <div class="profile-tabs tabs-box">
                                     <ul class="tab-btns tab-buttons clearfix">
-
                                         <li v-for="(category,key) in categories"
                                             @click="changeCategoryType(category.id)"
                                             :class="['user_type_tap', 'tab-btn',{'active-btn':(newPostData.category_id==category.id)}]">
-                                            {{category.name}}
+
+                                            {{ oneLang(category.name,category.name_en) }}
                                         </li>
                                     </ul>
                                 </div>
@@ -57,7 +57,7 @@
 
                 </div>
                 <div slot="button">
-                    <button class="btn btn-info" @click.prevent="(edit==false)?savePost():updatePost()">تم</button>
+                    <button class="btn btn-info" @click.prevent="(edit==false)?savePost():updatePost()">{{$t('done')}}</button>
                 </div>
 
             </sweet-modal>
@@ -80,10 +80,11 @@
                             <div class="options-view">
                                 <div class="clearfix">
                                     <div class="pull-right">
-                                        <h3> نتائج البحث عن "{{search_data}}"</h3>
+                                        <h3> {{$t('search.result')}} "{{search_data}}"</h3>
                                     </div>
                                     <div class="pull-left">
-                                        <button class="btn btn-info" @click="is_search=false">اغلاق نتائج البحث</button>
+                                        <button class="btn btn-info" @click="is_search=false"> {{$t('search.close')}}
+                                            </button>
                                     </div>
 
                                 </div>
@@ -120,7 +121,7 @@
                             <div class="options-view">
                                 <div class="clearfix">
                                     <div class="pull-right">
-                                        <h3>الإستشارات </h3>
+                                        <h3>{{ $t("MENU.consultant") }} </h3>
                                     </div>
 
                                 </div>
@@ -159,9 +160,8 @@
 
                     <!-- Sidebar Side -->
                     <div class="sidebar-side style-two col-lg-4 col-md-12 col-sm-12">
-                        <recent-posts name="اخر الإستشارات" type="posts"></recent-posts>
+                        <recent-posts :name="$t('consultants.last')" type="posts"></recent-posts>
                     </div>
-
                 </div>
 
 
@@ -299,7 +299,6 @@
                 // console.log('User cancelled the loader.')
             },
             setSearchResult(data) {
-
                 this.is_search = true;
                 this.search_data = data.title;
                 this.search_result = data.data;

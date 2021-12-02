@@ -13,7 +13,7 @@
                         <ul style="display: inline-block; list-style: none"
                             :class="{condultant_comment:comment.is_consonant==1}">
                             <li>
-                                <span v-if="comment.is_consonant==1">  الاستشاري : </span>
+                                <span v-if="comment.is_consonant==1">  {{ $t('consultants.consonant') }} : </span>
                                 {{comment.user.name}}
                             </li>
                             <li> {{comment.published}}</li>
@@ -25,9 +25,9 @@
                         <dropdown v-if="authUser.id==comment.user_id">
                             <div slot="items">
                                 <a class="dropdown-item" href="#"
-                                   @click.prevent="edit_comment(key,comment)">تعديل</a>
+                                   @click.prevent="edit_comment(key,comment)">{{ $t('edit') }}</a>
                                 <a class="dropdown-item" href="#"
-                                   @click.prevent="deleteComment(key,comment)"> حذف </a>
+                                   @click.prevent="deleteComment(key,comment)"> {{ $t('delete') }} </a>
                             </div>
                         </dropdown>
 
@@ -43,18 +43,21 @@
             <div class="row clearfix">
                 <div class="form-group" style="width: 100%">
                     <fieldset class="the-fieldset">
-                        <legend class="the-legend"> اضاافة تعليق</legend>
+                        <legend class="the-legend"> {{$t('add_comment')}}</legend>
                         <div class="input-group mb-3">
                             <textarea style="width: 100%" rows="3" class="" v-model="newComment.body"></textarea>
                             <div class="input-group-append">
                                 <button class="btn btn-info"
                                         @click.prevent="(edit==false)?saveComment():updateComment()">
-                                    {{(edit==false)?'اضافة التعليق':"حفظ التعديل"}}
+                                    {{(edit==false)?$t('save') :$t('edit')   }}
                                 </button>
                             </div>
                             <div class="input-group-append">
                                 <button v-if="edit==true" class="btn btn-secondary"
-                                        @click.prevent="CancelUpdate()">الغاء التعديل
+                                        @click.prevent="CancelUpdate()">
+
+
+                                    {{ $t('cancel') }}
                                 </button>
 
                             </div>
@@ -70,9 +73,10 @@
             </div>
             <div class="col-xs-4 pull-right" style="margin: 15px 15px 0 0">
                 <ul style="display: inline-block; list-style: none" class="">
-                    <li> {{post.category.name}}</li>
+                    <li> {{ oneLang(post.category.name,post.category.name_en) }}</li>
                     <li>
                         <i class="fa fa-clock-o"> </i>
+
                         {{post.published}}
                     </li>
                 </ul>
@@ -82,9 +86,9 @@
                 <dropdown v-if="authUser.id==post.user_id">
                     <div slot="items">
                         <a class="dropdown-item" href="#"
-                           @click.prevent="editPost()">تعديل</a>
+                           @click.prevent="editPost()">{{ $t('edit') }}</a>
                         <a class="dropdown-item" href="#"
-                           @click.prevent="deletePost()"> حذف </a>
+                           @click.prevent="deletePost()"> {{ $t('delete') }} </a>
                     </div>
                 </dropdown>
 
@@ -100,8 +104,8 @@
 
             <div class="post-info" id="targetMore" v-html="textToDisplay">
             </div>
-            <span @click="readmore=!readmore" v-if="post_words.isMore && textMoreToShow">( عرض المزيد) </span>
-            <span @click="readmore=!readmore" v-if="post_words.isMore && !(textMoreToShow)"> (عرض اقل)  </span>
+            <span @click="readmore=!readmore" v-if="post_words.isMore && textMoreToShow"> ({{$t('more')}})</span>
+            <span @click="readmore=!readmore" v-if="post_words.isMore && !(textMoreToShow)"> ({{$t('less')}})  </span>
             <hr>
             <div class="clearfix">
                 <div class="pull-right" style="padding-right: 3em">

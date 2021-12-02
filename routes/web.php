@@ -383,24 +383,24 @@ Auth::routes();
 ///////////////////////////
 ///
 Route::get('/', 'HomeController@index');
-Route::get('/login', 'HomeController@index');
-Route::get('/home', 'HomeController@index')->name('site.home');
-Route::get('/training', 'HomeController@index')->name('site.training');
-Route::get('/courses/{type?}', 'HomeController@index')->name('site.courses');
-Route::get('/consultant', 'HomeController@index')->name('site.consultant');
-Route::get('/shop/seller/{id}', 'HomeController@index');
-Route::get('/women', 'HomeController@index')->name('site.women');
-Route::get('/privacy', 'HomeController@index')->name('site.privacy');
-Route::get('/concatUs', 'HomeController@index')->name('site.concatUs');
-Route::get('/about', 'HomeController@index')->name('site.about');
-Route::get('/course_details/{id?}', 'HomeController@index')->name('site.course_detail');
-Route::get('/womwn_details/{id?}', 'HomeController@index')->name('site.womwn_details');
-Route::get('/product_details/{id?}', 'HomeController@index')->name('site.product_details');
-Route::get('/myProfile', 'HomeController@index')->name('site.myProfile');
-Route::get('/site_login', 'HomeController@login')->name('site.login');
-Route::get('/register', 'HomeController@register')->name('site.register');
-//Route::get('/login', 'HomeController@register')->name('site.login');
-Route::post('zones/getZones', 'HomeController@getZones')->name('zones.getZones');
+//Route::get('/login', 'HomeController@index');
+//Route::get('/home', 'HomeController@index')->name('site.home');
+//Route::get('/training', 'HomeController@index')->name('site.training');
+//Route::get('/courses/{type?}', 'HomeController@index')->name('site.courses');
+//Route::get('/consultant', 'HomeController@index')->name('site.consultant');
+//Route::get('/shop/seller/{id}', 'HomeController@index');
+//Route::get('/women', 'HomeController@index')->name('site.women');
+//Route::get('/privacy', 'HomeController@index')->name('site.privacy');
+//Route::get('/concatUs', 'HomeController@index')->name('site.concatUs');
+//Route::get('/about', 'HomeController@index')->name('site.about');
+//Route::get('/course_details/{id?}', 'HomeController@index')->name('site.course_detail');
+//Route::get('/womwn_details/{id?}', 'HomeController@index')->name('site.womwn_details');
+//Route::get('/product_details/{id?}', 'HomeController@index')->name('site.product_details');
+//Route::get('/myProfile', 'HomeController@index')->name('site.myProfile');
+//Route::get('/site_login', 'HomeController@login')->name('site.login');
+//Route::get('/register', 'HomeController@register')->name('site.register');
+////Route::get('/login', 'HomeController@register')->name('site.login');
+//Route::post('zones/getZones', 'HomeController@getZones')->name('zones.getZones');
 Route::get('download_app', function () {
     $id = setting('app_link');
     $headers = [
