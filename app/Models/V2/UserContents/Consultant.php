@@ -58,11 +58,7 @@ class Consultant extends Model
 
     public function scopeOfCategory($query, $cat)
     {
-        if ($cat == 1)
-            return $query->whereIn('category_id', [1, 2]);
-        else if ($cat == 2)
-            return $query->whereIn('category_id', [3]);
-        else if ($cat > 2)
+        if ($cat >= 1)
             return $query->whereIn('category_id', $cat);
         else return $query;
     }

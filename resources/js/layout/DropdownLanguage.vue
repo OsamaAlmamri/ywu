@@ -42,6 +42,7 @@
 <script>
 import i18nService from "@/services/i18n.service.js";
 import i18n from "@/plugins/vue-i18n";
+import router from "../routes";
 export default {
     name: "KTDropdownLanguage",
     data() {
@@ -77,6 +78,9 @@ export default {
             body.setAttribute("dir", dir);
             body.setAttribute("direction", dir);
             document.cookie = "style_lang=" + lang + "; path=/";
+
+            if (router.currentRoute.name=='women')
+                window.location.reload();
         },
         isActiveLanguage(current) {
             return this.activeLanguage === current;

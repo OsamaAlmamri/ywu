@@ -18,6 +18,7 @@ class WomenPosts extends Model
 
     public function getPublishedAttribute()
     {
+        Carbon::setLocale(request()->header('lang','ar'));
         return Carbon::createFromTimestamp(strtotime($this->attributes['created_at']))->diffForHumans();
     }
 
@@ -41,5 +42,15 @@ class WomenPosts extends Model
     public function category()
     {
         return $this->belongsTo(WomenCategory::class, 'category_id', 'id');
+    }
+
+    public function scopeOfLang($query, $lang)
+    {
+        if ($lang=='en')
+            return $query->whereIn('lang_type', ['en', 'both']);
+        else if ($lang == 'en')
+            return $query->whereIn('lang_type', ['en', 'both']);
+
+        else return $query;
     }
 }

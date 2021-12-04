@@ -52,7 +52,7 @@
                                     {{$t('MENU.profile') }}
                                     </router-link>
                             </li>
-                            <dropdown-language></dropdown-language>
+                            <dropdown-language v-if="$route.name!='women_details'"></dropdown-language>
 
                         </ul>
                     </div>

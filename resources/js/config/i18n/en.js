@@ -2,6 +2,7 @@
 export const locale = {
     MENU: {
         shop: "Shop ",
+        home2: "Shop ",
         home: "Home",
         my_orders: "My Orders",
         concatUs: "Concat Us",

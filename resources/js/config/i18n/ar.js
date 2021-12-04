@@ -1,6 +1,7 @@
 // USA
 export const locale = {
     MENU: {
+        home2: "السوق الإلكتروني",
         shop: "السوق الإلكتروني",
         home: "الرئيسية",
         my_orders: "طلباتي",
@@ -38,18 +39,31 @@ export const locale = {
         username: "",
 
     },
+
+    women: {
+
+        title: "منشورات شؤون المراة"
+    },
     consultants: {
         "add": "اضافة استشارة جديدة",
         "title": "عنوان الاستشارة",
         "category": "نوع الاستشارة",
         "body": "نص الاستشارة  ",
         "last": "اخر الإستشارات",
-        consonant :"الاستشاري"
+        consonant: "الاستشاري"
     },
     search:
         {
+            search: " بحث  ",
             result: "نتائج البحث عن ",
             close: "اغلاق نتائج البحث ",
+            description: "  هل تبحث عن شيء ؟ "
+        },
+    shop:
+        {
+            govs: "  المحافظات ",
+            seller: "  البائعون ",
+            categories: "  الأصناف ",
             description: "  هل تبحث عن شيء ؟ "
         },
     done: "تم",
@@ -60,5 +74,7 @@ export const locale = {
     add_comment: "اضافة تعليق",
     more: "عرض المزيد ",
     less: "عرض اقل  ",
+    filter: " فرز  ",
+    last_posts: " اخر المنشورات  ",
 
 };

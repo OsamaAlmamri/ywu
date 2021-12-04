@@ -21,7 +21,8 @@ Vue.component('ShopCategory', require('./components/ShopCategory.vue').default);
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 
-var api_url = process.env.MIX_APP_URL;
+var api_url ="http://127.0.0.1:8000";
+// var api_url = process.env.MIX_APP_URL;
 
 Vue.prototype.$http = Axios;
 Vue.use(SweetModal)
@@ -33,6 +34,8 @@ const token = localStorage.getItem('token')
 if (token) {
     Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
 }
+Vue.prototype.$http.defaults.headers.common['lang'] = (localStorage.getItem("lang") == 'en') ? 'en' : 'ar';
+
 Vue.prototype.$scrollToTop = () => window.scrollTo(0, 0);
 // if (process.env.MIX_ENV_MODE === 'production') {
 //     Vue.config.devtools = false;
@@ -41,18 +44,20 @@ Vue.prototype.$scrollToTop = () => window.scrollTo(0, 0);
 // }
 
 
-
 Vue.mixin({
     data() {
         return {
             BaseImagePath: 'https://yemenwe.com/'
+            // BaseImagePath: 'https://yemenwe.com/'
             // BaseImagePath: '/assets/images/'
         };
     },
     methods: {
-        oneLang: function (txt_ar,txt_en){
-            return (localStorage.getItem("lang")=='en')?txt_en:txt_ar;
-        },  trans: function (text){
+        oneLang: function (txt_ar, txt_en) {
+            return (localStorage.getItem("lang") == 'en') ? txt_en : txt_ar;
+        },
+
+        trans: function (text) {
             return (i18n.t(text));
         },
         countWords: function (text, no_words) {

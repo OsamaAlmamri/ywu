@@ -25,7 +25,7 @@ class PostController extends Controller
         $limit=20;
 
         $post = WomenPosts::with(['user_like'])
-            ->orderByDesc('id')->paginate($limit);
+            ->ofLang(\request()->header('lang','ar'))->orderByDesc('id')->paginate($limit);
         if (!$post) {
             return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
         } else {

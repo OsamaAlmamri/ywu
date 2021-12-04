@@ -27,30 +27,31 @@
                 <div class="search-boxed" v-if="(this.$route.name != 'shop_seller')">
                     <div class="search-box row">
                         <div class=" col-6 col-md-3">
-                            <label class="typo__label">المحافظات</label>
-                            <multiselect v-model="value" tag-placeholder="اضافة هذالمحافظة"
-                                         placeholder="المحافظات" label="name_ar" track-by="id"
+                            <label class="typo__label">{{ $t('shop.govs') }}</label>
+                            <multiselect v-model="value" :tag-placeholder="$t('add')"
+                                         :placeholder="$t('shop.govs')" :label="oneLang('name_ar','name_en')" track-by="id"
                                          @select="add_gov"
                                          @remove="remove_gov"
                                          :hide-selected="true" :options="govs" :multiple="true"></multiselect>
                         </div>
+
                         <div class=" col-6 col-md-3">
-                            <label class="typo__label">البائعون</label>
+                            <label class="typo__label">{{ $t('shop.seller') }}</label>
                             <multiselect
-                                v-model="seller_value" tag-placeholder="اضافة هذاالبائع"
-                                placeholder="البائعون" label="sale_name" track-by="admin_id"
+                                v-model="seller_value" :tag-placeholder="$t('add')"
+                                :placeholder=" $t('shop.seller')" label="sale_name" track-by="admin_id"
                                 :hide-selected="true" :options="sellers" :multiple="true"></multiselect>
                         </div>
                         <div class=" col-6 col-md-3">
-                            <label class="typo__label">الأصناف</label>
-                            <multiselect v-model="categiries_value" tag-placeholder="اضافة  هذا الصنف"
-                                         placeholder="الأصناف" label="name" track-by="id"
+                            <label class="typo__label"> {{ $t('shop.categories') }} </label>
+                            <multiselect v-model="categiries_value" :tag-placeholder="$t('add')"
+                                         :placeholder="$t('shop.categories') " label="name" track-by="id"
                                          :hide-selected="true" :options="categories" :multiple="true"></multiselect>
                         </div>
                         <div class=" col-6 col-md-3 ">
                             <div class="input-group-append" style="margin-top: 30px;">
                                 <button class="btn btn-primary" style="padding: 7px 58px;"
-                                        @click.prevent="get_product_by_categories22()"> بحث
+                                        @click.prevent="get_product_by_categories22()"> {{ $t('filter') }}
                                 </button>
                             </div>
                         </div>
@@ -66,7 +67,7 @@
                                     <div class="pull-right">
                                         <router-link :to="{ name: 'CategoryProducts', params: { id: section.id}}"
                                                      @click.native="scrollToTop()">
-                                            <h3 style="padding: 5px 50px;">{{ section.name }}</h3>
+                                            <h3 style="padding: 5px 50px; direction: inherit">{{oneLang( section.name , section.name_en)}}</h3>
                                         </router-link>
                                     </div>
                                 </div>

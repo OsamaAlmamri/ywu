@@ -145,7 +145,7 @@ class TrainingController extends Controller
                     ->where('user_id', '!=', $user_id)->where('status', 1)->orderByDesc('id')->limit(5)->get())->type('posts');
 
             else {
-                $data = LastPosts::collection(WomenPosts::orderByDesc('id')->limit(5)->get())->type('women');
+                $data = LastPosts::collection(WomenPosts::orderByDesc('id')->ofLang(\request()->header('lang','ar'))->limit(5)->get())->type('women');
 
             }
             if (!$data) {

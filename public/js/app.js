@@ -4918,6 +4918,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
  // Import stylesheet
 
@@ -8934,6 +8935,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
  // import style (>= Swiper 6.x)
@@ -9157,6 +9159,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_awesome_swiper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-awesome-swiper */ "./node_modules/vue-awesome-swiper/dist/vue-awesome-swiper.js");
 /* harmony import */ var vue_awesome_swiper__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_awesome_swiper__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
 //
 //
 //
@@ -9574,7 +9580,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
  // Import stylesheet
 
@@ -9672,6 +9677,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-loading-overlay/dist/vue-loading.css */ "./node_modules/vue-loading-overlay/dist/vue-loading.css");
 /* harmony import */ var vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_2__);
+//
 //
 //
 //
@@ -9857,7 +9863,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['women_post'],
@@ -9924,6 +9929,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_i18n_service_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/services/i18n.service.js */ "./resources/js/services/i18n.service.js");
 /* harmony import */ var _plugins_vue_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/plugins/vue-i18n */ "./resources/js/plugins/vue-i18n.js");
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../routes */ "./resources/js/routes.js");
 //
 //
 //
@@ -9965,6 +9971,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -10002,6 +10009,7 @@ __webpack_require__.r(__webpack_exports__);
       body.setAttribute("dir", dir);
       body.setAttribute("direction", dir);
       document.cookie = "style_lang=" + lang + "; path=/";
+      if (_routes__WEBPACK_IMPORTED_MODULE_2__["default"].currentRoute.name == 'women') window.location.reload();
     },
     isActiveLanguage: function isActiveLanguage(current) {
       return this.activeLanguage === current;
@@ -80279,7 +80287,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "text" }, [
         _c("span", { staticClass: "theme_color" }, [_vm._v("مرحبــا!")]),
         _vm._v(
-          " قم بتسجيل الدخول للاستفادة بشكل اكبر من\n                        الخدمات الذي يقدمها الموقع\n                    "
+          "\n                        قم بتسجيل الدخول للاستفادة بشكل اكبر من\n                        الخدمات الذي يقدمها الموقع\n                    "
         )
       ])
     ])
@@ -85519,7 +85527,7 @@ var render = function() {
                       [
                         _vm._v(
                           "\n                                    " +
-                            _vm._s(post.title) +
+                            _vm._s(_vm.oneLang(post.title, post.title_en)) +
                             "\n                                "
                         )
                       ]
@@ -85530,7 +85538,11 @@ var render = function() {
                 _vm._v(" "),
                 _c("div", {
                   staticClass: "post-info",
-                  domProps: { innerHTML: _vm._s(_vm.getFirst20Word(post.body)) }
+                  domProps: {
+                    innerHTML: _vm._s(
+                      _vm.getFirst20Word(_vm.oneLang(post.body, post.body_en))
+                    )
+                  }
                 })
               ])
             ])
@@ -86893,14 +86905,14 @@ var render = function() {
                       { staticClass: " col-6 col-md-3" },
                       [
                         _c("label", { staticClass: "typo__label" }, [
-                          _vm._v("المحافظات")
+                          _vm._v(_vm._s(_vm.$t("shop.govs")))
                         ]),
                         _vm._v(" "),
                         _c("multiselect", {
                           attrs: {
-                            "tag-placeholder": "اضافة هذالمحافظة",
-                            placeholder: "المحافظات",
-                            label: "name_ar",
+                            "tag-placeholder": _vm.$t("add"),
+                            placeholder: _vm.$t("shop.govs"),
+                            label: _vm.oneLang("name_ar", "name_en"),
                             "track-by": "id",
                             "hide-selected": true,
                             options: _vm.govs,
@@ -86924,13 +86936,13 @@ var render = function() {
                       { staticClass: " col-6 col-md-3" },
                       [
                         _c("label", { staticClass: "typo__label" }, [
-                          _vm._v("البائعون")
+                          _vm._v(_vm._s(_vm.$t("shop.seller")))
                         ]),
                         _vm._v(" "),
                         _c("multiselect", {
                           attrs: {
-                            "tag-placeholder": "اضافة هذاالبائع",
-                            placeholder: "البائعون",
+                            "tag-placeholder": _vm.$t("add"),
+                            placeholder: _vm.$t("shop.seller"),
                             label: "sale_name",
                             "track-by": "admin_id",
                             "hide-selected": true,
@@ -86954,13 +86966,13 @@ var render = function() {
                       { staticClass: " col-6 col-md-3" },
                       [
                         _c("label", { staticClass: "typo__label" }, [
-                          _vm._v("الأصناف")
+                          _vm._v(" " + _vm._s(_vm.$t("shop.categories")) + " ")
                         ]),
                         _vm._v(" "),
                         _c("multiselect", {
                           attrs: {
-                            "tag-placeholder": "اضافة  هذا الصنف",
-                            placeholder: "الأصناف",
+                            "tag-placeholder": _vm.$t("add"),
+                            placeholder: _vm.$t("shop.categories"),
                             label: "name",
                             "track-by": "id",
                             "hide-selected": true,
@@ -86999,7 +87011,13 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v(" بحث\n                            ")]
+                            [
+                              _vm._v(
+                                " " +
+                                  _vm._s(_vm.$t("filter")) +
+                                  "\n                            "
+                              )
+                            ]
                           )
                         ]
                       )
@@ -87043,9 +87061,21 @@ var render = function() {
                                       _c(
                                         "h3",
                                         {
-                                          staticStyle: { padding: "5px 50px" }
+                                          staticStyle: {
+                                            padding: "5px 50px",
+                                            direction: "inherit"
+                                          }
                                         },
-                                        [_vm._v(_vm._s(section.name))]
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.oneLang(
+                                                section.name,
+                                                section.name_en
+                                              )
+                                            )
+                                          )
+                                        ]
                                       )
                                     ]
                                   )
@@ -87165,7 +87195,13 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("p", { staticClass: "category_name" }, [
-                          _vm._v(" " + _vm._s(category.name) + " ")
+                          _vm._v(
+                            " " +
+                              _vm._s(
+                                _vm.oneLang(category.name, category.name_en)
+                              ) +
+                              " "
+                          )
                         ])
                       ]
                     ),
@@ -87529,7 +87565,9 @@ var render = function() {
                             _c("div", { staticClass: "pull-right" }, [
                               _c("h3", [
                                 _vm._v(
-                                  ' نتائج البحث عن "' +
+                                  " " +
+                                    _vm._s(_vm.$t("search.result")) +
+                                    '"' +
                                     _vm._s(_vm.search_data) +
                                     '"'
                                 )
@@ -87547,7 +87585,7 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_vm._v("اغلاق نتائج البحث")]
+                                [_vm._v(_vm._s(_vm.$t("search.close")) + "  ")]
                               )
                             ])
                           ])
@@ -87589,7 +87627,15 @@ var render = function() {
                     },
                     [
                       _c("div", { staticClass: "our-courses" }, [
-                        _vm._m(0),
+                        _c("div", { staticClass: "options-view" }, [
+                          _c("div", { staticClass: "clearfix" }, [
+                            _c("div", { staticClass: "pull-right" }, [
+                              _c("h3", [
+                                _vm._v(" " + _vm._s(_vm.$t("women.title")))
+                              ])
+                            ])
+                          ])
+                        ]),
                         _vm._v(" "),
                         _c(
                           "div",
@@ -87664,7 +87710,7 @@ var render = function() {
                     },
                     [
                       _c("recent-posts", {
-                        attrs: { name: "اخر المنشورات", type: "women" }
+                        attrs: { name: _vm.$t("last_posts"), type: "women" }
                       })
                     ],
                     1
@@ -87679,20 +87725,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "options-view" }, [
-      _c("div", { staticClass: "clearfix" }, [
-        _c("div", { staticClass: "pull-right" }, [
-          _c("h3", [_vm._v(" منشورات شؤون المراة")])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -87788,7 +87821,11 @@ var render = function() {
             [
               _c("div", { staticClass: "blog-detail" }, [
                 _c("div", { staticClass: "inner-box" }, [
-                  _c("h2", [_vm._v(_vm._s(_vm.post.title))]),
+                  _c("h2", [
+                    _vm._v(
+                      _vm._s(_vm.oneLang(_vm.post.title, _vm.post.title_en))
+                    )
+                  ]),
                   _vm._v(" "),
                   _c("ul", { staticClass: "author-info" }, [
                     _c("li", [
@@ -87821,7 +87858,13 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _c("div", { domProps: { innerHTML: _vm._s(_vm.post.body) } })
+                  _c("div", {
+                    domProps: {
+                      innerHTML: _vm._s(
+                        _vm.oneLang(_vm.post.body, _vm.post.body_en)
+                      )
+                    }
+                  })
                 ])
               ])
             ]
@@ -87931,7 +87974,7 @@ var render = function() {
             },
             [
               _vm._v(
-                "\n\n                " +
+                "\n                " +
                   _vm._s(
                     _vm.oneLang(_vm.women_post.title, _vm.women_post.title_en)
                   ) +
@@ -88296,7 +88339,9 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
-                _c("dropdown-language")
+                _vm.$route.name != "women_details"
+                  ? _c("dropdown-language")
+                  : _vm._e()
               ],
               1
             )
@@ -107663,7 +107708,8 @@ Vue.component('recent-posts', __webpack_require__(/*! ./components/RecentPosts.v
 Vue.component('dropdown', __webpack_require__(/*! ./components/dropdown.vue */ "./resources/js/components/dropdown.vue")["default"]);
 Vue.component('ShopCategory', __webpack_require__(/*! ./components/ShopCategory.vue */ "./resources/js/components/ShopCategory.vue")["default"]);
 Vue.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
-var api_url = "https://yemenwe.com";
+var api_url = "http://127.0.0.1:8000"; // var api_url = process.env.MIX_APP_URL;
+
 Vue.prototype.$http = axios__WEBPACK_IMPORTED_MODULE_0___default.a;
 Vue.use(sweet_modal_vue_src_plugin_js__WEBPACK_IMPORTED_MODULE_4__["default"]);
 axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.baseURL = api_url;
@@ -107673,6 +107719,8 @@ var token = localStorage.getItem('token');
 if (token) {
   Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
 }
+
+Vue.prototype.$http.defaults.headers.common['lang'] = localStorage.getItem("lang") == 'en' ? 'en' : 'ar';
 
 Vue.prototype.$scrollToTop = function () {
   return window.scrollTo(0, 0);
@@ -107686,7 +107734,8 @@ Vue.prototype.$scrollToTop = function () {
 Vue.mixin({
   data: function data() {
     return {
-      BaseImagePath: 'https://yemenwe.com/' // BaseImagePath: '/assets/images/'
+      BaseImagePath: 'https://yemenwe.com/' // BaseImagePath: 'https://yemenwe.com/'
+      // BaseImagePath: '/assets/images/'
 
     };
   },
@@ -110241,6 +110290,7 @@ __webpack_require__.r(__webpack_exports__);
 // USA
 var locale = {
   MENU: {
+    home2: "السوق الإلكتروني",
     shop: "السوق الإلكتروني",
     home: "الرئيسية",
     my_orders: "طلباتي",
@@ -110273,6 +110323,9 @@ var locale = {
     LocationInfo: "المكتب التنفيذي\n" + "  صنعاء - التحرير خلف البنك المركزي",
     username: ""
   },
+  women: {
+    title: "منشورات شؤون المراة"
+  },
   consultants: {
     "add": "اضافة استشارة جديدة",
     "title": "عنوان الاستشارة",
@@ -110282,8 +110335,15 @@ var locale = {
     consonant: "الاستشاري"
   },
   search: {
+    search: " بحث  ",
     result: "نتائج البحث عن ",
     close: "اغلاق نتائج البحث ",
+    description: "  هل تبحث عن شيء ؟ "
+  },
+  shop: {
+    govs: "  المحافظات ",
+    seller: "  البائعون ",
+    categories: "  الأصناف ",
     description: "  هل تبحث عن شيء ؟ "
   },
   done: "تم",
@@ -110293,7 +110353,9 @@ var locale = {
   save: "حفظ",
   add_comment: "اضافة تعليق",
   more: "عرض المزيد ",
-  less: "عرض اقل  "
+  less: "عرض اقل  ",
+  filter: " فرز  ",
+  last_posts: " اخر المنشورات  "
 };
 
 /***/ }),
@@ -110312,6 +110374,7 @@ __webpack_require__.r(__webpack_exports__);
 var locale = {
   MENU: {
     shop: "Shop ",
+    home2: "Shop ",
     home: "Home",
     my_orders: "My Orders",
     concatUs: "Concat Us",

@@ -31,14 +31,15 @@
                 <div class="content-side blog-detail-column col-lg-9 col-md-12 col-sm-12">
                     <div class="blog-detail">
                         <div class="inner-box">
-                            <h2>{{post.title}}</h2>
+                            <h2>{{oneLang(post.title,post.title_en)}}</h2>
                             <ul class="author-info">
                                 <li><span class="theme_color">{{post.published}}</span></li>
                             </ul>
                             <div class="image" v-show="post.image!=null">
                                 <img :src="BaseImagePath+post.image" alt="">
                             </div>
-                            <div v-html="post.body"></div>
+
+                            <div v-html="oneLang(post.body,post.body_en)"></div>
                             <!--                            <div class="social-box">-->
                             <!--                                <span>Share this article on </span>-->
                             <!--                                <a href="#" class="fa fa-facebook-square"></a>-->

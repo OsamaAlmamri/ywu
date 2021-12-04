@@ -21,7 +21,6 @@
         <div class="lower-content">
             <h5>
                 <router-link  @click.native="$scrollToTop"  :to="{ name: 'women_details', params: { id: women_post.id}}">
-
                     {{oneLang(women_post.title,women_post.title_en)}}
                 </router-link>
             </h5>
@@ -43,7 +42,6 @@
 
 <script>
     import LikeButton from './LikeButton.vue';
-
     export default {
         props: ['women_post'],
         components: {LikeButton},

@@ -17,6 +17,16 @@ class AddColsToWomenPosts extends Migration
             $table->string('title_en')->nullable();
             $table->text('body_en');
         });
+
+
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+        });
+
+
+
     }
 
     /**

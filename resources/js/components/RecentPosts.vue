@@ -22,10 +22,10 @@
                             </figure>
                             <div class="text">
                                 <router-link :to="{ name: post_url, params: { id: post.id}}">
-                                    {{post.title}}
+                                    {{ oneLang(post.title,post.title_en)}}
                                 </router-link>
                             </div>
-                            <div class="post-info" v-html="getFirst20Word(post.body)">
+                            <div class="post-info" v-html="getFirst20Word(oneLang(post.body,post.body_en))">
 
                             </div>
                         </div>

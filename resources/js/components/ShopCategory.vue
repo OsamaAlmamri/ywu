@@ -11,9 +11,13 @@
                             <div class="category_image_box">
                                 <img class=" img-fluid category_image"
                                      :data-flickity-lazyload="BaseImagePath+category.image"
+
+
                                      :src="BaseImagePath+category.image">
                             </div>
-                            <p class="category_name"> {{category.name}} </p>
+
+
+                            <p class="category_name"> {{oneLang(category.name,category.name_en)}} </p>
                         </router-link>
                         <div class="swiper-button-prev" slot="button-prev"></div>
                         <div class="swiper-button-next" slot="button-next"></div>
