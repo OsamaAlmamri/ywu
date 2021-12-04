@@ -379,7 +379,7 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
 
 });
 
-Auth::routes();
+//Auth::routes();
 ///////////////////////////
 ///
 Route::get('/', 'HomeController@index');

@@ -4919,6 +4919,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
  // Import stylesheet
 
@@ -8105,6 +8111,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CourseGideItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CourseGideItem */ "./resources/js/components/CourseGideItem.vue");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_5__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -79990,7 +80013,20 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "auto-container" }, [
         _c("div", { staticClass: "login-box" }, [
-          _vm._m(0),
+          _c("div", { staticClass: "title-box" }, [
+            _c("h2", [_vm._v(" " + _vm._s(_vm.$t("MENU.login")) + " ")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "text" }, [
+              _c("span", { staticClass: "theme_color" }, [
+                _vm._v(_vm._s(_vm.$t("login.hello")) + "!")
+              ]),
+              _vm._v(
+                "\n                        " +
+                  _vm._s(_vm.$t("login.title")) +
+                  "\n                    "
+              )
+            ])
+          ]),
           _vm._v(" "),
           _c(
             "form",
@@ -80048,7 +80084,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                                        مستخدم\n                                    "
+                          "\n\n                                        " +
+                            _vm._s(_vm.$t("login.user")) +
+                            "\n                                    "
                         )
                       ]
                     ),
@@ -80073,7 +80111,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                                        تاجر\n                                    "
+                          "\n\n                                        " +
+                            _vm._s(_vm.$t("login.seller")) +
+                            "\n                                    "
                         )
                       ]
                     )
@@ -80097,7 +80137,7 @@ var render = function() {
               },
               [
                 _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("الايميل او رقم الهاتف ")]),
+                  _c("label", [_vm._v(_vm._s(_vm.$t("login.phoneOrEmail")))]),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -80110,7 +80150,7 @@ var render = function() {
                     ],
                     attrs: {
                       type: "text",
-                      placeholder: "الايميل او رقم الهاتف  ",
+                      placeholder: _vm.$t("login.phoneOrEmail"),
                       required: ""
                     },
                     domProps: { value: _vm.form.phone },
@@ -80126,7 +80166,9 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("كلمة السر")]),
+                  _c("label", [
+                    _vm._v(" " + _vm._s(_vm.$t("login.password")) + " ")
+                  ]),
                   _vm._v(" "),
                   _c("span", {
                     staticClass: "eye-icon flaticon-eye",
@@ -80148,7 +80190,7 @@ var render = function() {
                           }
                         ],
                         attrs: {
-                          placeholder: "كلمة السر",
+                          placeholder: _vm.$t("login.password"),
                           required: "",
                           type: "checkbox"
                         },
@@ -80197,7 +80239,7 @@ var render = function() {
                           }
                         ],
                         attrs: {
-                          placeholder: "كلمة السر",
+                          placeholder: _vm.$t("login.password"),
                           required: "",
                           type: "radio"
                         },
@@ -80218,7 +80260,7 @@ var render = function() {
                           }
                         ],
                         attrs: {
-                          placeholder: "كلمة السر",
+                          placeholder: _vm.$t("login.password"),
                           required: "",
                           type: _vm.type_password
                         },
@@ -80234,7 +80276,25 @@ var render = function() {
                       })
                 ]),
                 _vm._v(" "),
-                _vm._m(1),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("div", { staticClass: "clearfix" }, [
+                    _c("div", { staticClass: "pull-left" }, [
+                      _c("div", { staticClass: "check-box" }, [
+                        _c("input", {
+                          attrs: {
+                            type: "checkbox",
+                            name: "remember-password",
+                            id: "type-1"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("label", { attrs: { for: "type-1" } }, [
+                          _vm._v(_vm._s(_vm.$t("login.remember_password")))
+                        ])
+                      ])
+                    ])
+                  ])
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group text-center" }, [
                   _c(
@@ -80248,7 +80308,12 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._m(2)]
+                    [
+                      _c("span", { staticClass: "txt" }, [
+                        _vm._v(" " + _vm._s(_vm.$t("MENU.login")) + "  "),
+                        _c("i", { staticClass: "fa fa-angle-left" })
+                      ])
+                    ]
                   )
                 ]),
                 _vm._v(" "),
@@ -80258,10 +80323,12 @@ var render = function() {
                     { staticClass: "users" },
                     [
                       _vm._v(
-                        "ليس لديك حساب من قبل ؟\n                                "
+                        "\n\n                                " +
+                          _vm._s(_vm.$t("login.have_account")) +
+                          "\n\n\n                                "
                       ),
                       _c("router-link", { attrs: { to: "register" } }, [
-                        _vm._v("انشاء حساب جديد")
+                        _vm._v("  " + _vm._s(_vm.$t("login.register")) + "    ")
                       ])
                     ],
                     1
@@ -80276,62 +80343,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "title-box" }, [
-      _c("h2", [_vm._v("تسجيل الدخول ")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "text" }, [
-        _c("span", { staticClass: "theme_color" }, [_vm._v("مرحبــا!")]),
-        _vm._v(
-          "\n                        قم بتسجيل الدخول للاستفادة بشكل اكبر من\n                        الخدمات الذي يقدمها الموقع\n                    "
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("div", { staticClass: "clearfix" }, [
-        _c("div", { staticClass: "pull-left" }, [
-          _c("div", { staticClass: "check-box" }, [
-            _c("input", {
-              attrs: {
-                type: "checkbox",
-                name: "remember-password",
-                id: "type-1"
-              }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "type-1" } }, [
-              _vm._v("تذكر كلمة السر")
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "pull-right" }, [
-          _c("a", { staticClass: "forgot", attrs: { href: "#" } }, [
-            _vm._v("نسيت كلمة السر ؟")
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "txt" }, [
-      _vm._v("تسجيل الدخول "),
-      _c("i", { staticClass: "fa fa-angle-left" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -85601,11 +85613,18 @@ var render = function() {
       _c("div", { staticClass: "auto-container" }, [
         _c("div", { staticClass: "register-box" }, [
           _c("div", { staticClass: "title-box" }, [
-            _c("h2", [_vm._v("انشاء حساب جديد")]),
+            _c("h2", [_vm._v(" " + _vm._s(_vm.$t("MENU.register")) + " ")]),
             _vm._v(" "),
-            _c("h2", [_vm._v(" " + _vm._s(_vm.$t("MENU.NEW")) + " ")]),
-            _vm._v(" "),
-            _vm._m(0)
+            _c("div", { staticClass: "text" }, [
+              _c("span", { staticClass: "theme_color" }, [
+                _vm._v(_vm._s(_vm.$t("login.hello")) + "!")
+              ]),
+              _vm._v(
+                "\n                    " +
+                  _vm._s(_vm.$t("register.title")) +
+                  "\n                "
+              )
+            ])
           ]),
           _vm._v(" "),
           _c("section", { staticClass: "student-profile-section" }, [
@@ -85633,7 +85652,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                                    مستخدم\n                                "
+                          "\n                                    " +
+                            _vm._s(_vm.$t("login.user")) +
+                            "\n                                "
                         )
                       ]
                     ),
@@ -85658,7 +85679,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                                    تاجر\n                                "
+                          "\n                                    " +
+                            _vm._s(_vm.$t("login.seller")) +
+                            "\n                                "
                         )
                       ]
                     )
@@ -85694,7 +85717,9 @@ var render = function() {
                     staticClass: "form-group  col-md-12 col-sm-12"
                   },
                   [
-                    _c("label", [_vm._v(" نوع المستخدم ")]),
+                    _c("label", [
+                      _vm._v(" " + _vm._s(_vm.$t("register.userType")))
+                    ]),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -85733,7 +85758,9 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                                متسوق\n                                            "
+                                      "\n\n\n                                                " +
+                                        _vm._s(_vm.$t("register.userType")) +
+                                        "\n                                            "
                                     )
                                   ]
                                 ),
@@ -85759,7 +85786,9 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                                متدرب\n                                            "
+                                      "\n\n                                                " +
+                                        _vm._s(_vm.$t("register.userType")) +
+                                        "\n                                            "
                                     )
                                   ]
                                 ),
@@ -85790,7 +85819,9 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                                عضوء شريك\n                                            "
+                                      "\n\n                                                " +
+                                        _vm._s(_vm.$t("register.userType")) +
+                                        "\n                                            "
                                     )
                                   ]
                                 ),
@@ -85821,7 +85852,9 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                                عضوء كتلة\n                                            "
+                                      "\n\n                                                " +
+                                        _vm._s(_vm.$t("register.sub_cluster")) +
+                                        "\n                                            "
                                     )
                                   ]
                                 )
@@ -85838,7 +85871,9 @@ var render = function() {
                   "div",
                   { staticClass: "form-group col-lg-6 col-md-12 col-sm-12" },
                   [
-                    _c("label", [_vm._v("الاسم ")]),
+                    _c("label", [
+                      _vm._v(" " + _vm._s(_vm.$t("register.name")))
+                    ]),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -85851,7 +85886,7 @@ var render = function() {
                       ],
                       attrs: {
                         type: "text",
-                        placeholder: " الاسم",
+                        placeholder: _vm.$t("register.name"),
                         required: ""
                       },
                       domProps: { value: _vm.form.name },
@@ -85871,7 +85906,9 @@ var render = function() {
                   "div",
                   { staticClass: "form-group col-lg-6 col-md-12 col-sm-12" },
                   [
-                    _c("label", [_vm._v(" الجنس ")]),
+                    _c("label", [
+                      _vm._v(" " + _vm._s(_vm.$t("register.gender")))
+                    ]),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -85909,7 +85946,9 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                                ذكر\n                                            "
+                                      "\n                                                " +
+                                        _vm._s(_vm.$t("register.userType")) +
+                                        "\n                                            "
                                     )
                                   ]
                                 ),
@@ -85935,7 +85974,9 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                                انثى\n                                            "
+                                      "\n                                                " +
+                                        _vm._s(_vm.$t("register.userType")) +
+                                        "\n                                            "
                                     )
                                   ]
                                 )
@@ -85952,7 +85993,9 @@ var render = function() {
                   "div",
                   { staticClass: "form-group col-lg-6 col-md-12 col-sm-12" },
                   [
-                    _c("label", [_vm._v(" المحافظة ")]),
+                    _c("label", [
+                      _vm._v(" " + _vm._s(_vm.$t("register.userType")) + " ")
+                    ]),
                     _vm._v(" "),
                     _c(
                       "select",
@@ -85994,7 +86037,9 @@ var render = function() {
                       },
                       _vm._l(_vm.govs, function(gov) {
                         return _c("option", { domProps: { value: gov.id } }, [
-                          _vm._v(" " + _vm._s(gov.name_ar))
+                          _vm._v(
+                            " " + _vm._s(_vm.oneLang(gov.name_ar, gov.name_en))
+                          )
                         ])
                       }),
                       0
@@ -86006,7 +86051,9 @@ var render = function() {
                   "div",
                   { staticClass: "form-group col-lg-6 col-md-12 col-sm-12" },
                   [
-                    _c("label", [_vm._v(" المديرية ")]),
+                    _c("label", [
+                      _vm._v(" " + _vm._s(_vm.$t("register.dist")) + " ")
+                    ]),
                     _vm._v(" "),
                     _c(
                       "select",
@@ -86043,7 +86090,10 @@ var render = function() {
                       },
                       _vm._l(_vm.districts, function(dist) {
                         return _c("option", { domProps: { value: dist.id } }, [
-                          _vm._v(" " + _vm._s(dist.name_ar))
+                          _vm._v(
+                            " " +
+                              _vm._s(_vm.oneLang(dist.name_ar, dist.name_en))
+                          )
                         ])
                       }),
                       0
@@ -86052,7 +86102,13 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group col-md-6 col-sm-12" }, [
-                  _c("label", [_vm._v(" معلومات اضافية عن مكان التواجد ")]),
+                  _c("label", [
+                    _vm._v(
+                      "\n\n                                " +
+                        _vm._s(_vm.$t("register.more_address_info")) +
+                        "\n                            "
+                    )
+                  ]),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -86086,7 +86142,13 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group col-md-6 col-sm-12" }, [
-                  _c("label", [_vm._v(" رقم الهاتف")]),
+                  _c("label", [
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(_vm.$t("register.phone")) +
+                        "\n                            "
+                    )
+                  ]),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
@@ -86131,7 +86193,13 @@ var render = function() {
                     staticClass: "form-group col-lg-6 col-md-12 col-sm-12"
                   },
                   [
-                    _c("label", [_vm._v("الايميل ")]),
+                    _c("label", [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(_vm.$t("register.userType")) +
+                          "\n                            "
+                      )
+                    ]),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -86176,7 +86244,13 @@ var render = function() {
                     staticClass: "form-group col-lg-6 col-md-12 col-sm-12"
                   },
                   [
-                    _c("label", [_vm._v("الاسم التجاري ")]),
+                    _c("label", [
+                      _vm._v(
+                        "\n\n                                " +
+                          _vm._s(_vm.$t("register.sale_name")) +
+                          "\n                            "
+                      )
+                    ]),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -86222,7 +86296,13 @@ var render = function() {
                   [
                     !_vm.image
                       ? _c("div", [
-                          _c("h3", [_vm._v("صورة (شعار) المتجر ")]),
+                          _c("h3", [
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm.$t("register.logo")) +
+                                "\n                                "
+                            )
+                          ]),
                           _vm._v(" "),
                           _c("input", {
                             ref: "file",
@@ -86259,7 +86339,9 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "حذف\n                                    الصورة\n                                "
+                                "\n                                    " +
+                                  _vm._s(_vm.$t("register.delete_image")) +
+                                  "\n                                "
                               )
                             ]
                           )
@@ -86281,7 +86363,9 @@ var render = function() {
                     staticClass: "form-group col-lg-6 col-md-12 col-sm-12"
                   },
                   [
-                    _c("label", [_vm._v(" الجهة")]),
+                    _c("label", [
+                      _vm._v(_vm._s(_vm.$t("register.destination")) + " ")
+                    ]),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -86296,8 +86380,7 @@ var render = function() {
                         type: "text",
                         name: "destination",
                         id: "form_destination",
-                        value: "",
-                        placeholder: "الجهة"
+                        value: ""
                       },
                       domProps: { value: _vm.form.destination },
                       on: {
@@ -86316,7 +86399,9 @@ var render = function() {
                   "div",
                   { staticClass: "form-group col-lg-6 col-md-12 col-sm-12" },
                   [
-                    _c("label", [_vm._v("كلمة السر")]),
+                    _c("label", [
+                      _vm._v(_vm._s(_vm.$t("login.password")) + " ")
+                    ]),
                     _vm._v(" "),
                     _c("span", {
                       staticClass: "eye-icon flaticon-eye",
@@ -86339,7 +86424,6 @@ var render = function() {
                           ],
                           attrs: {
                             name: "password",
-                            placeholder: "كلمة السر",
                             required: "",
                             type: "checkbox"
                           },
@@ -86391,7 +86475,6 @@ var render = function() {
                           ],
                           attrs: {
                             name: "password",
-                            placeholder: "كلمة السر",
                             required: "",
                             type: "radio"
                           },
@@ -86415,7 +86498,6 @@ var render = function() {
                           ],
                           attrs: {
                             name: "password",
-                            placeholder: "كلمة السر",
                             required: "",
                             type: _vm.password__type
                           },
@@ -86440,7 +86522,11 @@ var render = function() {
                   "div",
                   { staticClass: "form-group col-lg-6 col-md-12 col-sm-12" },
                   [
-                    _c("label", [_vm._v(" تاكيد كلمة السر")]),
+                    _c("label", [
+                      _vm._v(
+                        _vm._s(_vm.$t("register.password_confirmation")) + " "
+                      )
+                    ]),
                     _vm._v(" "),
                     _c("span", {
                       staticClass: "eye-icon flaticon-eye",
@@ -86463,7 +86549,6 @@ var render = function() {
                           ],
                           attrs: {
                             name: "password",
-                            placeholder: "تاكيد كلمة السر",
                             required: "",
                             type: "checkbox"
                           },
@@ -86518,7 +86603,6 @@ var render = function() {
                           ],
                           attrs: {
                             name: "password",
-                            placeholder: "تاكيد كلمة السر",
                             required: "",
                             type: "radio"
                           },
@@ -86549,7 +86633,6 @@ var render = function() {
                           ],
                           attrs: {
                             name: "password",
-                            placeholder: "تاكيد كلمة السر",
                             required: "",
                             type: _vm.password_confirmation_type
                           },
@@ -86584,7 +86667,27 @@ var render = function() {
                     staticClass: "col-12 row"
                   },
                   [
-                    _vm._m(1),
+                    _c("div", { staticClass: "col-md-8" }, [
+                      _c("h5", [
+                        _vm._v(
+                          " " +
+                            _vm._s(_vm.$t("register.term_of_register")) +
+                            " "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("ul", { staticStyle: { "list-style": "circle" } }, [
+                        _c("li", [_vm._v(_vm._s(_vm.$t("register.term1")))]),
+                        _vm._v(" "),
+                        _c("li", [_vm._v(_vm._s(_vm.$t("register.term2")))]),
+                        _vm._v(" "),
+                        _c("li", [_vm._v(_vm._s(_vm.$t("register.term3")))]),
+                        _vm._v(" "),
+                        _c("li", [_vm._v(_vm._s(_vm.$t("register.term4")))]),
+                        _vm._v(" "),
+                        _c("li", [_vm._v(_vm._s(_vm.$t("register.term5")))])
+                      ])
+                    ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-md-4" }, [
                       _c(
@@ -86607,12 +86710,14 @@ var render = function() {
                               showPrimary: false,
                               showEdit: false,
                               maxImage: 4,
-                              dragText: "اسحب",
-                              browseText: "تصفح",
-                              primaryText: "افتراضي",
-                              markIsPrimaryText: "ضبط الصورة الافتراضية",
-                              popupText: "وصف الصورة الافتراضية",
-                              dropText: "اسحب و افلات"
+                              dragText: _vm.$t("register.dragText"),
+                              browseText: _vm.$t("register.browseText"),
+                              primaryText: _vm.$t("register.primaryText"),
+                              markIsPrimaryText: _vm.$t(
+                                "register.markIsPrimaryText"
+                              ),
+                              popupText: _vm.$t("register.popupText"),
+                              dropText: _vm.$t("register.dropText")
                             },
                             on: {
                               "upload-success": _vm.uploadImageSuccess,
@@ -86651,7 +86756,11 @@ var render = function() {
                             }
                           },
                           [
-                            _vm._v("التسجيل الان "),
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(_vm.$t("register.userType")) +
+                                "\n                                 "
+                            ),
                             _c("i", { staticClass: "fa fa-angle-left" })
                           ]
                         )
@@ -86669,11 +86778,15 @@ var render = function() {
                       { staticClass: "users" },
                       [
                         _vm._v(
-                          "هل لديك حساب من قبل ؟\n                                "
+                          "\n                                " +
+                            _vm._s(_vm.$t("register.has_account")) +
+                            "\n                                "
                         ),
                         _c("router-link", { attrs: { to: "/login" } }, [
                           _vm._v(
-                            " تسجيل\n                                    الدخول\n                                "
+                            "\n                                    " +
+                              _vm._s(_vm.$t("MENU.login")) +
+                              "\n                                "
                           )
                         ])
                       ],
@@ -86690,41 +86803,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text" }, [
-      _c("span", { staticClass: "theme_color" }, [_vm._v("مرحبــا!")]),
-      _vm._v(
-        "\n                    قم بإنشاء حساب للاستفاد بشكل اكبر من\n                    الخدمات الذي يقدمها الموقع\n                "
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-8" }, [
-      _c("h5", [_vm._v(" شروط قبول المشاركة:")]),
-      _vm._v(" "),
-      _c("ul", { staticStyle: { "list-style": "circle" } }, [
-        _c("li", [_vm._v("صور للمنتجات واضحه ذو جاذبيه و جودة عالية")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("اظهار كل مزايا وخصائص المنتج")]),
-        _vm._v(" "),
-        _c("li", [
-          _vm._v("التصوير بخلفية قماشية بيضاء او لون مناسب مع لون المنتج")
-        ]),
-        _vm._v(" "),
-        _c("li", [_vm._v("اختيار زاويه مناسبه لتصوير المنتج")]),
-        _vm._v(" "),
-        _c("li", [_vm._v("المنتجات بانواعها يدويه تصنعها النساء")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -110325,6 +110404,53 @@ var locale = {
   },
   women: {
     title: "منشورات شؤون المراة"
+  },
+  login: {
+    hello: " مرحبــا ",
+    title: "  قم بتسجيل الدخول للاستفادة بشكل اكبر من\n" + "  الخدمات الذي يقدمها الموقع",
+    seller: 'تاجر',
+    user: 'مستخدم',
+    register: 'انشاء حساب جديد',
+    have_account: 'ليس لديك حساب من قبل ؟',
+    password: 'كلمة السر',
+    remember_password: 'تذكر كلمة السر  ',
+    phoneOrEmail: 'الايميل او رقم الهاتف '
+  },
+  register: {
+    title: "  قم بإنشاء حساب  للاستفادة بشكل اكبر من\n" + "  الخدمات الذي يقدمها الموقع",
+    userType: 'نوع المستخدم   ',
+    customer: 'متسوق',
+    visitor: 'متدرب',
+    copartner: 'عضوء شريك',
+    sub_cluster: 'عضوء كتلة',
+    name: 'الاسم',
+    gender: 'الجنس',
+    male: 'ذكر',
+    female: 'انثى',
+    gov: 'المحافظة',
+    dist: 'المديرية',
+    more_address_info: "معلومات اضافية عن مكان التواجد",
+    phone: "رقم الهاتف",
+    email: "الايميل ",
+    sale_name: "  الاسم التجاري ",
+    logo: "صورة (شعار) المتجر ",
+    delete_image: "حذف الصورة",
+    destination: " الجهة",
+    password_confirmation: 'تاكيد كلمة السر',
+    term_of_register: 'شروط قبول المشاركة:',
+    term1: 'صور للمنتجات واضحه ذو جاذبيه و جودة عالية  ',
+    term2: 'اظهار كل مزايا وخصائص المنتج  ',
+    term3: ' التصوير بخلفية قماشية بيضاء او لون مناسب مع لون المنتج ',
+    term4: ' اختيار زاويه مناسبه لتصوير المنتج ',
+    term5: ' المنتجات بانواعها يدويه تصنعها النساء ',
+    dragText: 'اسحب',
+    browseText: 'تصفح',
+    primaryText: 'افتراضي',
+    markIsPrimaryText: 'ضبط الصورة الافتراضية',
+    popupText: 'وصف الصورة الافتراضية',
+    dropText: 'اسحب و افلات',
+    register: 'التسجيل الان',
+    has_account: ' هل لديك حساب من قبل ؟'
   },
   consultants: {
     "add": "اضافة استشارة جديدة",
