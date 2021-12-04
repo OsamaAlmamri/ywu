@@ -175,8 +175,12 @@ class UserController extends Controller
                 $user->name = $request->name;
                 $user->phone = $request->phone;
                 $user->gender = isset($request->gender) ? $request->gender : 'female';
+                $user->gov_id = request()->gov_id;
+                $user->more_address_info = request()->more_address_info;
+                $user->district_id = request()->district_id;
                 $user->password = $request->password;
-                $user->type = 'visitor';
+                $user->type = $request->userType;
+                //$user->type = 'visitor';
                 $user->save();
             }
             $request['password'] = $oldPass;

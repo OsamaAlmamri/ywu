@@ -11,12 +11,8 @@
                             <div class="category_image_box">
                                 <img class=" img-fluid category_image"
                                      :data-flickity-lazyload="BaseImagePath+category.image"
-
-
                                      :src="BaseImagePath+category.image">
                             </div>
-
-
                             <p class="category_name">
                                 {{ getLang(category.name, category.name_en) }}
 

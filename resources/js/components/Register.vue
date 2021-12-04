@@ -91,7 +91,7 @@
                                                     style="padding: -23px 28px 46px;"
                                                     @click="form.userType='visitor'">
 
-                                                    {{ $t('register.userType') }}
+                                                    {{ $t('register.visitor') }}
                                                 </li>
                                                 <li data-tab="#prod-bookmark"
                                                     :class="[ 'tab-btn',{'active-btn':(form.share_user_type=='copartner')&& form.userType=='share_user'},'usres_types_taps']"
@@ -99,7 +99,7 @@
                                                     @click="changeUserType('share_user','copartner')"
                                                 >
 
-                                                    {{ $t('register.userType') }}
+                                                    {{ $t('register.copartner') }}
                                                 </li>
                                                 <li data-tab="#prod-bookmark"
                                                     :class="[ 'tab-btn',{'active-btn':(form.share_user_type=='sub_cluster') && form.userType=='share_user'},'usres_types_taps']"
@@ -137,13 +137,13 @@
                                                     :class="[ 'tab-btn',{'active-btn':(form.gender=='male')},'gender_tap']"
                                                     style="padding: -23px 28px 46px;"
                                                     @click="form.gender='male'">
-                                                    {{ $t('register.userType') }}
+                                                    {{ $t('register.male') }}
                                                 </li>
                                                 <li data-tab="#prod-bookmark"
                                                     :class="['tab-btn',{'active-btn':(form.gender=='female')},'gender_tap']"
                                                     style="padding:-23px 28px 46px;"
                                                     @click="form.gender='female'">
-                                                    {{ $t('register.userType') }}
+                                                    {{ $t('register.female') }}
                                                 </li>
 
                                             </ul>
@@ -154,7 +154,7 @@
 
                             <!-- Form Group -->
                             <div class="form-group col-lg-6 col-md-12 col-sm-12">
-                                <label> {{ $t('register.userType') }} </label>
+                                <label> {{ $t('register.gov') }} </label>
                                 <select @change="get_district()" class="form-control" id="sel1" v-model="form.gov_id">
                                     <option v-for="gov in govs " :value="gov.id"> {{ oneLang(gov.name_ar,gov.name_en) }}</option>
                                 </select>
@@ -292,7 +292,7 @@
                             <div class="form-group col-lg-12 col-md-12 col-sm-12 text-center">
                                 <button type="button" class="theme-btn btn-style-three"><span
                                     @click="register()" class="txt">
-                                    {{ $t('register.userType') }}
+                                    {{ $t('register.register') }}
                                      <i class="fa fa-angle-left"></i></span>
                                 </button>
                             </div>
