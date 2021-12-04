@@ -11,7 +11,7 @@
                  :on-cancel="onCancel()"
                  :is-full-page="fullPage">
         </loading>
-        <shop-category></shop-category>
+        <shop-category  :lang="oneLang('ar','en')"></shop-category>
         <div class="sidebar-page-container" style="margin-top:-130">
             <div class="patern-layer-one paroller" data-paroller-factor="0.40" data-paroller-factor-lg="0.20"
                  data-paroller-type="foreground" data-paroller-direction="vertical"
@@ -45,7 +45,9 @@
                         <div class=" col-6 col-md-3">
                             <label class="typo__label"> {{ $t('shop.categories') }} </label>
                             <multiselect v-model="categiries_value" :tag-placeholder="$t('add')"
-                                         :placeholder="$t('shop.categories') " label="name" track-by="id"
+                                         :placeholder="$t('shop.categories') "
+                                         :label="oneLang('name','name_en')"
+                                         track-by="id"
                                          :hide-selected="true" :options="categories" :multiple="true"></multiselect>
                         </div>
                         <div class=" col-6 col-md-3 ">

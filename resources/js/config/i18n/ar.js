@@ -18,6 +18,7 @@ export const locale = {
         register: "انشاء حساب",
         login: "تسجيل الدخول",
         for_help: " للمساعدة والدعم",
+        women_details: " شؤون المرأة ",
 
     },
     concatUs: {

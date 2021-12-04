@@ -96,7 +96,7 @@
                                             {{$t('MENU.shop') }}
 
                                         </a>
-                                        <ul>
+                                        <ul style="display: inherit">
                                             <li :class="['shop_element_item',{'current':currentPage=='shop'}]">
                                                 <router-link @click.native="scrollToTop()" to="/shop">
 

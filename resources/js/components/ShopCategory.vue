@@ -17,104 +17,115 @@
                             </div>
 
 
-                            <p class="category_name"> {{oneLang(category.name,category.name_en)}} </p>
+                            <p class="category_name">
+                                {{ getLang(category.name, category.name_en) }}
+
+                            </p>
                         </router-link>
                         <div class="swiper-button-prev" slot="button-prev"></div>
                         <div class="swiper-button-next" slot="button-next"></div>
                     </swiper-slide>
                 </swiper>
             </div>
+
         </div>
     </div>
 </template>
 
 <script>
 
-    import {Swiper, SwiperSlide} from "vue-awesome-swiper";
+import {Swiper, SwiperSlide} from "vue-awesome-swiper";
+import {lang} from "../../../public/vendors/moment/moment";
 
-    export default {
-        components: {Swiper, SwiperSlide,},
-        data() {
-            return {
-                swiperOption: {
-                    slidesPerView: 8,
-                    spaceBetween: 5,
-                    grabCursor: true,
-                    pagination: {
-                        el: '.swiper-pagination',
-                        clickable: true,
-                        type: 'fraction'
+export default {
+    components: {Swiper, SwiperSlide,},
+    props: {
+        lang:  String,
+    },
+    data() {
+        return {
+            swiperOption: {
+                slidesPerView: 8,
+                spaceBetween: 5,
+                grabCursor: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                    type: 'fraction'
+                },
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false
+                },
+                breakpoints: {
+                    1024: {
+                        slidesPerView: 10,
+                        spaceBetween: 5
                     },
-                    autoplay: {
-                        delay: 3000,
-                        disableOnInteraction: false
+                    768: {
+                        slidesPerView: 7,
+                        spaceBetween: 5
                     },
-                    breakpoints: {
-                        1024: {
-                            slidesPerView: 10,
-                            spaceBetween: 5
-                        },
-                        768: {
-                            slidesPerView: 7,
-                            spaceBetween: 5
-                        },
-                        640: {
-                            slidesPerView: 5,
-                            spaceBetween: 5
-                        },
-                        320: {
-                            slidesPerView: 3,
-                            spaceBetween: 5
-                        }
+                    640: {
+                        slidesPerView: 5,
+                        spaceBetween: 5
                     },
-
+                    320: {
+                        slidesPerView: 3,
+                        spaceBetween: 5
+                    }
                 },
 
-                categories: [],
-                isLoading: false,
-                fullPage: true,
-            }
-
-        },
-        created() {
-            this.all_categories();
-        }
-        ,
-        methods: {
-
-            all_categories() {
-                axios({url: '/api/shop/all_categories', method: 'POST'})
-                    .then(resp => {
-                        this.categories = (resp.data.data);
-                    }).then(response => {
-                    this.$nextTick(function () { // the magic
-                        // this.$refs.flickity_categories.$swiper.slideTo(1, 1000, false)
-                    })
-                })
-                    .catch(err => {
-                        console.log(err)
-                    })
             },
-            onCancel() {
-                console.log('User cancelled the loader.')
-            }
 
+            categories: [],
+            isLoading: false,
+            fullPage: true,
         }
-        ,
-        mounted() {
-            console.log('Component mounted.')
-        }
-        ,
 
+    },
+    created() {
+        this.all_categories();
+    }
+    ,
+    methods: {
+        getLang (txt_ar, txt_en) {
+            return (this.lang == 'en') ? txt_en : txt_ar;
+        },
+
+        all_categories() {
+            axios({url: '/api/shop/all_categories', method: 'POST'})
+                .then(resp => {
+                    this.categories = (resp.data.data);
+                }).then(response => {
+                this.$nextTick(function () { // the magic
+                    // this.$refs.flickity_categories.$swiper.slideTo(1, 1000, false)
+                })
+            })
+                .catch(err => {
+                    console.log(err)
+                })
+        },
+        onCancel() {
+            console.log('User cancelled the loader.')
+        }
 
     }
+    ,
+    mounted() {
+        console.log('Component mounted.')
+    }
+    ,
+
+
+}
 </script>
 
 
 <style>
-    .flickity-button:disabled {
-        display: none;
-    }
+.flickity-button:disabled {
+    display: none;
+}
 
 
 </style>
