@@ -37,9 +37,9 @@ trait JsonTrait
     }
 
     #################################### validat
-    public function returnValidationError($code = "E001", $validator)
+    public function returnValidationError($code = "E001", $validator=null)
     {
-        return $this->ReturnErorrRespons($code, $validator->errors()->first());
+        return $this->ReturnErorrRespons($code,($validator!=null)? $validator->errors()->first():"");
     }
 
 
