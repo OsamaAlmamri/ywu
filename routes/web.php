@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/migrate', 'ArtisanCommandsController@migrate');
+Route::get('/test', 'ArtisanCommandsController@test');
 Route::get('/role_seed', 'ArtisanCommandsController@role_seed');
 Route::get('/clear', 'ArtisanCommandsController@clearCache');
 Route::get('/optimize', 'ArtisanCommandsController@optimizeCache');

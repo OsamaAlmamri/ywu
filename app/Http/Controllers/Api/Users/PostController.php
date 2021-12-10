@@ -10,9 +10,7 @@ use App\Notifications\AppNotification;
 use App\Traits\JsonTrait;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
-
 use App\Models\UserContents\Comment;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -121,6 +119,7 @@ class PostController extends Controller
                 'body' => $request->body,
                 "category_id" => $request->category_id,
                 'status' => 1,
+                'is_public' => isset($request->is_public) ? $request->is_public : 0,
                 'user_id' => $this->user->id,
             ]);
             $post = Post::with(['user', 'category', 'comments', 'user_like'])
@@ -168,6 +167,7 @@ class PostController extends Controller
                 'title' => $request->title,
                 'body' => $request->body,
                 "category_id" => $request->category_id,
+                'is_public' => isset($request->is_public) ? $request->is_public : 0,
                 'status' => 0,
                 'user_id' => $this->user->id,
             ]);
@@ -198,6 +198,7 @@ class PostController extends Controller
             $post = Post::find($request->id);
             $post = $post->update([
                 'title' => $request->title,
+                'is_public' => isset($request->is_public) ? $request->is_public : $post->is_public,
                 'body' => $request->body,
                 "category_id" => $request->category_id,
             ]);

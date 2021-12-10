@@ -872,6 +872,7 @@ class ComposerStaticInit15268013200cdab97ccd3b4cedb5de28
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\UserTraining' => __DIR__ . '/../..' . '/app/UserTraining.php',
         'App\\UserTrainingTiltle' => __DIR__ . '/../..' . '/app/UserTrainingTiltle.php',
+        'App\\forwordConsultant' => __DIR__ . '/../..' . '/app/forwordConsultant.php',
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack/Cors.php',
         'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack/CorsService.php',

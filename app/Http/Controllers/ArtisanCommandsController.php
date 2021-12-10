@@ -2,26 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Console\Commands\StockItemSyncData;
-use App\Models\General\Developer;
-use App\Models\General\DeveloperReAssigns;
-use App\Models\General\DevelopersMonthlyEvaluation;
-use App\Models\General\DeveloperTarget;
-use App\Models\General\Governorate;
-use App\Models\General\PosCode;
-use App\Models\General\PosDetail;
-use App\Models\General\Region;
-use App\Models\General\TEST;
-use App\Models\General\User;
-use App\Models\Requests\ReAssignSim;
-use App\Models\Stocks\DwPosSalesSimChange;
-use App\Models\Stocks\DwPosStock;
-use App\Models\Stocks\DwReceivedContracts;
-use App\Models\Stocks\SoldSim;
-use App\Models\Stocks\Stock;
-use App\Models\Stocks\StockItem;
+
+use App\Seller;
+use App\User;
 use Carbon\Carbon;
-use Database\Seeders\RolesAndPermissionsSeeder;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use mysql_xdevapi\Exception;
@@ -37,6 +21,26 @@ class ArtisanCommandsController extends Controller
     }
 
 
+    function test()
+    {
+
+        $sellers = Seller::all();
+
+        foreach ($sellers as $seller) {
+            $user = User::find($seller->admin_id);
+            if ($user != null) {
+                $user->gov_id = $seller->gov_id;
+                $user->district_id = $seller->district_id;
+                $user->more_address_info = $seller->more_address_info;
+
+                $user->save();
+            }
+        }
+
+        $status = Artisan::call('migrate');
+
+        return '<h1>migrate success</h1>';
+    }
 
     function migrate()
     {
@@ -46,6 +50,7 @@ class ArtisanCommandsController extends Controller
 
         return '<h1>migrate success</h1>';
     }
+
     function role_seed()
     {
 

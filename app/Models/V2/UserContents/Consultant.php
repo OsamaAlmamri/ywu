@@ -71,12 +71,17 @@ class Consultant extends Model
                 $q->select('liked_id')
                     ->from(with(new Like())->getTable())
                     ->where('type', 'posts')
-                    ->where('user_id', $user_id);;
+                    ->where('user_id', $user_id);
             });
         else if ($type == "my")
             return $query->where('user_id', $user_id);
-
-        else return $query;
+        else if ($user_id > 0)
+            return $query->where(function ($query) use ($user_id) {
+                $query->where('user_id', $user_id)
+                    ->orWhereNotNull('original_post_id');
+            });
+        else
+            return $query;
     }
 
 
