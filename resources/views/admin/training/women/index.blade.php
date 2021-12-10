@@ -18,7 +18,6 @@
                     <span id="form_result"></span>
                     <form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
                         @csrf
-
                         <div class="form-group">
                             <label class="control-label col-sm-4">لغة المنشور :</label>
                             <div class="col-sm-8">

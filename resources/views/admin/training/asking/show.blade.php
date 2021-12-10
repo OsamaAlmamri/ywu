@@ -4,32 +4,61 @@
     <div class="right_col" role="main">
         <div class="title_right">
             <form action="{{route('showPosts')}}" method="GET">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                    <br>
-                    <div class="job-field" style="padding-right: 50%">
-                        <select name="category"
-                                style="border-radius: 10px;padding: 5px;color:  #172d44;background-color: white;font-weight: bold">
-                            <option value="" style="font-weight: bold">اختر احد الاقسام</option>
+                <div class="row  top_search">
+                    <div class="col-xs-3">
+                        <div class="job-field">
+                            <select name="category"
+                                    style="border-radius: 10px;padding: 5px;color:  #172d44;background-color: white;font-weight: bold">
+                                <option value="" style="font-weight: bold">اختر احد الاقسام</option>
 
-                            @foreach ($categories as $cat)
+                                @foreach ($categories as $cat)
 
-                                <option value="{{ $cat->id }}" style="font-weight: bold">{{ $cat->name }}</option>
+                                    <option value="{{ $cat->id }}" style="font-weight: bold">{{ $cat->name }}</option>
 
-                            @endforeach
-                        </select>
-                        <select name="user"
-                                style="border-radius: 10px;padding: 5px;color:  #172d44;background-color: white;font-weight: bold">
-                            <option value="" style="font-weight: bold">اختر احد المستخدمين</option>
+                                @endforeach
+                            </select>
 
-                            @foreach ($users as $user)
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="job-field">
+                            <select name="type"
+                                    style="border-radius: 10px;padding: 5px;color:  #172d44;background-color: white;font-weight: bold">
+                                <option value="" style="font-weight: bold"> النوع</option>
+                                <option value="all" style="font-weight: bold"> جميع الاستشارات</option>
+                                <option value="re_publish" style="font-weight: bold">الاستشارات الذي تمت اعادة صياعتها
+                                </option>
+                                <option value="not_re_publish" style="font-weight: bold">الاستشارات العامة لم تتم اعادة
+                                    صياعتها
+                                </option>
+                                <option value="public" style="font-weight: bold">الاستشارات العامة</option>
+                                <option value="private" style="font-weight: bold">الاستشارات الخاصة</option>
+                            </select>
 
-                                <option value="{{ $user->id }}" style="font-weight: bold">{{ $user->name }}</option>
+                        </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="job-field">
+                            <select name="user"
+                                    style="border-radius: 10px;padding: 5px;color:  #172d44;background-color: white;font-weight: bold">
+                                <option value="" style="font-weight: bold">اختر احد المستخدمين</option>
 
-                            @endforeach
-                        </select>
-                        <button class="btn btn-default" type="submit" style="color: white;background-color: #172d44">
-                            عرض
-                        </button>
+                                @foreach ($users as $user)
+
+                                    <option value="{{ $user->id }}" style="font-weight: bold">{{ $user->name }}</option>
+
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="job-field">
+
+                            <button class="btn btn-default" type="submit"
+                                    style="color: white;background-color: #172d44">
+                                عرض
+                            </button>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -37,10 +66,19 @@
         @if($posts->count())
             @foreach($posts as $post)
                 <div class="container bootstrap snippet" style="direction: ltr">
-                    <div class="col-sm-8">
+                    <div class="col-sm-12">
                         <div class="panel panel-white post panel-shadow PostCard{{$post->id}}">
-                            <a href="" post_delete="{{$post->id}}" class="post_delete btn btn-danger pull-left"
+                            <a href="javascript:void(0)" id="{{$post->id}}"
+                               class="delete_post btn btn-danger pull-left"
+                               delete_type="post"
                                style=" font-weight: bold;border-radius: 3px 3px 25px 3px">X</a>
+
+                            <a href="javascript:void(0)" id="{{$post->id}}"
+                               class="edit_post btn btn-info pull-left"
+                               id="{{$post->id}}"
+                               style=" font-weight: bold;border-radius: 3px 3px 25px 3px">
+                                <i class="fa fa-share-alt" title="اعادة صياغة "></i>
+                            </a>
                             <div class="post-heading">
                                 <div class="pull-right image">
                                     <img src="https://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
@@ -52,12 +90,25 @@
                                             <span class='fa fa-close' style="color: red;margin-right: 5px">
                                                     <b>تم إيقاف الحساب</b>
                                                     </span>
-                                            <a  class="post_user_name" href="trashedShow/{{$post->user()->withTrashed()->first()->id}}"><b>{{$post->user()->withTrashed()->first()->name}}</b></a>
+                                            <a class="post_user_name"
+                                               href="trashedShow/{{$post->user()->withTrashed()->first()->id}}"><b>{{$post->user()->withTrashed()->first()->name}}</b></a>
                                         @else
-                                            <a  class="post_user_name" href="userShowId/{{ $post->user->id }}"><b>{{ $post->user->name }}</b></a>
+                                            <a class="post_user_name"
+                                               href="userShowId/{{ $post->user->id }}"><b>{{ $post->user->name }}</b></a>
                                         @endif
                                     </div>
-                                    <h6 class="pull-right time">{{ $post->published }}</h6>
+                                    <h6 class="pull-right time">
+                                        {{ $post->published }}
+
+                                        @if($post->original_post_id!=null)
+                                            <i class="fa fa-share-alt" title="استشارة تمت اعادة نشرها"></i>
+                                        @endif
+                                        @if($post->is_public==1)
+                                            <i class="fa fa-globe" title="استشارة عامة"></i>
+                                        @else
+                                            <i class="fa fa-user" title="استشارة خاصة"></i>
+                                        @endif
+                                    </h6>
                                 </div>
                                 <div class="pull-left meta">
                                     <div class="title h5"
@@ -97,8 +148,10 @@
                                                                 </a>
                                                                 <div class="comment-body">
                                                                     <div class="comment-heading">
-                                                                        <a href="" comment_delete="{{$comment->id}}"
-                                                                           class="comment_delete btn btn-danger btn-round pull-left"
+                                                                        <a href="javascript:void(0)"
+                                                                           id="{{$comment->id}}"
+                                                                           delete_type="comment"
+                                                                           class="delete_post btn btn-danger btn-round pull-left"
                                                                            style="font-weight: bold">X</a>
                                                                         @if(empty($comment->user->name))
                                                                             <span class='fa fa-close'
@@ -106,10 +159,12 @@
                                                                               <b>تم إيقاف الحساب</b>
                                                                                      </span>
                                                                             <h5 class="time">{{ $comment->published}}</h5>
-                                                                            <a  class="post_user_name" href="trashedShow/{{$comment->user()->withTrashed()->first()->id}}"><b>{{$comment->user()->withTrashed()->first()->name}}</b></a>
+                                                                            <a class="post_user_name"
+                                                                               href="trashedShow/{{$comment->user()->withTrashed()->first()->id}}"><b>{{$comment->user()->withTrashed()->first()->name}}</b></a>
                                                                         @else
                                                                             <h5 class="time">{{ $comment->published}}</h5>
-                                                                            <a class="post_user_name" href="userShowId/{{ $comment->user->id }}">
+                                                                            <a class="post_user_name"
+                                                                               href="userShowId/{{ $comment->user->id }}">
                                                                                 <h4 class="user">{{$comment->user->name}}</h4>
                                                                             </a>
                                                                         @endif
@@ -169,50 +224,140 @@
             {!! $posts->links() !!}
         </div>
     </div>
+    <div id="formModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"> اعادة صياغة الاستشارة</h4>
+                </div>
+                <div class="modal-body">
+                    <span id="form_result"></span>
+                    <form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group" id="title_dev">
+                            <label class="control-label col-md-4">العنوان : </label>
+                            <div class="col-md-8">
+                                <input type="text" name="title" id="title" class="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="body_dev">
+                            <label class="control-label col-md-4">المحتوى : </label>
+                            <div class="col-md-12">
+                                <textarea type="text" name="body" id="body" class="form-control description"></textarea>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="form-group" align="center">
+                            <input type="hidden" name="action" id="action"/>
+                            <input type="hidden" name="hidden_id" id="hidden_id"/>
+                            <input type="submit" name="action_button" id="action_button" class="btn btn-warning"
+                                   value="نشر"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title">حذف </h2>
+                </div>
+                <div class="modal-body">
+                    <h4 align="center" style="margin:0;">هل انت متاكد من الحذف ؟</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">نعم</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">الغاء</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 @section('scripts')
     <script type="text/javascript">
 
-        $(document).on('click', '.post_delete', function (e) {
+
+        {{--هذا الجزء خاص الحذف--}}
+        var type = 0;
+        var post_id = 0;
+        $(document).on('click', '.delete_post', function () {
+            post_id = $(this).attr('id');
+            type = $(this).attr('delete_type');
+            $('#confirmModal').modal('show');
+        });
+
+
+        $(document).on('click', '#ok_button', function (e) {
             e.preventDefault();
-            var offer_id = $(this).attr('post_delete');
             $.ajax({
                 type: 'post',
-                url: '{{ route('delete') }}',
+                url: (type == "post") ? '{{ route('delete') }}' : '{{ route('delete_comment') }}',
                 data: {
                     '_token': "{{csrf_token()}}",
-                    'id': offer_id,
+                    'id': post_id,
                 },
                 success: function (data) {
                     if (data.status == true) {
                         //$('#success').show();
+                        $('#confirmModal').modal('hide');
+                        if (type == 'post')
+                            $('.PostCard' + data.id).remove();
+                        else
+                            $('.OfferRow' + data.id).remove();
                     }
-                    $('.PostCard' + data.id).remove();
+
                 }, erorr: function (reject) {
                 },
             });
+
         });
 
-        {{--هذا الجزء خاص الحذف--}}
 
-        $(document).on('click', '.comment_delete', function (e) {
-            e.preventDefault();
-            var offer_id = $(this).attr('comment_delete');
+        $(document).on('click', '.edit_post', function () {
+            var id = $(this).attr('id');
+            $('#form_result').html('');
             $.ajax({
-                type: 'post',
-                url: '{{ route('delete_comment') }}',
-                data: {
-                    '_token': "{{csrf_token()}}",
-                    'id': offer_id,
-                },
-                success: function (data) {
-                    if (data.status == true) {
-                        $('#success').show();
-                    }
-                    $('.OfferRow' + data.id).remove();
-                }, erorr: function (reject) {
-                },
-            });
+                url: "{{URL::to('')}}/editConsultant/" + id + "",
+                type: "GET",
+                dataType: "json",
+                success: function (html) {
+                    $('#title').val(html.data.title);
+                    $('#body').val(html.data.body);
+                    $('#hidden_id').val(html.data.id);
+                    $('#action').val(html.type);
+                    $('#formModal').modal('show');
+                }
+            })
         });
+
+        $(document).on('submit', '#sample_form', function (event) {
+            event.preventDefault();
+
+            $.ajax({
+                url: "{{ route('rePublish') }}",
+                method: "POST",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType: "json",
+                success: function (data) {
+                    if (data.success) {
+                        $('#formModal').modal('hide');
+                       toastr.info("تم اعادة النشر بنجاح");
+                        $('#sample_form')[0].reset();
+
+                    }
+                }
+            })
+        });
+
     </script>
 @endsection

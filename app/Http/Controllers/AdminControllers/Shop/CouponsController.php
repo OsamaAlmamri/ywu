@@ -133,7 +133,7 @@ class CouponsController extends Controller
 
     {
         if (request()->ajax()) {
-            $data = Admin::leftJoin('sellers', 'users.id', '=', 'sellers.admin_id')
+            $data = User::leftJoin('sellers', 'users.id', '=', 'sellers.admin_id')
                 ->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
                 ->whereIn('users.id', function ($q) {
                     $q->select('order_sellers.seller_id')->from('coupons')

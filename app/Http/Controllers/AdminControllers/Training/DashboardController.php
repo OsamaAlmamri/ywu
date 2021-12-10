@@ -21,6 +21,7 @@ use App\Seller;
 use App\ShareUser;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DashboardController extends Controller
 {
@@ -29,7 +30,7 @@ class DashboardController extends Controller
         if (auth()->user()->type == "admin") {
             $shareduser = User::all()->where('type', 'share_users')->where('status', 1)->count();
             $admin = Admin::where('id', 1)->first();
-            $users = User::all()->whereIn('type', ['customers','visitor'])->count();
+            $users = User::all()->whereIn('type', ['customers', 'visitor'])->count();
             $employees = Employee::all()->count();
             $subjects = Subject::all()->count();
             $trainings = Training::all()->count();
@@ -55,7 +56,7 @@ class DashboardController extends Controller
             $coupons_not_used = Coupon::all()->where('used', 0)->count();
 
             return view('admin.training.asking.index', compact(['products', 'new_orders', 'deliver_orders', 'shopCategory', 'seller', 'all_orders', 'all_payment_orders', 'all_no_payment_orders'
-             ,"cancel_orders","coupons","coupons_used","coupons_not_used" , 'shareduser', 'admin', 'trainings', 'subjects', 'posts', 'soft_delete', 'pos_agree', 'users', 'pos', 'employees', 'women']));
+                , "cancel_orders", "coupons", "coupons_used", "coupons_not_used", 'shareduser', 'admin', 'trainings', 'subjects', 'posts', 'soft_delete', 'pos_agree', 'users', 'pos', 'employees', 'women']));
         } else {
 
             $admin_id = auth()->id();
@@ -126,50 +127,35 @@ class DashboardController extends Controller
         }
     }
 
+
     public
     function show()
     {
-        if (request()->category != null) {
-            $posts = Post::with(['user', 'category'])
-                ->where('status', true)
-                ->where('category_id', request()->category)
-                ->orderBy('id', 'desc')->paginate(5);
-            $comments = Comment::with(['user', 'post'])->get();
-            $categories = Category::all();
-            $users = User::withTrashed()->get();
-            $admin = Admin::where('id', 1)->first();
-            return view('admin.training.asking.show', compact(['admin', 'posts', 'comments', 'categories', 'users']));
-        } elseif (request()->user != null) {
-            $posts = Post::with(['user', 'category'])
-                ->where('status', true)
-                ->where('user_id', request()->user)
-                ->orderBy('id', 'desc')->paginate(5);
-            $comments = Comment::with(['user', 'post'])->get();
-            $categories = Category::all();
-            $users = User::withTrashed()->get();
-            $admin = Admin::where('id', 1)->first();
-            return view('admin.training.asking.show', compact(['admin', 'posts', 'comments', 'categories', 'users']));
-        } elseif (request()->user != null and request()->category != null) {
-            $posts = Post::with(['user', 'category'])
-                ->where('status', true)
-                ->where('category_id', request()->category)
-                ->orwhere('user_id', request()->user)
-                ->orderBy('id', 'desc')->paginate(5);
-            $comments = Comment::with(['user', 'post'])->get();
-            $categories = Category::all();
-            $users = User::withTrashed()->get();
-            $admin = Admin::where('id', 1)->first();
-            return view('admin.training.asking.show', compact(['admin', 'posts', 'comments', 'categories', 'users']));
-        } else {
-            $posts = Post::with(['user', 'category'])
-                ->where('status', true)
-                ->orderBy('id', 'desc')->paginate(5);
-            $comments = Comment::with(['user', 'post'])->get();
-            $categories = Category::all();
-            $users = User::withTrashed()->get();
-            $admin = Admin::where('id', 1)->first();
-            return view('admin.training.asking.show', compact(['admin', 'posts', 'comments', 'categories', 'users']));
+
+        $posts = Post::with(['user', 'category'])
+            ->where('status', true);
+        if (request()->category != null)
+            $posts = $posts->where('category_id', request()->category);
+        if (request()->user != null)
+            $posts = $posts->where('user_id', request()->user);
+        if (request()->type != null) {
+            if (request()->type == "re_publish")
+                $posts = $posts->whereNotNull('original_post_id');
+            elseif (request()->type == "not_re_publish")
+                $posts = $posts->whereNull('original_post_id');
+            elseif (request()->type == "public")
+                $posts = $posts->where('is_public', 1);
+            elseif (request()->type == "private")
+                $posts = $posts->where('is_public', 0);
+
         }
+        $posts = $posts->orderBy('id', 'desc')->paginate(5);
+        $comments = Comment::with(['user', 'post'])->get();
+        $categories = Category::all();
+        $users = User::withTrashed()->get();
+        $admin = Admin::where('id', 1)->first();
+        return view('admin.training.asking.show', compact(['admin', 'posts', 'comments', 'categories', 'users']));
+
     }
 
     function fetch(Request $request)
@@ -183,6 +169,66 @@ class DashboardController extends Controller
             return view('admin.training.asking.fetch', compact(['posts', 'admin']))->render();
         }
     }
+
+    function editConsultant($id)
+    {
+
+        $type = "edit";
+        $post = Post::where('original_post_id', $id)->get()->first();
+        if ($post == null) {
+            $post = Post::find($id);
+            $type = "new";
+        }
+        return response()->json([
+            'status' => true,
+            'data' => $post,
+            'type' => $type,
+        ]);
+    }
+
+
+    public function rePublish(Request $request)
+    {
+        try {
+            $rules = [
+                "title" => "required",
+                "body" => "required",
+            ];
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                $code = $this->returnCodeAccordingToInput($validator);
+                return $this->returnValidationError($code, $validator);
+            }
+            if ($request->action == 'new') {
+                $old = Post::find($request->hidden_id);
+                $post = Post::create([
+                    'title' => $request->title,
+                    'body' => $request->body,
+                    "category_id" => $old->category_id,
+                    "original_post_id" => $old->id,
+                    'status' => 1,
+                    'is_public' => 1,
+                    'user_id' => auth()->id(),
+                ]);
+            } else {
+                $old = Post::find($request->hidden_id);
+                $post = $old->update([
+                    'title' => $request->title,
+                    'body' => $request->body,
+                    'user_id' => auth()->id(),
+                ]);
+            }
+
+            return response()->json([
+                'success' => true
+            ]);
+
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+
+    }
+
 
     #################################################
     public
@@ -239,7 +285,11 @@ class DashboardController extends Controller
     {
         if ($request->id) {
             Comment::destroy(request('id'));
-            return response()->json(['id' => $request->id]);
+            return response()->json([
+                'status' => true,
+                'mag' => 'تم الحذف',
+                'id' => $request->id,
+            ]);
         }
     }
 }

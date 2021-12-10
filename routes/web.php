@@ -194,6 +194,8 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
         Route::delete('force-multiple-category', ['as' => 'post.multiple-force', 'uses' => 'DashboardController@forceMultiple']);
         Route::post('restore-multiple-category', ['as' => 'post.multiple-restore', 'uses' => 'DashboardController@restoreMultiple']);
         Route::post('showPost', 'DashboardController@fetch')->name('fetch');
+        Route::get('editConsultant/{id}', 'DashboardController@editConsultant')->name('editPost');
+        Route::post('rePublish', 'DashboardController@rePublish')->name('rePublish');
         Route::post('updatePost', 'DashboardController@update')->name('update');
         Route::post('deletePost', 'DashboardController@destroy')->name('delete');
         Route::get('deletedPost', 'DashboardController@deletedPost')->name('deleted_Post');
