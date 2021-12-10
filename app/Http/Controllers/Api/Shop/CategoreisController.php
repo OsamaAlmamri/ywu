@@ -112,8 +112,8 @@ class CategoreisController extends Controller
             $data = ShopCategory::with(['products2' => function ($q) use ($has_seller, $has_govs, $request) {
                 $q->where('products.id', '>', 0)
                     ->leftJoin('categories', 'categories.id', '=', 'products.category_id')
-                    ->leftJoin('admins', 'admins.id', '=', 'products.admin_id')
-                    ->leftJoin('sellers', 'admins.id', '=', 'sellers.admin_id')
+                    ->leftJoin('users', 'users.id', '=', 'products.admin_id')
+                    ->leftJoin('sellers', 'users.id', '=', 'sellers.admin_id')
                     ->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
                     ->leftJoin('zones as dis', 'sellers.district_id', '=', 'dis.id')
                     ->select(['products.*',
@@ -178,8 +178,8 @@ class CategoreisController extends Controller
             $data = ShopCategory2::with(['products' => function ($q) use ($has_seller, $has_govs, $request) {
                 $q->where('products.id', '>', 0)
                     ->leftJoin('categories', 'categories.id', '=', 'products.category_id')
-                    ->leftJoin('admins', 'admins.id', '=', 'products.admin_id')
-                    ->leftJoin('sellers', 'admins.id', '=', 'sellers.admin_id')
+                    ->leftJoin('users', 'users.id', '=', 'products.admin_id')
+                    ->leftJoin('sellers', 'users.id', '=', 'sellers.admin_id')
                     ->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
                     ->leftJoin('zones as dis', 'sellers.district_id', '=', 'dis.id')
                     ->select(['products.*',
@@ -245,8 +245,8 @@ class CategoreisController extends Controller
                         ->where('deleted_at', null)
                         ->where('status', '=', 1);
                 })->leftJoin('categories', 'categories.id', '=', 'products.category_id')
-                ->leftJoin('admins', 'admins.id', '=', 'products.admin_id')
-                ->leftJoin('sellers', 'admins.id', '=', 'sellers.admin_id')
+                ->leftJoin('users', 'users.id', '=', 'products.admin_id')
+                ->leftJoin('sellers', 'users.id', '=', 'sellers.admin_id')
                 ->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
                 ->leftJoin('zones as dis', 'sellers.district_id', '=', 'dis.id')
                 ->select(['products.*',

@@ -133,42 +133,42 @@ class CouponsController extends Controller
 
     {
         if (request()->ajax()) {
-            $data = Admin::leftJoin('sellers', 'admins.id', '=', 'sellers.admin_id')
+            $data = Admin::leftJoin('sellers', 'users.id', '=', 'sellers.admin_id')
                 ->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
-                ->whereIn('admins.id', function ($q) {
+                ->whereIn('users.id', function ($q) {
                     $q->select('order_sellers.seller_id')->from('coupons')
                         ->leftJoin('order_sellers', 'coupons.order_id', '=', 'order_sellers.id');
 
 //                    $q->select('order_sellers.seller_id')->from('order_sellers')
 //                        ->leftJoin('coupons', 'coupons.order_id', '=', 'order_sellers.id');
                 })
-                ->select(['admins.*', 'sellers.sale_name', 'govs.name_ar as gov1',
+                ->select(['users.*', 'sellers.sale_name', 'govs.name_ar as gov1',
                     DB::raw("(SELECT count(coupons.id) FROM coupons
                                    INNER JOIN order_sellers ON order_sellers.id=coupons.order_id
                                    WHERE
-                                   order_sellers.seller_id=admins.id and coupons.used=1 and 
+                                   order_sellers.seller_id=users.id and coupons.used=1 and
                                    order_sellers.status not like 'cancel_by_seller' and
-                                   order_sellers.status  not like 'cancel_by_user' 
+                                   order_sellers.status  not like 'cancel_by_user'
                                    ) as count_all_coupons"),
                     DB::raw("(SELECT sum(coupons.amount) FROM coupons
                                    INNER JOIN order_sellers ON order_sellers.id=coupons.order_id
                                    WHERE
-                                   order_sellers.seller_id=admins.id and coupons.used=1 and 
+                                   order_sellers.seller_id=users.id and coupons.used=1 and
                                    order_sellers.status not like 'cancel_by_seller' and
-                                   order_sellers.status  not like 'cancel_by_user' 
+                                   order_sellers.status  not like 'cancel_by_user'
                                    ) as sum_all_coupons"),
 
                     DB::raw("(SELECT count(coupons.id) FROM coupons
                                    INNER JOIN order_sellers ON order_sellers.id=coupons.order_id
                                    WHERE
-                                   order_sellers.seller_id=admins.id and coupons.used=1 and 
-                                   order_sellers.status  like 'delivery' 
+                                   order_sellers.seller_id=users.id and coupons.used=1 and
+                                   order_sellers.status  like 'delivery'
                                    ) as count_delivery_coupons"),
                     DB::raw("(SELECT sum(coupons.amount) FROM coupons
                                    INNER JOIN order_sellers ON order_sellers.id=coupons.order_id
                                    WHERE
-                                   order_sellers.seller_id=admins.id and coupons.used=1 and 
-                                   order_sellers.status   like 'delivery' 
+                                   order_sellers.seller_id=users.id and coupons.used=1 and
+                                   order_sellers.status   like 'delivery'
                                    ) as  sum_delivery_coupons"),
                 ])
                 ->get();

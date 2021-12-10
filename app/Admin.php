@@ -12,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Admin extends Authenticatable  implements JWTSubject
+class Admin extends Authenticatable implements JWTSubject
 {
     use Notifiable;
     use HasRoles;
@@ -23,7 +23,8 @@ class Admin extends Authenticatable  implements JWTSubject
      *
      * @var array
      */
-    protected $guarded='admin_api';
+    protected $guarded = 'admin_api';
+    protected $table = 'users';
 
     public function getJWTIdentifier()
     {

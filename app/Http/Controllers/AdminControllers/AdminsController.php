@@ -39,10 +39,10 @@ class AdminsController extends Controller
     {
         if (request()->ajax()) {
             $post = Admin::withTrashed()->where('type', 'admin')->get();
-            $data = DB::table('admins')
-                ->leftJoin('model_has_roles', 'model_has_roles.model_id', '=', 'admins.id')
+            $data = DB::table('users')
+                ->leftJoin('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
                 ->leftJoin('roles', 'model_has_roles.role_id', '=', 'roles.id')
-                ->select('admins.*',
+                ->select('users.*',
                     'roles.name as role_name')->where('type', 'admin');
             if (auth()->user()->getRoleNames()->first() !== 'Developer')
                 $data = $data->where('roles.name', '<>', 'Developer');
@@ -74,8 +74,8 @@ class AdminsController extends Controller
     {
         $rules = [
             "name" => "required",
-            'email' => ['required', 'string', 'email', ($type == 'create') ? Rule::unique('admins', 'email') : Rule::unique('admins', 'email')->ignore($request->hidden_id)],
-            'phone' => ['required', 'numeric', 'digits:9', 'starts_with:77,73,74,70,71', ($type == 'create') ? Rule::unique('admins', 'phone') : Rule::unique('admins', 'phone')->ignore($request->hidden_id)],
+            'email' => ['required', 'string', 'email', ($type == 'create') ? Rule::unique('users', 'email') : Rule::unique('users', 'email')->ignore($request->hidden_id)],
+            'phone' => ['required', 'numeric', 'digits:9', 'starts_with:77,73,74,70,71', ($type == 'create') ? Rule::unique('users', 'phone') : Rule::unique('users', 'phone')->ignore($request->hidden_id)],
             'password' => [($type == 'create') ? 'required' : 'nullable'],
 
         ];

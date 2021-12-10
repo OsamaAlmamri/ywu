@@ -22,8 +22,8 @@ class AuthAdminController extends Controller
     public function adminLoginCheck(Request $request)
     {
         $rules = [
-            'email' => 'required|email|exists:admins,email',
-            'password' => 'required|exists:admins',
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|exists:users',
         ];
         $messages = [
             'email.exists' => 'قم بادخال الايميل بشكل صحيح',
@@ -76,8 +76,8 @@ class AuthAdminController extends Controller
     public function Admin_forget_check(Request $request)
     {
         $rules = [
-            'name' => 'required|exists:admins,name',
-            'email' => 'required|email|exists:admins,email',
+            'name' => 'required|exists:users,name',
+            'email' => 'required|email|exists:users,email',
             'password' => 'required',
         ];
         $messages = [

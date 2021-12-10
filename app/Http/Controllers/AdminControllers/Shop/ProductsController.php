@@ -46,8 +46,8 @@ class ProductsController extends Controller
             $btn_count_Rating = "(SELECT count(rating) FROM ratings WHERE rateable_id=products.id) as count_rating";
             $data = Product2::where('products.id', '>', 0)
                 ->leftJoin('shop_categories', 'shop_categories.id', '=', 'products.category_id')
-                ->leftJoin('admins', 'admins.id', '=', 'products.admin_id')
-                ->leftJoin('sellers', 'admins.id', '=', 'sellers.admin_id')
+                ->leftJoin('users', 'users.id', '=', 'products.admin_id')
+                ->leftJoin('sellers', 'users.id', '=', 'sellers.admin_id')
                 ->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
                 ->leftJoin('zones as dis', 'sellers.district_id', '=', 'dis.id')
 //                ->leftJoin('image_categories', function ($join) {
