@@ -46,6 +46,11 @@ class AdminsController extends Controller
                     'roles.name as role_name')->where('type', 'admin');
             if (auth()->user()->getRoleNames()->first() !== 'Developer')
                 $data = $data->where('roles.name', '<>', 'Developer');
+
+            if (isset(request()->role) and (request()->role) != "all")
+                $data = $data->where('roles.id',  request()->role);
+            if (isset(request()->gov_id) and (request()->gov_id) != "all")
+                $data = $data->where('users.gov_id', request()->gov_id);
             $data = $data->orderByDesc('id')->get();
 
             if ($data) {

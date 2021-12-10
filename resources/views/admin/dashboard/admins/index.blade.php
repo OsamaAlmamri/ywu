@@ -1,8 +1,42 @@
 @extends('adminpanel.dataTableLayout')
+
 @section('card_header')
     <div class="card-header">
         <h3 align="right">حسابات مدراء النظام</h3>
         <br/>
+    </div>
+    <div class="card-body">
+        <style>
+            .input-group[class*=col-] {
+                margin: 10px;
+                float: right;;
+            }
+        </style>
+        <div class="card-body">
+            <div class="row">
+                <div class="input-group col-sm-3">
+                    <span class="input-group-addon"> المحافظة </span>
+                    <?php $getGovernorate = getCities(); $getGovernorate['all'] = 'all'; ?>
+                    {!!Form ::select('gov_id', array_reverse($getGovernorate,true),'',['class' => 'select2 form-control', 'id' => 'gov_id'])!!}
+                </div>
+
+
+                <div class="input-group col-sm-3">
+                    <span class="input-group-addon"> الدور بالنظام </span>
+                    <?php $getGovernorate = getAllRole(); $getGovernorate['all'] = 'all'; ?>
+                    {!!Form ::select('role', array_reverse($getGovernorate,true),'',['class' => 'select2 form-control', 'id' => 'filter_role'])!!}
+
+                </div>
+
+
+                <div class="input-group col-sm-2">
+                    <button type="button" name="filter" id="filter"
+                            class="btn btn-primary btn-ms waves-effect waves-light">فرز<i
+                            class="fa fa-filter"></i></button>
+                </div>
+            </div>
+
+        </div>
     </div>
 @endsection
 @section('models')
@@ -87,79 +121,95 @@
     <script>
 
         Active('{{route('admin.admins.active')}}');
+
+
         $(document).ready(function () {
 
-            $('#user_table').DataTable({
-                processing: true,
-                serverSide: true,
-                paging: true,
-                scrollX: true,
-                responsive: true,
-                autoWidth: false,
-                searching: true,
-                search: [
-                    regex => true,
-                ],
-                info: false,
-                searchDelay: 350,
-                language: lang,
-                dom: 'Brfltip',
-                lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
-                buttons: [
-                        @if ((Auth::user()->can('manage admins') == true))
 
-                    {
-                        text: '<i class="fa fa-plus" ></i>  إنشاء حساب مدير جديد  ',
-                        className: 'btn btn-info create_record',
-                    },
-                    @endif
-                ],
-                ajax: {
-                    url: "{{ route('admin.admins.index') }}",
-                },
-                columns: [
-                    {
-                        title: 'اسم المستخدم',
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        title: ' الهاتف',
-                        data: 'phone',
-                        name: 'phone'
-                    },
-                    {
-                        title: 'الايميل',
-                        data: 'email',
-                        name: 'email'
-                    },
-                        @if ((Auth::user()->can('active admins') == true))
-                    {
-                        title: 'حالة الحساب',
-                        data: 'btn_status',
-                        name: 'btn_status'
-                    },
-                    @endif
-                    {
-                        title: ' الدور',
-                        data: 'role_name',
-                        name: 'role_name'
-                    },
-                    {
-                        title: 'تاريخ إنشاء الحساب',
-                        data: 'created_at',
-                    },
-                        @if ((Auth::user()->can('manage admins') == true))
-
-                    {
-                        title: 'العمليات',
-                        data: 'action',
-                        name: 'action',
-                        orderable: false
-                    },
-                    @endif
-                ]
+            $(document).on('click', '#filter', function () {
+                $('#user_table').DataTable().destroy();
+                fill_datatable();
             });
+
+            fill_datatable();
+
+            function fill_datatable() {
+                $('#user_table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    paging: true,
+                    scrollX: true,
+                    responsive: true,
+                    autoWidth: false,
+                    searching: true,
+                    search: [
+                        regex => true,
+                    ],
+                    info: false,
+                    searchDelay: 350,
+                    language: lang,
+                    dom: 'Brfltip',
+                    lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'الكل']],
+                    buttons: [
+                            @if ((Auth::user()->can('manage admins') == true))
+
+                        {
+                            text: '<i class="fa fa-plus" ></i>  إنشاء حساب مدير جديد  ',
+                            className: 'btn btn-info create_record',
+                        },
+                        @endif
+                    ],
+                    ajax: {
+                        url: "{{ route('admin.admins.index') }}",
+                        data: {
+                            gov_id: $('#gov_id').val(),
+                            role: $('#filter_role').val()
+                        }
+                    },
+                    columns: [
+                        {
+                            title: 'اسم المستخدم',
+                            data: 'name',
+                            name: 'name'
+                        },
+                        {
+                            title: ' الهاتف',
+                            data: 'phone',
+                            name: 'phone'
+                        },
+                        {
+                            title: 'الايميل',
+                            data: 'email',
+                            name: 'email'
+                        },
+                            @if ((Auth::user()->can('active admins') == true))
+                        {
+                            title: 'حالة الحساب',
+                            data: 'btn_status',
+                            name: 'btn_status'
+                        },
+                            @endif
+                        {
+                            title: ' الدور',
+                            data: 'role_name',
+                            name: 'role_name'
+                        },
+                        {
+                            title: 'تاريخ إنشاء الحساب',
+                            data: 'created_at',
+                        },
+                            @if ((Auth::user()->can('manage admins') == true))
+
+                        {
+                            title: 'العمليات',
+                            data: 'action',
+                            name: 'action',
+                            orderable: false
+                        },
+                        @endif
+                    ]
+                });
+            }
 
             $('.create_record').click(function () {
                 $('.modal-title').text("إضافة حساب مدير جديد");
