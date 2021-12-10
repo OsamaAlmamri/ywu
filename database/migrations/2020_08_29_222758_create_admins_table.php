@@ -17,12 +17,12 @@ class CreateAdminsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->nullable()->unique();
-            $table->string('image')->nullable();
             $table->string('phone')->unique()->nullable();
             $table->enum('type', ['admin', 'seller'])->default('admin');
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('status');
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('image')->nullable();
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

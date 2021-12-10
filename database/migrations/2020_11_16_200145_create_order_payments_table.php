@@ -15,7 +15,7 @@ class CreateOrderPaymentsTable extends Migration
     {
         Schema::create('order_payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('admin_id')->nullable()->constrained('admins')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('admin_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('order_id')->constrained('order_sellers')->onUpdate('cascade')->onDelete('cascade');
             $table->string('invoice_number');
