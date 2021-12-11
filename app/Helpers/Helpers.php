@@ -162,6 +162,8 @@ function getSellerOrderStatus($status = 0)
         'shipping' => trans('status.order_shipping'),
         'delivery' => trans('status.order_delivery'),
     );
+    if($status=='all')
+        return $s;
     if ($status != 0)
         return $s[$status];
     else {
@@ -189,6 +191,8 @@ function paymentStatus($status = 'all')
         '1' => trans('status.payment_1'),
 
     );
+    if($status=='all')
+        return $s;
     if ($status != 0)
         return $s[$status];
     else {
@@ -205,6 +209,8 @@ function CouponUsedStatus($status = 'all')
         '1' => trans('status.coupons_used_1'),
 
     );
+    if($status=='all')
+        return $s;
     if ($status != 0)
         return $s[$status];
     else {
@@ -221,6 +227,8 @@ function CouponEndStatus($status = 'all')
         '1' => trans('status.coupons_end_0'),
 
     );
+    if($status=='all')
+        return $s;
     if ($status != 0)
         return $s[$status];
     else {
@@ -239,6 +247,8 @@ function confirm_paymentStatus($status = 'all')
         '2' => trans('status.confirm_payment_2'),
 
     );
+    if($status=='all')
+        return $s;
     if ($status != 0)
         return $s[$status];
     else {

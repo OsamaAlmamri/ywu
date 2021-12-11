@@ -328,7 +328,7 @@
         <div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-arrow-circle-up"></span></div>
         {{--//for vue JS--}}
         {{--<script src="{{ asset('js/app.js') }}"></script>--}}
-        <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
         <script src="{{ asset('site/vue/vue-clazy-load.min.js') }}"></script>
         <script src="{!! asset('newLibs\lightbox2\js\lightbox.min.js') !!}"></script>
 
