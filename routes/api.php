@@ -176,6 +176,7 @@ Route::group(['prefix' => 'v2'], function () {
 
     Route::post('consultants', 'Api2\Consultants\ConsultantController@index');
     Route::get('forewordConsultantUsers', 'Api2\Consultants\ConsultantController@forewordConsultantUsers');
+    Route::post('forewordToUsers', 'Api2\Consultants\ConsultantController@forewordToUsers');
 });
 
 

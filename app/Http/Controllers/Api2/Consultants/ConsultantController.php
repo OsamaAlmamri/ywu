@@ -5,10 +5,16 @@ namespace App\Http\Controllers\Api2\Consultants;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FireBaseController;
 use App\Http\Resources\Consultant\ConsultantPostResource;
+use App\Http\Resources\Consultant\ForewordConsultantResource;
 use App\Http\Resources\General\UserSelectResource;
+use App\Models\UserContents\Post;
 use App\Models\V2\UserContents\Consultant;
+use App\Models\V2\UserContents\ForewordConsultant;
+use App\Notifications\AppNotification;
 use App\Traits\JsonTrait;
 use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ConsultantController extends Controller
@@ -44,10 +50,57 @@ class ConsultantController extends Controller
     function forewordConsultantUsers()
     {
         $users = User::ofPermission(['foreword consultant'])->get();
-        $users=UserSelectResource::collection($users);
+        $users = UserSelectResource::collection($users);
 
         return $this->GetDateResponse('data', $users);
 
     }
+
+
+    public function forewordToUsers(Request $request)
+    {
+        $this->user = JWTAuth::parseToken()->authenticate();
+        try {
+            $rules = [
+                "post_id" => "required|integer",
+                "foreword_to" => "required|integer",
+            ];
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) {
+                $code = $this->returnCodeAccordingToInput($validator);
+                return $this->returnValidationError($code, $validator);
+            }
+            $post = ForewordConsultant::create([
+                'post_id' => $request->post_id,
+                'foreword_to' => $request->foreword_to,
+                "foreword_by" => $this->user->id,
+            ]);
+            $message = 'هناك استشارة جديدة تمت احالتها بواسطة   ' . $this->user->name;
+            $dataToNotification = array(
+                'sender_name' => auth()->user()->name,
+                'order_id' => $post->id,
+                'notification_type' => "new_post",
+                'user_id' => \auth()->id(),
+                'sender_image' => url('site/images/Logo250px.png'),
+                'message' => $message,
+                'date' => $post->created_at
+            );
+            $admins_id = [];
+            $admins_id[] = $request->foreword_to;
+            $admins = getAdminsOrderNotifucation('foreword');
+            foreach ($admins as $admin) {
+                $admins_id[] = $admin->id;
+                $admin->notify(new AppNotification($dataToNotification));
+            }
+            $tokens = getNotifiableUsers(0, $admins_id);
+            $this->firbaseContoller->multi($tokens, $dataToNotification);
+
+            return $this->GetDateResponse('data', new ForewordConsultantResource ($post), "تم اغادة التوجية بنجاح استشاتك");
+
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
 
 }
