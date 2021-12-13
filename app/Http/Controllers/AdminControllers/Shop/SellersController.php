@@ -33,9 +33,12 @@ class SellersController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $post = Admin::with(['seller'=>function($q){
-                $q->orderBy('admin_id', 'desc');
-            }])->where('type', 'seller')->orderBy('id', 'desc')
+            $post = User::with(['seller'=>function($q){
+                $q->orderBy('admin_id', 'desc')->get();
+            }])->whereIn('id',function ($q){
+                $q->select("admin_id")->from("sellers");
+            })
+                ->where('type', 'seller')->orderBy('id', 'desc')
                 ->get();
 
             if ($post) {

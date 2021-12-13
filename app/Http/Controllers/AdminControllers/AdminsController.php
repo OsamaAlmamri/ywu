@@ -7,6 +7,7 @@ use App\Branch;
 use App\Department;
 use App\Employee;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\General\UserSelectResource;
 use App\Job;
 use App\Models\Shop\ShopCategory;
 use App\Traits\PostTrait;
@@ -37,6 +38,8 @@ class AdminsController extends Controller
 
     public function index()
     {
+
+
         if (request()->ajax()) {
             $post = Admin::withTrashed()->where('type', 'admin')->get();
             $data = DB::table('users')
@@ -48,7 +51,7 @@ class AdminsController extends Controller
                 $data = $data->where('roles.name', '<>', 'Developer');
 
             if (isset(request()->role) and (request()->role) != "all")
-                $data = $data->where('roles.id',  request()->role);
+                $data = $data->where('roles.id', request()->role);
             if (isset(request()->gov_id) and (request()->gov_id) != "all")
                 $data = $data->where('users.gov_id', request()->gov_id);
             $data = $data->orderByDesc('id')->get();

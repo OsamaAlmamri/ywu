@@ -175,6 +175,7 @@ Route::group(['middleware' => 'CheckUserT:api'], function () {
 Route::group(['prefix' => 'v2'], function () {
 
     Route::post('consultants', 'Api2\Consultants\ConsultantController@index');
+    Route::get('forewordConsultantUsers', 'Api2\Consultants\ConsultantController@forewordConsultantUsers');
 });
 
 

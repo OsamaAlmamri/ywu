@@ -145,6 +145,12 @@ class PermissionsController extends Controller
         $permission = Permission::create(['name' => 'manage products_questions_replies']);
 
 
+                /********************* consultants  *********************/
+        $permission = Permission::create(['name' => 'replay social consultant']);
+        $permission = Permission::create(['name' => 'replay legal consultant']);
+        $permission = Permission::create(['name' => 'foreword consultant']);
+        $permission = Permission::create(['name' => 'edit public consultant']);
+
     }
 
 
@@ -156,9 +162,11 @@ class PermissionsController extends Controller
 
 //        $permission = Permission::create(['name' => 'delete orders']);//add ,update , delete
 
-        /********************* coupons  *********************/
-//        $permission = Permission::create(['name' => 'show coupons']);
-//        $permission = Permission::create(['name' => 'manage coupons']);
+//        /********************* consultants  *********************/
+//        $permission = Permission::create(['name' => 'replay social consultant']);
+//        $permission = Permission::create(['name' => 'replay legal consultant']);
+//        $permission = Permission::create(['name' => 'foreword consultant']);
+//        $permission = Permission::create(['name' => 'edit public consultant']);
 
 
 //        \auth()->user()->syncRoles(['Developer']);

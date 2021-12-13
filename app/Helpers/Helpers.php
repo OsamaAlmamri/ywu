@@ -144,7 +144,8 @@ function getSpesificStatus($status = 0)
         'shipping' => trans('status.order_shipping'),
         'delivery' => trans('status.order_delivery'),
     );
-
+    if($status=='all')
+        return $s;
     if ($status != 0)
         return $s[$status];
     else {
