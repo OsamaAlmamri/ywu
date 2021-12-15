@@ -12,6 +12,7 @@ use App\Models\TrainingContents\SubjectCategory;
 use App\Models\TrainingContents\Training;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -49,7 +50,7 @@ class TrainingController extends Controller
         }
         $categories = SubjectCategory::all();
         $departments = Department::all();
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         return view('admin.training.training.index', compact(['departments', 'categories', 'admin']));
     }
 
@@ -203,7 +204,7 @@ class TrainingController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         return view('admin.training.training.trashed', compact('admin'));
     }
 

@@ -5,6 +5,7 @@ namespace App\Models\Shop;
 use App\Models\Shop\ProductsOption;
 use App\Models\Shop\ProductsOptionsValue;
 use App\Models\Shop\Zone;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Seller2 extends Model
@@ -44,7 +45,7 @@ class Seller2 extends Model
 
     public function admin()
     {
-        return $this->belongsTo(Admin::class, 'admin_id', 'id');
+        return $this->belongsTo(User::class, 'admin_id', 'id');
     }
 
 

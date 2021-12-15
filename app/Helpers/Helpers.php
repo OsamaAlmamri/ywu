@@ -67,7 +67,7 @@ function notification_type($id, $type)
 if (!function_exists('getAdminsOrderNotifucation')) {
     function getAdminsOrderNotifucation($event_status)
     {
-        $admins = \App\Admin::all()->where('type', 'admin');
+        $admins = \App\User::all()->where('type', 'admin');
         return $admins;
     }
 }
@@ -293,7 +293,7 @@ function sellers()
 {
     $data = Seller::whereIn('admin_id', function ($query) {
         $query->select('id')
-            ->from(with(new Admin())->getTable())
+            ->from(with(new User())->getTable())
             ->where('users.deleted_at', null);
     })->get();
     return $data;
@@ -355,7 +355,7 @@ function getAllRole()
 
 function getFirstRole($user_id)
 {
-    $user = \App\Admin::find($user_id);
+    $user = \App\User::find($user_id);
     $roles = $user->getRoleNames()->first();
     if (($roles != null))
         $r = Role::all()->where('name', $roles)->first();

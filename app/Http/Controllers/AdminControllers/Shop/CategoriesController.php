@@ -10,6 +10,7 @@ use App\Models\Shop\ShopCategory;
 
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -86,7 +87,7 @@ class CategoriesController extends Controller
                     ->make(true);
             }
         }
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         return view('admin.shop.categories.show', compact(['admin']));
     }
 

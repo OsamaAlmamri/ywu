@@ -3,6 +3,8 @@
 namespace App;
 
 
+use App\Models\Shop\OrderSeller;
+use App\Models\Shop\Product;
 use App\Models\Shop\Zone;
 use App\Models\TrainingContents\Training;
 use App\Models\UserContents\Comment;
@@ -12,11 +14,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
+    use HasRoles;
     use SoftDeletes;
 
 
@@ -49,6 +53,7 @@ class User extends Authenticatable implements JWTSubject
 
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
+        'email_verified_at' => 'datetime',
         'updated_at' => 'datetime:Y-m-d H:i:s',
         'deleted_at' => 'datetime:Y-m-d H:i:s',
     ];
@@ -75,6 +80,20 @@ class User extends Authenticatable implements JWTSubject
         return ($im != null) ? $im->name_ar : null;
     }
 
+
+
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'admin_id', 'id');
+
+    }
+
+    public function order_products()
+    {
+        return $this->hasMany(OrderSeller::class, 'seller_id', 'id');
+
+    }
     public function seller()
     {
         return $this->hasOne(Seller::class, 'admin_id', 'id');

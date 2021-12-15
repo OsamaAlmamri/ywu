@@ -11,6 +11,7 @@ use App\Models\Shop\ProductsAttribute;
 use App\Models\Shop\ShopCategory;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -92,7 +93,7 @@ class ProductsController extends Controller
                     ->make(true);
             }
         }
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         return view('admin.shop.products.index', compact(['admin']));
     }
 

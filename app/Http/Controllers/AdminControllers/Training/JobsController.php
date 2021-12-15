@@ -10,6 +10,7 @@ use App\Job;
 use App\Models\TrainingContents\Training;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
@@ -38,7 +39,7 @@ class JobsController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         return view('admin.training.employee.jobs', compact(['admin']));
     }
 
@@ -136,7 +137,7 @@ class JobsController extends Controller
         }
         $category = EmployeeCategory::where('id', $id)->first();
         $trainings = Training::all();
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         return view('admin.training.employee.categoryShow', compact(['trainings', 'category', 'id', 'admin']));
     }
 

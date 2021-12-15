@@ -2,7 +2,7 @@
 
 namespace App\Models\Shop;
 
-use App\Admin;
+use App\User;
 use App\Like;
 use App\Models\Rateable\Rateable;
 use App\Models\Rateable\Rating;
@@ -435,7 +435,7 @@ class Product extends Model
 
     public function seller()
     {
-        return $this->belongsTo(Admin::class, 'admin_id', 'id');
+        return $this->belongsTo(User::class, 'admin_id', 'id');
     }
 
 

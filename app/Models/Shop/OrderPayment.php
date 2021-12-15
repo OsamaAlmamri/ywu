@@ -33,7 +33,7 @@ class OrderPayment extends Model
 
     public function admin()
     {
-        return $this->belongsTo(Admin::class, 'admin_id', 'id');
+        return $this->belongsTo(User::class, 'admin_id', 'id');
     }
 
 

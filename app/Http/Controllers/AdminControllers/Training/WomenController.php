@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AdminControllers\Training;
 use App\Admin;
 use App\Models\WomenContents\WomenPosts;
 use App\Traits\PostTrait;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
@@ -46,7 +47,7 @@ class WomenController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         return view('admin.training.women.index', compact(['admin']));
     }
 
@@ -185,7 +186,7 @@ class WomenController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         return view('admin.training.women.trashed', compact('admin'));
     }
 

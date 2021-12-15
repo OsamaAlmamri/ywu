@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\AdminControllers;
 
-use App\Admin;
+use App\User;
 use App\Branch;
 use App\Department;
 use App\Employee;
@@ -11,7 +11,7 @@ use App\Http\Resources\General\UserSelectResource;
 use App\Job;
 use App\Models\Shop\ShopCategory;
 use App\Traits\PostTrait;
-use App\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -24,15 +24,15 @@ class AdminsController extends Controller
 {
     use PostTrait;
 
-    public function Admin()
+    public function User()
     {
         return redirect()->route('home');
     }
 
     public function __construct()
     {
-        $this->middleware('permission:show admins', ['only' => ['index', 'show', 'Update_Admin_Details', 'Admin_update']]);
-        $this->middleware('permission:manage admins', ['only' => ['Update_Admin_Details', 'Admin_update', 'restore_post', 'force', 'changeOrder', 'destroy', 'edit', 'store', 'update', 'active']]);
+        $this->middleware('permission:show admins', ['only' => ['index', 'show', 'Update_User_Details', 'User_update']]);
+        $this->middleware('permission:manage admins', ['only' => ['Update_User_Details', 'User_update', 'restore_post', 'force', 'changeOrder', 'destroy', 'edit', 'store', 'update', 'active']]);
         $this->middleware('permission:active admins', ['only' => ['active']]);
     }
 
@@ -41,7 +41,7 @@ class AdminsController extends Controller
 
 
         if (request()->ajax()) {
-            $post = Admin::withTrashed()->where('type', 'admin')->get();
+            $post = User::withTrashed()->where('type', 'admin')->get();
             $data = DB::table('users')
                 ->leftJoin('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
                 ->leftJoin('roles', 'model_has_roles.role_id', '=', 'roles.id')
@@ -72,7 +72,7 @@ class AdminsController extends Controller
         $new_status = 1;
         if ($r->status == 1)
             $new_status = 0;
-        $user = Admin::find($r->id);
+        $user = User::find($r->id);
         $user->status = $new_status;
         $user->save();
         return $new_status;
@@ -112,7 +112,7 @@ class AdminsController extends Controller
             return response()->json(['errors' => $error->errors()->all()]);
         }
         $request['password'] = bcrypt($request->password);
-        $user = Admin::create(array_merge($request->all(), [
+        $user = User::create(array_merge($request->all(), [
             'type' => 'admin',
             'status' => 1,
         ]));
@@ -127,7 +127,7 @@ class AdminsController extends Controller
         if ($error->fails()) {
             return response()->json(['errors' => $error->errors()->all()]);
         }
-        $user = Admin::find($request->hidden_id);
+        $user = User::find($request->hidden_id);
 
         if ($request->password == '') {
             $user->update(array_merge($request->except('password')));
@@ -149,7 +149,7 @@ class AdminsController extends Controller
     function show($id)
     {
         if (request()->ajax()) {
-            $data = Admin::find($id);
+            $data = User::find($id);
             return response()->json(['data' => $data]);
         }
     }
@@ -158,7 +158,7 @@ class AdminsController extends Controller
     function edit($id)
     {
         if (request()->ajax()) {
-            $data = Admin::find($id);
+            $data = User::find($id);
             return response()->json(['role' => getFirstRole($id), 'data' => $data]);
         }
     }
@@ -166,7 +166,7 @@ class AdminsController extends Controller
     public
     function destroy($id)
     {
-        $data = Admin::findOrFail($id);
+        $data = User::findOrFail($id);
         $data->status = 1;
         $data->update();
         if ($data) {

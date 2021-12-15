@@ -59,7 +59,7 @@ class Consultant extends Model
     public function scopeOfCategory($query, $cat)
     {
         if ($cat >= 1)
-            return $query->whereIn('category_id', $cat);
+            return $query->where('category_id', $cat);
         else return $query;
     }
 
@@ -81,8 +81,10 @@ class Consultant extends Model
                     ->orWhereNotNull('original_post_id');
             });
         else
-            return $query;
+            return $query->where(function ($query) use ($user_id) {
+                $query->whereNotNull('original_post_id');
+            });
+
+
     }
-
-
 }

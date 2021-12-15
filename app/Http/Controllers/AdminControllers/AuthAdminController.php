@@ -91,7 +91,7 @@ class AuthAdminController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $Admin = Admin::where('name', $request->name);
+        $Admin = User::where('name', $request->name);
         if ($Admin) {
             $Admin->update(['password' => bcrypt($request->password)]);
             if ($Admin) {

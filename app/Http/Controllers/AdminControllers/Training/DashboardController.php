@@ -29,7 +29,7 @@ class DashboardController extends Controller
     {
         if (auth()->user()->type == "admin") {
             $shareduser = User::all()->where('type', 'share_users')->where('status', 1)->count();
-            $admin = Admin::where('id', 1)->first();
+            $admin = User::where('id', 1)->first();
             $users = User::all()->whereIn('type', ['customers', 'visitor'])->count();
             $employees = Employee::all()->count();
             $subjects = Subject::all()->count();
@@ -43,7 +43,7 @@ class DashboardController extends Controller
             /*****************/
             $products = Product::all()->count();
             $shopCategory = ShopCategory::all()->count();
-            $seller = Admin::all()->where('type', 'seller')->count();
+            $seller = User::all()->where('type', 'seller')->count();
             $all_orders = Order::all()->count();
             $all_payment_orders = Order::all()->where('payment_status', 1)->count();
             $all_no_payment_orders = Order::all()->where('payment_status', 0)->count();
@@ -153,7 +153,7 @@ class DashboardController extends Controller
         $comments = Comment::with(['user', 'post'])->get();
         $categories = Category::all();
         $users = User::withTrashed()->get();
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         return view('admin.training.asking.show', compact(['admin', 'posts', 'comments', 'categories', 'users']));
 
     }
@@ -165,7 +165,7 @@ class DashboardController extends Controller
                 ->where('status', false)
                 ->orderBy('id', 'desc')
                 ->paginate(5);
-            $admin = Admin::where('id', 1)->first();
+            $admin = User::where('id', 1)->first();
             return view('admin.training.asking.fetch', compact(['posts', 'admin']))->render();
         }
     }
@@ -276,7 +276,7 @@ class DashboardController extends Controller
     function deletedPost(Request $request)
     {
         $soft_delete = Post::onlyTrashed()->with(['user', 'category'])->orderBy('id', 'desc')->paginate(5);
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         return view('admin.training.asking.trashed', compact(['soft_delete', 'admin']))->render();
     }
 

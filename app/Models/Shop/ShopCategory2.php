@@ -2,7 +2,7 @@
 
 namespace App\Models\Shop;
 
-use App\Admin;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class ShopCategory2 extends Model
@@ -48,7 +48,7 @@ class ShopCategory2 extends Model
         return $this->hasMany(Product2::class, 'category_id', 'id')
             ->whereIn('products.admin_id', function ($query) {
                 $query->select('id')
-                    ->from(with(new Admin())->getTable())
+                    ->from(with(new User())->getTable())
                     ->where('deleted_at', null)
                     ->where('status', '=', 1);
             });

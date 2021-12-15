@@ -7,6 +7,7 @@ use App\Models\TrainingContents\Training;
 use App\Models\TrainingContents\TrainingTitle;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
+use App\User;
 use App\UserTraining;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -32,7 +33,7 @@ class UserTrainingController extends Controller
             }
         }
         $trainings = Training::all();
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         return view('admin.training.user_trinings.show', compact(['trainings', 'id', 'admin']));
     }
 

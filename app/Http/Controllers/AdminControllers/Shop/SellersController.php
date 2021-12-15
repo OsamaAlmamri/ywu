@@ -62,7 +62,7 @@ class SellersController extends Controller
         $new_status = 1;
         if ($r->status == 1)
             $new_status = 0;
-        $user = Admin::find($r->id);
+        $user = User::find($r->id);
         $user->status = $new_status;
         $user->save();
         return $new_status;
@@ -72,7 +72,7 @@ class SellersController extends Controller
     public
     function destroy($id)
     {
-        $admin = Admin::findOrFail($id);
+        $admin = User::findOrFail($id);
         $admin->delete();
         $admin->save();
 

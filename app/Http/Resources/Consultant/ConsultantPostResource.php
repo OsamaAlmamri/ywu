@@ -26,7 +26,7 @@ class ConsultantPostResource extends JsonResource
 //            'favorite' => $this->favorite,
             'published' => Carbon::createFromTimestamp(strtotime($this->created_at))->diffForHumans(),
             'user' => new UserSelectResource($this->user),
-            'category' => $this->category->name,
+            'category' => $this->category,
             'comments' => CommentsConsultantPostResource::collection($this->comments),
             'comments_count' => $this->comments->count(),
             'likes_count' => $this->likes->count(),

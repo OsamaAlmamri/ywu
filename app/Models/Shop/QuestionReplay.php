@@ -2,7 +2,6 @@
 
 namespace App\Models\Shop;
 
-use App\Admin;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,7 +22,7 @@ class QuestionReplay extends Model
 
     function admin()
     {
-        return $this->belongsTo(Admin::class, 'replay_user_id', 'id');
+        return $this->belongsTo(User::class, 'replay_user_id', 'id');
     }
 
     function getUserNameAttribute()

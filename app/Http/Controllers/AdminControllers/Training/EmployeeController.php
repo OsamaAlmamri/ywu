@@ -56,7 +56,7 @@ class EmployeeController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         $departments = Department::all();
         $jobs = Job::all();
         $branchs = Branch::all();
@@ -189,7 +189,7 @@ class EmployeeController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         return view('admin.training.employee.trashed', compact('admin','id'));
     }
 

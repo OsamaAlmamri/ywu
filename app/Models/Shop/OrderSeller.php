@@ -4,6 +4,7 @@ namespace App\Models\Shop;
 
 
 use App\Admin;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use \Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -57,7 +58,7 @@ class OrderSeller extends Model
 
     public function admin()
     {
-        return $this->belongsTo(Admin::class, 'seller_id', 'id');
+        return $this->belongsTo(User::class, 'seller_id', 'id');
     }
 
     public function order()

@@ -8,6 +8,7 @@ use App\Models\TrainingContents\SubjectCategory;
 
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
@@ -31,7 +32,7 @@ class SubjectController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $admin=Admin::where('id',1)->first();
+        $admin=User::where('id',1)->first();
         $categories=SubjectCategory::all();
         return view('admin.training.subject.index',compact(['categories','admin']));
     }
@@ -117,7 +118,7 @@ class SubjectController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $admin=Admin::where('id',1)->first();
+        $admin=User::where('id',1)->first();
         return view('admin.training.subject.trashed',compact('admin'));
     }
     public function edit_trashed($id)

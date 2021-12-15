@@ -7,6 +7,7 @@ use App\Models\TrainingContents\Training;
 use App\Models\TrainingContents\TrainingTitle;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
@@ -32,7 +33,7 @@ class TitleController extends Controller
         }
 
         $category = Training::where('id', $id)->first();
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         return view('admin.training.title.show', compact(['category', 'id', 'admin']));
     }
 

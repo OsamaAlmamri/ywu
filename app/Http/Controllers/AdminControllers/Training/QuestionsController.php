@@ -9,6 +9,7 @@ use App\Question;
 use App\Result;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
@@ -35,7 +36,7 @@ class QuestionsController extends Controller
         }
 
         $category = Training::where('id', $id)->first();
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         return view('admin.training.questions.show', compact(['category', 'id', 'admin']));
     }
 
@@ -56,7 +57,7 @@ class QuestionsController extends Controller
                     })
                     ->make(true);
             }
-        }$admin = Admin::where('id', 1)->first();
+        }$admin = User::where('id', 1)->first();
         return view('admin.training.questions.results', compact([ 'id', 'admin']));
     }
 

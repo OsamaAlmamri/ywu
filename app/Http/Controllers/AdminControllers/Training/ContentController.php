@@ -10,6 +10,7 @@ use App\Models\TrainingContents\Training;
 use App\Models\TrainingContents\TrainingTitle;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
@@ -50,7 +51,7 @@ class ContentController extends Controller
                     ->make(true);
             }
         }
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         $c = TrainingTitle::where('id', $id)->first();
         $category = TrainingTitle::all()->where('training_id', $c->training_id);
 //return dd($category);
@@ -182,7 +183,7 @@ class ContentController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         return view('admin.training.content.trashed', compact('admin'));
     }
 

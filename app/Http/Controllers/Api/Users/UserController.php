@@ -6,6 +6,7 @@ use App\Admin;
 use App\Customer;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FireBaseController;
+use App\Http\Resources\UserResource;
 use App\Models\Shop\ProductsAttribute;
 use App\Notifications\AppNotification;
 use App\Rules\MatchOldPassword;
@@ -238,7 +239,7 @@ class UserController extends Controller
                     if (isset($request->device_token)) {
                         set_users_decices($request);
                     }
-                    return $this->GetDateResponse('data', ['token' => $jwt_token, 'userData' => $user]);
+                    return $this->GetDateResponse('data', ['token' => $jwt_token, 'userData' => new UserResource($user)]);
                 }
                 if ($fromRegister == 1)
                     return $this->GetDateResponse('data', 0, ' تم التسجيل بنجاح وسيتم تفعيل حسابك لاحقا ');

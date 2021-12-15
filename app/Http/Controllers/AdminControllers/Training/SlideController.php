@@ -12,6 +12,7 @@ use App\Result;
 use App\Slide;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
@@ -42,7 +43,7 @@ class SlideController extends Controller
                     ->make(true);
             }
         }
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         return view('admin.training.slides.show', compact(['admin']));
     }
 

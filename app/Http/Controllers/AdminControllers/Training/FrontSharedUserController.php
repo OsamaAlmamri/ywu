@@ -33,7 +33,7 @@ class FrontSharedUserController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         return view('admin.training.shareduser.index', compact(['admin','id']));
     }
 
@@ -81,7 +81,7 @@ class FrontSharedUserController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         return view('admin.training.shareduser.agree', compact(['admin']));
     }
 
@@ -107,7 +107,7 @@ class FrontSharedUserController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        $admin = Admin::where('id', 1)->first();
+        $admin = User::where('id', 1)->first();
         return view('admin.training.shareduser.trashed', compact(['admin','id']));
     }
 }
