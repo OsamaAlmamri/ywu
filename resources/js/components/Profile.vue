@@ -81,7 +81,7 @@
                 <div class="image-column col-lg-3 col-md-12 col-sm-12">
                     <div class="inner-column">
                         <div class="image">
-                            <img src="/site/images/deafult.png" alt="">
+                            <img class="thumbnail-imges" src="/site/images/deafult.png" alt="">
                         </div>
                         <p>{{authUser.name}}</p>
                         <!--                        <a href="#" class="theme-btn btn-style-three"><span class="txt">Upload Picture <i-->

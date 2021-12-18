@@ -21,6 +21,7 @@ Vue.component('ShopCategory', require('./components/ShopCategory.vue').default);
 Vue.component('pagination', require('laravel-vue-pagination'));
 
 
+Vue.use(store)
 var api_url ="http://127.0.0.1:8000";
 // var api_url ="https://yemenwe.com";
 // var api_url = process.env.MIX_APP_URL;
@@ -31,7 +32,7 @@ Vue.use(SweetModal)
 Axios.defaults.baseURL = api_url;
 Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
-const token = localStorage.getItem('token')
+const token =store.getters.token
 if (token) {
     Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
 }

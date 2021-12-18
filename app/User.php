@@ -182,5 +182,28 @@ class User extends Authenticatable implements JWTSubject
 
     }
 
+    public function scopeOfHasPermission($query, $permissions,$user_id)
+    {
+
+
+        return $query->whereIn('id', function ($q) use ($permissions,$user_id) {
+            $q->select('model_id')
+                ->from("model_has_roles")
+                ->where('model_id',$user_id)
+                ->whereIn('role_id', function ($q) use ($permissions) {
+                    $q->select('role_id')
+                        ->from("role_has_permissions")
+                        ->whereIn('permission_id', function ($q) use ($permissions) {
+                            $q->select('id')
+                                ->from("permissions")
+                                ->whereIn('name', $permissions);
+
+                        });
+
+                });
+        });
+
+    }
+
 
 }

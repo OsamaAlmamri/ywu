@@ -77,8 +77,10 @@ class Consultant extends Model
             return $query->where('user_id', $user_id);
         else if ($user_id > 0)
             return $query->where(function ($query) use ($user_id) {
-                $query->where('user_id', $user_id)
-                    ->orWhereNotNull('original_post_id');
+//                $query->where('user_id', $user_id)
+//                    ->orWhereNotNull('original_post_id');
+
+                $query->whereNotNull('original_post_id');
             });
         else
             return $query->where(function ($query) use ($user_id) {
