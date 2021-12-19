@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Consultant;
 
+
 use App\Http\Resources\General\UserSelectResource;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -26,6 +27,7 @@ class ConsultantPostResource extends JsonResource
 //            'favorite' => $this->favorite,
             'published' => Carbon::createFromTimestamp(strtotime($this->created_at))->diffForHumans(),
             'user' => new UserSelectResource($this->user),
+            'forewordConsultant' => ($this->forewordConsultant == null) ? null : new ForewordConsultantWithPostResource($this->forewordConsultant),
             'category' => $this->category,
             'comments' => CommentsConsultantPostResource::collection($this->comments),
             'comments_count' => $this->comments->count(),

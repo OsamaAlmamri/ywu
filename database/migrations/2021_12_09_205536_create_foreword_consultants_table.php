@@ -18,6 +18,7 @@ class CreateForewordConsultantsTable extends Migration
             $table->foreignId('post_id')->constrained('posts');
             $table->foreignId('foreword_by')->constrained('users');
             $table->foreignId('foreword_to')->constrained(      'users');
+            $table->longText('note')->nullable();
             $table->longText('solve')->nullable();
             $table->enum('status', ['not_solve', 'not_complete', 'solved'])->default('not_solve');
             $table->timestamps();

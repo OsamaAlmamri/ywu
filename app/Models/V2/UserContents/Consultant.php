@@ -31,6 +31,10 @@ class Consultant extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function forewordConsultant()
+    {
+        return $this->hasOne(ForewordConsultant::class,'post_id');
+    }
 
     public function category()
     {
@@ -65,7 +69,8 @@ class Consultant extends Model
 
     public function scopeOfType($query, $type)
     {
-        $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
+        $user = (auth()->guard('api')->user());
+        $user_id = ($user) ? auth()->guard('api')->user()->id : 0;
         if ($type == "fav")
             return $query->whereIn('id', function ($q) use ($user_id) {
                 $q->select('liked_id')
@@ -76,15 +81,22 @@ class Consultant extends Model
         else if ($type == "my")
             return $query->where('user_id', $user_id);
         else if ($user_id > 0)
-            return $query->where(function ($query) use ($user_id) {
-//                $query->where('user_id', $user_id)
-//                    ->orWhereNotNull('original_post_id');
+            return $query->where(function ($query) use ($user) {
 
-                $query->whereNotNull('original_post_id');
+                $c = $user->ofHasPermission(['replay social consultant'], $user->id)->count();
+
+                if ($user->ofHasPermission(['replay social consultant'], $user->id)->count() == 0)
+                    $query->whereNotNull('original_post_id');
+//                $query->OrWhere('user_id', $user_id)
+//                $query->orWhereNotNull('original_post_id');
+
+
             });
         else
-            return $query->where(function ($query) use ($user_id) {
+            return $query->where(function ($query) use ($user) {
                 $query->whereNotNull('original_post_id');
+//
+
             });
 
 

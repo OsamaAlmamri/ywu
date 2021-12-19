@@ -14,6 +14,7 @@ use App\Models\TrainingContents\TitleContent;
 use App\Models\TrainingContents\Training;
 use App\Models\TrainingContents\TrainingTitle;
 use App\Models\UserContents\Post;
+use App\Models\V2\UserContents\Consultant;
 use App\Models\WomenContents\WomenPosts;
 use App\Notifications\AppNotification;
 use App\Question;
@@ -137,11 +138,13 @@ class TrainingController extends Controller
 
             if ($type == 'trainings')
 //                $data = Training::orderByDesc('id')->limit(5)->get();
-                $data = LastPosts::collection(Training::orderByDesc('id')->limit(5)->get())->type('trainings');
+                $data = LastPosts::collection(Training::orderByDesc('id')
+
+                    ->limit(5)->get())->type('trainings');
 
             if ($type == 'posts')
 //                $data = Training::orderByDesc('id')->limit(5)->get();
-                $data = LastPosts::collection(Post::with('category')
+                $data = LastPosts::collection(Consultant::with('category')->ofType("s")
                     ->where('user_id', '!=', $user_id)->where('status', 1)->orderByDesc('id')->limit(5)->get())->type('posts');
 
             else {

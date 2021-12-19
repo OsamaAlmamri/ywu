@@ -6,7 +6,7 @@ use App\Http\Resources\General\UserSelectResource;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ForewordConsultantResource extends JsonResource
+class ForewordConsultantWithPostResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -22,7 +22,6 @@ class ForewordConsultantResource extends JsonResource
                 "note" => $this->note,
                 "solve" => $this->solve,
                 "foreword_to" => $this->foreword_to,
-                'post' => new ConsultantPostResource($this->post),
                 'foreword_by_user' => new UserSelectResource($this->foreword_by_user),
                 'foreword_to_user' => new UserSelectResource($this->foreword_to_user),
                 'published' => Carbon::createFromTimestamp(strtotime($this->created_at))->diffForHumans(),

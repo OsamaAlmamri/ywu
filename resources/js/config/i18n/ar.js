@@ -59,20 +59,17 @@ export const locale = {
         phoneOrEmail: 'الايميل او رقم الهاتف ',
     },
     register: {
-
-
         title: "  قم بإنشاء حساب  للاستفادة بشكل اكبر من\n" +
             "  الخدمات الذي يقدمها الموقع",
-
         userType: 'نوع المستخدم   ',
         customer: 'متسوق',
-        visitor: 'متدرب',
-        copartner: 'عضوء شريك',
-        sub_cluster: 'عضوء كتلة',
+        visitor: 'زائر',
+        copartner: 'عضو شريك',
+        sub_cluster: 'عضو كتلة',
         name: 'الاسم',
         gender: 'الجنس',
         male: 'ذكر',
-        female: 'انثى',
+        female: 'أنثى',
         gov: 'المحافظة',
         dist: 'المديرية',
         more_address_info: "معلومات اضافية عن مكان التواجد",
@@ -134,5 +131,10 @@ export const locale = {
     privacy: " الخصوصية   ",
     public: " عام   ",
     private: " خصاص   ",
+    foreword: " احالة   ",
+    Note: " ملاحظة   ",
+    foreword_by: " بواسطة     ",
+    foreword_to: " احالة الى   ",
+    foreword_to_user: " تم الحالة الى   ",
 
 };

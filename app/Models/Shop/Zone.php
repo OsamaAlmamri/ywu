@@ -48,19 +48,19 @@ class Zone extends Model
 
     public function childZone()
     {
-        return $this->hasMany('App\Zone', 'parent', 'id');
+        return $this->hasMany(Zone::class, 'parent', 'id');
 
     }
 
 
     public function zone()
     {
-        return $this->belongsTo('App\Zone', 'parent', 'id');
+        return $this->belongsTo(Zone::class, 'parent', 'id');
     }
 
     public function childZoneDeleted()
     {
-        return $this->hasMany('App\Zone', 'parent', 'id');
+        return $this->hasMany(Zone::class, 'parent', 'id');
 
     }
 }

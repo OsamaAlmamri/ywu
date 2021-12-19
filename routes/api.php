@@ -53,12 +53,20 @@ Route::post('shop/product_details', 'Api\Shop\CategoreisController@product_detai
 Route::post('shop/gov_seller', 'Api\Shop\CategoreisController@gov_seller');
 Route::post('shop/gov_sellers', 'Api\Shop\CategoreisController@gov_sellers');
 Route::post('emp-login', 'Api\Employees\EmployeeController@login');
-Route::post('AllPosts', 'Api\Users\PostController@index');
+Route::post('AllPosts', 'Api2\Consultants\ConsultantController@index');
+//Route::post('AllPosts', 'Api2\Consultants\ConsultantController@index');
+
 Route::post('actives', 'Api\Users\ActivatesController@index');
 Route::post('slides', 'Api\Users\ActivatesController@slides');
 
 Route::post('AllCategories', 'Api\Users\PostController@all_category');
 Route::post('showTrainingByCategory', 'Api\Trainings\TrainingController@showTrainingByCategory');
+Route::group(['prefix' => 'v2'], function () {
+
+    Route::post('consultants', 'Api2\Consultants\ConsultantController@index');
+    Route::get('forewordConsultantUsers', 'Api2\Consultants\ConsultantController@forewordConsultantUsers');
+    Route::post('forewordToUsers', 'Api2\Consultants\ConsultantController@forewordToUsers');
+});
 
 Route::group(['prefix' => 'admin', 'middleware' => ['assign.guard:admins', 'jwt.auth']], function () {
     Route::get('/demo', 'AdminController@demo');
@@ -172,12 +180,6 @@ Route::group(['middleware' => 'CheckUserT:api'], function () {
     Route::post('DeleteTraining/{id}', 'Api\Trainings\TrainingController@destroy');
 });
 
-Route::group(['prefix' => 'v2'], function () {
-
-    Route::post('consultants', 'Api2\Consultants\ConsultantController@index');
-    Route::get('forewordConsultantUsers', 'Api2\Consultants\ConsultantController@forewordConsultantUsers');
-    Route::post('forewordToUsers', 'Api2\Consultants\ConsultantController@forewordToUsers');
-});
 
 
 ######################################## women part

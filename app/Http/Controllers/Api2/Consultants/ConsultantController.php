@@ -32,6 +32,8 @@ class ConsultantController extends Controller
         $limit = (request()->limit != null) ? request()->limit : 20;
         $category = request()->category;
         $type = request()->type;
+
+//        $user = JWTAuth::user();
         $post = Consultant::where('status', 1)
             ->ofCategory($category)
             ->ofType($type)
@@ -70,9 +72,9 @@ class ConsultantController extends Controller
                 $code = $this->returnCodeAccordingToInput($validator);
                 return $this->returnValidationError($code, $validator);
             }
-            $post = ForewordConsultant::create([
+            $post = ForewordConsultant::UpdateOrCreate(['post_id' => $request->post_id, 'foreword_to' => $request->foreword_to], [
                 'post_id' => $request->post_id,
-                'foreword_to' => $request->foreword_to,
+                'note' => $request->note,
                 "foreword_by" => $this->user->id,
             ]);
             $message = 'هناك استشارة جديدة تمت احالتها بواسطة   ' . $this->user->name;
@@ -95,7 +97,7 @@ class ConsultantController extends Controller
             $tokens = getNotifiableUsers(0, $admins_id);
             $this->firbaseContoller->multi($tokens, $dataToNotification);
 
-            return $this->GetDateResponse('data', new ForewordConsultantResource ($post), "تم اغادة التوجية بنجاح استشاتك");
+            return $this->GetDateResponse('data', new ForewordConsultantResource ($post), "تم اعادة توجية  الاستشارة بنجاح ");
 
         } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());

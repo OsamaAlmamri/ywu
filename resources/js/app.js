@@ -32,7 +32,7 @@ Vue.use(SweetModal)
 Axios.defaults.baseURL = api_url;
 Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
-const token =store.getters.token
+const token = localStorage.getItem('token')
 if (token) {
     Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
 }

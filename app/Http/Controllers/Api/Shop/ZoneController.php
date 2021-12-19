@@ -24,6 +24,8 @@ class ZoneController extends Controller
     function get_gov(Request $request)
     {
         $data = Zone::where('parent', 0)->get(['id', 'name_en', 'name_ar']);
+//        $data = Zone::with(['childZone:id,name_en,name_ar,parent'])->where('parent', 0)->get(['id', 'name_en', 'name_ar']);
+
         return $this->GetDateResponse('data', $data);
     }
 

@@ -248,9 +248,10 @@ export default {
     },
     methods: {
         get_consultant_data(page = 1) {
-            axios.post('api/AllPosts?page=' + page)
+            // http://127.0.0.1:8000/api/v2/consultants?page=1
+            axios.post('api/v2/consultants?page=' + page)
                 .then(response => {
-                    this.consultant_data = response.data.Posts;
+                    this.consultant_data = response.data.data;
                 });
         },
         onToggle(index) {

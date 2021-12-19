@@ -84,7 +84,7 @@
                                                     @click="form.userType='customer'">
 
 
-                                                    {{ $t('register.userType') }}
+                                                    {{ $t('register.customer') }}
                                                 </li>
                                                 <li data-tab="#prod-bookmark"
                                                     :class="[ 'tab-btn',{'active-btn':(form.userType=='visitor')},'usres_types_taps']"
@@ -190,7 +190,7 @@
                             <div class="form-group col-lg-6 col-md-12 col-sm-12"
                                  v-show="form.userType=='share_user'|| form.userType=='seller'">
                                 <label>
-                                    {{ $t('register.userType') }}
+                                    {{ $t('register.email') }}
                                 </label>
                                 <input type="email" name="email" v-model="form.email" id="form_email" value=""
                                        placeholder="abcd@gmail.com">
