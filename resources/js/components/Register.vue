@@ -32,8 +32,8 @@
                                 <!--Tab Btns-->
                                 <ul class="tab-btns tab-buttons clearfix">
                                     <li data-tab="#prod-overview" data-type="user"
-                                        @click="changeUserType('visitor','')"
-                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.userType=='visitor')}]">
+                                        @click="changeUserType('visitor','visitor')"
+                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(form.userType!='seller')}]">
                                         {{ $t('login.user') }}
                                     </li>
                                     <!--                                    <li data-tab="#prod-bookmark"-->
@@ -47,7 +47,7 @@
                                     <!--                                        كتلة-->
                                     <!--                                    </li>-->
                                     <li data-tab="#prod-overview" data-type="seller"
-                                        @click="changeUserType('seller','')"
+                                        @click="changeUserType('seller','seller')"
                                         :class="['user_type_tap', 'tab-btn',{'active-btn':(form.userType=='seller')}]">
                                         {{ $t('login.seller') }}
                                     </li>
@@ -81,7 +81,7 @@
                                                 <li data-tab="#prod-bookmark"
                                                     :class="[ 'tab-btn',{'active-btn':(form.userType=='customer')},'usres_types_taps']"
                                                     style="padding: -23px 28px 46px;"
-                                                    @click="form.userType='customer'">
+                                                    @click="changeUserType('customer','customer')">
 
 
                                                     {{ $t('register.customer') }}
@@ -89,22 +89,22 @@
                                                 <li data-tab="#prod-bookmark"
                                                     :class="[ 'tab-btn',{'active-btn':(form.userType=='visitor')},'usres_types_taps']"
                                                     style="padding: -23px 28px 46px;"
-                                                    @click="form.userType='visitor'">
+                                                    @click="changeUserType('visitor','visitor')">
 
                                                     {{ $t('register.visitor') }}
                                                 </li>
                                                 <li data-tab="#prod-bookmark"
-                                                    :class="[ 'tab-btn',{'active-btn':(form.share_user_type=='copartner')&& form.userType=='share_user'},'usres_types_taps']"
+                                                    :class="[ 'tab-btn',{'active-btn':(form.share_user_type=='copartner')},'usres_types_taps']"
                                                     style="padding: -23px 28px 46px;"
-                                                    @click="changeUserType('share_user','copartner')"
+                                                    @click="changeUserType('copartner','copartner')"
                                                 >
 
                                                     {{ $t('register.copartner') }}
                                                 </li>
                                                 <li data-tab="#prod-bookmark"
-                                                    :class="[ 'tab-btn',{'active-btn':(form.share_user_type=='sub_cluster') && form.userType=='share_user'},'usres_types_taps']"
+                                                    :class="[ 'tab-btn',{'active-btn':(form.share_user_type=='sub_cluster')},'usres_types_taps']"
                                                     style="padding: -23px 28px 46px;"
-                                                    @click="changeUserType('share_user','sub_cluster')"
+                                                    @click="changeUserType('sub_cluster','sub_cluster')"
                                                 >
 
                                                     {{ $t('register.sub_cluster') }}
@@ -187,8 +187,7 @@
                                 <input type="text" v-model="form.phone" placeholder="777777777" required="">
                             </div>
                             <!-- Form Group -->
-                            <div class="form-group col-lg-6 col-md-12 col-sm-12"
-                                 v-show="form.userType=='share_user'|| form.userType=='seller'">
+                            <div class="form-group col-lg-6 col-md-12 col-sm-12">
                                 <label>
                                     {{ $t('register.email') }}
                                 </label>
@@ -225,7 +224,7 @@
                             </div>
 
                             <!-- Form Group -->
-                            <div class="form-group col-lg-6 col-md-12 col-sm-12" v-show="form.userType=='share_user'">
+                            <div class="form-group col-lg-6 col-md-12 col-sm-12" v-show="(form.userType=='sub_cluster'||form.userType=='copartner')">
                                 <label>{{ $t('register.destination') }} </label>
                                 <input type="text" name="destination" v-model="form.destination" id="form_destination"
                                        value="">
@@ -420,7 +419,7 @@ export default {
             }
         },
         changeUserType: function (type, share_type) {
-            this.form.userType = type;
+            this.form.userType = share_type;
             this.form.share_user_type = share_type;
         },
         get_district() {

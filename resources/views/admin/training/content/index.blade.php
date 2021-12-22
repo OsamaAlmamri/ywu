@@ -1,5 +1,4 @@
 @extends('adminpanel.dataTableLayout')
-@extends('adminpanel.dataTableLayout')
 @section('card_header')
     <div class="card-header">
         <br/>
@@ -138,7 +137,7 @@
                     <h2 class="modal-title">حذف المادة</h2>
                 </div>
                 <div class="modal-body">
-                    <h4 align="center" style="margin:0;">هل انت متاكد من حذف محتوى عنوان الدورة؟</h4>
+                    <h4 align="center" style="margin:0;">هل انت متاكد من الحذف؟</h4>
                 </div>
                 <div class="modal-footer">
                     <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">نعم</button>
@@ -175,7 +174,7 @@
                     buttons: [
                             @if ((Auth::user()->can('manage training') == true))
                         {
-                            text: '<i class="fa fa-plus" ></i>  إنشاء دورة تدريبية جديده ',
+                            text: '<i class="fa fa-plus" ></i>  إنشاء محتوى  جديد ',
                             className: 'btn btn-info create_record',
                         },
                         @endif
@@ -218,7 +217,7 @@
             }
 
             $(document).on('click', '.create_record', function () {
-                $('.modal-title').text("إ إنشاء محتوى جديد");
+                $('.modal-title').text("إنشاء محتوى جديد");
                 $('#action_button').val("نشر");
                 $('#action').val("Add");
                 $('#sample_form')[0].reset();

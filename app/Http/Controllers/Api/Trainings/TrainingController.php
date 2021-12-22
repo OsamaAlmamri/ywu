@@ -44,7 +44,7 @@ class TrainingController extends Controller
         $this->emp = Auth::user();
         try {
             $Training = Training::with(['titles', 'is_register'])
-                ->where('type', 'خاص')->orwhere('type', 'عام')
+              //  ->where('type', 'خاص')->orwhere('type', 'عام')
                 ->orderByDesc('id')->paginate(20);
             if (!$Training) {
                 return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');

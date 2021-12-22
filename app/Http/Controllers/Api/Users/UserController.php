@@ -78,8 +78,8 @@ class UserController extends Controller
                     "password" => "required|string|min:4",
                     "phone" => "required|numeric|digits:9|starts_with:77,73,70,71|unique:users,phone",
                     'userType' => 'required',
-                    'share_user_type' => 'required_if:userType,share_user',
-                    'destination' => 'required_if:userType,share_user',
+                 //  'share_user_type' => 'required_if:userType,share_user',
+                    'destination' => 'required_if:userType,sub_cluster|required_if:userType,copartner',
                     "gov_id" => "required_if:userType,customer|numeric",
                     "district_id" => "required_if:userType,customer|numeric",
                     "more_address_info" => "required_if:userType,customer|string",
@@ -104,9 +104,9 @@ class UserController extends Controller
             }
             $oldPass = $request['password'];
             $request['password'] = bcrypt($request->password);
-            if ($request->userType == 'share_user') {
+            if ($request->userType == 'share_user' or $request->userType == 'sub_cluster' or $request->userType == 'copartner') {
                 $user = User::create(array_merge($request->all(), ['type' => 'share_users', 'status' => 0]));
-                ShareUser::create(['user_id' => $user->id, 'type' => $request->share_user_type, 'destination' => $request->destination]);
+                ShareUser::create(['user_id' => $user->id, 'type' => $request->userType, 'destination' => $request->destination]);
 
                 $message = 'قام  ' . $user->name . '  بتسجيل حساب شريك جديد و بانتظار الموافقة  ';
                 try {

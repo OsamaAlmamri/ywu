@@ -33,7 +33,8 @@ return [
 
 
     'userType' => [
-        'share_users' => " ",
+        'share_users' => "شريك ",
+        'admin' => "موظف",
         'employees' => "موظف",
         'visitor' => "زائر",
 

@@ -25,8 +25,8 @@ class QuestionsController extends Controller
             $post = Question::with('training')->where('training_id', $id)->orderByDesc('id')->get();
             if ($post) {
                 return datatables()->of($post)
-                    ->addColumn('action', 'questions.btn.action')
-                    ->addColumn('btn_image', 'questions.btn.image')
+                    ->addColumn('action', 'admin.training.questions.btn.action')
+                    ->addColumn('btn_image', 'admin.training.questions.btn.image')
                     ->editColumn('training', function ($post) {
                         return $post->training->name;
                     })
