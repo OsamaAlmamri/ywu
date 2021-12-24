@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title> YemenWe</title>
     <!-- Stylesheets -->
-    <link rel="manifest" href="{{  asset('manifest.json')}}"/>
+    <link rel="manifest" href="{{  asset('manifest.json')}}'" />
 
     <link href="{{  asset('site/css/bootstrap.min.css')  }}" rel="stylesheet">
     {{--    <!--	<link rel="stylesheet" href="css/bootstrap-rtl.min.css">-->--}}
@@ -13,13 +13,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>window.Laravel = {csrfToken: '{{ csrf_token() }}'}</script>
 
-    {{--    <link href="{{asset('site/css/main5.css')  }}" rel="stylesheet">--}}
-
-    @if( isset($_COOKIE["style_lang"]) and $_COOKIE["style_lang"]!="ar")
-        <link id="style_lang" href="{{asset('site/css/main_en.css')  }}" rel="stylesheet">
-    @else
-        <link id="style_lang" href="{{asset('site/css/main5.css')  }}" rel="stylesheet">
-    @endif
+    <link href="{{asset('site/css/main5.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/css/responsive.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/css/mcq.css')  }}" rel="stylesheet">
     <link href="{{  asset('site/vue/loading2.css')  }}" rel="stylesheet">
@@ -125,15 +119,14 @@
         select.form-control:not([size]):not([multiple]) {
             height: auto;
         }
-
         .profile-form .form-group input[type="text"],
         .profile-form .form-group input[type="password"], .profile-form .form-group input[type="tel"],
         .profile-form .form-group input[type="email"], .profile-form .form-group select {
             border-radius: 5px;
             background: #f5f0ff;
         }
-
-        .sweet-content-content {
+        .sweet-content-content
+        {
             width: 100%;
         }
 
@@ -141,20 +134,206 @@
             width: 100%;
             overflow-y: scroll;
         }
-
-        .one_seller_box .table {
-            font-size: 10px;
+        .one_seller_box .table
+        {
+            font-size:10px;
         }
     </style>
 </head>
-
-
-<body style="direction: {{(isset($_COOKIE['style_lang']) and $_COOKIE['style_lang']!='ar')?'ltr':'rtl'}}">
+<body>
 
 <div class="page-wrapper" id="my_site_app">
     <input type="hidden" name="" id="device_token" value="">
     {{--    <nav-header></nav-header>--}}
-    <vue-header></vue-header>
+    <header class="main-header header-style-one">
+
+        <!-- Header Top -->
+        <div class="header-top">
+            <div class="auto-container">
+                <div class="clearfix">
+
+                    <!-- Top Left -->
+                    <div class="top-right pull-right clearfix">
+
+                        <!-- Info List -->
+                        <ul class="info-list">
+                            <li><span> للمساعدة والدعم :</span><a style="font-size: 19px" href="tel:+967778998366">
+                                    778998366 967+</a></li>
+                        </ul>
+
+                        <!--                            <router-link to="/">Home</router-link>-->
+                        <!--                            |-->
+                        <!--                            <router-link to="/about">About</router-link>-->
+                        <!--                            <span v-if="isLoggedIn"> | <a @click="logout">Logout</a></span>-->
+
+                    </div>
+
+                    <!-- Top Right -->
+                    <div class="top-left pull-left clearfix">
+                        <!-- Login Nav -->
+                        <ul class="login-nav">
+                            <li :class="[{'login-nav_active':currentPage!='register'}]"
+                                @click="$scrollToTop" v-if="!isLoggedIn">
+
+                                <router-link to="/login"> تسجيل الدخول</router-link>
+                            </li>
+                            <li @click="$scrollToTop" v-if="!isLoggedIn"
+                                :class="[{'login-nav_active':currentPage=='register'}]"
+                            >
+                                <router-link to="/register"> انشاء حساب</router-link>
+                            </li>
+                            <li>
+                                <router-link @click.native="scrollToTop()" v-if="isLoggedIn" to="/profile">
+
+                                </router-link>
+                            </li>
+
+                            <li :class="[{'login-nav_active':currentPage!='profile'}]" @click="$scrollToTop"
+                                v-if="isLoggedIn">
+                                <router-link to="/logout"> تسجيل الخروج</router-link>
+                            </li>
+                            <li :class="[{'login-nav_active':currentPage=='profile'}]" @click="$scrollToTop"
+                                v-if="isLoggedIn">
+                                <router-link to="/profile"> الصفحة الشخصية</router-link>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Header Upper -->
+        <div class="header-upper">
+            <div class="auto-container">
+                <div class="clearfix">
+
+                    <div class="pull-right logo-box">
+                        <div class="logo"
+                        ><a href="#" class="">
+                                <img width="50" src="site/images/logo_white.png" alt=""
+                                     title=" Yemen Women Union Developments"></a></div>
+                    </div>
+                    <div class="nav-outer clearfix">
+                        <!--Mobile Navigation Toggler-->
+                        <div class="mobile-nav-toggler"><span class="icon flaticon-menu"></span></div>
+                        <!-- Main Menu -->
+                        <nav class="main-menu show navbar-expand-md">
+                            <div class="navbar-header">
+                                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                        aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+
+                            <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
+                                <ul class="navigation clearfix">
+                                    <li :class="['dropdown' , {'shop_drown':(currentPage=='shop'|| currentPage=='my_orders'
+                                     || currentPage=='CategoryProducts' || currentPage=='home' || currentPage=='home2' || currentPage=='shop_search'|| currentPage=='course_details'||
+                                     currentPage=='shop_like' ||currentPage=='cart')},{'current':currentPage=='shop'}]">
+                                        <a href="#">
+                                            السوق الإلكتروني
+                                        </a>
+                                        <ul>
+                                            <li :class="['shop_element_item',{'current':currentPage=='shop'}]">
+                                                <router-link @click.native="scrollToTop()" to="/shop">
+                                                    الرئيسية
+                                                </router-link>
+                                            </li>
+                                            <li :class="['shop_element_item',{'current':currentPage=='my_orders'}]">
+                                                <router-link @click.native="scrollToTop()"
+                                                             to="/my_orders" v-if="isLoggedIn">
+                                                    طلباتي
+                                                </router-link>
+                                            </li>
+                                            <li :class="['shop_element_item',{'current':currentPage=='shop_search'}]">
+                                                <router-link @click.native="scrollToTop()"
+                                                             to="/shop_search">
+                                                    بحث
+                                                </router-link>
+                                            </li>
+                                            <li :class="['shop_element_item',{'current':currentPage=='shop_like'}]">
+                                                <router-link @click.native="scrollToTop()"
+                                                             to="/shop_like" v-if="isLoggedIn">
+                                                    المفضلة
+                                                </router-link>
+                                            </li>
+                                            <li :class="['shop_element_item',{'current':currentPage=='cart'}]">
+                                                <router-link @click.native="scrollToTop()" to="/cart" v-if="isLoggedIn">
+                                                    السلة
+                                                </router-link>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+
+
+                                    {{--                                    <li :class="[{'current':(currentPage=='home' ||currentPage=='home2')}]">--}}
+                                    {{--                                        <router-link @click="$scrollToTop" to="/home"> الرئيسية</router-link>--}}
+                                    {{--                                    </li>--}}
+                                    <li :class="[{'current':currentPage=='courses'}]">
+                                        <router-link @click.native="scrollToTop()" to="/courses"> التدريب</router-link>
+                                    </li>
+
+                                    <li :class="[{'current':currentPage=='consultant'}]">
+                                        <router-link @click.native="scrollToTop()" to="/consultant"> الإستشارات
+                                        </router-link>
+                                    </li>
+                                    <li :class="[{'current':currentPage=='women'}]">
+                                        <router-link @click.native="scrollToTop()" to="/women"> شؤون المرأة
+                                        </router-link>
+                                    </li>
+                                    <li :class="[{'current':currentPage=='privacy'}]">
+                                        <router-link @click.native="scrollToTop()" to="/privacy"> سياسة الخصوصية
+                                        </router-link>
+                                    </li>
+                                    <li :class="[{'current':currentPage=='concatUs'}]">
+                                        <router-link @click.native="scrollToTop()" to="/concatUs"> تواصل معنا
+                                        </router-link>
+                                    </li>
+                                    {{--                                    <li :class="[{'current':currentPage=='shop'}]">--}}
+                                    {{--                                        <router-link @click.native="scrollToTop()" to="/shop"> السوق الالكتروني--}}
+                                    {{--                                        </router-link>--}}
+                                    {{--                                    </li>--}}
+                                    {{--                                    <li :class="[{'current':currentPage=='cart'}]">--}}
+                                    {{--                                        <router-link @click.native="scrollToTop()" to="/cart"> السلة--}}
+                                    {{--                                        </router-link>--}}
+                                    {{--                                    </li>--}}
+                                </ul>
+                            </div>
+
+                        </nav>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- End Header Upper -->
+
+        <!-- Mobile Menu  -->
+        <div class="mobile-menu">
+            <div class="menu-backdrop"></div>
+            <div class="close-btn"><span class="icon flaticon-multiply"></span></div>
+
+            <nav class="menu-box">
+                <div class="nav-logo" style="text-align: center">
+                    <router-link @click.native="scrollToTop()" to="/home"></router-link>
+                    <img
+                        style="width: 130px;    margin-bottom: -30px;" src="site/images/logo_white.png"
+                        alt=""
+                        title=""></a></div>
+                <div class="menu-outer">
+                    <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+                </div>
+            </nav>
+        </div>
+        <!-- End Mobile Menu -->
+
+    </header>
 
     <toast-stack title="{{ session('stack-title')??$stackTitle??'' }}"
                  body="{{ session('stack-body')??$stackTitle??'' }}"></toast-stack>
@@ -302,8 +481,7 @@
                 <div class="col-md-12">
                     <div class="last_footer">
                         <div class="copy_right">
-                            <p style="text-align: center"><a href="#">حقوق النشر والتصميم محفوظة © لاتحاد نساء
-                                    اليمن</a>
+                            <p style="text-align: center"><a href="#">حقوق النشر والتصميم محفوظة © لاتحاد نساء اليمن</a>
                             </p>
                         </div>
 
@@ -324,11 +502,9 @@
 
 </div>
 
-<div class="scroll-to-top scroll-to-target" data-target="html">
-    <span class="fa fa-arrow-circle-up"></span></div>
+<div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-arrow-circle-up"></span></div>
 {{--//for vue JS--}}
-{{--<script src="{{ asset('js/app.js') }}"></script>--}}
-<script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('site/vue/vue-clazy-load.min.js') }}"></script>
 <script src="{!! asset('newLibs\lightbox2\js\lightbox.min.js') !!}"></script>
 
@@ -338,7 +514,21 @@
 <script src="{!! asset('site/js/jquery.scrollTo.js') !!}"></script>
 {{--<script src="{!! asset('site/js/bootstrap.min.js') !!}"></script>--}}
 <script src="{!! asset('site/js/jquery.mCustomScrollbar.concat.min.js') !!}"></script>
+{{--<script src="{!! asset('site/js/jquery.fancybox.js') !!}"></script>--}}
+{{--<script src="{!! asset('site/js/appear.js') !!}"></script>--}}
+{{--<script src="{!! asset('site/js/swiper.min.js') !!}"></script>--}}
+{{--<script src="{!! asset('site/js/element-in-view.js') !!}"></script>--}}
+{{--<script src="{!! asset('site/js/jquery.paroller.min.js') !!}"></script>--}}
 
+{{--<script src="{!! asset('site/js/validate.js') !!}"></script>--}}
+
+{{--<script src="{!! asset('site/js/parallax.min.js') !!}"></script>--}}
+{{--<script src="{!! asset('site/js/tilt.jquery.min.js') !!}"></script>--}}
+<!--Master Slider-->
+{{--<script src="{!! asset('site/js/jquery.easing.min.js') !!}"></script>--}}
+{{--<script src="{!! asset('site/js/owl.js') !!}"></script>--}}
+{{--<script src="{!! asset('site/js/wow.js') !!}"></script>--}}
+{{--<script src="{!! asset('site/js/jquery-ui.js') !!}"></script>--}}
 <script src="{!! asset('site/js/script.js') !!}"></script>
 
 <script src="{{asset('firebase\firebase-app.js')}}"></script>
