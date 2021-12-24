@@ -114,7 +114,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-4">تاريخ بدء الدورة : </label>
                             <div class="col-md-8">
-                                <input class="form-control" name="start_at" type="dateTime-local">
+                                <input class="form-control" id="start_at" name="start_at" value="" type="date">
                             </div>
                         </div>
 
@@ -122,7 +122,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-4">تاريخ انتهاء الدورة : </label>
                             <div class="col-md-8">
-                                <input class="form-control" name="end_at" type="dateTime-local">
+                                <input class="form-control" id="end_at" name="end_at" type="date">
                             </div>
                         </div>
                         <div class="form-group">
@@ -153,12 +153,13 @@
                                 <input type="submit" name="action_button" id="action_button" class="btn btn-warning"
                                        value="نشر"/>
                             </div>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+
     <div id="formShow" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -485,6 +486,7 @@
                         $('#category_id').val(html.data.category_id);
                         $('#start_at').val(html.data.start_at);
                         $('#end_at').val(html.data.end_at);
+                        $('#length').val(html.data.length);
                         $('#has_certificate').val(html.data.has_certificate);
                         $('#instructor').val(html.data.instructor);
                         // $('#description').val(html.data.description);

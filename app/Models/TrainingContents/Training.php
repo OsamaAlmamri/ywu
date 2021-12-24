@@ -112,8 +112,8 @@ class Training extends Model
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
-        'start_at' => 'datetime:Y-m-d H:i:s',
-        'end_at' => 'datetime:Y-m-d H:i:s',
+        'start_at' => 'date:Y-m-d',
+        'end_at' => 'date:Y-m-d',
     ];
 
     public function subject()

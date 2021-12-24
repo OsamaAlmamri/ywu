@@ -179,7 +179,7 @@ class TrainingController extends Controller
     {
         try {
             $Training = SubjectCategory::with(['trainings' => function ($sub) {
-                $sub->with(['is_register', 'departments']);
+                $sub->with(['titles' ,'is_register', 'departments']);
             }])->get();
             if (!$Training) {
                 return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
