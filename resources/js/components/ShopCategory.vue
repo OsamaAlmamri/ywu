@@ -84,6 +84,7 @@ export default {
         this.all_categories();
     }
     ,
+
     methods: {
         getLang (txt_ar, txt_en) {
             return (this.lang == 'en') ? txt_en : txt_ar;

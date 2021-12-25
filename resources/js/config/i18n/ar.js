@@ -19,6 +19,7 @@ export const locale = {
         login: "تسجيل الدخول",
         for_help: " للمساعدة والدعم",
         women_details: " شؤون المرأة ",
+        course_details: "  تفاصيل المادة التدريبة",
 
     },
     concatUs: {
@@ -118,7 +119,34 @@ export const locale = {
             categories: "  الأصناف ",
             description: "  هل تبحث عن شيء ؟ "
         },
+    training: {
+        register: "  تسجيل",
+        begin_training: "   البدء بالدورة",
+        start_at: " تبدا في",
+        end_at: "    تنتهي  في ",
+        progress: "التقدم بالدورة",
+        result: 'نتيجتي',
+        mcq: 'الاختبار',
+        rate: 'التقييمات',
+        titles: 'العناوين',
+        overview: '  نظرة عامة',
+        learn: '   ماذا سوف تتعلم ',
+        description: '  متطلبات الدورة التدريبية  ',
+        your_result: '  نتيجتك بهذا المادة التدريبية هي   ',
+    },
+    rating: {
+        sum: "  عدد المقيمين",
+        add: "    اضافة تقييم",
+        message: "  نص التقييم",
+        save: "  حفظ التقييم ",
+
+    },
+    add_fav: "اضافة للمفضلة",
+    cancel_fav: "الغاء من المفضلة",
     done: "تم",
+    prev: "السابق",
+    next: "التالي",
+
     edit: "تعديل",
     delete: "حذف",
     cancel: "الغاء",

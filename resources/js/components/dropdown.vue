@@ -1,6 +1,6 @@
 <template>
-    <div
-        :class="['dropdown', 'pull-left',{'show':(is_active)}]">
+    <div class="d-flex justify-content-end"
+        :class="[{'show':(is_active)}]">
         <button type="button"
                 @click="is_active = !is_active"
 

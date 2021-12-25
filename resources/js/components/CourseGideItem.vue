@@ -31,25 +31,25 @@
                 </clazy-load>
             </router-link>
         </div>
-        <div class="clearfix after_course_image">
-            <div class="pull-right" style="padding-right: 2em">
+        <div class=" after_course_image d-flex justify-content-around">
+            <div >
                 <div class=" students"><i class="fa fa-star"></i> {{(training.average_rating)}}/5</div>
             </div>
-            <div class="pull-left" style="padding-left: 2em">
+            <div >
                 <like-button type="trainings" :key="training.id" count-likes="0" has-count="0"
                              :liked_id="training.id" :is_liked="training.is_like"></like-button>
             </div>
         </div>
 
         <div class="lower-content">
-            <h6>
+            <h6 class="text-center" style="min-height: 3rem">
                 <router-link @click.native="$scrollToTop" :to="{ name: 'course_details', params: { id: training.id}}">
                     {{training.name}}
                 </router-link>
             </h6>
 
 <!--            <h6 v-show="training.instructor!=null">-->
-            <h6>
+            <h6 class="d-flex justify-content-start">
                 <img src="/site/images/instructor.png" style="width: 9%">
                 {{training.instructor}}
             </h6>

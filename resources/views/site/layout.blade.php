@@ -145,6 +145,11 @@
         .one_seller_box .table {
             font-size: 10px;
         }
+
+        .divClass {
+            background-position: initial;
+
+        }
     </style>
 </head>
 

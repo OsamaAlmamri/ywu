@@ -171,7 +171,10 @@ class Training extends Model
 
     public function result()
     {
-        return $this->hasOne(Result::class, 'training_id', 'id')->where('user_id', auth()->id());
+        $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
+
+        return $this->hasOne(Result::class, 'training_id', 'id')
+            ->where('user_id',$user_id);
     }
 
 

@@ -43,6 +43,7 @@
 import i18nService from "@/services/i18n.service.js";
 import i18n from "@/plugins/vue-i18n";
 import router from "../routes";
+
 export default {
     name: "KTDropdownLanguage",
     data() {
@@ -69,17 +70,18 @@ export default {
             } else {
                 body_style = "direction: ltr";
                 href = '/site/css/main_en.css';
-                dir="ltr";
+                dir = "ltr";
             }
             // document.head.appendChild(file);
             document.getElementById("style_lang").setAttribute("href", href);
-            var body=   document.getElementsByTagName("body")[0];
+            var body = document.getElementsByTagName("body")[0];
             body.style = body_style;
             body.setAttribute("dir", dir);
             body.setAttribute("direction", dir);
             document.cookie = "style_lang=" + lang + "; path=/";
-
-            if (router.currentRoute.name=='women')
+            const refreach_pages = [];
+            // const refreach_pages = ["women", "courses"];
+            if (refreach_pages.includes(router.currentRoute.name))
                 window.location.reload();
         },
         isActiveLanguage(current) {
