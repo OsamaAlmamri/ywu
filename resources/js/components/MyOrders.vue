@@ -10,7 +10,7 @@
                  :on-cancel="onCancel()"
                  :is-full-page="fullPage">
         </loading>
-        <sweet-modal :title="'تفاصيل  الطلب رقم : '+active_order.id"
+        <sweet-modal :title="$t('cart.order_id_detail') +active_order.id"
                      :blocking=true :enable-mobile-fullscreen=true
                      :pulse-on-block=true
                      :overlay-theme="'dark'" ref="comments">
@@ -20,41 +20,42 @@
                     <div class="row invoice-info">
                         <div class="col-12 col-sm-5 invoice-col">
                             <address>
-                                <span> <strong>  رقم الطلب : </strong> <b>#{{order_seller.id}} </b></span>
+                                <span> <strong>   {{ $t('cart.order_id') }}  : </strong> <b>#{{order_seller.id}} </b></span>
                                 <br>
-                                <span> <strong> المتجر : </strong> <b>{{order_seller.seller.seller.sale_name}} </b></span>
+                                <span> <strong> {{ $t('cart.sale_name') }}  : </strong> <b>{{order_seller.seller.seller.sale_name}} </b></span>
                                 <br> <strong> <i class="fa fa-map-marker "></i> </strong>
                                 {{order_seller.seller.seller.gov}}
                                 ,{{order_seller.seller.seller.district}}
                                 ,{{order_seller.seller.seller.more_address_info}}
-                                <br> <strong> مكان التوصيل : </strong>
+                                <br> <strong> {{ $t('cart.new_delivery_location') }}   : </strong>
                                 : {{order_seller.seller.seller.new_delivery_location}}
                                 <br>
-                                <b> حالة الطلب :</b> {{order_seller.order_status_name}}
+                                <b> {{ $t('cart.order_status_name') }}  :</b> {{order_seller.order_status_name}}
                             </address>
                         </div>
                         <!-- /.col -->
                         <!-- /.col -->
                         <div class="col-sm-7 col-7 invoice-col">
                             <p v-if="order_seller.coupon_discount>0">
-                                <b> الكوبون :</b> {{order_seller.coupon}}
-                                <b>تخفيض الكوبون :</b> {{order_seller.coupon_discount}}
+                                <b> {{ $t('cart.coupon') }}  :</b> {{order_seller.coupon}}
+                                <b> {{ $t('cart.coupon_discount') }}  :</b> {{order_seller.coupon_discount}}
                             </p>
 
-                            <b>تكلفة الطلب :</b> {{order_seller.price}}
-                            <b>تكلفة الشحن :</b> {{order_seller.shipping_cost}}
+                            <b>{{ $t('cart.order_cost') }} :</b> {{order_seller.price}}
+                            <b> {{ $t('cart.total_price_tp_paid') }}  :</b> {{order_seller.shipping_cost}}
                             <br>
                             <p v-if="order_seller.coupon_discount>0">
-                                <b>المبلغ المتوجب دفعة :</b>
+
+                                <b>{{ $t('cart.total_price_tp_paid') }} :</b>
                                 {{parseInt(order_seller.shipping_cost)+parseInt(order_seller.price)-parseInt(order_seller.coupon_discount)}}
                             </p>
                             <span v-if="order_seller.coupon_discount<1">
-                                <b>المبلغ المتوجب دفعة :</b> {{order_seller.shipping_cost+order_seller.price-order_seller.coupon_discount}}
+                                <b>{{ $t('cart.total_price_tp_paid') }} :</b> {{order_seller.shipping_cost+order_seller.price-order_seller.coupon_discount}}
                             </span>
                             <br>
-                            <b>طريقة الدفع :</b> {{order_seller.payment_method}}
+                            <b>{{ $t('cart.payment_method') }}  :</b> {{order_seller.payment_method}}
                             <br>
-                            <b> حالة الدفع :</b> {{order_seller.payment_status_name}}
+                            <b>{{ $t('cart.payment_status_name') }} :</b> {{order_seller.payment_status_name}}
 
                         </div>
                         <!-- /.col -->
@@ -64,12 +65,12 @@
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th>العدد</th>
-                                    <th>الصنف</th>
-                                    <th>المنتج</th>
-                                    <th style="width: 25%">خيارات المنتج</th>
-                                    <th>سعر الوحدة</th>
-                                    <th> الاجمالي</th>
+                                    <th>{{$t('cart.quantity')}} </th>
+                                    <th>{{$t('cart.category')}} </th>
+                                    <th>{{$t('cart.product')}} </th>
+                                    <th style="width: 25%">{{$t('cart.products_options')}}  </th>
+                                    <th>{{$t('cart.price')}}  </th>
+                                    <th> {{$t('cart.total')}} </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -84,8 +85,8 @@
                                         </span>
                                         }
                                     </td>
-                                    <td> {{product.price}} ریال</td>
-                                    <td> {{product.price * product.quantity }} ریال</td>
+                                    <td> {{product.price}} {{$t('cart.real')}}</td>
+                                    <td> {{product.price * product.quantity }} {{$t('cart.real')}}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -102,13 +103,16 @@
                              v-if="order_seller.status=='new' || order_seller.status=='in_progress' ">
                             <button class="btn btn-secondary" style="font-size: 10px;"
 
-                                    @click.prevent="cancel_order(order_seller.id,key)">الغاء الطلب
+                                    @click.prevent="cancel_order(order_seller.id,key)">
+                                {{$t('cart.cancel_order')}}
+
                             </button>
                         </div>
                         <div class=" pull-left">
                             <button @click="addPayment(order_seller.id)" style="font-size: 10px;"
                                     class="btn btn-primary">
-                                اضافة عملية الدفع
+                                {{$t('cart.addPayment')}}
+
                             </button>
                         </div>
                     </div>
@@ -120,21 +124,21 @@
             </section>
         </sweet-modal>
 
-        <sweet-modal :title="'اضافة عملية دفع الطلب '"
+        <sweet-modal :title="$t('cart.addPayment')"
                      :blocking=true :enable-mobile-fullscreen=true
                      :pulse-on-block=true
                      :overlay-theme="'dark'" ref="add_payment">
             <div class="row clearfix">
                 <fieldset class="the-fieldset">
-                    <legend class="the-legend"> معلومات الحوالة</legend>
+                    <legend class="the-legend"> {{ $t('cart.payment_info') }}ة</legend>
                     <div class="row">
                         <div class="form-group col-md-12 col-sm-12">
-                            <label> رقم الحوالة </label>
+                            <label>  {{ $t('cart.invoice_number') }}  </label>
                             <input type="text" class="form-control" v-model="payment_data.invoice_number">
                         </div>
 
                         <div class="form-group col-md-12 col-sm-12">
-                            <label>المبلغ </label>
+                            <label> {{ $t('cart.amount') }}</label>
                             <input type="text" class="form-control" v-model="payment_data.amount">
                         </div>
                     </div>
@@ -142,7 +146,7 @@
                     <div class="form-group" style="width: 100%">
                         <div class="input-group-append">
                             <button class="btn btn-secondary"
-                                    @click.prevent="send_payment()">ارسال
+                                    @click.prevent="send_payment()">{{ $t('cart.send') }}
                             </button>
                         </div>
                     </div>
@@ -150,13 +154,13 @@
             </div>
         </sweet-modal>
 
-        <sweet-modal :title="'الغاء الطلب '"
+        <sweet-modal :title=" $t('cart.cancel_order')"
                      :blocking=true :enable-mobile-fullscreen=true
                      :pulse-on-block=true
                      :overlay-theme="'dark'" ref="cancel_order">
             <div class="clearfix">
                 <fieldset class="the-fieldset">
-                    <legend class="the-legend">سبب الالغاء</legend>
+                    <legend class="the-legend"> {{$t('cart.cancel_description')}} </legend>
                     <div class="row">
                         <div class="form-group col-md-12 col-sm-12">
                             <textarea style="margin-top: 0px; margin-bottom: 0px; height: 93px;" class="form-control"
@@ -170,7 +174,9 @@
                     <div class="form-group" style="width: 100%">
                         <div class="input-group-append">
                             <button class="btn btn-secondary"
-                                    @click.prevent="send_cancel_order()">ارسال
+                                    @click.prevent="send_cancel_order()">
+                                {{$t('cart.send')}}
+
                             </button>
                         </div>
                     </div>
@@ -201,7 +207,8 @@
                                                 <div class="pull-right">
                                                     <strong>
                                                         <i class="fa fa-tag"></i>
-                                                        رقم الطلب
+
+                                                        {{$t('cart.order_id')}}
                                                     </strong>
                                                     <span>({{order.id}})</span>
                                                 </div>
@@ -215,44 +222,52 @@
                                                 <p class="col-sm-6">
                                                     <strong>
                                                         <i class="fa fa-user "></i>
-                                                        اسم المستلم :
+
+                                                        {{$t('cart.customer_name')}} :
                                                     </strong>
                                                     {{order.customer_name}}
                                                 </p>
                                                 <p class="col-sm-6">
                                                     <strong>
                                                         <i class="fa fa-user "></i>
-                                                        رقم تلفون المستلم :
+
+                                                        {{$t('cart.phone')}} :
                                                     </strong>
                                                     {{order.phone}}
                                                 </p>
                                                 <p class="col-sm-6">
                                                     <strong>
                                                         <i class="fa fa-map-marker "></i>
-                                                        مكان التسليم :
+
+                                                        {{$t('cart.recive_location')}} :
                                                     </strong>
                                                     ({{order.gov}}, {{order.district}}, {{order.more_address_info}})
                                                 </p>
                                                 <p class="col-sm-6">
-                                                    <strong> السعر الاجمالي</strong>
+                                                    <strong>
+                                                        {{$t('cart.total')}}
+                                                         </strong>
                                                     {{order.price}}
                                                 </p>
                                                 <p class="col-sm-6">
-                                                    <strong> حالة الدفع :</strong>
+                                                    <strong>
+                                                        {{$t('cart.payment_status_name')}}
+                                                       :</strong>
                                                     {{order.payment_status_name}}
                                                 </p>
                                                 <p class="col-sm-6" v-if="order.payment_status==1">
                                                     <button @click="show_details(key)"
                                                             style="padding: 1px 30% 1px  30%;"
                                                             class="btn btn-secondary">
-                                                        عرض التفاصل
+                                                        {{$t('cart.show_details')}}
                                                     </button>
                                                 </p>
                                                 <p class="col-sm-6" v-else>
                                                     <button @click="show_details(key)"
                                                             style="padding: 1px 10% 1px  10%;"
                                                             class="btn btn-secondary">
-                                                        عرض التفاصل
+                                                        {{$t('cart.show_details')}}
+
                                                     </button>
 
                                                 </p>
@@ -264,7 +279,8 @@
                                 <div style="text-align: center" v-show="order_items.length<1">
                                     <img style="width: 20%" src="/site/images/no_order.png">
                                     <h4>
-                                        لم تقم باضافة اي طلب من قبل
+                                        {{$t('cart.not_found_order')}}
+
                                     </h4>
                                 </div>
                             </div>

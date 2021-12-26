@@ -77,6 +77,7 @@
 <script>
     import LikeButton from './LikeButton.vue';
     import axios from "axios";
+    import i18n from "./../plugins/vue-i18n";
 
     export default {
         props: ['training'],
@@ -84,11 +85,11 @@
         computed: {
             registerDecription() {
                 if (this.training.is_register == null)
-                    return ' تسجيل ';
+                return i18n.t('training.register');
                 else if (this.training.is_register.status == 0)
-                    return ' الغاء التسجيل  ';
+                    return i18n.t('training.cancel_register');
                 else
-                    return '  الغاء التسجيل  ';
+                    return i18n.t('training.cancel_register');
 
             }
         },

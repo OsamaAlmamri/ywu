@@ -115,6 +115,7 @@ export const locale = {
     shop:
         {
             govs: "  المحافظات ",
+            product_not_exisit: "   ليس هناك اي منتجات بهذ التصنيف ",
             seller: "  البائعون ",
             categories: "  الأصناف ",
             description: "  هل تبحث عن شيء ؟ "
@@ -122,6 +123,7 @@ export const locale = {
     training: {
         register: "  تسجيل",
         begin_training: "   البدء بالدورة",
+        cancel_register: "    الغاء التسجيل  ",
         start_at: " تبدا في",
         end_at: "    تنتهي  في ",
         progress: "التقدم بالدورة",
@@ -161,6 +163,32 @@ export const locale = {
         updateCart: "     تحديث السلة",
         confirm: "تاكيد الطلب",
         cart_total: "مجموع السلة ",
+        order_id_detail:'تفاصيل  الطلب رقم ',
+        order_id:' رقم الطلب ',
+        sale_name:' المتجر  ',
+        delivery_location:' مكان التوصيل  ',
+        recive_location:' مكان التوصيل  ',
+        order_status_name:'  حالة الطلب  ',
+        coupon_discount:' تخفيض الكوبون  ',
+        order_cost:' تكلفة الطلب  ',
+        shipping_cost:' تكلفة الشحن   ',
+        total_price_tp_paid:' المبلغ المتوجب دفعة  ',
+        payment_status_name:' حالة الدفع   ',
+        category:' الصنف  ',
+        product:' المنتج  ',
+        products_options:' خيارات المنتج  ',
+        real:' ریال  ',
+        cancel_order:'   الغاء الطلب  ',
+        addPayment:'     اضافة عملية الدفع  ',
+        payment_info:'معلومات الحوالة',
+        invoice_number:'رقم الحوالة',
+        amount:'المبلغ',
+        send:'ارسال',
+        cancel_description:'سبب الالغاء',
+        not_found_order:' لم تقم باضافة اي طلب من قبل',
+        show_details:'   عرض التفاصل',
+        ww:'ll',
+
 
 
     },

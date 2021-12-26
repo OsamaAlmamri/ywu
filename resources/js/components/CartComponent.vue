@@ -106,8 +106,6 @@
 
                                 <div class="cart-item d-md-flex justify-content-between"
                                      v-for="(cart_item,key) in cart_items">
-
-
                                     <span class="remove-item" @click="delete_fromCart(cart_item.id,key)">
                                         <i class="fa fa-times"></i></span>
                                     <div class="px-3 my-3">

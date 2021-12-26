@@ -56,10 +56,10 @@
                             <div class="options-view">
                                 <div class="clearfix">
                                     <div class="pull-right">
-                                        <h3> نتائج البحث عن "{{ search_data }}"</h3>
+                                        <h3>{{ $t('search.result') }}"{{ search_data }}"</h3>
                                     </div>
                                     <div class="pull-left">
-                                        <button class="btn btn-info" @click="is_search=false">اغلاق نتائج البحث</button>
+                                        <button class="btn btn-info" @click="is_search=false"> {{ $t('search.close') }} </button>
                                     </div>
                                 </div>
                             </div>
