@@ -10,12 +10,12 @@
             :showPrimary="false"
             :showEdit="false"
             :maxImage="4"
-            dragText="اسحب"
-            browseText="تصفح"
-            primaryText="افتراضي"
-            markIsPrimaryText="ضبط الصورة الافتراضية"
-            popupText="وصف الصورة الافتراضية"
-            dropText="اسحب و افلات"
+            :dragText="$t('register.dragText')"
+            :browseText="$t('register.browseText')"
+            :primaryText="$t('register.primaryText')"
+            :markIsPrimaryText="$t('register.markIsPrimaryText')"
+            :popupText="$t('register.popupText')"
+            :dropText="$t('register.dropText')"
         ></vue-upload-multiple-image>
     </div>
 </template>

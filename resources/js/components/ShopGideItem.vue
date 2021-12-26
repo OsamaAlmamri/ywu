@@ -38,7 +38,7 @@
 
                     </h6>
                     <h6>
-                        {{product.price}} ر.ي
+                        {{product.price}} {{$t('product.real')}}
                     </h6>
                 </div>
 

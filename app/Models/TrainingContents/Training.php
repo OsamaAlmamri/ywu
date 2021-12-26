@@ -127,7 +127,7 @@ class Training extends Model
         $titles = $this->titles()->count();
 //
         return array(
-            'is_complete' => $complete >= $titles,
+            'is_complete' => ($titles>0 and $complete >= $titles),
             'complete' => $complete,
             'titles' => $titles
         );

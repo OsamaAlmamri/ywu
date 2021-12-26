@@ -44,7 +44,7 @@ class TrainingController extends Controller
         $this->emp = Auth::user();
         try {
             $Training = Training::with(['titles', 'is_register'])
-              //  ->where('type', 'خاص')->orwhere('type', 'عام')
+                //  ->where('type', 'خاص')->orwhere('type', 'عام')
                 ->orderByDesc('id')->paginate(20);
             if (!$Training) {
                 return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
@@ -139,7 +139,6 @@ class TrainingController extends Controller
             if ($type == 'trainings')
 //                $data = Training::orderByDesc('id')->limit(5)->get();
                 $data = LastPosts::collection(Training::orderByDesc('id')
-
                     ->limit(5)->get())->type('trainings');
 
             if ($type == 'posts')
@@ -148,7 +147,7 @@ class TrainingController extends Controller
                     ->where('user_id', '!=', $user_id)->where('status', 1)->orderByDesc('id')->limit(5)->get())->type('posts');
 
             else {
-                $data = LastPosts::collection(WomenPosts::orderByDesc('id')->ofLang(\request()->header('lang','ar'))->limit(5)->get())->type('women');
+                $data = LastPosts::collection(WomenPosts::orderByDesc('id')->ofLang(\request()->header('lang', 'ar'))->limit(5)->get())->type('women');
 
             }
             if (!$data) {
@@ -179,7 +178,7 @@ class TrainingController extends Controller
     {
         try {
             $Training = SubjectCategory::with(['trainings' => function ($sub) {
-                $sub->with(['titles' ,'is_register', 'departments']);
+                $sub->with(['titles', 'is_register', 'departments']);
             }])->get();
             if (!$Training) {
                 return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
@@ -288,7 +287,7 @@ class TrainingController extends Controller
     public function set_result(Request $request)
     {
         try {
-            $r = Result::create(['user_id' => auth()->id(), 'grade' => $request->grade, 'training_id' => $request->training_id]);
+            $r = Result::updateOrCreate(['user_id' => auth()->id(), 'training_id' => $request->training_id], ['grade' => $request->grade]);
             return $this->GetDateResponse('data', $r, "تم حفظ نتيجتك بنجاح ");
         } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());

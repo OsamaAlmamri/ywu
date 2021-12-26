@@ -8,7 +8,7 @@
                 </div>
 <!--                <div class="theme-btn btn-style-two"></div>-->
                 <router-link @click.native="$scrollToTop"  class="theme-btn btn-style-two" to="/home">
-                    <span class="txt">رجوع للصفحة الرئيسية <i class="fa fa-angle-left"></i></span>
+                    <span class="txt">{{ $t('notfound') }} <i class="fa fa-angle-left"></i></span>
 
                 </router-link>
 <!--                <a href="course.html" class="theme-btn btn-style-two">-->

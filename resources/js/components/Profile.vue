@@ -18,48 +18,74 @@
              style="display: block;">
             <span class="fa fa-comment" v-show="authUser"></span>
         </div>
-        <sweet-modal :title="'اضافة استشارة جديدة'"
-                     :blocking=true
-                     :enable-mobile-fullscreen=true
+        <sweet-modal :title="$t('consultants.add')"
+                     :blocking=true :enable-mobile-fullscreen=true
                      :pulse-on-block=true
-                     name="add_new_consultant"
                      :overlay-theme="'dark'" ref="modal">
+            <div class="row clearfix">
+                <div class="col-md-4">
+                    <h5> {{ $t("privacy") }} </h5>
+                    <section class="student-profile-section row">
+                        <div class="inner-column">
+                            <div class="profile-info-tabs">
+                                <div class="profile-tabs tabs-box">
+                                    <ul class="tab-btns tab-buttons clearfix">
+                                        <li
+                                            @click="newPostData.is_public=0"
+                                            :class="['user_type_tap', 'tab-btn',{'active-btn':(newPostData.is_public==0)}]">
+                                            {{ $t('private') }}
+                                        </li>
+                                        <li
+                                            @click="newPostData.is_public=1"
+                                            :class="['user_type_tap', 'tab-btn',{'active-btn':(newPostData.is_public==1)}]">
+                                            {{ $t('public') }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-md-8">
+                    <h5> {{ $t("consultants.category") }} </h5>
+                    <section class="student-profile-section row">
+                        <div class="inner-column">
+                            <div class="profile-info-tabs">
+                                <div class="profile-tabs tabs-box">
+                                    <ul class="tab-btns tab-buttons clearfix">
+                                        <li v-for="(category,key) in categories"
+                                            @click="changeCategoryType(category.id)"
+                                            :class="['user_type_tap', 'tab-btn',{'active-btn':(newPostData.category_id==category.id)}]">
+
+                                            {{ oneLang(category.name, category.name_en) }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
             <div class="row clearfix">
 
                 <div class="form-group" style="width: 100%">
                     <fieldset class="the-fieldset">
-                        <legend class="the-legend">عنوان الاستشارة *</legend>
+                        <legend class="the-legend">{{ $t("consultants.title") }} *</legend>
                         <input style="width: 100%" type="text" v-model="newPostData.title" required="">
                     </fieldset>
                 </div>
                 <div class="form-group" style="width: 100%">
                     <fieldset class="the-fieldset">
-                        <legend class="the-legend">نص الاستشارة</legend>
+                        <legend class="the-legend"> {{ $t("consultants.body") }}</legend>
                         <textarea style="width: 100%" rows="4" class="" v-model="newPostData.body"></textarea>
                     </fieldset>
                 </div>
-                <h5>نوع الاستشارة </h5>
-                <section class="student-profile-section">
-                    <div class="inner-column">
-                        <div class="profile-info-tabs">
-                            <div class="profile-tabs tabs-box">
-                                <ul class="tab-btns tab-buttons clearfix">
-
-                                    <li v-for="(category,key) in categories"
-                                        @click="changeCategoryType(category.id)"
-                                        :class="['user_type_tap', 'tab-btn',{'active-btn':(newPostData.category_id==category.id)}]">
-                                        {{category.name}}
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
 
             </div>
-            <div name="buttons" slot="button">
-
-                <button class="btn btn-info" @click.prevent="(edit==false)?savePost():updatePost()">تم</button>
+            <div slot="button">
+                <button class="btn btn-info" @click.prevent="(edit==false)?savePost():updatePost()">
+                    {{ $t('done') }}
+                </button>
             </div>
 
         </sweet-modal>
@@ -104,38 +130,43 @@
                                     <li data-tab="#prod-complete"
                                         @click="changeActive('prod-complete')"
                                         :class="['tab-btn', {'active-btn':(activeTap=='prod-complete')}]">
-                                        كورساتي (مكتمل)
+                                        {{ $t('profile.complete_courses') }}
                                         <span class="tap_count_label"> {{my_complete_trainings_data.data.length}}</span>
                                     </li>
                                     <li data-tab="#prod-overview"
                                         @click="changeActive('prod-overview')"
                                         :class="['tab-btn', {'active-btn':(activeTap=='prod-overview')}]">
-                                        كورساتي (غير مكتمل)
+                                        {{ $t('profile.not_complete_courses') }}
                                         <span class="tap_count_label"> {{my_trainings_data.data.length}}</span>
 
 
                                     </li>
                                     <li data-tab="#prod-bookmark"
                                         @click="changeActive('prod-bookmark')"
-                                        :class="['tab-btn', {'active-btn':(activeTap=='prod-bookmark')}]">استشاراتي
+                                        :class="['tab-btn', {'active-btn':(activeTap=='prod-bookmark')}]">
+                                        {{ $t('profile.my_consultant') }}
+
                                         <span class="tap_count_label"> {{my_consultantData.data.length}}</span>
 
                                     </li>
                                     <li
                                         @click="changeActive('prod-fav')"
-                                        :class="['tab-btn', {'active-btn':(activeTap=='prod-fav')}]">الكورسات المفضلة
+                                        :class="['tab-btn', {'active-btn':(activeTap=='prod-fav')}]">
+
+                                        {{ $t('profile.fav_courses') }}
                                         <span class="tap_count_label"> {{my_favData.data.length}}</span>
 
                                     </li>
                                     <li data-tab="#prod-setting"
                                         @click="changeActive('prod-setting')"
-                                        :class="['tab-btn', {'active-btn':(activeTap=='prod-setting')}]">الاعدادات
+                                        :class="['tab-btn', {'active-btn':(activeTap=='prod-setting')}]">
+                                        {{ $t('profile.setting') }}
 
                                     </li>
                                     <li data-tab="#prod-password"
                                         @click="changeActive('prod-password')"
-                                        :class="['tab-btn', {'active-btn':(activeTap=='prod-password')}]">تغيير كلمة
-                                        السر
+                                        :class="['tab-btn', {'active-btn':(activeTap=='prod-password')}]">
+                                        {{ $t('profile.change_password') }}
                                     </li>
                                 </ul>
 
@@ -149,8 +180,9 @@
                                         <div class="content">
                                             <div class="row clearfix">
                                                 <h4 style="margin: 25%"
-                                                    v-if="my_complete_trainings_data.data.length==0">لم تقم باخذ اي كورس
-                                                    تدريبي حتى الان
+                                                    v-if="my_complete_trainings_data.data.length==0">
+
+                                                    {{ $t('profile.not_have_courses') }}
                                                 </h4>
                                                 <div class="cource-block-two col-lg-4 col-md-6 col-sm-12 col-xs-12"
                                                      v-for="(training,key) in my_complete_trainings_data.data">
@@ -182,8 +214,9 @@
                                         <!-- Sec Title -->
                                         <div class="content">
                                             <div class="row clearfix">
-                                                <h4 style="margin: 25%" v-if="my_trainings_data.data.length==0">لم تقم
-                                                    باخذ اي كورس تدريبي حتى الان
+                                                <h4 style="margin: 25%" v-if="my_trainings_data.data.length==0">
+                                                    {{ $t('profile.not_have_courses') }}
+
                                                 </h4>
                                                 <div class="cource-block-two col-lg-4 col-md-6 col-sm-12 col-xs-12"
                                                      v-for="(training,key) in my_trainings_data.data">
@@ -213,8 +246,10 @@
                                     <div :class="['tab', {'active-tab':(activeTap=='prod-bookmark')}]">
                                         <div class="content">
                                             <div class="row clearfix">
-                                                <h4 style="margin: 25%" v-if="my_consultantData.data.length==0">لم تقم
-                                                    باضافة اي استشارة
+                                                <h4 style="margin: 25%" v-if="my_consultantData.data.length==0">
+
+
+                                                    {{ $t('profile.not_have_consultant') }}
                                                 </h4>
                                                 <div class="cource-block-two  col-sm-12 col-xs-12"
                                                      v-for="(post,key) in my_consultantData.data">
@@ -247,9 +282,9 @@
                                     <div :class="['tab', {'active-tab':(activeTap=='prod-fav')}]">
                                         <div class="content">
                                             <div class="row clearfix">
-                                                <h4 style="margin: 25%" v-if="my_like_trainings.data.length==0">لم تقم
-                                                    باضافة اي مادة
-                                                    تدريبية للمفضلة </h4>
+                                                <h4 style="margin: 25%" v-if="my_like_trainings.data.length==0">
+                                                    {{ $t('profile.not_have_courses_fav') }}
+                                                   </h4>
                                                 <div class="cource-block-two col-lg-4 col-md-6 col-sm-12 col-xs-12"
                                                      v-for="(training,key) in my_like_trainings.data">
                                                     <course-gide-item
@@ -278,7 +313,9 @@
                                         <div class="content">
                                             <!-- Title Box -->
                                             <div class="title-box">
-                                                <h5>تعديل البيانات الشخصية</h5>
+                                                <h5>
+                                                    {{ $t('profile.change_profile_info') }}
+                                                </h5>
                                             </div>
 
                                             <!-- Profile Form -->
@@ -290,7 +327,7 @@
 
                                                         <div class=" col-sm-12 form-group">
                                                             <input type="text" v-model="profile_info.name"
-                                                                   placeholder="الاسم"
+                                                                   :placeholder="$t('register.name')"
                                                                    required="">
                                                             <span class="icon flaticon-edit-1"></span>
                                                         </div>
@@ -298,20 +335,20 @@
                                                         <div class=" col-sm-12 form-group"
                                                              v-if="authUser.type!='visitor'">
                                                             <input type="email" v-model="profile_info.email"
-                                                                   placeholder="الايمل "
+                                                                   :placeholder="$t('register.email') "
                                                                    required="">
                                                             <span class="icon flaticon-edit-1"></span>
                                                         </div>
 
                                                         <div class=" col-sm-12 form-group">
                                                             <input type="text" v-model="profile_info.phone"
-                                                                   placeholder="رقم الهاتف"
+                                                                   :placeholder="$t('register.phone') "
                                                                    required="">
                                                             <span class="icon flaticon-edit-1"></span>
                                                         </div>
                                                         <!-- Form Group -->
                                                         <div class="form-group col-lg-6 col-md-12 col-sm-12">
-                                                            <label> المحافظة </label>
+                                                            <label>    {{ $t('register.gov') }} </label>
                                                             <select @change="get_district()" class="form-control"
                                                                     id="sel1" v-model="profile_info.gov_id">
                                                                 <option v-for="gov in govs " :value="gov.id">
@@ -322,7 +359,7 @@
 
                                                         <!-- Form Group -->
                                                         <div class="form-group col-lg-6 col-md-12 col-sm-12">
-                                                            <label> المديرية </label>
+                                                            <label>  {{ $t('register.dist') }}  </label>
                                                             <select class="form-control" id="sel2"
                                                                     v-model="profile_info.district_id">
                                                                 <option v-for="dist in districts " :value="dist.id">
@@ -333,7 +370,7 @@
                                                         <!-- Form Group -->
                                                         <div class="form-group col-md-6 col-sm-12">
                                                             <!--                                 v-show="form.userType=='customer' ||form.userType=='seller'">-->
-                                                            <label> معلومات اضافية عن مكان التواجد </label>
+                                                            <label>  {{ $t('register.more_address_info') }} </label>
                                                             <input type="text" name=""
                                                                    v-model="profile_info.more_address_info"
                                                                    id="form_more_address_info"
@@ -343,7 +380,7 @@
                                                             class="col-lg-12 col-md-12 col-sm-12 form-group text-right">
                                                             <button class="theme-btn btn-style-three" type="button"
                                                                     @click.prevent="update_user_info()"><span
-                                                                class="txt">حفظ التغييرات<i
+                                                                class="txt">{{ $t('save') }}  <i
                                                                 class="fa fa-angle-left"></i></span></button>
                                                         </div>
 
@@ -369,6 +406,7 @@
                                                         <div class=" col-sm-12 form-group">
                                                             <input type="text" v-model="password.current_password"
                                                                    placeholder="كلمة السر القديمة"
+                                                                   :placeholder=" $t('profile.current_password')   "
                                                                    required="">
                                                             <span class="icon flaticon-edit-1"></span>
                                                         </div>
@@ -376,7 +414,7 @@
 
                                                         <div class=" col-sm-12 form-group">
                                                             <input type="text" v-model="password.new_password"
-                                                                   placeholder="كامة السر الجديدة "
+                                                                   :placeholder=" $t('profile.new_password')   "
                                                                    required="">
                                                             <span class="icon flaticon-edit-1"></span>
                                                         </div>
@@ -384,7 +422,7 @@
                                                             class="col-lg-12 col-md-12 col-sm-12 form-group text-right">
                                                             <button class="theme-btn btn-style-three" type="submit"
                                                                     @click.prevent="changePassword()"
-                                                                    name="submit-form"><span class="txt">حفظ التغييرات<i
+                                                                    name="submit-form"><span class="txt">{{ $t('save') }}  <i
                                                                 class="fa fa-angle-left"></i></span></button>
                                                         </div>
 
@@ -450,6 +488,7 @@
                 },
                 newPostData: {
                     'id': 0,
+                    'is_public': 0,
                     'title': '',
                     'body': '',
                     'category_id': '1',
@@ -525,6 +564,7 @@
                 console.log(this.my_consultantData.data[key]);
                 this.active_post = key;
                 this.newPostData.title = this.my_consultantData.data[key].title;
+                this.newPostData.is_public = this.my_consultantData.data[key].is_public;
                 this.newPostData.id = this.my_consultantData.data[key].id;
                 this.newPostData.body = this.my_consultantData.data[key].body;
                 this.newPostData.category_id = this.my_consultantData.data[key].category_id;
@@ -605,6 +645,7 @@
                 this.newPostData = {
                     'id': 0,
                     'title': '',
+                    is_public: 0,
                     'body': '',
                     'category_id': '1',
                 };
@@ -669,6 +710,7 @@
                                 this.newPostData = {
                                     'title': '',
                                     'body': '',
+                                    'is_public': 0,
                                     'category_id': '1',
                                 }
                                 this.$refs.modal.close();

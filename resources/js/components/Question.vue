@@ -11,13 +11,13 @@
                 <div class="questionContainer" v-if="questionIndex<questions.length" v-bind:key="questionIndex">
 
                     <header>
-                        <h2 class="title is-6">اختبار الدورة </h2>
+                        <h2 class="title is-6">{{$t('training.questions.test')}}  </h2>
                         <!--progress-->
                         <div class="progressContainer">
                             <progress class="progress is-info is-small" :value="(questionIndex/questions.length)*100"
                                       max="100">{{(questionIndex/questions.length)*100}}%
                             </progress>
-                            <p>{{(questionIndex/questions.length)*100}}% تم اكمال </p>
+                            <p>{{(questionIndex/questions.length)*100}}% {{$t('training.questions.complete')}}   </p>
                         </div>
                         <!--/progress-->
                     </header>
@@ -77,17 +77,19 @@
                         <nav class="pagination" role="navigation" aria-label="pagination">
 
                             <!-- back button -->
-                            <a class="button" v-on:click="prev()"  :disabled="questionIndex < 1">رجوع
+                            <a class="button" v-on:click="prev()"  :disabled="questionIndex < 1">
+                                {{$t('training.questions.prev')}}
 
                             </a>
 
                             <!-- next button -->
                             <a class="button" v-show="questionIndex<questions.length" :class="(userResponses[questionIndex]==null)?'':'is-active'"
                                v-on:click="next()" :disabled="questionIndex>=questions.length">
-                                {{ (userResponses[questionIndex]==null)?'تخطي':'التالي' }}
+                                {{ (userResponses[questionIndex]==null)?$t('training.questions.cancel'):$t('training.questions.next') }}
                             </a>
                             <a class="button" v-on:click="endExam()" v-show="questionIndex>=questions.length-1">
-                                انهاء الاختبار وعرض النتيجة
+                                {{$t('training.questions.endExam')}}
+
                             </a>
 
 
@@ -111,13 +113,15 @@
 
                     <!--resultTitleBlock-->
                     <h2 class="title">
-                        You did {{ (score()>7?'an amazing':(score()<4?'a poor':'a good')) }} job!
+                        {{$t('training.questions.finished')}}
                     </h2>
                     <p class="subtitle">
-                        Total score: {{ score() }} / {{ questions.length }}
+                        {{$t('training.questions.result')}} : {{ score() }} / {{ questions.length }}
                     </p>
                     <br>
-                    <a class="button" @click="restart()">restart <i class="fa fa-refresh"></i></a>
+                    <a class="button" @click="restart()">
+                        {{$t('training.questions.restart')}}
+                        <i class="fa fa-refresh"></i></a>
                     <!--/resultTitleBlock-->
 
                 </div>

@@ -1,6 +1,6 @@
 <template>
     <div class="inner-box">
-        <sweet-modal :title="'اضافة رد جديد'"
+        <sweet-modal :title="$t('product.new_reply')"
                      :blocking=true :enable-mobile-fullscreen=true
                      :pulse-on-block=true
                      :overlay-theme="'dark'" ref="new_reply">
@@ -22,9 +22,9 @@
                         <dropdown v-if="authUser.id==reply.replay_user_id">
                             <div slot="items">
                                 <a class="dropdown-item" href="#"
-                                   @click.prevent="edit_reply_question(key,reply)">تعديل</a>
+                                   @click.prevent="edit_reply_question(key,reply)">{{ $t('edit') }}</a>
                                 <a class="dropdown-item" href="#"
-                                   @click.prevent="deleteReply(key,reply)"> حذف </a>
+                                   @click.prevent="deleteReply(key,reply)"> {{ $t('delete')}} </a>
                             </div>
                         </dropdown>
 
@@ -41,19 +41,19 @@
             <div class="row clearfix">
                 <div class="form-group" style="width: 100%">
                     <fieldset class="the-fieldset">
-                        <legend class="the-legend"> اضافة رد جديد</legend>
+                        <legend class="the-legend"> {{ $t('product.new_reply') }}</legend>
                         <div class="input-group mb-3">
                             <textarea style="width: 100%" rows="3" class=""
                                       v-model="new_reply_question.text"></textarea>
                             <div class="input-group-append">
                                 <button class="btn btn-info"
                                         @click.prevent="(edit==false)?addReplay():updateComment()">
-                                    {{(edit==false)?'اضافة الرد':"حفظ التعديل"}}
+                                    {{(edit==false)?$t('save') :$t('update') }}
                                 </button>
                             </div>
                             <div class="input-group-append">
                                 <button v-if="edit==true" class="btn btn-secondary"
-                                        @click.prevent="CancelUpdate()">الغاء التعديل
+                                        @click.prevent="CancelUpdate()">{{ $t('cancel')}}
                                 </button>
 
                             </div>
@@ -80,9 +80,9 @@
                 <dropdown v-if="authUser.id==product_question.customers_id">
                     <div slot="items">
                         <a class="dropdown-item" href="#"
-                           @click.prevent="editPost()">تعديل</a>
+                           @click.prevent="editPost()">{{ $t('edit') }}</a>
                         <a class="dropdown-item" href="#"
-                           @click.prevent="deletePost()"> حذف </a>
+                           @click.prevent="deletePost()"> {{ $t('delete')}} </a>
                     </div>
                 </dropdown>
             </div>
