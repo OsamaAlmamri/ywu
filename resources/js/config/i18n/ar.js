@@ -20,10 +20,8 @@ export const locale = {
         for_help: " للمساعدة والدعم",
         women_details: " شؤون المرأة ",
         course_details: "  تفاصيل المادة التدريبة",
-
     },
     concatUs: {
-
         concatUs: "راسلنا",
         name: "الاسم",
         gov: "المنظمة",
@@ -43,11 +41,10 @@ export const locale = {
     },
 
     women: {
-
-        title: "منشورات شؤون المراة"
+        title: "منشورات شؤون المراة",
+        last_posts: "اخر المنشورات  "
     },
     login: {
-
         hello: " مرحبــا ",
         title: "  قم بتسجيل الدخول للاستفادة بشكل اكبر من\n" +
             "  الخدمات الذي يقدمها الموقع",
@@ -95,7 +92,6 @@ export const locale = {
         dropText: 'اسحب و افلات',
         register: 'التسجيل الان',
         has_account: ' هل لديك حساب من قبل ؟',
-
     },
     consultants: {
         "add": "اضافة استشارة جديدة",
@@ -145,16 +141,13 @@ export const locale = {
             finished: " تم الانتهاء من الاختبار  ",
             result: " نتيجبك هي  ",
             restart: " اعادة الاختبار ",
-
         },
-
     },
     rating: {
         sum: "  عدد المقيمين",
         add: "    اضافة تقييم",
         message: "  نص التقييم",
         save: "  حفظ التقييم ",
-
     },
     profile: {
         complete_courses: "    كورساتي (مكتمل) ",
@@ -170,12 +163,9 @@ export const locale = {
         current_password: "كلمة السر القديمة",
         new_password: "كامة السر الجديدة ",
         sum: "  عدد ",
-
-
     },
     product: {
         new_reply: "  اضافة رد جديد  ",
-
         updateQuestion: "  تعديل السؤال ",
         save_update: "   حفظ التعديل ",
         cancel_update: "  الغاء التعديل ",
@@ -190,8 +180,6 @@ export const locale = {
         add_new_question: "  اضافة سؤال جديد ",
         QuestionText: "  نص السؤال ",
         sum: "  اضافة ",
-
-
     },
 
     cart: {
@@ -246,7 +234,6 @@ export const locale = {
     done: "تم",
     prev: "السابق",
     next: "التالي",
-
     edit: "تعديل",
     delete: "حذف",
     cancel: "الغاء",
@@ -265,5 +252,4 @@ export const locale = {
     foreword_to: " احالة الى   ",
     foreword_to_user: " تم الحالة الى   ",
     notfound: " رجوع للصفحة الرئيسية  ",
-
 };

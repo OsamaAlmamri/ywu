@@ -24,7 +24,7 @@
 
                 <!-- Sidebar Side -->
                 <div class="sidebar-side style-two blog-sidebar col-lg-3 col-md-12 col-sm-12">
-                    <recent-posts name="اخر المنشورات" type="women"></recent-posts>
+                    <recent-posts :name="$t('women.last_posts')" type="women"></recent-posts>
                 </div>
 
                 <!-- Content Side -->
