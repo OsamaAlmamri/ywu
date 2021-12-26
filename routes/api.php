@@ -37,6 +37,8 @@ Route::group(['middleware' => ['api', 'CheckPass', 'CheckAdminT:admin-api']], fu
 ######### user login and register
 Route::post('info', 'Api\Users\UserController@info');
 Route::post('login', 'Api\Users\UserController@login');
+Route::post('forget_password', 'Api\Users\UserController@submitForgetPasswordForm');
+Route::post('reset_password', 'Api\Users\UserController@submitResetPasswordForm');
 Route::post('register', 'Api\Users\UserController@register');
 
 ######### employee login and register

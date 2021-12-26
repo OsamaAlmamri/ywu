@@ -78,10 +78,13 @@
                         </div>
                         <div class="form-group">
                             <div class="clearfix">
-                                <div class="pull-left">
+                                <div class="d-flex justify-content-around">
                                     <div class="check-box">
                                         <input type="checkbox" name="remember-password" id="type-1">
                                         <label for="type-1">{{ $t('login.remember_password') }}</label>
+                                    </div>
+                                    <div class="check-box">
+                                        <router-link class="forgot" to="ForgetPassword">  {{ $t('login.forget_password') }}    </router-link>
                                     </div>
                                 </div>
 <!--                                <div class="pull-right">

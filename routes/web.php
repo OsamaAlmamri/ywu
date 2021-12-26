@@ -401,9 +401,11 @@ Route::get('/', 'HomeController@index');
 //Route::get('/product_details/{id?}', 'HomeController@index')->name('site.product_details');
 //Route::get('/myProfile', 'HomeController@index')->name('site.myProfile');
 //Route::get('/site_login', 'HomeController@login')->name('site.login');
-//Route::get('/register', 'HomeController@register')->name('site.register');
 ////Route::get('/login', 'HomeController@register')->name('site.login');
 //Route::post('zones/getZones', 'HomeController@getZones')->name('zones.getZones');
+
+Route::get('/reset_password/{token}', 'HomeController@register')->name('reset.password.get');
+
 Route::get('download_app', function () {
     $id = setting('app_link');
     $headers = [

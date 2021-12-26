@@ -1,5 +1,7 @@
 import Register from './components/Register';
 import Login from './components/Login';
+import ForgetPassword from './components/ForgetPassword';
+import ResetPassword from './components/ResetPassword';
 import NotFound from './components/NotFound';
 import Course from './components/CourseComponent';
 import concatUs from './components/ConcatUs';
@@ -185,6 +187,22 @@ const routes = [
         path: '/login',
         component: Login,
         name: 'login',
+        meta: {
+            requiresAuth: false
+        }
+    },
+    {
+        path: '/ForgetPassword',
+        component: ForgetPassword,
+        name: 'ForgetPassword',
+        meta: {
+            requiresAuth: false
+        }
+    },
+    {
+        path: '/ResetPassword',
+        component: ResetPassword,
+        name: 'ResetPassword',
         meta: {
             requiresAuth: false
         }

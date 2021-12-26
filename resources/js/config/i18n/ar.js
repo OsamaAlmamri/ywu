@@ -20,6 +20,8 @@ export const locale = {
         for_help: " للمساعدة والدعم",
         women_details: " شؤون المرأة ",
         course_details: "  تفاصيل المادة التدريبة",
+        ForgetPassword: "  استعادة كلمة السر  ",
+        ResetPassword: "  استعادة كلمة السر  ",
     },
     concatUs: {
         concatUs: "راسلنا",
@@ -54,6 +56,7 @@ export const locale = {
         have_account: 'ليس لديك حساب من قبل ؟',
         password: 'كلمة السر',
         remember_password: 'تذكر كلمة السر  ',
+        forget_password: 'نسيت كلمة السر ؟  ',
         phoneOrEmail: 'الايميل او رقم الهاتف ',
     },
     register: {
@@ -73,6 +76,7 @@ export const locale = {
         more_address_info: "معلومات اضافية عن مكان التواجد",
         phone: "رقم الهاتف",
         email: "الايميل ",
+        code: "الرمز ",
         sale_name: "  الاسم التجاري ",
         logo: "صورة (شعار) المتجر ",
         delete_image: "حذف الصورة",

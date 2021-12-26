@@ -18,11 +18,15 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use mysql_xdevapi\Exception;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use DB;
+use Carbon\Carbon;
+use Mail;
+use Hash;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -78,7 +82,7 @@ class UserController extends Controller
                     "password" => "required|string|min:4",
                     "phone" => "required|numeric|digits:9|starts_with:77,73,70,71|unique:users,phone",
                     'userType' => 'required',
-                 //  'share_user_type' => 'required_if:userType,share_user',
+                    //  'share_user_type' => 'required_if:userType,share_user',
                     'destination' => 'required_if:userType,sub_cluster|required_if:userType,copartner',
                     "gov_id" => "required_if:userType,customer|numeric",
                     "district_id" => "required_if:userType,customer|numeric",
@@ -349,6 +353,45 @@ class UserController extends Controller
         }
     }
 
+    public
+    function reset_password(Request $request)
+    {
+        $user = 1;
+        if ($user) {
+
+            //  return $this->GetDateResponse('user', $user);
+            return $this->ReturnSuccessRespons("200", "تم ارسال رابط  اسنعادة كلمة السر عبر الايمل" . $request->email);
+
+        } else {
+            return $this->ReturnErorrRespons("200", "قم بتسجيل الدخول");
+        }
+    }
+
+    public function submitForgetPasswordForm(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|exists:users',
+        ]);
+        if ($validator->fails()) {
+            $code = $this->returnCodeAccordingToInput($validator);
+            return $this->returnValidationError($code, $validator);
+        }
+        $token = rand(100000, 1000000);
+//        $token = Str::random(64);
+
+        DB::table('password_resets')->insert([
+            'email' => $request->email,
+            'token' => $token,
+            'created_at' => Carbon::now()
+        ]);
+
+        Mail::send('email.forgetPassword', ['token' => $token], function ($message) use ($request) {
+            $message->to($request->email);
+            $message->subject('Reset Password');
+        });
+        return $this->ReturnSuccessRespons("200", "تم ارسال رابط  اسنعادة كلمة السر عبر الايمل" . $request->email);
+
+    }
 
     public
     function Reset_User_Password(Request $request)
@@ -385,5 +428,35 @@ class UserController extends Controller
         } else {
             return $this->ReturnSuccessRespons("200", "حدث خطاء ");
         }
+    }
+
+    public function submitResetPasswordForm(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|exists:users',
+            'new_password' => 'required',
+            'code' => 'required',
+
+        ]);
+        if ($validator->fails()) {
+            $code = $this->returnCodeAccordingToInput($validator);
+            return $this->returnValidationError($code, $validator);
+        }
+        $updatePassword = DB::table('password_resets')
+            ->where([
+                'email' => $request->email,
+                'token' => $request->code
+            ])
+            ->first();
+
+        if (!$updatePassword) {
+            return $this->ReturnErorrRespons("200", "الرمز خطاء ");
+        }
+
+        $user = User::where('email', $request->email)
+            ->update(['password' => Hash::make($request->new_password)]);
+
+        DB::table('password_resets')->where(['email' => $request->email])->delete();
+        return $this->ReturnSuccessRespons("200", " تم الاستعادة بنحاح   ");
     }
 }
