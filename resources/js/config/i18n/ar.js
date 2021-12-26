@@ -141,6 +141,29 @@ export const locale = {
         save: "  حفظ التقييم ",
 
     },
+
+    cart: {
+        complete: "  اكمال الطلب ",
+        customer_name: "  مستلم الطلب  ",
+        phone: "   رقم تلفون المستلم  ",
+        gov: "  المحافظة",
+        district: "  المديرية ",
+        more_address_info: "   معلومات اضافية عن مكان التواجد ",
+        payment_method: "  طريقة الدفع ",
+        transfer: "  حوالة ",
+        on_delivery: "     الدفع عند الاستلام ",
+        quantity: "الكمية",
+        price: "سعر الوحدة",
+        total: "السعر الاجمالي",
+        coupon: "كوود الكوبون",
+        apply_my_coupon: "تطبيق الكوبون",
+        delete_coupon: " حذف الكوبون",
+        updateCart: "     تحديث السلة",
+        confirm: "تاكيد الطلب",
+        cart_total: "مجموع السلة ",
+
+
+    },
     add_fav: "اضافة للمفضلة",
     cancel_fav: "الغاء من المفضلة",
     done: "تم",

@@ -10,33 +10,33 @@
                  :on-cancel="onCancel()"
                  :is-full-page="fullPage">
         </loading>
-        <sweet-modal :title="'تاكيد الطلب '"
+        <sweet-modal :title="$t('cart.complete')"
                      :blocking=true :enable-mobile-fullscreen=true
                      :pulse-on-block=true
                      :overlay-theme="'dark'" ref="comments">
             <div class="row clearfix">
                 <fieldset class="the-fieldset">
-                    <legend class="the-legend"> اكمال الطلب</legend>
+                    <legend class="the-legend"> {{$t('cart.complete')}}</legend>
                     <div class="row">
                         <div class="form-group col-md-12 col-sm-12">
-                            <label> مستلم الطلب </label>
+                            <label>  {{$t('cart.customer_name')}} </label>
                             <input type="text" class="form-control" v-model="form.customer_name">
                         </div>
 
                         <div class="form-group col-md-12 col-sm-12">
-                            <label> رقم تلفون المستلم </label>
+                            <label> {{$t('cart.phone')}}</label>
                             <input type="text" class="form-control" v-model="form.phone">
                         </div>
 
                         <div class="form-group col-lg-6 col-md-12 col-sm-12">
-                            <label> المحافظة </label>
+                            <label> {{$t('cart.gov')}} </label>
                             <select @change="get_district()" class="form-control" id="sel1" v-model="form.gov_id">
                                 <option v-for="gov in govs " :value="gov.id"> {{gov.name_ar}}</option>
                             </select>
                         </div>
                         <!-- Form Group -->
                         <div class="form-group col-lg-6 col-md-12 col-sm-12">
-                            <label> المديرية </label>
+                            <label> {{$t('cart.district')}} </label>
                             <select class="form-control" id="sel2" v-model="form.district_id">
                                 <option v-for="dist in districts " :value="dist.id"> {{dist.name_ar}}</option>
                             </select>
@@ -47,11 +47,11 @@
                         <!--                                   value="">-->
                         <!--                        </div>-->
                         <div class="form-group col-md-12 col-sm-12">
-                            <label> معلومات اضافية عن مكان التواجد </label>
+                            <label>{{$t('cart.more_address_info')}} </label>
                             <input type="text" class="form-control" v-model="form.more_address_info">
                         </div>
                         <br>
-                        <h5 style="padding: 1px 18px;">طريقة الدفع
+                        <h5 style="padding: 1px 18px;">{{$t('cart.payment_method')}}
                         </h5>
                         <section class="student-profile-section">
                             <div class="inner-column">
@@ -61,12 +61,12 @@
                                             <li
                                                 @click="changeCategoryType('transfer')"
                                                 :class="['user_type_tap', 'tab-btn',{'active-btn':(form.payment_method=='transfer')}]">
-                                                حوالة
+                                                {{$t('cart.transfer')}}
                                             </li>
                                             <li
                                                 @click="changeCategoryType('on_delivery')"
                                                 :class="['user_type_tap', 'tab-btn',{'active-btn':(form.payment_method=='on_delivery')}]">
-                                                الدفع عند الاستلام
+                                                {{$t('cart.on_delivery')}}
                                             </li>
                                         </ul>
                                     </div>
@@ -79,7 +79,7 @@
                     <div class="form-group" style="width: 100%">
                         <div class="input-group-append">
                             <button class="btn btn-secondary"
-                                    @click.prevent="confirm_order()">تاكيد الطلب
+                                    @click.prevent="confirm_order()"> {{$t('cart.complete')}}
                             </button>
                         </div>
                     </div>
@@ -115,7 +115,7 @@
                                             <div class="cart-item-product-thumb"><img
                                                 :src="BaseImagePath+cart_item.product.image" alt="Product">
                                             </div>
-                                            <div class="cart-item-product-info">
+                                            <div class="d-flex flex-column align-items-start mx-2 ">
                                                 <h4 class="cart-item-product-title">{{cart_item.product.name}}</h4>
                                                 <span v-for="op in cart_item.product_attributes_descriptions">
                                                     <strong> {{op.products_options_name}}:</strong> {{op.products_options_values_name}}
@@ -128,7 +128,7 @@
                                         </a>
                                     </div>
                                     <div class="px-3 my-3 text-center">
-                                        <div class="cart-item-label">الكمية</div>
+                                        <div class="cart-item-label">{{$t('cart.quantity')}} </div>
                                         <div class="count-input">
                                             <div class="pro-counter">
                                                 <div class="input-group item-quantity ">
@@ -152,11 +152,11 @@
                                     </div>
 
                                     <div class="px-3 my-3 text-center">
-                                        <div class="cart-item-label">سعر الوحدة</div>
-                                        <span class="text-xl font-weight-medium">{{cart_item.price}}</span>
+                                        <div class="cart-item-label">{{$t('cart.total')}}  </div>
+                                        <span class="text-xl font-weight-medium">{{cart_item.total}}</span>
                                     </div>
                                     <div class="px-3 my-3 text-center">
-                                        <div class="cart-item-label"> السعر الاجمالي</div>
+                                        <div class="cart-item-label">{{$t('cart.total')}}   </div>
                                         <span
                                             class="text-xl font-weight-medium">{{cart_item.price*cart_item.quantity}}</span>
                                     </div>
@@ -166,17 +166,19 @@
                                 <div
                                     class="d-sm-flex justify-content-between align-items-center text-center text-sm-left">
                                     <form class="form-inline py-2">
-                                        <label class="sr-only"> كوود الكوبون</label>
+                                        <label class="sr-only">  {{$t('cart.coupon')}} </label>
                                         <input class="form-control form-control-sm my-2 mr-3" type="text"
                                                v-model="coupon"
-                                               placeholder="الكود " required="">
+                                             required="">
                                         <button @click="apply_my_coupon()"
                                                 class="btn btn-style-1 btn-secondary btn-sm my-2 mx-auto mx-sm-0"
-                                                type="button">تطبيق الكوبون
+                                                type="button">
+                                            {{$t('cart.apply_my_coupon')}}
+
                                         </button>
                                     </form>
                                     <div class="py-2"><span
-                                        class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2">مجموع السلة :</span>
+                                        class="d-inline-block align-middle text-sm text-muted font-weight-medium text-uppercase mr-2"> {{$t('cart.cart_total')}} :</span>
                                         <span v-if="apply_coupon==null"
                                               class="d-inline-block align-middle text-xl font-weight-medium">{{calculatePrice}}</span>
                                         <span v-if="apply_coupon!=null"
@@ -188,7 +190,7 @@
                                         <span v-if="apply_coupon!=null"
                                               @click="delete_coupon()"
                                               class="d-inline-block align-middle text-xl font-weight-medium">
-                                            <i class="fa fa-trash" title="حذف الكوبون"> </i></span>
+                                            <i class="fa fa-trash" :title="$t('cart.delete_coupon')"> </i></span>
                                     </div>
 
                                 </div>
@@ -199,14 +201,16 @@
                                         <button class="btn btn-style-1 btn-secondary btn-block"
                                                 @click="updateCart()"
                                         ><i class="fe-icon-refresh-ccw"></i>&nbsp;
-                                            تحديث السلة
+                                            {{$t('cart.updateCart')}}
                                         </button>
                                     </div>
                                     <div class="col-sm-6 mb-3">
                                         <button v-if="cart_items.length>0" @click="openModal()"
                                                 class="btn btn-style-1 btn-primary btn-block"
                                         ><i
-                                            class="fe-icon-credit-card"></i>&nbsp;تاكيد الطلب
+                                            class="fe-icon-credit-card"></i>&nbsp;
+                                            {{$t('cart.confirm')}}
+
                                         </button>
                                     </div>
                                 </div>
