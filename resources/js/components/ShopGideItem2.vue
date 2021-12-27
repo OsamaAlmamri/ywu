@@ -5,7 +5,7 @@
         <div class="product_countainer_link">
             <div class="product_image_box">
                 <div class="productImage"
-                     data-qa-id="productImagePLP_غلاية من الاستانلس ستيل سعة 1.5 لتر بقوة 1800 وات ">
+                     data-qa-id=" ">
                     <clazy-load class="wrapper" :src="BaseImagePath+product.image">
                         <transition name="fade">
                             <!--                                <div class="divClass"-->
@@ -47,15 +47,15 @@
                     </div>
                     <div class="inner_currancy regular">
                         <strong>{{product.price}}</strong>.<span
-                        class="currency">ر.ي</span>
+                        class="currency"> {{$t('product.real')}}</span>
 
                     </div>
                 </div>
                 <div class="product_price_box">
                     <div class=" inner_price_box">
                         <rating-stars system="5"
-                                      :rating="product.average_rating">
-                            <span slot="after">({{product.average_rating}}) </span>
+                                      :rating="product.average_rating1">
+                            <span slot="after">({{product.average_rating1}}) </span>
                         </rating-stars>
                         <p>
                             <i class="fa fa-map-marker "></i>

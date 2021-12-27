@@ -1,6 +1,7 @@
 // USA
 export const locale = {
     MENU: {
+        CategoryProducts: "منتجات الاصناف ",
         home2: "السوق الإلكتروني",
         shop: "السوق الإلكتروني",
         home: "الرئيسية",
@@ -38,7 +39,7 @@ export const locale = {
         Location: "العنوان",
         LocationInfo: "المكتب التنفيذي\n" +
             "  صنعاء - التحرير خلف البنك المركزي",
-        username: "",
+
 
     },
 
@@ -209,7 +210,7 @@ export const locale = {
         order_id: ' رقم الطلب ',
         sale_name: ' المتجر  ',
         delivery_location: ' مكان التوصيل  ',
-        recive_location: ' مكان التوصيل  ',
+        recive_location: ' مكان الاستلام  ',
         order_status_name: '  حالة الطلب  ',
         coupon_discount: ' تخفيض الكوبون  ',
         order_cost: ' تكلفة الطلب  ',
