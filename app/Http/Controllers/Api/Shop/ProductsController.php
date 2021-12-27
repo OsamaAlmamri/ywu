@@ -356,6 +356,7 @@ class ProductsController extends Controller
             if (isset($request->govs) and count($request->govs) > 0)
                 $has_govs = true;
             $data = Product::where('status', 1)
+
                 ->where('category_id', $request->category_id);
             if ($has_govs) {
                 $data = $data->whereIn('admin_id', function ($query) use ($request) {

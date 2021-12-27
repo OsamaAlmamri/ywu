@@ -111,18 +111,20 @@ class CategoreisController extends Controller
         try {
             $data = ShopCategory::with(['products2' => function ($q) use ($has_seller, $has_govs, $request) {
                 $q->where('products.id', '>', 0)
-                    ->leftJoin('categories', 'categories.id', '=', 'products.category_id')
+                    ->leftJoin('shop_categories', 'shop_categories.id', '=', 'products.category_id')
                     ->leftJoin('users', 'users.id', '=', 'products.admin_id')
                     ->leftJoin('sellers', 'users.id', '=', 'sellers.admin_id')
                     ->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
                     ->leftJoin('zones as dis', 'sellers.district_id', '=', 'dis.id')
                     ->select(['products.*',
-                        DB::raw("(SELECT COALESCE(AVG(rating),0) FROM ratings WHERE rateable_id=products.id  ) as average_rating"),
+                        DB::raw("(SELECT ROUND(COALESCE(AVG(rating),0),0) FROM ratings WHERE rateable_id=products.id) as average_rating"),
+                        DB::raw("(SELECT ROUND(COALESCE(AVG(rating),0),0)  FROM ratings WHERE rateable_id=products.id) as average_rating1"),
                         DB::raw("(SELECT count(rating) FROM ratings WHERE rateable_id=products.id) as count_rating"),
+                        DB::raw("(SELECT count(rating) FROM ratings WHERE rateable_id=products.id) as count_rating1"),
                         DB::raw("DATE_FORMAT( products.created_at,'" . getDBCustomDate() . "') AS published"),
                         'dis.name_ar as district', 'govs.name_ar as gov',
                         DB::raw("CONCAT(COALESCE(govs.name_ar,'') , ' / ' ,COALESCE(dis.name_ar,'')) AS zone"),
-                        'sellers.sale_name as space', 'categories.name as category'])
+                        'sellers.sale_name as space', 'shop_categories.name as category'])
 //                    ->select()
                     ->inRandomOrder()
                     ->where('products.status', 1);
@@ -167,6 +169,7 @@ class CategoreisController extends Controller
         $has_categories = false;
         $has_govs = false;
         $has_seller = false;
+
         if (isset($request->seller_id) and $request->seller_id > 0)
             $has_seller = true;
         if (isset($request->govs) and ($request->govs) > 0)
@@ -177,23 +180,26 @@ class CategoreisController extends Controller
         try {
             $data = ShopCategory2::with(['products' => function ($q) use ($has_seller, $has_govs, $request) {
                 $q->where('products.id', '>', 0)
-                    ->leftJoin('categories', 'categories.id', '=', 'products.category_id')
+                    ->leftJoin('shop_categories', 'shop_categories.id', '=', 'products.category_id')
                     ->leftJoin('users', 'users.id', '=', 'products.admin_id')
                     ->leftJoin('sellers', 'users.id', '=', 'sellers.admin_id')
                     ->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
                     ->leftJoin('zones as dis', 'sellers.district_id', '=', 'dis.id')
                     ->select(['products.*',
-                        DB::raw("(SELECT COALESCE(AVG(rating),0) FROM ratings WHERE rateable_id=products.id  ) as average_rating"),
+                        DB::raw("(SELECT ROUND(COALESCE(AVG(rating),0),0) FROM ratings WHERE rateable_id=products.id) as average_rating"),
+                        DB::raw("(SELECT ROUND(COALESCE(AVG(rating),0),0)  FROM ratings WHERE rateable_id=products.id) as average_rating1"),
                         DB::raw("(SELECT count(rating) FROM ratings WHERE rateable_id=products.id) as count_rating"),
-                        DB::raw("DATE_FORMAT( products.created_at,'" . getDBCustomDate() . "') AS published"),
+                        DB::raw("(SELECT count(rating) FROM ratings WHERE rateable_id=products.id) as count_rating1"), DB::raw("DATE_FORMAT( products.created_at,'" . getDBCustomDate() . "') AS published"),
                         'dis.name_ar as district', 'govs.name_ar as gov',
                         DB::raw("CONCAT(COALESCE(govs.name_ar,'') , ' / ' ,COALESCE(dis.name_ar,'')) AS zone"),
-                        'sellers.sale_name as space', 'categories.name as category'])
+                        'sellers.sale_name as space', 'shop_categories.name as category'])
 //                    ->select()
                     ->inRandomOrder()
                     ->where('products.status', 1);
 
+
                 if ($has_govs) {
+
                     $q->whereIn('products.admin_id', function ($query) use ($request) {
                         $query->select('admin_id')
                             ->from(with(new Seller())->getTable())
@@ -203,7 +209,9 @@ class CategoreisController extends Controller
                 if ($has_seller) {
                     $q->where('products.admin_id', $request->seller_id);
                 }
-                $q->limit(30);
+
+
+                $q->limit(15);
 
             }]);
             if ($has_categories) {
@@ -244,20 +252,22 @@ class CategoreisController extends Controller
                         ->from(with(new Admin())->getTable())
                         ->where('deleted_at', null)
                         ->where('status', '=', 1);
-                })->leftJoin('categories', 'categories.id', '=', 'products.category_id')
+                })->leftJoin('shop_categories', 'shop_categories.id', '=', 'products.category_id')
                 ->leftJoin('users', 'users.id', '=', 'products.admin_id')
                 ->leftJoin('sellers', 'users.id', '=', 'sellers.admin_id')
                 ->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
                 ->leftJoin('zones as dis', 'sellers.district_id', '=', 'dis.id')
                 ->select(['products.*',
-                    DB::raw("(SELECT COALESCE(AVG(rating),0) FROM ratings WHERE rateable_id=products.id  ) as average_rating"),
+                    DB::raw("(SELECT ROUND(COALESCE(AVG(rating),0),0) FROM ratings WHERE rateable_id=products.id) as average_rating"),
+                    DB::raw("(SELECT ROUND(COALESCE(AVG(rating),0),0)  FROM ratings WHERE rateable_id=products.id) as average_rating1"),
                     DB::raw("(SELECT count(rating) FROM ratings WHERE rateable_id=products.id) as count_rating"),
+                    DB::raw("(SELECT count(rating) FROM ratings WHERE rateable_id=products.id) as count_rating1"),
                     DB::raw("DATE_FORMAT( products.created_at,'" . getDBCustomDate() . "') AS published"),
                     'dis.name_ar as district', 'govs.name_ar as gov',
                     DB::raw("CONCAT(COALESCE(govs.name_ar,'') , ' / ' ,COALESCE(dis.name_ar,'')) AS zone"),
-                    'sellers.sale_name as space', 'categories.name as category'])
+                    'sellers.sale_name as space', 'shop_categories.name as category'])
 //                    ->select()
-                ->inRandomOrder()
+//                ->inRandomOrder()
                 ->where('products.status', 1);
             if ($has_govs) {
                 $data = $data->whereIn('products.admin_id', function ($query) use ($request) {
@@ -270,7 +280,61 @@ class CategoreisController extends Controller
                 }
 
             }
-            $data = $data->paginate(100);
+
+
+            $data = $data->paginate(15);
+            if (!$data) {
+                return $this->ReturnErorrRespons('0000', 'لايوجد اصناف');
+            } else {
+                return $this->GetDateResponse('data', $data);
+            }
+        } catch (\Exception $ex) {
+            return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
+        }
+    }
+
+
+    public function get_products_by_type(Request $request)
+    {
+        try {
+
+            $data = Product2::whereIn('products.admin_id', function ($query) use ($request) {
+                $query->select('id')
+                    ->from(with(new Admin())->getTable())
+                    ->where('deleted_at', null)
+                    ->where('status', '=', 1);
+            })->leftJoin('shop_categories', 'shop_categories.id', '=', 'products.category_id')
+                ->leftJoin('users', 'users.id', '=', 'products.admin_id')
+                ->leftJoin('sellers', 'users.id', '=', 'sellers.admin_id')
+                ->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
+                ->leftJoin('zones as dis', 'sellers.district_id', '=', 'dis.id')
+                ->select(['products.*',
+                    DB::raw("(SELECT ROUND(COALESCE(AVG(rating),0),0) FROM ratings WHERE rateable_id=products.id) as average_rating"),
+                    DB::raw("(SELECT ROUND(COALESCE(AVG(rating),0),0)  FROM ratings WHERE rateable_id=products.id) as average_rating1"),
+                    DB::raw("(SELECT count(rating) FROM ratings WHERE rateable_id=products.id) as count_rating"),
+                    DB::raw("(SELECT count(product_id) FROM order_products WHERE product_id=products.id) as sale_count"),
+                    DB::raw("(SELECT count(rating) FROM ratings WHERE rateable_id=products.id) as count_rating1"),
+                    DB::raw("DATE_FORMAT( products.created_at,'" . getDBCustomDate() . "') AS published"),
+                    'dis.name_ar as district', 'govs.name_ar as gov',
+                    DB::raw("CONCAT(COALESCE(govs.name_ar,'') , ' / ' ,COALESCE(dis.name_ar,'')) AS zone"),
+                    'sellers.sale_name as space', 'shop_categories.name as category'])
+//                    ->select()
+//                ->inRandomOrder()
+                ->where('products.status', 1);
+
+            if (isset($request->type) and $request->type != "") {
+                if ($request->type == 'random')
+                    $data = $data->where('products.sort','<' ,'3')->inRandomOrder();
+                elseif ($request->type == 'rating')
+                    $data = $data->orderBy('average_rating1', 'DESC')
+                        ->orderBy('count_rating1', 'DESC');
+                elseif ($request->type == 'new')
+                    $data = $data->orderBy('products.created_at');
+                elseif ($request->type == 'most_sales')
+                    $data = $data->orderBy('sale_count', 'DESC');
+            }
+
+            $data = $data->paginate(20);
             if (!$data) {
                 return $this->ReturnErorrRespons('0000', 'لايوجد اصناف');
             } else {

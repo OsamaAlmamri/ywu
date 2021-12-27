@@ -51,6 +51,7 @@ Route::post('shop/get_product_by_categories', 'Api\Shop\CategoreisController@get
 Route::post('shop/get_product_by_categories22', 'Api\Shop\CategoreisController@get_product_by_categories22');
 Route::post('shop/get_product_by_categories33', 'Api\Shop\CategoreisController@get_product_by_categories33');
 Route::post('shop/get_category_products', 'Api\Shop\CategoreisController@get_category_products');
+Route::post('shop/get_products_by_type', 'Api\Shop\CategoreisController@get_products_by_type');
 Route::post('shop/product_details', 'Api\Shop\CategoreisController@product_details');
 Route::post('shop/gov_seller', 'Api\Shop\CategoreisController@gov_seller');
 Route::post('shop/gov_sellers', 'Api\Shop\CategoreisController@gov_sellers');
