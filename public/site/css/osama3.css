@@ -192,7 +192,7 @@ button:not(:disabled), [type=button]:not(:disabled), [type=reset]:not(:disabled)
 }
 
 .like_product_button {
-    margin-top: -217px;
+    top: 4px;
     position: absolute;
     background: #f0f5fb;
     border-radius: 50px;
@@ -916,9 +916,6 @@ h5 {
     padding: 1px 29px;
 }
 
-.like_product_button {
-    margin-top: -187px;
-}
 
 
 
@@ -965,7 +962,7 @@ h5 {
 }
 
 .product_image_box .productImage {
-    margin: -12px -12px 0px;
+    /*margin: -12px -12px 0px;*/
     overflow: hidden;
 }
 

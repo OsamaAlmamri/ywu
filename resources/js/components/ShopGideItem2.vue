@@ -1,5 +1,5 @@
 <template>
-    <div class="product_countainer" >
+    <div class=" mx-2 my-5" >
         <!--        <a href="electric-stainless-steel-kettle-1-5l-1800w-white/N31981366A/p?o=c9d13846b27902cb"-->
         <!--           >-->
         <div class="product_countainer_link">
@@ -32,7 +32,7 @@
                     </clazy-load>
 
                 </div>
-                <div class="pull-left" style="padding-left: 2em">
+                <div class="pull-left" >
                     <like-button class="like_product_button" type="product" :key="product.id" count-likes="0"
                                  has-count="0"
                                  :liked_id="product.id" :is_liked="product.is_like"></like-button>

@@ -51,13 +51,13 @@
         }
 
         .wrapper {
-            height: 130px;
+            height: 150px;
         }
 
         .image_box img:not(.zoomImage) {
 
-            height: 130px;
-            width: 150px;
+            height: 150px;
+            width: 170px;
         }
 
         .lower-content h6:first-child {
@@ -95,9 +95,7 @@
             margin-top: -20px;
         }
 
-        .like_product_button {
-            margin-top: -127px;
-        }
+
 
         .product_countainer {
 

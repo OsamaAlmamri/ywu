@@ -100,8 +100,8 @@ class Product2 extends Model
             return $this->image_category_lrg()->path;
 
         else {
-            $im = $this->image_category_th();
-            return ($im != null) ? $this->image_category_th()->path : $this->image_category_act()->path;
+            $im = $this->image_category_act();
+            return ($im != null) ? $this->image_category_act()->path : $this->image_category_th()->path;
 
         }
 
@@ -417,6 +417,16 @@ class Product2 extends Model
         return $this->belongsTo(ImageCategory::class, 'image_id', 'image_id')
             ->where(function ($query) {
                 $query->where('image_categories.image_type', '=', 'LARGE');
+            })->first();
+
+
+    }
+
+    public function image_category_med()
+    {
+        return $this->belongsTo(ImageCategory::class, 'image_id', 'image_id')
+            ->where(function ($query) {
+                $query->where('image_categories.image_type', '=', 'MEDIUM');
             })->first();
 
 
