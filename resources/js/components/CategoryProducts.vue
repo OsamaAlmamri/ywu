@@ -11,7 +11,7 @@
                  :is-full-page="fullPage">
         </loading>
         <shop-category></shop-category>
-        <div class="sidebar-page-container" style=" margin-top:-130">
+        <div class="sidebar-page-container" style="margin-top:-130">
             <div class="patern-layer-one paroller" data-paroller-factor="0.40" data-paroller-factor-lg="0.20"
                  data-paroller-type="foreground" data-paroller-direction="vertical"
                  style="background-image: url('/site/images/icons/icon-1.png')">

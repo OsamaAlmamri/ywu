@@ -720,6 +720,7 @@ class ComposerStaticInit15268013200cdab97ccd3b4cedb5de28
         'App\\EmployeeCategory' => __DIR__ . '/../..' . '/app/EmployeeCategory.php',
         'App\\Exam' => __DIR__ . '/../..' . '/app/Exam.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\ForewordComment' => __DIR__ . '/../..' . '/app/ForewordComment.php',
         'App\\Http\\Controllers\\AdminControllers\\AdminsController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminControllers/AdminsController.php',
         'App\\Http\\Controllers\\AdminControllers\\AuthAdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminControllers/AuthAdminController.php',
         'App\\Http\\Controllers\\AdminControllers\\PermissionsController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminControllers/PermissionsController.php',

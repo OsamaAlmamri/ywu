@@ -25,6 +25,7 @@ class ForewordConsultantResource extends JsonResource
                 'post' => new ConsultantPostResource($this->post),
                 'foreword_by_user' => new UserSelectResource($this->foreword_by_user),
                 'foreword_to_user' => new UserSelectResource($this->foreword_to_user),
+                'comments' => CommentsConsultantPostResource::collection($this->comments),
                 'published' => Carbon::createFromTimestamp(strtotime($this->created_at))->diffForHumans(),
 
             ];

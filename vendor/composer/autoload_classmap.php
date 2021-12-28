@@ -21,6 +21,7 @@ return array(
     'App\\EmployeeCategory' => $baseDir . '/app/EmployeeCategory.php',
     'App\\Exam' => $baseDir . '/app/Exam.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\ForewordComment' => $baseDir . '/app/ForewordComment.php',
     'App\\Http\\Controllers\\AdminControllers\\AdminsController' => $baseDir . '/app/Http/Controllers/AdminControllers/AdminsController.php',
     'App\\Http\\Controllers\\AdminControllers\\AuthAdminController' => $baseDir . '/app/Http/Controllers/AdminControllers/AuthAdminController.php',
     'App\\Http\\Controllers\\AdminControllers\\PermissionsController' => $baseDir . '/app/Http/Controllers/AdminControllers/PermissionsController.php',

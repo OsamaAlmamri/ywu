@@ -15,7 +15,7 @@ class ForewordConsultant extends Model
     //            $table->longText('solve')->nullable();
     //            $table->enum('status', ['not_solve', 'not_complete', 'solved'])->default('not_solve');
 
-    protected $fillable = ['post_id','note', 'foreword_by', 'foreword_to', 'solve', 'status'];
+    protected $fillable = ['post_id', 'note', 'foreword_by', 'foreword_to', 'solve', 'status'];
 
     public function foreword_by_user()
     {
@@ -30,6 +30,11 @@ class ForewordConsultant extends Model
     public function post()
     {
         return $this->belongsTo(Consultant::class, 'post_id', 'id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(ForewordComment::class, 'foreword_id', 'id');
     }
 
 }

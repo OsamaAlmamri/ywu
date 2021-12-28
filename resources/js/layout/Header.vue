@@ -146,6 +146,12 @@
 
                                         </router-link>
                                     </li>
+                                    <li :class="[{'current':currentPage=='ForwordConsultant'}]"    v-if="isLoggedIn">
+                                        <router-link @click.native="scrollToTop()" to="/ForwordConsultant">
+                                            {{$t('MENU.ForwordConsultant') }}
+
+                                        </router-link>
+                                    </li>
                                     <li :class="[{'current':currentPage=='women'}]">
                                         <router-link @click.native="scrollToTop()" to="/women">
                                             {{$t('MENU.women') }}

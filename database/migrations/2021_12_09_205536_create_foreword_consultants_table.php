@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateForewordConsultantsTable extends Migration
 {
-    /**
+    /** ForewordComment
      * Run the migrations.
      *
      * @return void

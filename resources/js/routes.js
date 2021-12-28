@@ -17,6 +17,7 @@ import cart from './components/CartComponent';
 import CategoryProducts from './components/CategoryProducts';
 import ConsultantComponent from './components/ConsultantComponent';
 import ProductDeatailsComponent from './components/ProductDeatailsComponent';
+import ForwordConsultantComponent from './components/ForwordConsultantComponent';
 // import Co from './components/';
 import WomenDeatails from './components/WomenDeatails';
 import store from './store';
@@ -222,6 +223,15 @@ const routes = [
         path: '/profile',
         name: 'profile',
         component: Profile,
+        meta: {
+            requiresAuth: true
+        }
+
+    },
+    {
+        path: '/ForwordConsultant',
+        name: 'ForwordConsultant',
+        component: ForwordConsultantComponent,
         meta: {
             requiresAuth: true
         }
