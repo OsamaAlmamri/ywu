@@ -37,4 +37,9 @@ class ForewordConsultant extends Model
         return $this->hasMany(ForewordComment::class, 'foreword_id', 'id');
     }
 
+    public function consultant_comments()
+    {
+        return $this->hasMany(ForewordComment::class, 'foreword_id', 'id');
+    }
+
 }

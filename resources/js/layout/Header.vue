@@ -146,9 +146,9 @@
 
                                         </router-link>
                                     </li>
-                                    <li :class="[{'current':currentPage=='ForwordConsultant'}]"    v-if="isLoggedIn">
-                                        <router-link @click.native="scrollToTop()" to="/ForwordConsultant">
-                                            {{$t('MENU.ForwordConsultant') }}
+                                    <li :class="[{'current':currentPage=='ForwordConsultant'}]"    v-if="isLoggedIn && authUser.permissions.foreword_consultant==1">
+                                        <router-link @click.native="scrollToTop()" to="/forwordConsultant">
+                                            {{$t('MENU.forwordConsultant') }}
 
                                         </router-link>
                                     </li>
@@ -218,6 +218,7 @@ export default {
             return store.getters.isLoggedIn
         },
         authUser: function () {
+
             return store.getters.authUser
         },
         currentPage: function () {

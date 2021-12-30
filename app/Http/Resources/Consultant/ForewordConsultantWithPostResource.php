@@ -21,6 +21,7 @@ class ForewordConsultantWithPostResource extends JsonResource
                 "id" => $this->id,
                 "note" => $this->note,
                 "solve" => $this->solve,
+                "status" => $this->status,
                 "foreword_to" => $this->foreword_to,
                 'foreword_by_user' => new UserSelectResource($this->foreword_by_user),
                 'foreword_to_user' => new UserSelectResource($this->foreword_to_user),

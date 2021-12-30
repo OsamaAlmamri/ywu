@@ -6,21 +6,19 @@
                      :overlay-theme="'dark'" ref="comments">
             <div v-for="(comment,key ) in  post.comments">
                 <div class="row">
-                    <div class="col-xs-2 pull-right" style="margin: 20px 38px 0px 0px">
+                    <div class="col-xs-2 col-xs-4 d-flex justify-content-start">
                         <i class="fa fa-comment"> </i>
                     </div>
-                    <div class="col-xs-4 pull-right" style="margin: 15px 15px 0 0">
+                    <div class="col-xs-4 d-flex justify-content-start">
                         <ul style="display: inline-block; list-style: none">
                             <li>
                                 {{ comment.user.name }}
                             </li>
-
                             <li> {{ comment.date }}</li>
-
                         </ul>
                     </div>
                     <div class="col col-xs-5 " style="margin: 15px 0px  0 15px; text-align: end">
-                        <dropdown v-if="(authUser.id==comment.user_id )">
+                        <dropdown>
                             <div slot="items">
                                 <a class="dropdown-item" href="#"
                                    @click.prevent="edit_comment(key,comment)">{{ $t('edit') }}</a>
@@ -40,35 +38,36 @@
             </div>
             <div class="row clearfix">
                 <div class="form-group" style="width: 100%">
+                    <div class="form-group" style="width: 100%">
+                        <fieldset class="the-fieldset">
+                            <legend class="the-legend">{{ $t("forewordConsultant.date") }} *</legend>
+                            <input style="width: 100%" type="date" v-model="newComment.date" required="">
+                        </fieldset>
+                    </div>
                     <fieldset class="the-fieldset">
                         <legend class="the-legend"> {{ $t('add_comment') }}</legend>
-
-
-                        <div class="form-group" style="width: 100%">
-                            <fieldset class="the-fieldset">
-                                <legend class="the-legend">{{ $t("consultants.date") }} *</legend>
-                                <input style="width: 100%" type="text" v-model="newPostData.date" required="">
-                            </fieldset>
-                        </div>
                         <div class="input-group mb-3">
                             <textarea style="width: 100%" rows="3" class="" v-model="newComment.body"></textarea>
-                            <div class="input-group-append">
-                                <button class="btn btn-info"
-                                        @click.prevent="(edit==false)?saveComment():updateComment()">
-                                    {{ (edit == false) ? $t('save') : $t('edit') }}
-                                </button>
-                            </div>
-                            <div class="input-group-append">
-                                <button v-if="edit==true" class="btn btn-secondary"
-                                        @click.prevent="CancelUpdate()">
 
-
-                                    {{ $t('cancel') }}
-                                </button>
-
-                            </div>
                         </div>
                     </fieldset>
+
+                </div>
+                <div class="input-group-append">
+                    <button class="btn btn-info"
+                            @click.prevent="(edit==false)?saveComment():updateComment()">
+                        {{ (edit == false) ? $t('save') : $t('edit') }}
+                    </button>
+                </div>
+                <div class="input-group-append">
+
+                    <button v-if="edit==true" class="btn btn-secondary"
+                            @click.prevent="CancelUpdate()">
+
+
+                        {{ $t('cancel') }}
+                    </button>
+
                 </div>
             </div>
         </sweet-modal>
@@ -83,7 +82,7 @@
                     <li>
                         <i class="fa fa-clock-o"> </i>
 
-                        {{ post.published }}
+                        {{ post.post.published }}
                     </li>
                 </ul>
             </div>
@@ -101,24 +100,47 @@
 
         </div>
         <div class="lower-content" style="padding: 15px">
-            <h5>
-                <router-link @click.native="$scrollToTop" :to="{ name: 'post_details', params: { id: post.id}}">
-                    {{ post.solve }}
-                </router-link>
-            </h5>
+            <fieldset class="the-fieldset">
+                <legend class="the-legend">{{ $t("forewordConsultant.consultant") }} *</legend>
 
-            <div class="post-info" id="targetMore" v-html="textToDisplay">
-            </div>
-            <span @click="readmore=!readmore" v-if="post_words.isMore && textMoreToShow"> ({{ $t('more') }})</span>
-            <span @click="readmore=!readmore" v-if="post_words.isMore && !(textMoreToShow)"> ({{ $t('less') }})  </span>
-            <hr>
-            <div class="clearfix">
-                <div class="pull-right" style="padding-right: 3em">
-                    <div @click="openCommentModal()" class="students"> {{ (comments_count) }} <i
-                        class="fa fa-comments"></i></div>
+                <h5 class="d-flex justify-content-start ">
+                    {{ post.post.title }}
+                </h5>
+                <div class="d-flex justify-content-start ">
+                    {{ post.post.body }}
+
                 </div>
+            </fieldset>
+            <fieldset class="the-fieldset">
+                <legend class="the-legend">{{ $t("forewordConsultant.solve") }}</legend>
+
+                <h5 class="d-flex justify-content-start ">
+
+                    <span class="text-info "> {{ $t('forewordConsultant.foreword_by') }}</span>:
+                    {{ post.foreword_by_user.name }} <span class="text-info mx-2"> {{ post.published }}</span>
+
+                </h5>
+                <div class="d-flex justify-content-start">
+                    <span class="text-info "> {{ $t("forewordConsultant.note") }}  </span>:
+
+                    {{ post.note }}
+                </div>
+                <div class="d-flex justify-content-start  flex-column">
+                    <h5 class="text-info "> {{ $t("forewordConsultant.solve") }} </h5>
+                    {{ post.solve }}
+                </div>
+            </fieldset>
+        </div>
+        <span @click="readmore=!readmore" v-if="post_words.isMore && textMoreToShow"> ({{ $t('more') }})</span>
+        <span @click="readmore=!readmore" v-if="post_words.isMore && !(textMoreToShow)"> ({{ $t('less') }})  </span>
+        <hr>
+        <div class="clearfix">
+            <div class="pull-right" style="padding-right: 3em">
+                <div @click="openCommentModal()" class="students"> {{ (comments_count) }} <i
+                    class="fa fa-comments"></i></div>
             </div>
         </div>
+    </div>
     </div>
 </template>
 
@@ -140,7 +162,6 @@ export default {
             bodyDisplay: '',
             is_active_dropdown: false,
             edit_post: false,
-
             post_words: {
                 'words': 0,
                 'newText': '',
@@ -152,12 +173,12 @@ export default {
                 'date': '',
                 'body': '',
                 'id': 0,
-                'post_id': this.post.id,
+                'foreword_id': this.post.id,
             }
         }
     },
     created() {
-        this.post_words = this.countWords(this.post.body, 20);
+        this.post_words = this.countWords(this.post.solve, 20);
     },
     methods: {
 
@@ -190,16 +211,18 @@ export default {
         saveComment() {
             if (localStorage.token) {
                 this.isLoading = true;
+
                 axios({url: '/api/v2/forewordConsultants/store', data: this.newComment, method: 'POST'})
                     .then(resp => {
                         this.isLoading = false;
                         if (resp.data.status == false) {
                             toastStack('   خطاء ', resp.data.msg, 'error');
                         } else {
-                            this.post.comments.push(resp.data.comment);
+                            console.log(resp.data)
+                            this.post.comments.push(resp.data.data);
                             toastStack(resp.data.msg, '', 'success');
                             this.newComment = {
-                                'post_id': this.post.id,
+                                'foreword_id': this.post.id,
                                 'key': 0,
                                 'body': '',
                                 'date': '',
@@ -228,9 +251,10 @@ export default {
                             this.post.comments[this.newComment.key].body = (this.newComment.body);
                             toastStack(resp.data.msg, '', 'success');
                             this.newComment = {
-                                'post_id': this.post.id,
+                                'foreword_id': this.post.id,
                                 'key': 0,
                                 'body': '',
+                                'date': '',
                                 'id': 0,
                             }
                         }

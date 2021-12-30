@@ -13,7 +13,7 @@
 
                                 @foreach ($categories as $cat)
 
-                                    <option value="{{ $cat->id }}" style="font-weight: bold">{{ $cat->name }}</option>
+                                    <option @if ($category==$cat->id) selected @endif   value="{{ $cat->id }}" style="font-weight: bold">{{ $cat->name }}</option>
 
                                 @endforeach
                             </select>
@@ -24,15 +24,16 @@
                         <div class="job-field">
                             <select name="type"
                                     style="border-radius: 10px;padding: 5px;color:  #172d44;background-color: white;font-weight: bold">
-                                <option value="" style="font-weight: bold"> النوع</option>
-                                <option value="all" style="font-weight: bold"> جميع الاستشارات</option>
-                                <option value="re_publish" style="font-weight: bold">الاستشارات الذي تمت اعادة صياعتها
+                                <option  value="" style="font-weight: bold"> النوع</option>
+                                <option @if ($type=='all') selected @endif value="all" style="font-weight: bold"> جميع الاستشارات</option>
+                                <option @if ($type=='re_publish') selected @endif value="re_publish" style="font-weight: bold">الاستشارات الذي تمت اعادة صياعتها
                                 </option>
-                                <option value="not_re_publish" style="font-weight: bold">الاستشارات العامة لم تتم اعادة
+                                <option @if ($type=='not_re_publish') selected @endif value="not_re_publish" style="font-weight: bold">الاستشارات العامة لم تتم اعادة
                                     صياعتها
                                 </option>
-                                <option value="public" style="font-weight: bold">الاستشارات العامة</option>
-                                <option value="private" style="font-weight: bold">الاستشارات الخاصة</option>
+                                <option @if ($type=='public') selected @endif value="public" style="font-weight: bold">الاستشارات العامة</option>
+                                <option @if ($type=='private') selected @endif  value="private" style="font-weight: bold">الاستشارات الخاصة</option>
+                                <option @if ($type=='forewordConsultant') selected @endif value="forewordConsultant" style="font-weight: bold">الاستشارات المحالة</option>
                             </select>
 
                         </div>
@@ -43,9 +44,9 @@
                                     style="border-radius: 10px;padding: 5px;color:  #172d44;background-color: white;font-weight: bold">
                                 <option value="" style="font-weight: bold">اختر احد المستخدمين</option>
 
-                                @foreach ($users as $user)
+                                @foreach ($users as $u)
 
-                                    <option value="{{ $user->id }}" style="font-weight: bold">{{ $user->name }}</option>
+                                    <option @if ($user==$u->id) selected @endif   value="{{ $u->id }}" style="font-weight: bold">{{ $u->name }}</option>
 
                                 @endforeach
                             </select>
@@ -79,6 +80,15 @@
                                style=" font-weight: bold;border-radius: 3px 3px 25px 3px">
                                 <i class="fa fa-share-alt" title="اعادة صياغة "></i>
                             </a>
+                            @if($post->forewordConsultant!=null)
+                                <a href="{{route('showForworConsultant',$post->forewordConsultant->id)}}"
+                                   class="btn btn-success pull-left"
+
+                                   style=" font-weight: bold;border-radius: 3px 3px 25px 3px"> الاحالات
+                                    <i class="fa fa-handshake-o" title=" عرض تفاصيل الاحالات "></i>
+
+                                </a>
+                            @endif
                             <div class="post-heading">
                                 <div class="pull-right image">
                                     <img src="https://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar"
@@ -351,7 +361,7 @@
                 success: function (data) {
                     if (data.success) {
                         $('#formModal').modal('hide');
-                       toastr.info("تم اعادة النشر بنجاح");
+                        toastr.info("تم اعادة النشر بنجاح");
                         $('#sample_form')[0].reset();
 
                     }

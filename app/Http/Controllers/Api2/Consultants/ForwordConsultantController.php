@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Api2\Consultants;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FireBaseController;
+use App\Http\Resources\Consultant\CommentForewordConsultantResource;
 use App\Http\Resources\Consultant\CommentsConsultantPostResource;
-use App\Http\Resources\Consultant\ConsultantPostResource;
 use App\Http\Resources\Consultant\ForewordConsultantResource;
+use App\Http\Resources\Consultant\ForewordConsultantWithPostResource;
 use App\Http\Resources\General\UserSelectResource;
 use App\Models\UserContents\Post;
 use App\Models\V2\UserContents\Consultant;
@@ -120,11 +121,13 @@ class ForwordConsultantController extends Controller
                 return $this->returnValidationError($code, $validator);
             }
             $post = ForewordConsultant::find($request->id);
+            if ($post == null or $this->user->id != $post->foreword_to)
+                return $this->ReturnErorrRespons("400", $this->user->id);
             $post->update([
                 'solve' => $request->solve,
                 'status' => $request->status
             ]);
-            return $this->GetDateResponse('data', new ConsultantPostResource($post), "تم نشر استشارتك");
+            return $this->GetDateResponse('data', new ForewordConsultantResource($post), "تم نشر استشارتك");
 
         } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
@@ -146,13 +149,17 @@ class ForwordConsultantController extends Controller
                 $code = $this->returnCodeAccordingToInput($validator);
                 return $this->returnValidationError($code, $validator);
             }
+            $post = ForewordConsultant::find($request->foreword_id);
+            if ($post == null or $this->user->id != $post->foreword_to)
+                return $this->ReturnErorrRespons("400", "ليس لديك الصلاحية");
+
             $post = ForewordComment::updateOrCreate(['id' => $request->id, 'user_id' => $this->user->id], [
                 'date' => $request->date,
                 'body' => $request->body,
                 "foreword_id" => $request->foreword_id,
                 'user_id' => $this->user->id,
             ]);
-            return $this->GetDateResponse('data', new CommentsConsultantPostResource($post), "تم نشر استشارتك");
+            return $this->GetDateResponse('data', new CommentForewordConsultantResource($post), "تم نشر استشارتك");
 
         } catch (\Exception $ex) {
             return $this->ReturnErorrRespons($ex->getCode(), $ex->getMessage());
@@ -163,15 +170,15 @@ class ForwordConsultantController extends Controller
     public function deleteComment($id)
     {
         $this->user = JWTAuth::parseToken()->authenticate();
-        $post = ForewordComment::find($id)->where('user_id', $this->user->id);
+        $post = ForewordComment::where('id', $id)->where('user_id', $this->user->id);
         if (!$post) {
-            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لحذف هذا المنشور');
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية للحذف ');
         }
 
         if ($post->delete()) {
             return $this->ReturnSuccessRespons("200", "تم الحذف بنجاح");
         } else {
-            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لحذف هذا المنشور');
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية للحذف  ');
         }
     }
 

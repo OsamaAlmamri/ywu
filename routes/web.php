@@ -202,6 +202,7 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
         Route::post('restorePost', 'DashboardController@restore')->name('restore');
         Route::post('forcePost', 'DashboardController@force')->name('force');
         Route::get('showPost', 'DashboardController@show')->name('showPosts');
+        Route::get('showForworConsultant/{id}', 'DashboardController@showForworConsultant')->name('showForworConsultant');
         Route::post('deleteComment', 'DashboardController@comment_D')->name('delete_comment');
 
 

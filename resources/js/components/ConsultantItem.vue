@@ -158,7 +158,7 @@
             </div>
             <span @click="readmore=!readmore" v-if="post_words.isMore && textMoreToShow"> ({{ $t('more') }})</span>
             <span @click="readmore=!readmore" v-if="post_words.isMore && !(textMoreToShow)"> ({{ $t('less') }})  </span>
-            <hr>
+
             <div class="clearfix">
                 <div class="pull-right" style="padding-right: 3em">
                     <div @click="openCommentModal()" class="students"> {{ (comments_count) }} <i

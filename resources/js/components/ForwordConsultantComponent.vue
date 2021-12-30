@@ -24,7 +24,7 @@
                 <div class="row clearfix">
                     <div class="col-md-12">
                         <h5> {{ $t("status") }} </h5>
-                        <section class="student-profile-section row">
+                        <section class="student-profile-section row" style="margin-top: 0">
                             <div class="inner-column">
                                 <div class="profile-info-tabs">
                                     <div class="profile-tabs tabs-box">
@@ -32,17 +32,17 @@
                                             <li
                                                 @click="newPostData.status='not_solve'"
                                                 :class="['user_type_tap', 'tab-btn',{'active-btn':(newPostData.status=='not_solve')}]">
-                                                {{ $t('not_solve') }}
+                                                {{ $t('forewordConsultant.not_solve') }}
                                             </li>
                                             <li
                                                 @click="newPostData.status='not_complete'"
                                                 :class="['user_type_tap', 'tab-btn',{'active-btn':(newPostData.status=='not_complete')}]">
-                                                {{ $t('not_complete') }}
+                                                {{ $t('forewordConsultant.not_complete') }}
                                             </li>
                                             <li
                                                 @click="newPostData.status='solved'"
                                                 :class="['user_type_tap', 'tab-btn',{'active-btn':(newPostData.status=='solved')}]">
-                                                {{ $t('solved') }}
+                                                {{ $t('forewordConsultant.solved') }}
                                             </li>
 
                                         </ul>
@@ -57,7 +57,7 @@
 
                     <div class="form-group" style="width: 100%">
                         <fieldset class="the-fieldset">
-                            <legend class="the-legend"> {{ $t("consultants.solve") }}</legend>
+                            <legend class="the-legend"> {{ $t("forewordConsultant.solve") }}</legend>
                             <textarea style="width: 100%" rows="4" class="" v-model="newPostData.solve"></textarea>
                         </fieldset>
                     </div>

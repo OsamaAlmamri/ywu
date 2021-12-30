@@ -18,6 +18,7 @@ class UserResource extends JsonResource
         return array_merge(parent::toArray($request), [
 
             "permissions" => [
+                "foreword_consultant" => $this->ofHasPermission(['foreword consultant'],$this->id)->count(),
                 "replay_social_consultants" => $this->ofHasPermission(['show categories'],$this->id)->count(),
                 "replay_social_consultant" => $this->ofHasPermission(['replay social consultant'],$this->id)->count(),
                 "replay_legal_consultant" => $this->ofHasPermission(['replay legal consultant'],$this->id)->count(),

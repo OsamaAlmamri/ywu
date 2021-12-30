@@ -3,6 +3,7 @@
 namespace App\Models\UserContents;
 
 use App\Like;
+use App\Models\V2\UserContents\ForewordConsultant;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -27,7 +28,10 @@ class Post extends Model
         return $this->likes()->count();
 
     }
-
+    public function forewordConsultant()
+    {
+        return $this->hasOne(ForewordConsultant::class,'post_id');
+    }
     function getCommentsCountAttribute()
     {
         return $this->comments()->count();

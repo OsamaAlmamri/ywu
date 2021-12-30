@@ -23,6 +23,20 @@ export const locale = {
         course_details: "  تفاصيل المادة التدريبة",
         ForgetPassword: "  استعادة كلمة السر  ",
         ResetPassword: "  استعادة كلمة السر  ",
+        forwordConsultant: "  الاحالات  ",
+        product_details: "  تفاصيل المنتج  ",
+
+    },
+    forewordConsultant: {
+        not_solve: 'لم تحل',
+        not_complete: 'حل غبر مكتمل',
+        solved: 'تم الحل',
+        solve: 'الحل',
+        note: 'ملاحظة المستشار',
+        date: 'التاريخ',
+        "consultant": " الاستشارة",
+        foreword_by: "  احيلة بواسطة  ",
+
     },
     concatUs: {
         concatUs: "راسلنا",

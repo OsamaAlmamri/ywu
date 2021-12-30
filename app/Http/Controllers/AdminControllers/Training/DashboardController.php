@@ -16,6 +16,7 @@ use App\Models\TrainingContents\Training;
 use App\Models\UserContents\Category;
 use App\Models\UserContents\Comment;
 use App\Models\UserContents\Post;
+use App\Models\V2\UserContents\ForewordConsultant;
 use App\Models\WomenContents\WomenPosts;
 use App\Seller;
 use App\ShareUser;
@@ -147,6 +148,10 @@ class DashboardController extends Controller
                 $posts = $posts->where('is_public', 1);
             elseif (request()->type == "private")
                 $posts = $posts->where('is_public', 0);
+            elseif (request()->type == "forewordConsultant")
+                $posts = $posts->whereIn('id', function ($q) {
+                    $q->select('post_id')->from('foreword_consultants');
+                });
 
         }
         $posts = $posts->orderBy('id', 'desc')->paginate(5);
@@ -154,7 +159,11 @@ class DashboardController extends Controller
         $categories = Category::all();
         $users = User::withTrashed()->get();
         $admin = User::where('id', 1)->first();
-        return view('admin.training.asking.show', compact(['admin', 'posts', 'comments', 'categories', 'users']));
+        return view('admin.training.asking.show',
+            compact(['admin', 'posts', 'comments', 'categories', 'users']))
+            ->with('type', request()->type)
+            ->with('category', request()->category)
+            ->with('user', request()->user);
 
     }
 
@@ -168,6 +177,15 @@ class DashboardController extends Controller
             $admin = User::where('id', 1)->first();
             return view('admin.training.asking.fetch', compact(['posts', 'admin']))->render();
         }
+    }
+
+    function showForworConsultant($id)
+    {
+
+        $consultant = ForewordConsultant::find($id);
+
+        return view('admin.training.asking.showForworConsultant', compact(['consultant']))->render();
+
     }
 
     function editConsultant($id)

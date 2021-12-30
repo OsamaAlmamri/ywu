@@ -21,7 +21,7 @@
 
         </div>
         <div class="clearfix ">
-            <div class="pull-left" style="padding-left: 1.5em">
+            <div class="pull-left" style="margin-right: -20px;">
                 <like-button class="like_product_button" type="product" :key="product.id" count-likes="0"
                              has-count="0"
                              :liked_id="product.id" :is_liked="product.is_like"></like-button>

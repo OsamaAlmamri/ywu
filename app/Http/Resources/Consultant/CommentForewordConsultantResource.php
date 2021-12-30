@@ -6,7 +6,7 @@ use App\Http\Resources\General\UserSelectResource;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ForewordConsultantResource extends JsonResource
+class CommentForewordConsultantResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

@@ -88,6 +88,8 @@
         }
 
     </style>
+
+    @yield('style')
 </head>
 <!-- /header content -->
 

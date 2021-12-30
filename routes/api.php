@@ -98,7 +98,7 @@ Route::group(['middleware' => 'CheckUserT:api'], function () {
         Route::post('/index', 'Api2\Consultants\ForwordConsultantController@index');
         Route::post('/add_sovle', 'Api2\Consultants\ForwordConsultantController@update');
         Route::post('/store', 'Api2\Consultants\ForwordConsultantController@storeComment');
-        Route::post('/delete', 'Api2\Consultants\ForwordConsultantController@deleteComment');
+        Route::post('/delete/{id}', 'Api2\Consultants\ForwordConsultantController@deleteComment');
     });
 
     Route::post('seller/add_to_cart', 'Api\Shop\CartController@add_to_cart');

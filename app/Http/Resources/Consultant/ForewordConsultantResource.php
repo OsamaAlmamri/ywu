@@ -20,12 +20,13 @@ class ForewordConsultantResource extends JsonResource
             [
                 "id" => $this->id,
                 "note" => $this->note,
+                "status" => $this->status,
                 "solve" => $this->solve,
                 "foreword_to" => $this->foreword_to,
                 'post' => new ConsultantPostResource($this->post),
                 'foreword_by_user' => new UserSelectResource($this->foreword_by_user),
                 'foreword_to_user' => new UserSelectResource($this->foreword_to_user),
-                'comments' => CommentsConsultantPostResource::collection($this->comments),
+                'comments' => CommentForewordConsultantResource::collection($this->comments),
                 'published' => Carbon::createFromTimestamp(strtotime($this->created_at))->diffForHumans(),
 
             ];

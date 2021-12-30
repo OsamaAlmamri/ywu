@@ -229,8 +229,8 @@ const routes = [
 
     },
     {
-        path: '/ForwordConsultant',
-        name: 'ForwordConsultant',
+        path: '/forwordConsultant',
+        name: 'forwordConsultant',
         component: ForwordConsultantComponent,
         meta: {
             requiresAuth: true

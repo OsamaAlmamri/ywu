@@ -22,6 +22,19 @@ export const locale = {
         course_details: "  course details  ",
         ForgetPassword: " Forget Password ",
         ResetPassword: " Reset Password  ",
+        forwordConsultant: " Forewords   ",
+        product_details: "  product details   ",
+
+    },
+    forewordConsultant: {
+        not_solve: 'not solve ',
+        not_complete: 'solve not complete',
+        solved: 'solved ',
+        solve: 'سخمرث',
+        note: ' consultantor note',
+        date: 'date',
+        "consultant": " consultant",
+        foreword_by: " foreword By  ",
 
     },
     concatUs: {
