@@ -44,6 +44,7 @@ class Product extends Model
     public function productCart()
     {
         $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
+
         return $this->hasOne(Cart::class, 'product_id', 'id')
             ->where('user_id', $user_id);
     }

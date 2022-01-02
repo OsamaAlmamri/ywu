@@ -93,7 +93,7 @@ class CartController extends Controller
     public function delete_from_cart(Request $request)
     {
         try {
-            $data = Cart::where([['id', '=', $request->id], ['user_id', '=', \auth()->id()]])->get()->first();
+            $data = Cart::where([['product_id', '=', $request->id], ['user_id', '=', \auth()->id()]])->get()->first();
             if ($data != null) {
                 $data->delete();
                 return $this->GetDateResponse('data', $data, 'تم الحذف بنجاح');

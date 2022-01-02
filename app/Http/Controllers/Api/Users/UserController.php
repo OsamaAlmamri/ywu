@@ -60,21 +60,22 @@ class UserController extends Controller
                     "gov_id" => "required|numeric",
                     "district_id" => "required|numeric",
                     "more_address_info" => "required|string",
-                ], [
-                    "sale_name.required" => "يرجى كتابة الاسم التجاري ",
-                    "ssn_image.required" => "يرجى اضافة  صورة البطاقة لبشخصية ",
-                    "gov_id.required" => "يرجى تحديد المحافظة ",
-                    "district_id.required" => "يرجى تحديد المديرية ",
-                    "more_address_info.required" => "يرجى اضافة معلومات اضافية عن موقعكم ",
-                    "phone.required" => "يرجى كتابة رقم الهاتف",
-                    "phone.numeric" => "رقم الهاتف يجب ان يكون ارقام فقط ",
-                    "phone.digits" => "يجب ان يكون رقم الهاتف 9 ارقام",
-                    "phone.starts_with" => "قم بكتابة رقم هاتفك الشخصي",
-                    "phone.unique" => "يوجد  مستخدم مسجل بهذا الرقم ",
-                    "password.required" => "قم بكتابة الباسوورد",
-                    "password.string" => "كلمة المرور يجب ان تكون قوية تحتوي على ارقام وحروف انجليزية كبتل واسمول ورموز",
-                    "password.min" => "كلمة المرور يجب ان تكون 4 ارقام وحروف ورموز",
-                ]);
+                ],
+                    [
+                        "sale_name.required" => "يرجى كتابة الاسم التجاري ",
+                        "ssn_image.required" => "يرجى اضافة  صورة البطاقة لبشخصية ",
+                        "gov_id.required" => "يرجى تحديد المحافظة ",
+                        "district_id.required" => "يرجى تحديد المديرية ",
+                        "more_address_info.required" => "يرجى اضافة معلومات اضافية عن موقعكم ",
+                        "phone.required" => "يرجى كتابة رقم الهاتف",
+                        "phone.numeric" => "رقم الهاتف يجب ان يكون ارقام فقط ",
+                        "phone.digits" => "يجب ان يكون رقم الهاتف 9 ارقام",
+                        "phone.starts_with" => "قم بكتابة رقم هاتفك الشخصي",
+                        "phone.unique" => "يوجد  مستخدم مسجل بهذا الرقم ",
+                        "password.required" => "قم بكتابة الباسوورد",
+                        "password.string" => "كلمة المرور يجب ان تكون قوية تحتوي على ارقام وحروف انجليزية كبتل واسمول ورموز",
+                        "password.min" => "كلمة المرور يجب ان تكون 4 ارقام وحروف ورموز",
+                    ]);
             else
                 $validator = Validator::make($request->all(), [
                     "name" => "required",
@@ -140,10 +141,11 @@ class UserController extends Controller
                 $user = User::create(array_merge($request->all(), ['type' => 'customers', 'status' => 1]));
                 $Customer = Customer::create(array_merge($request->all(), ['user_id' => $user->id]));
             } elseif ($request->userType == 'seller') {
-                $user = Admin::create(array_merge($request->all(),
-                    ['type' => 'seller', 'status' => 0]
-                ));
                 $image = saveImage('images/admins/', $request->file('ssn_image'));
+
+                $user = Admin::create(array_merge($request->all(),
+                    ['type' => 'seller', 'status' => 0,'images' => json_encode($request->images)]
+                ));
 
                 $saller = Seller::create(array_merge($request->except(['images', 'ssn_image', 'image']),
                     ['images' => json_encode($request->images), 'admin_id' => $user->id, 'ssn_image' => $image]
@@ -248,7 +250,7 @@ class UserController extends Controller
                 if ($fromRegister == 1)
                     return $this->GetDateResponse('data', 0, ' تم التسجيل بنجاح وسيتم تفعيل حسابك لاحقا ');
                 else
-                    return $this->ReturnErorrRespons('0000', 'تم ايقاف حسابك مؤقتا');
+                    return $this->ReturnErorrRespons('0000', 'لم يتم تفعيل حسابك بعد');
             } else
                 return $this->ReturnErorrRespons('0000', 'تاكد من كلمة المرور');
         } catch
@@ -354,6 +356,43 @@ class UserController extends Controller
     }
 
     public
+    function Reset_User_Password(Request $request)
+    {
+        if (User::where('id', request()->id)->first()) {
+            $rules = ([
+                "id" => "required",
+                "phone" => "required|exists:users,phone",
+                "password" => "required|string|min:10|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/",
+            ]);
+            $messages = ([
+                "phone.required" => "يرجى إدخال رقم الهاتف",
+                "phone.exists" => "رقم الهاتف الذي ادخلته غير صحيح",
+                "password.required" => "يرجى ادخال كلمة المرور الجديدة",
+                "password.min" => "كلمة المرور يجب ان تكون 10 ارقام وحروف ورموز",
+                "password.regex" => "كلمة المرور يجب ان تحتوي على حروف انجليزية اسمول وكبتل ورموز",
+            ]);
+            $validator = Validator::make($request->only('phone', 'password', 'id'), $rules, $messages);
+
+            if ($validator->fails()) {
+                $code = $this->returnCodeAccordingToInput($validator);
+                return $this->returnValidationError($code, $validator);
+            }
+
+            $user = User::where('id', request()->id)->where('phone', request()->phone)->first();
+            if ($user) {
+                $user->password = bcrypt(request()->password);
+                $user->update();
+
+                return $this->GetDateResponse('user', $user);
+            } else {
+                return $this->ReturnSuccessRespons("200", "تاكد من رقم الهاتف");
+            }
+        } else {
+            return $this->ReturnSuccessRespons("200", "حدث خطاء ");
+        }
+    }
+
+    public
     function reset_password(Request $request)
     {
         $user = 1;
@@ -393,42 +432,6 @@ class UserController extends Controller
 
     }
 
-    public
-    function Reset_User_Password(Request $request)
-    {
-        if (User::where('id', request()->id)->first()) {
-            $rules = ([
-                "id" => "required",
-                "phone" => "required|exists:users,phone",
-                "password" => "required|string|min:10|regex:/[a-z]/|regex:/[A-Z]/|regex:/[0-9]/|regex:/[@$!%*#?&]/",
-            ]);
-            $messages = ([
-                "phone.required" => "يرجى إدخال رقم الهاتف",
-                "phone.exists" => "رقم الهاتف الذي ادخلته غير صحيح",
-                "password.required" => "يرجى ادخال كلمة المرور الجديدة",
-                "password.min" => "كلمة المرور يجب ان تكون 10 ارقام وحروف ورموز",
-                "password.regex" => "كلمة المرور يجب ان تحتوي على حروف انجليزية اسمول وكبتل ورموز",
-            ]);
-            $validator = Validator::make($request->only('phone', 'password', 'id'), $rules, $messages);
-
-            if ($validator->fails()) {
-                $code = $this->returnCodeAccordingToInput($validator);
-                return $this->returnValidationError($code, $validator);
-            }
-
-            $user = User::where('id', request()->id)->where('phone', request()->phone)->first();
-            if ($user) {
-                $user->password = bcrypt(request()->password);
-                $user->update();
-
-                return $this->GetDateResponse('user', $user);
-            } else {
-                return $this->ReturnSuccessRespons("200", "تاكد من رقم الهاتف");
-            }
-        } else {
-            return $this->ReturnSuccessRespons("200", "حدث خطاء ");
-        }
-    }
 
     public function submitResetPasswordForm(Request $request)
     {

@@ -61,7 +61,6 @@ function notification_type($id, $type)
     }
 
 
-
 }
 
 if (!function_exists('getAdminsOrderNotifucation')) {
@@ -136,15 +135,15 @@ function set_users_decices($request)
 function getSpesificStatus($status = 0)
 {
 
-    $s = array(
+    $s = [
         'new' => trans('status.order_new'),
         'cancel_by_seller' => trans('status.order_cancel_by_seller'),
         'cancel_by_user' => trans('status.order_cancel_by_user'),
         'in_progress' => trans('status.order_in_progress'),
         'shipping' => trans('status.order_shipping'),
         'delivery' => trans('status.order_delivery'),
-    );
-    if($status=='all')
+    ];
+    if ($status == 'all')
         return $s;
     if ($status != 0)
         return $s[$status];
@@ -163,7 +162,7 @@ function getSellerOrderStatus($status = 0)
         'shipping' => trans('status.order_shipping'),
         'delivery' => trans('status.order_delivery'),
     );
-    if($status=='all')
+    if ($status == 'all')
         return $s;
     if ($status != 0)
         return $s[$status];
@@ -192,7 +191,7 @@ function paymentStatus($status = 'all')
         '1' => trans('status.payment_1'),
 
     );
-    if($status=='all')
+    if ($status == 'all')
         return $s;
     if ($status != 0)
         return $s[$status];
@@ -210,7 +209,7 @@ function CouponUsedStatus($status = 'all')
         '1' => trans('status.coupons_used_1'),
 
     );
-    if($status=='all')
+    if ($status == 'all')
         return $s;
     if ($status != 0)
         return $s[$status];
@@ -228,7 +227,7 @@ function CouponEndStatus($status = 'all')
         '1' => trans('status.coupons_end_0'),
 
     );
-    if($status=='all')
+    if ($status == 'all')
         return $s;
     if ($status != 0)
         return $s[$status];
@@ -248,7 +247,7 @@ function confirm_paymentStatus($status = 'all')
         '2' => trans('status.confirm_payment_2'),
 
     );
-    if($status=='all')
+    if ($status == 'all')
         return $s;
     if ($status != 0)
         return $s[$status];
