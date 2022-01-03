@@ -14,6 +14,7 @@ use App\Models\Shop\ShopCategory;
 use App\Models\TrainingContents\Training;
 use App\Seller;
 use App\Traits\JsonTrait;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Image;
@@ -23,13 +24,13 @@ class ProductsController extends Controller
     use JsonTrait;
 
 
-    private function check_inputes($request)
+    private function check_inputes($request, $action = 'store')
     {
         $rules = [
             "name" => "required",
             "category_id" => 'required',
             "price" => 'required',
-            "file" => ['image',($request->action == 'Edit') ? 'nullable' : 'required'],
+            "file" => ['image', ($action == 'Edit') ? 'nullable' : 'required'],
         ];
         $messages = [
             "name.required" => "يرجى اضافة اسم الصنف",
@@ -45,58 +46,70 @@ class ProductsController extends Controller
 
     public function store(Request $request)
     {
-        $image=new Images();
-        $media=new MediaController($image);
-       $im= $media->fileUpload($request);
 
-       return $im;
-        $error = $this->check_inputes($request);
-        if ($error->fails()) {
-            return response()->json([
-                'errors' => $error->errors(),
-            ], 422);
+        $validator = $this->check_inputes($request);
+        if ($validator->fails()) {
+            $code = $this->returnCodeAccordingToInput($validator);
+            return $this->returnValidationError($code, $validator);
         }
+
+
+        $image = new Images();
+        $media = new MediaController($image);
+        $im = $media->fileUpload($request, 0);
 
         $categoty = Product::create(array_merge($request->all(),
             [
                 'admin_id' => auth()->id(),
+                'image_id' => $im,
             ]));
-        return response()->json(['success' => 'تم الاضافة  بنجاح']);
+        return $this->GetDateResponse('data', $categoty, 'تم الاضافة  بنجاح');
+        // return response()->json(['success' => '']);
     }
 
 
     public function update(Request $request)
     {
-        $error = $this->check_inputes($request);
+        $validator = $this->check_inputes($request);
 
-        if ($error->fails()) {
-            return response()->json([
-                'errors' => $error->errors(),
-            ], 422);
+
+        $validator = $this->check_inputes($request, 'Edit');
+        if ($validator->fails()) {
+            $code = $this->returnCodeAccordingToInput($validator);
+            return $this->returnValidationError($code, $validator);
         }
-        $categoty = Product::whereId($request->hidden_id)->first();
+
+        $categoty = Product::whereId($request->id)->first();
+        $image = new Images();
+        $media = new MediaController($image);
+        $im = $media->fileUpload($request, 0, $categoty->image_id);
         $categoty = $categoty->update(array_merge($request->except('image_id'),
             [
-                'image_id' => $request['image_id'] = ($request['image_id'] != null) ? $request['image_id'] : $request['old_image_id']
+                'image_id' => $im
             ]));
-        return response()->json(['success' => 'تم التعديل  بنجاح']);
-
+        $categoty = Product::whereId($request->id)->first();
+        // return response()->json(['success' => 'تم التعديل  بنجاح']);
+        return $this->GetDateResponse('data', $categoty, 'تم التعديل  بنجاح');
 
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $data = Product::findOrFail($id);
+        $data = Product::find($request->id);
+        if ($data == null)
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لحذف هذا المنتج');
+        $c = OrderProduct::all()->where('product_id', $request->id)->count();
 
-        $c = OrderProduct::all()->where('product_id', $id)->count();
+        if ($data->admin_id != auth()->id())
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لحذف هذا المنتج');
         if ($c == 0) {
             $data->delete();
-            return response()->json(['success' => 'تم الحذف  بنجاح']);
+            return $this->ReturnSuccessRespons("200", "تم الحذف بنجاح");
 
         } else
-            return response()->json(['success' => 'لا يمكن حذف هذا المنتج لوجود طلبات مرتبطة بة ']);
-    }
+            return $this->ReturnErorrRespons('0000', 'لاتمتلك الصلاحية لحذف هذا المنشورا يمكن حذف هذا المنتج لوجود طلبات مرتبطة بة');
 
+    }
 
 
     public function deleteQuestion(Request $request)

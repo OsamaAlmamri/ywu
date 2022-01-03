@@ -63,7 +63,7 @@ class UserController extends Controller
                 ],
                     [
                         "sale_name.required" => "يرجى كتابة الاسم التجاري ",
-                        "ssn_image.required" => "يرجى اضافة  صورة البطاقة لبشخصية ",
+                        "ssn_image.required" => "يرجى اضافة  صورة او شعار المتجر ",
                         "gov_id.required" => "يرجى تحديد المحافظة ",
                         "district_id.required" => "يرجى تحديد المديرية ",
                         "more_address_info.required" => "يرجى اضافة معلومات اضافية عن موقعكم ",
@@ -222,6 +222,8 @@ class UserController extends Controller
                     if ($jwt_token = JWTAuth::attempt($credential_phone_S) or $jwt_token = JWTAuth::attempt($credential_email_S))  // return redirect()->intended('/admin');
                     {
                         $user = JWTAuth::user();
+                        $user->image=$user->seller->ssn_image;
+
                         return $this->GetDateResponse('data', ['token' => $jwt_token, 'userData' => $user]);
 
                     } else
@@ -235,6 +237,9 @@ class UserController extends Controller
             if ($jwt_token = JWTAuth::attempt($credential_email) or $jwt_token = JWTAuth::attempt($credential_phone)) {
                 $user = JWTAuth::user();
                 if ($user->status == 1) {
+                    if ($user->type == 'seller') {
+                        $user->image=$user->seller->ssn_image;
+                    }
                     if ($user->type == 'share_users') {
                         $user->share_user = $user->share_user;
                     } elseif ($user->type == 'employees') {

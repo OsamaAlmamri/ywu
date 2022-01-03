@@ -78,11 +78,24 @@ Route::group(['prefix' => 'admin', 'middleware' => ['assign.guard:admins', 'jwt.
 
 Route::group(['middleware' => 'CheckAdminT:api', 'prefix' => 'seller'], function () {
 
+    Route::group(['prefix' => 'orders'], function () {
+        Route::post('/', 'Api\Seller\OrdersController@index');
+        Route::post('/detail', 'Api\Seller\OrdersController@show_seller_order');
+        Route::post('/change_status', 'Api\Seller\OrdersController@change_sub_status');
+        Route::post('/delivery_location', 'Api\Seller\OrdersController@new_delivery_location');
+    });
+
     Route::group(['prefix' => 'products'], function () {
         Route::post('/', 'Api\Seller\CategoreisController@get_products');
         Route::post('/add', 'Api\Seller\ProductsController@store');
         Route::post('/update', 'Api\Seller\ProductsController@update');
         Route::post('/delete', 'Api\Seller\ProductsController@destroy');
+    });
+
+    Route::group(['prefix' => 'product-images'], function () {
+        Route::post('/add', 'Api\Seller\ProductImagesController@store');
+        Route::post('/update', 'Api\Seller\ProductImagesController@update');
+        Route::post('/delete', 'Api\Seller\ProductImagesController@destroy');
     });
 
     Route::post('/deleteQuestion', 'Api\Seller\ProductsController@deleteQuestion');
@@ -189,7 +202,6 @@ Route::group(['middleware' => 'CheckUserT:api'], function () {
     Route::post('UpdateTraining/{id}', 'Api\Trainings\TrainingController@update');
     Route::post('DeleteTraining/{id}', 'Api\Trainings\TrainingController@destroy');
 });
-
 
 
 ######################################## women part

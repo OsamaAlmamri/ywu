@@ -75,7 +75,7 @@ class MediaController extends Controller
             ->with('images', $images);
     }
 
-    public function fileUpload(Request $request)
+    public function fileUpload(Request $request, $return_image = 1, $error_return = "Invalid Image")
     {
         // Creating a new time instance, we'll use it to name our file and declare the path
         $time = Carbon::now();
@@ -96,7 +96,7 @@ class MediaController extends Controller
             $filename = str_random(5) . date_format($time, 'd') . rand(1, 9) . date_format($time, 'h') . "." . $extension;
 
             // This is our upload main function, storing the image in the storage that named 'public'
-            $upload_success = $image->storeAs($directory, $filename,env('PublicFolder') );
+            $upload_success = $image->storeAs($directory, $filename, env('PublicFolder'));
 
             //store DB
             $Path = 'images/media/' . $directory . '/' . $filename;
@@ -127,12 +127,14 @@ class MediaController extends Controller
                 //                $storeLargeImage = $Images->Largerecord($filename,$Path,$width,$height);
                 //                $storeMediumImage = $Images->Mediumrecord($filename,$Path,$width,$height);
             }
-
-            return $tuhmbnail;
+            if ($return_image == 1)
+                return $tuhmbnail;
+            return $imagedata;
 
         } else {
-            return "Invalid Image";
+            return $error_return;
         }
+
 
     }
 
