@@ -6,8 +6,8 @@
     <!-- Stylesheets -->
     <link rel="manifest" href="{{  asset('manifest.json')}}"/>
 
-        <link href="{{  asset('site/css/bootstrap.min.css')  }}" rel="stylesheet">
-{{--    <link href="{{  asset('site/css/themes.css')  }}" rel="stylesheet">--}}
+    <link href="{{  asset('site/css/bootstrap.min.css')  }}" rel="stylesheet">
+    {{--    <link href="{{  asset('site/css/themes.css')  }}" rel="stylesheet">--}}
     {{--    <link  href="http://templates.g5plus.net/glowing/css/themes.css"  rel="stylesheet">--}}
 
     {{--    <!--	<link rel="stylesheet" href="css/bootstrap-rtl.min.css">-->--}}
@@ -49,6 +49,27 @@
     <link href="{{asset('site/css/osama3.css')  }}" rel="stylesheet">
 
     <style>
+        .filter_option_serller{
+            height: 500px;
+        }
+        .filter_option_serller .multiselect__content-wrapper{
+            max-height: 400px !important;
+            display: block !important;
+        }
+        .multiselect__option--selected {
+            background: #9d84bd;
+            color: #35495e;
+            font-weight: 700;
+        }
+       .option_more_address_info {
+            display: block;
+            width: 100px;
+            overflow: hidden;
+            word-wrap: break-word;
+            text-overflow: ellipsis;
+            max-height: 16px;
+            line-height: 16px
+        }
         .search-box button {
             margin-top: 0;
         }
@@ -211,13 +232,79 @@
 
 
         }
-        body,.sidebar-page-container
-        {
+
+        body, .sidebar-page-container {
             background: #593c9721;
         }
 
         .category_image_box {
             background: unset;
+        }
+
+        /*.shop_sidebar{*/
+        /*position: fixed;*/
+        /*z-index: 1;*/
+        /*top: 20px;*/
+        /*left: 10px;*/
+        /*background: #eee;*/
+        /*overflow-x: hidden;*/
+        /*padding: 8px 0;*/
+        /*}*/
+
+        .shop_sidebar {
+            margin: 0;
+            padding: 0;
+            width: 200px;
+            background-color: #f1f1f1;
+            position: sticky;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .shop_sidebar a {
+            display: block;
+            color: black;
+            padding: 16px;
+            text-decoration: none;
+        }
+
+        .shop_sidebar a.active {
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        .shop_sidebar a:hover:not(.active) {
+            background-color: #555;
+            color: white;
+        }
+
+        div.content {
+            margin-left: 200px;
+            padding: 1px 16px;
+            height: 1000px;
+        }
+
+        @media screen and (max-width: 700px) {
+            .shop_sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .shop_sidebar a {
+                float: left;
+            }
+
+            div.content {
+                margin-left: 0;
+            }
+        }
+
+        @media screen and (max-width: 400px) {
+            .shop_sidebar a {
+                text-align: center;
+                float: none;
+            }
         }
     </style>
 

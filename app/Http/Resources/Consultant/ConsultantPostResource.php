@@ -23,6 +23,7 @@ class ConsultantPostResource extends JsonResource
             'title' => $this->title,
             'body' => $this->body,
             'category_id' => $this->category_id,
+            'original_post_id' => $this->original_post_id,
             'status' => $this->status,
 //            'favorite' => $this->favorite,
             'published' => Carbon::createFromTimestamp(strtotime($this->created_at))->diffForHumans(),

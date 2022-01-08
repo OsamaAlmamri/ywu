@@ -335,7 +335,22 @@ class CategoreisController extends Controller
             }
 
             if (isset($request->search) and $request->search != "") {
-                $data = $data->where('products.name','like','%'.$request->search.'%');
+                $data = $data->where('products.name', 'like', '%' . $request->search . '%');
+            }
+            if (isset($request->min_price) and $request->min_price != "") {
+                $data = $data->where('products.price', '>=', $request->min_price);
+            }
+            if (isset($request->max_price) and $request->max_price != "") {
+                $data = $data->where('products.price', '<=', $request->max_price);
+            }
+            if (isset($request->gov_id) and ($request->gov_id) != '') {
+                $data = $data->where('users.gov_id', $request->gov_id);
+//                $data = $data->whereIn('products.admin_id', function ($query) use ($request) {
+//                    $query->select('products.admin_id')
+//                        ->from(with(new Seller())->getTable())
+//                        ->where('gov_id', $request->gov_id);
+//
+//                });;
             }
 
             if (isset($request->type) and $request->type != "") {
@@ -344,7 +359,7 @@ class CategoreisController extends Controller
                 if ($request->type == 'random')
                     $data = $data->where('products.sort', '<', '3')->inRandomOrder();
                 elseif ($request->type == 'fav')
-                    $data = $data->whereIn('products.id', function ($query) use($user_id) {
+                    $data = $data->whereIn('products.id', function ($query) use ($user_id) {
                         $query->select('liked_id')->from('likes')
                             ->where('type', 'product')
                             ->where('user_id', $user_id);
@@ -358,7 +373,7 @@ class CategoreisController extends Controller
                     $data = $data->orderBy('sale_count', 'DESC');
             }
 
-            $data = $data->paginate(20);
+            $data = $data->paginate(24);
             if (!$data) {
                 return $this->ReturnErorrRespons('0000', 'لايوجد اصناف');
             } else {

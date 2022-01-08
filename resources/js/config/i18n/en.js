@@ -115,6 +115,8 @@ export const locale = {
     },
     search:
         {
+            min_price: " min  Price ",
+            max_price: " max Price  ",
             search: " search  ",
             result: "Search results about ",
             close: "Close search results ",

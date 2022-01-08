@@ -122,6 +122,8 @@ export const locale = {
     },
     search:
         {
+            min_price: "   اقل سعر ",
+            max_price: "  اكبر سعر  ",
             search: " بحث  ",
             result: "نتائج البحث عن ",
             close: "اغلاق نتائج البحث ",
