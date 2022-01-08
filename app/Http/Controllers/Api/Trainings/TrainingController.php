@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Trainings;
 use App\ContactU;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FireBaseController;
+use App\Http\Resources\Consultant\ConsultantPostResource;
 use App\Http\Resources\LastPosts;
 use App\Like;
 use App\Models\Rateable\Rating;
@@ -39,13 +40,20 @@ class TrainingController extends Controller
         $this->firbaseContoller = $firbaseContoller;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $this->emp = Auth::user();
         try {
-            $Training = Training::with(['titles', 'is_register'])
-                //  ->where('type', 'خاص')->orwhere('type', 'عام')
-                ->orderByDesc('id')->paginate(20);
+            if (isset($request->category))
+                $Training = Training::with(['titles', 'is_register', 'departments'])//  ->where('type', 'خاص')->orwhere('type', 'عام')
+                ;
+            if (isset($request->category) and $request->category != null)
+                $Training = $Training->where('category_id', $request->category);
+
+            if (isset($request->search) and $request->search != null)
+                $Training = $Training->where('name', 'like', '%' . $request->search . '%');
+
+            $Training = $Training->orderByDesc('id')->paginate(20);
             if (!$Training) {
                 return $this->ReturnErorrRespons('0000', 'لايوجد منشورات');
             } else {
@@ -455,10 +463,16 @@ class TrainingController extends Controller
         try {
             $search = $request->search;
             if ($request->type == 'posts') {
-                $data = Post::with(['user', 'category', 'comments', 'user_like'])
-                    ->where('title', 'LIKE', '%' . $search . '%')
-                    ->orWhere('body', 'LIKE', '%' . $search . '%')
+                $post = Consultant::where('status', 1)
+                    ->ofType("")
+                    ->where(function ($q) use ($search) {
+                        $q->where('title', 'LIKE', '%' . $search . '%')
+                            ->orWhere('body', 'LIKE', '%' . $search . '%');
+                    })
                     ->get();
+
+                $data =   ConsultantPostResource::collection($post);
+
             } elseif ($request->type == 'trainings') {
                 $data = Training::with(['subject', 'is_register'])
                     ->where('name', 'LIKE', '%' . $search . '%')

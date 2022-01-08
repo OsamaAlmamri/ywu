@@ -13,7 +13,9 @@ use App\Models\Shop\Zone;
 use App\Seller;
 use App\Traits\JsonTrait;
 use App\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CategoreisController extends Controller
@@ -298,12 +300,7 @@ class CategoreisController extends Controller
     {
         try {
 
-            $data = Product2::whereIn('products.admin_id', function ($query) use ($request) {
-                $query->select('id')
-                    ->from(with(new Admin())->getTable())
-                    ->where('deleted_at', null)
-                    ->where('status', '=', 1);
-            })->leftJoin('shop_categories', 'shop_categories.id', '=', 'products.category_id')
+            $data = Product2::leftJoin('shop_categories', 'shop_categories.id', '=', 'products.category_id')
                 ->leftJoin('users', 'users.id', '=', 'products.admin_id')
                 ->leftJoin('sellers', 'users.id', '=', 'sellers.admin_id')
                 ->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
@@ -322,9 +319,36 @@ class CategoreisController extends Controller
 //                ->inRandomOrder()
                 ->where('products.status', 1);
 
+            if (isset($request->seller_id) and $request->seller_id != "") {
+                $data = $data->where('products.admin_id', $request->seller_id);
+            } else {
+                $data = $data->whereIn('products.admin_id', function ($query) use ($request) {
+                    $query->select('id')
+                        ->from(with(new Admin())->getTable())
+                        ->where('deleted_at', null)
+                        ->where('status', '=', 1);
+                });
+            }
+
+            if (isset($request->category_id) and $request->category_id != "") {
+                $data = $data->where('products.category_id', $request->category_id);
+            }
+
+            if (isset($request->search) and $request->search != "") {
+                $data = $data->where('products.name','like','%'.$request->search.'%');
+            }
+
             if (isset($request->type) and $request->type != "") {
+                $user_id = (auth()->guard('api')->user()) ? auth()->guard('api')->user()->id : 0;
+
                 if ($request->type == 'random')
-                    $data = $data->where('products.sort','<' ,'3')->inRandomOrder();
+                    $data = $data->where('products.sort', '<', '3')->inRandomOrder();
+                elseif ($request->type == 'fav')
+                    $data = $data->whereIn('products.id', function ($query) use($user_id) {
+                        $query->select('liked_id')->from('likes')
+                            ->where('type', 'product')
+                            ->where('user_id', $user_id);
+                    });
                 elseif ($request->type == 'rating')
                     $data = $data->orderBy('average_rating1', 'DESC')
                         ->orderBy('count_rating1', 'DESC');

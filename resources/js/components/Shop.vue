@@ -12,7 +12,7 @@
                  :is-full-page="fullPage">
         </loading>
         <shop-category :lang="oneLang('ar','en')"></shop-category>
-        <div class="sidebar-page-container" style="margin-top:-130">
+        <div style="margin-top:-130">
             <div class="patern-layer-one paroller" data-paroller-factor="0.40" data-paroller-factor-lg="0.20"
                  data-paroller-type="foreground" data-paroller-direction="vertical"
                  style="background-image: url('/site/images/icons/icon-1.png')">
@@ -37,14 +37,14 @@
                                     </div>
                                 </div>
                             </div>
-<!--                            <swiper :ref="'flickity'+section.type" :options="swiperOption">-->
-<!--                                <swiper-slide class="swiper-slide" v-for="product in section.products"-->
-<!--                                              :key="product.id">-->
-<!--                                    <shop-gide-item2 :key="'shp-'+product.id"-->
-<!--                                                     :product="product">-->
-<!--                                    </shop-gide-item2>-->
-<!--                                </swiper-slide>-->
-<!--                            </swiper>-->
+                            <!--                            <swiper :ref="'flickity'+section.type" :options="swiperOption">-->
+                            <!--                                <swiper-slide class="swiper-slide" v-for="product in section.products"-->
+                            <!--                                              :key="product.id">-->
+                            <!--                                    <shop-gide-item2 :key="'shp-'+product.id"-->
+                            <!--                                                     :product="product">-->
+                            <!--                                    </shop-gide-item2>-->
+                            <!--                                </swiper-slide>-->
+                            <!--                            </swiper>-->
 
                             <div class="d-flex align-content-around flex-wrap">
                                 <shop-gide-item2 v-for="product in section.products"  :key="'shp-'+product.id"
@@ -60,6 +60,7 @@
             </div>
         </div>
     </div>
+
 </template>
 
 <script>

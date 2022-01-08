@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AdminControllers;
 
+use App\Admin;
 use App\User;
 use App\Branch;
 use App\Department;
@@ -112,7 +113,7 @@ class AdminsController extends Controller
             return response()->json(['errors' => $error->errors()->all()]);
         }
         $request['password'] = bcrypt($request->password);
-        $user = User::create(array_merge($request->all(), [
+        $user = Admin::create(array_merge($request->all(), [
             'type' => 'admin',
             'status' => 1,
         ]));
@@ -127,7 +128,7 @@ class AdminsController extends Controller
         if ($error->fails()) {
             return response()->json(['errors' => $error->errors()->all()]);
         }
-        $user = User::find($request->hidden_id);
+        $user = Admin::find($request->hidden_id);
 
         if ($request->password == '') {
             $user->update(array_merge($request->except('password')));

@@ -6,7 +6,10 @@
     <!-- Stylesheets -->
     <link rel="manifest" href="{{  asset('manifest.json')}}"/>
 
-    <link href="{{  asset('site/css/bootstrap.min.css')  }}" rel="stylesheet">
+        <link href="{{  asset('site/css/bootstrap.min.css')  }}" rel="stylesheet">
+{{--    <link href="{{  asset('site/css/themes.css')  }}" rel="stylesheet">--}}
+    {{--    <link  href="http://templates.g5plus.net/glowing/css/themes.css"  rel="stylesheet">--}}
+
     {{--    <!--	<link rel="stylesheet" href="css/bootstrap-rtl.min.css">-->--}}
     <link rel="stylesheet" href="{{  asset('site/css/rtl/bootstrap-rtl.css')  }}">
 
@@ -96,7 +99,6 @@
         }
 
 
-
         .product_countainer {
 
             box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.5);
@@ -148,13 +150,85 @@
             background-position: initial;
 
         }
+
+
+        .like_product_button {
+            top: unset;
+        }
+
+        .product_info_box {
+            padding: 0;
+            margin: 0px 0 -1px 0px;
+
+        }
+
+        .product_countainer_link {
+            padding: 0;
+        }
+
+        .product_countainer_link {
+
+            border-radius: 10%;
+
+        }
+
+        .product_name_box {
+            font-size: 12px;
+            border-radius: 10px;
+        }
+
+        .one_product_name {
+            padding: 2px;
+        }
+
+        .product_gov {
+            font-size: 12px;
+            font-weight: 300;
+            background: #593c97;
+            /*min-width: 30%;*/
+            width: 35%;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 10px 0;
+        }
+
+        .product_price_box {
+            font-size: 15px;
+            color: black;
+            direction: ltr;
+
+            margin-bottom: 0px;
+            padding: 0 6px;
+            margin-bottom: 15px;
+        }
+
+        .product_price_top {
+            top: 0;
+            position: absolute;
+            background: #9781d0;
+            color: white;
+            padding: 12px;
+
+
+        }
+        body,.sidebar-page-container
+        {
+            background: #593c9721;
+        }
+
+        .category_image_box {
+            background: unset;
+        }
     </style>
+
+
+
 </head>
 
 
 <body style="direction: {{(isset($_COOKIE['style_lang']) and $_COOKIE['style_lang']!='ar')?'ltr':'rtl'}}">
 
-<div class="page-wrapper" id="my_site_app">
+<div class="page-wrapper " id="my_site_app">
     <input type="hidden" name="" id="device_token" value="">
     {{--    <nav-header></nav-header>--}}
     <vue-header></vue-header>

@@ -10661,3 +10661,12 @@ img {
     position: relative;
     margin-bottom: 50px;
 }
+
+
+
+.product_price_top {
+    border-bottom-left-radius: 35%;
+    border-top-right-radius: 35%;
+
+}
+
