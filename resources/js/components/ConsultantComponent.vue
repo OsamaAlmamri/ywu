@@ -47,25 +47,25 @@
                             </div>
                         </section>
                     </div>
-                   <div class="col-md-8">
-                       <h5> {{ $t("consultants.category") }} </h5>
-                       <section class="student-profile-section row">
-                           <div class="inner-column">
-                               <div class="profile-info-tabs">
-                                   <div class="profile-tabs tabs-box">
-                                       <ul class="tab-btns tab-buttons clearfix">
-                                           <li v-for="(category,key) in categories"
-                                               @click="changeCategoryType(category.id)"
-                                               :class="['user_type_tap', 'tab-btn',{'active-btn':(newPostData.category_id==category.id)}]">
+                    <div class="col-md-8">
+                        <h5> {{ $t("consultants.category") }} </h5>
+                        <section class="student-profile-section row">
+                            <div class="inner-column">
+                                <div class="profile-info-tabs">
+                                    <div class="profile-tabs tabs-box">
+                                        <ul class="tab-btns tab-buttons clearfix">
+                                            <li v-for="(category,key) in categories"
+                                                @click="changeCategoryType(category.id)"
+                                                :class="['user_type_tap', 'tab-btn',{'active-btn':(newPostData.category_id==category.id)}]">
 
-                                               {{ oneLang(category.name, category.name_en) }}
-                                           </li>
-                                       </ul>
-                                   </div>
-                               </div>
-                           </div>
-                       </section>
-                   </div>
+                                                {{ oneLang(category.name, category.name_en) }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
                 </div>
                 <div class="row clearfix">
 
@@ -100,10 +100,10 @@
             <div class="circle-one"></div>
             <div class="circle-two"></div>
             <div class="auto-container">
-                <div class="row clearfix" v-if="is_search==true">
+                <div class="row clearfix mt-5" v-if="is_search==true">
 
                     <!-- Content Side -->
-                    <div class="content-side  col-md-12 col-sm-12">
+                    <div class="content-side mt-5  col-md-12 col-sm-12">
                         <div class="our-courses">
                             <!-- Options View -->
                             <div class="options-view">
@@ -126,6 +126,7 @@
                                         v-on:edit_post="edit_post"
                                         v-on:delete_post="delete_post"
                                         :key="key"
+                                        :lang="oneLang('ar','en')"
                                         :_key="key"
                                         :post="post"
 
@@ -143,23 +144,12 @@
                 <div class="row clearfix" v-if="is_search==false">
 
                     <!-- Content Side -->
-                    <div class="content-side col-lg-8 col-md-12 col-sm-12">
-                        <div class="our-courses">
+                    <div class="content-side  col-md-12 col-sm-12 mt-5">
+                        <div class="our-courses mt-5">
 
-                            <!-- Options View -->
-                            <div class="options-view">
-                                <div class="clearfix">
-                                    <div class="pull-right">
-                                        <h3>{{ $t("MENU.consultant") }} </h3>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <!--                        v-for="post in consultant_data.data" :key="post.id"-->
-                            <!--                        res.data.Posts.data;-->
 
                             <div class="row clearfix">
-                                <div class="cource-block-two  col-sm-12 col-xs-12"
+                                <div class="cource-block-two  col-md-12 col-xs-12"
                                      v-for="(post,key) in consultant_data.data">
                                     <consultant-item
                                         v-on:edit_post="edit_post"
@@ -188,9 +178,9 @@
                     </div>
 
                     <!-- Sidebar Side -->
-                    <div class="sidebar-side style-two col-lg-4 col-md-12 col-sm-12">
-                        <recent-posts :name="$t('consultants.last')" type="posts"></recent-posts>
-                    </div>
+<!--                    <div class="sidebar-side style-two col-lg-4 col-md-12 col-sm-12">-->
+<!--                        <recent-posts :name="$t('consultants.last')" type="posts"></recent-posts>-->
+<!--                    </div>-->
                 </div>
 
 

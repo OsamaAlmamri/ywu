@@ -1,5 +1,6 @@
 import Register from './components/Register';
 import Login from './components/Login';
+import ShopGideItem2 from './components/ShopGideItem2';
 import ForgetPassword from './components/ForgetPassword';
 import ResetPassword from './components/ResetPassword';
 import NotFound from './components/NotFound';

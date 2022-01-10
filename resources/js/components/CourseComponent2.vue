@@ -22,14 +22,13 @@
             </div>
             <div class="circle-one"></div>
             <div class="circle-two"></div>
-
             <div class="auto-container">
                 <div class="row clearfix">
                     <div class="content-side col-lg-12 col-md-12 col-sm-12">
 
                         <div v-if="is_search==false" class="our-courses" v-for="section in sections">
                             <!-- Options View -->
-                            <div class="options-view p-2 text-primary" >
+                            <div class="options-view" style="min-height: 8.5rem">
                                 <div class="clearfix" v-if="section.trainings.length>0">
                                     <div class="d-flex justify-content-start">
                                         <h4>
@@ -39,7 +38,7 @@
                                 </div>
                             </div>
                             <div class="row clearfix">
-                                <div class=" col-xs-12 col-md-6 mb-3"
+                                <div class="cource-block-two col-lg-3 col-md-4 col-sm-6 col-xs-12"
                                      v-for="training in section.trainings">
                                     <!--                                    <course-gide-item-->
                                     <!--                                -->
@@ -65,7 +64,7 @@
                                 </div>
                             </div>
                             <div class="row clearfix">
-                                <div class="cource-block-two  col-xs-12"
+                                <div class="cource-block-two col-lg-3 col-md-4 col-sm-6 col-xs-12"
                                      v-for="training in search_result">
                                     <course-gide-item
                                         :training="training"

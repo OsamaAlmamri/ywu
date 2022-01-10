@@ -49,19 +49,59 @@
     <link href="{{asset('site/css/osama3.css')  }}" rel="stylesheet">
 
     <style>
-        .filter_option_serller{
+
+        :root {
+            --blue: #007bff;
+            --indigo: #6610f2;
+            --purple: #6f42c1;
+            --pink: #e83e8c;
+            --red: #dc3545;
+            --orange: #fd7e14;
+            --yellow: #ffc107;
+            --green: #28a745;
+            --teal: #20c997;
+            --cyan: #17a2b8;
+            --white: #fff;
+            --gray: #6c757d;
+            --gray-dark: #343a40;
+            --primary: #593c97;
+            --secondary: #6c757d;
+            --success: #28a745;
+            --info: #17a2b8;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+
+        .text-primary{
+            color: var(--primary) !important;
+        }
+        .consultant_category{
+            color: white;
+            border-radius: 25% 25%;
+            padding: 2px 20px;
+            background:  var(--primary);
+
+        }
+        .filter_option_serller {
             height: 500px;
         }
-        .filter_option_serller .multiselect__content-wrapper{
+
+        .box-inner  {
+            text-align: start;
+        }
+
+        .filter_option_serller .multiselect__content-wrapper {
             max-height: 400px !important;
             display: block !important;
         }
+
         .multiselect__option--selected {
             background: #9d84bd;
             color: #35495e;
             font-weight: 700;
         }
-       .option_more_address_info {
+
+        .option_more_address_info {
             display: block;
             width: 100px;
             overflow: hidden;
@@ -70,6 +110,7 @@
             max-height: 16px;
             line-height: 16px
         }
+
         .search-box button {
             margin-top: 0;
         }
@@ -203,13 +244,13 @@
         }
 
         .product_gov {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 300;
             background: #593c97;
             /*min-width: 30%;*/
-            width: 35%;
+            width: 40%;
             color: white;
-            padding: 5px 10px;
+            padding: 5px 4px;
             border-radius: 10px 0;
         }
 
@@ -309,7 +350,6 @@
     </style>
 
 
-
 </head>
 
 
@@ -327,40 +367,40 @@
     <router-view :key="$route.fullPath"></router-view>
     <!-- Call To Action Section Two -->
 
-    <section class="call-to-action-section-two"
-             style="background-image:url('{{asset('site/images/background/4.png')}}')">
-        <div class="auto-container">
+    {{--    <section class="call-to-action-section-two"--}}
+    {{--             style="background-image:url('{{asset('site/images/background/4.png')}}')">--}}
+    {{--        <div class="auto-container">--}}
 
-        </div>
+    {{--        </div>--}}
 
-        <div class="content">
-            <h2>هل انت على استعداد للبدء؟</h2>
-            <div class="text">يمكنك الان تصفح وشراء المنتجات و اخذ الدورات التدريبية
-                و <br>نشر و عرض الإستشارات بكل سهولة .
-            </div>
-            <div class="buttons-box">
-                <router-link class="theme-btn btn-style-one" @click.native="scrollToTop()" to="/shop">
-                     <span class="txt"> تسوق الآن  <i
-                             class="fa fa-angle-left"></i></span>
-                </router-link>
-                <router-link class="theme-btn btn-style-two" @click.native="scrollToTop()" to="/consultant">
+    {{--        <div class="content">--}}
+    {{--            <h2>هل انت على استعداد للبدء؟</h2>--}}
+    {{--            <div class="text">يمكنك الان تصفح وشراء المنتجات و اخذ الدورات التدريبية--}}
+    {{--                و <br>نشر و عرض الإستشارات بكل سهولة .--}}
+    {{--            </div>--}}
+    {{--            <div class="buttons-box">--}}
+    {{--                <router-link class="theme-btn btn-style-one" @click.native="scrollToTop()" to="/shop">--}}
+    {{--                     <span class="txt"> تسوق الآن  <i--}}
+    {{--                             class="fa fa-angle-left"></i></span>--}}
+    {{--                </router-link>--}}
+    {{--                <router-link class="theme-btn btn-style-two" @click.native="scrollToTop()" to="/consultant">--}}
 
-                    <span class="txt">الإستشارات <i
-                            class="fa fa-angle-left"></i></span>
-                </router-link>
+    {{--                    <span class="txt">الإستشارات <i--}}
+    {{--                            class="fa fa-angle-left"></i></span>--}}
+    {{--                </router-link>--}}
 
-            </div>
-        </div>
-    </section>
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </section>--}}
 
     <footer class="main-footer">
         <!-- Pattern Layer -->
-        <div class="pattern-layer paroller" data-paroller-factor="0.60" data-paroller-factor-lg="0.20"
-             data-paroller-type="foreground" data-paroller-direction="vertical"
-             style="background-image:url('{{asset('site/images/icons/icon-1.png')}}')">
+        {{--        <div class="pattern-layer paroller" data-paroller-factor="0.60" data-paroller-factor-lg="0.20"--}}
+        {{--             data-paroller-type="foreground" data-paroller-direction="vertical"--}}
+        {{--             style="background-image:url('{{asset('site/images/icons/icon-1.png')}}')">--}}
 
 
-        </div>
+        {{--        </div>--}}
         {{--        <div class="pattern-layer-two" data-paroller-factor="0.60"--}}
         {{--             data-paroller-factor-lg="0.20" data-paroller-type="foreground"--}}
         {{--             data-paroller-direction="vertical"--}}
@@ -498,6 +538,7 @@
 
 
 <script src="{!! asset('site/js/jquery.js') !!}"></script>
+<script src="{!! asset('site/js/jquery.paroller.min.js') !!}"></script>
 {{--<script src="{!! asset('site/js/popper.min.js') !!}"></script>--}}
 <script src="{!! asset('site/js/jquery.scrollTo.js') !!}"></script>
 {{--<script src="{!! asset('site/js/bootstrap.min.js') !!}"></script>--}}

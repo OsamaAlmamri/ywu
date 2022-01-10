@@ -26,14 +26,14 @@
 
                                 <router-link to="/login">
                                     {{$t('MENU.login') }}
-                                    </router-link>
+                                </router-link>
                             </li>
                             <li @click="$scrollToTop" v-if="!isLoggedIn"
                                 :class="[{'login-nav_active':currentPage=='register'}]"
                             >
                                 <router-link to="/register">
                                     {{$t('MENU.register') }}
-                                    </router-link>
+                                </router-link>
                             </li>
                             <li>
                                 <router-link @click.native="scrollToTop()" v-if="isLoggedIn" to="/profile">
@@ -43,14 +43,14 @@
 
                             <li :class="[{'login-nav_active':currentPage!='profile'}]" @click="$scrollToTop"
                                 v-if="isLoggedIn">
-                                <router-link to="/logout">    {{$t('MENU.logout') }}
-                                   </router-link>
+                                <router-link to="/logout"> {{$t('MENU.logout') }}
+                                </router-link>
                             </li>
                             <li :class="[{'login-nav_active':currentPage=='profile'}]" @click="$scrollToTop"
                                 v-if="isLoggedIn">
                                 <router-link to="/profile">
                                     {{$t('MENU.profile') }}
-                                    </router-link>
+                                </router-link>
                             </li>
                             <dropdown-language v-if="$route.name!='women_details'"></dropdown-language>
 
@@ -89,7 +89,10 @@
 
                             <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
-                                    <li :class="['dropdown' , {'shop_drown':(currentPage=='shop'|| currentPage=='my_orders'
+                                    <li
+                                        v-if="isLoggedIn"
+
+                                        :class="['dropdown' , {'shop_drown':(currentPage=='shop'|| currentPage=='my_orders'
                                      || currentPage=='CategoryProducts' || currentPage=='home' || currentPage=='home2' || currentPage=='shop_search'|| currentPage=='course_details'||
                                      currentPage=='shop_like' ||currentPage=='cart')},{'current':currentPage=='shop'}]">
                                         <a href="#">
@@ -110,13 +113,13 @@
                                                     {{$t('MENU.my_orders') }}
                                                 </router-link>
                                             </li>
-                                            <li :class="['shop_element_item',{'current':currentPage=='shop_search'}]">
-                                                <router-link @click.native="scrollToTop()"
-                                                             to="/shop_search">
+                                            <!--                                            <li :class="['shop_element_item',{'current':currentPage=='shop_search'}]">-->
+                                            <!--                                                <router-link @click.native="scrollToTop()"-->
+                                            <!--                                                             to="/shop_search">-->
 
-                                                    {{$t('MENU.shop_search') }}
-                                                </router-link>
-                                            </li>
+                                            <!--                                                    {{$t('MENU.shop_search') }}-->
+                                            <!--                                                </router-link>-->
+                                            <!--                                            </li>-->
                                             <li :class="['shop_element_item',{'current':currentPage=='shop_like'}]">
                                                 <router-link @click.native="scrollToTop()"
                                                              to="/shop_like" v-if="isLoggedIn">
@@ -133,12 +136,18 @@
 
                                         </ul>
                                     </li>
-
+                                    <li v-if="!isLoggedIn" :class="[{'current':currentPage=='shop'}]">
+                                        <router-link @click.native="scrollToTop()" to="/shop">
+                                            {{$t('MENU.shop') }}
+                                        </router-link>
+                                    </li>
                                     <li :class="[{'current':currentPage=='courses'}]">
                                         <router-link @click.native="scrollToTop()" to="/courses">
                                             {{$t('MENU.courses') }}
-                                            </router-link>
+                                        </router-link>
                                     </li>
+
+
 
                                     <li :class="[{'current':currentPage=='consultant'}]">
                                         <router-link @click.native="scrollToTop()" to="/consultant">
@@ -146,7 +155,8 @@
 
                                         </router-link>
                                     </li>
-                                    <li :class="[{'current':currentPage=='ForwordConsultant'}]"    v-if="isLoggedIn && authUser.permissions.foreword_consultant==1">
+                                    <li :class="[{'current':currentPage=='ForwordConsultant'}]"
+                                        v-if="isLoggedIn && authUser.permissions.foreword_consultant==1">
                                         <router-link @click.native="scrollToTop()" to="/forwordConsultant">
                                             {{$t('MENU.forwordConsultant') }}
 

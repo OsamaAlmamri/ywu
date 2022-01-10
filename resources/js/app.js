@@ -109,8 +109,9 @@ Vue.mixin({
 const MyPlugin = {
     install(Vue, options) {
         Vue.prototype.getFirst20Word = (text) => {
-            text = text.replace(/<(.|\n)*?>/g, '');
-            return text.substr(0, 100) + ' ...';
+            // text = text.replace(/<(.|\n)*?>/g, '');
+            return text.split(" ").splice(0, 40).join(" ");
+            // return text.substr(0, 500) + ' ...';
         };
 
 

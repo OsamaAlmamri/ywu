@@ -184,7 +184,7 @@
 
                                                     {{ $t('profile.not_have_courses') }}
                                                 </h4>
-                                                <div class="cource-block-two col-lg-4 col-md-6 col-sm-12 col-xs-12"
+                                                <div class=" col-12"
                                                      v-for="(training,key) in my_complete_trainings_data.data">
                                                     <course-gide-item
                                                         :training="training"
@@ -218,7 +218,7 @@
                                                     {{ $t('profile.not_have_courses') }}
 
                                                 </h4>
-                                                <div class="cource-block-two col-lg-4 col-md-6 col-sm-12 col-xs-12"
+                                                <div class=" col-12"
                                                      v-for="(training,key) in my_trainings_data.data">
                                                     <course-gide-item
                                                         :training="training"
@@ -285,7 +285,7 @@
                                                 <h4 style="margin: 25%" v-if="my_like_trainings.data.length==0">
                                                     {{ $t('profile.not_have_courses_fav') }}
                                                    </h4>
-                                                <div class="cource-block-two col-lg-4 col-md-6 col-sm-12 col-xs-12"
+                                                <div class=" col-12"
                                                      v-for="(training,key) in my_like_trainings.data">
                                                     <course-gide-item
                                                         :training="training"

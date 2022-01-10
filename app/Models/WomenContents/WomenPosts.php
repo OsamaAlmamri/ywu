@@ -51,6 +51,6 @@ class WomenPosts extends Model
         else if ($lang == 'en')
             return $query->whereIn('lang_type', ['en', 'both']);
 
-        else return $query;
+        else  return $query->whereIn('lang_type', ['ar', 'both']);
     }
 }

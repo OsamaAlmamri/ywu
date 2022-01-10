@@ -24,8 +24,8 @@
             <div class="circle-two"></div>
             <div class="auto-container">
                 <div class="row clearfix">
-                    <div class="content-side col-lg-12 col-md-12 col-sm-12">
-                        <div class="our-courses all_cat_products">
+                    <div class="d-flex align-content-around flex-wrap">
+
                             <!-- Options View -->
                             <shop-gide-item2 v-for="product in products"
                                              :key="'sh-'+product.id"

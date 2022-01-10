@@ -91,7 +91,7 @@ class CategoreisController extends Controller
                 ->where('status', '=', 1);
         })->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
             ->leftJoin('zones as dis', 'sellers.district_id', '=', 'dis.id')
-            ->select(['sellers.*', 'dis.name_ar as district', 'govs.name_ar as gov']);
+            ->select(['sellers.*', 'dis.name_ar as district', 'govs.name_ar as gov', 'dis.name_en as district_en', 'govs.name_en as gov_en']);
         if (count($request->govs) > 0)
             $data = $data->whereIn('gov_id', $request->govs);
         return $this->GetDateResponse('data', $data->get());
@@ -125,6 +125,8 @@ class CategoreisController extends Controller
                         DB::raw("(SELECT count(rating) FROM ratings WHERE rateable_id=products.id) as count_rating1"),
                         DB::raw("DATE_FORMAT( products.created_at,'" . getDBCustomDate() . "') AS published"),
                         'dis.name_ar as district', 'govs.name_ar as gov',
+                        'dis.name_en as district_en', 'govs.name_en as gov_en', 'shop_categories.name_en as category_en',
+
                         DB::raw("CONCAT(COALESCE(govs.name_ar,'') , ' / ' ,COALESCE(dis.name_ar,'')) AS zone"),
                         'sellers.sale_name as space', 'shop_categories.name as category'])
 //                    ->select()
@@ -193,6 +195,8 @@ class CategoreisController extends Controller
                         DB::raw("(SELECT count(rating) FROM ratings WHERE rateable_id=products.id) as count_rating"),
                         DB::raw("(SELECT count(rating) FROM ratings WHERE rateable_id=products.id) as count_rating1"), DB::raw("DATE_FORMAT( products.created_at,'" . getDBCustomDate() . "') AS published"),
                         'dis.name_ar as district', 'govs.name_ar as gov',
+                        'dis.name_en as district_en', 'govs.name_en as gov_en', 'shop_categories.name_en as category_en',
+
                         DB::raw("CONCAT(COALESCE(govs.name_ar,'') , ' / ' ,COALESCE(dis.name_ar,'')) AS zone"),
                         'sellers.sale_name as space', 'shop_categories.name as category'])
 //                    ->select()
@@ -266,6 +270,8 @@ class CategoreisController extends Controller
                     DB::raw("(SELECT count(rating) FROM ratings WHERE rateable_id=products.id) as count_rating1"),
                     DB::raw("DATE_FORMAT( products.created_at,'" . getDBCustomDate() . "') AS published"),
                     'dis.name_ar as district', 'govs.name_ar as gov',
+                    'dis.name_en as district_en', 'govs.name_en as gov_en', 'shop_categories.name_en as category_en',
+
                     DB::raw("CONCAT(COALESCE(govs.name_ar,'') , ' / ' ,COALESCE(dis.name_ar,'')) AS zone"),
                     'sellers.sale_name as space', 'shop_categories.name as category'])
 //                    ->select()
@@ -313,6 +319,7 @@ class CategoreisController extends Controller
                     DB::raw("(SELECT count(rating) FROM ratings WHERE rateable_id=products.id) as count_rating1"),
                     DB::raw("DATE_FORMAT( products.created_at,'" . getDBCustomDate() . "') AS published"),
                     'dis.name_ar as district', 'govs.name_ar as gov',
+                    'dis.name_en as district_en', 'govs.name_en as gov_en', 'shop_categories.name_en as category_en',
                     DB::raw("CONCAT(COALESCE(govs.name_ar,'') , ' / ' ,COALESCE(dis.name_ar,'')) AS zone"),
                     'sellers.sale_name as space', 'shop_categories.name as category'])
 //                    ->select()

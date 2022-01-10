@@ -74,12 +74,10 @@
             <div class="card-body" v-if="post.forewordConsultant!=null">
                 <h7 class="card-title">
                     <span class="text-info ">{{ $t('foreword_to_user') }}:</span>
-                    : {{ post.forewordConsultant.foreword_to_user.name }}
-                </h7>
+                    :  {{ post.forewordConsultant.foreword_to_user.name }}</h7>
                 <h7 class="card-title">
                     <span class="text-info ">{{ $t('foreword_by') }}:</span>
-                    {{ post.forewordConsultant.foreword_by_user.name }}
-                </h7>
+                    {{ post.forewordConsultant.foreword_by_user.name }}</h7>
                 <br>
                 <h7 class="card-title">
                     <span class="text-info ">{{ $t('solve') }}:</span>
@@ -119,64 +117,65 @@
         </sweet-modal>
 
 
-        <div class="lower-content" style="padding: 15px">
-            <h5 class="text-primary mb-2 ">
-                {{ post.title }}
-
-            </h5>
-
-            <div class="post-info mb-2 " id="targetMore">
-                {{ post.body }}
+        <div class="row">
+            <div class="col-xs-2 pull-right" style="margin: 20px 38px 0px 0px">
+                <img style="width: 40px; border-radius: 49%;" :src="BaseImagePath+getImageType(post.category.id)">
             </div>
-
-            <div class="clearfix">
-                <div class="d-flex justify-content-between">
-                    <div>
+            <div class="col-xs-4 pull-right" style="margin: 15px 15px 0 0">
+                <ul style="display: inline-block; list-style: none" class="">
+                    <li> {{ oneLang(post.category.name, post.category.name_en) }}</li>
+                    <li>
                         <i class="fa fa-clock-o"> </i>
 
                         {{ post.published }}
-                    </div>
-                    <div class="consultant_category"> {{ oneLang(post.category.name, post.category.name_en) }}</div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col col-xs-5 " style="margin: 15px 0px  0 15px; text-align: end">
 
-                    <div @click="openCommentModal()"> {{ (comments_count) }} <i
+                <dropdown v-if="authUser.id==post.user_id || authUser.permissions.replay_social_consultant==1">
+                    <div slot="items">
+                        <a class="dropdown-item" href="#" v-if="authUser.id==post.user_id"
+                           @click.prevent="editPost()">{{ $t('edit') }}</a>
+                        <a class="dropdown-item" href="#" v-if="authUser.id==post.user_id"
+                           @click.prevent="deletePost()"> {{ $t('delete') }} </a>
+                        <a class="dropdown-item" href="#" v-if="authUser.permissions.replay_social_consultant==1"
+                           @click.prevent="forewordPost()"> {{ $t('foreword') }} </a>
+                    </div>
+                </dropdown>
+
+            </div>
+
+        </div>
+        <div class="lower-content" style="padding: 15px">
+            <h5>
+                <router-link @click.native="$scrollToTop" :to="{ name: 'post_details', params: { id: post.id}}">
+                    {{ post.title }}
+                </router-link>
+            </h5>
+
+            <div class="post-info" id="targetMore" v-html="textToDisplay">
+            </div>
+            <span @click="readmore=!readmore" v-if="post_words.isMore && textMoreToShow"> ({{ $t('more') }})</span>
+            <span @click="readmore=!readmore" v-if="post_words.isMore && !(textMoreToShow)"> ({{ $t('less') }})  </span>
+
+            <div class="clearfix">
+                <div class="pull-right" style="padding-right: 3em">
+                    <div @click="openCommentModal()" class="students"> {{ (comments_count) }} <i
                         class="fa fa-comments"></i></div>
-
-
-                    <div style="margin-top: -8px">
-                        <like-button type="posts"
-                                     :key="post.id"
-                                     :count-likes="post.likes_count"
-                                     has-count="1"
-                                     :liked_id="post.id"
-                                     :is_liked="post.user_like"
-                        ></like-button>
-                    </div>
-
-
-
-                    <div v-if="authUser.id==post.user_id" class="d-flex justify-content-between">
-                        <div class="consultant_category"
-                             @click.prevent="editPost()">
-                            <span class="fa fa-pencil-square-o"> </span>
-                        </div>
-
-                        <div class="consultant_category"
-                             @click.prevent="deletePost()">
-                            <span class="fa fa-trash-o"> </span>
-                        </div>
-
-                    </div>
-                    <div class="consultant_category px-2"
-                         v-if="authUser.permissions.replay_social_consultant==1"
-                         @click.prevent="forewordPost()"> {{ $t('foreword') }}
-                        <span
-                            :class="['fa',oneLang('ar','en')=='ar'? 'fa-arrow-circle-left':'fa-arrow-circle-right']"> </span>
-                    </div>
+                </div>
+                <div class="pull-left" style="padding-left: 3em">
+                    <like-button type="posts"
+                                 :key="post.id"
+                                 :count-likes="post.likes_count"
+                                 has-count="1"
+                                 :liked_id="post.id"
+                                 :is_liked="post.user_like"
+                    ></like-button>
                 </div>
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -187,7 +186,7 @@ import store from '../store'
 
 export default {
 
-    props: ['post', '_key', 'lang'],
+    props: ['post', '_key'],
     components: {LikeButton},
     data() {
         return {
@@ -249,9 +248,10 @@ export default {
                 });
             this.$refs.foreword.open();
 
-            if (this.post.forewordConsultant != null) {
-                this.forword_data.note = this.post.forewordConsultant.note;
-                this.forword_data.foreword_to = this.post.forewordConsultant.foreword_to;
+            if(this.post.forewordConsultant!=null)
+            {
+                this.forword_data.note=this.post.forewordConsultant.note;
+                this.forword_data.foreword_to=this.post.forewordConsultant.foreword_to;
             }
 
 

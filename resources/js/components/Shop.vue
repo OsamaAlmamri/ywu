@@ -16,7 +16,7 @@
             <p class="d-flex justify-content-start mx-2 d-md-none">
                 <a class="btn btn-primary" data-toggle="collapse" href="#sidebar"
                    role="button" aria-expanded="true" aria-controls="sidebar">
-                    {{ $t('filter')  }}
+                    {{ $t('filter') }}
                 </a>
             </p>
 
@@ -30,24 +30,26 @@
                         <div class="card border-0 mb-6">
                             <div class="search-box row mt-4">
 
-                                <div class=" col-12">
+                                <div class=" col-12 ">
                                     <label class="typo__label">{{ $t('search.search') }}</label>
                                     <input type="text" v-model="search.search" class="form-control">
                                 </div>
                                 <div class=" col-12">
                                     <div class="form-row">
-                                        <div class="form-group col-md-6"><label>{{ $t('search.min_price') }}</label> <input
-                                            class="form-control" v-model="search.min_price" placeholder="$0"
-                                            type="number"></div>
-                                        <div class="form-group text-right col-md-6"><label>{{ $t('search.min_price') }}</label> <input
-                                            class="form-control" v-model="search.max_price" placeholder="$1,0000"
-                                            type="number"></div>
+                                        <div class="form-group col-md-6"><label>{{ $t('search.max_price') }}</label>
+                                            <input
+                                                class="form-control" v-model="search.min_price" placeholder="0"
+                                                type="number"></div>
+                                        <div class="form-group col-md-6"><label>{{ $t('search.min_price') }}</label>
+                                            <input
+                                                class="form-control" v-model="search.max_price" placeholder="1,0000"
+                                                type="number"></div>
                                     </div>
                                 </div>
 
                                 <div class=" col-12">
                                     <label class="typo__label">{{ $t('shop.govs') }}</label>
-                                    <multiselect v-model="search.gov_id" :tag-placeholder="$t('add')"
+                                    <multiselect v-model="search.gov_id"
                                                  :placeholder="$t('shop.govs')"
                                                  :label="oneLang('name_ar','name_en')"
                                                  track-by="id"
@@ -61,7 +63,7 @@
                                 </div>
                                 <div class=" col-12">
                                     <label class="typo__label"> {{ $t('shop.categories') }} </label>
-                                    <multiselect v-model="search.category_id" :tag-placeholder="$t('add')"
+                                    <multiselect v-model="search.category_id"
                                                  :showLabels="false"
 
                                                  :maxHeight="3000"
@@ -96,10 +98,11 @@
                                                      :src="props.option.ssn_image"
                                                      class="align-self-end mr-n3">
                                                 <div class="media-body mx-2">
-                                                    <h7>{{ props.option.sale_name }}</h7>
+                                                    <h6>{{ props.option.sale_name }}</h6>
                                                     <p>
-                                                        {{ props.option.gov }}-
-                                                        {{ props.option.district }}
+
+                                                        {{ oneLang(props.option.gov, props.option.gov_en) }}-
+                                                        {{ oneLang(props.option.district, props.option.district_en) }}
                                                         <!--                                                        <br>-->
                                                         <!--                                                        <span class="option_more_address_info" style="">-->
                                                         <!--                                                                                                                    {{ props.option.more_address_info }}-->
@@ -116,11 +119,12 @@
                                 </div>
 
                                 <div class=" col-12">
-                                    <div class="input-group-append my-5" >
+                                    <div class="input-group-append my-5">
                                         <button class="btn btn-primary"
                                                 @click.prevent="get_product_by_categories22()"> {{ $t('filter') }}
                                         </button>
-                                        <button v-if="search_result.data" class="btn btn-warning" @click="is_search=false; search_result={}"> {{ $t('search.close') }}
+                                        <button v-if="search_result.data" class="btn btn-warning"
+                                                @click="is_search=false; search_result={}"> {{ $t('search.close') }}
                                         </button>
                                     </div>
                                 </div>
@@ -146,6 +150,7 @@
                                 </div>
                                 <div class="d-flex align-content-around flex-wrap">
                                     <shop-gide-item2 v-for="product in section.products" :key="'shp-'+product.id"
+                                                     :lang="oneLang('ar','en')"
                                                      :product="product">
                                     </shop-gide-item2>
                                 </div>
@@ -164,7 +169,9 @@
                                     </div>
                                 </div>
                                 <div class="d-flex align-content-around flex-wrap">
-                                    <shop-gide-item2 v-for="product in search_result.data" :key="'search-'+product.id"
+                                    <shop-gide-item2 v-for="product in search_result.data"
+
+                                                     :key="'search-'+product.id"
                                                      :product="product">
                                     </shop-gide-item2>
                                 </div>
@@ -183,7 +190,7 @@
                                 <div style="text-align: center" v-show="search_result.data.length<1">
                                     <img style="width: 35%;margin-top: -150px;" src="/site/images/img-no-products.png">
                                     <h4>
-                                        {{$t('shop.product_not_exisit') }}
+                                        {{ $t('shop.product_not_exisit') }}
                                     </h4>
                                 </div>
                             </div>
@@ -385,7 +392,7 @@ export default {
                     console.log(err)
                 })
         },
-        get_product_by_categories22(page=1) {
+        get_product_by_categories22(page = 1) {
             this.form.category_id = '';
             this.form.gov_id = '';
             this.form.seller_id = '';

@@ -45,8 +45,8 @@
                             </div>
 
 
-                            <div class="row clearfix   mt-5">
-                                <div class=" col-12"
+                            <div class="row clearfix">
+                                <div class="cource-block-two col-lg-4 col-md-6 col-sm-12 col-xs-12"
                                      v-for="women_post in search_result">
                                     <women-item
                                         :women_post="women_post"
@@ -62,15 +62,25 @@
 
                 </div>
 
-                <div v-if="is_search==false" class="row clearfix  mt-5">
+                <div v-if="is_search==false" class="row clearfix">
 
                     <!-- Content Side -->
-                    <div class="content-side  col-12 mt-5">
+                    <div class="content-side col-lg-9 col-md-12 col-sm-12">
                         <div class="our-courses">
+
+                            <!-- Options View -->
+                            <div class="options-view">
+                                <div class="clearfix">
+                                    <div class="pull-right">
+                                        <h3> {{ $t('women.title') }}</h3>
+                                    </div>
+
+                                </div>
+                            </div>
 
 
                             <div class="row clearfix">
-                                <div class="col-12"
+                                <div class="cource-block-two col-lg-4 col-md-6 col-sm-12 col-xs-12"
                                      v-for="women_post in pagesData.data">
                                     <women-item
                                         :women_post="women_post"
@@ -92,6 +102,11 @@
                             </div>
                         </div>
 
+                    </div>
+
+                    <!-- Sidebar Side -->
+                    <div class="sidebar-side style-two col-lg-3 col-md-12 col-sm-12">
+                        <recent-posts :name="$t('last_posts')" type="women"></recent-posts>
                     </div>
 
                 </div>

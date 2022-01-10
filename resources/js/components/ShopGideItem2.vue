@@ -45,10 +45,11 @@
             <div class=" product_name_box d-flex justify-content-between">
                 <div class=" one_product_name flex-grow-1"><span class="">
                            {{ product.name }}
+                          <span style="display: none"> {{ lang }}</span>
                         </span>
                 </div>
                 <div class="regular product_gov">
-                    {{ product.gov }}
+                    {{ getLang( product.gov,  product.gov_en) }}
                 </div>
 
 
@@ -78,8 +79,41 @@ import axios from "axios";
 import RatingStars from "./RatingStars";
 
 export default {
-    props: ['product'],
+    //  props: ['product', 'lang'],
+    props: {
+        product: Object,
+        lang:  String,
+
+    },
     components: {LikeButton, RatingStars},
+    methods: {
+
+        getLang(txt_ar, txt_en) {
+            return (localStorage.getItem("lang") == 'en') ? txt_en : txt_ar;
+        },
+        getCookie(cname) {
+            let name = cname + "=";
+            let ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+    },
+    computed: {
+        // lang() {
+        //     return this.getCookie(('style_lang'));
+        //     return localStorage.getItem("lang")
+        // }
+    },
+
 
 }
 </script>
