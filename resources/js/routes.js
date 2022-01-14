@@ -251,6 +251,7 @@ router.beforeEach((to, from, next) => {
     window.scrollTo(0, 0);
     var div = document.querySelector('body');
     div.classList.remove('mobile-menu-visible');
+
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (store.getters.isLoggedIn) {
             next()

@@ -106,35 +106,77 @@
     <!-- /page content -->
 
         <!-- footer content -->
-        {{--        @if (auth()->user()->type=="seller")--}}
-        <div id="my_store_link" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">مشاركة الرابط الخاص بمتجري </h4>
+        @if (auth()->user()->type=="seller")
+            <div id="my_store_link" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">مشاركة الرابط الخاص بمتجري </h4>
 
 
-                    </div>
-                    <div class="modal-body">
-                        <a class="my_store_url" href="https://https://yemenwe.com/shop/seller/{{auth()->id()}}"
-                           target="_blank">
-                            فتح متجري
-                        </a>
-                        {!! Share::page("https://yemenwe.com/shop/seller/".auth()->id(), null, ['class' => 'my_store_links' ])
-                                        ->facebook()
-                                        ->whatsapp()
-                                        ->twitter()
-                                        ->telegram()
-                                        ->linkedin()
-                                   !!}
+                        </div>
+                        <div class="modal-body">
+                            <a class="my_store_url" href="https://https://yemenwe.com/shop/seller/{{auth()->id()}}"
+                               target="_blank">
+                                فتح متجري
+                            </a>
+                            {!! Share::page("https://yemenwe.com/shop/seller/".auth()->id(), null, ['class' => 'my_store_links' ])
+                                            ->facebook()
+                                            ->whatsapp()
+                                            ->twitter()
+                                            ->telegram()
+                                            ->linkedin()
+                                       !!}
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-    {{--   @endif--}}
+        @endif
+
+    <!-- footer content -->
+        @if (auth()->user()->type=="admin")
+            <div id="notification_modal" dir="rtl" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title"> ارسال اشعار</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" id="noti_form" class="form-horizontal" enctype="multipart/form-data">
+                                @csrf
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-12">العنوان : </label>
+                                    <div class="col-md-12">
+                                        <input name="title" id="not_title" class="form-control">
+                                    </div>
+                                    <div class="print-error-msg alert-danger" id="modal_error_noti_title"></div>
+                                </div>
+                                <br/>
+                                <div class="form-group">
+                                    <label class="control-label col-md-12">الاشعار : </label>
+                                    <div class="col-md-12">
+                                        <textarea name="body" id="not_body" class="form-control"></textarea>
+                                    </div>
+                                    <div class="print-error-msg alert-danger" id="modal_error_noti_body"></div>
+                                </div>
+                                <br/>
+                                <div class="form-group" align="center">
+                                    <input type="submit" name="action_button" class="btn btn-warning"
+                                           value="ارسال"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+    @endif
 
     @include('adminpanel.includeHF.footer')
     <!-- /footer content -->
@@ -194,6 +236,42 @@
 
 <script src="{{ asset('js/share.js') }}"></script>
 <script>
+    $(document).on('click', '#open_noti_modal', function () {
+        $("#notification_modal .print-error-msg").html('');
+        $('#noti_form')[0].reset();
+        $('#notification_modal').modal('show');
+    });
+    $('#noti_form').on('submit', function (event) {
+        event.preventDefault();
+        var url = "{{ route('notification.send') }}";
+        $.ajax({
+            url: url,
+            method: "POST",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            dataType: "json",
+            success: function (data) {
+                var html = '';
+                $('#noti_form')[0].reset();
+                $("#notification_modal .print-error-msg").html('');
+                $('#notification_modal').modal('hide');
+            },
+            error: function (jqXhr, status) {
+                console.log(jqXhr);
+                if (jqXhr.status === 422) {
+                    $("#notification_modal .print-error-msg").html('');
+                    var errors = jqXhr.responseJSON.errors;
+                    $.each(errors, function (key, value) {
+                        $("#notification_modal").find("#modal_error_noti_" + key).html(value);
+                    });
+                }
+            }
+        })
+    });
+
+
 
     $(document).on('click', '#open_my_store', function (e) {
         $('#my_store_link').modal('show');
@@ -233,15 +311,18 @@
             $('#notification_count').text(notificationsCount);
         }
 
-        var firebaseConfig = {
-            apiKey: "AIzaSyA6i0L2F8RrJ13E0dRCZWdgJMWnzKx-x30",
-            authDomain: "halaalmadi-e8464.firebaseapp.com",
-            databaseURL: "https://halaalmadi-e8464.firebaseio.com",
-            projectId: "halaalmadi-e8464",
-            storageBucket: "halaalmadi-e8464.appspot.com",
-            messagingSenderId: "51100198139",
-            appId: "1:51100198139:web:1e7f13b469cd102a4ffc5e",
-            measurementId: "G-LYPYW0D2ZZ"
+
+
+
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyDEcBVuKQk8ionFo3MR4K4zkb7BQ9baTXs",
+            authDomain: "yemenwe-d2ed4.firebaseapp.com",
+            projectId: "yemenwe-d2ed4",
+            storageBucket: "yemenwe-d2ed4.appspot.com",
+            messagingSenderId: "752937676482",
+            appId: "1:752937676482:web:ce642e226e3ec88717d55b",
+            measurementId: "G-DS5Z7LJJTR"
         };
 // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
@@ -256,7 +337,8 @@
             .catch(function (err) {
                 console.log('Unable to get permission to notify.----------- ', err);
             });
-        messaging.usePublicVapidKey("BOhwORjxRrq_yMgeKxEZ06IhrFdSxONWttCKZrJTwJ4N84hxNZ9rS_8-kHvGBrKaPlcxUFgd9oinnd4DpfSjHAE");
+
+       messaging.usePublicVapidKey("BEdgvSjrQD98fkHWrOKCMq7G1ZhYmHmR_mBzGy3BEy-A-FPLeOaFTgGrKYyFKkN3eN9E2SIlCOfGiO_4CarHxEA");
         // Get Instance ID token. Initially this makes a network call, once retrieved
         // subsequent calls to getToken will return from cache.
         messaging.requestPermission()

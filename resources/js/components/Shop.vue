@@ -98,7 +98,7 @@
                                                      :src="props.option.ssn_image"
                                                      class="align-self-end mr-n3">
                                                 <div class="media-body mx-2">
-                                                    <h6>{{ props.option.sale_name }}</h6>
+                                                    <strong>{{ props.option.sale_name }}</strong>
                                                     <p>
 
                                                         {{ oneLang(props.option.gov, props.option.gov_en) }}-

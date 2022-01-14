@@ -19,6 +19,8 @@ Route::group(['prefix' => 'admin/', 'namespace' => 'AdminControllers'], function
     Route::any('/check_login', 'AuthAdminController@adminLoginCheck')->name('login_admin');
 });
 Route::group(['middleware' => ('auth:admin')], function () {
+    Route::post('notification/send', 'FireBaseController@sendNotification')->name('notification.send');
+
     Route::get('/admin/edit', 'HomeController@Update_Admin_Details')->name('Admin_Edit');
     Route::post('/admin/update', 'HomeController@Admin_update')->name('Admin_Update');
 });

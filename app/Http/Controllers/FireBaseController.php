@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Device;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\Notification;
@@ -28,7 +30,7 @@ class FireBaseController extends Controller
 //            ->withNotification(Notification::create('Title', 'Body'))
 //            ->withData(['key' => 'value']);
 
-        $topic = 'a-topic';
+        $topic = 'Yemenwe';
         $notification = ['d' => 'd'];
         $data = ['ddd' => 'd'];
         $message = CloudMessage::withTarget('topic', $topic)
@@ -64,6 +66,53 @@ class FireBaseController extends Controller
 
     }
 
+    public function send_topic($dataToNotification)
+    {
+        $messaging = $this->factory->createMessaging();
+        $topic = 'yemenwe';
+        $notification = Notification::fromArray([
+            'title' => $dataToNotification['title'],
+            'body' => $dataToNotification['body'],
+//            'image' => $dataToNotification['sender_image'],
+        ]);
+        $message = CloudMessage::withTarget('topic', $topic)
+            //   ->withNotification($notification)
+            ->withData([
+                'title' => $dataToNotification['title'],
+                'body' => $dataToNotification['body'],
+//            'image' => $dataToNotification['sender_image'],
+            ]);
+        return $messaging->send($message);
+
+
+    }
+
+    public function sendNotification(Request $request)
+    {
+        $rules = [
+            "title" => 'required',
+            "body" => 'required',
+        ];
+        $messages = [
+            "title.required" => "يرجى كتابة عنوان الاشعار ",
+            "body.required" => "يرجى كتابة وصف الاشعار ",
+
+        ];
+        $error = Validator::make($request->all(), $rules, $messages);
+        if ($error->fails()) {
+            return response()->json([
+                'errors' => $error->errors(),
+            ], 422);
+        }
+        $n = [
+            'title' => $request->title,
+            'body' => $request->body,
+        ];
+        $send = $this->send_topic($n);
+        return response()->json(['status' => $send, 'success' => 'تم الارسال   بنجاح'], 200, [], JSON_UNESCAPED_UNICODE);
+
+
+    }
 
     public function oneDevice($deviceToken)
     {
@@ -92,7 +141,7 @@ class FireBaseController extends Controller
             ->withImageUrl('http://lorempixel.com/200/400/');
         $message = CloudMessage::withTarget('token', $deviceToken)
             ->withNotification($notification) // optional
-            ->withData($data) // optional
+            ->withData($notification) // optional
         ;
 
 //        $message = CloudMessage::fromArray([
@@ -104,7 +153,7 @@ class FireBaseController extends Controller
         $messaging->send($message);
     }
 
-    public function getNotifiableUsers($user = 0,  $admins = [])
+    public function getNotifiableUsers($user = 0, $admins = [])
     {
         $tokens = [];
         $devices = DB::table('devices')
@@ -126,16 +175,16 @@ class FireBaseController extends Controller
     public function multi($deviceTokens, $dataToNotification)
     {
         $messaging = $this->factory->createMessaging();
-        $title = 'My Notification Title';
-        $body = 'My Notification Body';
-        $imageUrl = 'http://lorempixel.com/400/200/';
-        $notification = Notification::fromArray([
-            'title' => $dataToNotification['sender_name'],
-            'body' => $dataToNotification['message'],
-            'image' => $dataToNotification['sender_image'],
-        ]);
-        $message = CloudMessage::new()->withNotification($notification) // optional
-        ->withData($dataToNotification);
+
+        $notification = Notification::fromArray(
+            array_merge([
+                'title' => $dataToNotification['sender_name'],
+                'body' => $dataToNotification['message'],
+                'image' => $dataToNotification['sender_image'],
+            ], $dataToNotification));
+        $message = CloudMessage::new()
+//            ->withNotification($notification) // optional
+            ->withData($dataToNotification);
         if (count($deviceTokens) > 0)
             $sendReport = $messaging->sendMulticast($message, $deviceTokens);
     }

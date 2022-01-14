@@ -63,6 +63,12 @@
  */
 
 /*!
+ * vue-infinite-loading v2.4.5
+ * (c) 2016-2020 PeachScript
+ * MIT License
+ */
+
+/*!
  * vuex v3.5.1
  * (c) 2020 Evan You
  * @license MIT

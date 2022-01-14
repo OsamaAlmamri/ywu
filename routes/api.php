@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api2\NotificationsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -106,6 +107,8 @@ Route::group(['middleware' => 'CheckAdminT:api', 'prefix' => 'seller'], function
 
 
 Route::group(['middleware' => 'CheckUserT:api'], function () {
+    Route::post('notification', [NotificationsController::class, 'notification']);
+
     Route::group(['prefix' => 'v2/forewordConsultants'], function () {
 
         Route::post('/index', 'Api2\Consultants\ForwordConsultantController@index');

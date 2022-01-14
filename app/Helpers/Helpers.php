@@ -1,12 +1,13 @@
 <?php
 
 use App\Admin;
+use App\User;
 use App\Device;
 use App\Models\Images;
 use App\Models\Shop\ProductsOption;
 use App\Models\Shop\ShopCategory;
 use App\Models\Shop\Zone;
-use App\PaymentStatus;
+
 use App\Seller;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -66,7 +67,7 @@ function notification_type($id, $type)
 if (!function_exists('getAdminsOrderNotifucation')) {
     function getAdminsOrderNotifucation($event_status)
     {
-        $admins = \App\Admin::all()->where('type', 'admin');
+        $admins = Admin::all()->where('type', 'admin');
         return $admins;
     }
 }

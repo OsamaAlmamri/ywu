@@ -105,15 +105,14 @@
     $(document).ready(function () {
         // Your web app's Firebase configuration
 
-        var firebaseConfig = {
-            apiKey: "AIzaSyA6i0L2F8RrJ13E0dRCZWdgJMWnzKx-x30",
-            authDomain: "halaalmadi-e8464.firebaseapp.com",
-            databaseURL: "https://halaalmadi-e8464.firebaseio.com",
-            projectId: "halaalmadi-e8464",
-            storageBucket: "halaalmadi-e8464.appspot.com",
-            messagingSenderId: "51100198139",
-            appId: "1:51100198139:web:1e7f13b469cd102a4ffc5e",
-            measurementId: "G-LYPYW0D2ZZ"
+        const firebaseConfig = {
+            apiKey: "AIzaSyDEcBVuKQk8ionFo3MR4K4zkb7BQ9baTXs",
+            authDomain: "yemenwe-d2ed4.firebaseapp.com",
+            projectId: "yemenwe-d2ed4",
+            storageBucket: "yemenwe-d2ed4.appspot.com",
+            messagingSenderId: "752937676482",
+            appId: "1:752937676482:web:ce642e226e3ec88717d55b",
+            measurementId: "G-DS5Z7LJJTR"
         };
 // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
@@ -127,7 +126,7 @@
             .catch(function (err) {
                 console.log('Unable to get permission to notify.----------- ', err);
             });
-        messaging.usePublicVapidKey("BOhwORjxRrq_yMgeKxEZ06IhrFdSxONWttCKZrJTwJ4N84hxNZ9rS_8-kHvGBrKaPlcxUFgd9oinnd4DpfSjHAE");
+        messaging.usePublicVapidKey("BEdgvSjrQD98fkHWrOKCMq7G1ZhYmHmR_mBzGy3BEy-A-FPLeOaFTgGrKYyFKkN3eN9E2SIlCOfGiO_4CarHxEA");
         // Get Instance ID token. Initially this makes a network call, once retrieved
         // subsequent calls to getToken will return from cache.
         messaging.requestPermission()

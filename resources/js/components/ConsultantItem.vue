@@ -72,18 +72,18 @@
                      :pulse-on-block=true
                      :overlay-theme="'dark'" ref="foreword">
             <div class="card-body" v-if="post.forewordConsultant!=null">
-                <h7 class="card-title">
+                <h6 class="card-title">
                     <span class="text-info ">{{ $t('foreword_to_user') }}:</span>
                     : {{ post.forewordConsultant.foreword_to_user.name }}
-                </h7>
-                <h7 class="card-title">
+                </h6>
+                <h6 class="card-title">
                     <span class="text-info ">{{ $t('foreword_by') }}:</span>
                     {{ post.forewordConsultant.foreword_by_user.name }}
-                </h7>
+                </h6>
                 <br>
-                <h7 class="card-title">
+                <h6 class="card-title">
                     <span class="text-info ">{{ $t('solve') }}:</span>
-                </h7>
+                </h6>
                 <br>
                 <p class="card-text"> {{ post.forewordConsultant.solve }}</p>
 

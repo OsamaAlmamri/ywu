@@ -72,21 +72,23 @@
             --danger: #dc3545;
         }
 
-        .text-primary{
+        .text-primary {
             color: var(--primary) !important;
         }
-        .consultant_category{
+
+        .consultant_category {
             color: white;
             border-radius: 25% 25%;
             padding: 2px 20px;
-            background:  var(--primary);
+            background: var(--primary);
 
         }
+
         .filter_option_serller {
             height: 500px;
         }
 
-        .box-inner  {
+        .box-inner {
             text-align: start;
         }
 
@@ -349,7 +351,159 @@
         }
     </style>
 
+    {{-- notification style --}}
 
+    <style>
+
+        .navbar-default .dropdown-menu.notify-drop {
+            min-width: 330px;
+            background-color: #fff;
+            min-height: 360px;
+            max-height: 360px;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .notify-drop-title {
+            border-bottom: 1px solid #e2e2e2;
+            padding: 5px 15px 10px 15px;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .drop-content {
+            min-height: 280px;
+            max-height: 280px;
+            overflow-y: scroll;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .drop-content::-webkit-scrollbar-track {
+            background-color: #F5F5F5;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .drop-content::-webkit-scrollbar {
+            width: 8px;
+            background-color: #F5F5F5;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .drop-content::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .drop-content > li {
+            border-bottom: 1px solid #e2e2e2;
+            padding: 10px 0px 5px 0px;
+
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .drop-content > li:nth-child(2n+0) {
+            background-color: #fafafa;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .drop-content > li:after {
+            content: "";
+            clear: both;
+            display: block;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .drop-content > li:hover {
+            background-color: #fcfcfc;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .drop-content > li:last-child {
+            border-bottom: none;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .drop-content > li .notify-img {
+            float: left;
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            margin: 0px 0px 8px 0px;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .allRead {
+            margin-right: 7px;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .rIcon {
+            float: right;
+            color: #999;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .rIcon:hover {
+            color: #333;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .drop-content > li a {
+            font-size: 12px;
+            font-weight: normal;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .drop-content > li {
+            font-weight: bold;
+            font-size: 11px;
+
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .drop-content > li hr {
+            margin: 5px 0;
+            width: 70%;
+            border-color: #e2e2e2;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .drop-content .pd-l0 {
+            padding-left: 0;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .drop-content > li p {
+            font-size: 11px;
+            color: #666;
+            font-weight: normal;
+            margin: 3px 0;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .drop-content > li p.time {
+            font-size: 10px;
+            font-weight: 600;
+            top: -6px;
+            margin: 8px 0px 0px 0px;
+            padding: 0px 3px;
+            border: 1px solid #e2e2e2;
+            position: relative;
+            background-image: linear-gradient(#fff, #f2f2f2);
+            display: inline-block;
+            border-radius: 2px;
+            color: #B97745;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .drop-content > li p.time:hover {
+            background-image: linear-gradient(#fff, #fff);
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .notify-drop-footer {
+            border-top: 1px solid #e2e2e2;
+            bottom: 0;
+            position: relative;
+            padding: 8px 15px;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .notify-drop-footer a {
+            color: #777;
+            text-decoration: none;
+        }
+
+        .navbar-default .dropdown-menu.notify-drop .notify-drop-footer a:hover {
+            color: #333;
+        }
+
+
+
+
+
+
+
+        .notify-drop
+        {
+            transform: translate3d(-230px, 25px, 0px) !important;
+        }
+    </style>
 </head>
 
 
@@ -590,15 +744,15 @@
             $('#notification_count').text(notificationsCount);
         }
 
-        var firebaseConfig = {
-            apiKey: "AIzaSyA6i0L2F8RrJ13E0dRCZWdgJMWnzKx-x30",
-            authDomain: "halaalmadi-e8464.firebaseapp.com",
-            databaseURL: "https://halaalmadi-e8464.firebaseio.com",
-            projectId: "halaalmadi-e8464",
-            storageBucket: "halaalmadi-e8464.appspot.com",
-            messagingSenderId: "51100198139",
-            appId: "1:51100198139:web:1e7f13b469cd102a4ffc5e",
-            measurementId: "G-LYPYW0D2ZZ"
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDEcBVuKQk8ionFo3MR4K4zkb7BQ9baTXs",
+            authDomain: "yemenwe-d2ed4.firebaseapp.com",
+            projectId: "yemenwe-d2ed4",
+            storageBucket: "yemenwe-d2ed4.appspot.com",
+            messagingSenderId: "752937676482",
+            appId: "1:752937676482:web:ce642e226e3ec88717d55b",
+            measurementId: "G-DS5Z7LJJTR"
         };
 // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
@@ -613,7 +767,7 @@
             .catch(function (err) {
                 console.log('Unable to get permission to notify.----------- ', err);
             });
-        messaging.usePublicVapidKey("BOhwORjxRrq_yMgeKxEZ06IhrFdSxONWttCKZrJTwJ4N84hxNZ9rS_8-kHvGBrKaPlcxUFgd9oinnd4DpfSjHAE");
+        messaging.usePublicVapidKey("BEdgvSjrQD98fkHWrOKCMq7G1ZhYmHmR_mBzGy3BEy-A-FPLeOaFTgGrKYyFKkN3eN9E2SIlCOfGiO_4CarHxEA");
         // Get Instance ID token. Initially this makes a network call, once retrieved
         // subsequent calls to getToken will return from cache.
         messaging.requestPermission()
