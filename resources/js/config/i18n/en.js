@@ -3,6 +3,7 @@ export const locale = {
         shop: "Shop ",
         CategoryProducts: "Category Products ",
         home2: "Shop ",
+        shop_seller: "shop seller",
         home: "Home",
         my_orders: "My Orders",
         concatUs: "Concat Us",

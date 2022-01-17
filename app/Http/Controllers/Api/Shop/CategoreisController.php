@@ -92,6 +92,7 @@ class CategoreisController extends Controller
         })->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
             ->leftJoin('zones as dis', 'sellers.district_id', '=', 'dis.id')
             ->select(['sellers.*', 'dis.name_ar as district', 'govs.name_ar as gov', 'dis.name_en as district_en', 'govs.name_en as gov_en']);
+
         if (count($request->govs) > 0)
             $data = $data->whereIn('gov_id', $request->govs);
         return $this->GetDateResponse('data', $data->get());

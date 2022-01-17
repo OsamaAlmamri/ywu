@@ -31,6 +31,9 @@
                 <ul class="nav side-menu">
                     <li><a href="{{route('home')}}"><i class="fa fa-home"></i> الرئيسية</a>
                     </li>
+                    @if ((Auth::user()->type=="admin") == true))
+                    <li><a href="#" id="open_noti_modal"> ارسال اشعار </a></li>
+                    @endif
                     <li>
                         <a><i class="fa fa-shopping-cart"></i> السوق <span
                                 class="fa fa-chevron-down"></span></a>
@@ -39,11 +42,9 @@
                                 <li><a href="{{route('admin.shop.sellers.index')}}"> البائعين </a></li>
                             @endif
 
-                            @if ((Auth::user()->type=="admin") == true))
-                            <li><a href="#" id="open_noti_modal"> ارسال اشعار </a></li>
-                            @endif
 
-                            @if ((Auth::user()->type=="seller") == true))
+
+                            @if ((Auth::user()->type=="seller") != true))
                             <li><a href="#" id="open_my_store"> رابط متجري </a></li>
                             @endif
 

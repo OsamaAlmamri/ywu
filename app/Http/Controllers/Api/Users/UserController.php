@@ -51,7 +51,6 @@ class UserController extends Controller
                     "name" => "required",
 //                    "phone" => "required|unique:users,phone",
                     "phone" => "required|numeric|digits:9|starts_with:77,73,70,71|unique:users,phone",
-
                     "email" => "nullable|email|unique:users,email",
                     "password" => "required|string|min:4",
                     "sale_name" => "required|string",
@@ -144,7 +143,7 @@ class UserController extends Controller
                 $image = saveImage('images/admins/', $request->file('ssn_image'));
 
                 $user = Admin::create(array_merge($request->all(),
-                    ['type' => 'seller', 'status' => 0,'images' => json_encode($request->images)]
+                    ['type' => 'seller', 'status' => 0, 'images' => json_encode($request->images)]
                 ));
 
                 $saller = Seller::create(array_merge($request->except(['images', 'ssn_image', 'image']),
@@ -180,6 +179,7 @@ class UserController extends Controller
             } else {
                 $user = new User();
                 $user->name = $request->name;
+                $user->email = $request->email;
                 $user->phone = $request->phone;
                 $user->gender = isset($request->gender) ? $request->gender : 'female';
                 $user->gov_id = request()->gov_id;
@@ -222,7 +222,7 @@ class UserController extends Controller
                     if ($jwt_token = JWTAuth::attempt($credential_phone_S) or $jwt_token = JWTAuth::attempt($credential_email_S))  // return redirect()->intended('/admin');
                     {
                         $user = JWTAuth::user();
-                        $user->image=$user->seller->ssn_image;
+                        $user->image = $user->seller->ssn_image;
 
                         return $this->GetDateResponse('data', ['token' => $jwt_token, 'userData' => $user]);
 
@@ -238,7 +238,7 @@ class UserController extends Controller
                 $user = JWTAuth::user();
                 if ($user->status == 1) {
                     if ($user->type == 'seller') {
-                        $user->image=$user->seller->ssn_image;
+                        $user->image = $user->seller->ssn_image;
                     }
                     if ($user->type == 'share_users') {
                         $user->share_user = $user->share_user;

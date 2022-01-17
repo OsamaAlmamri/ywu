@@ -106,37 +106,35 @@
     <!-- /page content -->
 
         <!-- footer content -->
-        @if (auth()->user()->type=="seller")
-            <div id="my_store_link" class="modal fade" role="dialog">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">مشاركة الرابط الخاص بمتجري </h4>
+        <div id="my_store_link" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">مشاركة الرابط الخاص بمتجري </h4>
 
 
-                        </div>
-                        <div class="modal-body">
-                            <a class="my_store_url" href="https://https://yemenwe.com/shop/seller/{{auth()->id()}}"
-                               target="_blank">
-                                فتح متجري
-                            </a>
-                            {!! Share::page("https://yemenwe.com/shop/seller/".auth()->id(), null, ['class' => 'my_store_links' ])
-                                            ->facebook()
-                                            ->whatsapp()
-                                            ->twitter()
-                                            ->telegram()
-                                            ->linkedin()
-                                       !!}
+                    </div>
+                    <div class="modal-body">
+                        <a class="my_store_url" href="https://yemenwe.com/shop/seller/{{auth()->id()}}"
+                           target="_blank">
+                            فتح متجري
+                        </a>
+                        {!! Share::page("https://yemenwe.com/shop/seller/".auth()->id(), null, ['class' => 'my_store_links' ])
+                                        ->facebook()
+                                        ->whatsapp()
+                                        ->twitter()
+                                        ->telegram()
+                                        ->linkedin()
+                                   !!}
 
-                        </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-        @endif
 
-    <!-- footer content -->
+        <!-- footer content -->
         @if (auth()->user()->type=="admin")
             <div id="notification_modal" dir="rtl" class="modal fade" role="dialog">
                 <div class="modal-dialog">
@@ -272,7 +270,6 @@
     });
 
 
-
     $(document).on('click', '#open_my_store', function (e) {
         $('#my_store_link').modal('show');
     });
@@ -312,8 +309,6 @@
         }
 
 
-
-
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
         const firebaseConfig = {
             apiKey: "AIzaSyDEcBVuKQk8ionFo3MR4K4zkb7BQ9baTXs",
@@ -338,7 +333,7 @@
                 console.log('Unable to get permission to notify.----------- ', err);
             });
 
-       messaging.usePublicVapidKey("BEdgvSjrQD98fkHWrOKCMq7G1ZhYmHmR_mBzGy3BEy-A-FPLeOaFTgGrKYyFKkN3eN9E2SIlCOfGiO_4CarHxEA");
+        messaging.usePublicVapidKey("BEdgvSjrQD98fkHWrOKCMq7G1ZhYmHmR_mBzGy3BEy-A-FPLeOaFTgGrKYyFKkN3eN9E2SIlCOfGiO_4CarHxEA");
         // Get Instance ID token. Initially this makes a network call, once retrieved
         // subsequent calls to getToken will return from cache.
         messaging.requestPermission()

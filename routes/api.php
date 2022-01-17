@@ -41,6 +41,7 @@ Route::post('login', 'Api\Users\UserController@login');
 Route::post('forget_password', 'Api\Users\UserController@submitForgetPasswordForm');
 Route::post('reset_password', 'Api\Users\UserController@submitResetPasswordForm');
 Route::post('register', 'Api\Users\UserController@register');
+Route::get('seller/{id}', 'Api\Seller\CategoreisController@get_seller_info');
 
 ######### employee login and register
 Route::post('upload_image', 'Api\Shop\ZoneController@upload_image');
@@ -78,6 +79,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['assign.guard:admins', 'jwt.
 
 
 Route::group(['middleware' => 'CheckAdminT:api', 'prefix' => 'seller'], function () {
+
 
     Route::group(['prefix' => 'orders'], function () {
         Route::post('/', 'Api\Seller\OrdersController@index');
@@ -210,6 +212,7 @@ Route::group(['middleware' => 'CheckUserT:api'], function () {
 ######################################## women part
 Route::post('ShowP', 'Api\Women\PostController@index');
 Route::post('ShowPId/{id}', 'Api\Women\PostController@show');
+Route::get('women_details/{id}', 'Api\Women\PostController@show');
 Route::post('StorePost', 'Api\Women\PostController@store');
 Route::post('UpdatePost/{id}', 'Api\Women\PostController@update');
 Route::post('DeletePost/{id}', 'Api\Women\PostController@destroy');

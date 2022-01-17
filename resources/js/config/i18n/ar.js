@@ -3,6 +3,8 @@ export const locale = {
     MENU: {
         CategoryProducts: "منتجات الاصناف ",
         home2: "السوق الإلكتروني",
+        shop_seller: "منتجات التاجر ",
+
         shop: "السوق الإلكتروني",
         home: "الرئيسية",
         my_orders: "طلباتي",

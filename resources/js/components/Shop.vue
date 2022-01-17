@@ -30,6 +30,26 @@
                         <div class="card border-0 mb-6">
                             <div class="search-box row mt-4">
 
+                                <div v-if="(this.$route.name == 'shop_seller')" class=" col-12 ">
+                                    <div class="media">
+                                        <img style="width: 40px"
+                                             :src="seller_info.ssn_image"
+                                             class="align-self-end mr-n3">
+                                        <div class="media-body mx-2">
+                                            <strong>{{ seller_info.sale_name }}</strong>
+                                            <p>
+
+                                                {{ oneLang(seller_info.gov, seller_info.gov_en) }}-
+                                                {{ oneLang(seller_info.district, seller_info.district_en) }}
+                                                <br>
+                                                <span class="option_more_address_info" style="">
+                                                     {{ seller_info.more_address_info }}                                                                                                               {{
+                                                </span>
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class=" col-12 ">
                                     <label class="typo__label">{{ $t('search.search') }}</label>
                                     <input type="text" v-model="search.search" class="form-control">
@@ -47,7 +67,7 @@
                                     </div>
                                 </div>
 
-                                <div class=" col-12">
+                                <div v-if="(this.$route.name != 'shop_seller')" class=" col-12">
                                     <label class="typo__label">{{ $t('shop.govs') }}</label>
                                     <multiselect v-model="search.gov_id"
                                                  :placeholder="$t('shop.govs')"
@@ -77,7 +97,7 @@
 
                                     </multiselect>
                                 </div>
-                                <div class=" col-12 filter_option_serller">
+                                <div v-if="(this.$route.name != 'shop_seller')" class=" col-12 filter_option_serller">
                                     <label class="typo__label">{{ $t('shop.seller') }}</label>
                                     <multiselect
                                         :close-on-select="false"
@@ -227,6 +247,7 @@ export default {
 
     data() {
         return {
+            seller_info: null,
             search: {
                 search: '',
                 min_price: '',
@@ -319,8 +340,12 @@ export default {
         }
     },
     created() {
-        this.get_gov();
-        this.gov_sellers();
+        if (this.$route.name == 'shop_seller')
+            this.get_Seller(this.$route.params.id);
+        else {
+            this.get_gov();
+            this.gov_sellers();
+        }
         this.all_categories();
         this.get_product_type(0)
         this.get_product_type(1)
@@ -368,6 +393,15 @@ export default {
                     console.log(err)
                 })
         },
+        get_Seller(id) {
+            axios({url: '/api/seller/' + id, data: {}, method: 'get'})
+                .then(resp => {
+                    this.seller_info = (resp.data.data);
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        },
 
         get_gov() {
             axios({url: '/api/get_gov', method: 'POST'})
@@ -404,6 +438,10 @@ export default {
 
             if (this.search.seller_id)
                 this.form.seller_id = this.search.seller_id.id
+
+            if (this.$route.name == 'shop_seller')
+                this.form.seller_id = (this.$route.params.id);
+
 
             if (this.search.gov_id)
                 this.form.gov_id = this.search.gov_id.id
@@ -453,7 +491,12 @@ export default {
             this.isLoading = true;
             axios({
                 url: '/api/shop/get_products_by_type',
-                data: {type: this.sections[type].type},
+                data: {
+                    type: this.sections[type].type,
+                    seller_id: (this.$route.name == 'shop_seller') ?
+                        (this.$route.params.id) : '',
+
+                },
                 method: 'POST'
             })
                 .then(resp => {
