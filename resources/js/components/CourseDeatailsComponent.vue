@@ -163,28 +163,30 @@
                                                                     </div>
                                                                     <div class="pull-left">
                                                                         <a v-if="content.video_url"
-                                                                           :href="content.video_url"
+                                                                           href="javascript:void(0)"
                                                                            class="lightbox-image play-icon">
-                                                                            <span class="fa fa-play"></span>
+                                                                            <span class="fa fa-play"
+                                                                                  @click="play(content.video_url,'video')"></span>
                                                                         </a>
 
                                                                         <a v-if="content.sound" :href="content.sound"
                                                                            href="javascript:void(0)"
                                                                            class="lightbox-image play-icon">
                                                                             <!-- audio element -->
-                                                                            <vue-plyr>
-                                                                                <audio controls crossorigin playsinline>
-                                                                                    <source
-                                                                                        :src="'https://yemenwe.com/'+content.sound"
-                                                                                        type="audio/mp3"
-                                                                                    />
-<!--                                                                                    <source-->
-<!--                                                                                        src="/path/to/audio.ogg"-->
-<!--                                                                                        type="audio/ogg"-->
-<!--                                                                                    />-->
-                                                                                </audio>
-                                                                            </vue-plyr>
-<!--                                                                            <span class="fa fa-file-sound-o"></span>-->
+                                                                            <!--                                                                            <vue-plyr>-->
+                                                                            <!--                                                                                <audio controls crossorigin playsinline>-->
+                                                                            <!--                                                                                    <source-->
+                                                                            <!--                                                                                        :src="'http://127.0.0.1:8000/'+content.sound"-->
+                                                                            <!--                                                                                        type="audio/mp3"-->
+                                                                            <!--                                                                                    />-->
+                                                                            <!--&lt;!&ndash;                                                                                    <source&ndash;&gt;-->
+                                                                            <!--&lt;!&ndash;                                                                                        src="/path/to/audio.ogg"&ndash;&gt;-->
+                                                                            <!--&lt;!&ndash;                                                                                        type="audio/ogg"&ndash;&gt;-->
+                                                                            <!--&lt;!&ndash;                                                                                    />&ndash;&gt;-->
+                                                                            <!--                                                                                </audio>-->
+                                                                            <!--                                                                            </vue-plyr>-->
+                                                                            <span class="fa fa-file-sound-o"
+                                                                                  @click="play(content.sound,'audio')"></span>
                                                                         </a>
                                                                         <a v-if="content.book" :href="content.book"
                                                                            class="lightbox-image play-icon">
@@ -351,6 +353,24 @@
 
                     <!-- Video Column -->
                     <div class="video-column col-lg-4 col-md-12 col-sm-12">
+                        <div class="inner-column sticky-top" v-if="active_player_type!=''">
+                            <vue-plyr ref="plyr" @player="setPlayer">
+                                <audio v-if="active_player_type=='audio'" controls crossorigin playsinline>
+                                    <source
+                                        :src="active_player"
+                                        :type="'audio/'+audio_type(active_player_type)"
+                                    />
+                                    <!--                                                                                    <source-->
+                                    <!--                                                                                        src="/path/to/audio.ogg"-->
+                                    <!--                                                                                        type="audio/ogg"-->
+                                    <!--                                                                                    />-->
+                                </audio>
+
+
+                                <div v-else data-plyr-provider="youtube" :data-plyr-embed-id="youtube_id(active_player_type)"
+                                    ></div>
+                            </vue-plyr>
+                        </div>
                         <div class="inner-column sticky-top">
                             <div class="">
                                 <div class="thumbnail">
@@ -450,6 +470,9 @@ export default {
             isLoading: false,
             edit_rate: false,
             fullPage: true,
+            player: {},
+            active_player: "",
+            active_player_type: "",
             is_active_dropdown: false,
             training: {
                 "id": 0,
@@ -869,9 +892,46 @@ export default {
                     this.isLoading = false;
                     console.log(err)
                 })
-        }
-        ,
+        },
 
+        play(url, type) {
+            this.active_player = 'http://127.0.0.1:8000/' + url
+            this.active_player_type = type
+            if (type == 'audio')
+                this.$refs.plyr.player.source = {
+                    type: 'audio',
+                    title: 'Example title',
+                    sources: [
+                        {
+                            src: 'https://yemenwe.com/' + url,
+                            type: 'audio/'+this.audio_type(url),
+                        },
+
+                    ],
+                };
+            else
+                this.$refs.plyr.player.source = {
+                    type: 'video',
+                    sources: [
+                        {
+                            src: this.youtube_id(url),
+                            provider: 'youtube',
+                        },
+                    ],
+                };
+            this.$refs.plyr.player.play()
+        },
+        setPlayer(player) {
+            this.$refs.plyr.player = player
+        },
+        audio_type(player) {
+           return player.split('.').pop();
+
+        },
+        youtube_id(player) {
+           return player.split('//').pop();
+
+        },
         onCancel() {
             console.log('User cancelled the loader.')
         }
