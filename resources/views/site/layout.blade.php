@@ -36,6 +36,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="#00ab15">
     {{--    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css"/>--}}
     <link rel="icon" href="{{  asset('site/images/logo_white.png')  }}" type="image/x-icon">
+    <link href="{{ asset('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Titillium+Web:wght@300;400;600;700;900&display=swap"
@@ -494,14 +495,278 @@
         }
 
 
-
-
-
-
-
-        .notify-drop
-        {
+        .notify-drop {
             transform: translate3d(-230px, 25px, 0px) !important;
+        }
+    </style>
+
+    <style>
+
+        .menu-item,
+        .menu-open-button {
+            background: #EEEEEE;
+            border-radius: 100%;
+            width: 30px;
+            height: 30px;
+            margin-left: -40px;
+            position: absolute;
+            color: #FFFFFF;
+            text-align: center;
+            line-height: 30px;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+            -webkit-transition: -webkit-transform ease-out 200ms;
+            transition: -webkit-transform ease-out 200ms;
+            transition: transform ease-out 200ms;
+            transition: transform ease-out 200ms, -webkit-transform ease-out 200ms;
+        }
+
+        .menu-open {
+            display: none;
+        }
+
+        .menu {
+
+
+
+            margin: auto;
+            position: absolute;
+            /* top: 0; */
+            /* bottom: 0; */
+            /* left: 0; */
+            /* right: 0; */
+            width: 80px;
+            /* height: 80px; */
+            text-align: center;
+            z-index: 9;
+            box-sizing: border-box;
+            font-size: 15px;
+        }
+
+        .share-icon {
+            color: #596778;
+            /*background color*/
+        }
+
+        .menu-item:hover {
+            background: #EEEEEE;
+            color: #3290B1;
+        }
+
+        .menu-item:nth-child(3) {
+            -webkit-transition-duration: 180ms;
+            transition-duration: 180ms;
+        }
+
+        .menu-item:nth-child(4) {
+            -webkit-transition-duration: 180ms;
+            transition-duration: 180ms;
+        }
+
+        .menu-item:nth-child(5) {
+            -webkit-transition-duration: 180ms;
+            transition-duration: 180ms;
+        }
+
+        .menu-item:nth-child(6) {
+            -webkit-transition-duration: 180ms;
+            transition-duration: 180ms;
+        }
+
+        .menu-item:nth-child(7) {
+            -webkit-transition-duration: 180ms;
+            transition-duration: 180ms;
+        }
+
+        .menu-item:nth-child(8) {
+            -webkit-transition-duration: 180ms;
+            transition-duration: 180ms;
+        }
+
+        .menu-item:nth-child(9) {
+            -webkit-transition-duration: 180ms;
+            transition-duration: 180ms;
+        }
+
+        .menu-open-button {
+            z-index: 2;
+            -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            -webkit-transition-duration: 400ms;
+            transition-duration: 400ms;
+            -webkit-transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+            transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+            cursor: pointer;
+            box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+        }
+
+        .menu-open-button:hover {
+            -webkit-transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+            transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+        }
+
+        .menu-open:checked + .menu-open-button {
+            -webkit-transition-timing-function: linear;
+            transition-timing-function: linear;
+            -webkit-transition-duration: 200ms;
+            transition-duration: 200ms;
+            -webkit-transform: scale(0.8, 0.8) translate3d(0, 0, 0);
+            transform: scale(0.8, 0.8) translate3d(0, 0, 0);
+        }
+
+        .menu-open:checked ~ .menu-item {
+            -webkit-transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
+            transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
+        }
+
+        .menu-open:checked ~ .menu-item:nth-child(3) {
+            transition-duration: 180ms;
+            -webkit-transition-duration: 180ms;
+            -webkit-transform:  translate3d(0.04181px, -52.4997px, 0);
+            transform: translate3d(0.04181px, -52.4997px, 0);
+        }
+
+        .menu-open:checked ~ .menu-item:nth-child(4) {
+            transition-duration: 280ms;
+            -webkit-transition-duration: 280ms;
+            -webkit-transform: translate3d(45.4733px, -26.23586px, 0);
+            transform: translate3d(45.4733px, -26.23586px, 0);
+        }
+
+        .menu-open:checked ~ .menu-item:nth-child(5) {
+            transition-duration: 380ms;
+            -webkit-transition-duration: 380ms;
+            -webkit-transform:translate3d(45.4733px, 26.23586px, 0);
+            transform: translate3d(45.4733px, 26.23586px, 0);
+        }
+
+        .menu-open:checked ~ .menu-item:nth-child(6) {
+            transition-duration: 480ms;
+            -webkit-transition-duration: 480ms;/**/
+            -webkit-transform: translate3d(0.0418px, 52.50097px, 0);
+            transform: translate3d(0.0418px, 52.50097px, 0);
+        }
+
+        .menu-open:checked ~ .menu-item:nth-child(7) {
+            transition-duration: 580ms;
+            -webkit-transition-duration: 580ms;
+            -webkit-transform: translate3d(-45.43145px, 26.31064px, 0);
+            transform: translate3d(-45.43145px, 26.31064px, 0);
+        }
+
+        .menu-open:checked ~ .menu-item:nth-child(8) {
+            transition-duration: 680ms;
+            -webkit-transition-duration: 680ms;
+            -webkit-transform: translate3d(-45.51506px, -26.17095px, 0);
+            transform: translate3d(-45.51506px, -26.17095px, 0);
+        }
+
+        .menu-open:checked ~ .menu-item:nth-child(9) {
+            transition-duration: 780ms;
+            -webkit-transition-duration: 780ms;
+            -webkit-transform: translate3d(-0.12542px, -52.4997px, 0);
+            transform: translate3d(-0.12542px, -52.4997px, 0);
+        }
+
+        .facebook_share_btn {
+            background-color: #3b5998;
+            box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+        }
+
+        .facebook_share_btn:hover {
+            color: #3b5998;
+            text-shadow: none;
+        }
+
+        .twitter_share_btn {
+            background-color: #00aced;
+            box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+        }
+
+        .twitter_share_btn:hover {
+            color: #00aced;
+            text-shadow: none;
+        }
+
+        .telegram_share_btn {
+            background-color: #2ea6da;
+            box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+        }
+
+        .telegram_share_btn:hover {
+            color: #2ea6da;
+            text-shadow: none;
+        }
+
+        .instagram_share_btn {
+            background-color: #972fbc;
+            box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+        }
+
+        .instagram_share_btn:hover {
+            color: #972fbc;
+            text-shadow: none;
+        }
+
+        .linkedin_share_btn {
+            background-color: #026eaa;
+            box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+        }
+
+        .linkedin_share_btn:hover {
+            color: #026eaa;
+            text-shadow: none;
+        }
+
+        .whatsapp_share_btn {
+            background-color: #41f521;
+            box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.14);
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+        }
+
+        .whatsapp_share_btn:hover {
+            color: #41f521;
+            text-shadow: none;
+        }
+
+        /*redesigner*/
+
+        .redesigner {
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            text-align: center;
+            font-weight: 500;
+            font-size: 20px;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 1.5px;
+        }
+
+        .redesigner a:nth-child(1) {
+            text-decoration: none;
+            transition:all 0.5s;
+        }
+
+        .redesigner a:nth-child(1):hover {
+            text-decoration: none;
+            letter-spacing:5px;
+            transition:all 0.5s;
+        }
+
+        .redesigner a:nth-child(3) {
+            letter-spacing: normal;
+            font-size: 10px;
+            text-decoration: none;
+        }
+
+        .redesigner a:nth-child(3):hover {
+            text-decoration: none;
         }
     </style>
 </head>
@@ -575,7 +840,7 @@
                                     <div class="logo">
                                         <a href="/">
                                             <router-link @click.native="scrollToTop()" to="/home"></router-link>
-                                            <img style="width: 39%" src="site/images/footer/1.png" alt=""></a>
+                                            <img style="width: 39%" src="/site/images/footer/1.png" alt=""></a>
                                     </div>
 
                                 </div>
@@ -598,8 +863,8 @@
                                     <div class="logo">
                                         <a href="/">
                                             <router-link @click.native="scrollToTop()" to="/home"></router-link>
-                                            <img style="width: 105%;
-    margin-top: -9%;" src="site/images/footer/2.png" alt=""></a>
+                                            <img style="width: 80%;margin-top: -2%;" src="/site/images/footer/3.png"
+                                                 alt=""></a>
                                     </div>
 
                                 </div>
@@ -613,7 +878,7 @@
                                     <div class="logo">
                                         <a href="/">
                                             <router-link @click.native="scrollToTop()" to="/home"></router-link>
-                                            <img style="width: 80%" src="/site/images/footer/3.png" alt=""></a>
+                                            <img style="width: 100%" src="/site/images/footer/4.png" alt=""></a>
                                     </div>
 
                                 </div>
@@ -625,7 +890,7 @@
                     <div class="big-column  col-md-3 col-sm-12" style="text-align: center">
                         <div class="footer-column  col-12">
                             <div class="footer-widget links-widget">
-                                <h4> تنزيل التطبيقات</h4>
+                                <footer-download></footer-download>
 
                                 <ul class="links-widget" style="    margin-top: 1px;">
                                     <li>
@@ -660,8 +925,8 @@
                 <div class="col-md-12">
                     <div class="last_footer">
                         <div class="copy_right">
-                            <p style="text-align: center"><a href="#">حقوق النشر والتصميم محفوظة © لاتحاد نساء
-                                    اليمن</a>
+                            <p style="text-align: center">
+                                <footer-app></footer-app>
                             </p>
                         </div>
 
@@ -806,3 +1071,10 @@
 
 </body>
 </html>
+<script>
+    import FooterDownload from "../../js/components/footerDownload";
+
+    export default {
+        components: {FooterDownload}
+    }
+</script>

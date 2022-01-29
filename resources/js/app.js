@@ -15,11 +15,19 @@ Vue.component('search-filed', require('./components/SearchField.vue').default);
 Vue.component('course-questions', require('./components/Question.vue').default);
 Vue.component('toast-stack', require('./components/ToastStack.vue').default);
 Vue.component('vue-header', require('./layout/Header.vue').default);
+Vue.component('footer-download', require('./components/footerDownload.vue').default);
+Vue.component('footer-app', require('./components/footer.vue').default);
 Vue.component('recent-posts', require('./components/RecentPosts.vue').default);
 Vue.component('dropdown', require('./components/dropdown.vue').default);
 Vue.component('ShopCategory', require('./components/ShopCategory.vue').default);
 Vue.component('pagination', require('laravel-vue-pagination'));
 
+import VuePlyr from 'vue-plyr'
+import 'vue-plyr/dist/vue-plyr.css'
+
+Vue.use(VuePlyr, {
+    plyr: {}
+})
 
 Vue.use(store)
 // var api_url = "http://127.0.0.1:8000";

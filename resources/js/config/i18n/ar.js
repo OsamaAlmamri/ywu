@@ -275,4 +275,7 @@ export const locale = {
     foreword_to: " احالة الى   ",
     foreword_to_user: " تم الحالة الى   ",
     notfound: " رجوع للصفحة الرئيسية  ",
+    downloadApps: " تنزيل التطبيقات  ",
+    footer: "     حقوق النشر والتصميم محفوظة © لاتحاد نساء\n" +
+        "        اليمن  ",
 };

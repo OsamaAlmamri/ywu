@@ -44,9 +44,9 @@
 
 
 
-                            @if ((Auth::user()->type=="seller") != true))
+{{--                            @if ((Auth::user()->type=="seller") != true))--}}
                             <li><a href="#" id="open_my_store"> رابط متجري </a></li>
-                            @endif
+{{--                            @endif--}}
 
                             <li><a><i class="fa fa-picture-o"></i> الصور <span
                                         class="fa fa-chevron-down"></span></a>

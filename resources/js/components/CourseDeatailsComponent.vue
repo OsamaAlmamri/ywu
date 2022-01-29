@@ -41,7 +41,7 @@
         <div class="circle-one"></div>
         <div class="auto-container">
             <div class="sec-title">
-                <h2 class="d-flex justify-content-start">{{ training.name }}</h2>
+                <h2 class="d-flex flex-column justify-content-start">{{ training.name }}</h2>
             </div>
 
             <div class="inner-container">
@@ -102,14 +102,14 @@
                                                 <!-- Cource Overview -->
                                                 <div class="course-overview">
                                                     <div class="inner-box">
-                                                        <h3 class="d-flex justify-content-start">
+                                                        <h3 class="d-flex flex-column justify-content-start">
                                                             {{ $t('training.learn') }} </h3>
                                                         <div v-html="training.learn"
-                                                             class="d-flex justify-content-start"></div>
+                                                             class="d-flex flex-column justify-content-start"></div>
 
-                                                        <h3 class="d-flex justify-content-start">
+                                                        <h3 class="d-flex flex-column justify-content-start">
                                                             {{ $t('training.description') }}</h3>
-                                                        <div class="d-flex justify-content-start"
+                                                        <div class="d-flex flex-column justify-content-start"
                                                              v-html="training.description"></div>
 
                                                     </div>
@@ -148,7 +148,7 @@
                                                                 قريبا
                                                             </h3>
                                                             <div v-for="(content,content_key) in title.contents"
-                                                                 class="content">
+                                                                 class="content" style="height: auto;">
                                                                 <div class="clearfix">
                                                                     <div class="pull-right">
                                                                         <!--                                                                        contentCompleted(content,content_key,title_key)-->
@@ -165,19 +165,30 @@
                                                                         <a v-if="content.video_url"
                                                                            :href="content.video_url"
                                                                            class="lightbox-image play-icon">
-                                                                                    <span class="fa fa-play"><i
-                                                                                        class="ripple"></i></span>
+                                                                            <span class="fa fa-play"></span>
                                                                         </a>
 
                                                                         <a v-if="content.sound" :href="content.sound"
+                                                                           href="javascript:void(0)"
                                                                            class="lightbox-image play-icon">
-                                                                                    <span class="fa fa-file-sound-o"><i
-                                                                                        class="ripple"></i></span>
+                                                                            <!-- audio element -->
+                                                                            <vue-plyr>
+                                                                                <audio controls crossorigin playsinline>
+                                                                                    <source
+                                                                                        :src="'https://yemenwe.com/'+content.sound"
+                                                                                        type="audio/mp3"
+                                                                                    />
+<!--                                                                                    <source-->
+<!--                                                                                        src="/path/to/audio.ogg"-->
+<!--                                                                                        type="audio/ogg"-->
+<!--                                                                                    />-->
+                                                                                </audio>
+                                                                            </vue-plyr>
+<!--                                                                            <span class="fa fa-file-sound-o"></span>-->
                                                                         </a>
                                                                         <a v-if="content.book" :href="content.book"
                                                                            class="lightbox-image play-icon">
-                                                                                    <span class="fa fa-file-pdf-o"><i
-                                                                                        class="ripple"></i></span>
+                                                                            <span class="fa fa-file-pdf-o"></span>
                                                                         </a>
                                                                     </div>
                                                                 </div>
@@ -391,7 +402,7 @@
 
                             </span></button>
                             <div>
-                                <h4 class="d-flex justify-content-start"> {{ $t('training.progress') }}</h4>
+                                <h4 class="d-flex flex-column justify-content-start"> {{ $t('training.progress') }}</h4>
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-success"
                                          role="progressbar"
@@ -428,6 +439,7 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import RatingStars2 from "./RatingStars2";
 import LikeButton from "./LikeButton";
 import i18n from "./../plugins/vue-i18n";
+
 export default {
     props: ['items'],
     // components: {question},
@@ -565,7 +577,7 @@ export default {
         registerDecription() {
             if (this.training.is_register == null)
 
-            return i18n.t('training.register');
+                return i18n.t('training.register');
             else if (this.training.is_begin_training == false)
                 return i18n.t('training.begin_training');
 

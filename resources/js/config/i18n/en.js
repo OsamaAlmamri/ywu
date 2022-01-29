@@ -262,5 +262,7 @@ export const locale = {
     foreword_to: "  foreword to   ",
     foreword_to_user: " foreword to user   ",
     notfound: " Back to the main page ",
+    downloadApps: " download Apps ",
+    footer: " All Right Recived © for Yemen Women Union ",
 
 };
