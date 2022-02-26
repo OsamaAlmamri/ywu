@@ -29,16 +29,16 @@
 
                         <div v-if="is_search==false" class="our-courses" v-for="section in sections">
                             <!-- Options View -->
-                            <div class="options-view p-2 text-primary" >
+                            <div v-if="section.trainings.length>0" class="options-view p-2 text-primary" >
                                 <div class="clearfix" v-if="section.trainings.length>0">
                                     <div class="d-flex justify-content-start">
                                         <h4>
-                                            {{ (oneLang('ar', 'en'), section.name, section.name_en) }}
+                                            {{ oneLang( section.name, section.name_en) }}
                                         </h4>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row clearfix">
+                            <div v-if="section.trainings.length>0" class="row clearfix">
                                 <div class=" col-xs-12 col-md-6 mb-3"
                                      v-for="training in section.trainings">
                                     <!--                                    <course-gide-item-->

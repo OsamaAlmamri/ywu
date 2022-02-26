@@ -80,7 +80,7 @@ export default {
             body.setAttribute("direction", dir);
             document.cookie = "style_lang=" + lang + "; path=/";
             // const refreach_pages = [];
-            const refreach_pages = ["women", "courses"];
+            const refreach_pages = ["women", "courses222"];
             if (refreach_pages.includes(router.currentRoute.name))
                 window.location.reload();
         },

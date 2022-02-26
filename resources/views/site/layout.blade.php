@@ -768,6 +768,17 @@
         .redesigner a:nth-child(3):hover {
             text-decoration: none;
         }
+
+        .main-header .header-top .login-nav li:nth-child(2) a {
+
+            padding: 0;
+            background: unset;
+            color: #03382e;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+
+        }
     </style>
 </head>
 

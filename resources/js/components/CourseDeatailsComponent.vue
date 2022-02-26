@@ -102,15 +102,15 @@
                                                 <!-- Cource Overview -->
                                                 <div class="course-overview">
                                                     <div class="inner-box">
-                                                        <h3 class="d-flex flex-column justify-content-start">
-                                                            {{ $t('training.learn') }} </h3>
-                                                        <div v-html="training.learn"
-                                                             class="d-flex flex-column justify-content-start"></div>
 
                                                         <h3 class="d-flex flex-column justify-content-start">
                                                             {{ $t('training.description') }}</h3>
                                                         <div class="d-flex flex-column justify-content-start"
                                                              v-html="training.description"></div>
+                                                        <h3 class="d-flex flex-column justify-content-start">
+                                                            {{ $t('training.learn') }} </h3>
+                                                        <div v-html="training.learn"
+                                                             class="d-flex flex-column justify-content-start"></div>
 
                                                     </div>
                                                 </div>
@@ -176,7 +176,7 @@
                                                                             <!--                                                                            <vue-plyr>-->
                                                                             <!--                                                                                <audio controls crossorigin playsinline>-->
                                                                             <!--                                                                                    <source-->
-                                                                            <!--                                                                                        :src="'http://127.0.0.1:8000/'+content.sound"-->
+                                                                            <!--                                                                                        :src="'https://yemenwe.com/'+content.sound"-->
                                                                             <!--                                                                                        type="audio/mp3"-->
                                                                             <!--                                                                                    />-->
                                                                             <!--&lt;!&ndash;                                                                                    <source&ndash;&gt;-->
@@ -895,7 +895,7 @@ export default {
         },
 
         play(url, type) {
-            this.active_player = 'http://127.0.0.1:8000/' + url
+            this.active_player = 'https://yemenwe.com/' + url
             this.active_player_type = type
             if (type == 'audio')
                 this.$refs.plyr.player.source = {

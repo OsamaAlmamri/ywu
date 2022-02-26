@@ -152,7 +152,7 @@ export const locale = {
         titles: 'العناوين',
         overview: '  نظرة عامة',
         learn: '   ماذا سوف تتعلم ',
-        description: '  متطلبات الدورة التدريبية  ',
+        description: '  وصف الدورة التدريبية  ',
         your_result: '  نتيجتك بهذا المادة التدريبية هي   ',
         questions: {
             test: " اختبار الدورة ",

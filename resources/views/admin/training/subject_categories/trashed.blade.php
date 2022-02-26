@@ -12,7 +12,6 @@
                     <tr>
                         <th width="20%">اسم المادة عربي </th>
                         <th width="20%"> اسم المادة EN</th>
-                        <th width="15%">القسم</th>
                         <th width="10%">تاريخ النشر</th>
                         <th width="15%">العمليات</th>
                     </tr>
@@ -78,10 +77,7 @@
                         data: 'name_en',
                         name: 'name_en'
                     },
-                    {
-                        data: 'category',
-                        name:'category',
-                    },
+
                     {
                         data: 'published',
                     },

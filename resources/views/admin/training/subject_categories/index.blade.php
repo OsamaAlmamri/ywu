@@ -17,7 +17,6 @@
                     <tr>
                         <th width="20%">اسم المادة عربي </th>
                         <th width="20%"> اسم المادة EN</th>
-                        <th width="15%">القسم</th>
                         <th width="10%">تاريخ النشر</th>
                         <th width="15%">العمليات</th>
                     </tr>
@@ -40,18 +39,7 @@
                     <span id="form_result"></span>
                     <form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
                         @csrf
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">القسم :</label>
-                            <div class="col-sm-8">
-                                <select class="form-control" id="category" name="category">
-                                    @if($categories->count())
-                                        @foreach ($categories as $category)
-                                            <option id="C_name" value="{{$category->id}}">{{$category->name}}</option>
-                                        @endforeach
-                                    @endif
-                                </select>
-                            </div>
-                        </div>
+
                         <div class="form-group">
                             <label class="control-label col-md-4">اسم المادة : </label>
                             <div class="col-md-8">
@@ -115,10 +103,7 @@
                         data: 'name_en',
                         name: 'name_en'
                     },
-                    {
-                        data: 'category',
-                        name: 'category',
-                    },
+
                     {
                         data: 'published',
                     },

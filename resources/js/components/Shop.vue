@@ -13,15 +13,16 @@
         </loading>
         <shop-category :lang="oneLang('ar','en')"></shop-category>
         <div>
-            <p class="d-flex justify-content-start mx-2 d-md-none">
-                <a class="btn btn-primary" data-toggle="collapse" href="#sidebar"
+            <p class="d-flex justify-content-start mx-2 mt-md-5">
+                <a class="btn btn-primary" @click="filterOpen=!filterOpen" data-toggle="collapse" href="#sidebar"
                    role="button" aria-expanded="true" aria-controls="sidebar">
                     {{ $t('filter') }}
                 </a>
             </p>
 
             <div class="row">
-                <div class="col-md-3 primary-sidebar sidebar-sticky sidebar pr-lg-8 d-md-block mt-5"
+                <div class=" primary-sidebar sidebar-sticky sidebar pr-lg-8"
+                     :class="[{'col-md-3 d-md-block':filterOpen},{' d-none':!filterOpen}]"
                      style=""
                      id="sidebar">
 
@@ -154,14 +155,16 @@
 
                     </div>
                 </div>
-                <div class="col-md-9">
+                <div
+                     :class="[{'col-md-9':filterOpen},{' col-12':!filterOpen}]"
+                >
 
                     <!--                    <div class="auto-container">-->
                     <div class="row clearfix">
                         <div v-if="!search_result.data" class="content-side col-lg-12 col-md-12 col-sm-12">
                             <div v-if="!search_result.data" class="our-courses" v-for="section in sections">
                                 <!-- Options View -->
-                                <div class="options-view">
+                                <div class="">
                                     <div class="clearfix" v-if="section.products.length>0">
                                         <div class="d-flex justify-content-start mx-5">
                                             <h3> {{ oneLang(section.name_ar, section.name_en) }}</h3>
@@ -247,6 +250,7 @@ export default {
 
     data() {
         return {
+            filterOpen: false,
             seller_info: null,
             search: {
                 search: '',

@@ -125,16 +125,17 @@
                                 <li><a href="{{route('training-trashed')}}">سلة المحذوفات</a></li>
                             </ul>
                         </li>
+
+                        <li><a><i class="fa fa-book"></i> المواد التدريبية <span
+                                    class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="{{route('subject')}}">عرض وادارة المواد التدريبية</a></li>
+                                <li><a href="{{route('subject-trashed')}}">سلة المحذوفات</a></li>
+                            </ul>
+                        </li>
+
+
                     @endif
-
-                    {{--                                        <li><a><i class="fa fa-book"></i> المواد التدريبية <span--}}
-                    {{--                                                    class="fa fa-chevron-down"></span></a>--}}
-                    {{--                                            <ul class="nav child_menu">--}}
-                    {{--                                                <li><a href="{{route('subject')}}">عرض وادارة المواد التدريبية</a></li>--}}
-                    {{--                                                <li><a href="{{route('subject-trashed')}}">سلة المحذوفات</a></li>--}}
-                    {{--                                            </ul>--}}
-                    {{--                                        </li>--}}
-
 
 
                     @if ((Auth::user()->can('show consultant') == true))

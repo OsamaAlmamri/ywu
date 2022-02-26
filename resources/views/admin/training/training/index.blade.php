@@ -141,9 +141,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-12">المتطابات : </label>
+                            <label class="control-label col-md-12">ماذا سوف تتعلم : </label>
                             <div class="col-md-12">
-                                <textarea name="learn" id="learn" class="description"> </textarea>
+                                <textarea name="learn" id="learn" class="learn"> </textarea>
                             </div>
 
 
@@ -184,6 +184,8 @@
                     <div id="show_end_at"></div>
                     <br>
                     <div id="show_title"></div>
+                    <div id="show_description"></div>
+                    <div id="show_learn"></div>
                     <div>
                         <a id="title" href="" class="btn btn-info btn-sm" style="float: right">
                             عرض عناوين الدورة
@@ -436,6 +438,8 @@
                         $('#show_name').html("<h4>عنوان الدورة: <b>" + html.data.name + "</b></h4>");
                         $('#show_category_id').html("اسم المادة: <b>" + html.data.category.name + "</b>");
                         $('#show_type').html("نوع الدورة : <b>" + html.data.type + "</b>");
+                        $('#show_learn').html("<b> ماذا سوف تتعلم : " + html.data.body + "</b>");
+                        $('#show_description').html("<b> الوصف : " + html.data.body + "</b>");
 
                         if (html.data.mark != null) {
                             $('#show_mark').html("علامة : <b>" + html.data.mark + "</b>");

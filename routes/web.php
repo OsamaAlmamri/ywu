@@ -221,15 +221,26 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
         Route::get('force-delete/{id}', 'WomenController@force');
 
 #################################################### Subjects
-        Route::get('subject/edit/{id}', 'SubjectController@edit');
-        Route::post('subject/store', 'SubjectController@store')->name('subject.store');
-        Route::post('subject/update', 'SubjectController@update')->name('subject.update');
-        Route::get('subject/destroy/{id}', 'SubjectController@destroy');
-        Route::get('subjectShow', 'SubjectController@index')->name('subject');
-        Route::get('subject-trashed', 'SubjectController@index_trashed')->name('subject-trashed');
-        Route::get('subject/edit-trashed/{id}', 'SubjectController@edit_trashed');
-        Route::get('restore-subject/{id}', 'SubjectController@restore_post');
-        Route::get('force-subject/{id}', 'SubjectController@force');
+//        Route::get('subject/edit/{id}', 'SubjectController@edit');
+//        Route::post('subject/store', 'SubjectController@store')->name('subject.store');
+//        Route::post('subject/update', 'SubjectController@update')->name('subject.update');
+//        Route::get('subject/destroy/{id}', 'SubjectController@destroy');
+//        Route::get('subjectShow', 'SubjectController@index')->name('subject');
+//        Route::get('subject-trashed', 'SubjectController@index_trashed')->name('subject-trashed');
+//        Route::get('subject/edit-trashed/{id}', 'SubjectController@edit_trashed');
+//        Route::get('restore-subject/{id}', 'SubjectController@restore_post');
+//        Route::get('force-subject/{id}', 'SubjectController@force');
+
+#################################################### Subjects
+        Route::get('subject/edit/{id}', 'SubjectCategoriesController@edit');
+        Route::post('subject/store', 'SubjectCategoriesController@store')->name('subject.store');
+        Route::post('subject/update', 'SubjectCategoriesController@update')->name('subject.update');
+        Route::get('subject/destroy/{id}', 'SubjectCategoriesController@destroy');
+        Route::get('subjectShow', 'SubjectCategoriesController@index')->name('subject');
+        Route::get('subject-trashed', 'SubjectCategoriesController@index_trashed')->name('subject-trashed');
+        Route::get('subject/edit-trashed/{id}', 'SubjectCategoriesController@edit_trashed');
+        Route::get('restore-subject/{id}', 'SubjectCategoriesController@restore_post');
+        Route::get('force-subject/{id}', 'SubjectCategoriesController@force');
 
 #################################################### Trainings
         Route::get('training/show/{id}', 'TrainingController@show');
