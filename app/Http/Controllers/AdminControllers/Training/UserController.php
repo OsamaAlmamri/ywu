@@ -8,6 +8,8 @@ use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 
 class UserController extends Controller
@@ -34,7 +36,8 @@ class UserController extends Controller
 
         if (request()->ajax()) {
             if (request()->id == 0)
-                $post = User::whereIn('type', ['visitor', 'customers'])->orderBy('id', 'desc')->get();
+                $post = User::where('type', '>', 1)->orderBy('id', 'desc')->get();
+//                $post = User::whereIn('type', ['visitor', 'customers'])->orderBy('id', 'desc')->get();
             else {
                 $post = User::where('id', request()->id)->get();
 
@@ -42,11 +45,13 @@ class UserController extends Controller
 //          return  $post;
             return datatables()->of($post)
                 ->addIndexColumn()
-                ->addColumn('action', function ($data) {
-                    $button = '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"style="float: right">توقيف الحساب</button>';
-                    return $button;
-                })
-                ->rawColumns(['action'])
+                ->addColumn('action', 'admin.training.user.btn.action')
+//                ->addColumn('action', function ($data) {
+//                    $button = '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm"style="float: right">توقيف الحساب</button>';
+//                    return $button;
+//                })
+                ->addColumn('btn_status', 'admin.dashboard.admins.btn.status')
+                ->rawColumns(['action','btn_status'])
                 ->make(true);
         }
         $admin = User::where('id', 1)->first();
@@ -70,6 +75,25 @@ class UserController extends Controller
         if ($data) {
             $data->delete();
         }
+    }
+
+    public function update(Request $request)
+    {
+
+        $user = User::find($request->hidden_id);
+
+        if ($request->password != '') {
+            $user->update([
+                'password' => Hash::make($request->password)
+            ]);
+
+        }
+        if ($user) {
+            return response()->json(['success' => 'تم التعديل بنجاح']);
+        } else {
+            return response()->json(['success' => 'فشل التعديل']);
+        }
+
     }
 
 ################################################################### deleted posts

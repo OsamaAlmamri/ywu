@@ -182,6 +182,7 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
     Route::group(['middleware' => ('auth:admin'), 'namespace' => 'Training'], function () {
         Route::get('user/destroy/{id}', 'UserController@destroy');
         Route::get('userShow/{id?}', 'UserController@index')->name('user');
+        Route::post('users/update', 'UserController@update')->name('users.update');
         Route::get('userShowId/{id}', 'UserController@index');
         Route::get('user-trashed', 'UserController@index_trashed')->name('user-trashed');
         Route::get('trashedShow/{id}', 'UserController@index_trashed');

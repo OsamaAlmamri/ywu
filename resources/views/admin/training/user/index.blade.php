@@ -23,10 +23,59 @@
             </div>
         </div>
     </div>
+    <div id="formModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"> إنشاء حساب مدير جديد</h4>
+                </div>
+                <div class="modal-body">
+                    <span id="form_result"></span>
+                    <form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">اسم المدير :</label>
+                            <div class="col-sm-8">
+                                <input type="text" readonly name="name" id="name" class="form-control"/>
+                            </div>
+                        </div>
 
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">الايميل : </label>
+                            <div class="col-sm-8">
+                                <input type="text" readonly name="email" id="email" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">رقم الهاتف : </label>
+                            <div class="col-sm-8">
+                                <input type="number" readonly name="phone" id="phone" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">كلمة المرور : </label>
+                            <div class="col-sm-8">
+                                <input type="text" name="password" id="password" class="form-control"/>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="form-group" align="center">
+                            <input type="hidden" name="action" id="action"/>
+                            <input type="hidden" name="hidden_id" id="hidden_id"/>
+                            <input type="submit" name="action_button" id="action_button" class="btn btn-warning"
+                                   value="نشر"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('custom_js')
+    @include('adminpanel.active')
     <script>
+        Active('{{route('admin.admins.active')}}');
         $(document).ready(function () {
 
             $('#user_table').DataTable({
@@ -90,10 +139,11 @@
 
                     {
                         title: 'حالة الحساب',
-                        data: 'status',
-                        name: 'status'
+                        data: 'btn_status',
+                        name: 'btn_status'
                     },
                         @endif
+
                     {
                         title: 'تاريخ إنشاء الحساب',
                         data: 'published',
@@ -109,6 +159,64 @@
                     },
                     @endif
                 ]
+            });
+
+            $(document).on('click', '.edit', function () {
+                var id = $(this).attr('id');
+                $('#form_result').html('');
+
+                $.ajax({
+                    url: "{{URL::to('')}}/admin/admins/edit/" + id + "",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (html) {
+                        $('#name').val(html.data.name);
+                        $('#email').val(html.data.email);
+                        // $('#password').hide();
+                        $('#phone').val(html.data.phone);
+                        $('#status').val(html.data.status);
+                        $('#role').val(html.role);
+                        $('#hidden_id').val(html.data.id);
+                        $('.modal-title').text("تعديل بيانات الحساب");
+                        $('#action_button').val("تعديل");
+                        $('#action').val("Edit");
+                        $('#formModal').modal('show');
+                    }
+                })
+            });
+
+            $('#sample_form').on('submit', function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: "{{ route('users.update') }}",
+                    method: "POST",
+                    data: new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (data) {
+                        var html = '';
+
+                        if (data.errors) {
+                            html = '<div class="alert alert-danger">';
+                            for (var count = 0; count < data.errors.length; count++) {
+                                html += '<p>' + data.errors[count] + '</p>';
+                            }
+                            html += '</div>';
+                        }
+                        if (data.success) {
+                            $('#formModal').modal('hide');
+
+                            html = '<div class="alert alert-success">' + data.success + '</div>';
+                            $('#sample_form')[0].reset();
+                            $('#store_image').html('');
+                            $('#user_table').DataTable().ajax.reload();
+                        }
+                        $('#form_result').html(html);
+                    }
+                });
+
             });
 
             var user_id;
