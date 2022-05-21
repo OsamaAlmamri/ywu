@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CartController extends Controller
 {
@@ -30,7 +31,7 @@ class CartController extends Controller
     protected $other;
     use JsonTrait;
     use PostTrait;
-
+    protected $user;
     public function __construct(FireBaseController $firbaseContoller)
     {
         $this->firbaseContoller = $firbaseContoller;
@@ -110,6 +111,7 @@ class CartController extends Controller
     public function apply_coupon(Request $request, $check = 1, $co = 0)
     {
         try {
+            $this->user = JWTAuth::parseToken()->authenticate();
             $coupon_code = ($check == 1) ? $request->coupon : $co;
             $c = Coupon::where('coupon', $coupon_code)->get()->last();
             $c2 = Coupon::where('user_id', \auth()->id())
@@ -125,7 +127,7 @@ class CartController extends Controller
             elseif ($c->used == 1 or $c->ended == 1)
                 return $this->ReturnErorrRespons('0000', "الكوبون مستخدم من قبل او منتهي الصلاحية");
             elseif ($c->user_id != null and $c->user_id != \auth()->id())
-                return $this->ReturnErorrRespons('0000', "هذا الكوبون مطبق من قبل احد العملاء");
+                return $this->ReturnErorrRespons($this->user , "هذا الكوبون مطبق من قبل احد العملاء");
             elseif ($c->user_id == \auth()->id() and $check == 1)
                 return $this->ReturnErorrRespons('0000', "انت مستخدم هذا الكويون بالفعل");
             else {

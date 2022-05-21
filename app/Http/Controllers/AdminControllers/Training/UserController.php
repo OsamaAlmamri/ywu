@@ -36,7 +36,7 @@ class UserController extends Controller
 
         if (request()->ajax()) {
             if (request()->id == 0)
-                $post = User::where('type', '>', 1)->orderBy('id', 'desc')->get();
+                $post = User::where('type', '!=', 'admin')->orderBy('id', 'desc')->get();
 //                $post = User::whereIn('type', ['visitor', 'customers'])->orderBy('id', 'desc')->get();
             else {
                 $post = User::where('id', request()->id)->get();
@@ -108,9 +108,9 @@ class UserController extends Controller
         if (request()->ajax()) {
             $post = User::onlyTrashed()->get();
             if (request()->id == 0)
-                $post = User::onlyTrashed()->where('type', 'visitor')->get();
+                $post = User::onlyTrashed()->get();
             else {
-                $post = User::onlyTrashed()->where('type', 'visitor')->where('id', request()->id)->get();
+                $post = User::onlyTrashed()->where('id', request()->id)->get();
 
             }
 

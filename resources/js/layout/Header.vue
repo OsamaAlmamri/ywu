@@ -218,7 +218,7 @@
                                         </router-link>
                                     </li>
                                     <li :class="[{'current':currentMenu=='ForwordConsultant'}]"
-                                        v-if="isLoggedIn && authUser.permissions.foreword_consultant==1">
+                                        v-if="isLoggedIn && authUser['permissions']!== undefined && authUser.permissions.foreword_consultant==1">
                                         <router-link @click.native="scrollToTop()" to="/forwordConsultant">
                                             {{ $t('MENU.forwordConsultant') }}
 

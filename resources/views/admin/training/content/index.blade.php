@@ -340,10 +340,11 @@
                     success: function (html) {
                         $('#title').val(html.data.title);
                         console.log(html.data.body);
-                        $('#description_body').html(html.data.body);
+                        // $('#description_body').html(html.data.body);
+                        $('#body').html(html.data.body);
 
                         tinyMCE.activeEditor.setContent(html.data.body);
-                        $('#video').val(html.data.video);
+                        $('#video').val(html.data.video_url);
                         $('#title_id').val(html.data.title_id);
                         $('#store_image').html("<img src={{ URL::to('/') }}/assets/images/" + html.data.image + " width='70' class='img-thumbnail' />");
                         $('#store_image').append("<input type='hidden' name='hidden_image' value='" + html.data.image + "' />");

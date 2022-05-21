@@ -29,7 +29,7 @@ use Spatie\Permission\Models\Role;
 
 class OrdersController extends Controller
 
-{
+{    protected $user;
     use JsonTrait;
 
     public function __construct(FireBaseController $firbaseContoller)
@@ -110,7 +110,7 @@ class OrdersController extends Controller
             $message = '  تم الغاء  الطلب رقم  ' . $order_seller->id . '  من قبل متجر   ' . $order_seller->seller_name;
         } else
             $message = '  تم تغيير حالة الطلب رقم  ' . $order_seller->id . '  من قبل متجر   ' . $order_seller->seller_name;
-        $time = OrderTiming::create(['order_seller_id' => auth()->id(),
+        $time = OrderTiming::create(['order_seller_id' => $order_seller->id,
             'status' => 'new',
             'description' => $message,
             'type' => 'order_status'

@@ -2,124 +2,56 @@
 @section('card_header')
     <div class="card-header">
         <br/>
-        <h3 align="right"> الكوبونات </h3>
-        <br/>
-        <div class="card-body">
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #265a88;">
-                <div class="card">
-                    <div class="card-block">
-                <span class="count_top" style="font-weight: bold"><i class="fa fa-question-circle"
-                                                                     style="font-size: 20px"></i> عدد  الكوبونات  </span>
-                        <div class="count">{{$count_all}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #6B6464;">
-                <div class="card">
-                    <div class="card-block">
-                <span class="count_top" style="font-weight: bold"><i class="fa fa-id-card"
-                                                                     style="font-size: 20px"></i>   المستخدمة </span>
-                        <div class="count">{{$count_used}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #82ad2b;">
-                <div class="card">
-                    <div class="card-block">
-                <span class="count_top" style="font-weight: bold"><i class="fa fa-check-circle"
-                                                                     style="font-size: 20px"></i>  الصالحة للاستخدام </span>
-                        <div class="count">{{$count_unend}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #dd0066;">
-                <div class="card">
-                    <div class="card-block">
-                        <span class="count_top" style="font-weight: bold"><i class="fa fa-close"
-                                                                             style="font-size: 20px"></i> عدد المنتهية وغير المستخدمة </span>
-                        <div class="count">{{$count_end}}</div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #265a88;">
-                <div class="card">
-                    <div class="card-block">
-                <span class="count_top" style="font-weight: bold"><i class="fa fa-question-circle"
-                                                                     style="font-size: 20px"></i> مبلغ  الكوبونات  </span>
-                        <div class="count">{{$sum_all}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #6B6464;">
-                <div class="card">
-                    <div class="card-block">
-                <span class="count_top" style="font-weight: bold"><i class="fa fa-id-card"
-                                                                     style="font-size: 20px"></i> مبلغ  المستخدمة </span>
-                        <div class="count">{{$sum_used}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #82ad2b;">
-                <div class="card">
-                    <div class="card-block">
-                <span class="count_top" style="font-weight: bold"><i class="fa fa-check-circle"
-                                                                     style="font-size: 20px"></i> مبلغ الصالحة للاستخدام </span>
-                        <div class="count">{{$sum_unend}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #dd0066;">
-                <div class="card">
-                    <div class="card-block">
-                        <span class="count_top" style="font-weight: bold"><i class="fa fa-close"
-                                                                             style="font-size: 20px"></i> مبلغ المنتهية وغير مستخدمة </span>
-                        <div class="count">{{$sum_end}}</div>
-                    </div>
-                </div>
-            </div>
+        <div id="statistics_data">
 
-
-            <style>
-                .input-group[class*=col-] {
-                    margin: 10px;
-                    float: right;;
-                }
-            </style>
-            <div class="card-body">
-                <div class="row">
-                    <div class="input-group col-sm-3">
-                        <span class="input-group-addon"> المحافظة </span>
-                        <?php $getGovernorate = getCities(); $getGovernorate['all'] = 'all'; ?>
-                        {!!Form ::select('gov_id', array_reverse($getGovernorate,true),'',['class' => 'select2 form-control', 'id' => 'gov_id'])!!}
-                    </div>
-                    <div class="input-group col-sm-3">
-                        <span class="input-group-addon"> البائع </span>
-                        <select name="filter_seller" id="filter_seller" class="form-control" required>
-                            <option value="all">الكل</option>
-                            @foreach(sellers() as $c)
-                                <option value="{{ $c->admin_id }}">{{ $c->sale_name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="input-group col-sm-3">
-                        <span class="input-group-addon">استخدام الكوبون</span>
-                        {!!Form ::select('status', CouponUsedStatus(),'',['class' => 'select2 form-control', 'id' => 'coupon_used'])!!}
-                    </div>
-
-                    <div class="input-group col-sm-3">
-                        <span class="input-group-addon">صلاحية الكوبون</span>
-                        {!!Form ::select('payment', CouponEndStatus('all'),'',['class' => 'select2 form-control', 'id' => 'filter_coupon_end'])!!}
-                    </div>
-                    <div class="input-group col-sm-2">
-                        <button type="button" name="filter" id="filter"
-                                class="btn btn-primary btn-ms waves-effect waves-light">فرز<i
-                                    class="fa fa-filter"></i></button>
-                    </div>
-                </div>
-
-            </div>
         </div>
+
+        <div class="card-body">
+            <div class="row">
+                <div class="input-group col-sm-3">
+                    <span class="input-group-addon"> المحافظة </span>
+                    <?php $getGovernorate = getCities(); $getGovernorate['all'] = 'all'; ?>
+                    {!!Form ::select('gov_id', array_reverse($getGovernorate,true),'',['class' => 'select2 form-control', 'id' => 'gov_id'])!!}
+                </div>
+                <div class="input-group col-sm-3">
+                    <span class="input-group-addon"> البائع </span>
+                    <select name="filter_seller" id="filter_seller" class="form-control" required>
+                        <option value="all">الكل</option>
+                        @foreach(sellers() as $c)
+                            <option value="{{ $c->admin_id }}">{{ $c->sale_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="input-group col-sm-3">
+                    <span class="input-group-addon">استخدام الكوبون</span>
+                    {!!Form ::select('status', CouponUsedStatus(),'',['class' => 'select2 form-control', 'id' => 'coupon_used'])!!}
+                </div>
+
+                <div class="input-group col-sm-3">
+                    <span class="input-group-addon">صلاحية الكوبون</span>
+                    {!!Form ::select('payment', CouponEndStatus('all'),'',['class' => 'select2 form-control', 'id' => 'filter_coupon_end'])!!}
+                </div>
+
+                <div class="input-group col-sm-3">
+                    <span class="input-group-addon"> السنة </span>
+                    <select name="filter_seller" id="filter_year" class="form-control" required>
+                        <option value="all">الكل</option>
+                        @foreach($years as $y)
+                            <option value="{{ $y }}"
+                                    @if($year!='all' and $y==$year) selected @endif >{{ $y }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="input-group col-sm-2">
+                    <button type="button" name="filter" id="filter"
+                            class="btn btn-primary btn-ms waves-effect waves-light">فرز<i
+                            class="fa fa-filter"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     </div>
 @endsection
@@ -138,9 +70,23 @@
                         @csrf
 
                         <div class="form-group">
+                            <label class="control-label col-md-4"> المستخدم : </label>
+                            <div class="col-md-8">
+                                <select name="user_id" id="user_id" class="form-control" required>
+                                    <option value="all"> عشوائي</option>
+                                    @foreach($users as $c)
+                                        <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <span class="print-error-msg alert-danger" id="modal_error_user_id"></span>
+
+                        </div>
+
+                        <div class="form-group">
                             <label class="control-label col-md-4"> عدد الكوبونات : </label>
                             <div class="col-md-8">
-                                <input type="number" min="1" name="number" id="number" class="form-control"/>
+                                <input type="number" min="1" name="number" id="number" value="1" class="form-control"/>
                             </div>
                             <span class="print-error-msg alert-danger" id="modal_error_number"></span>
 
@@ -337,7 +283,9 @@
             $(document).on('click', '#filter', function () {
                 $('#user_table').DataTable().destroy();
                 fill_datatable();
+                get_sta()
             });
+            get_sta();
             fill_datatable();
 
             function fill_datatable() {
@@ -394,6 +342,7 @@
                         data: {
                             gov_id: $('#gov_id').val(),
                             seller_id: $('#filter_seller').val(),
+                            year: $('#filter_year').val(),
                             coupon_used: $('#coupon_used').val(),
                             coupon_end: $('#filter_coupon_end').val(),
                         }
@@ -550,8 +499,23 @@
                         $('#formModal').modal('show');
                     }
                 })
+
             })
 
+            function get_sta() {
+                let year = $('#filter_year').val();
+                $.ajax({
+                    url: "{{URL::to('')}}/admin/shop/coupons/sta/" + year + "",
+                    type: "GET",
+                    success: function (html) {
+                        console.log(html)
+                        console.log("html")
+                        console.log(html)
+                        $('#statistics_data').html(html);
+
+                    }
+                })
+            }
 
             var user_id;
 

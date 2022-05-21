@@ -14,6 +14,7 @@ use App\Seller;
 use App\Traits\JsonTrait;
 use App\Traits\PostTrait;
 use App\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -38,9 +39,13 @@ class CouponsController extends Controller
     }
 
 
-    public function index()
+    public function index($year = "")
     {
+        $year = ($year == "") ? date("Y") : $year;
         if (request()->ajax()) {
+
+            $year = request()->year;
+
 //coupon_used: all
 //coupon_end: all
             $has_gov_id = false;
@@ -59,7 +64,7 @@ class CouponsController extends Controller
 
             if (isset($request->coupon_end) and ($request->coupon_end) != "all")
                 $has_coupon_end = true;
-            $data = Coupon::leftJoin('order_sellers', 'order_sellers.id', '=', 'coupons.order_id')
+            $data = Coupon::ofYear($year)->leftJoin('order_sellers', 'order_sellers.id', '=', 'coupons.order_id')
                 ->leftJoin('orders', 'orders.id', '=', 'order_sellers.order_id')
                 ->leftJoin('users', 'users.id', '=', 'coupons.user_id')
                 ->leftJoin('zones as govs', 'orders.gov_id', '=', 'govs.id')
@@ -114,25 +119,53 @@ class CouponsController extends Controller
             }
         }
 
-        $sum_all = Coupon::all()->sum('amount');
-        $sum_used = Coupon::all()->where('used', '1')->sum('amount');
-        $sum_unend = Coupon::all()->where('used', '0')->where('ended', 0)->sum('amount');
-        $sum_end = Coupon::all()->where('used', '0')->where('ended', 1)->sum('amount');
 
-        $count_all = Coupon::all()->count();
-        $count_used = Coupon::all()->where('used', '1')->count();
-        $count_unend = Coupon::all()->where('used', '0')->where('ended', 0)->count();
-        $count_end = Coupon::all()->where('used', '0')->where('ended', 1)->count();
+        $result = Coupon::select(DB::raw('YEAR(created_at) as year'))->distinct()->get();
+
+        $users = User::whereNotIn('type', ['customers', 'share_users', 'seller'])
+            ->orderBy("id", "DESC")
+            ->get(['id', 'name']);
+        $years = $result->pluck('year');
 
 
-        return view('admin.shop.coupons.show', compact(['sum_all', 'sum_end', 'sum_unend', 'sum_used',
-            'count_all', 'count_end', 'count_unend', 'count_used']));
+        return view('admin.shop.coupons.show', compact(['years', 'year', 'users']));
     }
 
-    public function statistics()
 
+    public function sta($year = "")
     {
+        $sum_all = Coupon::ofYear($year)->sum('amount');
+        $sum_used = Coupon::ofYear($year)->where('used', '1')->sum('amount');
+        $sum_unend = Coupon::ofYear($year)->where('used', '0')->where('end_date', '>', date('Y-m-d'))->sum('amount');
+        $sum_end = Coupon::ofYear($year)->where('used', '0')
+            ->where('end_date', '<', date('Y-m-d'))
+//            ->where('ended', 1)
+            ->sum('amount');
+
+        $count_all = Coupon::ofYear($year)->count();
+        $count_used = Coupon::ofYear($year)->where('used', '1')->count();
+        $count_unend = Coupon::ofYear($year)->where('used', '0')
+//            ->where('ended', 0)
+            ->where('end_date', '>', date('Y-m-d'))
+            ->count();
+        $count_end = Coupon::ofYear($year)->where('used', '0')
+//            ->where('ended', 1)
+            ->where('end_date', '<', date('Y-m-d'))
+            ->count();
+        return view('admin.shop.coupons.sta', compact(['sum_all', 'sum_end', 'sum_unend', 'sum_used',
+            'count_all', 'count_end', 'count_unend', 'count_used', 'year']))->render();
+    }
+
+    public function statistics($year = "")
+    {
+        $year = ($year == "") ? date("Y") : $year;
         if (request()->ajax()) {
+
+            $year = request()->year;
+
+            $year_con = ($year == 'all') ? "" : "  coupons.end_date=$year and ";
+
+
             $data = User::leftJoin('sellers', 'users.id', '=', 'sellers.admin_id')
                 ->leftJoin('zones as govs', 'sellers.gov_id', '=', 'govs.id')
                 ->whereIn('users.id', function ($q) {
@@ -146,14 +179,17 @@ class CouponsController extends Controller
                     DB::raw("(SELECT count(coupons.id) FROM coupons
                                    INNER JOIN order_sellers ON order_sellers.id=coupons.order_id
                                    WHERE
+
                                    order_sellers.seller_id=users.id and coupons.used=1 and
+                                   $year_con
                                    order_sellers.status not like 'cancel_by_seller' and
                                    order_sellers.status  not like 'cancel_by_user'
                                    ) as count_all_coupons"),
-                    DB::raw("(SELECT sum(coupons.amount) FROM coupons
+                    DB::raw("(SELECT COALESCE(sum(coupons.amount),0) FROM coupons
                                    INNER JOIN order_sellers ON order_sellers.id=coupons.order_id
                                    WHERE
                                    order_sellers.seller_id=users.id and coupons.used=1 and
+                                   $year_con
                                    order_sellers.status not like 'cancel_by_seller' and
                                    order_sellers.status  not like 'cancel_by_user'
                                    ) as sum_all_coupons"),
@@ -162,16 +198,22 @@ class CouponsController extends Controller
                                    INNER JOIN order_sellers ON order_sellers.id=coupons.order_id
                                    WHERE
                                    order_sellers.seller_id=users.id and coupons.used=1 and
+                                   $year_con
                                    order_sellers.status  like 'delivery'
                                    ) as count_delivery_coupons"),
-                    DB::raw("(SELECT sum(coupons.amount) FROM coupons
+                    DB::raw("(SELECT COALESCE(sum(coupons.amount),0) FROM coupons
                                    INNER JOIN order_sellers ON order_sellers.id=coupons.order_id
                                    WHERE
                                    order_sellers.seller_id=users.id and coupons.used=1 and
+                                   $year_con
                                    order_sellers.status   like 'delivery'
                                    ) as  sum_delivery_coupons"),
-                ])
-                ->get();
+                ]);
+            if (isset(request()->gov_id) and (request()->gov_id) != "all") {
+                $data = $data
+                    ->where('sellers.gov_id', request()->gov_id);
+            }
+            $data = $data->get();
             if ($data) {
                 return datatables()->of($data)
                     ->addIndexColumn()
@@ -179,22 +221,16 @@ class CouponsController extends Controller
             }
         }
 
-        $sum_all = Coupon::all()->sum('amount');
-        $sum_used = Coupon::all()->where('used', '1')->sum('amount');
-        $sum_unend = Coupon::all()->where('used', '0')->where('ended', 0)->sum('amount');
-        $sum_end = Coupon::all()->where('used', '0')->where('ended', 1)->sum('amount');
+        $result = Coupon::select(DB::raw('YEAR(created_at) as year'))->distinct()->get();
+        $years = $result->pluck('year');
 
-        $count_all = Coupon::all()->count();
-        $count_used = Coupon::all()->where('used', '1')->count();
-        $count_unend = Coupon::all()->where('used', '0')->where('ended', 0)->count();
-        $count_end = Coupon::all()->where('used', '0')->where('ended', 1)->count();
-
-
-        return view('admin.shop.coupons.statistics', compact(['sum_all', 'sum_end', 'sum_unend', 'sum_used',
-            'count_all', 'count_end', 'count_unend', 'count_used']));
+        return view('admin.shop.coupons.statistics', compact(['year',
+            'years']));
     }
 
-    private function check_inputes($request)
+
+    private
+    function check_inputes($request)
     {
         $rules = [
             "amount" => "required",
@@ -211,7 +247,8 @@ class CouponsController extends Controller
         return Validator::make($request->all(), $rules, $messages);
     }
 
-    private function getUniquId()
+    private
+    function getUniquId()
     {
         $is_unique = true;
         while ($is_unique) {
@@ -222,7 +259,8 @@ class CouponsController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public
+    function store(Request $request)
     {
         $error = $this->check_inputes($request);
 
@@ -231,13 +269,16 @@ class CouponsController extends Controller
                 'errors' => $error->errors(),
             ], 422);
         }
-        $users = User::inRandomOrder()->whereIn('type', ['customers', 'visitor'])
-            ->whereNotExists(function ($query) {
-                $query->select("coupons.user_id")
-                    ->from('coupons')
-                    ->whereRaw('users.id = coupons.user_id');
-            })
-            ->limit($request->number)->get();
+        if ($request->user_id == 'all')
+            $users = User::inRandomOrder()->whereIn('type', ['customers', 'visitor'])
+                ->whereNotExists(function ($query) {
+                    $query->select("coupons.user_id")
+                        ->from('coupons')
+                        ->whereRaw('users.id = coupons.user_id');
+                })
+                ->limit($request->number)->get();
+        else
+            $users = User::where('id', $request->user_id)->get();
 
 //                if ($users->count() == 0)
 //            $users = User::whereIn('type', ['customers', 'visitor'])
@@ -287,7 +328,8 @@ class CouponsController extends Controller
         return response()->json(['success' => 'تم اضافة ' . count($users) . ' كوبون بنجاح']);
     }
 
-    public function update(Request $request)
+    public
+    function update(Request $request)
     {
         $error = $this->check_inputes($request);
 
@@ -306,20 +348,23 @@ class CouponsController extends Controller
 
     }
 
-    public function destroy($id)
+    public
+    function destroy($id)
     {
         $data = Coupon::findOrFail($id);
         //$data->delete();
     }
 
-    public function delete_selected(Request $request)
+    public
+    function delete_selected(Request $request)
     {
         $data = Coupon::whereIn('id', $request->ids)->where('used', '0')->delete();
         return response()->json(['success' => 'تم الحذف  بنجاح']);
 
     }
 
-    public function update_selected(Request $request)
+    public
+    function update_selected(Request $request)
     {
         $error = $this->check_inputes($request);
 

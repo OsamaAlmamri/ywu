@@ -77,8 +77,9 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
             Route::post('coupons/delete_selected', 'CouponsController@delete_selected')->name('delete_selected');
             Route::post('coupons/store', 'CouponsController@store')->name('store');
             Route::get('coupons/destroy/{id}', 'CouponsController@destroy')->name('destroy');
-            Route::get('coupons/index', 'CouponsController@index')->name('index');
-            Route::get('coupons/statistics', 'CouponsController@statistics')->name('statistics');
+            Route::get('coupons/index/{year?}', 'CouponsController@index')->name('index');
+            Route::get('coupons/statistics/{year?}', 'CouponsController@statistics')->name('statistics');
+            Route::get('coupons/sta/{year?}', 'CouponsController@sta')->name('sta');
         });
 #################################################### sliders
         Route::group(['as' => 'admin.shop.spaces.'], function () {

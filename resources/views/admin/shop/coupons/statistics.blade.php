@@ -4,88 +4,33 @@
         <br/>
         <h3 align="right"> الكوبونات </h3>
         <br/>
+        <div id="statistics_data">
+
+        </div>
+
         <div class="card-body">
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #265a88;">
-                <div class="card">
-                    <div class="card-block">
-                <span class="count_top" style="font-weight: bold"><i class="fa fa-question-circle"
-                                                                     style="font-size: 20px"></i> عدد  الكوبونات  </span>
-                        <div class="count">{{$count_all}}</div>
-                    </div>
+            <div class="row">
+                <div class="input-group col-sm-3">
+                    <span class="input-group-addon"> المحافظة </span>
+                    <?php $getGovernorate = getCities(); $getGovernorate['all'] = 'all'; ?>
+                    {!!Form ::select('gov_id', array_reverse($getGovernorate,true),'',['class' => 'select2 form-control', 'id' => 'gov_id'])!!}
+                </div>
+                <div class="input-group col-sm-3">
+                    <span class="input-group-addon"> السنة </span>
+                    <select name="filter_seller" id="filter_year" class="form-control" required>
+                        <option value="all">الكل</option>
+                        @foreach($years as $y)
+                            <option value="{{ $y }}"
+                                    @if($year!='all' and $y==$year) selected @endif >{{ $y }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="input-group col-sm-2">
+                    <button type="button" name="filter" id="filter"
+                            class="btn btn-primary btn-ms waves-effect waves-light">فرز<i
+                            class="fa fa-filter"></i></button>
                 </div>
             </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #6B6464;">
-                <div class="card">
-                    <div class="card-block">
-                <span class="count_top" style="font-weight: bold"><i class="fa fa-id-card"
-                                                                     style="font-size: 20px"></i>   المستخدمة </span>
-                        <div class="count">{{$count_used}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #82ad2b;">
-                <div class="card">
-                    <div class="card-block">
-                <span class="count_top" style="font-weight: bold"><i class="fa fa-check-circle"
-                                                                     style="font-size: 20px"></i>  الصالحة للاستخدام </span>
-                        <div class="count">{{$count_unend}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #dd0066;">
-                <div class="card">
-                    <div class="card-block">
-                        <span class="count_top" style="font-weight: bold"><i class="fa fa-close"
-                                                                             style="font-size: 20px"></i> عدد المنتهية وغير المستخدمة </span>
-                        <div class="count">{{$count_end}}</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #265a88;">
-                <div class="card">
-                    <div class="card-block">
-                <span class="count_top" style="font-weight: bold"><i class="fa fa-question-circle"
-                                                                     style="font-size: 20px"></i> مبلغ  الكوبونات  </span>
-                        <div class="count">{{$sum_all}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #6B6464;">
-                <div class="card">
-                    <div class="card-block">
-                <span class="count_top" style="font-weight: bold"><i class="fa fa-id-card"
-                                                                     style="font-size: 20px"></i> مبلغ  المستخدمة </span>
-                        <div class="count">{{$sum_used}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #82ad2b;">
-                <div class="card">
-                    <div class="card-block">
-                <span class="count_top" style="font-weight: bold"><i class="fa fa-check-circle"
-                                                                     style="font-size: 20px"></i> مبلغ الصالحة للاستخدام </span>
-                        <div class="count">{{$sum_unend}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count" style="color: #dd0066;">
-                <div class="card">
-                    <div class="card-block">
-                        <span class="count_top" style="font-weight: bold"><i class="fa fa-close"
-                                                                             style="font-size: 20px"></i> مبلغ المنتهية وغير مستخدمة </span>
-                        <div class="count">{{$sum_end}}</div>
-                    </div>
-                </div>
-            </div>
-
-
-            <style>
-                .input-group[class*=col-] {
-                    margin: 10px;
-                    float: right;;
-                }
-            </style>
 
         </div>
 
@@ -98,8 +43,13 @@
 
 
         $(document).ready(function () {
-
+            $(document).on('click', '#filter', function () {
+                $('#user_table').DataTable().destroy();
+                fill_datatable();
+                get_sta()
+            });
             fill_datatable();
+            get_sta()
 
             function fill_datatable() {
                 var dataTable = $('#user_table').DataTable({
@@ -122,7 +72,7 @@
                     },
                     language: lang,
                     dom: 'Brfltip',
-                    lengthMenu: [[-1,10, 50, 100, -1], ['الكل',10, 50, 100]],
+                    lengthMenu: [[-1, 10, 50, 100, -1], ['الكل', 10, 50, 100]],
                     buttons: [
                         {
                             extend: 'excelHtml5',
@@ -138,6 +88,11 @@
                     ],
                     ajax: {
                         url: "{{route('admin.shop.coupons.statistics')}}",
+                        data: {
+                            gov_id: $('#gov_id').val(),
+                            year: $('#filter_year').val(),
+
+                        }
                     },
                     columns: [
                         {
@@ -177,7 +132,7 @@
                             name: 'sum_all_coupons',
                             title: ' مجموع مبلغ الكوبونات '
                         },
-  {
+                        {
                             data: 'count_delivery_coupons',
                             name: 'count_delivery_coupons',
                             title: ' عدد  الكوبونات  المستلمة'
@@ -192,6 +147,22 @@
 
                     ]
                 });
+            }
+
+
+            function get_sta() {
+                let year = $('#filter_year').val();
+                $.ajax({
+                    url: "{{URL::to('')}}/admin/shop/coupons/sta/" + year + "",
+                    type: "GET",
+                    success: function (html) {
+                        console.log(html)
+                        console.log("html")
+                        console.log(html)
+                        $('#statistics_data').html(html);
+
+                    }
+                })
             }
 
         });

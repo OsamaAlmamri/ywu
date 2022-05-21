@@ -189,6 +189,7 @@
                                                                                   @click="play(content.sound,'audio')"></span>
                                                                         </a>
                                                                         <a v-if="content.book" :href="content.book"
+                                                                           target="_blank"
                                                                            class="lightbox-image play-icon">
                                                                             <span class="fa fa-file-pdf-o"></span>
                                                                         </a>

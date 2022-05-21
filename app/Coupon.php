@@ -62,4 +62,15 @@ class Coupon extends Model
         $can = ($nowSecode - $end_date) > 0 ? true : false;
         return $can;
     }
+
+    public function scopeOfYear($query, $year)
+    {
+
+        if ($year == "" or $year == 'all')
+            return $query;
+        else
+            return $query
+                ->whereYear('coupons.created_at', $year);
+
+    }
 }
