@@ -71,8 +71,8 @@
 
                         <div class="form-group">
                             <label class="control-label col-md-4"> المستخدم : </label>
-                            <div class="col-md-8">
-                                <select name="user_id" id="user_id" class="form-control" required>
+                            <div class="col-8">
+                                <select name="user_id" id="user_id" class=" form-control select2" style="width:60%" required>
                                     <option value="all"> عشوائي</option>
                                     @foreach($users as $c)
                                         <option value="{{ $c->id }}">{{ $c->name }}</option>

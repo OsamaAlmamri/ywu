@@ -122,7 +122,7 @@ class CouponsController extends Controller
 
         $result = Coupon::select(DB::raw('YEAR(created_at) as year'))->distinct()->get();
 
-        $users = User::whereNotIn('type', ['customers', 'share_users', 'seller'])
+        $users = User::whereNotIn('type', ['seller'])
             ->orderBy("id", "DESC")
             ->get(['id', 'name']);
         $years = $result->pluck('year');

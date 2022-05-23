@@ -36,7 +36,7 @@
     <link href="{!! asset('new_admin/css/dropzone.css') !!}" media="all" rel="stylesheet" type="text/css"/>
 
     <link href="{!! asset('new_admin/css/image-picker.css') !!}" media="all" rel="stylesheet" type="text/css"/>
-
+    <link href="{!! asset('vendors/select2\dist\css\select2.min.css') !!}" media="all" rel="stylesheet" type="text/css"/>
     <!-- cdn -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script type="text/javascript">
@@ -225,6 +225,11 @@
 <script src="{!! asset('newLibs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') !!}"></script>
 <script src="{!! asset('newLibs\lightbox2\js\lightbox.min.js') !!}"></script>
 <script src="{!! asset('newLibs\toastr\toastr.min.js') !!}"></script>
+<script src="{!! asset('vendors\select2\dist\js\select2.full.min.js') !!}"></script>
+
+
+<link href="{{url('design\bower_components\select2\dist\css\select2.min.css')}}" rel="stylesheet">
+
 @yield('scripts')
 <!-- Custom js -->
 <script src="{{asset('firebase\firebase-app.js')}}"></script>
@@ -239,6 +244,11 @@
         $('#noti_form')[0].reset();
         $('#notification_modal').modal('show');
     });
+
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+    })
     $('#noti_form').on('submit', function (event) {
         event.preventDefault();
         var url = "{{ route('notification.send') }}";
