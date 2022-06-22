@@ -135,7 +135,11 @@ class CouponsController extends Controller
     public function sta($year = "")
     {
         $sum_all = Coupon::ofYear($year)->sum('amount');
-        $sum_used = Coupon::ofYear($year)->where('used', '1')->sum('amount');
+        $sum_used = Coupon::ofYear($year)->whereIn('order_id',function ($q){
+            $q->select('id')->from("order_sellers")->whereIn("seller_id",function ($subQ){
+                $subQ->select('id')->from('users')->where('type','seller')->whereNull('deleted_at');
+            });
+        })->where('used', '1')->sum('amount');
         $sum_unend = Coupon::ofYear($year)->where('used', '0')->where('end_date', '>', date('Y-m-d'))->sum('amount');
         $sum_end = Coupon::ofYear($year)->where('used', '0')
             ->where('end_date', '<', date('Y-m-d'))
@@ -163,7 +167,8 @@ class CouponsController extends Controller
 
             $year = request()->year;
 
-            $year_con = ($year == 'all') ? "" : "  coupons.end_date=$year and ";
+
+            $year_con = ($year == 'all') ? "" : " year( coupons.created_at)= $year and ";
 
 
             $data = User::leftJoin('sellers', 'users.id', '=', 'sellers.admin_id')
@@ -341,7 +346,8 @@ class CouponsController extends Controller
         $categoty = Coupon::whereId($request->hidden_id)->first();
         $categoty = $categoty->update(array_merge($request->except('image_id'),
             [
-                'image_id' => $request['image_id'] = ($request['image_id'] != null) ? $request['image_id'] : $request['old_image_id']
+                'image_id' => $request['image_id'] = ($request['image_id'] != null)
+                    ? $request['image_id'] : $request['old_image_id']
             ]));
         return response()->json(['success' => 'تم التعديل  بنجاح']);
 

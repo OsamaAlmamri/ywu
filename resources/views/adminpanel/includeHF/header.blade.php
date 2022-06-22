@@ -284,6 +284,9 @@
                     </ul>
 
                 </li>
+                <li>
+                    <a href="/lang/{{session('lang','ar')=='ar'?'en':'ar'}}">@lang('order.lang')</a>
+                </li>
             </ul>
         </nav>
     </div>

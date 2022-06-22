@@ -52,7 +52,7 @@ class OrdersController extends Controller
             ->leftJoin('users', 'orders.user_id', '=', 'users.id')
             ->leftJoin('zones as govs', 'orders.gov_id', '=', 'govs.id')
             ->leftJoin('zones as dis', 'orders.district_id', '=', 'dis.id')
-            ->select(['order_sellers.*', 'sellers.sale_name as  seller_name', 'users.name as user_name', 'orders.more_address_info',
+            ->select(['order_sellers.*', 'sellers.sale_name as  seller_name', 'users.phone as user_phone', 'users.name as user_name', 'orders.more_address_info',
                 'dis.name_ar as district', 'govs.name_ar as gov',
                 DB::raw("DATE_FORMAT( orders.created_at,'" . getDBCustomDate() . "') AS published")])
 

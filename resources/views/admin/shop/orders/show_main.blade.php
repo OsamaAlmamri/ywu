@@ -1,6 +1,6 @@
 @extends('adminpanel.dataTableLayout')
 @section('content')
-    <div class="right_col" role="main">
+    <div class="right_col" style="direction: {{session('lang','ar')=='ar'?'rtl':'ltr'}}" role="main">
         <div class="container">
             <div class="x_content">
                 <section class="content invoice">
@@ -9,8 +9,8 @@
                     <div class="row">
                         <div class="col-xs-12 invoice-header">
                             <h1>
-                                <i class="fa fa-shopping-cart"></i> معلومات الطلب .
-                                <small class="pull-left">تاریخ الطلب : {{$order->created_at}}</small>
+                                <i class="fa fa-shopping-cart"></i> @lang('order.information_date')  .
+                                <small class="pull-left">@lang('order.order_date')  : {{$order->created_at}}</small>
                             </h1>
                         </div>
                         <!-- /.col -->
@@ -18,39 +18,40 @@
                     <!-- info row -->
                     <div class="row invoice-info">
                         <div class="col-xs-4 col-sm-4 invoice-col">
-                            صاحب الطلب
+                            @lang('order.bill_to')
                             <address>
                                 <strong> {{$order->user_name}}.</strong>
                                 <br>{{$order->user->gov}},{{$order->user->district}},{{$order->user->more_address_info}}
-                                <br> رقم النلفون : {{$order->user->phone}}
+                                <br>@lang('order.phone_number'): {{$order->user->phone}}
                             </address>
                         </div>
                         <!-- /.col -->
                         <div class="col-xs-4 col-sm-4 invoice-col">
-                            مستلم الطلب
+
+                            @lang('order.ship_to')
                             <address>
                                 <strong> {{$order->customer_name}}.</strong>
                                 <br>{{$order->gov}},{{$order->district}},{{$order->more_address_info}}
-                                <br> رقم النلفون : {{$order->phone}}
+                                <br>@lang('order.phone_number'): {{$order->phone}}
                             </address>
                         </div>
                         <!-- /.col -->
                         <div class="col-xs-4 col-sm-4 invoice-col">
-                            <span>رقم الطلب <b dir="ltr">#{{$order->id}}</b></span>
+                            <span> @lang('order.order_number')  <b dir="ltr">#{{$order->id}}</b></span>
 
                             <br>
                             @if($order->coupon_discount>0)
-                                <b> الكوبون :</b> {{$order->coupon}}
-                                <b>تخفيض الكوبون :</b> {{$order->coupon_discount}}
+                                <b>  @lang('order.coupon') :</b> {{$order->coupon}}
+                                <b> @lang('order.coupon_discount')   :</b> {{$order->coupon_discount}}
 
                             @endif
                             <br>
-                            <b>تكلفة الطلب :</b> {{$order->price}}
+                            <b> @lang('order.order_cost') :</b> {{$order->price}}
                             @if($order->coupon_discount>0)
-                                <b>بعد التخفيض :</b> {{$order->price-$order->coupon_discount}}
+                                <b>@lang('order.after_discount')  :</b> {{$order->price-$order->coupon_discount}}
                             @endif
                             <br>
-                            <b>حالة الطلب :</b> {{trans('status.payment_'.$order->payment_status)}}
+                            <b> @lang('order.order_status') :</b> {{trans('status.payment_'.$order->payment_status)}}
 
                         </div>
                         <!-- /.col -->
@@ -63,38 +64,38 @@
                         <div style="margin: 2px 25px; padding: 5px; border: 1px solid;">
                             <div class="row invoice-info">
                                 <div class="col-xs-6 col-sm-4 invoice-col">
-                                    صاحب المتجر
+                                    @lang('order.seller_name')
                                     <address>
                                         <strong> {{$order_seller->admin->name}}.</strong>
-                                        <br> الاسم التجاري : {{$order_seller->admin->seller->sale_name}}
+                                        <br>  @lang('order.trade_name')  : {{$order_seller->admin->seller->sale_name}}
                                         <br>{{$order_seller->admin->seller->gov}}
                                         ,{{$order_seller->admin->seller->district}}
                                         ,{{$order_seller->admin->seller->more_address_info}}
-                                        <br> رقم النلفون : {{$order_seller->admin->phone}}
+                                        <br>@lang('order.phone_number'): {{$order_seller->admin->phone}}
                                     </address>
                                 </div>
                                 <!-- /.col -->
                                 <!-- /.col -->
                                 <div class="col-xs-6  invoice-col">
-                                    <span>رقم الطلب <b dir="ltr">#
+                                    <span>@lang('order.order_number')<b dir="ltr">#
                                             <a href="{{route('admin.shop.orders.show_seller_order',$order_seller->id)}}"> {{$order_seller->id}} </a></b></span>
                                     <br>
                                     @if($order_seller->coupon_discount>0)
-                                        <b> الكوبون :</b> {{$order_seller->coupon}}
-                                        <b>تخفيض الكوبون :</b> {{$order_seller->coupon_discount}}
+                                        <b>  @lang('order.coupon')  :</b> {{$order_seller->coupon}}
+                                        <b>@lang('order.coupon_discount')  :</b> {{$order_seller->coupon_discount}}
                                     @endif
 
                                     <br>
-                                    <b>تكلفة الطلب :</b> {{$order_seller->price}}
+                                    <b> @lang('order.order_cost')  :</b> {{$order_seller->price}}
                                     @if($order_seller->coupon_discount>0)
-                                        <b> على العميل :</b> {{$order_seller->price-$order_seller->coupon_discount}}
+                                        <b> @lang('order.by_the_client')  :</b> {{$order_seller->price-$order_seller->coupon_discount}}
                                     @endif
 
                                     <br>
-                                    <b>طريقة الدفع :</b> {{trans("status.payment_method.".$order_seller->payment_method)}}
+                                    <b> @lang('order.order_status')  :</b> {{trans("status.payment_method.".$order_seller->payment_method)}}
                                     <br>
-                                    <b> حالة الطلب :</b> {{$order_seller->order_status_name}}
-                                    <b> حالة الدفع :</b> {{$order_seller->payment_status_name}}
+                                    <b>  @lang('order.payment_method')   :</b> {{$order_seller->order_status_name}}
+                                    <b>   @lang('order.payment_status')  :</b> {{$order_seller->payment_status_name}}
                                     {{--                            <br>--}}
                                     {{--                            <b>پرداخت هزینه:</b> 1396/09/12--}}
                                     {{--                            <br>--}}
@@ -107,12 +108,12 @@
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
-                                            <th>العدد</th>
-                                            <th>الصنف</th>
-                                            <th>المنتج</th>
-                                            <th style="width: 49%">خيارات المنتج</th>
-                                            <th>سعر الوحدة</th>
-                                            <th> الاجمالي</th>
+                                            <th>@lang('order.quantity')</th>
+                                            <th>@lang('order.item') </th>
+                                            <th>@lang('order.product')</th>
+                                            <th style="width: 49%">@lang('order.unit_price') </th>
+                                            <th> @lang('order.unit_price')</th>
+                                            <th> @lang('order.total')</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -128,8 +129,8 @@
                                                     @endforeach
                                                     }
                                                 </td>
-                                                <td> {{$product->price}} ریال</td>
-                                                <td> {{$product->price * $product->quantity }} ریال</td>
+                                                <td> {{$product->price}} @lang('order.real')</td>
+                                                <td> {{$product->price * $product->quantity }} @lang('order.real')</td>
                                             </tr>
                                         @endforeach
 

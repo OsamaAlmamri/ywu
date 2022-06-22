@@ -7,55 +7,55 @@
                     <div class="row">
                         <div class="col-xs-12 invoice-header">
                             <h1>
-                                <i class="fa fa-user"></i> صاحب الطلب .
-                                <small class="pull-left">تاریخ الطلب : {{$order_seller->order->created_at}}</small>
+                                <i class="fa fa-user"></i>@lang('order.bill_to').
+                                <small class="pull-left">@lang('order.order_date'): {{$order_seller->order->created_at}}</small>
                             </h1>
                         </div>
                     </div>
                     <div class="row invoice-info">
                         <div class="col-xs-4 col-sm-4 invoice-col">
-                            صاحب الطلب
+                            @lang('order.bill_to')
                             <address>
                                 <strong> {{$order_seller->order->user->name}}.</strong>
                                 <br> {{$order_seller->order->user->gov}},{{$order_seller->order->user->district}}
                                 ,{{$order_seller->order->user->more_address_info}}
-                                <br> رقم النلفون : {{$order_seller->order->user->phone}}
+                                <br>@lang('order.phone_number'): {{$order_seller->order->user->phone}}
                             </address>
                         </div>
                         <div class="col-xs-4 col-sm-4 invoice-col">
-                            مستلم الطلب
+                            @lang('order.ship_to')
                             <address>
                                 <strong> {{$order_seller->order->customer_name}}.</strong>
                                 <br>{{$order_seller->order->gov}}
                                 ,{{$order_seller->order->district}},{{$order_seller->order->more_address_info}}
-                                <br> رقم النلفون : {{$order_seller->order->phone}}
-                                <br><strong>مكان التسليم المتفق</strong> : <span
+                                <br>@lang('order.phone_number') : {{$order_seller->order->phone}}
+                                <br><strong>@lang('order.address')  </strong> : <span
                                     id="new_delivery_location_label">{{$order_seller->new_delivery_location}}</span>
                             </address>
                         </div>
                         <div class="col-xs-4 col-sm-4 invoice-col">
-                            <span>رقم الطلب <b dir="ltr">#{{$order_seller->id}}</b></span>
+                            <span>   @lang('order.order_number')  <b dir="ltr">#{{$order_seller->id}}</b></span>
                             @if (auth()->user()->type=='admin')
 
-                                <span>رقم الطلب الاساسي <b dir="ltr">#
+                                <span> @lang('order.main_order_number') <b dir="ltr">#
                                <a href="{{route('admin.shop.orders.show_main_order',$order_seller->order_id)}}"> {{$order_seller->order_id}} </a></b></span>
                             @endif
                             <br>
                             @if($order_seller->coupon_discount>0)
-                                <b> الكوبون :</b> {{$order_seller->coupon}}
-                                <b>تخفيض الكوبون :</b> {{$order_seller->coupon_discount}}
+                                <b>   @lang('order.coupon')  :</b> {{$order_seller->coupon}}
+                                <b>@lang('order.coupon_discount')  :</b> {{$order_seller->coupon_discount}}
                                 <br>
                             @endif
 
-                            <b>تكلفة الطلب :</b> {{$order_seller->price}}
+                            <b>@lang('order.order_cost') :</b> {{$order_seller->price}}
                             @if($order_seller->coupon_discount>0)
-                                <b> على العميل :</b> {{$order_seller->price-$order_seller->coupon_discount}}
+                                <b>@lang('order.by_the_client') :</b> {{$order_seller->price-$order_seller->coupon_discount}}
                             @endif
                             <br>
 
-                            <b>حالة الطلب :</b> <span id="status_name_label">{{$order_seller->order_status_name}}</span>
-                            <br> <b>طريقة الدفع :</b> {{trans("status.payment_method.".$order_seller->payment_method)}}
-                            <b> حالة الدفع :</b> {{$order_seller->payment_status_name}}
+                            <b>@lang('order.order_status') :</b> <span id="status_name_label">{{$order_seller->order_status_name}}</span>
+                            <br> <b>@lang('order.payment_method') :</b> {{trans("status.payment_method.".$order_seller->payment_method)}}
+                            <b> @lang('order.payment_status')  :</b> {{$order_seller->payment_status_name}}
 
                         </div>
                     </div>
@@ -65,12 +65,12 @@
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th>العدد</th>
-                                    <th>الحالة الجديدة</th>
-                                    <th>المنتج</th>
-                                    <th style="width: 49%">خيارات المنتج</th>
-                                    <th>سعر الوحدة</th>
-                                    <th> الاجمالي</th>
+                                    <th>@lang('order.quantity')</th>
+                                    <th>@lang('order.item') </th>
+                                    <th>@lang('order.product')</th>
+                                    <th style="width: 49%">@lang('order.unit_price') </th>
+                                    <th> @lang('order.unit_price')</th>
+                                    <th> @lang('order.total')</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -86,8 +86,8 @@
                                             @endforeach
                                             }
                                         </td>
-                                        <td> {{$product->price}} ریال</td>
-                                        <td> {{$product->price * $product->quantity }} ریال</td>
+                                        <td> {{$product->price}} @lang('order.real')</td>
+                                        <td> {{$product->price * $product->quantity }} @lang('order.real')</td>
                                     </tr>
                                 @endforeach
 

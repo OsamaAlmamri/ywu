@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use  Illuminate\Support\Facades\Cookie;
+
+;
 
 Route::get('/migrate', 'ArtisanCommandsController@migrate');
 Route::get('/test', 'ArtisanCommandsController@test');
@@ -11,7 +14,19 @@ Route::get('/optimize', 'ArtisanCommandsController@optimizeCache');
 Route::get('/rout_cache', 'ArtisanCommandsController@routeCache');
 Route::get('/clear_compiled', 'ArtisanCommandsController@clearCompiled');
 Route::get('/storage_link', 'ArtisanCommandsController@storageLnk');
+Route::get('lang/{lang}', function () {
+    $lang = request('lang');
 
+    session()->put('lang', $lang);
+    session(['lang'=>$lang]);
+    Cookie::queue(Cookie::forever('lang', "en"));
+
+//    \Illuminate\Support\Facades\Session::put('lang',$lang);
+
+//    app()->setLocale('en');
+//    return dd()
+    return back();
+});
 Route::group(['prefix' => 'admin/', 'namespace' => 'AdminControllers'], function () {
     Route::get('/login', 'AuthAdminController@Admin_login')->name('admin.login');
     Route::get('/forget', 'AuthAdminController@Admin_forget')->name('admin.forget');
