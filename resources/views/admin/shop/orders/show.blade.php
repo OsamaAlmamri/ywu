@@ -6,10 +6,10 @@
                 <section class="content invoice">
                     <div class="row">
                         <div class="col-xs-12 invoice-header">
-                            <h1>
-                                <i class="fa fa-user"></i>@lang('order.bill_to').
+                            <h4>
+                                <i class="fa fa-user"></i>@lang('order.information_date').
                                 <small class="pull-left">@lang('order.order_date'): {{$order_seller->order->created_at}}</small>
-                            </h1>
+                            </h4>
                         </div>
                     </div>
                     <div class="row invoice-info">
@@ -55,7 +55,10 @@
 
                             <b>@lang('order.order_status') :</b> <span id="status_name_label">{{$order_seller->order_status_name}}</span>
                             <br> <b>@lang('order.payment_method') :</b> {{trans("status.payment_method.".$order_seller->payment_method)}}
-                            <b> @lang('order.payment_status')  :</b> {{$order_seller->payment_status_name}}
+                            <b> @lang('order.payment_status')  :</b>
+                            <span id="payment_status_name_label">
+                            {{$order_seller->payment_status_name}}
+                            </span>
 
                         </div>
                     </div>
@@ -68,7 +71,7 @@
                                     <th>@lang('order.quantity')</th>
                                     <th>@lang('order.item') </th>
                                     <th>@lang('order.product')</th>
-                                    <th style="width: 49%">@lang('order.unit_price') </th>
+                                    <th style="width: 29%">@lang('order.product_options') </th>
                                     <th> @lang('order.unit_price')</th>
                                     <th> @lang('order.total')</th>
                                 </tr>
@@ -108,6 +111,10 @@
                                 <div class="col-xs-6">
                                     <button class="btn btn-default" id="change_status"><i
                                             class="fa fa-share"></i> تغيير حالة الطلب
+                                    </button>
+
+                                    <button class="btn btn-default" id="change_payment_status"><i
+                                            class="fa fa-share"></i> تغيير حالة الدفع
                                     </button>
 
                                     <button class="btn btn-default" id="add_address"><i
@@ -227,6 +234,37 @@
         </div>
     </div>
 
+    <div id="change_payment_status_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"> تغيير حالة الدفع </h4>
+
+
+                </div>
+                <div class="modal-body">
+                    <span id="form_result"></span>
+                    <form method="post" id="payment_form" class="form-horizontal" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">الحالة الجديدة :</label>
+                            <div class="col-sm-8">
+
+                                {!!Form ::select('status', paymentStatus2(0),'',['class' => ' form-control', 'id' => 'payment_status'])!!}
+
+                            </div>
+                            <span class="print-error-msg alert-danger" id="modal_error_payment_id"></span>
+
+                        </div>
+                        <input type="button" name="action_button" id="payment_action_button" class="btn btn-warning"
+                               value="تغيير"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 
@@ -235,6 +273,10 @@
     <script>
         $(document).on('click', '#change_status', function (e) {
             $('#formModal').modal('show');
+            e.preventDefault();
+        });
+        $(document).on('click', '#change_payment_status', function (e) {
+            $('#change_payment_status_modal').modal('show');
             e.preventDefault();
         });
 
@@ -331,6 +373,25 @@
                     $("#status_name_label").html(data.order_status_name);
                     toastr.info("تم تغيير حالة الطلب بنجاح");
                     $('#confirmModal').modal('hide');
+                }
+            });
+        });
+
+        $('#payment_action_button').click(function () {
+            $.ajax({
+                url: "{{route('admin.shop.orders.change_sub_status_payment')}}",
+                method: 'post',
+                dataType: 'json',// data type that i want to return
+                data: '_token=' + ("{{csrf_token()}}") +
+                    '&order_id=' + "{{$order_seller->id}}" +
+                    '&status=' + $("#payment_status").val(),
+                beforeSend: function () {
+                    $('#ok_button').text('جاري التاكيد...');
+                },
+                success: function (data) {
+                    $("#payment_status_name_label").html(data.payment_status_name);
+                    toastr.info("تم تغيير حالة الطلب بنجاح");
+                    $('#change_payment_status_modal').modal('hide');
                 }
             });
         });

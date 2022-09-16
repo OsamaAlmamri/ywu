@@ -202,6 +202,18 @@ function paymentStatus($status = 'all')
     return $s[$status];
 }
 
+function paymentStatus2($status = 'all')
+{
+    $s = array(
+        '0' => trans('status.payment_0'),
+        '1' => trans('status.payment_1'),
+
+    );
+
+    return $s;
+
+}
+
 function CouponUsedStatus($status = 'all')
 {
     $s = array(

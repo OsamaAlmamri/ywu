@@ -35,7 +35,7 @@ return [
     ],
 
 
-    'confirm_payment_0' => 'note send  ',
+    'confirm_payment_0' => 'not send  ',
     'confirm_payment_1' => 'under process',
     'confirm_payment_2' => 'processed  ',
 ];

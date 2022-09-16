@@ -182,6 +182,7 @@ Route::group(['middleware' => ('auth:admin'), 'namespace' => 'AdminControllers']
             Route::get('/show_main_order/{id}', 'OrdersController@show_main_order')->name('show_main_order');
             Route::post('/active', 'OrdersController@active')->name('active');
             Route::post('/change_sub_status', 'OrdersController@change_sub_status')->name('change_sub_status');
+            Route::post('/change_sub_status_payment', 'OrdersController@change_sub_status_payment')->name('change_sub_status_payment');
             Route::post('/new_delivery_location', 'OrdersController@new_delivery_location')->name('new_delivery_location');
         });
 

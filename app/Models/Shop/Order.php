@@ -22,7 +22,7 @@ class Order extends Model
     function getPaymentStatusNameAttribute()
     {
         $status = $this->attributes['payment_status'];
-        return trans('status.confirm_payment_' . $status);
+        return trans('status.payment_' . $status);
     }
 
 

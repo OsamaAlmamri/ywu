@@ -1,5 +1,6 @@
 @extends('adminpanel.dataTableLayout')
 @section('content')
+
     <div class="right_col" style="direction: {{session('lang','ar')=='ar'?'rtl':'ltr'}}" role="main">
         <div class="container">
             <div class="x_content">
@@ -7,11 +8,11 @@
                     <!-- title row -->
 
                     <div class="row">
-                        <div class="col-xs-12 invoice-header">
-                            <h1>
+                        <div class="col-12 invoice-header">
+                            <h4>
                                 <i class="fa fa-shopping-cart"></i> @lang('order.information_date')  .
                                 <small class="pull-left">@lang('order.order_date')  : {{$order->created_at}}</small>
-                            </h1>
+                            </h4>
                         </div>
                         <!-- /.col -->
                     </div>
@@ -51,7 +52,8 @@
                                 <b>@lang('order.after_discount')  :</b> {{$order->price-$order->coupon_discount}}
                             @endif
                             <br>
-                            <b> @lang('order.order_status') :</b> {{trans('status.payment_'.$order->payment_status)}}
+{{--                            {{dd($order)}}--}}
+{{--                            <b> @lang('order.order_status') :</b> {{trans('status.order_'.$order->order_status)}}--}}
 
                         </div>
                         <!-- /.col -->
@@ -91,11 +93,12 @@
                                         <b> @lang('order.by_the_client')  :</b> {{$order_seller->price-$order_seller->coupon_discount}}
                                     @endif
 
-                                    <br>
-                                    <b> @lang('order.order_status')  :</b> {{trans("status.payment_method.".$order_seller->payment_method)}}
-                                    <br>
-                                    <b>  @lang('order.payment_method')   :</b> {{$order_seller->order_status_name}}
-                                    <b>   @lang('order.payment_status')  :</b> {{$order_seller->payment_status_name}}
+                                    <b>@lang('order.order_status') :</b> <span id="status_name_label">{{$order_seller->order_status_name}}</span>
+                                    <br> <b>@lang('order.payment_method') :</b> {{trans("status.payment_method.".$order_seller->payment_method)}}
+                                    <b> @lang('order.payment_status')  :</b>
+                                    <span id="payment_status_name_label">
+                            {{$order_seller->payment_status_name}}
+                            </span>
                                     {{--                            <br>--}}
                                     {{--                            <b>پرداخت هزینه:</b> 1396/09/12--}}
                                     {{--                            <br>--}}
@@ -111,7 +114,7 @@
                                             <th>@lang('order.quantity')</th>
                                             <th>@lang('order.item') </th>
                                             <th>@lang('order.product')</th>
-                                            <th style="width: 49%">@lang('order.unit_price') </th>
+                                            <th style="width: 29%">@lang('order.product_options') </th>
                                             <th> @lang('order.unit_price')</th>
                                             <th> @lang('order.total')</th>
                                         </tr>

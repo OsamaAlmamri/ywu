@@ -25,7 +25,7 @@ return [
     "item" => "item",
     "product" => "product ",
     "product_options" => " product options  ",
-    "real" => "real",
+    "real" => "YER",
     "unit_price" => "unit price ",
     "total" => "total",
     'on_delivery' => '',

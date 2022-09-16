@@ -200,7 +200,8 @@
                         {
                             title: ' #',
                             data: 'DT_RowIndex',
-                            name: 'DT_RowIndex'
+                            name: 'DT_RowIndex',
+                            sortable:false
                         },
                         {
                             title: ' رقم الطلب ',
@@ -212,20 +213,24 @@
                             title: 'العميل',
                             data: 'user_name',
                             name: 'user_name',
+                            sortable:false
                         }, {
                             title: ' المحافظة',
                             data: 'gov',
                             name: 'gov',
+                            sortable:false
                         },
                         {
                             title: ' المديرية',
                             data: 'district',
                             name: 'district',
+                            sortable:false
                         },
                         {
                             title: ' معلومات اخرى',
                             data: 'more_address_info',
                             name: 'more_address_info',
+                            sortable:false
                         },
                         {
                             title: ' اجمالي تكلفة الطلب ',
@@ -238,32 +243,38 @@
                         }, {
                             title: 'طريقة الدفع ',
                             data: 'payment_method',
+
                         },
                             @else
                         {
                             title: 'البائع',
                             data: 'seller_name',
                             name: 'seller_name',
+                            sortable:false
                         },
                         {
                             title: 'العميل',
                             data: 'user_name',
                             name: 'user_name',
+                            sortable:false
                         },
                         {
                             title: ' المحافظة',
                             data: 'gov',
                             name: 'gov',
+                            sortable:false
                         },
                         {
                             title: ' المديرية',
                             data: 'district',
                             name: 'district',
+                            sortable:false
                         },
                         {
                             title: ' معلومات اخرى',
                             data: 'more_address_info',
                             name: 'more_address_info',
+                            sortable:false
                         },
                         {
                             title: ' اجمالي تكلفة الطلب ',
@@ -273,14 +284,17 @@
                         {
                             title: 'تاريخ الطلب ',
                             data: 'published',
+                            sortable:false
                         },
                         {
                             title: 'حالة الطلب ',
                             data: 'order_status_name',
+                            sortable:false
                         },
                         {
                             title: 'حالة الدفع ',
                             data: 'payment_status_name',
+                            sortable:false
                         },
                         @endif
                         @if ((Auth::user()->can('manage orders') == true))

@@ -123,7 +123,7 @@ class OrdersController extends Controller
 
 
         }
-        $data = $data->orderByDesc('id')->get();
+        $data = $data->orderByDesc('id');
         return $data;
     }
 
@@ -174,7 +174,7 @@ class OrdersController extends Controller
             $message = '  تم الغاء  الطلب رقم  ' . $order_seller->id . '  من قبل متجر   ' . $order_seller->seller_name;
         } else
             $message = '  تم تغيير حالة الطلب رقم  ' . $order_seller->id . '  من قبل متجر   ' . $order_seller->seller_name;
-        $time = OrderTiming::create(['order_seller_id' =>  $order_seller->id,
+        $time = OrderTiming::create(['order_seller_id' => $order_seller->id,
             'status' => 'new',
             'description' => $message,
             'type' => 'order_status'
@@ -195,6 +195,37 @@ class OrdersController extends Controller
             $this->firbaseContoller->multi($tokens, $dataToNotification);
         } catch (\Exception $ex) {
         }
+
+        return response($order_seller, 200);
+    }
+
+    public function change_sub_status_payment(Request $request)
+    {
+        $rules = [
+            "status" => "required",
+        ];
+        $messages = [
+            "description.required_if" => "يرجى تحديد سبب اللغاء",
+            "description.min" => "يرجى تحديد سبب اللغاء",
+//            "image.mimes" => "يجب ان يكون امتداد الصورة: jpg,png,jpeg,gif,svg",
+
+        ];
+        $error = Validator::make($request->all(), $rules, $messages);
+        if ($error->fails()) {
+            return response()->json([
+                'errors' => $error->errors(),
+            ], 422);
+        }
+
+        $order_seller = OrderSeller::find($request->order_id);
+        $order_seller->payment_status = $request->status;
+        $order_seller->save();
+        $message = '  تم تغيير الدفغ للطلب رقم  ' . $order_seller->id . '  من قبل متجر   ' . $order_seller->seller_name;
+        $time = OrderTiming::create(['order_seller_id' => $order_seller->id,
+            'status' => 'new',
+            'description' => $message,
+            'type' => 'payment_status'
+        ]);
 
         return response($order_seller, 200);
     }
