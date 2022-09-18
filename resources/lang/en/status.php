@@ -16,7 +16,7 @@ return [
     'order_cancel_by_user' => 'cancel by customer',
     'order_in_progress' => 'in progress ',
     'order_shipping' => ' shipping ',
-    'order_delivery' => 'delivery ',
+    'order_delivery' => 'delivered ',
 
 
     'payment_0' => '   npt pay',
